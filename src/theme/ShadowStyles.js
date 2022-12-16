@@ -6,13 +6,43 @@ import { StyleSheet } from 'react-native';
  */
 export const ShadowStyles = StyleSheet.create({
   shadow: {
-    elevation: 5,
-    shadowColor: '#000000',
-    shadowRadius: 3.84,
-    shadowOpacity: 0.25,
+    elevation: 8,
+    shadowColor: Platform.OS == 'ios' ? '#ababab' : '#000000',
+    shadowRadius: 1.41,
+    shadowOpacity: 0.4,
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 1,
+    },
+  },
+  shadow1: {
+    elevation: 8,
+    shadowColor: Platform.OS == 'ios' ? '#ababab' : '#ababab',
+    shadowRadius: 1.41,
+    shadowOpacity: 0.4,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+  },
+  shadow2: {
+    elevation: 2,
+    shadowColor: '#ababab',
+    shadowRadius: 1.41,
+    shadowOpacity: 0.4,
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+  },
+  shadow4: {
+    elevation: 8,
+    shadowColor: '#ababab',
+    shadowRadius: 1.41,
+    shadowOpacity: 0.4,
+    shadowOffset: {
+      width: 0,
+      height: 1,
     },
   },
 });

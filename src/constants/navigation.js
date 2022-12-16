@@ -3,4 +3,7 @@ export const NAVIGATION = {
   login: 'Login',
   profile: 'Profile',
   onboarding: 'OnBoarding',
+  splash: 'Splash',
+  login: 'Login',
+  mobileNumber: 'MobileNumber',
 };
