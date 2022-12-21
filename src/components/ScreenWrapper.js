@@ -4,16 +4,16 @@
 
 */
 
-import React, { useMemo } from 'react';
+import React, { useMemo } from "react";
 import {
   StyleSheet,
   View,
   StatusBar,
   SafeAreaView,
   Platform,
-} from 'react-native';
-import { COLORS, SW } from '@/theme';
-import PropTypes from 'prop-types';
+} from "react-native";
+import { COLORS, SW } from "@/theme";
+import PropTypes from "prop-types";
 
 export function ScreenWrapper(props) {
   const styles = useMemo(() =>
@@ -21,7 +21,7 @@ export function ScreenWrapper(props) {
       containerStyle: {
         backgroundColor: COLORS.white,
         flex: 1,
-        paddingHorizontal: Platform.OS === 'ios' ? 0 : SW(0),
+        // paddingHorizontal: Platform.OS === "ios" ? SW(0) : SW(0),
       },
     })
   );
@@ -30,9 +30,9 @@ export function ScreenWrapper(props) {
     <SafeAreaView style={[styles.containerStyle, props.containerPropStyle]}>
       <View
         style={{
-          paddingHorizontal: Platform.OS === 'ios' ? SW(12) : SW(0),
+          paddingHorizontal: Platform.OS === "ios" ? SW(12) : SW(0),
           flex: 1,
-          overflow: Platform.OS === 'ios' ? 'hidden' : 'visible',
+          overflow: Platform.OS === "ios" ? "hidden" : "visible",
         }}
       >
         <StatusBar barStyle="dark-content" backgroundColor={COLORS.white} />

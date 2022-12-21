@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
   alignCenter: {
     alignSelf: "center",
   },
-  
+
   logo: {
     height: SH(104),
     width: SW(278),
@@ -46,88 +46,89 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     borderColor: "transparent",
     height: SH(54),
-    width:windowWidth * 0.92,
-    alignSelf:'center'
+    width: windowWidth * 0.92,
+    alignSelf: "center",
   },
   text: {
     color: COLORS.white,
     // fontSize:SF(14)
   },
-  loginText:{
+  loginText: {
     color: COLORS.white,
-    fontSize:SF(14)
+    fontSize: SF(14),
   },
   headerContainer: {
     height: SH(54),
     // justifyContent: "center",
     // borderWidth:1,
     ...ShadowStyles.shadow,
-    backgroundColor:COLORS.white,
-    flexDirection:'row',
-    justifyContent:'space-between',
-    alignItems:'center',
-    paddingHorizontal:moderateScale(10)
+    backgroundColor: COLORS.white,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: moderateScale(10),
+    width: windowWidth,
+    alignSelf: "center",
   },
   backArrow: {
     width: SW(20),
     height: SH(20),
     resizeMode: "contain",
   },
-  displayFlex:{
-    flexDirection:'row',
-    alignItems:'center'
+  displayFlex: {
+    flexDirection: "row",
+    alignItems: "center",
   },
-  setPin:{
-    fontFamily:Fonts.SemiBold,
-    color:COLORS.darkGrey,
+  setPin: {
+    fontFamily: Fonts.SemiBold,
+    color: COLORS.darkGrey,
     fontSize: SF(16),
   },
-  cancel:{
-    fontFamily:Fonts.Regular,
-    color:COLORS.primary,
+  cancel: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.primary,
     fontSize: SF(12),
   },
-  enterYourPin:{
-    fontFamily:Fonts.Regular,
-    color:COLORS.grey,
+  enterYourPin: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.grey,
     fontSize: SF(16),
   },
-  modalView:{
-    width: windowWidth * 0.80,
+  modalView: {
+    width: windowWidth * 0.8,
     height: SH(266),
-    backgroundColor:COLORS.white,
-    borderRadius:15,
-    alignSelf:'center',
-    alignItems:'center'
+    backgroundColor: COLORS.white,
+    borderRadius: 15,
+    alignSelf: "center",
+    alignItems: "center",
   },
-  logIn:{
-    width: windowWidth * 0.80,
-    backgroundColor:COLORS.sky,
-    height:SH(46),
-    borderRadius:0,
-    borderBottomLeftRadius:15,
-    borderBottomEndRadius:15,
-    borderColor:COLORS.sky,
+  logIn: {
+    width: windowWidth * 0.8,
+    backgroundColor: COLORS.sky,
+    height: SH(46),
+    borderRadius: 0,
+    borderBottomLeftRadius: 15,
+    borderBottomEndRadius: 15,
+    borderColor: COLORS.sky,
   },
-  done:{
-    fontFamily:Fonts.MaisonMonoBold,
-    color:COLORS.sky,
+  done: {
+    fontFamily: Fonts.MaisonMonoBold,
+    color: COLORS.sky,
     fontSize: SF(24),
   },
-  youVerified:{
-    fontFamily:Fonts.Regular,
-    color:COLORS.grey,
+  youVerified: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.grey,
     fontSize: SF(14),
   },
-  newPinSet:{
-    fontFamily:Fonts.MaisonMonoBold,
-    color:COLORS.darkGrey,
+  newPinSet: {
+    fontFamily: Fonts.MaisonMonoBold,
+    color: COLORS.darkGrey,
     fontSize: SF(18),
   },
-  Verified:{
-      width: SW(54),
-      height: SH(54),
-      resizeMode: "contain",
-  }
+  Verified: {
+    width: SW(54),
+    height: SH(54),
+    resizeMode: "contain",
+  },
 });
-

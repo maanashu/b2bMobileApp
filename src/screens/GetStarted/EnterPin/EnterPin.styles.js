@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
   alignCenter: {
     alignSelf: "center",
   },
-  
+
   logo: {
     height: SH(104),
     width: SW(278),
@@ -46,46 +46,46 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     borderColor: "transparent",
     height: SH(54),
-    width:windowWidth * 0.92,
-    alignSelf:'center'
+    width: windowWidth * 0.92,
+    alignSelf: "center",
   },
   text: {
     color: COLORS.white,
   },
   headerContainer: {
     height: SH(54),
-    // justifyContent: "center",
-    // borderWidth:1,
     ...ShadowStyles.shadow,
-    backgroundColor:COLORS.white,
-    flexDirection:'row',
-    justifyContent:'space-between',
-    alignItems:'center',
-    paddingHorizontal:moderateScale(10)
+    backgroundColor: COLORS.white,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: moderateScale(10),
+    // borderWidth: 1,
+    width: windowWidth,
+    alignSelf: "center",
   },
   backArrow: {
     width: SW(20),
     height: SH(20),
     resizeMode: "contain",
   },
-  displayFlex:{
-    flexDirection:'row',
-    alignItems:'center'
+  displayFlex: {
+    flexDirection: "row",
+    alignItems: "center",
   },
-  setPin:{
-    fontFamily:Fonts.SemiBold,
-    color:COLORS.darkGrey,
+  setPin: {
+    fontFamily: Fonts.SemiBold,
+    color: COLORS.darkGrey,
     fontSize: SF(16),
   },
-  cancel:{
-    fontFamily:Fonts.Regular,
-    color:COLORS.primary,
+  cancel: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.primary,
     fontSize: SF(12),
   },
-  enterYourPin:{
-    fontFamily:Fonts.Regular,
-    color:COLORS.grey,
+  enterYourPin: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.grey,
     fontSize: SF(16),
-  }
+  },
 });
-
