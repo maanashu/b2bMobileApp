@@ -8,5 +8,6 @@ export const COLORS = {
     grey:'#3C444D',
     placeHolder:'#F5F6F7',
     btnText:'#626262',
-    lightSky:'#D8D8D8'
+    lightSky:'#D8D8D8',
+    sky: '#1FB3FF'
 }

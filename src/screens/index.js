@@ -4,3 +4,6 @@ export { Splash } from '@/screens/GetStarted/Splash/Splash';
 export { OnBoarding } from '@/screens/GetStarted/OnBoarding/OnBoarding';
 export { Login } from '@/screens/GetStarted/Login/Login';
 export { MobileNumber } from '@/screens/GetStarted/MobileNumber/MobileNumber';
+export { Verify } from '@/screens/GetStarted/Verify/Verify';
+export { EnterPin } from '@/screens/GetStarted/EnterPin/EnterPin';
+export { ReEnterPin } from '@/screens/GetStarted/ReEnterPin/ReEnterPin';

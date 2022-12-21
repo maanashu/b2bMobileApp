@@ -6,4 +6,7 @@ export const NAVIGATION = {
   splash: 'Splash',
   login: 'Login',
   mobileNumber: 'MobileNumber',
+  verify: 'Verify',
+  enterPin: 'EnterPin',
+  reEnterPin: 'ReEnterPin',
 };

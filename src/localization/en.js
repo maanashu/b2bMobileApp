@@ -29,11 +29,24 @@ export const en = {
     tellBusiness:'Tell us about your business',
     whichOne:'Which of the following best describes your business?',
     next:'Next',
-    enterPin:'Enter yout PIN for login',
+    enterPin:'Enter your PIN for login',
     forgotPin:'Forgot PIN?',
     enterMobile:'Continue with your phone number',
     pleaseEnterMobile:'Please enter your number to phone number',
     mobilePlaceholder:'815-288-0329',
-    continue:'Continue'
+    continue:'Continue',
+    verifyNumber:'Verify your',
+    phoneNumber:'phone number',
+    enterOtp:'Enter OTP code here', 
+    dontReceiveCode:'Didn’t receive Code?',
+    resend:' Resend',
+    setPin:'Set up PIN',
+    cancel:'Cancel',
+    enterYourPin:'Enter your PIN',
+    logIn:'Log in',
+    reEnterPin:'Reenter your PIN',
+    done:'Done!',
+    youVerified:'You are verified!',
+    newPinSet:'Your new pin is set now'
   }
 };

@@ -11,6 +11,9 @@ import { COLORS, SF, SH, TextStyles } from '@/theme';
 import { Spacer, Button, ScreenWrapper, Logo } from '@/components';
 
 import { styles } from '@/screens/GetStarted/MobileNumber/MobileNumber.styles';
+import { panGestureHandlerCustomNativeProps } from 'react-native-gesture-handler/lib/typescript/handlers/PanGestureHandler';
+import { navigate } from '@/navigation/NavigationRef';
+import { NAVIGATION } from '@/constants';
 
 export function MobileNumber() {
   const { colors } = useTheme();
@@ -82,10 +85,10 @@ export function MobileNumber() {
 
         <Spacer space={SH(32)} />
         <Button
-          
           title={strings.auth.continue}
           textStyle={styles.text}
           style={styles.loginButton}
+          onPress = {() => navigate(NAVIGATION.verify)}
         />
       </KeyboardAwareScrollView>
       <Spacer space={SH(30)}/>

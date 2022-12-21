@@ -6,6 +6,8 @@ export { default as backStripe } from '@/assets/icons/ic_auth/backStripe.png';
 export { default as blueLogo } from '@/assets/icons/ic_auth/blueLogo.png';
 export { default as backArrow } from '@/assets/icons/ic_auth/backArrow.png';
 export { default as authImage } from '@/assets/icons/ic_auth/authImage.png';
+export { default as verifyImage } from '@/assets/icons/ic_auth/verifyImage.png';
+export { default as Verified } from '@/assets/icons/ic_auth/Verified.png';
 
 
 export const Fonts = {

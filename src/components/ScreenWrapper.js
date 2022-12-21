@@ -21,7 +21,7 @@ export function ScreenWrapper(props) {
       containerStyle: {
         backgroundColor: COLORS.white,
         flex: 1,
-        paddingHorizontal: Platform.OS === 'ios' ? 0 : SW(12),
+        paddingHorizontal: Platform.OS === 'ios' ? 0 : SW(0),
       },
     })
   );
