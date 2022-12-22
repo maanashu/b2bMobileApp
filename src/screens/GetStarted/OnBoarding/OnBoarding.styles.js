@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
     shadowOpacity: 10,
     shadowRadius: 5,
-    ...ShadowStyles.shadow
+    ...ShadowStyles.shadow,
   },
   mainImg: {
     marginTop: SH(10),
@@ -26,38 +26,37 @@ export const styles = StyleSheet.create({
     width: SW(242),
     position: "absolute",
     alignSelf: "center",
-    resizeMode:'contain'
+    resizeMode: "contain",
   },
   backImage: {
     width: SW(410),
-    height:SW(250),
+    height: SW(250),
     position: "absolute",
-    zIndex:-99,
-    resizeMode:'contain',
-    marginTop:verticalScale(30)
+    zIndex: -99,
+    resizeMode: "contain",
+    marginTop: verticalScale(30),
   },
   skipButton: {
-    backgroundColor:COLORS.lightBlue,
+    backgroundColor: COLORS.lightBlue,
     height: SW(24),
     width: SW(50),
     alignSelf: "flex-end",
     flexDirection: "row",
     marginRight: SW(20),
     borderRadius: 3,
-    justifyContent:'center',
-    alignItems:'center'
+    justifyContent: "center",
+    alignItems: "center",
   },
   skipText: {
     color: COLORS.darkGrey,
-    fontFamily:Fonts.Regular,
-    fontSize:SF(12)
+    fontFamily: Fonts.Regular,
+    fontSize: SF(12),
   },
   heading: {
     fontSize: SF(18),
     color: COLORS.black,
     // textAlign: "center",
     fontFamily: Fonts.MaisonMonoBold,
-    
   },
   secondHeading: {
     fontSize: SF(14),
@@ -71,14 +70,14 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: COLORS.placeHolder,
     borderColor: COLORS.lightSky,
-    borderWidth:1,
-    borderRadius:3
+    borderWidth: 1,
+    borderRadius: 3,
   },
   title: {
     fontSize: SF(16),
-    fontFamily:Fonts.Regular,
-    paddingHorizontal:moderateScale(12),
-    color:COLORS.btnText
+    fontFamily: Fonts.Regular,
+    paddingHorizontal: moderateScale(12),
+    color: COLORS.btnText,
   },
   flatlistView: {
     marginTop: SH(15),
@@ -87,13 +86,13 @@ export const styles = StyleSheet.create({
   },
   buttonStyle: {
     backgroundColor: COLORS.placeHolder,
-    borderColor: 'transparent',
+    borderColor: "transparent",
     borderRadius: 5,
-    height:SW(48)
+    height: SW(48),
+    elevation: 2,
   },
-  textStyle:{
-    color:COLORS.btnText,
-    fontFamily:Fonts.Regular,
-    
-  }
+  textStyle: {
+    color: COLORS.btnText,
+    fontFamily: Fonts.Regular,
+  },
 });

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import {
@@ -29,9 +28,9 @@ export function EnterPin() {
       <View style={styles.headerContainer}>
         <View style={styles.displayFlex}>
           <TouchableOpacity onPress={() => goBack()}>
-          <Image source={backArrow} style={styles.backArrow} />
-         </TouchableOpacity>
-         <Text style={styles.setPin}>{strings.auth.setPin}</Text>
+            <Image source={backArrow} style={styles.backArrow} />
+          </TouchableOpacity>
+          <Text style={styles.setPin}>{strings.auth.setPin}</Text>
         </View>
         <Text style={styles.cancel}>{strings.auth.cancel}</Text>
       </View>
@@ -65,7 +64,7 @@ export function EnterPin() {
         />
       </View>
       <View style={{ flex: 1 }} />
-     
+
       <Spacer space={SH(20)} />
       <Button
         onPress={() => navigate(NAVIGATION.reEnterPin)}

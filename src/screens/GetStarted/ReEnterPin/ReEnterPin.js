@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import {
@@ -7,7 +6,7 @@ import {
   useClearByFocusCell,
   Cursor,
 } from "react-native-confirmation-code-field";
-import { jobrSplash, blueLogo, backArrow,  Verified} from "@/assets";
+import { jobrSplash, blueLogo, backArrow, Verified } from "@/assets";
 import { strings } from "@/localization";
 import { NAVIGATION } from "@/constants";
 import { SH, TextStyles, COLORS } from "@/theme";
@@ -31,9 +30,9 @@ export function ReEnterPin() {
       <View style={styles.headerContainer}>
         <View style={styles.displayFlex}>
           <TouchableOpacity onPress={() => goBack()}>
-          <Image source={backArrow} style={styles.backArrow} />
-         </TouchableOpacity>
-         <Text style={styles.setPin}>{strings.auth.setPin}</Text>
+            <Image source={backArrow} style={styles.backArrow} />
+          </TouchableOpacity>
+          <Text style={styles.setPin}>{strings.auth.setPin}</Text>
         </View>
         <Text style={styles.cancel}>{strings.auth.cancel}</Text>
       </View>
@@ -67,7 +66,7 @@ export function ReEnterPin() {
         />
       </View>
       <View style={{ flex: 1 }} />
-     
+
       <Spacer space={SH(20)} />
       <Button
         onPress={() => setLoginModal(true)}
@@ -76,25 +75,25 @@ export function ReEnterPin() {
         style={styles.loginButton}
       />
       <Spacer space={SH(30)} />
-            
-      <Modal backdropOpacity={1} backdropColor='#D8D8D8'  isVisible={loginModal}>
-          <View style={styles.modalView}>
-               <Spacer space={SH(30)} />
-              <Text style={styles.done}>{strings.auth.done}</Text>
-              <Spacer space={SH(12)} />
-              <Image source={Verified} style={styles.Verified}/>
-              <Spacer space={SH(12)} />
-              <Text style={styles.youVerified}>{strings.auth.youVerified}</Text>
-              <Spacer space={SH(12)} />
-              <Text style={styles.newPinSet}>{strings.auth.newPinSet}</Text>
-              <View style={{flex:1}}/>
-              <Button
-               title={strings.auth.logIn}
-              textStyle={styles.loginText}
-               style={styles.logIn}
-               onPress={() => setLoginModal(false)}
-               />
-          </View>
+
+      <Modal backdropOpacity={1} backdropColor="#D8D8D8" isVisible={loginModal}>
+        <View style={styles.modalView}>
+          <Spacer space={SH(30)} />
+          <Text style={styles.done}>{strings.auth.done}</Text>
+          <Spacer space={SH(12)} />
+          <Image source={Verified} style={styles.Verified} />
+          <Spacer space={SH(12)} />
+          <Text style={styles.youVerified}>{strings.auth.youVerified}</Text>
+          <Spacer space={SH(12)} />
+          <Text style={styles.newPinSet}>{strings.auth.newPinSet}</Text>
+          <View style={{ flex: 1 }} />
+          <Button
+            title={strings.auth.logIn}
+            textStyle={styles.loginText}
+            style={styles.logIn}
+            onPress={() => navigate(NAVIGATION.productInquiry)}
+          />
+        </View>
       </Modal>
     </ScreenWrapper>
   );

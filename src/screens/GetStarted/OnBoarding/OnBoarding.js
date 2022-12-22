@@ -13,8 +13,8 @@ import { Button, ScreenWrapper, Spacer } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme";
 import { strings } from "@/localization";
-import { navigate } from '@/navigation/NavigationRef';
-import { NAVIGATION } from '@/constants';
+import { navigate } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
 
 export function OnBoarding() {
   const [selectedId, setSelectedId] = useState(null);
@@ -67,19 +67,17 @@ export function OnBoarding() {
           </View>
         </TouchableOpacity>
 
-        <View style={{ marginTop: 10}}>
+        <View style={{ marginTop: 10 }}>
           <Image source={mainLogo} style={styles.mainImg} />
           <Image source={backStripe} style={styles.backImage} />
         </View>
 
-        <Spacer space={SH(360)} />
+        <Spacer space={SH(340)} />
 
         <View style={{ paddingHorizontal: 25 }}>
           <Text style={styles.heading}>{strings.auth.tellBusiness}</Text>
           <Spacer space={SH(15)} />
-          <Text style={styles.secondHeading}>
-            {strings.auth.whichOne}
-          </Text>
+          <Text style={styles.secondHeading}>{strings.auth.whichOne}</Text>
         </View>
         <View style={styles.flatlistView}>
           <FlatList
@@ -92,13 +90,13 @@ export function OnBoarding() {
           />
           <Spacer space={SH(15)} />
           <Button
-            onPress={() => navigate(NAVIGATION.login)}
+            onPress={() => navigate(NAVIGATION.categories)}
             // onPress={() => alert('jkfhegght')}
             title={strings.auth.next}
             style={styles.buttonStyle}
             textStyle={styles.textStyle}
           />
-          <Spacer space={SH(15)} />
+          <Spacer space={SH(10)} />
         </View>
       </View>
     </View>
