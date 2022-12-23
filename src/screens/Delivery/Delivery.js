@@ -1,23 +1,14 @@
-import {
-  FlatList,
-  Image,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { styles } from "./Delivery.styles";
-import { navigate } from "@/navigation/NavigationRef";
-import { NAVIGATION } from "@/constants/navigation";
 import { Button, Spacer } from "@/components";
-import { SF, SH, SW } from "@/theme/ScalerDimensions";
+import { SH } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { useState } from "react";
-import DropDownPicker from "react-native-dropdown-picker";
-import { goBack } from "@/navigation/NavigationRef";
+import { goBack, navigate } from "@/navigation/NavigationRef";
 import { backArrow, jobr, dhl, ups, coins, fedEx } from "@/assets";
 import { strings } from "@/localization";
+import { NAVIGATION } from "@/constants";
 export function Delivery() {
   const [selectedId, setSelectedId] = useState(null);
 
@@ -60,11 +51,11 @@ export function Delivery() {
           <View
             style={{
               borderWidth: 1,
-              height: 19,
-              width: 19,
+              height: 20,
+              width: 20,
               alignItems: "center",
               justifyContent: "center",
-              borderRadius: 50,
+              borderRadius: 10,
               borderColor: selectedId,
             }}
           >
@@ -122,7 +113,14 @@ export function Delivery() {
           keyExtractor={(item) => item.id}
           extraData={selectedId}
         />
-        <View style={{ borderBottomWidth: 1, borderColor: COLORS.grey }}></View>
+      </View>
+      <View style={styles.buttonView}>
+        <Button
+          onPress={() => navigate(NAVIGATION.reviewAndPayment)}
+          style={styles.doneButton}
+          title={strings.startOrder.done}
+          textStyle={styles.buttonTextStyle}
+        />
       </View>
     </View>
   );

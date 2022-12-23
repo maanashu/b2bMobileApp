@@ -84,6 +84,12 @@ export { default as fedEx } from "@/assets/icons/ic_startOrder/fedEx.png";
 export { default as dhl } from "@/assets/icons/ic_startOrder/dhl.png";
 export { default as ups } from "@/assets/icons/ic_startOrder/ups.png";
 export { default as jobr } from "@/assets/icons/ic_startOrder/jobr.png";
+export { default as deliveryTruck } from "@/assets/icons/ic_delivery/deliveryTruck.png";
+export { default as walletIcon } from "@/assets/icons/ic_delivery/wallet.png";
+export { default as jobrRound } from "@/assets/icons/ic_delivery/jobrRound.png";
+export { default as taskList } from "@/assets/icons/ic_delivery/taskList.png";
+export { default as addSquare } from "@/assets/icons/ic_delivery/addSquare.png";
+export { default as addSquareBox } from "@/assets/icons/ic_delivery/addSquareBox.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

@@ -1,4 +1,5 @@
 import { Fonts } from "@/assets";
+import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
@@ -33,11 +34,6 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     paddingHorizontal: SW(20),
     paddingVertical: SH(5),
-  },
-  deliveryView: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
   },
   deliveryViewInnerView: {
     flexDirection: "row",
@@ -79,9 +75,85 @@ export const styles = StyleSheet.create({
     paddingVertical: SH(20),
   },
   doneButton: {
+    backgroundColor: COLORS.activeTab,
     borderWidth: 0,
   },
   buttonTextStyle: {
     color: COLORS.white,
+  },
+  deliveryView: {
+    backgroundColor: COLORS.inputBorder,
+    height: SH(100),
+    borderRadius: SH(12),
+    justifyContent: "center",
+    paddingHorizontal: SW(10),
+  },
+  inputAddressView: {
+    flex: 1.5,
+    backgroundColor: COLORS.activeTab,
+    marginTop: 5,
+  },
+  walletView: {
+    flex: 1,
+    backgroundColor: COLORS.activeTab,
+    marginTop: 5,
+  },
+  flatlistView: {
+    flex: 1,
+    backgroundColor: COLORS.activeTab,
+    marginTop: 5,
+  },
+  truckIcon: {
+    height: SH(50),
+    width: SW(50),
+  },
+  deliveryViewText: {
+    paddingHorizontal: SW(10),
+  },
+  deliveryTime: {
+    fontFamily: Fonts.MaisonRegular,
+    margin: 1,
+  },
+  deliveryName: {
+    color: COLORS.black,
+    fontFamily: Fonts.Bold,
+    margin: 1,
+  },
+  estimatedDelivery: {
+    color: COLORS.grey,
+    fontFamily: Fonts.Regular,
+    margin: 1,
+  },
+  deliveryDays: {
+    textDecorationLine: "underline",
+    textDecorationColor: COLORS.black,
+    color: COLORS.activeTab,
+    margin: 1,
+  },
+  deliveryViewDirection: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  addressView: {
+    backgroundColor: COLORS.inputBorder,
+    height: SH(60),
+    borderRadius: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  addIcon: {
+    height: SH(25),
+    width: SW(25),
+    marginHorizontal: SW(5),
+  },
+  addAddressText: {
+    color: COLORS.activeTab,
+  },
+  jobrWalletView: {
+    backgroundColor: COLORS.inputBorder,
+    ...ShadowStyles.shadow1,
+    height: SH(100),
+    borderRadius: 10,
   },
 });

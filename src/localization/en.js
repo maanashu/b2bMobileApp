@@ -68,5 +68,9 @@ export const en = {
     ups: "UPS Priority shipping",
     dhl: "DHL Standard shipping",
     jobr: "JOBR Standard shipping",
+    done: "Done",
+  },
+  delivery: {
+    reviewAndPayment: "Review & Payment",
   },
 };

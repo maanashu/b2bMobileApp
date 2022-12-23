@@ -1,17 +1,18 @@
-import { useTheme } from '@react-navigation/native';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { TextStyles } from '@/theme';
+import { useTheme } from "@react-navigation/native";
+import PropTypes from "prop-types";
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { COLORS, TextStyles } from "@/theme";
 
 const styles = StyleSheet.create({
   button: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 5,
     borderWidth: 1,
     padding: 10,
-    width: '100%',
+    width: "100%",
+    backgroundColor: COLORS.activeTab,
   },
 });
 

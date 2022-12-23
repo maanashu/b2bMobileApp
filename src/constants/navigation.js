@@ -14,4 +14,5 @@ export const NAVIGATION = {
   sendInquiry: "SendInquiry",
   startOrder: "Start Order",
   delivery: "Delivery",
+  reviewAndPayment: "ReviewAndPayment",
 };
