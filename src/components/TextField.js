@@ -1,13 +1,13 @@
-import { useTheme } from '@react-navigation/native';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { StyleSheet, TextInput } from 'react-native';
-import { TextStyles } from '@/theme';
+import { useTheme } from "@react-navigation/native";
+import PropTypes from "prop-types";
+import React from "react";
+import { StyleSheet, TextInput } from "react-native";
+import { TextStyles } from "@/theme";
 
 const styles = StyleSheet.create({
   input: {
     borderBottomWidth: StyleSheet.hairlineWidth,
-    marginVertical: 15,
+    marginVertical: 2,
     paddingVertical: 5,
   },
 });

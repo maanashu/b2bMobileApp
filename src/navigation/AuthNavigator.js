@@ -15,6 +15,7 @@ import {
   StartOrder,
   Delivery,
   ReviewAndPayment,
+  AddShippingAddress,
 } from "@/screens";
 
 const Stack = createNativeStackNavigator();
@@ -89,7 +90,11 @@ export function AuthNavigator() {
         name={NAVIGATION.reviewAndPayment}
         options={{ headerShown: false }}
       />
-
+      <Stack.Screen
+        component={AddShippingAddress}
+        name={NAVIGATION.addShippingAddress}
+        options={{ headerShown: false }}
+      />
       {/* <Stack.Screen
         component={OnBoarding}
         name={NAVIGATION.onboarding}

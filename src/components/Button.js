@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     padding: 10,
     width: "100%",
     backgroundColor: COLORS.activeTab,
+    borderWidth: 0,
   },
 });
 
@@ -24,7 +25,7 @@ export function Button({ style, textStyle, title, ...rest }) {
       style={[styles.button, { borderColor: colors.border }, style]}
       {...rest}
     >
-      <Text style={[{ color: colors.text }, TextStyles.label, textStyle]}>
+      <Text style={[{ color: COLORS.white }, TextStyles.label, textStyle]}>
         {title}
       </Text>
     </TouchableOpacity>

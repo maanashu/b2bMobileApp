@@ -13,3 +13,4 @@ export { ProductInquiry } from "@/screens/Products/ProductsInquiry/ProductInquir
 export { SendInquiry } from "@/screens/Products/SendInquiry/SendInquiry";
 export { Delivery } from "@/screens/Delivery/Delivery";
 export { ReviewAndPayment } from "@/screens/ReviewAndPayment/ReviewAndPayment";
+export { AddShippingAddress } from "@/screens/AddShippingAddress/AddShippingAddress";

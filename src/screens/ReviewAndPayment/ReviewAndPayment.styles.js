@@ -30,9 +30,8 @@ export const styles = StyleSheet.create({
     width: SW(40),
   },
   mainContainer: {
-    flex: 1,
     backgroundColor: COLORS.white,
-    paddingHorizontal: SW(20),
+    paddingHorizontal: SW(18),
     paddingVertical: SH(5),
   },
   deliveryViewInnerView: {
@@ -87,6 +86,7 @@ export const styles = StyleSheet.create({
     borderRadius: SH(12),
     justifyContent: "center",
     paddingHorizontal: SW(10),
+    marginHorizontal: 1,
   },
   inputAddressView: {
     flex: 1.5,
@@ -141,6 +141,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    marginHorizontal: 1,
   },
   addIcon: {
     height: SH(25),
@@ -151,9 +152,123 @@ export const styles = StyleSheet.create({
     color: COLORS.activeTab,
   },
   jobrWalletView: {
-    backgroundColor: COLORS.inputBorder,
-    ...ShadowStyles.shadow1,
+    backgroundColor: COLORS.white,
+    ...ShadowStyles.shadow2,
     height: SH(100),
     borderRadius: 10,
+    marginHorizontal: 1,
+  },
+  jbrText: {
+    fontFamily: Fonts.Regular,
+  },
+  walletInfoView: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 10,
+    justifyContent: "space-between",
+  },
+  walletInnerView: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  walletIcons: {
+    height: 25,
+    width: 25,
+    marginRight: SW(4),
+  },
+  orderedProductsView: {
+    backgroundColor: COLORS.white,
+    height: SH(300),
+    flex: 1,
+    borderRadius: 10,
+    marginHorizontal: 1,
+    ...ShadowStyles.shadow2,
+    marginBottom: 1,
+  },
+  orderDetailsHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: SH(10),
+    paddingHorizontal: SW(15),
+  },
+  ordetDetailsIcon: {
+    height: SH(22),
+    width: SW(22),
+    marginRight: SW(5),
+  },
+  orderDetailsText: {
+    fontFamily: Fonts.SemiBold,
+    color: COLORS.black,
+  },
+  flatlistItems: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: SH(10),
+  },
+  quantityText: {
+    color: COLORS.darkGrey2,
+    fontFamily: Fonts.Regular,
+    fontSize: SF(12),
+  },
+  lightText: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.secondary,
+  },
+  borderLine: {
+    borderBottomWidth: 0.5,
+    borderColor: COLORS.secondary,
+  },
+  pricesView: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  pricesText: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.darkGrey,
+  },
+  deliveryPriceText: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.activeTab,
+    textDecorationLine: "underline",
+    textDecorationColor: COLORS.activeTab,
+  },
+  totalPriceText: {
+    fontFamily: Fonts.Bold,
+    color: COLORS.darkGrey,
+    fontSize: SF(15),
+  },
+  bottomButtonView: {
+    flex: 1,
+    justifyContent: "flex-end",
+    marginHorizontal: SW(20),
+    marginBottom: SH(20),
+  },
+  missingAddressButton: {
+    backgroundColor: COLORS.secondary,
+    height: SH(60),
+    borderRadius: 5,
+  },
+  missingAddressButtonView: {
+    flex: 1,
+    paddingHorizontal: SW(20),
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  box: {
+    height: SH(40),
+    width: SW(48),
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1.5,
+    borderColor: COLORS.white,
+    borderRadius: 8,
+  },
+  placeOrderText: {
+    fontFamily: Fonts.Bold,
+    color: COLORS.white,
+    fontSize: SF(16),
   },
 });

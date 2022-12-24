@@ -10,6 +10,7 @@ export const COLORS = {
   btnText: "#626262",
   lightSky: "#D8D8D8",
   sky: "#1FB3FF",
+  darkGrey2: "#3C444D",
 
   secondary: "#A7A7A7",
   dark_gray: "#14171A",

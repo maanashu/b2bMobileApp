@@ -72,5 +72,10 @@ export const en = {
   },
   delivery: {
     reviewAndPayment: "Review & Payment",
+    placeOrderMissingAddress: "Place Order (Missing address)",
+  },
+  AddShippingAddress: {
+    addShippingAddress: "Shippping Address",
+    save: "Save",
   },
 };

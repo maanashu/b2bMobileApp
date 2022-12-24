@@ -7,6 +7,7 @@ import { SH } from "@/theme/ScalerDimensions";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants/navigation";
 import { Search } from "@/components/Search";
+import { COLORS } from "@/theme";
 export function Categories() {
   const [selectedId, setSelectedId] = useState(null);
 
@@ -91,6 +92,7 @@ export function Categories() {
             navigate(NAVIGATION.login);
           }}
           style={styles.buttonStyle}
+          textStyle={{ color: COLORS.black }}
         />
         <Spacer space={SH(15)} />
       </View>

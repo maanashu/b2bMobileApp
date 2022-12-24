@@ -87,9 +87,11 @@ export { default as jobr } from "@/assets/icons/ic_startOrder/jobr.png";
 export { default as deliveryTruck } from "@/assets/icons/ic_delivery/deliveryTruck.png";
 export { default as walletIcon } from "@/assets/icons/ic_delivery/wallet.png";
 export { default as jobrRound } from "@/assets/icons/ic_delivery/jobrRound.png";
-export { default as taskList } from "@/assets/icons/ic_delivery/taskList.png";
+export { default as orderDetails } from "@/assets/icons/ic_delivery/taskList.png";
 export { default as addSquare } from "@/assets/icons/ic_delivery/addSquare.png";
 export { default as addSquareBox } from "@/assets/icons/ic_delivery/addSquareBox.png";
+export { default as forwardArrowBox } from "@/assets/icons/ic_delivery/forwardArrowBox.png";
+export { default as forwardArrowWhite } from "@/assets/icons/ic_delivery/forwardArrowWhite.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

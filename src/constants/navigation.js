@@ -15,4 +15,5 @@ export const NAVIGATION = {
   startOrder: "Start Order",
   delivery: "Delivery",
   reviewAndPayment: "ReviewAndPayment",
+  addShippingAddress: "AddShippingAddress",
 };
