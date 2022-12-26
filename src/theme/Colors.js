@@ -34,4 +34,5 @@ export const COLORS = {
   light_yellow: "#FCBA30",
   light_blue: "#F4FAFF",
   termsBorder: "#CACACA",
+  offWhite: "#E8E8E8",
 };

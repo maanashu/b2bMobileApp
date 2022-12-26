@@ -14,3 +14,6 @@ export { SendInquiry } from "@/screens/Products/SendInquiry/SendInquiry";
 export { Delivery } from "@/screens/Delivery/Delivery";
 export { ReviewAndPayment } from "@/screens/ReviewAndPayment/ReviewAndPayment";
 export { AddShippingAddress } from "@/screens/AddShippingAddress/AddShippingAddress";
+export { AddMoneyToWallet } from "@/screens/AddMoneyToWallet/AddMoneyToWallet";
+export { PaymentMethod } from "@/screens/PaymentMethod/PaymentMethod";
+export { AddCreditCard } from "@/screens/AddCreditCard/AddCreditCard";

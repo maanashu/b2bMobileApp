@@ -78,4 +78,39 @@ export const en = {
     addShippingAddress: "Shippping Address",
     save: "Save",
   },
+  wallet: {
+    agreement:
+      "If you wish to purchase any product or service made available through Service (“Purchase”), you may be asked to supply certain information relevant to your Purchase including but not limited to, your credit or debit card number, the expiration date of your card, your billing address, and your shipping information.",
+    wallet: "Wallet",
+    close: "Close",
+    useCoin:
+      "Use coins to buy products from any listed stores and support/ tip to your rider",
+    getJbr: "Get 15.00 JBR for every referral",
+  },
+  paymentMethod: {
+    paymentMethod: "Payment methods",
+    paynow: "Pay Now",
+    addCreditCard: "Add Credit Card",
+    applePay: "Apple Pay",
+    addDebitCard: "Add Debit Card",
+    connectBank: "Connect your bank account",
+    availableBalance: "Available Balance",
+    default: "Default",
+  },
+  addCreditCard: {
+    addCreditCard: "Add a credit card",
+    cardNumber: "Card Number",
+    expiry: "Expiry",
+    cvv: "CVV",
+    cardHolderName: "Card Holder Name",
+    sameShippingAddress: "Shipping address as same billing address",
+    saveCard: "Save this card for a faster checkout",
+    agreement:
+      "By saving your card you grant us your consent to stor your payment method for future order. You can withdraw anytime.",
+    monthYear: "mm/yy",
+    cvvNo: "123",
+    yes: "Yes",
+    no: "No",
+    addCard: "Add Card",
+  },
 };

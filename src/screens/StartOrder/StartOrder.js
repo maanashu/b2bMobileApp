@@ -156,7 +156,9 @@ export function StartOrder() {
               source={backArrow}
               style={{ height: 30, width: 30 }}
             />
-            <Text> {strings.startOrder.startOrder}</Text>
+            <Text style={styles.headerText}>
+              {strings.startOrder.startOrder}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity>
             <Image source={cross} style={styles.crossIcon} />

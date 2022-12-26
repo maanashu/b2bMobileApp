@@ -16,6 +16,9 @@ import {
   Delivery,
   ReviewAndPayment,
   AddShippingAddress,
+  AddMoneyToWallet,
+  PaymentMethod,
+  AddCreditCard,
 } from "@/screens";
 
 const Stack = createNativeStackNavigator();
@@ -95,6 +98,22 @@ export function AuthNavigator() {
         name={NAVIGATION.addShippingAddress}
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        component={AddMoneyToWallet}
+        name={NAVIGATION.addMoneyToWallet}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={PaymentMethod}
+        name={NAVIGATION.paymentMethod}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={AddCreditCard}
+        name={NAVIGATION.addCreditCard}
+        options={{ headerShown: false }}
+      />
+
       {/* <Stack.Screen
         component={OnBoarding}
         name={NAVIGATION.onboarding}

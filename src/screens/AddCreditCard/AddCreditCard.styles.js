@@ -3,7 +3,7 @@ import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet, Dimensions } from "react-native";
-import { moderateScale, s } from "react-native-size-matters";
+import { moderateScale, ms, s, vs } from "react-native-size-matters";
 const windowWidth = Dimensions.get("window").width;
 
 export const styles = StyleSheet.create({
@@ -24,6 +24,7 @@ export const styles = StyleSheet.create({
     elevation: 5,
     paddingHorizontal: SW(20),
     justifyContent: "center",
+    marginBottom: 5,
   },
   headerInnerView: {
     flexDirection: "row",
@@ -31,63 +32,67 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
-  mainView: {},
-  scrollView: {
-    backgroundColor: COLORS.white,
+  mainView: {
     flex: 1,
-    paddingHorizontal: SW(20),
-    paddingVertical: SH(20),
+    paddingHorizontal: ms(20),
+    backgroundColor: COLORS.white,
+    paddingVertical: vs(20),
   },
-  countryInput: {
+  cardInput: {
     borderBottomWidth: 0,
     backgroundColor: COLORS.inputBorder,
-    height: SH(50),
-    borderRadius: SW(5),
+    height: vs(48),
+    borderRadius: s(5),
   },
-  borderLine: {
-    borderBottomWidth: 1,
-    borderColor: COLORS.inputBorder,
+  headingsText: {
+    color: COLORS.darkGrey2,
+    fontFamily: Fonts.Regular,
+    fontSize: s(14),
+    marginBottom: vs(2),
   },
-  nameView: {
+  rowView: {
     flexDirection: "row",
+
     justifyContent: "space-between",
   },
-  nameInput: {
+  smallInput: {
+    height: vs(48),
+    borderRadius: s(5),
     borderBottomWidth: 0,
-    backgroundColor: COLORS.inputBorder,
-    height: SH(50),
-    borderRadius: SW(5),
-  },
-  headingText: {
-    color: COLORS.darkGrey2,
-    fontFamily: Fonts.Medium,
-    fontSize: SF(15),
-  },
-  textInputView: {
-    paddingHorizontal: SW(12),
-    borderWidth: 0,
-    alignItems: "center",
-    flexDirection: "row",
-    height: SH(50),
     backgroundColor: COLORS.placeHolder,
-    borderRadius: 5,
-    marginTop: 16,
-    width: windowWidth * 0.92,
-    alignSelf: "center",
+  },
+  selectView: {
+    flexDirection: "row",
     alignItems: "center",
   },
-  codeText: {
-    color: COLORS.black,
-    fontSize: SF(14),
-    fontFamily: Fonts.Regular,
+  outerDot: {
+    height: ms(20),
+    width: ms(20),
+    borderRadius: ms(10),
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: ms(5),
   },
-  textInputContainer: {
-    backgroundColor: COLORS.inputBorder,
-    paddingHorizontal: SW(10),
-    color: COLORS.black,
-    fontSize: SF(16),
-    fontFamily: Fonts.Italic,
-    width: "100%",
-    marginLeft: SW(10),
+  innerDot: {
+    height: ms(12),
+    width: ms(12),
+    borderRadius: ms(6),
+    backgroundColor: "red",
+  },
+  shippingText: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.text,
+    fontSize: s(13),
+  },
+  yesNoView: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "35%",
+    justifyContent: "space-between",
+  },
+  saveCardView: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });

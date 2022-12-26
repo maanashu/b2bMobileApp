@@ -2,6 +2,7 @@ import { Fonts } from "@/assets";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
+import { s } from "react-native-size-matters";
 
 export const styles = StyleSheet.create({
   container: {
@@ -10,7 +11,11 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: 40,
   },
-
+  headerText: {
+    fontFamily: Fonts.SemiBold,
+    color: COLORS.black,
+    fontSize: s(14),
+  },
   header: {
     height: SH(50),
     backgroundColor: COLORS.white,

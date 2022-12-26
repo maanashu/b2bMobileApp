@@ -92,6 +92,15 @@ export { default as addSquare } from "@/assets/icons/ic_delivery/addSquare.png";
 export { default as addSquareBox } from "@/assets/icons/ic_delivery/addSquareBox.png";
 export { default as forwardArrowBox } from "@/assets/icons/ic_delivery/forwardArrowBox.png";
 export { default as forwardArrowWhite } from "@/assets/icons/ic_delivery/forwardArrowWhite.png";
+export { default as whiteJobr } from "@/assets/icons/ic_wallet/whiteJobr.png";
+export { default as jobrReferral } from "@/assets/icons/ic_wallet/jobrReferral.png";
+export { default as referralCorner } from "@/assets/icons/ic_wallet/referralCorner.png";
+export { default as rightArrowBlue } from "@/assets/icons/ic_wallet/rightArrowBlue.png";
+export { default as applePay } from "@/assets/icons/ic_payment/applePay.png";
+export { default as coinStack } from "@/assets/icons/ic_payment/coinStack.png";
+export { default as creditCard } from "@/assets/icons/ic_payment/creditCard.png";
+export { default as debitCard } from "@/assets/icons/ic_payment/debitCard.png";
+export { default as bank } from "@/assets/icons/ic_payment/bank.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

@@ -13,9 +13,10 @@ import { Button, Spacer, TextField } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { useState } from "react";
-import { goBack } from "@/navigation/NavigationRef";
+import { goBack, navigate } from "@/navigation/NavigationRef";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import CountryPicker from "react-native-country-picker-modal";
+import { Route } from "@react-navigation/native";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import {
   backArrow,
@@ -30,9 +31,18 @@ import {
   forwardArrowWhite,
 } from "@/assets";
 import { strings } from "@/localization";
-export function AddShippingAddress() {
+import { NAVIGATION } from "@/constants";
+export function AddShippingAddress({ route }) {
   const [flag, setFlag] = useState("US");
   const [countryCode, setCountryCode] = useState("+1");
+  const [countryName, setCountryName] = useState("United States of America");
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
+  const [streetAddressStreet, setStreetAddressStreet] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [city, setCity] = useState("");
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
@@ -47,7 +57,9 @@ export function AddShippingAddress() {
               source={backArrow}
               style={{ height: 30, width: 30 }}
             />
-            <Text>{strings.AddShippingAddress.addShippingAddress}</Text>
+            <Text style={styles.headerText}>
+              {strings.AddShippingAddress.addShippingAddress}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -56,7 +68,11 @@ export function AddShippingAddress() {
         <Spacer space={SH(10)} />
         {/* <TextField style={styles.countryInput} /> */}
 
-        <TextField style={styles.countryInput} />
+        <TextField
+          style={styles.countryInput}
+          value={countryName}
+          onChangeText={(newText) => setCountryName(newText)}
+        />
         <Spacer space={SH(15)} />
 
         <View style={[styles.textInputView]}>
@@ -90,6 +106,7 @@ export function AddShippingAddress() {
             placeholder={strings.auth.mobilePlaceholder}
             placeholderTextColor={"#A7A7A7"}
             maxLength={15}
+            onChangeText={(newText) => setMobileNumber(newText)}
           />
         </View>
 
@@ -105,6 +122,7 @@ export function AddShippingAddress() {
             <TextField
               style={styles.nameInput}
               placeholder={"Enter your first name"}
+              onChangeText={(newText) => setFirstName(newText)}
             />
           </View>
 
@@ -113,6 +131,7 @@ export function AddShippingAddress() {
             <TextField
               style={styles.nameInput}
               placeholder={"Enter your last name"}
+              onChangeText={(newText) => setLastName(newText)}
             />
           </View>
         </View>
@@ -121,6 +140,7 @@ export function AddShippingAddress() {
 
         <Text style={styles.headingText}>Address line 1</Text>
         <TextField
+          onChangeText={(newText) => setStreetAddress(newText)}
           style={styles.countryInput}
           placeholder={"Streets,building"}
           placeholderTextColor={COLORS.secondary}
@@ -133,6 +153,7 @@ export function AddShippingAddress() {
           style={styles.countryInput}
           placeholder={"Apartment optional"}
           placeholderTextColor={COLORS.secondary}
+          onChangeText={(newText) => setStreetAddressStreet(newText)}
         />
         <Spacer space={SH(15)} />
 
@@ -142,6 +163,7 @@ export function AddShippingAddress() {
             <TextField
               style={styles.nameInput}
               placeholder={"Enter your zip code"}
+              onChangeText={(newText) => setZipCode(newText)}
             />
           </View>
 
@@ -150,6 +172,7 @@ export function AddShippingAddress() {
             <TextField
               style={styles.nameInput}
               placeholder={"Enter your city"}
+              onChangeText={(newText) => setCity(newText)}
             />
           </View>
         </View>
@@ -162,7 +185,12 @@ export function AddShippingAddress() {
           marginHorizontal: SW(20),
         }}
       >
-        <Button title={strings.AddShippingAddress.save} />
+        <Button
+          title={strings.AddShippingAddress.save}
+          onPress={() =>
+            navigate(NAVIGATION.reviewAndPayment, { countryname: countryName })
+          }
+        />
       </View>
       <Spacer space={SH(10)} />
     </View>

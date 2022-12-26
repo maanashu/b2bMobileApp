@@ -12,6 +12,7 @@ import { Button, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { useState } from "react";
+import { useRoute } from "@react-navigation/native";
 import { goBack, navigate } from "@/navigation/NavigationRef";
 import {
   backArrow,
@@ -28,6 +29,11 @@ import {
 import { strings } from "@/localization";
 import { NAVIGATION } from "@/constants";
 export function ReviewAndPayment() {
+  const route = useRoute();
+  const { countryname } = route.params || {};
+  console.log("countryName", countryname);
+
+  // const [address, setAddress] = useState(countryname);
   const Details = [
     {
       id: "1",
@@ -81,7 +87,9 @@ export function ReviewAndPayment() {
               source={backArrow}
               style={{ height: 30, width: 30 }}
             />
-            <Text>{strings.delivery.reviewAndPayment}</Text>
+            <Text style={styles.headerText}>
+              {strings.delivery.reviewAndPayment}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity>
             <Image
@@ -115,21 +123,29 @@ export function ReviewAndPayment() {
           </View>
         </View>
         <Spacer space={SH(15)} />
-        <TouchableOpacity
-          onPress={() => navigate(NAVIGATION.addShippingAddress)}
-          style={styles.addressView}
-        >
-          <View>
-            <Image
-              resizeMode="contain"
-              source={addSquareBox}
-              style={styles.addIcon}
-            />
+
+        {countryname == undefined ? (
+          <TouchableOpacity
+            onPress={() => navigate(NAVIGATION.addShippingAddress)}
+            style={styles.addressView}
+          >
+            <View>
+              <Image
+                resizeMode="contain"
+                source={addSquareBox}
+                style={styles.addIcon}
+              />
+            </View>
+            <View>
+              <Text style={styles.addAddressText}>Add shipping address</Text>
+            </View>
+          </TouchableOpacity>
+        ) : (
+          <View style={styles.addressView}>
+            <Text>{countryname}</Text>
           </View>
-          <View>
-            <Text style={styles.addAddressText}>Add shipping address</Text>
-          </View>
-        </TouchableOpacity>
+        )}
+
         <Spacer space={SH(15)} />
         <View style={styles.jobrWalletView}>
           <View style={styles.walletInfoView}>
@@ -143,7 +159,10 @@ export function ReviewAndPayment() {
                 Balance
               </Text>
             </View>
-            <TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => navigate(NAVIGATION.addMoneyToWallet)}
+            >
               <Image
                 resizeMode="contain"
                 source={addSquare}
@@ -235,44 +254,47 @@ export function ReviewAndPayment() {
           </Text>
         </Text>
       </ScrollView>
-      <View style={styles.bottomButtonView}>
-        <TouchableOpacity disabled={true} style={styles.missingAddressButton}>
-          <View style={styles.missingAddressButtonView}>
-            <Text style={styles.placeOrderText}>
-              Place order
-              <Text style={{ fontFamily: Fonts.Regular, fontSize: SF(12) }}>
-                {" "}
-                (Missing address)
+      {countryname == undefined ? (
+        <View style={styles.bottomButtonView}>
+          <TouchableOpacity disabled={true} style={styles.missingAddressButton}>
+            <View style={styles.missingAddressButtonView}>
+              <Text style={styles.placeOrderText}>
+                Place order
+                <Text style={{ fontFamily: Fonts.Regular, fontSize: SF(12) }}>
+                  {" "}
+                  (Missing address)
+                </Text>
               </Text>
-            </Text>
-            <View style={styles.box}>
-              <Image
-                source={forwardArrowWhite}
-                style={{ height: 25, width: SW(39) }}
-              />
+              <View style={styles.box}>
+                <Image
+                  source={forwardArrowWhite}
+                  style={{ height: 25, width: SW(39) }}
+                />
+              </View>
             </View>
-          </View>
-        </TouchableOpacity>
-      </View>
-      {/* <View style={styles.bottomButtonView}>
-        <TouchableOpacity style={styles.missingAddressButton}>
-          <View style={styles.missingAddressButtonView}>
-            <Text style={styles.placeOrderText}>
-              Place order
-              <Text style={{ fontFamily: Fonts.Regular, fontSize: SF(12) }}>
-                {" "}
-                (Payment)
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <View style={styles.bottomButtonView}>
+          <TouchableOpacity style={styles.missingAddressButton}>
+            <View style={styles.missingAddressButtonView}>
+              <Text style={styles.placeOrderText}>
+                Place order
+                <Text style={{ fontFamily: Fonts.Regular, fontSize: SF(12) }}>
+                  {" "}
+                  (Payment)
+                </Text>
               </Text>
-            </Text>
-            <View style={styles.box}>
-              <Image
-                source={forwardArrowWhite}
-                style={{ height: 25, width: SW(39) }}
-              />
+              <View style={styles.box}>
+                <Image
+                  source={forwardArrowWhite}
+                  style={{ height: 25, width: SW(39) }}
+                />
+              </View>
             </View>
-          </View>
-        </TouchableOpacity>
-      </View> */}
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 }

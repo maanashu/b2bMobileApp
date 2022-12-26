@@ -16,4 +16,7 @@ export const NAVIGATION = {
   delivery: "Delivery",
   reviewAndPayment: "ReviewAndPayment",
   addShippingAddress: "AddShippingAddress",
+  addMoneyToWallet: "AddMoneyToWallet",
+  paymentMethod: "PaymentMethod",
+  addCreditCard: "AddCreditCard",
 };

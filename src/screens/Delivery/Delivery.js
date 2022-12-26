@@ -56,7 +56,7 @@ export function Delivery() {
               alignItems: "center",
               justifyContent: "center",
               borderRadius: 10,
-              borderColor: selectedId,
+              borderColor: COLORS.grey,
             }}
           >
             <View style={styles.innerDot}></View>
@@ -91,7 +91,7 @@ export function Delivery() {
               source={backArrow}
               style={{ height: 30, width: 30 }}
             />
-            <Text>{strings.startOrder.delivery}</Text>
+            <Text style={styles.headerText}>{strings.startOrder.delivery}</Text>
           </TouchableOpacity>
           <TouchableOpacity>
             <Image
