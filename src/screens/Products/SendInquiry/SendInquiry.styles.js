@@ -2,12 +2,18 @@ import { Fonts } from "@/assets";
 import { COLORS } from "@/theme/Colors";
 import { SH, SF, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
+import { moderateScale, ms } from "react-native-size-matters";
 
 export const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
 
     backgroundColor: COLORS.white,
+  },
+  headerText: {
+    fontFamily: Fonts.SemiBold,
+    fontSize: ms(14),
+    color: COLORS.darkGrey,
   },
   mainView: {
     flex: 1,
@@ -36,7 +42,8 @@ export const styles = StyleSheet.create({
   },
   yewiHeadingText: {
     color: COLORS.black,
-    fontSize: SF(16),
+    fontSize: SF(14),
+    fontFamily: Fonts.SemiBold,
   },
   certified: {
     height: SH(16),
@@ -48,7 +55,9 @@ export const styles = StyleSheet.create({
     marginLeft: SW(5),
   },
   yewiSmallText: {
-    fontSize: SF(11),
+    fontSize: SF(10),
+    fontFamily: Fonts.Regular,
+    color: COLORS.light_grey,
   },
   yewistar: {
     height: SH(9),
@@ -144,7 +153,39 @@ export const styles = StyleSheet.create({
     width: SW(100),
     borderRadius: 5,
   },
-  topButtonView: { flexDirection: "row", paddingHorizontal: 5 },
+  topButtonView: {
+    flexDirection: "row",
+    paddingHorizontal: 5,
+    justifyContent: "space-between",
+  },
+  topButtonRight: {
+    marginRight: 5,
+    height: SH(40),
+    width: SW(90),
+    borderRadius: 5,
+    backgroundColor: COLORS.white,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  topButtonLeft: {
+    marginRight: 5,
+    height: SH(40),
+    width: SW(90),
+    borderRadius: 5,
+    backgroundColor: COLORS.sky,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  leftButtonText: {
+    fontFamily: Fonts.Regular,
+    fontSize: ms(13),
+    color: COLORS.white,
+  },
+  rightButtonText: {
+    fontFamily: Fonts.Regular,
+    fontSize: ms(13),
+    color: COLORS.primary,
+  },
   topView: {
     flexDirection: "row",
     alignItems: "center",
@@ -171,8 +212,9 @@ export const styles = StyleSheet.create({
   },
   productQuantityText: {
     color: COLORS.black,
-    fontSize: SF(16),
+    fontSize: SF(13),
     marginBottom: SH(5),
+    fontFamily: Fonts.SemiBold,
   },
   input: {
     borderBottomWidth: 0,
@@ -219,7 +261,8 @@ export const styles = StyleSheet.create({
   },
   agreeText: {
     color: COLORS.black,
-    fontSize: SF(16),
+    fontSize: SF(12),
+    fontFamily: Fonts.SemiBold,
     fontWeight: "500",
     flex: 1,
     flexWrap: "wrap",
@@ -237,5 +280,13 @@ export const styles = StyleSheet.create({
     height: SH(22),
     width: SW(20),
     marginHorizontal: SW(5),
+  },
+  addHereText: {
+    color: COLORS.darkGrey,
+    fontFamily: Fonts.Regular,
+  },
+  lastText: {
+    fontFamily: Fonts.Regular,
+    fontSize: moderateScale(11),
   },
 });

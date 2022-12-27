@@ -101,6 +101,8 @@ export { default as coinStack } from "@/assets/icons/ic_payment/coinStack.png";
 export { default as creditCard } from "@/assets/icons/ic_payment/creditCard.png";
 export { default as debitCard } from "@/assets/icons/ic_payment/debitCard.png";
 export { default as bank } from "@/assets/icons/ic_payment/bank.png";
+export { default as bagWhite } from "@/assets/icons/ic_Products/Bag.png";
+export { default as plusIcon } from "@/assets/icons/ic_Products/plusIcon.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

@@ -1,18 +1,11 @@
-import {
-  FlatList,
-  Image,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { styles } from "./StartOrder.styles";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants/navigation";
 import { cross, puma1, puma2, puma3, puma4, puma5 } from "@/assets";
 import { Button, Spacer } from "@/components";
-import { SF, SH, SW } from "@/theme/ScalerDimensions";
+import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { useState } from "react";
 import DropDownPicker from "react-native-dropdown-picker";

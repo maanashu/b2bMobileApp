@@ -2,7 +2,7 @@ import { Fonts } from "@/assets";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
-import { s } from "react-native-size-matters";
+import { ms, s } from "react-native-size-matters";
 
 export const styles = StyleSheet.create({
   container: {
@@ -40,7 +40,23 @@ export const styles = StyleSheet.create({
     paddingHorizontal: SW(20),
     paddingVertical: SH(5),
   },
-  deliveryView: {
+
+  fedEXDeliveryView: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  upsDeliveryView: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  dhlDeliveryView: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  jobrDeliveryView: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -71,7 +87,6 @@ export const styles = StyleSheet.create({
   innerDot: {
     height: 12,
     width: 12,
-    backgroundColor: COLORS.grey,
     borderRadius: 6,
   },
   upsIcon: {
@@ -89,5 +104,9 @@ export const styles = StyleSheet.create({
   },
   buttonTextStyle: {
     color: COLORS.white,
+  },
+  priceText: {
+    marginLeft: ms(50),
+    color: COLORS.darkGrey,
   },
 });

@@ -1,27 +1,11 @@
-import {
-  FlatList,
-  Image,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-  TextInput,
-} from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { styles } from "./PaymentMethod.styles.js";
-import { Button, Spacer, TextField } from "@/components";
-import { SF, SH, SW } from "@/theme/ScalerDimensions";
-import { COLORS } from "@/theme/Colors";
+import { Button, Spacer } from "@/components";
+import { SH } from "@/theme/ScalerDimensions";
 import { useState } from "react";
 import { goBack, navigate } from "@/navigation/NavigationRef";
-import Icon from "react-native-vector-icons/FontAwesome5";
-import CountryPicker from "react-native-country-picker-modal";
-import {
-  moderateScale,
-  scale,
-  verticalScale,
-  vs,
-} from "react-native-size-matters";
+import { vs } from "react-native-size-matters";
 import {
   backArrow,
   coinStack,

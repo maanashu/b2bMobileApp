@@ -16,7 +16,7 @@ import { Button, Spacer, ScreenWrapper } from "@/components";
 import { styles } from "@/screens/GetStarted/ReEnterPin/ReEnterPin.styles";
 const CELL_COUNT = 4;
 
-export function ReEnterPin() {
+export function ReEnterPin({ navigation }) {
   const [value, setValue] = useState("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [prop, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -91,7 +91,14 @@ export function ReEnterPin() {
             title={strings.auth.logIn}
             textStyle={styles.loginText}
             style={styles.logIn}
-            onPress={() => navigate(NAVIGATION.productInquiry)}
+            // onPress={() => navigate(NAVIGATION.productInquiry)}
+            onPress={() => {
+              setLoginModal(false);
+              navigation.reset({
+                index: 0,
+                routes: [{ name: NAVIGATION.productInquiry }],
+              });
+            }}
           />
         </View>
       </Modal>

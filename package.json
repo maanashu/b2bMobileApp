@@ -7,8 +7,7 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint .",
-    "postinstall": "patch-package"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@react-native-masked-view/masked-view": "^0.2.7",
@@ -34,6 +33,7 @@
     "react-native-localization": "^2.3.1",
     "react-native-mmkv-storage": "^0.8.0",
     "react-native-modal": "^13.0.1",
+    "react-native-raw-bottom-sheet": "^2.2.0",
     "react-native-reanimated": "^2.9.1",
     "react-native-responsive-screen": "^1.4.2",
     "react-native-safe-area-context": "^4.3.1",

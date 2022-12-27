@@ -1,5 +1,4 @@
 import {
-  FlatList,
   Image,
   ScrollView,
   Text,
@@ -10,26 +9,14 @@ import {
 import React from "react";
 import { styles } from "./AddShippingAddress.styles";
 import { Button, Spacer, TextField } from "@/components";
-import { SF, SH, SW } from "@/theme/ScalerDimensions";
+import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { useState } from "react";
 import { goBack, navigate } from "@/navigation/NavigationRef";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import CountryPicker from "react-native-country-picker-modal";
-import { Route } from "@react-navigation/native";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
-import {
-  backArrow,
-  coins,
-  deliveryTruck,
-  addSquareBox,
-  addSquare,
-  jobrRound,
-  walletIcon,
-  orderDetails,
-  Fonts,
-  forwardArrowWhite,
-} from "@/assets";
+import { backArrow } from "@/assets";
 import { strings } from "@/localization";
 import { NAVIGATION } from "@/constants";
 export function AddShippingAddress({ route }) {
@@ -118,19 +105,23 @@ export function AddShippingAddress({ route }) {
 
         <View style={styles.nameView}>
           <View style={{ width: "48%" }}>
-            <Text style={styles.headingText}>First name</Text>
+            <Text style={styles.headingText}>
+              {strings.AddShippingAddress.firstName}
+            </Text>
             <TextField
               style={styles.nameInput}
-              placeholder={"Enter your first name"}
+              placeholder={strings.AddShippingAddress.enterFirstName}
               onChangeText={(newText) => setFirstName(newText)}
             />
           </View>
 
           <View style={{ width: "48%" }}>
-            <Text style={styles.headingText}>Last name</Text>
+            <Text style={styles.headingText}>
+              {strings.AddShippingAddress.lastname}
+            </Text>
             <TextField
               style={styles.nameInput}
-              placeholder={"Enter your last name"}
+              placeholder={strings.AddShippingAddress.enterLastName}
               onChangeText={(newText) => setLastName(newText)}
             />
           </View>
@@ -138,20 +129,25 @@ export function AddShippingAddress({ route }) {
 
         <Spacer space={SH(15)} />
 
-        <Text style={styles.headingText}>Address line 1</Text>
+        <Text style={styles.headingText}>
+          {strings.AddShippingAddress.address1}
+        </Text>
         <TextField
           onChangeText={(newText) => setStreetAddress(newText)}
           style={styles.countryInput}
-          placeholder={"Streets,building"}
+          placeholder={strings.AddShippingAddress.streets}
           placeholderTextColor={COLORS.secondary}
         />
 
         <Spacer space={SH(15)} />
 
-        <Text style={styles.headingText}>Address line 2</Text>
+        <Text style={styles.headingText}>
+          {" "}
+          {strings.AddShippingAddress.address2}
+        </Text>
         <TextField
           style={styles.countryInput}
-          placeholder={"Apartment optional"}
+          placeholder={strings.AddShippingAddress.apartment}
           placeholderTextColor={COLORS.secondary}
           onChangeText={(newText) => setStreetAddressStreet(newText)}
         />
@@ -159,16 +155,22 @@ export function AddShippingAddress({ route }) {
 
         <View style={styles.nameView}>
           <View style={{ width: "48%" }}>
-            <Text style={styles.headingText}>Zip code</Text>
+            <Text style={styles.headingText}>
+              {strings.AddShippingAddress.zipcode}
+            </Text>
             <TextField
               style={styles.nameInput}
+              keyboardType="numeric"
               placeholder={"Enter your zip code"}
               onChangeText={(newText) => setZipCode(newText)}
             />
           </View>
 
           <View style={{ width: "48%" }}>
-            <Text style={styles.headingText}>City</Text>
+            <Text style={styles.headingText}>
+              {" "}
+              {strings.AddShippingAddress.city}
+            </Text>
             <TextField
               style={styles.nameInput}
               placeholder={"Enter your city"}

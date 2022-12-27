@@ -1,4 +1,4 @@
-import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { styles } from "./Delivery.styles";
 import { Button, Spacer } from "@/components";
@@ -10,74 +10,8 @@ import { backArrow, jobr, dhl, ups, coins, fedEx } from "@/assets";
 import { strings } from "@/localization";
 import { NAVIGATION } from "@/constants";
 export function Delivery() {
-  const [selectedId, setSelectedId] = useState(null);
+  const [selectedId, setSelectedId] = useState("");
 
-  const DATA = [
-    {
-      id: "1",
-      title: " Fedex Standard shipping",
-      image: fedEx,
-    },
-    {
-      id: "2",
-      title: " Ups Standard shipping",
-      image: ups,
-    },
-    {
-      id: "3",
-      title: " Dhl Standard shipping ",
-      image: dhl,
-    },
-    {
-      id: "4",
-      title: "Jobr Standard shipping",
-      image: jobr,
-    },
-  ];
-  const Item = ({ item, onPress, backgroundColor, textColor }) => (
-    <View>
-      <Spacer space={SH(5)} />
-      <View style={styles.deliveryView}>
-        <TouchableOpacity style={styles.deliveryViewInnerView}>
-          <View style={styles.deliveryViewInnerView}>
-            <Image
-              resizeMode="contain"
-              source={item.image}
-              style={styles.fedExIcon}
-            />
-            <Text style={styles.deliveryText}>{item.title}</Text>
-          </View>
-
-          <View
-            style={{
-              borderWidth: 1,
-              height: 20,
-              width: 20,
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 10,
-              borderColor: COLORS.grey,
-            }}
-          >
-            <View style={styles.innerDot}></View>
-          </View>
-        </TouchableOpacity>
-      </View>
-      <Spacer space={SH(10)} />
-      <View style={{ borderBottomWidth: 1, borderColor: COLORS.grey }}></View>
-    </View>
-  );
-  const renderItem = ({ item }) => {
-    const color = item.title === selectedId ? "red" : "black";
-
-    return (
-      <Item
-        item={item}
-        onPress={() => setSelectedId(item.title)}
-        textColor={{ color }}
-      />
-    );
-  };
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
       <View style={styles.header}>
@@ -106,14 +40,183 @@ export function Delivery() {
       <Spacer space={SH(10)} />
 
       <View style={styles.mainContainer}>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={DATA}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          extraData={selectedId}
-        />
+        <Spacer space={SH(5)} />
+
+        <View style={styles.fedexView}>
+          <View style={styles.fedEXDeliveryView}>
+            <TouchableOpacity
+              onPress={() => setSelectedId("Fedex")}
+              style={styles.deliveryViewInnerView}
+            >
+              <View style={styles.deliveryViewInnerView}>
+                <Image
+                  resizeMode="contain"
+                  source={fedEx}
+                  style={styles.fedExIcon}
+                />
+                <Text style={styles.deliveryText}>
+                  {strings.delivery.fedEx}
+                </Text>
+              </View>
+
+              <View
+                style={{
+                  borderWidth: 1,
+                  height: 20,
+                  width: 20,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 10,
+                  borderColor: selectedId == "Fedex" ? "#275AFF" : "grey",
+                }}
+              >
+                <View
+                  style={{
+                    ...styles.innerDot,
+                    backgroundColor:
+                      selectedId == "Fedex" ? "#275AFF" : "white",
+                  }}
+                ></View>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.priceText}>$8.00</Text>
+          <Spacer space={SH(5)} />
+        </View>
+
+        <View style={{ borderBottomWidth: 1, borderColor: COLORS.grey }}></View>
+
+        <Spacer space={SH(10)} />
+
+        <View style={styles.upsView}>
+          <View style={styles.upsDeliveryView}>
+            <TouchableOpacity
+              onPress={() => setSelectedId("Ups")}
+              style={styles.deliveryViewInnerView}
+            >
+              <View style={styles.deliveryViewInnerView}>
+                <Image
+                  resizeMode="contain"
+                  source={ups}
+                  style={styles.fedExIcon}
+                />
+                <Text style={styles.deliveryText}>{strings.delivery.ups}</Text>
+              </View>
+
+              <View
+                style={{
+                  borderWidth: 1,
+                  height: 20,
+                  width: 20,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 10,
+                  borderColor: selectedId == "Ups" ? "#275AFF" : "grey",
+                }}
+              >
+                <View
+                  style={{
+                    ...styles.innerDot,
+                    backgroundColor: selectedId == "Ups" ? "#275AFF" : "white",
+                  }}
+                ></View>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.priceText}>$8.00</Text>
+        </View>
+
+        <Spacer space={SH(5)} />
+        <View style={{ borderBottomWidth: 1, borderColor: COLORS.grey }}></View>
+
+        <Spacer space={SH(10)} />
+
+        <View style={styles.dhlView}>
+          <View style={styles.dhlDeliveryView}>
+            <TouchableOpacity
+              onPress={() => setSelectedId("Dhl")}
+              style={styles.deliveryViewInnerView}
+            >
+              <View style={styles.deliveryViewInnerView}>
+                <Image
+                  resizeMode="contain"
+                  source={dhl}
+                  style={styles.fedExIcon}
+                />
+                <Text style={styles.deliveryText}>{strings.delivery.dhl}</Text>
+              </View>
+
+              <View
+                style={{
+                  borderWidth: 1,
+                  height: 20,
+                  width: 20,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 10,
+                  borderColor: selectedId == "Dhl" ? "#275AFF" : "grey",
+                }}
+              >
+                <View
+                  style={{
+                    ...styles.innerDot,
+                    backgroundColor: selectedId == "Dhl" ? "#275AFF" : "white",
+                  }}
+                ></View>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.priceText}>$8.00</Text>
+        </View>
+
+        <Spacer space={SH(5)} />
+
+        <View style={{ borderBottomWidth: 1, borderColor: COLORS.grey }}></View>
+
+        <Spacer space={SH(10)} />
+
+        <View style={styles.jobrView}>
+          <View style={styles.jobrDeliveryView}>
+            <TouchableOpacity
+              onPress={() => setSelectedId("Jobr")}
+              style={styles.deliveryViewInnerView}
+            >
+              <View style={styles.deliveryViewInnerView}>
+                <Image
+                  resizeMode="contain"
+                  source={jobr}
+                  style={styles.fedExIcon}
+                />
+                <Text style={styles.deliveryText}>{strings.delivery.jobr}</Text>
+              </View>
+
+              <View
+                style={{
+                  borderWidth: 1,
+                  height: 20,
+                  width: 20,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 10,
+                  borderColor: selectedId == "Jobr" ? "#275AFF" : "grey",
+                }}
+              >
+                <View
+                  style={{
+                    ...styles.innerDot,
+                    backgroundColor: selectedId == "Jobr" ? "#275AFF" : "white",
+                  }}
+                ></View>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.priceText}>$8.00</Text>
+          <Spacer space={SH(5)} />
+        </View>
+
+        <View style={{ borderBottomWidth: 1, borderColor: COLORS.grey }}></View>
       </View>
+
       <View style={styles.buttonView}>
         <Button
           onPress={() => navigate(NAVIGATION.reviewAndPayment)}

@@ -105,34 +105,31 @@ export function SendInquiry() {
             source={backArrow}
             style={{ height: 30, width: 30 }}
           />
-          <Text> Send Inquiry</Text>
+          <Text style={styles.headerText}> Send Inquiry</Text>
         </TouchableOpacity>
       </View>
 
       <Spacer space={SH(5)} />
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ paddingHorizontal: SW(10) }}
+        style={{ paddingHorizontal: SW(20) }}
       >
         <Spacer space={SH(5)} />
         <View style={styles.yewiView}>
           <View style={styles.topView}>
-            <Text>About Company</Text>
+            <Text style={styles.agreeText}>About Company</Text>
             <View style={styles.topButtonView}>
-              <TouchableOpacity style={{ marginRight: 5 }}>
-                <Image
-                  resizeMode="contain"
-                  source={follow}
-                  style={styles.topButtons}
-                />
+              <TouchableOpacity style={styles.topButtonLeft}>
+                <Text style={styles.leftButtonText}>
+                  {strings.sendInquiry.follow}
+                </Text>
               </TouchableOpacity>
 
-              <TouchableOpacity>
-                <Image
-                  resizeMode="contain"
-                  source={visitStore}
-                  style={styles.topButtons}
-                />
+              <TouchableOpacity style={styles.topButtonRight}>
+                <Text style={styles.rightButtonText}>
+                  {" "}
+                  {strings.sendInquiry.visitStore}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -217,7 +214,9 @@ export function SendInquiry() {
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Image source={gallery_image} style={styles.galleryImage} />
               <Image source={import_picture} style={styles.importPicture} />
-              <Text>Add your files here</Text>
+              <Text style={styles.addHereText}>
+                {strings.sendInquiry.addHere}
+              </Text>
             </View>
           </TouchableOpacity>
 
@@ -228,9 +227,13 @@ export function SendInquiry() {
                   <Image source={close} style={styles.closeIcon} />
                 </View>
               </TouchableOpacity>
-              <Button title={"Upload from Camera"} onPress={OpenCamera} />
+              <Button
+                title={"Upload from Camera"}
+                textStyle={styles.modalButtonText}
+                onPress={OpenCamera}
+              />
               <View style={{ marginTop: SH(20) }}>
-                <Button title={"Upload from gallery"} onPress={OpenGallery} />
+                <Button title={"Upload from Gallery"} onPress={OpenGallery} />
               </View>
             </View>
           </Modal>
@@ -239,7 +242,7 @@ export function SendInquiry() {
             <TouchableOpacity onPress={CheckBox}>
               <Image
                 source={agree ? selectedCheckBox : checkBox}
-                style={{ height: SH(21), width: SW(20) }}
+                style={{ height: SH(22), width: SW(20) }}
               />
             </TouchableOpacity>
             <View style={{ flex: 1, marginLeft: SW(5) }}>
@@ -250,8 +253,9 @@ export function SendInquiry() {
               </Text>
             </View>
           </View>
+          <Spacer space={SH(5)} />
           <View style={{ paddingLeft: SW(27) }}>
-            <Text>
+            <Text style={styles.lastText}>
               You are inquiring to all 13 verified suppliers in the PUMA Men's
               Tazon 6 Wide Sneaker. Make sure your messages applies to all
               suppliers in this category, not an individual supplier.

@@ -1,4 +1,3 @@
-import { useTheme } from "@react-navigation/native";
 import React from "react";
 import {
   FlatList,
@@ -9,21 +8,15 @@ import {
   View,
 } from "react-native";
 import { strings } from "@/localization";
-import { Config } from "react-native-config";
-import { useSelector } from "react-redux";
-import { TextStyles } from "@/theme";
-import { getUser } from "@/selectors/UserSelectors";
 import { styles } from "./ProductInquiry.styles";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants/navigation";
-import CountryPicker from "react-native-country-picker-modal";
 import { useState } from "react";
-import { ScreenWrapper, Search, Spacer } from "@/components";
+import { ScreenWrapper, Spacer } from "@/components";
 import { COLORS } from "@/theme/Colors";
-import { SF, SH, SW, width } from "@/theme/ScalerDimensions";
+import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { SliderBox } from "react-native-image-slider-box";
 import {
-  backIcon,
   womenShoes,
   fav,
   starBadge,
@@ -31,7 +24,6 @@ import {
   chatNow,
   rating,
   sendInquiry,
-  startYourOrder,
   buyNow,
   addToBag,
   location,
@@ -43,8 +35,6 @@ import {
   checkPrice,
   check,
   simpleCheck,
-  fullStarRating,
-  fourRating,
   ratingFull,
   supplierService,
   productQuality,
@@ -53,7 +43,11 @@ import {
   wBlackShoes,
   Shoes2,
   whiteShoes,
+  plusIcon,
+  Fonts,
+  bagWhite,
 } from "@/assets";
+import { ms } from "react-native-size-matters";
 
 export function ProductInquiry() {
   const [favourite, setFavourite] = useState(false);
@@ -100,16 +94,19 @@ export function ProductInquiry() {
       id: "1",
       title: "Supplier Service",
       image: supplierService,
+      rating: "4.5 Acceptable",
     },
     {
       id: "2",
       title: "On-time Shipment",
       image: ratingFull,
+      rating: "5.0 Acceptable",
     },
     {
       id: "3",
       title: "Product Quality",
       image: productQuality,
+      rating: "4.5 Acceptable",
     },
   ];
   const ProductDetail = [
@@ -164,10 +161,24 @@ export function ProductInquiry() {
   const Item = ({ item, onPress }) => (
     <TouchableOpacity style={styles.item}>
       <View style={{ alignItems: "center", justifyContent: "center" }}>
-        <Text style={{ color: COLORS.blue, fontSize: SF(20) }}>
+        <Text
+          style={{
+            color: COLORS.blue,
+            fontSize: SF(16),
+            fontFamily: Fonts.SemiBold,
+          }}
+        >
           {item.price}
         </Text>
-        <Text>{item.quantity}</Text>
+        <Text
+          style={{
+            color: COLORS.darkGrey2,
+            fontSize: SF(12),
+            fontFamily: Fonts.Regular,
+          }}
+        >
+          {item.quantity}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -188,10 +199,24 @@ export function ProductInquiry() {
           justifyContent: "center",
         }}
       >
-        <Text style={{ color: COLORS.blue, fontSize: SF(20) }}>
+        <Text
+          style={{
+            color: COLORS.blue,
+            fontSize: SF(18),
+            fontFamily: Fonts.SemiBold,
+          }}
+        >
           {item.Heading}
         </Text>
-        <Text>{item.text}</Text>
+        <Text
+          style={{
+            color: COLORS.darkGrey2,
+            fontSize: SF(12),
+            fontFamily: Fonts.Regular,
+          }}
+        >
+          {item.text}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -204,13 +229,17 @@ export function ProductInquiry() {
         width: "100%",
       }}
     >
-      <Image source={item.image} style={styles.starRating} />
+      <Image
+        resizeMode="contain"
+        source={item.image}
+        style={styles.starRating}
+      />
     </View>
   );
   const ProductDetails = ({ item, onPress }) => (
     <View>
       <View style={styles.productDetail}>
-        <Text style={styles.questions}>{item.title}</Text>
+        <Text style={styles.questions}>{item.title} :</Text>
         <Text style={styles.productAnswer}> {item.productAnswer}</Text>
       </View>
       <Spacer space={SH(5)} />
@@ -223,20 +252,31 @@ export function ProductInquiry() {
       <Spacer space={SH(10)} />
       <Image
         source={item.image}
-        style={{ height: 135, width: SW(170), borderRadius: 5 }}
+        style={{ height: 135, width: SW(160), borderRadius: 5 }}
       />
-      <View style={{}}>
-        <Text style={{ paddingRight: 5 }}>{item.title}</Text>
+      <View>
+        <Text
+          style={{
+            paddingRight: 5,
+            fontFamily: Fonts.SemiBold,
+            color: COLORS.darkGrey,
+          }}
+        >
+          {item.title}
+        </Text>
       </View>
     </TouchableOpacity>
   );
   return (
     <ScreenWrapper>
       <View style={styles.header}>
-        <Text>Product Inquiry</Text>
+        <Text style={styles.headerText}>Product Inquiry</Text>
       </View>
       <Spacer space={SH(10)} />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ paddingHorizontal: ms(10) }}
+      >
         <View>
           <View style={{ alignItems: "flex-end" }}>
             <TouchableOpacity onPress={colorChange}>
@@ -265,7 +305,7 @@ export function ProductInquiry() {
             }}
             ImageComponentStyle={{
               borderRadius: 15,
-              width: "90%",
+              width: "85%",
               marginTop: 5,
             }}
           />
@@ -278,11 +318,15 @@ export function ProductInquiry() {
               style={{ marginHorizontal: SW(5), height: 15, width: 15 }}
             />
             <Text>4.5 </Text>
-            <Text>(500+ ratings)</Text>
+            <Text style={styles.productSubHeading}>(500+ ratings)</Text>
           </View>
           <Spacer space={SH(40)} />
-          <Text>PUMA Men's Tazon 6 Wide Sneaker</Text>
-          <Text>Women Burgundy Waterproof 3 in 1 Travel Trekking Jacket</Text>
+          <Text style={styles.productHeading}>
+            PUMA Men's Tazon 6 Wide Sneaker
+          </Text>
+          <Text style={styles.productSubHeading}>
+            Women Burgundy Waterproof 3 in 1 Travel Trekking Jacket
+          </Text>
 
           <Spacer space={SH(40)} />
 
@@ -298,58 +342,66 @@ export function ProductInquiry() {
         <Spacer space={SH(20)} />
         <View style={styles.mainView}>
           <View style={styles.queryIcons}>
-            <TouchableOpacity>
-              <Image
-                resizeMode="contain"
-                source={chatNow}
-                style={styles.buttons}
-              />
+            <TouchableOpacity style={styles.chatbutton}>
+              <Image source={chatNow} style={styles.buttonIcon} />
+              <Text style={styles.chatText}>
+                {" "}
+                {strings.productInquiry.chatNow}
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={() => {
                 navigate(NAVIGATION.sendInquiry);
               }}
+              style={styles.buttons}
             >
-              <Image
-                resizeMode="contain"
-                source={sendInquiry}
-                style={styles.buttons}
-              />
+              <Image source={sendInquiry} style={styles.buttonIcon} />
+              <Text style={styles.orderText}>
+                {" "}
+                {strings.productInquiry.sendInquiry}
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={() => {
                 navigate(NAVIGATION.startOrder);
               }}
+              style={styles.buttons}
             >
-              <Image
-                resizeMode="contain"
-                source={startYourOrder}
-                style={styles.buttons}
-              />
+              <Image source={plusIcon} style={styles.buttonIcon} />
+              <Text style={styles.orderText}>
+                {" "}
+                {strings.productInquiry.startOrder}
+              </Text>
             </TouchableOpacity>
           </View>
           <Spacer space={SH(10)} />
 
-          <Text>
+          <Text style={{ fontFamily: Fonts.Regular, marginLeft: ms(5) }}>
             Estimated arrival within 7 business days with JOBR shipping
           </Text>
           <Spacer space={SH(12)} />
           <View style={styles.midView}>
-            <TouchableOpacity>
+            <TouchableOpacity style={styles.addToBagIcon}>
               <Image
                 resizeMode="contain"
-                source={addToBag}
+                source={bagWhite}
                 style={styles.bigIcon}
               />
+              <Text style={styles.smallIcons}>
+                {strings.productInquiry.addToBag}
+              </Text>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity style={styles.buyNowIcon}>
               <Image
                 resizeMode="contain"
-                source={buyNow}
+                source={bagWhite}
                 style={styles.bigIcon}
               />
+              <Text style={styles.smallIcons}>
+                {strings.productInquiry.buyNow}
+              </Text>
             </TouchableOpacity>
           </View>
 
@@ -389,10 +441,16 @@ export function ProductInquiry() {
           <Spacer space={SH(20)} />
           <TouchableOpacity>
             <View style={styles.iconCenter}>
-              <Image source={starBadge} style={styles.sideIcons} />
+              <Image
+                resizeMode="contain"
+                source={starBadge}
+                style={styles.sideIcons}
+              />
 
               <View style={styles.starBadge}>
-                <Text>Top most popular in Running shoes</Text>
+                <Text style={styles.companyServicesText}>
+                  Top most popular in Running shoes
+                </Text>
 
                 <Image source={forward} style={styles.forward} />
               </View>
@@ -407,12 +465,18 @@ export function ProductInquiry() {
 
           <TouchableOpacity>
             <View style={styles.sideIconView}>
-              <Image source={checkPrice} style={styles.sideIcons} />
+              <Image
+                resizeMode="contain"
+                source={checkPrice}
+                style={styles.claimNowIcon}
+              />
 
               <View style={styles.iconStyling}>
                 <View>
-                  <Text>Claim now</Text>
-                  <Text>Quick refunds on order uder $1000</Text>
+                  <Text style={styles.companyServicesText}>Claim now</Text>
+                  <Text style={styles.companyServicesBoldText}>
+                    Quick refunds on order uder $1000
+                  </Text>
                 </View>
 
                 <Image source={forward} style={styles.forward} />
@@ -428,13 +492,27 @@ export function ProductInquiry() {
 
           <TouchableOpacity>
             <View style={styles.iconView}>
-              <Image source={check} style={styles.sideIcons} />
+              <Image
+                resizeMode="contain"
+                source={check}
+                style={styles.tradeIcon}
+              />
 
               <View style={styles.trade}>
                 <View>
-                  <Text>Trade Assurance</Text>
+                  <Text style={styles.companyServicesBoldText}>
+                    Trade Assurance
+                  </Text>
 
-                  <Text>Protects your orders</Text>
+                  <Text
+                    style={{
+                      fontFamily: Fonts.Regular,
+                      fontSize: ms(10),
+                      marginLeft: ms(5),
+                    }}
+                  >
+                    Protects your orders
+                  </Text>
                 </View>
 
                 <Image source={forward} style={styles.forward} />
@@ -445,15 +523,19 @@ export function ProductInquiry() {
 
             <View>
               <View style={{ flexDirection: "row" }}>
-                <Image source={simpleCheck} style={styles.checks} />
-                <Text>On-time delivery</Text>
+                <Image
+                  resizeMode="contain"
+                  source={simpleCheck}
+                  style={styles.checks}
+                />
+                <Text style={styles.companyServicesText}>On-time delivery</Text>
               </View>
 
               <Spacer space={SH(10)} />
 
               <View style={{ flexDirection: "row" }}>
                 <Image source={simpleCheck} style={styles.checks} />
-                <Text>Refund Policy</Text>
+                <Text style={styles.companyServicesText}>Refund Policy</Text>
               </View>
             </View>
 
@@ -464,15 +546,31 @@ export function ProductInquiry() {
 
           <Spacer space={SH(25)} />
 
-          <Text>Reviews</Text>
+          <Text style={styles.reviewText}>Reviews</Text>
 
           <View style={styles.ratingView}>
-            <Image source={rating} style={styles.numRating} />
-
+            <Text
+              style={{
+                fontFamily: Fonts.Bold,
+                color: COLORS.darkGrey,
+                fontSize: ms(30),
+              }}
+            >
+              4.5
+              <Text
+                style={{
+                  fontFamily: Fonts.Regular,
+                  color: COLORS.darkGrey,
+                  fontSize: ms(25),
+                }}
+              >
+                /5.0
+              </Text>
+            </Text>
             <View style={{ paddingHorizontal: SW(10) }}>
-              <Text>Very Satisfied</Text>
+              <Text style={styles.reviewText}>Very Satisfied</Text>
 
-              <Text>21 Reviews</Text>
+              <Text style={{ fontFamily: Fonts.Regular }}>21 Reviews</Text>
             </View>
           </View>
 
@@ -499,7 +597,7 @@ export function ProductInquiry() {
             {strings.productInquiry.productDetails}
           </Text>
           <Spacer space={SH(5)} />
-          <Text>
+          <Text style={styles.detailText}>
             A popular type of cigarette from the Marlboro brand due to its
             smooth flavour and it being mid-priced.
           </Text>

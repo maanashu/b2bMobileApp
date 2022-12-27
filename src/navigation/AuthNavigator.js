@@ -98,11 +98,7 @@ export function AuthNavigator() {
         name={NAVIGATION.addShippingAddress}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        component={AddMoneyToWallet}
-        name={NAVIGATION.addMoneyToWallet}
-        options={{ headerShown: false }}
-      />
+
       <Stack.Screen
         component={PaymentMethod}
         name={NAVIGATION.paymentMethod}

@@ -2,6 +2,7 @@ import { Fonts } from "@/assets";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
+import { moderateScale, ms, s, vs } from "react-native-size-matters";
 
 export const styles = StyleSheet.create({
   container: {
@@ -54,11 +55,78 @@ export const styles = StyleSheet.create({
   },
   buttons: {
     height: 40,
-    width: SW(110),
+    width: SW(108),
+    alignItems: "center",
+    flexDirection: "row",
+    backgroundColor: COLORS.sky,
+    borderRadius: 3,
+    justifyContent: "center",
+  },
+  buttonIcon: {
+    height: vs(15),
+    width: ms(19),
+  },
+  headerText: {
+    fontFamily: Fonts.SemiBold,
+
+    color: COLORS.darkGrey2,
+    fontSize: ms(14),
+  },
+  orderText: {
+    fontFamily: Fonts.SemiBold,
+    fontSize: ms(11),
+    color: COLORS.white,
+  },
+  productHeading: {
+    color: COLORS.darkGrey,
+    fontFamily: Fonts.Bold,
+    fontSize: ms(16),
+  },
+  productSubHeading: {
+    fontFamily: Fonts.Regular,
+    fontSize: ms(11),
+  },
+  chatText: {
+    fontFamily: Fonts.SemiBold,
+    fontSize: ms(11),
+    color: COLORS.primary,
+  },
+  chatbutton: {
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    height: 40,
+    width: SW(108),
+    borderWidth: 1,
+    borderColor: COLORS.primary,
+    borderRadius: 3,
   },
   bigIcon: {
+    height: vs(15),
+    width: ms(20),
+  },
+  addToBagIcon: {
     height: SH(40),
-    width: SW(175),
+    width: SW(165),
+    backgroundColor: COLORS.sky,
+    borderRadius: 2,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buyNowIcon: {
+    height: SH(40),
+    width: SW(165),
+    backgroundColor: COLORS.primary,
+    borderRadius: 2,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  smallIcons: {
+    fontFamily: Fonts.Regular,
+    fontSize: ms(11),
+    color: COLORS.white,
   },
   yewiView: {
     borderRadius: 10,
@@ -84,7 +152,8 @@ export const styles = StyleSheet.create({
   },
   yewiHeadingText: {
     color: COLORS.black,
-    fontSize: SF(16),
+    fontSize: SF(14),
+    fontFamily: Fonts.SemiBold,
   },
   certified: {
     height: SH(16),
@@ -96,7 +165,8 @@ export const styles = StyleSheet.create({
     marginLeft: SW(5),
   },
   yewiSmallText: {
-    fontSize: SF(11),
+    fontSize: SF(10),
+    fontFamily: Fonts.Regular,
   },
   yewistar: {
     height: SH(9),
@@ -113,6 +183,15 @@ export const styles = StyleSheet.create({
     width: SW(16),
     marginRight: SW(5),
   },
+  claimNowIcon: {
+    height: SH(24),
+    width: SW(22),
+  },
+  tradeIcon: {
+    height: SH(24),
+    width: SW(20),
+    marginRight: SW(5),
+  },
   forward: {
     height: SH(20),
     width: SW(10),
@@ -121,6 +200,7 @@ export const styles = StyleSheet.create({
   checks: {
     height: SH(17),
     width: SW(15),
+    marginRight: ms(3),
   },
   borderTop: {
     margin: 5,
@@ -162,6 +242,10 @@ export const styles = StyleSheet.create({
   sideIconView: {
     flexDirection: "row",
     alignItems: "center",
+  },
+  reviewText: {
+    fontFamily: Fonts.SemiBold,
+    color: COLORS.darkGrey2,
   },
   iconStyling: {
     flexDirection: "row",
@@ -211,14 +295,21 @@ export const styles = StyleSheet.create({
   },
   semiBoldtext: {
     color: COLORS.black,
-    fontSize: SF(22),
+    fontSize: SF(21),
+    fontFamily: Fonts.SemiBold,
   },
   productDetail: {
     flexDirection: "row",
   },
+  detailText: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.darkGrey,
+    fontSize: ms(12),
+  },
   questions: {
     color: COLORS.text,
     fontSize: SF(14),
+    fontFamily: Fonts.Regular,
   },
   productAnswer: {
     color: COLORS.black,
@@ -227,7 +318,7 @@ export const styles = StyleSheet.create({
   },
   ShoesStyle: {
     height: 190,
-    width: 190,
+    width: 180,
     elevation: 2,
     borderRadius: 1,
     backgroundColor: COLORS.white,
@@ -239,5 +330,18 @@ export const styles = StyleSheet.create({
     color: COLORS.black,
     fontSize: SF(18),
     paddingHorizontal: SW(5),
+    fontFamily: Fonts.SemiBold,
+  },
+  companyServicesText: {
+    fontFamily: Fonts.Regular,
+    fontSize: SF(13),
+    color: COLORS.darkGrey2,
+    marginHorizontal: ms(5),
+  },
+  companyServicesBoldText: {
+    fontFamily: Fonts.SemiBold,
+    color: COLORS.black,
+    fontSize: ms(12),
+    marginHorizontal: ms(5),
   },
 });

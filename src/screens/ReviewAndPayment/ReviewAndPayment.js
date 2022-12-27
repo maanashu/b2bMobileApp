@@ -6,14 +6,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useRef } from "react";
 import { styles } from "./ReviewAndPayment.styles";
 import { Button, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { goBack, navigate } from "@/navigation/NavigationRef";
+import RBSheet from "react-native-raw-bottom-sheet";
 import {
   backArrow,
   coins,
@@ -25,13 +25,75 @@ import {
   orderDetails,
   Fonts,
   forwardArrowWhite,
+  whiteJobr,
+  rightArrowBlue,
+  referralCorner,
 } from "@/assets";
 import { strings } from "@/localization";
 import { NAVIGATION } from "@/constants";
-export function ReviewAndPayment() {
+import { ms, verticalScale, vs } from "react-native-size-matters";
+
+const data = [
+  {
+    name: "JBR 10",
+    sub: "USD $10",
+    id: 1,
+  },
+  {
+    name: "JBR 25",
+    sub: "USD $25",
+    id: 2,
+  },
+  {
+    name: "JBR 50",
+    sub: "USD $50",
+    id: 3,
+  },
+  {
+    name: "JBR 100",
+    sub: "USD $100",
+    id: 4,
+  },
+];
+
+export function ReviewAndPayment({ navigation }) {
+  const renderItem = ({ item }) => (
+    <View style={styles.rowMainCard}>
+      <View style={styles.renderinput}>
+        <Image source={whiteJobr} resizeMode="contain" style={styles.img} />
+        <Text
+          style={[
+            styles.getName,
+            { alignSelf: "center", paddingHorizontal: 10 },
+          ]}
+        >
+          {item.name}
+        </Text>
+      </View>
+
+      <TouchableOpacity
+        // onPress={() => navigate(NAVIGATION.paymentMethod, { data: "wallet" })}
+        onPress={() => {
+          refRBSheet.current.close();
+          navigate(NAVIGATION.paymentMethod);
+        }}
+        style={styles.row}
+      >
+        <Text style={styles.formText}>{item.sub}</Text>
+        <Image
+          source={rightArrowBlue}
+          resizeMode="contain"
+          style={styles.mask}
+        />
+      </TouchableOpacity>
+    </View>
+  );
+
+  const refRBSheet = useRef();
+
   const route = useRoute();
+
   const { countryname } = route.params || {};
-  console.log("countryName", countryname);
 
   // const [address, setAddress] = useState(countryname);
   const Details = [
@@ -160,9 +222,7 @@ export function ReviewAndPayment() {
               </Text>
             </View>
 
-            <TouchableOpacity
-              onPress={() => navigate(NAVIGATION.addMoneyToWallet)}
-            >
+            <TouchableOpacity onPress={() => refRBSheet.current.open()}>
               <Image
                 resizeMode="contain"
                 source={addSquare}
@@ -295,6 +355,122 @@ export function ReviewAndPayment() {
           </TouchableOpacity>
         </View>
       )}
+
+      <RBSheet
+        ref={refRBSheet}
+        animationType="fade"
+        closeOnDragDown={false}
+        closeOnPressMask={false}
+        height={vs(630)}
+        customStyles={{
+          wrapper: {
+            backgroundColor: "#999999",
+          },
+          container: {
+            backgroundColor: "#999999",
+          },
+          draggableIcon: {
+            backgroundColor: "#000",
+          },
+        }}
+      >
+        <View
+          style={{
+            backgroundColor: "#999999",
+            paddingBottom: vs(10),
+            paddingHorizontal: ms(20),
+            alignItems: "flex-end",
+          }}
+        >
+          <TouchableOpacity onPress={() => refRBSheet.current.close()}>
+            <Text
+              style={{
+                fontFamily: Fonts.SemiBold,
+                fontSize: ms(14),
+                color: COLORS.white,
+              }}
+            >
+              {strings.wallet.close}
+            </Text>
+          </TouchableOpacity>
+        </View>
+        {/* <View
+          style={{
+            backgroundColor: COLORS.white,
+            flex: 1,
+            borderTopLeftRadius: 50,
+            borderTopRightRadius: 50,
+            paddingHorizontal: ms(20),
+            paddingTop: verticalScale(10),
+          }}
+        >
+          <Text>{strings.wallet.close}</Text>
+        </View> */}
+        <ScrollView
+          bounces={false}
+          showsVerticalScrollIndicator={false}
+          style={{
+            backgroundColor: "white",
+            borderTopLeftRadius: 50,
+            borderTopRightRadius: 50,
+            paddingTop: verticalScale(20),
+          }}
+        >
+          <View style={styles.headingRowView}>
+            <Text style={styles.walletText}>{strings.wallet.wallet}</Text>
+            <Image
+              source={coins}
+              resizeMode="contain"
+              style={styles.coinIcon}
+            />
+          </View>
+          <View>
+            <Text style={{ textAlign: "center" }}>
+              {strings.wallet.useCoin}
+            </Text>
+          </View>
+          <Spacer space={SH(15)} />
+
+          <View style={{ paddingHorizontal: ms(20) }}>
+            <View style={styles.referralView}>
+              <View style={{ paddingLeft: ms(10) }}>
+                <Spacer space={SH(10)} />
+                <Text style={styles.refferalBigText}>Get 15.00 JBR</Text>
+
+                <Text style={styles.refferalsmallText}>
+                  {strings.wallet.getJbr}
+                </Text>
+                <Spacer space={SH(17)} />
+                <View style={styles.shareButton}>
+                  <Text style={styles.shareText}>Share</Text>
+                </View>
+              </View>
+              <Image
+                source={referralCorner}
+                resizeMode="cover"
+                style={styles.cornerImage}
+              />
+            </View>
+          </View>
+
+          <Spacer space={SH(15)} />
+          <FlatList
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
+            // initialNumToRender={2}
+            // maxToRenderPerBatch={2}
+            // windowSize={1}
+            removeClippedSubviews={true}
+          />
+          <Spacer space={SH(15)} />
+          <View style={{ paddingHorizontal: ms(20), alignItems: "center" }}>
+            <Text style={styles.agreementText}>{strings.wallet.agreement}</Text>
+          </View>
+          <Spacer space={SH(40)} />
+        </ScrollView>
+      </RBSheet>
     </View>
   );
 }

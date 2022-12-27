@@ -1,47 +1,20 @@
-import {
-  FlatList,
-  Image,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-  TextInput,
-} from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { styles } from "./AddCreditCard.styles";
 import { Button, Spacer, TextField } from "@/components";
-import { SF, SH, SW } from "@/theme/ScalerDimensions";
+import { SH } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { useState } from "react";
 import { goBack, navigate } from "@/navigation/NavigationRef";
-import Icon from "react-native-vector-icons/FontAwesome5";
-import CountryPicker from "react-native-country-picker-modal";
-import {
-  moderateScale,
-  ms,
-  scale,
-  verticalScale,
-} from "react-native-size-matters";
-import {
-  backArrow,
-  coins,
-  selectedCheckBox,
-  checkBox,
-  deliveryTruck,
-  addSquareBox,
-  addSquare,
-  jobrRound,
-  walletIcon,
-  orderDetails,
-  Fonts,
-  forwardArrowWhite,
-} from "@/assets";
+import { ms } from "react-native-size-matters";
+import { backArrow, selectedCheckBox, checkBox } from "@/assets";
 import { strings } from "@/localization";
 import { NAVIGATION } from "@/constants";
 export function AddCreditCard() {
   const [agree, setagree] = useState(false);
+  const [sameAddress, setSameAddress] = useState("");
   const [cardNumber, setCardNumber] = useState("");
-  const [expiry, setExpiry] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCvv] = useState("");
   const [holderName, setHolderName] = useState("");
 
@@ -88,15 +61,26 @@ export function AddCreditCard() {
               {strings.addCreditCard.expiry}
             </Text>
             <TextField
+              value={expiryDate}
               keyboardType="numeric"
               placeholder={strings.addCreditCard.monthYear}
               style={styles.smallInput}
+              returnKeyType="done"
+              maxLength={5}
+              onChangeText={(text) => {
+                setExpiryDate(
+                  text.length === 2 && !text.includes("/")
+                    ? `${text.substring(0, 2)}/${text.substring(2)}`
+                    : text
+                );
+              }}
             />
           </View>
 
           <View style={{ width: "48%" }}>
             <Text style={styles.headingsText}>{strings.addCreditCard.cvv}</Text>
             <TextField
+              maxLength={3}
               keyboardType="numeric"
               placeholder={strings.addCreditCard.cvvNo}
               style={styles.smallInput}
@@ -123,15 +107,37 @@ export function AddCreditCard() {
         <Spacer space={SH(15)} />
         <View style={styles.yesNoView}>
           <View style={styles.selectView}>
-            <TouchableOpacity style={styles.outerDot}>
-              <View style={styles.innerDot}></View>
+            <TouchableOpacity
+              onPress={() => setSameAddress("Yes")}
+              style={{
+                ...styles.outerDot,
+                borderColor: sameAddress == "Yes" ? "#275AFF" : "grey",
+              }}
+            >
+              <View
+                style={{
+                  ...styles.innerDot,
+                  backgroundColor: sameAddress == "Yes" ? "#275AFF" : "white",
+                }}
+              ></View>
             </TouchableOpacity>
             <Text style={styles.shippingText}>{strings.addCreditCard.yes}</Text>
           </View>
 
           <View style={styles.selectView}>
-            <TouchableOpacity style={styles.outerDot}>
-              <View style={styles.innerDot}></View>
+            <TouchableOpacity
+              onPress={() => setSameAddress("No")}
+              style={{
+                ...styles.outerDot,
+                borderColor: sameAddress == "No" ? "#275AFF" : "grey",
+              }}
+            >
+              <View
+                style={{
+                  ...styles.innerDot,
+                  backgroundColor: sameAddress == "No" ? "#275AFF" : "white",
+                }}
+              ></View>
             </TouchableOpacity>
             <Text style={styles.shippingText}>{strings.addCreditCard.no}</Text>
           </View>
