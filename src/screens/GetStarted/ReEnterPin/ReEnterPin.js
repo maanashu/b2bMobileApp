@@ -9,11 +9,13 @@ import {
 import { jobrSplash, blueLogo, backArrow, Verified } from "@/assets";
 import { strings } from "@/localization";
 import { NAVIGATION } from "@/constants";
+import { login, TYPES } from "@/actions/UserActions";
 import { SH, TextStyles, COLORS } from "@/theme";
 import Modal from "react-native-modal";
 import { goBack, navigate } from "@/navigation/NavigationRef";
 import { Button, Spacer, ScreenWrapper } from "@/components";
 import { styles } from "@/screens/GetStarted/ReEnterPin/ReEnterPin.styles";
+import { useDispatch } from "react-redux";
 const CELL_COUNT = 4;
 
 export function ReEnterPin({ navigation }) {
@@ -24,6 +26,14 @@ export function ReEnterPin({ navigation }) {
     setValue,
   });
   const [loginModal, setLoginModal] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = () => {
+    const dummyUserName = "Dummy";
+    const dummyUserPassword = "Dummy";
+    dispatch(login(dummyUserName, dummyUserPassword));
+  };
 
   return (
     <ScreenWrapper>
@@ -94,10 +104,11 @@ export function ReEnterPin({ navigation }) {
             // onPress={() => navigate(NAVIGATION.productInquiry)}
             onPress={() => {
               setLoginModal(false);
-              navigation.reset({
-                index: 0,
-                routes: [{ name: NAVIGATION.productInquiry }],
-              });
+              handleSubmit();
+              // navigation.reset({
+              //   index: 0,
+              //   routes: [{ name: NAVIGATION.productInquiry }],
+              // });
             }}
           />
         </View>

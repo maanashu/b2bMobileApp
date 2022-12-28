@@ -103,6 +103,23 @@ export { default as debitCard } from "@/assets/icons/ic_payment/debitCard.png";
 export { default as bank } from "@/assets/icons/ic_payment/bank.png";
 export { default as bagWhite } from "@/assets/icons/ic_Products/Bag.png";
 export { default as plusIcon } from "@/assets/icons/ic_Products/plusIcon.png";
+export { default as bottomHome } from "@/assets/icons/ic_bottomTabs/home.png";
+export { default as bottomProducts } from "@/assets/icons/ic_bottomTabs/products.png";
+export { default as bottomchat } from "@/assets/icons/ic_bottomTabs/chat.png";
+export { default as bottomOrders } from "@/assets/icons/ic_bottomTabs/orders.png";
+export { default as bottomMyJobr } from "@/assets/icons/ic_bottomTabs/myJobr.png";
+export { default as image1 } from "@/assets/images/image1.png";
+export { default as image2 } from "@/assets/images/image2.png";
+export { default as image3 } from "@/assets/images/image3.png";
+export { default as image4 } from "@/assets/images/image4.png";
+export { default as image5 } from "@/assets/images/image5.png";
+export { default as image6 } from "@/assets/images/image6.png";
+export { default as image7 } from "@/assets/images/image7.png";
+export { default as image8 } from "@/assets/images/image8.png";
+export { default as image9 } from "@/assets/images/image9.png";
+export { default as image10 } from "@/assets/images/image10.png";
+export { default as image11 } from "@/assets/images/image11.png";
+export { default as image12 } from "@/assets/images/image12.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

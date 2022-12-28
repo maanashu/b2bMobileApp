@@ -144,4 +144,7 @@ export const en = {
     no: "No",
     addCard: "Add Card",
   },
+  newProducts: {
+    newProducts: "New Products",
+  },
 };

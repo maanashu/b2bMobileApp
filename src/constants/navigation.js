@@ -19,4 +19,5 @@ export const NAVIGATION = {
   addMoneyToWallet: "AddMoneyToWallet",
   paymentMethod: "PaymentMethod",
   addCreditCard: "AddCreditCard",
+  newProducts: "NewProducts",
 };

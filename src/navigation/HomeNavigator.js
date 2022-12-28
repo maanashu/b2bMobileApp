@@ -3,10 +3,10 @@ import { createNativeStackNavigator } from "react-native-screens/native-stack";
 import { NAVIGATION } from "@/constants";
 import {
   AddCreditCard,
-  AddMoneyToWallet,
   AddShippingAddress,
   Delivery,
   Home,
+  NewProducts,
   PaymentMethod,
   ProductInquiry,
   ReviewAndPayment,
@@ -24,7 +24,7 @@ export function HomeNavigator() {
         component={Home}
         options={{ headerShown: false }}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         component={ProductInquiry}
         name={NAVIGATION.productInquiry}
         options={{ headerShown: false }}
@@ -55,11 +55,7 @@ export function HomeNavigator() {
         name={NAVIGATION.addShippingAddress}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        component={AddMoneyToWallet}
-        name={NAVIGATION.addMoneyToWallet}
-        options={{ headerShown: false }}
-      />
+
       <Stack.Screen
         component={PaymentMethod}
         name={NAVIGATION.paymentMethod}
@@ -69,7 +65,12 @@ export function HomeNavigator() {
         component={AddCreditCard}
         name={NAVIGATION.addCreditCard}
         options={{ headerShown: false }}
-      /> */}
+      />
+      <Stack.Screen
+        component={NewProducts}
+        name={NAVIGATION.newProducts}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 }

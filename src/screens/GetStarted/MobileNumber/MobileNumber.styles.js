@@ -1,4 +1,4 @@
-import { StyleSheet,Dimensions } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import { SH, SW, COLORS, SF } from "@/theme";
 import { Fonts } from "@/assets";
 import { moderateScale } from "react-native-size-matters";
@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
   },
 
   textInputContainer: {
-    backgroundColor: COLORS.input_bg,
+    backgroundColor: COLORS.placeHolder,
     paddingHorizontal: SW(10),
     color: COLORS.black,
     fontSize: SF(16),
@@ -35,8 +35,8 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.placeHolder,
     borderRadius: 5,
     marginTop: 16,
-    width:windowWidth * 0.92,
-    alignSelf:'center'
+    width: windowWidth * 0.92,
+    alignSelf: "center",
   },
   codeText: {
     color: COLORS.black,
@@ -53,20 +53,20 @@ export const styles = StyleSheet.create({
     color: COLORS.grey,
     fontSize: SF(24),
     fontFamily: Fonts.MaisonMonoBold,
-    paddingHorizontal:moderateScale(20)
+    paddingHorizontal: moderateScale(20),
   },
   pleaseEnterMobile: {
     color: COLORS.darkGrey,
     fontSize: SF(16),
     fontFamily: Fonts.Regular,
-    paddingHorizontal:moderateScale(20)
+    paddingHorizontal: moderateScale(20),
   },
   loginButton: {
     backgroundColor: COLORS.primary,
     borderColor: "transparent",
     height: SH(54),
-    width:windowWidth * 0.92,
-    alignSelf:'center'
+    width: windowWidth * 0.92,
+    alignSelf: "center",
   },
   text: {
     color: COLORS.white,
