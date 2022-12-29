@@ -1,4 +1,4 @@
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { styles } from "./Delivery.styles";
 import { Button, Spacer } from "@/components";
@@ -9,8 +9,21 @@ import { goBack, navigate } from "@/navigation/NavigationRef";
 import { backArrow, jobr, dhl, ups, coins, fedEx } from "@/assets";
 import { strings } from "@/localization";
 import { NAVIGATION } from "@/constants";
+
 export function Delivery() {
   const [selectedId, setSelectedId] = useState("");
+
+  const selectDelivery = () => {
+    if (selectedId) {
+      {
+        navigate(NAVIGATION.reviewAndPayment, {
+          deliveryService: selectedId,
+        });
+      }
+    } else {
+      Alert.alert("Please select a delivery service");
+    }
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white }}>
@@ -45,7 +58,7 @@ export function Delivery() {
         <View style={styles.fedexView}>
           <View style={styles.fedEXDeliveryView}>
             <TouchableOpacity
-              onPress={() => setSelectedId("Fedex")}
+              onPress={() => setSelectedId("Fedex Express shipping")}
               style={styles.deliveryViewInnerView}
             >
               <View style={styles.deliveryViewInnerView}>
@@ -67,14 +80,17 @@ export function Delivery() {
                   alignItems: "center",
                   justifyContent: "center",
                   borderRadius: 10,
-                  borderColor: selectedId == "Fedex" ? "#275AFF" : "grey",
+                  borderColor:
+                    selectedId == "Fedex Express shipping" ? "#275AFF" : "grey",
                 }}
               >
                 <View
                   style={{
                     ...styles.innerDot,
                     backgroundColor:
-                      selectedId == "Fedex" ? "#275AFF" : "white",
+                      selectedId == "Fedex Express shipping"
+                        ? "#275AFF"
+                        : "white",
                   }}
                 ></View>
               </View>
@@ -91,7 +107,7 @@ export function Delivery() {
         <View style={styles.upsView}>
           <View style={styles.upsDeliveryView}>
             <TouchableOpacity
-              onPress={() => setSelectedId("Ups")}
+              onPress={() => setSelectedId("UPS Proirity shipping")}
               style={styles.deliveryViewInnerView}
             >
               <View style={styles.deliveryViewInnerView}>
@@ -111,13 +127,17 @@ export function Delivery() {
                   alignItems: "center",
                   justifyContent: "center",
                   borderRadius: 10,
-                  borderColor: selectedId == "Ups" ? "#275AFF" : "grey",
+                  borderColor:
+                    selectedId == "UPS Proirity shipping" ? "#275AFF" : "grey",
                 }}
               >
                 <View
                   style={{
                     ...styles.innerDot,
-                    backgroundColor: selectedId == "Ups" ? "#275AFF" : "white",
+                    backgroundColor:
+                      selectedId == "UPS Proirity shipping"
+                        ? "#275AFF"
+                        : "white",
                   }}
                 ></View>
               </View>
@@ -134,7 +154,7 @@ export function Delivery() {
         <View style={styles.dhlView}>
           <View style={styles.dhlDeliveryView}>
             <TouchableOpacity
-              onPress={() => setSelectedId("Dhl")}
+              onPress={() => setSelectedId("DHL Standard shipping")}
               style={styles.deliveryViewInnerView}
             >
               <View style={styles.deliveryViewInnerView}>
@@ -154,13 +174,17 @@ export function Delivery() {
                   alignItems: "center",
                   justifyContent: "center",
                   borderRadius: 10,
-                  borderColor: selectedId == "Dhl" ? "#275AFF" : "grey",
+                  borderColor:
+                    selectedId == "DHL Standard shipping" ? "#275AFF" : "grey",
                 }}
               >
                 <View
                   style={{
                     ...styles.innerDot,
-                    backgroundColor: selectedId == "Dhl" ? "#275AFF" : "white",
+                    backgroundColor:
+                      selectedId == "DHL Standard shipping"
+                        ? "#275AFF"
+                        : "white",
                   }}
                 ></View>
               </View>
@@ -178,7 +202,7 @@ export function Delivery() {
         <View style={styles.jobrView}>
           <View style={styles.jobrDeliveryView}>
             <TouchableOpacity
-              onPress={() => setSelectedId("Jobr")}
+              onPress={() => setSelectedId("JOBR Standard shipping")}
               style={styles.deliveryViewInnerView}
             >
               <View style={styles.deliveryViewInnerView}>
@@ -198,13 +222,17 @@ export function Delivery() {
                   alignItems: "center",
                   justifyContent: "center",
                   borderRadius: 10,
-                  borderColor: selectedId == "Jobr" ? "#275AFF" : "grey",
+                  borderColor:
+                    selectedId == "JOBR Standard shipping" ? "#275AFF" : "grey",
                 }}
               >
                 <View
                   style={{
                     ...styles.innerDot,
-                    backgroundColor: selectedId == "Jobr" ? "#275AFF" : "white",
+                    backgroundColor:
+                      selectedId == "JOBR Standard shipping"
+                        ? "#275AFF"
+                        : "white",
                   }}
                 ></View>
               </View>
@@ -219,7 +247,7 @@ export function Delivery() {
 
       <View style={styles.buttonView}>
         <Button
-          onPress={() => navigate(NAVIGATION.reviewAndPayment)}
+          onPress={selectDelivery}
           style={styles.doneButton}
           title={strings.startOrder.done}
           textStyle={styles.buttonTextStyle}

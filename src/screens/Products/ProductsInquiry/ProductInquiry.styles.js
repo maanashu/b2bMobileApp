@@ -21,13 +21,7 @@ export const styles = StyleSheet.create({
     width: SW(24),
     marginRight: SW(20),
   },
-  header: {
-    height: SH(50),
-    backgroundColor: COLORS.white,
-    elevation: 5,
-    paddingHorizontal: SW(20),
-    justifyContent: "center",
-  },
+
   item: {
     backgroundColor: COLORS.white,
     borderColor: COLORS.blue,
@@ -315,6 +309,32 @@ export const styles = StyleSheet.create({
     color: COLORS.black,
     fontSize: SF(14),
     fontFamily: Fonts.Bold,
+  },
+
+  header: {
+    height: SH(50),
+    backgroundColor: COLORS.white,
+    elevation: 5,
+    paddingHorizontal: SW(20),
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  headerInnerView: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  headerText: {
+    fontFamily: Fonts.SemiBold,
+    color: COLORS.black,
+    fontSize: s(14),
+  },
+  crossIcon: {
+    height: SH(35),
+    width: SW(40),
+    color: COLORS.black,
   },
   ShoesStyle: {
     height: 190,

@@ -50,7 +50,7 @@ export const en = {
     newPinSet: "Your new pin is set now",
   },
   search: {
-    search: "search",
+    search: "Search here",
   },
   productInquiry: {
     productDetails: "Product Details",
@@ -146,5 +146,28 @@ export const en = {
   },
   newProducts: {
     newProducts: "New Products",
+    filter: "Filter",
+  },
+  business: {
+    topManufactor: "Top-rank Manufacturers",
+    seeAll: "See all",
+    bestSellers: "Best Sellers",
+    shoeMan: "Shoe man",
+    electronics: "Electronics",
+    topCategoryManufacturer: "Top Category Manufacturers",
+    womenFashion: "Women's fashion",
+    menFashion: "Men's fashion",
+    phones: "Phones & Telecommunications",
+    jeans: "Jeans",
+    manufacturers: "Manufacturers",
+    orders: "Orders",
+    trending: "Trending",
+    tobacco: "Tobacco",
+    apparel: "Apparel",
+    getSamples: "Get Samples",
+  },
+  topRankingManufacturers: {
+    topManufacturers: "Top Manufacturers",
+    topRankingManufacturers: "Top-Ranking \nManufacturers",
   },
 };

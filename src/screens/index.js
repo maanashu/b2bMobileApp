@@ -20,3 +20,5 @@ export { SecondScreen } from "@/screens/SecondScreen/SecondScreen";
 export { Products } from "@/screens/TopTabScreens/Products/Products";
 export { Business } from "@/screens/TopTabScreens/Business/Business";
 export { NewProducts } from "@/screens/NewProducts/NewProducts";
+export { Apparel } from "@/screens/TopTabScreens/Apparel/Apparel";
+export { TopRankingManufacturers } from "@/screens/TopRankingManufacturers/TopRankingManufacturers";

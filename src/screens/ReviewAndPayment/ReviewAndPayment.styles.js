@@ -247,7 +247,7 @@ export const styles = StyleSheet.create({
   bottomButtonView: {
     flex: 1,
     justifyContent: "flex-end",
-    marginHorizontal: SW(20),
+
     marginBottom: SH(20),
   },
   missingAddressButton: {

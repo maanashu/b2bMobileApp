@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { strings } from "@/localization";
 import { styles } from "./ProductInquiry.styles";
-import { navigate } from "@/navigation/NavigationRef";
+import { goBack, navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants/navigation";
 import { useState } from "react";
 import { ScreenWrapper, Spacer } from "@/components";
@@ -43,6 +43,9 @@ import {
   plusIcon,
   Fonts,
   bagWhite,
+  backArrow,
+  bellGrey,
+  bagGrey,
 } from "@/assets";
 import { ms } from "react-native-size-matters";
 
@@ -267,7 +270,34 @@ export function ProductInquiry() {
   return (
     <ScreenWrapper>
       <View style={styles.header}>
-        <Text style={styles.headerText}>Product Inquiry</Text>
+        <View style={styles.headerInnerView}>
+          <TouchableOpacity
+            style={{ flexDirection: "row", alignItems: "center" }}
+            onPress={() => goBack()}
+          >
+            <Image
+              resizeMode="contain"
+              source={backArrow}
+              style={{ height: 30, width: 30 }}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <TouchableOpacity>
+            <Image
+              resizeMode="contain"
+              source={bellGrey}
+              style={styles.crossIcon}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Image
+              resizeMode="contain"
+              source={bagGrey}
+              style={styles.crossIcon}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
       <Spacer space={SH(10)} />
       <ScrollView

@@ -120,6 +120,18 @@ export { default as image9 } from "@/assets/images/image9.png";
 export { default as image10 } from "@/assets/images/image10.png";
 export { default as image11 } from "@/assets/images/image11.png";
 export { default as image12 } from "@/assets/images/image12.png";
+export { default as filter } from "@/assets/icons/ic_Products/filter.png";
+export { default as bellGrey } from "@/assets/icons/ic_Products/bellGrey.png";
+export { default as bagGrey } from "@/assets/icons/ic_Products/bagGrey.png";
+export { default as shoesBusiness } from "@/assets/icons/ic_business/shoes.png";
+export { default as headphones } from "@/assets/icons/ic_business/headphone.png";
+export { default as jacket } from "@/assets/icons/ic_business/jacket.png";
+export { default as boots } from "@/assets/icons/ic_business/boots.png";
+export { default as watch } from "@/assets/icons/ic_business/watch.png";
+export { default as lighter } from "@/assets/icons/ic_business/lighter.png";
+export { default as jeansLogo } from "@/assets/icons/ic_business/jeansLogo.png";
+export { default as search } from "@/assets/icons/ic_Products/search.png";
+export { default as boxStar } from "@/assets/icons/ic_Products/boxStar.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

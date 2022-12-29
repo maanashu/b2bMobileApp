@@ -12,6 +12,7 @@ import {
   ReviewAndPayment,
   SendInquiry,
   StartOrder,
+  TopRankingManufacturers,
 } from "@/screens";
 
 const Stack = createNativeStackNavigator();
@@ -69,6 +70,11 @@ export function HomeNavigator() {
       <Stack.Screen
         component={NewProducts}
         name={NAVIGATION.newProducts}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={TopRankingManufacturers}
+        name={NAVIGATION.topRankingManufacturers}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

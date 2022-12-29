@@ -46,6 +46,7 @@ import {
 import { LastData } from "@/screens/Products/ProductsInquiry/FlatlistData";
 import { ms, vs } from "react-native-size-matters";
 import { NAVIGATION } from "@/constants";
+import { Search } from "@/components/Search";
 export function Products({ onPress }) {
   const listData = LastData;
 
@@ -233,6 +234,7 @@ export function Products({ onPress }) {
   );
   return (
     <ScreenWrapper>
+      <Search />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Spacer space={SH(10)} />
 

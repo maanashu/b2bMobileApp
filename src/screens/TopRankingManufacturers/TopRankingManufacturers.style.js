@@ -28,7 +28,10 @@ export const styles = StyleSheet.create({
   headerText: {
     fontFamily: Fonts.SemiBold,
     color: COLORS.black,
-    fontSize: s(14),
+    fontSize: s(12),
+  },
+  searchIcon: {
+    height: vs(25),
   },
   crossIcon: {
     height: SH(35),
@@ -37,8 +40,6 @@ export const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     backgroundColor: COLORS.white,
-    paddingHorizontal: SW(20),
-    paddingVertical: SH(5),
   },
   filterText: {
     fontFamily: Fonts.Regular,
@@ -61,5 +62,19 @@ export const styles = StyleSheet.create({
   tabButtonView: {
     borderRadius: 20,
     width: ms(65),
+  },
+  upperView: {
+    height: vs(120),
+    width: "100%",
+    backgroundColor: COLORS.inputBorder,
+    paddingHorizontal: ms(20),
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  topBoldText: {
+    fontFamily: Fonts.Bold,
+    color: COLORS.primary,
+    fontSize: ms(25),
+    marginLeft: ms(20),
   },
 });

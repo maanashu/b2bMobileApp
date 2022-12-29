@@ -19,7 +19,9 @@ export function Search({ style, imgStyle, backRequired }) {
           borderRadius: moderateScale(5),
           flexDirection: "row",
           alignItems: "center",
-          height: SH(40),
+          height: SH(50),
+          width: "90%",
+          alignSelf: "center",
 
           backgroundColor: COLORS.inputBorder,
         },
@@ -53,10 +55,10 @@ export function Search({ style, imgStyle, backRequired }) {
       <TextInput
         keyboardType="default"
         returnKeyType="search"
-        onSubmitEditing={() => {
-          navigate(NAVIGATION.search, { code: code });
-          setCode({ code: "" });
-        }}
+        // onSubmitEditing={() => {
+        //   navigate(NAVIGATION.search, { code: code });
+        //   setCode({ code: "" });
+        // }}
         style={styles.inputStyle}
         placeholder={strings.search.search}
         placeholderTextColor={"#A7A7A7"}

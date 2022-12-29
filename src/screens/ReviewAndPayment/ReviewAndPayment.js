@@ -94,7 +94,7 @@ export function ReviewAndPayment({ navigation }) {
   const route = useRoute();
 
   const { countryname } = route.params || {};
-
+  const { deliveryService } = route.params || {};
   // const [address, setAddress] = useState(countryname);
   const Details = [
     {
@@ -164,6 +164,7 @@ export function ReviewAndPayment({ navigation }) {
       </View>
 
       <Spacer space={SH(10)} />
+
       <ScrollView style={styles.mainContainer}>
         <View style={styles.deliveryView}>
           <View style={styles.deliveryViewDirection}>
@@ -176,7 +177,7 @@ export function ReviewAndPayment({ navigation }) {
             </View>
             <View style={styles.deliveryViewText}>
               <Text style={styles.deliveryTime}>Delivery time</Text>
-              <Text style={styles.deliveryName}>Express shipping</Text>
+              <Text style={styles.deliveryName}>{deliveryService}</Text>
               <Text style={styles.estimatedDelivery}>
                 Estimated Delivery{" "}
                 <Text style={styles.deliveryDays}> 3-5 Days</Text>
@@ -259,7 +260,7 @@ export function ReviewAndPayment({ navigation }) {
             <Text style={styles.orderDetailsText}>Order details</Text>
           </View>
 
-          <View style={{ paddingHorizontal: SW(20) }}>
+          <ScrollView style={{ paddingHorizontal: SW(20) }}>
             <FlatList
               data={Details}
               renderItem={({ item }) => render(item)}
@@ -304,7 +305,7 @@ export function ReviewAndPayment({ navigation }) {
               <Text style={styles.totalPriceText}>Total</Text>
               <Text style={styles.totalPriceText}>$19.65</Text>
             </View>
-          </View>
+          </ScrollView>
         </View>
         <Spacer space={SH(10)} />
         <Text style={{ marginHorizontal: 2, fontSize: SF(13) }}>
@@ -313,88 +314,93 @@ export function ReviewAndPayment({ navigation }) {
             terms & conditions
           </Text>
         </Text>
-      </ScrollView>
-      {countryname == undefined ? (
-        <View style={styles.bottomButtonView}>
-          <TouchableOpacity disabled={true} style={styles.missingAddressButton}>
-            <View style={styles.missingAddressButtonView}>
-              <Text style={styles.placeOrderText}>
-                Place order
-                <Text style={{ fontFamily: Fonts.Regular, fontSize: SF(12) }}>
-                  {" "}
-                  (Missing address)
-                </Text>
-              </Text>
-              <View style={styles.box}>
-                <Image
-                  source={forwardArrowWhite}
-                  style={{ height: 25, width: SW(39) }}
-                />
-              </View>
-            </View>
-          </TouchableOpacity>
-        </View>
-      ) : (
-        <View style={styles.bottomButtonView}>
-          <TouchableOpacity style={styles.missingAddressButton}>
-            <View style={styles.missingAddressButtonView}>
-              <Text style={styles.placeOrderText}>
-                Place order
-                <Text style={{ fontFamily: Fonts.Regular, fontSize: SF(12) }}>
-                  {" "}
-                  (Payment)
-                </Text>
-              </Text>
-              <View style={styles.box}>
-                <Image
-                  source={forwardArrowWhite}
-                  style={{ height: 25, width: SW(39) }}
-                />
-              </View>
-            </View>
-          </TouchableOpacity>
-        </View>
-      )}
 
-      <RBSheet
-        ref={refRBSheet}
-        animationType="fade"
-        closeOnDragDown={false}
-        closeOnPressMask={false}
-        height={vs(630)}
-        customStyles={{
-          wrapper: {
-            backgroundColor: "#999999",
-          },
-          container: {
-            backgroundColor: "#999999",
-          },
-          draggableIcon: {
-            backgroundColor: "#000",
-          },
-        }}
-      >
-        <View
-          style={{
-            backgroundColor: "#999999",
-            paddingBottom: vs(10),
-            paddingHorizontal: ms(20),
-            alignItems: "flex-end",
+        <Spacer space={SH(20)} />
+
+        {countryname == undefined ? (
+          <View style={styles.bottomButtonView}>
+            <TouchableOpacity
+              disabled={true}
+              style={styles.missingAddressButton}
+            >
+              <View style={styles.missingAddressButtonView}>
+                <Text style={styles.placeOrderText}>
+                  Place order
+                  <Text style={{ fontFamily: Fonts.Regular, fontSize: SF(12) }}>
+                    {" "}
+                    (Missing address)
+                  </Text>
+                </Text>
+                <View style={styles.box}>
+                  <Image
+                    source={forwardArrowWhite}
+                    style={{ height: 25, width: SW(39) }}
+                  />
+                </View>
+              </View>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View style={styles.bottomButtonView}>
+            <TouchableOpacity style={styles.missingAddressButton}>
+              <View style={styles.missingAddressButtonView}>
+                <Text style={styles.placeOrderText}>
+                  Place order
+                  <Text style={{ fontFamily: Fonts.Regular, fontSize: SF(12) }}>
+                    {" "}
+                    (Payment)
+                  </Text>
+                </Text>
+                <View style={styles.box}>
+                  <Image
+                    source={forwardArrowWhite}
+                    style={{ height: 25, width: SW(39) }}
+                  />
+                </View>
+              </View>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        <RBSheet
+          ref={refRBSheet}
+          animationType="fade"
+          closeOnDragDown={false}
+          closeOnPressMask={false}
+          height={vs(630)}
+          customStyles={{
+            wrapper: {
+              backgroundColor: "#999999",
+            },
+            container: {
+              backgroundColor: "#999999",
+            },
+            draggableIcon: {
+              backgroundColor: "#000",
+            },
           }}
         >
-          <TouchableOpacity onPress={() => refRBSheet.current.close()}>
-            <Text
-              style={{
-                fontFamily: Fonts.SemiBold,
-                fontSize: ms(14),
-                color: COLORS.white,
-              }}
-            >
-              {strings.wallet.close}
-            </Text>
-          </TouchableOpacity>
-        </View>
-        {/* <View
+          <View
+            style={{
+              backgroundColor: "#999999",
+              paddingBottom: vs(10),
+              paddingHorizontal: ms(20),
+              alignItems: "flex-end",
+            }}
+          >
+            <TouchableOpacity onPress={() => refRBSheet.current.close()}>
+              <Text
+                style={{
+                  fontFamily: Fonts.SemiBold,
+                  fontSize: ms(14),
+                  color: COLORS.white,
+                }}
+              >
+                {strings.wallet.close}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          {/* <View
           style={{
             backgroundColor: COLORS.white,
             flex: 1,
@@ -406,71 +412,74 @@ export function ReviewAndPayment({ navigation }) {
         >
           <Text>{strings.wallet.close}</Text>
         </View> */}
-        <ScrollView
-          bounces={false}
-          showsVerticalScrollIndicator={false}
-          style={{
-            backgroundColor: "white",
-            borderTopLeftRadius: 50,
-            borderTopRightRadius: 50,
-            paddingTop: verticalScale(20),
-          }}
-        >
-          <View style={styles.headingRowView}>
-            <Text style={styles.walletText}>{strings.wallet.wallet}</Text>
-            <Image
-              source={coins}
-              resizeMode="contain"
-              style={styles.coinIcon}
-            />
-          </View>
-          <View>
-            <Text style={{ textAlign: "center" }}>
-              {strings.wallet.useCoin}
-            </Text>
-          </View>
-          <Spacer space={SH(15)} />
-
-          <View style={{ paddingHorizontal: ms(20) }}>
-            <View style={styles.referralView}>
-              <View style={{ paddingLeft: ms(10) }}>
-                <Spacer space={SH(10)} />
-                <Text style={styles.refferalBigText}>Get 15.00 JBR</Text>
-
-                <Text style={styles.refferalsmallText}>
-                  {strings.wallet.getJbr}
-                </Text>
-                <Spacer space={SH(17)} />
-                <View style={styles.shareButton}>
-                  <Text style={styles.shareText}>Share</Text>
-                </View>
-              </View>
+          <ScrollView
+            bounces={false}
+            showsVerticalScrollIndicator={false}
+            style={{
+              backgroundColor: "white",
+              borderTopLeftRadius: 50,
+              borderTopRightRadius: 50,
+              paddingTop: verticalScale(20),
+            }}
+          >
+            <View style={styles.headingRowView}>
+              <Text style={styles.walletText}>{strings.wallet.wallet}</Text>
               <Image
-                source={referralCorner}
-                resizeMode="cover"
-                style={styles.cornerImage}
+                source={coins}
+                resizeMode="contain"
+                style={styles.coinIcon}
               />
             </View>
-          </View>
+            <View>
+              <Text style={{ textAlign: "center" }}>
+                {strings.wallet.useCoin}
+              </Text>
+            </View>
+            <Spacer space={SH(15)} />
 
-          <Spacer space={SH(15)} />
-          <FlatList
-            data={data}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-            showsVerticalScrollIndicator={false}
-            // initialNumToRender={2}
-            // maxToRenderPerBatch={2}
-            // windowSize={1}
-            removeClippedSubviews={true}
-          />
-          <Spacer space={SH(15)} />
-          <View style={{ paddingHorizontal: ms(20), alignItems: "center" }}>
-            <Text style={styles.agreementText}>{strings.wallet.agreement}</Text>
-          </View>
-          <Spacer space={SH(40)} />
-        </ScrollView>
-      </RBSheet>
+            <View style={{ paddingHorizontal: ms(20) }}>
+              <View style={styles.referralView}>
+                <View style={{ paddingLeft: ms(10) }}>
+                  <Spacer space={SH(10)} />
+                  <Text style={styles.refferalBigText}>Get 15.00 JBR</Text>
+
+                  <Text style={styles.refferalsmallText}>
+                    {strings.wallet.getJbr}
+                  </Text>
+                  <Spacer space={SH(17)} />
+                  <View style={styles.shareButton}>
+                    <Text style={styles.shareText}>Share</Text>
+                  </View>
+                </View>
+                <Image
+                  source={referralCorner}
+                  resizeMode="cover"
+                  style={styles.cornerImage}
+                />
+              </View>
+            </View>
+
+            <Spacer space={SH(15)} />
+            <FlatList
+              data={data}
+              renderItem={renderItem}
+              keyExtractor={(item) => item.id}
+              showsVerticalScrollIndicator={false}
+              // initialNumToRender={2}
+              // maxToRenderPerBatch={2}
+              // windowSize={1}
+              removeClippedSubviews={true}
+            />
+            <Spacer space={SH(15)} />
+            <View style={{ paddingHorizontal: ms(20), alignItems: "center" }}>
+              <Text style={styles.agreementText}>
+                {strings.wallet.agreement}
+              </Text>
+            </View>
+            <Spacer space={SH(40)} />
+          </ScrollView>
+        </RBSheet>
+      </ScrollView>
     </View>
   );
 }

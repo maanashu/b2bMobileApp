@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  item: {},
   roundIcons: {
     height: SH(56),
     width: SW(56),

@@ -20,4 +20,5 @@ export const NAVIGATION = {
   paymentMethod: "PaymentMethod",
   addCreditCard: "AddCreditCard",
   newProducts: "NewProducts",
+  topRankingManufacturers: "TopRankingManufacturers",
 };

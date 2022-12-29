@@ -64,8 +64,9 @@ export function Home() {
         }}
         indicatorStyle={{ backgroundColor: COLORS.white }}
         style={{
-          elevation: 0,
+          elevation: 2,
           backgroundColor: COLORS.white,
+          marginBottom: 1,
         }}
         pressColor={COLORS.white}
         tabStyle={{ width: "auto" }}
