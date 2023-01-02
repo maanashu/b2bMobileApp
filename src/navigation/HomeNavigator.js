@@ -2,8 +2,12 @@ import React from "react";
 import { createNativeStackNavigator } from "react-native-screens/native-stack";
 import { NAVIGATION } from "@/constants";
 import {
+  AboutBusiness,
   AddCreditCard,
   AddShippingAddress,
+  BusinessHome,
+  BusinessProducts,
+  BusinessProfile,
   Delivery,
   Home,
   NewProducts,
@@ -75,6 +79,26 @@ export function HomeNavigator() {
       <Stack.Screen
         component={TopRankingManufacturers}
         name={NAVIGATION.topRankingManufacturers}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={AboutBusiness}
+        name={NAVIGATION.aboutBusiness}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={BusinessHome}
+        name={NAVIGATION.businessHome}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={BusinessProducts}
+        name={NAVIGATION.businessProducts}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={BusinessProfile}
+        name={NAVIGATION.businessProfile}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

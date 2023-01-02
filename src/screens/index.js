@@ -22,3 +22,7 @@ export { Business } from "@/screens/TopTabScreens/Business/Business";
 export { NewProducts } from "@/screens/NewProducts/NewProducts";
 export { Apparel } from "@/screens/TopTabScreens/Apparel/Apparel";
 export { TopRankingManufacturers } from "@/screens/TopRankingManufacturers/TopRankingManufacturers";
+export { AboutBusiness } from "@/screens/AboutBusiness/AboutBusiness";
+export { BusinessProfile } from "@/screens/BusinessProfile/BusinessProfile";
+export { BusinessProducts } from "@/screens/BusinessProducts/BusinessProducts";
+export { BusinessHome } from "@/screens/BusinessHome/BusinessHome";

@@ -176,11 +176,16 @@ export function ReviewAndPayment({ navigation }) {
               />
             </View>
             <View style={styles.deliveryViewText}>
-              <Text style={styles.deliveryTime}>Delivery time</Text>
+              <Text style={styles.deliveryTime}>
+                {strings.reviewAndPayment.deliveryTime}
+              </Text>
               <Text style={styles.deliveryName}>{deliveryService}</Text>
               <Text style={styles.estimatedDelivery}>
-                Estimated Delivery{" "}
-                <Text style={styles.deliveryDays}> 3-5 Days</Text>
+                {strings.reviewAndPayment.estimatedDelivery}{" "}
+                <Text style={styles.deliveryDays}>
+                  {" "}
+                  {strings.reviewAndPayment.days}
+                </Text>
               </Text>
             </View>
           </View>
@@ -200,7 +205,10 @@ export function ReviewAndPayment({ navigation }) {
               />
             </View>
             <View>
-              <Text style={styles.addAddressText}>Add shipping address</Text>
+              <Text style={styles.addAddressText}>
+                {" "}
+                {strings.reviewAndPayment.addShippingAddress}
+              </Text>
             </View>
           </TouchableOpacity>
         ) : (
@@ -257,7 +265,9 @@ export function ReviewAndPayment({ navigation }) {
               source={orderDetails}
               style={styles.ordetDetailsIcon}
             />
-            <Text style={styles.orderDetailsText}>Order details</Text>
+            <Text style={styles.orderDetailsText}>
+              {strings.reviewAndPayment.orderDetails}
+            </Text>
           </View>
 
           <ScrollView style={{ paddingHorizontal: SW(20) }}>
@@ -309,9 +319,9 @@ export function ReviewAndPayment({ navigation }) {
         </View>
         <Spacer space={SH(10)} />
         <Text style={{ marginHorizontal: 2, fontSize: SF(13) }}>
-          By completing this order, I agree to all {""}
+          {strings.reviewAndPayment.byCompleting} {""}
           <Text style={{ fontSize: SF(13), color: COLORS.activeTab }}>
-            terms & conditions
+            {strings.reviewAndPayment.terms}
           </Text>
         </Text>
 

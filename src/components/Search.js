@@ -4,7 +4,7 @@ import { SF } from "@/theme/ScalerDimensions";
 import { SH } from "@/theme/ScalerDimensions";
 import { SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { searchIcon, Fonts } from "@/assets";
+import { searchIcon, Fonts, search } from "@/assets";
 import { moderateScale } from "react-native-size-matters";
 import { strings } from "@/localization";
 import { navigate } from "@/navigation/NavigationRef";
@@ -12,6 +12,7 @@ import { NAVIGATION } from "@/constants";
 
 export function Search({ style, imgStyle, backRequired }) {
   const [code, setCode] = useState("");
+
   const styles = useMemo(
     () =>
       StyleSheet.create({
@@ -51,7 +52,7 @@ export function Search({ style, imgStyle, backRequired }) {
           : [styles.rowCards]
       }
     >
-      <Image source={searchIcon} style={styles.imageStyle} />
+      <Image source={search} style={styles.imageStyle} />
       <TextInput
         keyboardType="default"
         returnKeyType="search"

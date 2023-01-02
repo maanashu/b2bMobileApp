@@ -67,7 +67,7 @@ export function AuthNavigator() {
         options={{ headerShown: false }}
       />
 
-      <Stack.Screen
+      {/* <Stack.Screen
         component={ProductInquiry}
         name={NAVIGATION.productInquiry}
         options={{ headerShown: false }}
@@ -108,7 +108,7 @@ export function AuthNavigator() {
         component={AddCreditCard}
         name={NAVIGATION.addCreditCard}
         options={{ headerShown: false }}
-      />
+      /> */}
 
       {/* <Stack.Screen
         component={OnBoarding}

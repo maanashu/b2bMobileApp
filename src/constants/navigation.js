@@ -21,4 +21,8 @@ export const NAVIGATION = {
   addCreditCard: "AddCreditCard",
   newProducts: "NewProducts",
   topRankingManufacturers: "TopRankingManufacturers",
+  aboutBusiness: "AboutBusiness",
+  businessProfile: "BusinessProfile",
+  businessProducts: "BusinessProducts",
+  businessHome: "BusinessHome",
 };

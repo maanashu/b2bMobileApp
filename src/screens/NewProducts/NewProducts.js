@@ -17,7 +17,12 @@ import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { strings } from "@/localization";
 import { NAVIGATION } from "@/constants";
 import { Apparel, Business, Products } from "@/screens";
-import { ms, vs } from "react-native-size-matters";
+import {
+  ms,
+  vs,
+  verticalScale,
+  moderateScale,
+} from "react-native-size-matters";
 export function NewProducts() {
   const layout = useWindowDimensions();
 

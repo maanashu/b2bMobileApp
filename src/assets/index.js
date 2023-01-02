@@ -132,6 +132,30 @@ export { default as lighter } from "@/assets/icons/ic_business/lighter.png";
 export { default as jeansLogo } from "@/assets/icons/ic_business/jeansLogo.png";
 export { default as search } from "@/assets/icons/ic_Products/search.png";
 export { default as boxStar } from "@/assets/icons/ic_Products/boxStar.png";
+export { default as yiwuJean1 } from "@/assets/icons/ic_business/yiwuJean1.png";
+export { default as yiwuJean2 } from "@/assets/icons/ic_business/yiwuJean2.png";
+export { default as yiwuJean3 } from "@/assets/icons/ic_business/yiwuJean3.png";
+export { default as videoPic } from "@/assets/icons/ic_business/video.png";
+export { default as certificates } from "@/assets/icons/ic_business/certificates.png";
+export { default as certificate1 } from "@/assets/icons/ic_business/certificate1.png";
+export { default as certificate2 } from "@/assets/icons/ic_business/certificate2.png";
+export { default as certificate3 } from "@/assets/icons/ic_business/certificate3.png";
+export { default as certificate4 } from "@/assets/icons/ic_business/certificate4.png";
+export { default as videoPic1 } from "@/assets/icons/ic_business/videoPic1.png";
+export { default as videoPic2 } from "@/assets/icons/ic_business/videoPic2.png";
+export { default as videoPic3 } from "@/assets/icons/ic_business/videoPic3.png";
+export { default as videoPic4 } from "@/assets/icons/ic_business/videoPic4.png";
+export { default as shareBlack } from "@/assets/icons/ic_business/shareBlack.png";
+export { default as crossBlack } from "@/assets/icons/ic_business/crossBlack.png";
+export { default as equip1 } from "@/assets/icons/ic_business/equip1.png";
+export { default as equip2 } from "@/assets/icons/ic_business/equip2.png";
+export { default as equip3 } from "@/assets/icons/ic_business/equip3.png";
+export { default as equip4 } from "@/assets/icons/ic_business/equip4.png";
+export { default as pdfImage } from "@/assets/icons/ic_business/pdfImage.png";
+export { default as flagAmerica } from "@/assets/icons/ic_business/flagAmerica.png";
+export { default as fiveStarReview } from "@/assets/icons/ic_business/5starReview.png";
+export { default as purchasedItemPic } from "@/assets/icons/ic_business/purchasedItemPic.png";
+export { default as sliderBag } from "@/assets/icons/ic_business/sliderBag.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

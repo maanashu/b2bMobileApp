@@ -2,7 +2,13 @@ import { Fonts } from "@/assets";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
-import { ms, s, verticalScale, vs } from "react-native-size-matters";
+import {
+  moderateScale,
+  ms,
+  s,
+  verticalScale,
+  vs,
+} from "react-native-size-matters";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
 export const styles = StyleSheet.create({
@@ -39,8 +45,8 @@ export const styles = StyleSheet.create({
     width: SW(40),
   },
   mainContainer: {
-    flex: 1,
     backgroundColor: COLORS.white,
+    height: vs(120),
   },
   filterText: {
     fontFamily: Fonts.Regular,
@@ -84,7 +90,7 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     elevation: 2,
     flex: 1,
-    height: SH(207),
+    height: SH(130),
     paddingHorizontal: SW(10),
     marginBottom: SW(2),
   },
@@ -172,5 +178,17 @@ export const styles = StyleSheet.create({
   sendInquiryIcon: {
     height: vs(16),
     width: ms(19),
+  },
+  itemS: {
+    backgroundColor: COLORS.white,
+    borderColor: "blue",
+
+    flexDirection: "row",
+    flex: 1,
+    justifyContent: "center",
+    margin: 2,
+    borderRadius: 5,
+    borderColor: COLORS.lightBlue,
+    borderWidth: 1,
   },
 });

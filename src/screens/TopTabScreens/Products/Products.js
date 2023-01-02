@@ -38,10 +38,6 @@ import {
   yewiCertified,
   star,
   clock,
-  formalShoes,
-  wBlackShoes,
-  Shoes2,
-  whiteShoes,
 } from "@/assets";
 import { LastData } from "@/screens/Products/ProductsInquiry/FlatlistData";
 import { ms, vs } from "react-native-size-matters";
@@ -53,8 +49,6 @@ export function Products({ onPress }) {
   const [selectedId, setSelectedId] = useState("");
 
   const [product, setProduct] = useState("");
-
-  const [country, setCountry] = useState("");
 
   const DATA = [
     {
@@ -234,8 +228,9 @@ export function Products({ onPress }) {
   );
   return (
     <ScreenWrapper>
-      <Search />
+      <Spacer space={SH(10)} />
       <ScrollView showsVerticalScrollIndicator={false}>
+        <Search />
         <Spacer space={SH(10)} />
 
         <View style={{ paddingHorizontal: SW(16) }}>

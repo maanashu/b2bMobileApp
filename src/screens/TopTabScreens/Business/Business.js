@@ -11,17 +11,12 @@ import { styles } from "./Business.style";
 import { useState } from "react";
 import { ScreenWrapper, Spacer } from "@/components";
 import { COLORS } from "@/theme/Colors";
-import { SF, SH, SW } from "@/theme/ScalerDimensions";
+import { SH, SW } from "@/theme/ScalerDimensions";
 import { SliderBox } from "react-native-image-slider-box";
 import { navigate } from "@/navigation/NavigationRef";
 import {
-  cream,
-  drink,
-  foldScreen,
   Fonts,
   forward,
-  girl,
-  phone,
   roundAll,
   roundApparel,
   roundAppliance,
@@ -30,18 +25,7 @@ import {
   roundShoes,
   roundSports,
   roundTobbacco,
-  shampoo,
   slideImage,
-  yewi,
-  yewiLogo,
-  location,
-  yewiCertified,
-  star,
-  clock,
-  formalShoes,
-  wBlackShoes,
-  Shoes2,
-  whiteShoes,
   headphones,
   lighter,
   jacket,
