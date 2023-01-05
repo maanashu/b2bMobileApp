@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { styles } from "./AboutBusiness.style";
-import { Spacer } from "@/components";
+import { ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import {
@@ -18,11 +18,14 @@ import {
   location,
   star,
   clock,
+  backArrow,
 } from "@/assets";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { BusinessHome, BusinessProducts, BusinessProfile } from "@/screens";
 import { moderateScale, ms } from "react-native-size-matters";
 import { Header } from "@/components/Header";
+import { string } from "prop-types";
+import { strings } from "@/localization";
 
 export function AboutBusiness() {
   const layout = useWindowDimensions();
@@ -132,8 +135,8 @@ export function AboutBusiness() {
   );
 
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <Header />
+    <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
+      <Header back={backArrow} />
       <View showsVerticalScrollIndicator={false} style={styles.mainContainer}>
         <View
           style={{
@@ -185,6 +188,6 @@ export function AboutBusiness() {
         renderTabBar={renderTabBar}
       />
       <Spacer space={SH(10)} />
-    </View>
+    </ScreenWrapper>
   );
 }

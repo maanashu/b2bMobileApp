@@ -1,7 +1,7 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { styles } from "./PaymentMethod.styles.js";
-import { Button, Spacer } from "@/components";
+import { Button, ScreenWrapper, Spacer } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
 import { useState } from "react";
 import { goBack, navigate } from "@/navigation/NavigationRef";
@@ -22,7 +22,7 @@ export function PaymentMethod() {
   const [countryCode, setCountryCode] = useState("+1");
 
   return (
-    <View style={styles.container}>
+    <ScreenWrapper style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerInnerView}>
           <TouchableOpacity
@@ -154,6 +154,6 @@ export function PaymentMethod() {
         </View>
         <Spacer space={SH(15)} />
       </View>
-    </View>
+    </ScreenWrapper>
   );
 }

@@ -17,7 +17,7 @@ import { backArrow, filter, Fonts, search, boxStar } from "@/assets";
 import { strings } from "@/localization";
 import { Button, Spacer } from "@/components";
 
-export function Header() {
+export function Header({ title, back }) {
   return (
     <View style={styles.header}>
       <View style={styles.headerInnerView}>
@@ -27,12 +27,10 @@ export function Header() {
         >
           <Image
             resizeMode="contain"
-            source={backArrow}
+            source={back}
             style={{ height: 30, width: 30 }}
           />
-          <Text style={styles.headerText}>
-            {strings.topRankingManufacturers.topManufacturers}
-          </Text>
+          <Text style={styles.headerText}>{title}</Text>
         </TouchableOpacity>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <TouchableOpacity>

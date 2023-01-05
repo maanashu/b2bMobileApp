@@ -7,6 +7,7 @@ import { HomeNavigator } from "@/navigation/HomeNavigator";
 import { ProfileNavigator } from "@/navigation/ProfileNavigator";
 import { bottomHome, bottomMyJobr } from "@/assets";
 import { Image } from "react-native";
+import { AuthNavigator } from "./AuthNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -19,10 +20,7 @@ export function AppNavigator() {
         tabBarStyle: { borderTopWidth: 0 },
 
         tabBarIcon: ({ color }) => (
-          <TabBarIcon
-            color={color}
-            // routeName={route.name}
-          />
+          <TabBarIcon color={color} routeName={route.name} />
         ),
       })}
       tabBarOptions={{

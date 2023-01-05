@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { styles } from "./BusinessProducts.style";
-import { Spacer } from "@/components";
+import { ScreenWrapper, Spacer } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { Fonts, videoPic2, videoPic1, videoPic3, videoPic4 } from "@/assets";
@@ -78,7 +78,7 @@ export function BusinessProducts() {
     </TouchableOpacity>
   );
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
+    <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.mainContainer}
@@ -95,6 +95,6 @@ export function BusinessProducts() {
       </ScrollView>
 
       <Spacer space={SH(10)} />
-    </View>
+    </ScreenWrapper>
   );
 }

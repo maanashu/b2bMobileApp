@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { styles } from "./TopRankingManufacturers.style";
-import { Spacer } from "@/components";
+import { ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { navigate } from "@/navigation/NavigationRef";
@@ -23,6 +23,7 @@ import {
   location,
   star,
   clock,
+  backArrow,
 } from "@/assets";
 import { strings } from "@/localization";
 import { NAVIGATION } from "@/constants";
@@ -58,8 +59,11 @@ export function TopRankingManufacturers() {
     </View>
   );
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <Header />
+    <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
+      <Header
+        title={strings.topRankingManufacturers.topManufacturers}
+        back={backArrow}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.mainContainer}
@@ -205,6 +209,6 @@ export function TopRankingManufacturers() {
       </ScrollView>
 
       <Spacer space={SH(10)} />
-    </View>
+    </ScreenWrapper>
   );
 }

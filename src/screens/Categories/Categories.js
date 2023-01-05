@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./Categories.styles";
 import { Apparel, Electronices, Food, Sports, Tobacco } from "@/assets";
-import { Button, Spacer } from "@/components";
+import { Button, ScreenWrapper, Spacer } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants/navigation";
@@ -57,7 +57,7 @@ export function Categories() {
   };
 
   return (
-    <View style={styles.mainContainer}>
+    <ScreenWrapper style={styles.mainContainer}>
       <View style={styles.container}>
         <TouchableOpacity style={styles.skipButton}>
           <Text style={styles.skipText}>Skip</Text>
@@ -96,6 +96,6 @@ export function Categories() {
         />
         <Spacer space={SH(15)} />
       </View>
-    </View>
+    </ScreenWrapper>
   );
 }

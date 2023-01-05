@@ -11,7 +11,7 @@ import { styles } from "./StartOrder.styles";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants/navigation";
 import { cross, puma1, puma2, puma3, puma4, puma5 } from "@/assets";
-import { Button, Spacer } from "@/components";
+import { Button, ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { useState } from "react";
@@ -144,7 +144,7 @@ export function StartOrder() {
     }
   };
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
+    <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <View style={styles.header}>
         <View style={styles.headerInnerView}>
           <TouchableOpacity
@@ -403,6 +403,6 @@ export function StartOrder() {
           </View>
         </View>
       </ScrollView>
-    </View>
+    </ScreenWrapper>
   );
 }

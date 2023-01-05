@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useRef } from "react";
 import { styles } from "./BusinessProfile.style";
-import { Spacer } from "@/components";
+import { ScreenWrapper, Spacer } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import RBSheet from "react-native-raw-bottom-sheet";
@@ -335,7 +335,7 @@ export function BusinessProfile() {
     </View>
   );
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
+    <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.mainContainer}
@@ -724,6 +724,6 @@ export function BusinessProfile() {
           </ScrollView>
         </RBSheet>
       </ScrollView>
-    </View>
+    </ScreenWrapper>
   );
 }

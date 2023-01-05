@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { strings } from "@/localization";
 import { styles } from "./ProductInquiry.styles";
-import { goBack, navigate } from "@/navigation/NavigationRef";
+import { goBack, navigate, navigationRef } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants/navigation";
 import { useState } from "react";
 import { ScreenWrapper, Spacer } from "@/components";
@@ -32,14 +32,7 @@ import {
   checkPrice,
   check,
   simpleCheck,
-  ratingFull,
-  supplierService,
-  productQuality,
   viewAll,
-  formalShoes,
-  wBlackShoes,
-  Shoes2,
-  whiteShoes,
   plusIcon,
   Fonts,
   bagWhite,
@@ -48,116 +41,33 @@ import {
   bagGrey,
 } from "@/assets";
 import { ms } from "react-native-size-matters";
-
-export function ProductInquiry() {
+import {
+  priceData,
+  CompanyData,
+  ShoesData,
+  ProductRatingData,
+  ProductDetailData,
+} from "./FlatlistData";
+import { AuthNavigator } from "@/navigation/AuthNavigator";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { OnBoarding } from "@/screens/GetStarted/OnBoarding/OnBoarding";
+import { login } from "@/actions/UserActions";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "@/selectors/UserSelectors";
+export function ProductInquiry({ navigation }) {
   const [favourite, setFavourite] = useState(false);
+  const dispatch = useDispatch();
+  const user = useSelector(getUser);
   const images = [womenShoes];
   const colorChange = () => {
     setFavourite(!favourite);
   };
-  const price = [
-    {
-      id: "1",
-      price: "USD 5.60",
-      quantity: " 5-50 Pieces ",
-    },
-    {
-      id: "2",
-      price: "USD 5.20",
-      quantity: " 5-50 Pieces ",
-    },
-    {
-      id: "3",
-      price: "USD 5.10",
-      quantity: " 5-50 Pieces ",
-    },
-  ];
-  const Data = [
-    {
-      id: "1",
-      Heading: ">1h",
-      text: "Response Time",
-    },
-    {
-      id: "2",
-      Heading: "100%",
-      text: "On-delivery",
-    },
-    {
-      id: "3",
-      Heading: "105",
-      text: "Order delivery",
-    },
-  ];
-  const ProductRating = [
-    {
-      id: "1",
-      title: "Supplier Service",
-      image: supplierService,
-      rating: "4.5 Acceptable",
-    },
-    {
-      id: "2",
-      title: "On-time Shipment",
-      image: ratingFull,
-      rating: "5.0 Acceptable",
-    },
-    {
-      id: "3",
-      title: "Product Quality",
-      image: productQuality,
-      rating: "4.5 Acceptable",
-    },
-  ];
-  const ProductDetail = [
-    {
-      id: "1",
-      title: "Sleeve Length",
-      productAnswer: "Long Sleeves",
-    },
-    {
-      id: "2",
-      title: "Type",
-      productAnswer: "Puffer Jacket",
-    },
-    {
-      id: "3",
-      title: "Lining Fabric",
-      productAnswer: "Polyester",
-    },
-    {
-      id: "4",
-      title: "Print or Pattern Type",
-      productAnswer: "Solid",
-    },
-    {
-      id: "5",
-      title: "Occasion",
-      productAnswer: "Casual",
-    },
-  ];
-  const Shoes = [
-    {
-      id: "1",
-      title: "Made well colored cozy short cardigan",
-      image: formalShoes,
-    },
-    {
-      id: "2",
-      title: "Made well colored cozy short cardigan",
-      image: wBlackShoes,
-    },
-    {
-      id: "3",
-      title: "Made well colored cozy short cardigan",
-      image: Shoes2,
-    },
-    {
-      id: "4",
-      title: "Made well colored cozy short cardigan",
-      image: whiteShoes,
-    },
-  ];
+  const price = priceData;
+  const Data = CompanyData;
+  const ProductRating = ProductRatingData;
+  const ProductDetail = ProductDetailData;
+  const Shoes = ShoesData;
+
   const Item = ({ item, onPress }) => (
     <TouchableOpacity style={styles.item}>
       <View style={{ alignItems: "center", justifyContent: "center" }}>
@@ -267,6 +177,12 @@ export function ProductInquiry() {
       </View>
     </TouchableOpacity>
   );
+
+  const handleSubmit = () => {
+    {
+      user ? navigate(NAVIGATION.startOrder) : dispatch(login("test", "test"));
+    }
+  };
   return (
     <ScreenWrapper>
       <View style={styles.header}>
@@ -322,22 +238,13 @@ export function ProductInquiry() {
             resizeMode={"cover"}
             autoplayInterval={3000}
             // parentWidth={SW(380)}
-            paginationBoxStyle={{
-              position: "absolute",
-              bottom: 0,
-              padding: 0,
-              alignItems: "center",
-              alignSelf: "center",
-              justifyContent: "center",
-            }}
-            ImageComponentStyle={{
-              borderRadius: 15,
-              width: "85%",
-              marginTop: 5,
-            }}
+            paginationBoxStyle={styles.paginationBoxStyle}
+            ImageComponentStyle={styles.imageComponentStyle}
           />
         </View>
+
         <Spacer space={SH(10)} />
+
         <View style={{ paddingHorizontal: SW(10) }}>
           <View style={styles.belowImage}>
             <Image
@@ -347,7 +254,9 @@ export function ProductInquiry() {
             <Text>4.5 </Text>
             <Text style={styles.productSubHeading}>(500+ ratings)</Text>
           </View>
+
           <Spacer space={SH(40)} />
+
           <Text style={styles.productHeading}>
             PUMA Men's Tazon 6 Wide Sneaker
           </Text>
@@ -366,7 +275,9 @@ export function ProductInquiry() {
             numColumns={3}
           />
         </View>
+
         <Spacer space={SH(20)} />
+
         <View style={styles.mainView}>
           <View style={styles.queryIcons}>
             <TouchableOpacity style={styles.chatbutton}>
@@ -392,7 +303,9 @@ export function ProductInquiry() {
 
             <TouchableOpacity
               onPress={() => {
-                navigate(NAVIGATION.startOrder);
+                handleSubmit();
+                // navigation.navigate("HomeScreen");
+                // dispatch(login("test", "test"));
               }}
               style={styles.buttons}
             >
@@ -403,12 +316,14 @@ export function ProductInquiry() {
               </Text>
             </TouchableOpacity>
           </View>
+
           <Spacer space={SH(10)} />
 
           <Text style={{ fontFamily: Fonts.Regular, marginLeft: ms(5) }}>
-            Estimated arrival within 7 business days with JOBR shipping
+            {strings.productInquiry.estimated}
           </Text>
           <Spacer space={SH(12)} />
+
           <View style={styles.midView}>
             <TouchableOpacity style={styles.addToBagIcon}>
               <Image
@@ -465,7 +380,9 @@ export function ProductInquiry() {
               numColumns={3}
             />
           </View>
+
           <Spacer space={SH(20)} />
+
           <TouchableOpacity>
             <View style={styles.iconCenter}>
               <Image

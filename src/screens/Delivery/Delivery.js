@@ -1,7 +1,7 @@
 import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { styles } from "./Delivery.styles";
-import { Button, Spacer } from "@/components";
+import { Button, ScreenWrapper, Spacer } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { useState } from "react";
@@ -26,7 +26,7 @@ export function Delivery() {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
+    <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <View style={styles.header}>
         <View style={styles.headerInnerView}>
           <TouchableOpacity
@@ -253,6 +253,6 @@ export function Delivery() {
           textStyle={styles.buttonTextStyle}
         />
       </View>
-    </View>
+    </ScreenWrapper>
   );
 }

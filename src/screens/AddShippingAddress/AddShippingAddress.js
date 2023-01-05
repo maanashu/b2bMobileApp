@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { styles } from "./AddShippingAddress.styles";
-import { Button, Spacer, TextField } from "@/components";
+import { Button, ScreenWrapper, Spacer, TextField } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { useState } from "react";
@@ -32,7 +32,7 @@ export function AddShippingAddress({ route }) {
   const [city, setCity] = useState("");
 
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
+    <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <View style={styles.header}>
         <View style={styles.headerInnerView}>
           <TouchableOpacity
@@ -195,6 +195,6 @@ export function AddShippingAddress({ route }) {
         />
       </View>
       <Spacer space={SH(10)} />
-    </View>
+    </ScreenWrapper>
   );
 }

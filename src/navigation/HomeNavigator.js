@@ -11,6 +11,7 @@ import {
   Delivery,
   Home,
   NewProducts,
+  OnBoarding,
   PaymentMethod,
   ProductInquiry,
   ReviewAndPayment,
@@ -18,6 +19,7 @@ import {
   StartOrder,
   TopRankingManufacturers,
 } from "@/screens";
+import { AuthNavigator } from "./AuthNavigator";
 
 const Stack = createNativeStackNavigator();
 

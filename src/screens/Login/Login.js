@@ -1,27 +1,27 @@
-import { useTheme } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { View } from 'react-native';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { login, TYPES } from '@/actions/UserActions';
-import { Button, ErrorView, TextField } from '@/components';
-import { strings } from '@/localization';
-import { styles } from '@/screens/Login/Login.styles';
-import { errorsSelector } from '@/selectors/ErrorSelectors';
-import { isLoadingSelector } from '@/selectors/StatusSelectors';
-import { ShadowStyles } from '@/theme';
+import { useTheme } from "@react-navigation/native";
+import React, { useState } from "react";
+import { View } from "react-native";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { login, TYPES } from "@/actions/UserActions";
+import { Button, ErrorView, ScreenWrapper, TextField } from "@/components";
+import { strings } from "@/localization";
+import { styles } from "@/screens/Login/Login.styles";
+import { errorsSelector } from "@/selectors/ErrorSelectors";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { ShadowStyles } from "@/theme";
 
 export function Login() {
   const { colors } = useTheme();
   const dispatch = useDispatch();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const isLoading = useSelector(state =>
+  const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.LOGIN], state)
   );
 
   const errors = useSelector(
-    state => errorsSelector([TYPES.LOGIN], state),
+    (state) => errorsSelector([TYPES.LOGIN], state),
     shallowEqual
   );
 
@@ -30,7 +30,7 @@ export function Login() {
   };
 
   return (
-    <View style={styles.container}>
+    <ScreenWrapper style={styles.container}>
       <View
         style={[
           styles.formContainer,
@@ -63,6 +63,6 @@ export function Login() {
           title={isLoading ? strings.common.loading : strings.login.button}
         />
       </View>
-    </View>
+    </ScreenWrapper>
   );
 }

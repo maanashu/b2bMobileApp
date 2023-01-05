@@ -10,7 +10,7 @@ import { COLORS } from "@/theme/Colors";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import ImageCropPicker from "react-native-image-crop-picker";
 import Modal from "react-native-modal";
-import { goBack, navigate } from "@/navigation/NavigationRef";
+import { goBack } from "@/navigation/NavigationRef";
 import { Button } from "@/components";
 import {
   productss,
@@ -19,8 +19,6 @@ import {
   clock,
   yewiCertified,
   yewiLogo,
-  follow,
-  visitStore,
   import_picture,
   gallery_image,
   close,
@@ -115,6 +113,7 @@ export function SendInquiry() {
         style={{ paddingHorizontal: SW(20) }}
       >
         <Spacer space={SH(5)} />
+
         <View style={styles.yewiView}>
           <View style={styles.topView}>
             <Text style={styles.agreeText}>About Company</Text>
@@ -163,12 +162,13 @@ export function SendInquiry() {
 
         <View>
           <Spacer space={SH(15)} />
+
           <View style={styles.QuantityView}>
             <View>
               <Text style={styles.productQuantityText}>
                 {strings.sendInquiry.quantity}
               </Text>
-              <TextField style={styles.quantityInput} />
+              <TextField keyboardType="numeric" style={styles.quantityInput} />
             </View>
 
             <View>
@@ -204,6 +204,7 @@ export function SendInquiry() {
           />
 
           <Spacer space={SH(5)} />
+
           {productImage ? (
             <Image source={{ uri: productImage }} style={styles.storedPic} />
           ) : (
@@ -237,7 +238,9 @@ export function SendInquiry() {
               </View>
             </View>
           </Modal>
+
           <Spacer space={SH(25)} />
+
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <TouchableOpacity onPress={CheckBox}>
               <Image
@@ -262,7 +265,11 @@ export function SendInquiry() {
             </Text>
           </View>
           <Spacer space={SH(25)} />
-          <Button title={"Send"} style={styles.buttonStyle} />
+          <Button
+            title={"Send"}
+            disabled={productImage == undefined ? true : false}
+            style={styles.buttonStyle}
+          />
           <Spacer space={SH(25)} />
         </View>
       </ScrollView>

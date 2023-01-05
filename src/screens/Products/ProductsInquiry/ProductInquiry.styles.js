@@ -364,4 +364,17 @@ export const styles = StyleSheet.create({
     fontSize: ms(12),
     marginHorizontal: ms(5),
   },
+  paginationBoxStyle: {
+    position: "absolute",
+    bottom: 0,
+    padding: 0,
+    alignItems: "center",
+    alignSelf: "center",
+    justifyContent: "center",
+  },
+  imageComponentStyle: {
+    borderRadius: 15,
+    width: "85%",
+    marginTop: 5,
+  },
 });

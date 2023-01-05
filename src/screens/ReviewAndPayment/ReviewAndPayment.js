@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useRef } from "react";
 import { styles } from "./ReviewAndPayment.styles";
-import { Button, Spacer } from "@/components";
+import { Button, ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { useRoute } from "@react-navigation/native";
@@ -137,7 +137,7 @@ export function ReviewAndPayment({ navigation }) {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
+    <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <View style={styles.header}>
         <View style={styles.headerInnerView}>
           <TouchableOpacity
@@ -490,6 +490,6 @@ export function ReviewAndPayment({ navigation }) {
           </ScrollView>
         </RBSheet>
       </ScrollView>
-    </View>
+    </ScreenWrapper>
   );
 }

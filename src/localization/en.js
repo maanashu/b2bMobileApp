@@ -20,6 +20,23 @@ export const en = {
     header: "Profile",
     logout: "Logout",
     message: "This screen has the iOS native large header.",
+    myJobr: "My Jobr",
+    username: "Schaden-Beier",
+    address: "4554 Adamsville Road, Mission, TX 78572",
+    manufacturer: "Manufacturer",
+    myPurchase: "My Purchase",
+    requestQuotation: "Request for Quotation",
+    inquiries: "Inquiries",
+    myCoupons: "My Coupons",
+    favouriteList: "Favourite List",
+    searchingPreference: "Searching Preference",
+    shippingAddress: "Shipping Address",
+    jbrWallet: "JBR Wallet",
+    paymentMethods: "Payment Methods",
+    businessCard: "Business Card",
+    myCatalogs: "My Catalogs",
+    helpCenter: "Help Center",
+    settings: "Settings",
   },
   splash: {
     register: "Register",
@@ -67,6 +84,7 @@ export const en = {
     occasion: "Occasion",
     recomended: "Recommended Products",
     chatNow: "Chat Now",
+    estimated: "Estimated arrival within 7 business days with JOBR shipping",
   },
   sendInquiry: {
     quantity: "Quantity",
@@ -216,5 +234,98 @@ export const en = {
     orderDetails: "Order Details",
     byCompleting: "By completing this order, I agree to all",
     terms: "terms & conditions",
+  },
+  userInformation: {
+    back: "Back",
+    personalInfo: "Personal Information",
+    name: "Name",
+    email: "Email address",
+    phoneNumber: "Phone number",
+    ssn: "SSN",
+    dob: "Date of Birth",
+    companyInfo: "Company Information",
+    companyName: "Company Name",
+    businessType: "Business Type",
+    jobFunction: "Job Function",
+    jobLevel: "Job Level",
+    officeAddress: "Office Address",
+    asv: "Annual Sourcing Value (USD)",
+    sellingChannel: "Selling Channel",
+    label: "Label",
+    save: "Save",
+  },
+  qrCode: {
+    scan: "Scan QR Code to pay or send money faster",
+    share: "Share QR code",
+    download: "Download QR Code",
+  },
+  settings: {
+    shipTo: "Ship To",
+    notifications: "Notifications",
+    faceId: "Face ID & PIN",
+    aboutUs: "About Us",
+    contactUs: "Contact Us",
+    privacyPolicy: "Privacy Policy",
+    cookiePolicy: "Cookies Policy",
+    terms: "Terms & Conditions",
+    rateApp: "Rate the App",
+    clearCache: "Clear app cache",
+    usa: "United States of America",
+    state: "State",
+    city: "City",
+    addLocations: "Add Locations",
+    addShippingLocation: "Add a Shipping Location",
+    saveDefault: "Save as default shipping address",
+    country: "Country",
+    add: "Add",
+    canada: "Canada",
+    mexico: "Mexico",
+    next: "Next",
+    notificationSetting: "Notification setting",
+  },
+
+  aboutUs: {
+    jobr: "JOBR LLC.",
+    paragraph1:
+      "If your company has an interesting and intellectual history, you might consider creating a company profile like Wales Bonner’s. The profile reads like an essay from the very first line Informed by broad research encompassing critical theory, musical composition literature and history WALES BONNER embraces a multiplicity of perspectives proposing a distinct notion of luxuryvia a hybrid of European and Afro Atlantic approaches.",
+
+    paragraph2:
+      "After sharing the brand’s intellectual background it describes the owner’s journey in building the company, starting from the time she was a college student. With a good balance of image and text, the timeline serves as a reminder of Wales Bonners stability and growth.",
+  },
+  contactUs: {
+    jobr: "JOBR LLC.",
+    email: "Email address",
+    phoneNumber: "Phone number",
+    mail: "flowers@gmail.com",
+  },
+  privacyPolicy: {
+    privacyPolicy: "Privacy Policy",
+    welcome: "Welcome to JOBR !",
+    para1:
+      "You will need to fill out a form in the next step. Please read the instructions below to complete the form correctly",
+    para2:
+      "These terms and conditions outline the rules and regulations for the use of Company Name's Website, located at Website.com.",
+    para3:
+      "By accessing this website we assume you accept these terms and conditions. Do not continue to use Website Name if you do not agree to take all of the terms and conditions stated on this page.",
+    para4:
+      "The following terminology applies to these Terms and Conditions, Privacy Statement and Disclaimer Notice and all Agreements: “Client”, “You” and “Your” refers to you, the person log on this website and compliant to the Company's terms and conditions. “The Company”, “Ourselves”, “We”, “Our” and “Us”, refers to our Company. “Party”, “Parties”, or “Us”, refers to both the Client and ourselves. All terms refer to the offer, acceptance and consideration of payment necessary to undertake the process of our assistance to the Client in the most appropriate manner for the express purpose of meeting the Client's needs in respect of provision of the Company's stated services, in accordance with and subject to, prevailing law of Netherlands. Any use of the above terminology or other words in the singular, plural, capitalization and/or he/she or they, are taken as interchangeable and therefore as referring to same.",
+    cookies: "Cookies",
+    para5:
+      "We employ the use of cookies. By accessing Website Name, you agreed to use cookies in agreement with the Company Name's Privacy Policy.",
+    para6:
+      "Most interactive websites use cookies to let us retrieve the user's details for each visit. Cookies are used by our website to enable the functionality of certain areas to make it easier for people visiting our website. Some of our affiliate/advertising partners may also use cookies.",
+    licenses: "License",
+    para7:
+      "Unless otherwise stated, Company Name and/or its licensors own the intellectual property rights for all material on Website Name. All intellectual property rights are reserved. You may access this from Website Name for your own personal use subjected to restrictions set in these terms and conditions.",
+    youMustNot: "You must not",
+    para8:
+      "Republish material from Website Name. \nSell, rent or sub-license material from Website Name. \nReproduce, duplicate or copy material from Website Name. \nRedistribute content from Website Name. \nThis Agreement shall begin on the date hereof.",
+    para9:
+      "Parts of this website offer an opportunity for users to post and exchange opinions and information in certain areas of the website. Company Name does not filter, edit, publish or review Comments prior to their presence on the website. Comments do not reflect the views and opinions of Company Name,its agents and/or affiliates. Comments reflect the views and opinions of the person who post their views and opinions. To the extent permitted by applicable laws, Company Name shall not be liable for the Comments or for any liability, damages or expenses caused and/or suffered as a result of any use of and/or posting of and/or appearance of the Comments on this website.",
+    para10:
+      "Company Name reserves the right to monitor all Comments and to remove any Comments which can be considered inappropriate, offensive or causes breach of these Terms and Conditions.",
+    yourWarrant: "You warrant and represent that:",
+    para11:
+      "You are entitled to post the Comments on our website and have all necessary licenses and consents to do so. \nThe Comments do not invade any intellectual property right, including without limitation copyright, patent or trademark of any third party. \nThe Comments do not contain any defamatory, libelous, offensive, indecent or otherwise unlawful material which is an invasion of privacy. \nThe Comments will not be used to solicit or promote business or custom or present commercial activities or unlawful activity. \nYou hereby grant Company Name a non-exclusive license to use, reproduce, edit and authorize others to use, reproduce and edit any of your Comments in any and all forms, formats or media.",
   },
 };

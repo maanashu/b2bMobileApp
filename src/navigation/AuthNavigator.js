@@ -10,16 +10,9 @@ import {
   EnterPin,
   ReEnterPin,
   Categories,
-  ProductInquiry,
-  SendInquiry,
-  StartOrder,
-  Delivery,
-  ReviewAndPayment,
-  AddShippingAddress,
-  AddMoneyToWallet,
-  PaymentMethod,
-  AddCreditCard,
 } from "@/screens";
+import { HomeNavigator } from "./HomeNavigator";
+import { AppNavigator } from "./AppNavigator";
 
 const Stack = createNativeStackNavigator();
 
@@ -64,6 +57,12 @@ export function AuthNavigator() {
       <Stack.Screen
         component={Categories}
         name={NAVIGATION.categories}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        component={AppNavigator}
+        name={"HomeScreen"}
         options={{ headerShown: false }}
       />
 

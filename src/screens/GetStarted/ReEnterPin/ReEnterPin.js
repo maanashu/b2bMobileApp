@@ -6,16 +6,18 @@ import {
   useClearByFocusCell,
   Cursor,
 } from "react-native-confirmation-code-field";
-import { jobrSplash, blueLogo, backArrow, Verified } from "@/assets";
+import { backArrow, Verified } from "@/assets";
 import { strings } from "@/localization";
-import { NAVIGATION } from "@/constants";
-import { login, TYPES } from "@/actions/UserActions";
-import { SH, TextStyles, COLORS } from "@/theme";
+import { SH } from "@/theme";
 import Modal from "react-native-modal";
 import { goBack, navigate } from "@/navigation/NavigationRef";
 import { Button, Spacer, ScreenWrapper } from "@/components";
 import { styles } from "@/screens/GetStarted/ReEnterPin/ReEnterPin.styles";
+import { getUser } from "@/selectors/UserSelectors";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { logout } from "@/actions/UserActions";
+import { NAVIGATION } from "@/constants";
 const CELL_COUNT = 4;
 
 export function ReEnterPin({ navigation }) {
@@ -28,11 +30,16 @@ export function ReEnterPin({ navigation }) {
   const [loginModal, setLoginModal] = useState(false);
 
   const dispatch = useDispatch();
+  const user = useSelector(getUser);
 
+  const logoutUser = () => {
+    dispatch(logout());
+  };
   const handleSubmit = () => {
-    const dummyUserName = "Dummy";
-    const dummyUserPassword = "Dummy";
-    dispatch(login(dummyUserName, dummyUserPassword));
+    // const dummyUserName = "Dummy";
+    // const dummyUserPassword = "Dummy";
+    // dispatch(login(dummyUserName, dummyUserPassword));
+    navigation.navigate("HomeScreen");
   };
 
   return (
@@ -104,6 +111,7 @@ export function ReEnterPin({ navigation }) {
             // onPress={() => navigate(NAVIGATION.productInquiry)}
             onPress={() => {
               setLoginModal(false);
+              // logoutUser();
               handleSubmit();
               // navigation.reset({
               //   index: 0,
