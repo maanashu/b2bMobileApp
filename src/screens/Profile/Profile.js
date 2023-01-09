@@ -135,6 +135,8 @@ export function Profile() {
       Alert.alert("My Purchase");
     } else if (item.title === strings.profile.settings) {
       navigate(NAVIGATION.settings);
+    } else if (item.title === strings.profile.myCatalogs) {
+      navigate(NAVIGATION.myCatalogue);
     }
   };
 

@@ -41,3 +41,5 @@ export { ContactUs } from "@/screens/Settings/ContactUs/ContactUs";
 export { TermsConditions } from "@/screens/Settings/TermsConditions/TermsConditions";
 export { PrivacyPolicy } from "@/screens/Settings/PrivacyPolicy/PrivacyPolicy";
 export { CookiesPolicy } from "@/screens/Settings/CookiesPolicy/CookiesPolicy";
+export { Chatting } from "@/screens/Chatting/Chatting";
+export { MyCatalogue } from "@/screens/Settings/MyCatalogue/MyCatalogue";

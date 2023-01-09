@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
   },
   buttons: {
     height: 40,
-    width: SW(108),
+    width: SW(105),
     alignItems: "center",
     flexDirection: "row",
     backgroundColor: COLORS.sky,
@@ -273,7 +273,7 @@ export const styles = StyleSheet.create({
   queryIcons: {
     flexDirection: "row",
     flex: 1,
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
   },
   mainView: {
     elevation: 5,

@@ -41,4 +41,6 @@ export const NAVIGATION = {
   privacyPolicy: "Privacy Policy",
   cookiesPolicy: "CookiesPolicy",
   termsConditions: "TermsConditions",
+  chatting: "Chatting",
+  myCatalogue: "MyCatalogue",
 };

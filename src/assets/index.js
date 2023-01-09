@@ -199,6 +199,8 @@ export { default as workBag } from "@/assets/icons/ic_settings/workBag.png";
 export { default as flagCanada } from "@/assets/icons/ic_settings/flagCanada.png";
 export { default as flagMexico } from "@/assets/icons/ic_settings/flagMexico.png";
 export { default as jobr_logo_icon } from "@/assets/icons/ic_settings/jobr_logo_icon.png";
+export { default as addPerson } from "@/assets/icons/ic_Products/addPerson.png";
+export { default as messageSend } from "@/assets/icons/ic_Products/messageSend.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

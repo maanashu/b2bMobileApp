@@ -168,13 +168,13 @@ export function Products({ onPress }) {
   };
 
   const secondItem = ({ item, onPress }) => (
-    <TouchableOpacity style={styles.item}>
+    <View style={styles.item}>
       <Image source={item.image} style={styles.secondView} />
 
       <Spacer space={SH(10)} />
 
       <Text style={styles.commonFlatlistText}>{item.title}</Text>
-    </TouchableOpacity>
+    </View>
   );
 
   const renderSecondItem = ({ item }) => {
@@ -247,33 +247,37 @@ export function Products({ onPress }) {
           />
         </View>
         <Spacer space={SH(20)} />
-
-        <SliderBox
-          images={images}
-          autoplay={false}
-          circleLoop={false}
-          resizeMode={"contain"}
-          autoplayInterval={3000}
-          // parentWidth={SW(380)}
-          paginationBoxStyle={{
-            position: "absolute",
-            bottom: 0,
-            padding: 0,
-            alignItems: "center",
-            alignSelf: "center",
-            justifyContent: "center",
-          }}
-          ImageComponentStyle={{
-            borderRadius: 10,
-            width: 300,
-            height: 100,
-            marginTop: 5,
-          }}
-        />
-
+        <View style={{ marginLeft: SW(9) }}>
+          <SliderBox
+            images={images}
+            autoplay={false}
+            circleLoop={false}
+            resizeMode={"stretch"}
+            autoplayInterval={3000}
+            // parentWidth={SW(380)}
+            paginationBoxStyle={{
+              position: "absolute",
+              bottom: 0,
+              padding: 0,
+              alignItems: "center",
+              alignSelf: "center",
+              justifyContent: "center",
+            }}
+            ImageComponentStyle={{
+              borderRadius: 10,
+              width: "90%",
+              height: 130,
+              marginTop: 5,
+              marginRight: ms(20),
+            }}
+          />
+        </View>
         <Spacer space={SH(20)} />
 
-        <View style={styles.ProductView}>
+        <TouchableOpacity
+          onPress={() => navigate(NAVIGATION.newProducts)}
+          style={styles.ProductView}
+        >
           <View style={styles.innerView}>
             <Text
               style={{
@@ -284,7 +288,7 @@ export function Products({ onPress }) {
             >
               New Products
             </Text>
-            <TouchableOpacity onPress={() => navigate(NAVIGATION.newProducts)}>
+            <View>
               <View style={{ flexDirection: "row" }}>
                 <Text style={styles.smallText}>See all </Text>
                 <Image
@@ -292,7 +296,7 @@ export function Products({ onPress }) {
                   style={{ height: SH(10), width: SW(6), marginTop: SH(5) }}
                 />
               </View>
-            </TouchableOpacity>
+            </View>
           </View>
 
           <Spacer space={SH(20)} />
@@ -304,9 +308,14 @@ export function Products({ onPress }) {
             extraData={product}
             numColumns={3}
           />
-        </View>
+        </TouchableOpacity>
+
         <Spacer space={SH(20)} />
-        <View style={styles.ProductView}>
+
+        <TouchableOpacity
+          onPress={() => navigate(NAVIGATION.newProducts)}
+          style={styles.ProductView}
+        >
           <View style={styles.innerView}>
             <Text
               style={{
@@ -317,12 +326,12 @@ export function Products({ onPress }) {
             >
               New Products
             </Text>
-            <TouchableOpacity onPress={onPress}>
+            <View>
               <View style={{ flexDirection: "row" }}>
                 <Text style={styles.smallText}>See all </Text>
                 <Image source={forward} style={styles.forwardIcon} />
               </View>
-            </TouchableOpacity>
+            </View>
           </View>
 
           <Spacer space={SH(15)} />
@@ -334,7 +343,7 @@ export function Products({ onPress }) {
             extraData={product}
             numColumns={3}
           />
-        </View>
+        </TouchableOpacity>
 
         <Spacer space={SH(25)} />
 

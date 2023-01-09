@@ -8,10 +8,11 @@ import {
   BusinessHome,
   BusinessProducts,
   BusinessProfile,
+  Chatting,
   Delivery,
   Home,
+  MyCatalogue,
   NewProducts,
-  OnBoarding,
   PaymentMethod,
   ProductInquiry,
   ReviewAndPayment,
@@ -19,7 +20,6 @@ import {
   StartOrder,
   TopRankingManufacturers,
 } from "@/screens";
-import { AuthNavigator } from "./AuthNavigator";
 
 const Stack = createNativeStackNavigator();
 
@@ -101,6 +101,17 @@ export function HomeNavigator() {
       <Stack.Screen
         component={BusinessProfile}
         name={NAVIGATION.businessProfile}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={Chatting}
+        name={NAVIGATION.chatting}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        component={MyCatalogue}
+        name={NAVIGATION.myCatalogue}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

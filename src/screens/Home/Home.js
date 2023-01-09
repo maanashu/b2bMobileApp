@@ -95,6 +95,7 @@ export function Home() {
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
         renderTabBar={renderTabBar}
+        swipeEnabled={false}
       />
     </ScreenWrapper>
   );

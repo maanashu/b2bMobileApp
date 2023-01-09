@@ -280,8 +280,12 @@ export function ProductInquiry({ navigation }) {
 
         <View style={styles.mainView}>
           <View style={styles.queryIcons}>
-            <TouchableOpacity style={styles.chatbutton}>
+            <TouchableOpacity
+              style={styles.chatbutton}
+              onPress={() => navigate(NAVIGATION.chatting)}
+            >
               <Image source={chatNow} style={styles.buttonIcon} />
+
               <Text style={styles.chatText}>
                 {" "}
                 {strings.productInquiry.chatNow}
@@ -295,6 +299,7 @@ export function ProductInquiry({ navigation }) {
               style={styles.buttons}
             >
               <Image source={sendInquiry} style={styles.buttonIcon} />
+
               <Text style={styles.orderText}>
                 {" "}
                 {strings.productInquiry.sendInquiry}
@@ -310,6 +315,7 @@ export function ProductInquiry({ navigation }) {
               style={styles.buttons}
             >
               <Image source={plusIcon} style={styles.buttonIcon} />
+
               <Text style={styles.orderText}>
                 {" "}
                 {strings.productInquiry.startOrder}

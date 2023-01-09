@@ -240,7 +240,7 @@ export function Business() {
           images={images}
           autoplay={false}
           circleLoop={false}
-          resizeMode={"contain"}
+          resizeMode={"stretch"}
           autoplayInterval={3000}
           // parentWidth={SW(380)}
           paginationBoxStyle={{
@@ -253,8 +253,8 @@ export function Business() {
           }}
           ImageComponentStyle={{
             borderRadius: 10,
-            width: 300,
-            height: 100,
+            width: "90%",
+            height: 130,
             marginTop: 5,
             marginRight: ms(20),
           }}
