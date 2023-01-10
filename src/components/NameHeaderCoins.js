@@ -3,12 +3,12 @@ import React from "react";
 import { COLORS } from "@/theme/Colors";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
-import { s } from "react-native-size-matters";
+import { ms, s, verticalScale } from "react-native-size-matters";
 import { goBack } from "@/navigation/NavigationRef";
-import { Fonts } from "@/assets";
+import { Fonts, coinStack } from "@/assets";
 import { ShadowStyles } from "@/theme";
 
-export function NameHeader({ title, back }) {
+export function NameHeaderCoins({ title, back, amount }) {
   return (
     <View style={styles.header}>
       <View style={styles.headerInnerView}>
@@ -22,6 +22,32 @@ export function NameHeader({ title, back }) {
             style={{ height: 30, width: 30 }}
           />
           <Text style={styles.headerText}>{title}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            backgroundColor: COLORS.primary,
+            borderRadius: ms(20),
+            flexDirection: "row",
+            alignItems: "center",
+            paddingHorizontal: ms(6),
+            paddingVertical: verticalScale(4),
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: Fonts.SemiBold,
+              color: COLORS.white,
+              fontSize: ms(14),
+              marginLeft: ms(2),
+            }}
+          >
+            {amount}
+          </Text>
+          <Image
+            resizeMode="contain"
+            source={coinStack}
+            style={styles.crossIcon}
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -39,7 +65,7 @@ export const styles = StyleSheet.create({
   header: {
     height: SH(50),
     backgroundColor: COLORS.white,
-    ...ShadowStyles.shadow,
+    ...ShadowStyles.shadow2,
     paddingHorizontal: SW(20),
     justifyContent: "center",
   },
@@ -52,6 +78,10 @@ export const styles = StyleSheet.create({
   headerText: {
     fontFamily: Fonts.SemiBold,
     color: COLORS.black,
-    fontSize: s(12),
+    fontSize: s(14),
+  },
+  crossIcon: {
+    height: SH(17),
+    width: SW(22),
   },
 });

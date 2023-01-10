@@ -201,6 +201,8 @@ export { default as flagMexico } from "@/assets/icons/ic_settings/flagMexico.png
 export { default as jobr_logo_icon } from "@/assets/icons/ic_settings/jobr_logo_icon.png";
 export { default as addPerson } from "@/assets/icons/ic_Products/addPerson.png";
 export { default as messageSend } from "@/assets/icons/ic_Products/messageSend.png";
+export { default as attachPic } from "@/assets/icons/ic_Products/attachPic.png";
+export { default as addAttachment } from "@/assets/icons/ic_Products/addAttachment.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

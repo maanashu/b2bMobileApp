@@ -3,16 +3,19 @@ import { createNativeStackNavigator } from "react-native-screens/native-stack";
 import { NAVIGATION } from "@/constants";
 import {
   AboutBusiness,
+  AddCoupon,
   AddCreditCard,
   AddShippingAddress,
   BusinessHome,
   BusinessProducts,
   BusinessProfile,
   Chatting,
+  CurrentCoupons,
   Delivery,
   Home,
   MyCatalogue,
   NewProducts,
+  PastCoupons,
   PaymentMethod,
   ProductInquiry,
   ReviewAndPayment,
@@ -112,6 +115,21 @@ export function HomeNavigator() {
       <Stack.Screen
         component={MyCatalogue}
         name={NAVIGATION.myCatalogue}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={AddCoupon}
+        name={NAVIGATION.addCoupon}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={CurrentCoupons}
+        name={NAVIGATION.currentCoupons}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={PastCoupons}
+        name={NAVIGATION.pastCoupons}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

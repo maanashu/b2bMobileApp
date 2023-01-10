@@ -43,3 +43,6 @@ export { PrivacyPolicy } from "@/screens/Settings/PrivacyPolicy/PrivacyPolicy";
 export { CookiesPolicy } from "@/screens/Settings/CookiesPolicy/CookiesPolicy";
 export { Chatting } from "@/screens/Chatting/Chatting";
 export { MyCatalogue } from "@/screens/Settings/MyCatalogue/MyCatalogue";
+export { AddCoupon } from "@/screens/Settings/Coupons/AddCoupon/AddCoupon";
+export { CurrentCoupons } from "@/screens/Settings/Coupons/CurrentCoupons/CurrentCoupons";
+export { PastCoupons } from "@/screens/Settings/Coupons/PastCoupons/PastCoupons";

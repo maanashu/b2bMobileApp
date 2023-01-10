@@ -4,7 +4,13 @@ import { styles } from "./Chatting.styles";
 import { ScreenWrapper, Spacer, TextField } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { backArrow, addPerson, messageSend } from "@/assets";
+import {
+  backArrow,
+  addPerson,
+  messageSend,
+  attachPic,
+  addAttachment,
+} from "@/assets";
 import {
   GiftedChat,
   Send,
@@ -22,18 +28,34 @@ export function Chatting() {
 
   const renderSend = (props) => {
     return (
-      <Send {...props}>
-        <Image
-          source={messageSend}
-          resizeMode="stretch"
-          style={{
-            height: SW(30),
-            width: SW(30),
-            marginRight: SW(5),
-            marginBottom: SH(7),
-          }}
-        />
-      </Send>
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <TouchableOpacity>
+          <Image
+            source={attachPic}
+            resizeMode="stretch"
+            style={styles.chattingIcon}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Image
+            source={addAttachment}
+            resizeMode="stretch"
+            style={styles.chattingIcon}
+          />
+        </TouchableOpacity>
+        <Send {...props} containerStyle={{ marginTop: SH(12) }}>
+          <Image
+            source={messageSend}
+            resizeMode="stretch"
+            style={{
+              height: SW(40),
+              width: SW(40),
+              marginRight: SW(5),
+              marginBottom: SH(7),
+            }}
+          />
+        </Send>
+      </View>
     );
   };
 
@@ -49,17 +71,10 @@ export function Chatting() {
           name: "React Native",
           avatar: "https://placeimg.com/140/140/any",
         },
-      },
-      {
-        _id: 3,
-        text: "How are you",
-        createdAt: new Date(),
-
-        user: {
-          _id: 4,
-          name: "React Native",
-          avatar: "https://placeimg.com/140/140/any",
-        },
+        image: "https://facebook.github.io/react/img/logo_og.png",
+        sent: true,
+        received: true,
+        pending: true,
       },
     ]);
   }, []);
@@ -101,7 +116,6 @@ export function Chatting() {
       <View style={styles.mainContainer}>
         <GiftedChat
           showAvatarForEveryMessage={true}
-          renderActions={() => <View></View>}
           alwaysShowSend={true}
           scrollToBottom={true}
           messages={messages}
@@ -110,6 +124,21 @@ export function Chatting() {
             _id: 1,
           }}
           renderSend={renderSend}
+          renderInputToolbar={(props) => {
+            return (
+              <InputToolbar
+                {...props}
+                containerStyle={{
+                  borderWidth: 1,
+                  borderRadius: SW(20),
+                  borderTopWidth: 1,
+                  borderTopColor: "black",
+                  height: 60,
+                  justifyContent: "center",
+                }}
+              ></InputToolbar>
+            );
+          }}
         />
       </View>
     </ScreenWrapper>

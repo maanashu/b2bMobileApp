@@ -37,4 +37,9 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.white,
   },
+  chattingIcon: {
+    height: 35,
+    width: 35,
+    marginRight: SW(8),
+  },
 });

@@ -331,4 +331,16 @@ export const en = {
   chatting: {
     chat: "Chat",
   },
+  coupons: {
+    coupons: "Coupons",
+    addCoupon: "Add Coupon",
+    welcomeCoupon: "Welcome Coupon",
+    minimum: "minimum",
+    valid: "Valid until",
+    tc: "T&C",
+    current: "Current",
+    past: "Past",
+    couponCode: "Coupon Code",
+    notActive: "Not Active Coupon",
+  },
 };

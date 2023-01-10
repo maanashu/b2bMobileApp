@@ -43,4 +43,7 @@ export const NAVIGATION = {
   termsConditions: "TermsConditions",
   chatting: "Chatting",
   myCatalogue: "MyCatalogue",
+  addCoupon: "AddCoupon",
+  currentCoupons: "CurrentCoupons",
+  pastCoupons: "PastCoupons",
 };
