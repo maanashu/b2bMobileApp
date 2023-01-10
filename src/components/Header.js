@@ -16,6 +16,7 @@ import { goBack, navigate } from "@/navigation/NavigationRef";
 import { backArrow, filter, Fonts, search, boxStar } from "@/assets";
 import { strings } from "@/localization";
 import { Button, Spacer } from "@/components";
+import { ShadowStyles } from "@/theme";
 
 export function Header({ title, back }) {
   return (
@@ -65,7 +66,7 @@ export const styles = StyleSheet.create({
   header: {
     height: SH(50),
     backgroundColor: COLORS.white,
-    elevation: 5,
+    ...ShadowStyles.shadow4,
     paddingHorizontal: SW(20),
     justifyContent: "center",
   },

@@ -1,4 +1,5 @@
 import { Fonts } from "@/assets";
+import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
@@ -31,7 +32,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     margin: 2,
     borderRadius: 5,
-    elevation: 2,
+    ...ShadowStyles.shadow,
   },
   itemS: {
     backgroundColor: COLORS.white,
@@ -126,7 +127,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: SH(10),
     backgroundColor: COLORS.placeholder,
-    elevation: 3,
+    ...ShadowStyles.shadow,
     flex: 1,
     height: SH(140),
     paddingHorizontal: SW(10),
@@ -276,7 +277,7 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   mainView: {
-    elevation: 5,
+    ...ShadowStyles.shadow,
     backgroundColor: COLORS.white,
     flex: 1,
     paddingHorizontal: 10,
@@ -314,7 +315,7 @@ export const styles = StyleSheet.create({
   header: {
     height: SH(50),
     backgroundColor: COLORS.white,
-    elevation: 5,
+    ...ShadowStyles.shadow2,
     paddingHorizontal: SW(20),
     justifyContent: "space-between",
     flexDirection: "row",
@@ -339,7 +340,7 @@ export const styles = StyleSheet.create({
   ShoesStyle: {
     height: 190,
     width: 180,
-    elevation: 2,
+    ...ShadowStyles.shadow,
     borderRadius: 1,
     backgroundColor: COLORS.white,
     margin: 2,

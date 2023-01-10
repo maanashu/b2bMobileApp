@@ -1,4 +1,5 @@
 import { Fonts } from "@/assets";
+import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
@@ -16,7 +17,7 @@ export const styles = StyleSheet.create({
   header: {
     height: SH(50),
     backgroundColor: COLORS.white,
-    elevation: 5,
+    ...ShadowStyles.shadow,
     paddingHorizontal: SW(20),
     justifyContent: "center",
   },
@@ -82,7 +83,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: SH(10),
     backgroundColor: COLORS.white,
-    elevation: 2,
+    ...ShadowStyles.shadow2,
     flex: 1,
     height: SH(207),
     paddingHorizontal: SW(10),
@@ -151,7 +152,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     paddingTop: verticalScale(1),
-    elevation: 1,
+    ...ShadowStyles.shadow,
   },
   sendInquiryButton: {
     backgroundColor: COLORS.sky,

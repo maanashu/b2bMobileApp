@@ -13,6 +13,7 @@ import { Business, Products } from "@/screens";
 import { styles } from "./Home.styles";
 
 import { Fonts } from "@/assets";
+import { ShadowStyles } from "@/theme";
 
 export function Home() {
   const layout = useWindowDimensions();
@@ -64,7 +65,7 @@ export function Home() {
         }}
         indicatorStyle={{ backgroundColor: COLORS.white }}
         style={{
-          elevation: 2,
+          ...ShadowStyles.shadow2,
           backgroundColor: COLORS.white,
           marginBottom: 1,
         }}
@@ -80,7 +81,7 @@ export function Home() {
         style={{
           height: SH(50),
           backgroundColor: COLORS.white,
-          elevation: 5,
+          ...ShadowStyles.shadow2,
           paddingHorizontal: SW(10),
           justifyContent: "center",
         }}

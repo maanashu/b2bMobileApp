@@ -1,4 +1,5 @@
 import { Fonts } from "@/assets";
+import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
@@ -19,7 +20,7 @@ export const styles = StyleSheet.create({
   header: {
     height: SH(50),
     backgroundColor: COLORS.white,
-    elevation: 5,
+    ...ShadowStyles.shadow2,
     paddingHorizontal: SW(20),
     justifyContent: "center",
   },

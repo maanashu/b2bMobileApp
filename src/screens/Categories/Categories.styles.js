@@ -1,4 +1,5 @@
 import { Fonts } from "@/assets";
+import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SH, SF, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
@@ -19,7 +20,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: SW(20),
     shadowOpacity: 10,
     shadowRadius: 5,
-    elevation: 5,
+    ...ShadowStyles.shadow2,
   },
 
   skipButton: {
@@ -57,7 +58,7 @@ export const styles = StyleSheet.create({
     borderColor: COLORS.light_border,
     flexDirection: "row",
     alignItems: "center",
-    elevation: 1,
+    ...ShadowStyles.shadow2,
   },
   title: {
     fontSize: SF(16),
@@ -71,7 +72,7 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.placeholder,
     borderColor: COLORS.placeholder,
     borderRadius: 5,
-    elevation: 2,
+    ...ShadowStyles.shadow2,
   },
   iconStyle: {
     height: SH(17),

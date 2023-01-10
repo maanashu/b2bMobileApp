@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
     shadowOpacity: 10,
     shadowRadius: 5,
-    ...ShadowStyles.shadow,
+    ...ShadowStyles.shadow2,
   },
   mainImg: {
     marginTop: SH(10),
@@ -89,7 +89,7 @@ export const styles = StyleSheet.create({
     borderColor: "transparent",
     borderRadius: 5,
     height: SW(48),
-    elevation: 2,
+    ...ShadowStyles.shadow2,
   },
   textStyle: {
     color: COLORS.btnText,

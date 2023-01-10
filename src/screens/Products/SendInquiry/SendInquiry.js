@@ -26,6 +26,7 @@ import {
   selectedCheckBox,
   backArrow,
 } from "@/assets";
+import { ShadowStyles } from "@/theme";
 
 export function SendInquiry() {
   let pictures = [];
@@ -89,7 +90,7 @@ export function SendInquiry() {
           height: SH(60),
           backgroundColor: COLORS.white,
 
-          elevation: 5,
+          ...ShadowStyles.shadow,
           flexDirection: "row",
           paddingHorizontal: 20,
         }}

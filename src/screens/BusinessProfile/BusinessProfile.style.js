@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
   header: {
     height: SH(50),
     backgroundColor: COLORS.white,
-    elevation: 5,
+    ...ShadowStyles.shadow,
     paddingHorizontal: SW(20),
     justifyContent: "center",
   },
@@ -90,7 +90,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: SH(10),
     backgroundColor: COLORS.white,
-    elevation: 2,
+    ...ShadowStyles.shadow,
     flex: 1,
     height: SH(170),
     paddingHorizontal: SW(10),
@@ -159,7 +159,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     paddingTop: verticalScale(1),
-    elevation: 1,
+    ...ShadowStyles.shadow2,
   },
   videoView: {
     width: "100%",
@@ -189,7 +189,7 @@ export const styles = StyleSheet.create({
   },
   ratingView: {
     backgroundColor: COLORS.white,
-    elevation: 2,
+    ...ShadowStyles.shadow2,
     width: "40%",
     borderRadius: 10,
     paddingHorizontal: moderateScale(5),
@@ -227,7 +227,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: ms(7),
     paddingVertical: vs(7),
     borderRadius: 10,
-    elevation: 2,
+    ...ShadowStyles.shadow,
   },
   allVideosView: {
     height: vs(40),
@@ -246,7 +246,7 @@ export const styles = StyleSheet.create({
   ShoesStyle: {
     height: vs(180),
     width: 180,
-    elevation: 2,
+    ...ShadowStyles.shadow,
     borderRadius: 1,
     backgroundColor: COLORS.white,
     margin: 2,

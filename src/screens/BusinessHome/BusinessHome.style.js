@@ -1,4 +1,5 @@
 import { Fonts } from "@/assets";
+import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
@@ -15,7 +16,7 @@ export const styles = StyleSheet.create({
   ShoesStyle: {
     height: vs(180),
     width: 180,
-    elevation: 2,
+    ...ShadowStyles.shadow2,
     borderRadius: 1,
     backgroundColor: COLORS.white,
     margin: 2,
