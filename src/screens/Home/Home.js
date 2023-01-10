@@ -81,7 +81,6 @@ export function Home() {
         style={{
           height: SH(50),
           backgroundColor: COLORS.white,
-          ...ShadowStyles.shadow2,
           paddingHorizontal: SW(10),
           justifyContent: "center",
         }}
