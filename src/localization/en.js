@@ -328,9 +328,6 @@ export const en = {
     para11:
       "You are entitled to post the Comments on our website and have all necessary licenses and consents to do so. \nThe Comments do not invade any intellectual property right, including without limitation copyright, patent or trademark of any third party. \nThe Comments do not contain any defamatory, libelous, offensive, indecent or otherwise unlawful material which is an invasion of privacy. \nThe Comments will not be used to solicit or promote business or custom or present commercial activities or unlawful activity. \nYou hereby grant Company Name a non-exclusive license to use, reproduce, edit and authorize others to use, reproduce and edit any of your Comments in any and all forms, formats or media.",
   },
-  chatting: {
-    chat: "Chat",
-  },
   coupons: {
     coupons: "Coupons",
     addCoupon: "Add Coupon",
@@ -342,5 +339,21 @@ export const en = {
     past: "Past",
     couponCode: "Coupon Code",
     notActive: "Not Active Coupon",
+  },
+  chatting: {
+    chat: "Chat",
+    photo: "Photo",
+    quickMessage: "Quick Messages",
+    videoCall: "Video Call",
+    file: "File",
+    businessCard: "Business Card",
+    latestPrice: "Latest Price",
+    voiceMessages: "Voice Messages",
+    translator: "Translator",
+    sendCatalogues: "Send Catalogue",
+    shippingAddress: "Shipping Address",
+    directOffer: "Direct Offer",
+    takephoto: "Take a Photo",
+    sendLocalPhoto: "Send Local Photo",
   },
 };

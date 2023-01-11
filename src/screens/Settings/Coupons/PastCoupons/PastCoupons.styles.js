@@ -3,7 +3,7 @@ import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
-import { ms, s } from "react-native-size-matters";
+import { ms, s, vs } from "react-native-size-matters";
 
 export const styles = StyleSheet.create({
   container: {
@@ -12,102 +12,35 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: 40,
   },
-
-  header: {
-    height: SH(50),
-    backgroundColor: COLORS.white,
-    ...ShadowStyles.shadow2,
-    paddingHorizontal: SW(20),
-    justifyContent: "center",
-  },
-  headerInnerView: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  headerText: {
-    fontFamily: Fonts.SemiBold,
-    color: COLORS.black,
-    fontSize: s(14),
-  },
-  crossIcon: {
-    height: SH(35),
-    width: SW(40),
-  },
   mainContainer: {
     flex: 1,
     backgroundColor: COLORS.white,
-    paddingHorizontal: SW(20),
     paddingVertical: SH(5),
   },
-
-  fedEXDeliveryView: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  upsDeliveryView: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  dhlDeliveryView: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  jobrDeliveryView: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  deliveryViewInnerView: {
-    flexDirection: "row",
-    alignItems: "center",
-    flex: 1,
-  },
-  fedExIcon: {
-    height: SH(50),
-    width: SW(40),
-  },
-  deliveryText: {
-    color: COLORS.black,
-    fontSize: SF(17),
+  couponView: {
+    backgroundColor: COLORS.placeHolder,
     paddingHorizontal: SW(10),
+    paddingBottom: SH(10),
+    borderRadius: ms(10),
+    paddingTop: SH(20),
   },
-  outerDot: {
-    borderWidth: 1,
-    height: 20,
-    width: 20,
+  upperView: {
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10,
-    borderColor: "gray",
+    justifyContent: "space-between",
   },
-  innerDot: {
-    height: 12,
-    width: 12,
-    borderRadius: 6,
-  },
-  upsIcon: {
-    height: SH(32),
-    width: SW(40),
-  },
-  buttonView: {
-    paddingHorizontal: SW(20),
-    flex: 1,
-    justifyContent: "flex-end",
-    paddingVertical: SH(20),
-  },
-  doneButton: {
-    borderWidth: 0,
-  },
-  buttonTextStyle: {
-    color: COLORS.white,
-  },
-  priceText: {
-    marginLeft: ms(50),
+  upperText: {
+    fontFamily: Fonts.SemiBold,
     color: COLORS.darkGrey,
+    fontSize: ms(15),
+  },
+  smallText: {
+    fontFamily: Fonts.Regular,
+    color: "#626262",
+    fontSize: ms(12),
+  },
+  mediumText: {
+    fontFamily: Fonts.SemiBold,
+    color: COLORS.darkGrey2,
   },
 });

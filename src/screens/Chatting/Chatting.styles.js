@@ -32,14 +32,62 @@ export const styles = StyleSheet.create({
     fontSize: SF(11),
   },
   mainContainer: {
-    marginHorizontal: SW(20),
     marginVertical: SH(5),
     flex: 1,
     backgroundColor: COLORS.white,
   },
+  chatViewContainer: {
+    marginHorizontal: SW(20),
+    flex: 1,
+    backgroundColor: COLORS.white,
+  },
   chattingIcon: {
-    height: 35,
-    width: 35,
+    height: 25,
+    width: 25,
     marginRight: SW(8),
+  },
+  bottomOptionsView: {
+    marginTop: SH(15),
+    backgroundColor: COLORS.inputBorder,
+    paddingHorizontal: SW(20),
+    paddingVertical: SH(20),
+  },
+  optionText: {
+    textAlign: "center",
+    fontFamily: Fonts.MaisonRegular,
+    fontSize: SF(11),
+    color: COLORS.light_grey,
+  },
+  crossIconView: {
+    alignItems: "flex-end",
+  },
+  iconStyle: {
+    height: SW(30),
+    width: SW(30),
+  },
+  cameraView: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  cameraText: {
+    fontFamily: Fonts.SemiBold,
+    fontSize: SF(16),
+    paddingHorizontal: SW(10),
+    color: COLORS.darkGrey,
+  },
+  cameraIcons: {
+    tintColor: "black",
+    height: SW(25),
+    width: SW(30),
+  },
+  borderline: {
+    borderBottomWidth: 1,
+    borderColor: COLORS.placeHolder,
+    marginVertical: SH(10),
+  },
+  quickReplyText: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.darkGrey,
+    fontSize: SF(16),
   },
 });

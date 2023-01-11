@@ -203,6 +203,18 @@ export { default as addPerson } from "@/assets/icons/ic_Products/addPerson.png";
 export { default as messageSend } from "@/assets/icons/ic_Products/messageSend.png";
 export { default as attachPic } from "@/assets/icons/ic_Products/attachPic.png";
 export { default as addAttachment } from "@/assets/icons/ic_Products/addAttachment.png";
+export { default as chat_photo } from "@/assets/icons/ic_chat/chat_photo.png";
+export { default as chat_file } from "@/assets/icons/ic_chat/chat_file.png";
+export { default as chat_card } from "@/assets/icons/ic_chat/chat_card.png";
+export { default as chat_directOffer } from "@/assets/icons/ic_chat/chat_directOffer.png";
+export { default as chat_latestPrice } from "@/assets/icons/ic_chat/chat_latestPrice.png";
+export { default as chat_quickMessage } from "@/assets/icons/ic_chat/chat_quickMessage.png";
+export { default as chat_sendCatalogue } from "@/assets/icons/ic_chat/chat_sendCatalogue.png";
+export { default as chat_shipping } from "@/assets/icons/ic_chat/chat_shipping.png";
+export { default as chat_translator } from "@/assets/icons/ic_chat/chat_translator.png";
+export { default as chat_videoCall } from "@/assets/icons/ic_chat/chat_videoCall.png";
+export { default as chat_voiceMessage } from "@/assets/icons/ic_chat/chat_voiceMessage.png";
+export { default as chat_folder } from "@/assets/icons/ic_chat/chat_folder.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

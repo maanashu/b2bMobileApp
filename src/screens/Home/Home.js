@@ -65,7 +65,6 @@ export function Home() {
         }}
         indicatorStyle={{ backgroundColor: COLORS.white }}
         style={{
-          ...ShadowStyles.shadow2,
           backgroundColor: COLORS.white,
           marginBottom: 1,
         }}
