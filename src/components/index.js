@@ -7,3 +7,4 @@ export { ScreenWrapper } from "@/components/ScreenWrapper";
 export { NameHeader } from "@/components/NameHeader";
 export { NameHeaderCoins } from "./NameHeaderCoins";
 export { ChatBottomSheet } from "./ChatBottomSheet";
+export { SubHeader } from "@/components/SubHeader";

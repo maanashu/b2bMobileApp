@@ -49,7 +49,7 @@ export function QuickReply({ onPress }) {
 
       <TouchableOpacity>
         <Text style={styles.quickReplyText}>
-          Hi, What’s the best price you can offer?
+          {strings.quickReplies.bestOffer}
         </Text>
       </TouchableOpacity>
 

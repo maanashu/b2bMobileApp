@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
   header: {
     height: SH(50),
     backgroundColor: COLORS.white,
-    ...ShadowStyles.shadow,
+    ...ShadowStyles.shadow2,
     paddingHorizontal: SW(20),
     justifyContent: "center",
   },
@@ -90,7 +90,6 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: SH(10),
     backgroundColor: COLORS.white,
-    ...ShadowStyles.shadow,
     flex: 1,
     height: SH(170),
     paddingHorizontal: SW(10),
@@ -159,7 +158,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     paddingTop: verticalScale(1),
-    ...ShadowStyles.shadow2,
   },
   videoView: {
     width: "100%",
@@ -227,7 +225,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: ms(7),
     paddingVertical: vs(7),
     borderRadius: 10,
-    ...ShadowStyles.shadow,
+    ...ShadowStyles.shadow2,
   },
   allVideosView: {
     height: vs(40),
@@ -246,7 +244,7 @@ export const styles = StyleSheet.create({
   ShoesStyle: {
     height: vs(180),
     width: 180,
-    ...ShadowStyles.shadow,
+    ...ShadowStyles.shadow2,
     borderRadius: 1,
     backgroundColor: COLORS.white,
     margin: 2,
@@ -306,8 +304,9 @@ export const styles = StyleSheet.create({
     ...ShadowStyles.shadow2,
     borderRadius: moderateScale(10),
     marginHorizontal: moderateScale(1),
-    paddingHorizontal: moderateScale(5),
+    paddingHorizontal: moderateScale(10),
     marginBottom: vs(10),
+    paddingVertical: SH(5),
   },
   innerView: {
     flexDirection: "row",
@@ -334,5 +333,25 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.Regular,
     fontSize: ms(12),
     color: COLORS.darkGrey,
+  },
+  bottomSheetScroll: {
+    backgroundColor: "white",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingTop: verticalScale(20),
+    paddingHorizontal: moderateScale(20),
+  },
+  companyReviewHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingBottom: 10,
+  },
+  businessDetailHeader: {
+    backgroundColor: "white",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingTop: verticalScale(20),
+    paddingHorizontal: moderateScale(20),
+    paddingBottom: SH(10),
   },
 });

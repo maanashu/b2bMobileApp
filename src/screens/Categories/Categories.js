@@ -94,7 +94,7 @@ export function Categories() {
           style={styles.buttonStyle}
           textStyle={{ color: COLORS.black }}
         />
-        <Spacer space={SH(15)} />
+        <Spacer space={SH(20)} />
       </View>
     </ScreenWrapper>
   );

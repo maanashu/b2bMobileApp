@@ -20,7 +20,6 @@ export const styles = StyleSheet.create({
     paddingHorizontal: SW(20),
     shadowOpacity: 10,
     shadowRadius: 5,
-    ...ShadowStyles.shadow2,
   },
 
   skipButton: {
@@ -36,6 +35,8 @@ export const styles = StyleSheet.create({
   skipText: {
     color: COLORS.black,
     marginLeft: SW(10),
+    fontFamily: Fonts.SemiBold,
+    fontSize: SF(12),
   },
   mainHeading: {
     color: COLORS.black,
@@ -49,6 +50,7 @@ export const styles = StyleSheet.create({
   smalltext: {
     color: COLORS.light_grey,
     fontSize: SF(14),
+    marginLeft: SW(18),
   },
   item: {
     height: SH(36),
@@ -58,7 +60,8 @@ export const styles = StyleSheet.create({
     borderColor: COLORS.light_border,
     flexDirection: "row",
     alignItems: "center",
-    ...ShadowStyles.shadow2,
+    padding: 5,
+    borderRadius: 5,
   },
   title: {
     fontSize: SF(16),
@@ -72,7 +75,7 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.placeholder,
     borderColor: COLORS.placeholder,
     borderRadius: 5,
-    ...ShadowStyles.shadow2,
+    height: SH(50),
   },
   iconStyle: {
     height: SH(17),

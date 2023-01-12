@@ -83,7 +83,7 @@ export const styles = StyleSheet.create({
     borderRadius: ms(8),
     paddingHorizontal: ms(10),
     paddingVertical: vs(10),
-    ...ShadowStyles.shadow4,
+    ...ShadowStyles.shadow2,
     marginHorizontal: ms(1),
   },
   userInnerView: {

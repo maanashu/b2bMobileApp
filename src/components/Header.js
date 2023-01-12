@@ -82,7 +82,7 @@ export const styles = StyleSheet.create({
     fontSize: s(12),
   },
   searchIcon: {
-    height: vs(25),
+    height: vs(20),
   },
   crossIcon: {
     height: SH(35),
@@ -97,18 +97,18 @@ export const styles = StyleSheet.create({
     color: COLORS.white,
   },
   headerIconView: {
-    height: SH(35),
-    width: SW(80),
+    height: SH(28),
+    width: SW(65),
     backgroundColor: COLORS.primary,
     borderRadius: ms(20),
     flexDirection: "row",
-    paddingHorizontal: ms(10),
     alignItems: "center",
+    paddingHorizontal: SW(7),
     justifyContent: "space-between",
   },
   filterIcon: {
-    height: vs(22),
-    width: ms(18),
+    height: vs(18),
+    width: ms(14),
   },
   tabButtonView: {
     borderRadius: 20,

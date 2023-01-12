@@ -18,9 +18,9 @@ export const styles = StyleSheet.create({
     width: "100%",
   },
   favIcon: {
-    height: SH(24),
-    width: SW(24),
-    marginRight: SW(20),
+    height: SH(20),
+    width: SW(20),
+    marginRight: SW(22),
   },
 
   item: {
@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     margin: 2,
     borderRadius: 5,
-    ...ShadowStyles.shadow,
+    ...ShadowStyles.shadow2,
   },
   itemS: {
     backgroundColor: COLORS.white,
@@ -49,8 +49,8 @@ export const styles = StyleSheet.create({
     fontSize: SF(25),
   },
   buttons: {
-    height: 40,
-    width: SW(105),
+    height: SW(40),
+    width: SW(110),
     alignItems: "center",
     flexDirection: "row",
     backgroundColor: COLORS.sky,
@@ -58,8 +58,12 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   buttonIcon: {
-    height: vs(15),
-    width: ms(19),
+    height: ms(17),
+    width: ms(17),
+  },
+  plusButtonIcon: {
+    height: ms(12),
+    width: ms(12),
   },
   headerText: {
     fontFamily: Fonts.SemiBold,
@@ -127,7 +131,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: SH(10),
     backgroundColor: COLORS.placeholder,
-    ...ShadowStyles.shadow,
+    ...ShadowStyles.shadow2,
     flex: 1,
     height: SH(140),
     paddingHorizontal: SW(10),
@@ -156,7 +160,7 @@ export const styles = StyleSheet.create({
   },
   yewiIcons: {
     height: SH(14),
-    width: SW(10),
+    width: SW(14),
     marginLeft: SW(5),
   },
   yewiSmallText: {
@@ -164,13 +168,13 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.Regular,
   },
   yewistar: {
-    height: SH(9),
-    width: SW(9),
-    marginLeft: SW(5),
+    height: SH(10),
+    width: SW(10),
+    marginLeft: SW(7),
   },
   yewiClock: {
     height: SH(10),
-    width: SW(9),
+    width: SW(11),
     marginLeft: SW(5),
   },
   sideIcons: {
@@ -212,10 +216,17 @@ export const styles = StyleSheet.create({
   },
   viewAll: {
     alignItems: "flex-end",
-    paddingHorizontal: SW(20),
+    paddingHorizontal: SW(5),
+    backgroundColor: COLORS.termsBorder,
+    width: SW(90),
+    alignSelf: "flex-end",
+    height: SH(40),
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 8,
   },
   viewImage: {
-    height: SH(40),
+    height: SH(60),
     width: SW(80),
     justifyContent: "flex-end",
   },
@@ -277,7 +288,7 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   mainView: {
-    ...ShadowStyles.shadow,
+    ...ShadowStyles.shadow2,
     backgroundColor: COLORS.white,
     flex: 1,
     paddingHorizontal: 10,
@@ -333,19 +344,19 @@ export const styles = StyleSheet.create({
     fontSize: s(14),
   },
   crossIcon: {
-    height: SH(35),
-    width: SW(40),
+    height: SH(27),
+    width: SW(35),
     color: COLORS.black,
   },
   ShoesStyle: {
-    height: 190,
     width: 180,
-    ...ShadowStyles.shadow,
-    borderRadius: 1,
+    ...ShadowStyles.shadow2,
+    borderRadius: 4,
     backgroundColor: COLORS.white,
     margin: 2,
     flex: 1,
     alignItems: "center",
+    paddingVertical: SH(5),
   },
   recommended: {
     color: COLORS.black,
@@ -377,5 +388,55 @@ export const styles = StyleSheet.create({
     borderRadius: 15,
     width: "85%",
     marginTop: 5,
+  },
+  boldTextStyle: {
+    fontFamily: Fonts.Bold,
+    color: COLORS.darkGrey,
+    fontSize: ms(30),
+  },
+  simpleText: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.darkGrey,
+    fontSize: ms(25),
+  },
+  upperButtons: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: SH(50),
+  },
+  primaryColorText: {
+    color: COLORS.primary,
+    fontSize: SF(16),
+    fontFamily: Fonts.SemiBold,
+  },
+  smallText: {
+    color: COLORS.darkGrey2,
+    fontSize: SF(12),
+    fontFamily: Fonts.Regular,
+  },
+  starProduct: {
+    flexDirection: "row",
+    flex: 1,
+    width: "100%",
+  },
+  viewAllText: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.black,
+    fontSize: SF(16),
+  },
+  shoeQuantityText: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.light_grey,
+    fontSize: SF(10),
+  },
+  shoesTextTitle: {
+    paddingRight: 5,
+    fontFamily: Fonts.SemiBold,
+    color: COLORS.darkGrey,
+  },
+  shoesSubTitle: {
+    paddingRight: 5,
+    fontFamily: Fonts.Regular,
+    color: COLORS.darkGrey,
   },
 });

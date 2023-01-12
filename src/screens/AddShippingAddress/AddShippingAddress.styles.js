@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
   header: {
     height: SH(50),
     backgroundColor: COLORS.white,
-  ...ShadowStyles.shadow2,
+    ...ShadowStyles.shadow2,
     paddingHorizontal: SW(20),
     justifyContent: "center",
   },
@@ -43,6 +43,7 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.inputBorder,
     height: SH(50),
     borderRadius: SW(5),
+    paddingLeft: SW(10),
   },
   borderLine: {
     borderBottomWidth: 1,
@@ -53,6 +54,8 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   nameInput: {
+    paddingLeft: SW(10),
+
     borderBottomWidth: 0,
     backgroundColor: COLORS.inputBorder,
     height: SH(50),

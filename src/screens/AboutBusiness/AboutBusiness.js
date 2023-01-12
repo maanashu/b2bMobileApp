@@ -114,8 +114,8 @@ export function AboutBusiness() {
       >
         <Text
           style={{
-            color: COLORS.blue,
-            fontSize: SF(18),
+            color: COLORS.primary,
+            fontSize: SF(16),
             fontFamily: Fonts.SemiBold,
           }}
         >
@@ -148,19 +148,39 @@ export function AboutBusiness() {
           <Spacer space={SH(20)} />
           <View style={styles.yewiView}>
             <View style={styles.yewiInnerView}>
-              <Image source={yewiLogo} style={styles.logoYewi} />
+              <Image
+                source={yewiLogo}
+                resizeMode="contain"
+                style={styles.logoYewi}
+              />
               <View style={{ paddingHorizontal: SW(10) }}>
                 <Text style={styles.yewiHeadingText}>
                   Yiwu Leqi E-Commerce Firm
                 </Text>
                 <View style={styles.yewiSmallView}>
-                  <Image source={yewiCertified} style={styles.certified} />
+                  <Image
+                    source={yewiCertified}
+                    resizeMode="contain"
+                    style={styles.certified}
+                  />
                   <View style={styles.yewiDirection}>
-                    <Image source={location} style={styles.yewiIcons} />
+                    <Image
+                      source={location}
+                      resizeMode="contain"
+                      style={styles.yewiIcons}
+                    />
                     <Text style={styles.yewiSmallText}> Miami, USA</Text>
-                    <Image source={star} style={styles.yewistar} />
+                    <Image
+                      source={star}
+                      resizeMode="contain"
+                      style={styles.yewistar}
+                    />
                     <Text style={styles.yewiSmallText}> 4.5</Text>
-                    <Image source={clock} style={styles.yewiClock} />
+                    <Image
+                      source={clock}
+                      resizeMode="contain"
+                      style={styles.yewiClock}
+                    />
                     <Text style={styles.yewiSmallText}> Since 2022</Text>
                   </View>
                 </View>

@@ -8,6 +8,7 @@ import { ProfileNavigator } from "@/navigation/ProfileNavigator";
 import { bottomHome, bottomMyJobr } from "@/assets";
 import { Image } from "react-native";
 import { AuthNavigator } from "./AuthNavigator";
+import { COLORS } from "@/theme";
 
 const Tab = createBottomTabNavigator();
 
@@ -24,8 +25,8 @@ export function AppNavigator() {
         ),
       })}
       tabBarOptions={{
-        activeTintColor: colors.activeTab,
-        inactiveTintColor: colors.inactiveTab,
+        activeTintColor: COLORS.black,
+        inactiveTintColor: COLORS.light_grey,
       }}
     >
       <Tab.Screen

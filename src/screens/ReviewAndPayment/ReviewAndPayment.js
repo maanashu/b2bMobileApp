@@ -343,8 +343,9 @@ export function ReviewAndPayment({ navigation }) {
                 </Text>
                 <View style={styles.box}>
                   <Image
+                    resizeMode="stretch"
                     source={forwardArrowWhite}
-                    style={{ height: 25, width: SW(39) }}
+                    style={{ height: 15, width: SW(25) }}
                   />
                 </View>
               </View>
@@ -363,8 +364,9 @@ export function ReviewAndPayment({ navigation }) {
                 </Text>
                 <View style={styles.box}>
                   <Image
+                    resizeMode="stretch"
                     source={forwardArrowWhite}
-                    style={{ height: 25, width: SW(39) }}
+                    style={{ height: 15, width: SW(25) }}
                   />
                 </View>
               </View>
@@ -390,47 +392,16 @@ export function ReviewAndPayment({ navigation }) {
             },
           }}
         >
-          <View
-            style={{
-              backgroundColor: "#999999",
-              paddingBottom: vs(10),
-              paddingHorizontal: ms(20),
-              alignItems: "flex-end",
-            }}
-          >
+          <View style={styles.modalCloseView}>
             <TouchableOpacity onPress={() => refRBSheet.current.close()}>
-              <Text
-                style={{
-                  fontFamily: Fonts.SemiBold,
-                  fontSize: ms(14),
-                  color: COLORS.white,
-                }}
-              >
-                {strings.wallet.close}
-              </Text>
+              <Text style={styles.textStyle}>{strings.wallet.close}</Text>
             </TouchableOpacity>
           </View>
-          {/* <View
-          style={{
-            backgroundColor: COLORS.white,
-            flex: 1,
-            borderTopLeftRadius: 50,
-            borderTopRightRadius: 50,
-            paddingHorizontal: ms(20),
-            paddingTop: verticalScale(10),
-          }}
-        >
-          <Text>{strings.wallet.close}</Text>
-        </View> */}
+
           <ScrollView
             bounces={false}
             showsVerticalScrollIndicator={false}
-            style={{
-              backgroundColor: "white",
-              borderTopLeftRadius: 50,
-              borderTopRightRadius: 50,
-              paddingTop: verticalScale(20),
-            }}
+            style={styles.scrollViewStyle}
           >
             <View style={styles.headingRowView}>
               <Text style={styles.walletText}>{strings.wallet.wallet}</Text>
@@ -440,7 +411,8 @@ export function ReviewAndPayment({ navigation }) {
                 style={styles.coinIcon}
               />
             </View>
-            <View>
+
+            <View style={{ paddingHorizontal: 10 }}>
               <Text style={{ textAlign: "center" }}>
                 {strings.wallet.useCoin}
               </Text>
@@ -481,6 +453,7 @@ export function ReviewAndPayment({ navigation }) {
               removeClippedSubviews={true}
             />
             <Spacer space={SH(15)} />
+
             <View style={{ paddingHorizontal: ms(20), alignItems: "center" }}>
               <Text style={styles.agreementText}>
                 {strings.wallet.agreement}

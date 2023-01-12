@@ -239,7 +239,7 @@ export function Chatting() {
   }, []);
 
   const onSend = useCallback((messages = []) => {
-    setShowView(!showView);
+    setShowView(false);
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages)
     );

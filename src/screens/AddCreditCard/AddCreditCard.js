@@ -5,11 +5,10 @@ import { Button, ScreenWrapper, Spacer, TextField } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { useState } from "react";
-import { goBack, navigate } from "@/navigation/NavigationRef";
+import { goBack } from "@/navigation/NavigationRef";
 import { ms } from "react-native-size-matters";
 import { backArrow, selectedCheckBox, checkBox } from "@/assets";
 import { strings } from "@/localization";
-import { NAVIGATION } from "@/constants";
 export function AddCreditCard() {
   const [agree, setagree] = useState(false);
   const [sameAddress, setSameAddress] = useState("");
@@ -147,14 +146,19 @@ export function AddCreditCard() {
 
         <View style={styles.saveCardView}>
           <TouchableOpacity onPress={CheckBox}>
-            <Image
-              style={{
-                height: ms(20),
-                width: ms(20),
-                marginRight: ms(10),
-              }}
-              source={agree ? selectedCheckBox : checkBox}
-            />
+            {agree ? (
+              <Image
+                source={selectedCheckBox}
+                resizeMode="stretch"
+                style={styles.selectedCheck}
+              />
+            ) : (
+              <Image
+                source={checkBox}
+                resizeMode="stretch"
+                style={styles.checkBoxStyle}
+              />
+            )}
           </TouchableOpacity>
           <Text style={styles.shippingText}>
             {strings.addCreditCard.saveCard}

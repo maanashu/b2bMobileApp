@@ -16,7 +16,7 @@ export { ReviewAndPayment } from "@/screens/ReviewAndPayment/ReviewAndPayment";
 export { AddShippingAddress } from "@/screens/AddShippingAddress/AddShippingAddress";
 export { PaymentMethod } from "@/screens/PaymentMethod/PaymentMethod";
 export { AddCreditCard } from "@/screens/AddCreditCard/AddCreditCard";
-export { SecondScreen } from "@/screens/SecondScreen/SecondScreen";
+// export { SecondScreen } from "@/screens/SecondScreen/SecondScreen";
 export { Products } from "@/screens/TopTabScreens/Products/Products";
 export { Business } from "@/screens/TopTabScreens/Business/Business";
 export { NewProducts } from "@/screens/NewProducts/NewProducts";

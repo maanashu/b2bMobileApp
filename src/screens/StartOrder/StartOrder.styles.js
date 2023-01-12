@@ -50,11 +50,11 @@ export const styles = StyleSheet.create({
   },
   itemColorHeading: {
     color: COLORS.black,
-    fontSize: SF(20),
+    fontSize: SF(18),
   },
   itemFullName: {
     color: COLORS.black,
-    fontSize: SF(16),
+    fontSize: SF(14),
     marginTop: SH(4),
     paddingHorizontal: SW(5),
   },
@@ -72,12 +72,12 @@ export const styles = StyleSheet.create({
   counterView: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: SW(20),
+    paddingHorizontal: SW(12),
     alignItems: "center",
   },
   counterButtonView: {
     height: SH(40),
-    width: SW(120),
+    width: SW(111),
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
@@ -95,7 +95,7 @@ export const styles = StyleSheet.create({
   },
   selectedNumber: {
     color: COLORS.black,
-    fontSize: SF(25),
+    fontSize: SF(16),
   },
   decrementView: {
     justifyContent: "center",
@@ -114,21 +114,9 @@ export const styles = StyleSheet.create({
   },
   shoeNumber: {
     color: COLORS.black,
-    fontSize: SF(20),
+    fontSize: SF(16),
   },
-  selectSizeView: {
-    flexDirection: "row",
-    alignItems: "center",
-    position: "absolute",
-  },
-  selectSizetext: {
-    color: COLORS.black,
-    fontSize: SF(15),
-  },
-  rowView: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
+
   buttonView: {
     justifyContent: "flex-end",
     flex: 1,
@@ -141,4 +129,36 @@ export const styles = StyleSheet.create({
   checkoutButtonText: {
     color: COLORS.white,
   },
+  boldTextHeading: {
+    fontFamily: Fonts.Bold,
+    fontSize: SF(16),
+    color: COLORS.darkGrey,
+  },
+  RegularTextHeading: {
+    fontFamily: Fonts.Regular,
+    fontSize: SF(16),
+    color: COLORS.darkGrey,
+  },
+  innerCounterView: {
+    paddingLeft: SW(40),
+    flexDirection: "row",
+    justifyContent: "space-between",
+    flex: 1,
+    alignItems: "center",
+  },
+
+  upperView: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    flex: 1,
+  },
+  subHeadingView: {
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "space-between",
+    paddingHorizontal: SW(15),
+    marginBottom: SH(-30),
+  },
 });
+0;

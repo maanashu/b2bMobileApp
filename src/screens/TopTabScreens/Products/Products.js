@@ -44,8 +44,6 @@ import { ms, vs } from "react-native-size-matters";
 import { NAVIGATION } from "@/constants";
 import { Search } from "@/components/Search";
 export function Products({ onPress }) {
-  const listData = LastData;
-
   const [selectedId, setSelectedId] = useState("");
 
   const [product, setProduct] = useState("");
@@ -196,33 +194,24 @@ export function Products({ onPress }) {
   const listDetail = ({ item, onPress }) => (
     <TouchableOpacity style={styles.ShoesStyle}>
       <Spacer space={SH(10)} />
-      <Image
-        source={item.image}
-        resizeMode="contain"
-        style={{ height: vs(140), width: ms(150) }}
-      />
-
-      <Text
-        style={{
-          fontFamily: Fonts.SemiBold,
-          fontSize: ms(12),
-          color: COLORS.darkGrey,
-          paddingHorizontal: ms(10),
-        }}
-      >
+      <View style={{ alignItems: "center" }}>
+        <Image
+          source={item.image}
+          resizeMode="contain"
+          style={{ height: vs(140), width: ms(150) }}
+        />
+      </View>
+      <Text style={styles.productsTitle}>
         {item.title}
+        <Text style={styles.productSubTitle}> {item.subTitle}</Text>
       </Text>
-      <Text
-        style={{
-          alignSelf: "flex-start",
-          fontFamily: Fonts.Regular,
-          paddingLeft: ms(18),
-          fontSize: ms(10),
-          color: COLORS.darkGrey,
-          marginTop: vs(2),
-        }}
-      >
-        {item.pieces}
+      <Spacer space={SH(2)} />
+      <Text style={styles.productsQuantity}>{item.pieces}</Text>
+      <Spacer space={SH(5)} />
+
+      <Text style={styles.priceText}>
+        {item.price}
+        <Text style={styles.categoryText}>{item.category}</Text>
       </Text>
     </TouchableOpacity>
   );
@@ -234,8 +223,6 @@ export function Products({ onPress }) {
         <Spacer space={SH(10)} />
 
         <View style={{ paddingHorizontal: SW(16) }}>
-          {/* <Search /> */}
-
           <Spacer space={SH(18)} />
 
           <FlatList
@@ -375,7 +362,11 @@ export function Products({ onPress }) {
                 Yiwu Leqi E-Commerce Firm
               </Text>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Image source={yewiCertified} style={styles.certified} />
+                <Image
+                  source={yewiCertified}
+                  resizeMode="contain"
+                  style={styles.certified}
+                />
                 <View
                   style={{
                     paddingHorizontal: SW(5),
@@ -385,9 +376,17 @@ export function Products({ onPress }) {
                 >
                   <Image source={location} style={styles.yewiIcons} />
                   <Text style={styles.yewiSmallText}> Miami, USA</Text>
-                  <Image source={star} style={styles.yewistar} />
+                  <Image
+                    source={star}
+                    resizeMode="contain"
+                    style={styles.yewistar}
+                  />
                   <Text style={styles.yewiSmallText}> 4.5</Text>
-                  <Image source={clock} style={styles.yewiClock} />
+                  <Image
+                    source={clock}
+                    resizeMode="contain"
+                    style={styles.yewiClock}
+                  />
                   <Text style={styles.yewiSmallText}> Since 2022</Text>
                 </View>
               </View>
@@ -408,7 +407,7 @@ export function Products({ onPress }) {
         <Spacer space={SH(30)} />
         <View style={{ paddingHorizontal: ms(20), flex: 1 }}>
           <FlatList
-            data={listData}
+            data={LastData}
             renderItem={listDetail}
             keyExtractor={(item) => item.id}
             // extraData={product}

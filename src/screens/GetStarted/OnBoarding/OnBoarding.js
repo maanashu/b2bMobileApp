@@ -96,7 +96,7 @@ export function OnBoarding() {
             style={styles.buttonStyle}
             textStyle={styles.textStyle}
           />
-          <Spacer space={SH(10)} />
+          <Spacer space={SH(20)} />
         </View>
       </View>
     </View>

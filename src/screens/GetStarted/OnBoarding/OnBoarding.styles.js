@@ -18,7 +18,6 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
     shadowOpacity: 10,
     shadowRadius: 5,
-    ...ShadowStyles.shadow2,
   },
   mainImg: {
     marginTop: SH(10),
@@ -50,6 +49,7 @@ export const styles = StyleSheet.create({
   skipText: {
     color: COLORS.darkGrey,
     fontFamily: Fonts.Regular,
+    fontFamily: Fonts.SemiBold,
     fontSize: SF(12),
   },
   heading: {
@@ -89,10 +89,9 @@ export const styles = StyleSheet.create({
     borderColor: "transparent",
     borderRadius: 5,
     height: SW(48),
-    ...ShadowStyles.shadow2,
   },
   textStyle: {
-    color: COLORS.btnText,
-    fontFamily: Fonts.Regular,
+    color: COLORS.black,
+    fontFamily: Fonts.SemiBold,
   },
 });

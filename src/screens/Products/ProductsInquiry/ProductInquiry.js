@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { strings } from "@/localization";
 import { styles } from "./ProductInquiry.styles";
-import { goBack, navigate, navigationRef } from "@/navigation/NavigationRef";
+import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants/navigation";
 import { useState } from "react";
 import { ScreenWrapper, Spacer } from "@/components";
@@ -48,13 +48,11 @@ import {
   ProductRatingData,
   ProductDetailData,
 } from "./FlatlistData";
-import { AuthNavigator } from "@/navigation/AuthNavigator";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { OnBoarding } from "@/screens/GetStarted/OnBoarding/OnBoarding";
 import { login } from "@/actions/UserActions";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
-export function ProductInquiry({ navigation }) {
+import { Header } from "./Components/Header";
+export function ProductInquiry() {
   const [favourite, setFavourite] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector(getUser);
@@ -62,33 +60,12 @@ export function ProductInquiry({ navigation }) {
   const colorChange = () => {
     setFavourite(!favourite);
   };
-  const price = priceData;
-  const Data = CompanyData;
-  const ProductRating = ProductRatingData;
-  const ProductDetail = ProductDetailData;
-  const Shoes = ShoesData;
 
-  const Item = ({ item, onPress }) => (
+  const Item = ({ item }) => (
     <TouchableOpacity style={styles.item}>
-      <View style={{ alignItems: "center", justifyContent: "center" }}>
-        <Text
-          style={{
-            color: COLORS.blue,
-            fontSize: SF(16),
-            fontFamily: Fonts.SemiBold,
-          }}
-        >
-          {item.price}
-        </Text>
-        <Text
-          style={{
-            color: COLORS.darkGrey2,
-            fontSize: SF(12),
-            fontFamily: Fonts.Regular,
-          }}
-        >
-          {item.quantity}
-        </Text>
+      <View style={styles.upperButtons}>
+        <Text style={styles.primaryColorText}>{item.price}</Text>
+        <Text style={styles.smallText}>{item.quantity}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -101,44 +78,17 @@ export function ProductInquiry({ navigation }) {
       />
     );
   };
-  const SecondItem = ({ item, onPress }) => (
+  const SecondItem = ({ item }) => (
     <TouchableOpacity style={styles.itemS}>
-      <View
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Text
-          style={{
-            color: COLORS.blue,
-            fontSize: SF(18),
-            fontFamily: Fonts.SemiBold,
-          }}
-        >
-          {item.Heading}
-        </Text>
-        <Text
-          style={{
-            color: COLORS.darkGrey2,
-            fontSize: SF(12),
-            fontFamily: Fonts.Regular,
-          }}
-        >
-          {item.text}
-        </Text>
+      <View style={styles.upperButtons}>
+        <Text style={styles.primaryColorText}>{item.Heading}</Text>
+        <Text style={styles.smallText}>{item.text}</Text>
       </View>
     </TouchableOpacity>
   );
 
-  const StarProductRating = ({ item, onPress }) => (
-    <View
-      style={{
-        flexDirection: "row",
-        flex: 1,
-        width: "100%",
-      }}
-    >
+  const StarProductRating = ({ item }) => (
+    <View style={styles.starProduct}>
       <Image
         resizeMode="contain"
         source={item.image}
@@ -146,7 +96,7 @@ export function ProductInquiry({ navigation }) {
       />
     </View>
   );
-  const ProductDetails = ({ item, onPress }) => (
+  const ProductDetails = ({ item }) => (
     <View>
       <View style={styles.productDetail}>
         <Text style={styles.questions}>{item.title} :</Text>
@@ -157,7 +107,7 @@ export function ProductInquiry({ navigation }) {
       <Spacer space={SH(10)} />
     </View>
   );
-  const ShoesDetail = ({ item, onPress }) => (
+  const ShoesDetail = ({ item }) => (
     <TouchableOpacity style={styles.ShoesStyle}>
       <Spacer space={SH(10)} />
       <Image
@@ -165,15 +115,13 @@ export function ProductInquiry({ navigation }) {
         style={{ height: 135, width: SW(160), borderRadius: 5 }}
       />
       <View>
-        <Text
-          style={{
-            paddingRight: 5,
-            fontFamily: Fonts.SemiBold,
-            color: COLORS.darkGrey,
-          }}
-        >
+        <Text style={styles.shoesTextTitle}>
           {item.title}
+          <Text style={styles.shoesSubTitle}> {item.subTitle}</Text>
         </Text>
+        <Spacer space={SH(5)} />
+
+        <Text style={styles.shoeQuantityText}>{item.quantity}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -185,37 +133,9 @@ export function ProductInquiry({ navigation }) {
   };
   return (
     <ScreenWrapper>
-      <View style={styles.header}>
-        <View style={styles.headerInnerView}>
-          <TouchableOpacity
-            style={{ flexDirection: "row", alignItems: "center" }}
-            onPress={() => goBack()}
-          >
-            <Image
-              resizeMode="contain"
-              source={backArrow}
-              style={{ height: 30, width: 30 }}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity>
-            <Image
-              resizeMode="contain"
-              source={bellGrey}
-              style={styles.crossIcon}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Image
-              resizeMode="contain"
-              source={bagGrey}
-              style={styles.crossIcon}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Header back={backArrow} bell={bellGrey} bag={bagGrey} />
       <Spacer space={SH(10)} />
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{ paddingHorizontal: ms(10) }}
@@ -225,6 +145,7 @@ export function ProductInquiry({ navigation }) {
             <TouchableOpacity onPress={colorChange}>
               <Image
                 source={fav}
+                resizeMode="stretch"
                 style={[
                   styles.favIcon,
                   { tintColor: favourite == true ? "red" : "black" },
@@ -267,11 +188,11 @@ export function ProductInquiry({ navigation }) {
           <Spacer space={SH(40)} />
 
           <Spacer space={SH(5)} />
+
           <FlatList
-            data={price}
+            data={priceData}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
-            // extraData={selectedId}
             numColumns={3}
           />
         </View>
@@ -298,7 +219,11 @@ export function ProductInquiry({ navigation }) {
               }}
               style={styles.buttons}
             >
-              <Image source={sendInquiry} style={styles.buttonIcon} />
+              <Image
+                source={sendInquiry}
+                resizeMode="stretch"
+                style={styles.buttonIcon}
+              />
 
               <Text style={styles.orderText}>
                 {" "}
@@ -309,12 +234,14 @@ export function ProductInquiry({ navigation }) {
             <TouchableOpacity
               onPress={() => {
                 handleSubmit();
-                // navigation.navigate("HomeScreen");
-                // dispatch(login("test", "test"));
               }}
               style={styles.buttons}
             >
-              <Image source={plusIcon} style={styles.buttonIcon} />
+              <Image
+                source={plusIcon}
+                resizeMode="stretch"
+                style={styles.plusButtonIcon}
+              />
 
               <Text style={styles.orderText}>
                 {" "}
@@ -363,13 +290,29 @@ export function ProductInquiry({ navigation }) {
                   Yiwu Leqi E-Commerce Firm
                 </Text>
                 <View style={styles.yewiSmallView}>
-                  <Image source={yewiCertified} style={styles.certified} />
+                  <Image
+                    source={yewiCertified}
+                    resizeMode="contain"
+                    style={styles.certified}
+                  />
                   <View style={styles.yewiDirection}>
-                    <Image source={location} style={styles.yewiIcons} />
+                    <Image
+                      source={location}
+                      resizeMode="contain"
+                      style={styles.yewiIcons}
+                    />
                     <Text style={styles.yewiSmallText}> Miami, USA</Text>
-                    <Image source={star} style={styles.yewistar} />
+                    <Image
+                      source={star}
+                      resizeMode="contain"
+                      style={styles.yewistar}
+                    />
                     <Text style={styles.yewiSmallText}> 4.5</Text>
-                    <Image source={clock} style={styles.yewiClock} />
+                    <Image
+                      source={clock}
+                      resizeMode="contain"
+                      style={styles.yewiClock}
+                    />
                     <Text style={styles.yewiSmallText}> Since 2022</Text>
                   </View>
                 </View>
@@ -379,7 +322,7 @@ export function ProductInquiry({ navigation }) {
             <Spacer space={SH(20)} />
 
             <FlatList
-              data={Data}
+              data={CompanyData}
               renderItem={SecondItem}
               keyExtractor={(item) => item.id}
               //   extraData={product}
@@ -443,7 +386,7 @@ export function ProductInquiry({ navigation }) {
           <TouchableOpacity>
             <View style={styles.iconView}>
               <Image
-                resizeMode="contain"
+                resizeMode="stretch"
                 source={check}
                 style={styles.tradeIcon}
               />
@@ -499,23 +442,9 @@ export function ProductInquiry({ navigation }) {
           <Text style={styles.reviewText}>Reviews</Text>
 
           <View style={styles.ratingView}>
-            <Text
-              style={{
-                fontFamily: Fonts.Bold,
-                color: COLORS.darkGrey,
-                fontSize: ms(30),
-              }}
-            >
+            <Text style={styles.boldTextStyle}>
               4.5
-              <Text
-                style={{
-                  fontFamily: Fonts.Regular,
-                  color: COLORS.darkGrey,
-                  fontSize: ms(25),
-                }}
-              >
-                /5.0
-              </Text>
+              <Text style={styles.simpleText}>/5.0</Text>
             </Text>
             <View style={{ paddingHorizontal: SW(10) }}>
               <Text style={styles.reviewText}>Very Satisfied</Text>
@@ -528,37 +457,31 @@ export function ProductInquiry({ navigation }) {
 
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={ProductRating}
+            data={ProductRatingData}
             renderItem={StarProductRating}
             keyExtractor={(item) => item.id}
-            //   extraData={selectedId}
-            // numColumns={3}
           />
 
           <Spacer space={SH(10)} />
 
           <TouchableOpacity style={styles.viewAll}>
-            <Image source={viewAll} style={styles.viewImage} />
+            <Text style={styles.viewAllText}>View all</Text>
           </TouchableOpacity>
 
           <Spacer space={SH(20)} />
-
           <Text style={styles.semiBoldtext}>
             {strings.productInquiry.productDetails}
           </Text>
           <Spacer space={SH(5)} />
           <Text style={styles.detailText}>
-            A popular type of cigarette from the Marlboro brand due to its
-            smooth flavour and it being mid-priced.
+            {strings.productInquiry.productDetailText}
           </Text>
           <Spacer space={SH(20)} />
 
           <FlatList
-            data={ProductDetail}
+            data={ProductDetailData}
             renderItem={ProductDetails}
             keyExtractor={(item) => item.id}
-            // extraData={product}
-            // numColumns={4}
           />
           <Spacer space={SH(20)} />
           <Text style={styles.recommended}>
@@ -568,10 +491,9 @@ export function ProductInquiry({ navigation }) {
           <Spacer space={SH(20)} />
 
           <FlatList
-            data={Shoes}
+            data={ShoesData}
             renderItem={ShoesDetail}
             keyExtractor={(item) => item.id}
-            // extraData={product}
             numColumns={2}
           />
         </View>

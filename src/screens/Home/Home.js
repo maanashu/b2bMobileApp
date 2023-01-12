@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { ScreenWrapper } from "@/components";
 import { COLORS } from "@/theme/Colors";
-import { SH, SW } from "@/theme/ScalerDimensions";
+import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { Business, Products } from "@/screens";
 import { styles } from "./Home.styles";
@@ -23,18 +23,25 @@ export function Home() {
   const [routes] = React.useState([
     { key: "products", title: "Products" },
     { key: "business", title: "Business" },
+    { key: "nearme", title: "Near me" },
   ]);
 
   const FirstRoute = () => <Products />;
   const SecondRoute = () => <Business />;
+  const ThirdRoute = () => <Business />;
 
   const renderScene = SceneMap({
     products: FirstRoute,
     business: SecondRoute,
+    nearme: ThirdRoute,
   });
   const renderTabBar = (props) => {
     return (
       <TabBar
+        contentContainerStyle={{
+          paddingHorizontal: SW(40),
+          justifyContent: "center",
+        }}
         {...props}
         renderLabel={({ focused, route }) => {
           return (
@@ -56,6 +63,7 @@ export function Home() {
                   color: focused ? COLORS.white : COLORS.text,
                   textAlignVertical: "center",
                   fontFamily: focused ? Fonts.SemiBold : Fonts.Regular,
+                  fontSize: SF(12),
                 }}
               >
                 {route.title}

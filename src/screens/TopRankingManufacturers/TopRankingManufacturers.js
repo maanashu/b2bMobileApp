@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { styles } from "./TopRankingManufacturers.style";
-import { ScreenWrapper, Spacer } from "@/components";
+import { ScreenWrapper, Spacer, SubHeader } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { navigate } from "@/navigation/NavigationRef";
@@ -69,14 +69,10 @@ export function TopRankingManufacturers() {
         style={styles.mainContainer}
       >
         <View style={styles.upperView}>
-          <Image
-            resizeMode="cover"
-            source={boxStar}
-            style={{ height: vs(72), width: ms(77) }}
+          <SubHeader
+            title={strings.topRankingManufacturers.topManufacturers}
+            subTitle={strings.topRankingManufacturers.subText}
           />
-          <Text style={styles.topBoldText}>
-            {strings.topRankingManufacturers.topRankingManufacturers}
-          </Text>
         </View>
 
         <Spacer space={SH(20)} />
@@ -87,19 +83,35 @@ export function TopRankingManufacturers() {
               style={styles.yewiInnerView}
               onPress={() => navigate(NAVIGATION.aboutBusiness)}
             >
-              <Image source={yewiLogo} style={styles.logoYewi} />
+              <Image
+                source={yewiLogo}
+                resizeMode="contain"
+                style={styles.logoYewi}
+              />
               <View style={{ paddingHorizontal: SW(10) }}>
                 <Text style={styles.yewiHeadingText}>
                   Yiwu Leqi E-Commerce Firm
                 </Text>
                 <View style={styles.yewiSmallView}>
-                  <Image source={yewiCertified} style={styles.certified} />
+                  <Image
+                    source={yewiCertified}
+                    resizeMode="contain"
+                    style={styles.certified}
+                  />
                   <View style={styles.yewiDirection}>
                     <Image source={location} style={styles.yewiIcons} />
                     <Text style={styles.yewiSmallText}> Miami, USA</Text>
-                    <Image source={star} style={styles.yewistar} />
+                    <Image
+                      source={star}
+                      resizeMode="contain"
+                      style={styles.yewistar}
+                    />
                     <Text style={styles.yewiSmallText}> 4.5</Text>
-                    <Image source={clock} style={styles.yewiClock} />
+                    <Image
+                      source={clock}
+                      resizeMode="contain"
+                      style={styles.yewiClock}
+                    />
                     <Text style={styles.yewiSmallText}> Since 2022</Text>
                   </View>
                 </View>
@@ -127,25 +139,44 @@ export function TopRankingManufacturers() {
           <Spacer space={SH(20)} />
 
           <View style={styles.yewiView}>
-            <View style={styles.yewiInnerView}>
-              <Image source={yewiLogo} style={styles.logoYewi} />
+            <TouchableOpacity
+              style={styles.yewiInnerView}
+              onPress={() => navigate(NAVIGATION.aboutBusiness)}
+            >
+              <Image
+                source={yewiLogo}
+                resizeMode="contain"
+                style={styles.logoYewi}
+              />
               <View style={{ paddingHorizontal: SW(10) }}>
                 <Text style={styles.yewiHeadingText}>
                   Yiwu Leqi E-Commerce Firm
                 </Text>
                 <View style={styles.yewiSmallView}>
-                  <Image source={yewiCertified} style={styles.certified} />
+                  <Image
+                    source={yewiCertified}
+                    resizeMode="contain"
+                    style={styles.certified}
+                  />
                   <View style={styles.yewiDirection}>
                     <Image source={location} style={styles.yewiIcons} />
                     <Text style={styles.yewiSmallText}> Miami, USA</Text>
-                    <Image source={star} style={styles.yewistar} />
+                    <Image
+                      source={star}
+                      resizeMode="contain"
+                      style={styles.yewistar}
+                    />
                     <Text style={styles.yewiSmallText}> 4.5</Text>
-                    <Image source={clock} style={styles.yewiClock} />
+                    <Image
+                      source={clock}
+                      resizeMode="contain"
+                      style={styles.yewiClock}
+                    />
                     <Text style={styles.yewiSmallText}> Since 2022</Text>
                   </View>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
 
             <Spacer space={SH(20)} />
 
@@ -168,25 +199,44 @@ export function TopRankingManufacturers() {
           <Spacer space={SH(20)} />
 
           <View style={styles.yewiView}>
-            <View style={styles.yewiInnerView}>
-              <Image source={yewiLogo} style={styles.logoYewi} />
+            <TouchableOpacity
+              style={styles.yewiInnerView}
+              onPress={() => navigate(NAVIGATION.aboutBusiness)}
+            >
+              <Image
+                source={yewiLogo}
+                resizeMode="contain"
+                style={styles.logoYewi}
+              />
               <View style={{ paddingHorizontal: SW(10) }}>
                 <Text style={styles.yewiHeadingText}>
                   Yiwu Leqi E-Commerce Firm
                 </Text>
                 <View style={styles.yewiSmallView}>
-                  <Image source={yewiCertified} style={styles.certified} />
+                  <Image
+                    source={yewiCertified}
+                    resizeMode="contain"
+                    style={styles.certified}
+                  />
                   <View style={styles.yewiDirection}>
                     <Image source={location} style={styles.yewiIcons} />
                     <Text style={styles.yewiSmallText}> Miami, USA</Text>
-                    <Image source={star} style={styles.yewistar} />
+                    <Image
+                      source={star}
+                      resizeMode="contain"
+                      style={styles.yewistar}
+                    />
                     <Text style={styles.yewiSmallText}> 4.5</Text>
-                    <Image source={clock} style={styles.yewiClock} />
+                    <Image
+                      source={clock}
+                      resizeMode="contain"
+                      style={styles.yewiClock}
+                    />
                     <Text style={styles.yewiSmallText}> Since 2022</Text>
                   </View>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
 
             <Spacer space={SH(20)} />
 

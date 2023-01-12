@@ -26,33 +26,24 @@ export function Apparel({ onPress }) {
       onPress={() => navigate(NAVIGATION.productInquiry)}
     >
       <Spacer space={SH(10)} />
-      <Image
-        source={item.image}
-        resizeMode="contain"
-        style={{ height: vs(140), width: ms(150) }}
-      />
-
-      <Text
-        style={{
-          fontFamily: Fonts.SemiBold,
-          fontSize: ms(12),
-          color: COLORS.darkGrey,
-          paddingHorizontal: ms(10),
-        }}
-      >
+      <View style={{ alignItems: "center" }}>
+        <Image
+          source={item.image}
+          resizeMode="contain"
+          style={{ height: vs(140), width: ms(150) }}
+        />
+      </View>
+      <Text style={styles.productsTitle}>
         {item.title}
+        <Text style={styles.productSubTitle}> {item.subTitle}</Text>
       </Text>
-      <Text
-        style={{
-          alignSelf: "flex-start",
-          fontFamily: Fonts.Regular,
-          paddingLeft: ms(18),
-          fontSize: ms(10),
-          color: COLORS.darkGrey,
-          marginTop: vs(2),
-        }}
-      >
-        {item.pieces}
+      <Spacer space={SH(2)} />
+      <Text style={styles.productsQuantity}>{item.pieces}</Text>
+      <Spacer space={SH(5)} />
+
+      <Text style={styles.priceText}>
+        {item.price}
+        <Text style={styles.categoryText}>{item.category}</Text>
       </Text>
     </TouchableOpacity>
   );

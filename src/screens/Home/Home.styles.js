@@ -12,9 +12,10 @@ export const styles = StyleSheet.create({
   },
   tabButtonView: {
     borderRadius: 20,
-    height: vs(30),
-    width: ms(80),
+    height: vs(25),
+    width: ms(75),
     alignItems: "center",
     justifyContent: "center",
+    alignSelf: "center",
   },
 });

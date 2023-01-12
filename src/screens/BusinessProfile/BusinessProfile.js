@@ -13,30 +13,21 @@ import { SH } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import RBSheet from "react-native-raw-bottom-sheet";
 import {
+  Data,
+  Inspection,
+  Rating,
+  Bags,
+  ProductDetails,
+  ProductionEquipment,
+  ReviewDetail,
+} from "./Components/FlatlistData";
+import {
   Fonts,
   forward,
   videoPic,
-  certificate1,
-  certificate2,
-  certificate3,
-  certificate4,
-  videoPic1,
-  videoPic4,
-  videoPic3,
-  videoPic2,
   shareBlack,
   crossBlack,
   yewiCertified,
-  equip1,
-  equip2,
-  equip3,
-  equip4,
-  pdfImage,
-  fourRating,
-  fullStarRating,
-  flagAmerica,
-  fiveStarReview,
-  purchasedItemPic,
 } from "@/assets";
 import { strings } from "@/localization";
 import {
@@ -49,139 +40,6 @@ import {
 export function BusinessProfile() {
   const ReviewSheet = useRef();
   const refRBSheet = useRef();
-
-  const Data = [
-    {
-      id: 1,
-      image: certificate1,
-    },
-    {
-      id: 2,
-      image: certificate2,
-    },
-    {
-      id: 3,
-      image: certificate3,
-    },
-    {
-      id: 4,
-      image: certificate4,
-    },
-  ];
-  const Inspection = [
-    { id: 1, image: pdfImage },
-    { id: 2, image: pdfImage },
-  ];
-
-  const Rating = [
-    { id: 1, image: fourRating, title: strings.businessProfile.suplierService },
-    {
-      id: 2,
-      image: fullStarRating,
-      title: strings.businessProfile.onTimeShipment,
-    },
-    { id: 3, image: fourRating, title: strings.businessProfile.productQuality },
-  ];
-
-  const Bags = [
-    {
-      id: 1,
-      image: videoPic1,
-      title: strings.businessProfile.madeWell,
-      quantity: strings.businessProfile.moq,
-    },
-    {
-      id: 2,
-      image: videoPic2,
-      title: strings.businessProfile.madeWell,
-      quantity: strings.businessProfile.moq,
-    },
-    {
-      id: 3,
-      image: videoPic3,
-      title: strings.businessProfile.madeWell,
-      quantity: strings.businessProfile.moq,
-    },
-    {
-      id: 4,
-      image: videoPic4,
-      title: strings.businessProfile.madeWell,
-      quantity: strings.businessProfile.moq,
-    },
-  ];
-
-  const ProductDetails = [
-    { id: 1, title: strings.businessProfile.yearestablished, detail: "2013" },
-    {
-      id: 2,
-      title: strings.businessProfile.businessType,
-      detail: "Custom manufacturer",
-    },
-    {
-      id: 3,
-      title: strings.businessProfile.country,
-      detail: "Zhejiang, China",
-    },
-    {
-      id: 4,
-      title: strings.businessProfile.mainProducts,
-      detail:
-        "Baseball Cap/ Snapback Cap/ Bucket Hat/ Truck Cap/ Military Cap/ Ivy Cap",
-    },
-    {
-      id: 5,
-      title: strings.businessProfile.revenue,
-      detail: "US$1 Million - US$2.5 Million",
-    },
-    {
-      id: 6,
-      title: strings.businessProfile.mainMarkets,
-      detail: strings.businessProfile.mainMarketDetail,
-    },
-    {
-      id: 7,
-      title: strings.businessProfile.patents,
-      detail:
-        "Xichenqi Shouna Zhijia, Yizhong Wusheng Xichenqi Shouna Zhijia, The utility model relates to a metal lifting bag handle fixing structure, Vacuum cleaner storage bracket",
-    },
-    {
-      id: 8,
-      title: strings.businessProfile.productCertification,
-      detail: "CE",
-    },
-  ];
-
-  const ProductionEquipment = [
-    { id: 1, image: equip1 },
-    { id: 2, image: equip2 },
-    { id: 3, image: equip3 },
-    { id: 4, image: equip4 },
-  ];
-
-  const ReviewDetail = [
-    {
-      id: 1,
-      country: flagAmerica,
-      name: "B********h",
-      rating: fiveStarReview,
-      review: strings.businessProfile.customerReview,
-      purchasedProduct: strings.businessProfile.purchasedProducts,
-      purchasedItemPic: purchasedItemPic,
-      productName: strings.businessProfile.madeWell,
-      quantity: strings.businessProfile.itemNo,
-    },
-    {
-      id: 2,
-      country: flagAmerica,
-      name: "B********h",
-      rating: fiveStarReview,
-      review: strings.businessProfile.customerReview,
-      purchasedProduct: strings.businessProfile.purchasedProducts,
-      purchasedItemPic: purchasedItemPic,
-      productName: strings.businessProfile.madeWell,
-      quantity: strings.businessProfile.itemNo,
-    },
-  ];
 
   const renderItem = ({ item }) => (
     <View style={styles.rowMainCard}>
@@ -350,7 +208,10 @@ export function BusinessProfile() {
 
         <View style={{ paddingHorizontal: ms(20) }}>
           <View style={styles.businessDetailView}>
-            <View style={styles.businessStyle}>
+            <TouchableOpacity
+              onPress={() => refRBSheet.current.open()}
+              style={styles.businessStyle}
+            >
               <View style={styles.businessTab}>
                 <Text style={styles.businessDetailsHeading}>
                   {strings.businessProfile.businessDetails}
@@ -366,7 +227,7 @@ export function BusinessProfile() {
               <Text style={styles.businessText}>
                 {strings.businessProfile.text}
               </Text>
-            </View>
+            </TouchableOpacity>
             <TouchableOpacity
               onPress={() => ReviewSheet.current.open()}
               style={styles.ratingView}
@@ -459,17 +320,7 @@ export function BusinessProfile() {
             },
           }}
         >
-          <ScrollView
-            bounces={false}
-            showsVerticalScrollIndicator={false}
-            style={{
-              backgroundColor: "white",
-              borderTopLeftRadius: 30,
-              borderTopRightRadius: 30,
-              paddingTop: verticalScale(20),
-              paddingHorizontal: moderateScale(20),
-            }}
-          >
+          <View style={styles.businessDetailHeader}>
             <View style={styles.bottomsheetHeader}>
               <Text style={styles.headingText}>
                 {strings.businessProfile.businessDetails}
@@ -478,7 +329,11 @@ export function BusinessProfile() {
                 <Image
                   resizeMode="stretch"
                   source={shareBlack}
-                  style={{ height: vs(21), width: ms(21), marginRight: ms(15) }}
+                  style={{
+                    height: vs(21),
+                    width: ms(21),
+                    marginRight: ms(15),
+                  }}
                 />
                 <TouchableOpacity onPress={() => refRBSheet.current.close()}>
                   <Image
@@ -496,8 +351,17 @@ export function BusinessProfile() {
               style={{ height: vs(20), width: vs(40) }}
               source={yewiCertified}
             />
-            <Spacer space={SH(10)} />
+          </View>
 
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{
+              backgroundColor: "white",
+
+              paddingTop: verticalScale(20),
+              paddingHorizontal: moderateScale(20),
+            }}
+          >
             <View style={styles.detailTextView}>
               <View style={{ paddingHorizontal: ms(5) }}>
                 <Text style={styles.subHeadingText}>
@@ -620,26 +484,24 @@ export function BusinessProfile() {
             },
           }}
         >
-          <ScrollView
+          <View
             bounces={false}
             showsVerticalScrollIndicator={false}
-            style={{
-              backgroundColor: "white",
-              borderTopLeftRadius: 30,
-              borderTopRightRadius: 30,
-              paddingTop: verticalScale(20),
-              paddingHorizontal: moderateScale(20),
-            }}
+            style={styles.bottomSheetScroll}
           >
             <View style={styles.bottomsheetHeader}>
               <Text style={styles.headingText}>
                 {strings.businessProfile.companyReview}
               </Text>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={styles.companyReviewHeader}>
                 <Image
                   resizeMode="stretch"
                   source={shareBlack}
-                  style={{ height: vs(21), width: ms(21), marginRight: ms(15) }}
+                  style={{
+                    height: vs(21),
+                    width: ms(21),
+                    marginRight: ms(15),
+                  }}
                 />
                 <TouchableOpacity onPress={() => ReviewSheet.current.close()}>
                   <Image
@@ -652,76 +514,60 @@ export function BusinessProfile() {
                 </TouchableOpacity>
               </View>
             </View>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <Spacer space={SH(40)} />
 
-            <Spacer space={SH(40)} />
-
-            <View style={styles.detailTextView}>
-              <View style={{ paddingHorizontal: ms(5) }}>
-                <Text style={styles.subHeadingText}>
-                  {strings.businessProfile.overview}
-                </Text>
-
-                <Spacer space={SH(5)} />
-                <View style={styles.ratingViewSheet}>
-                  <Text style={styles.ratingText}>
-                    4.5/<Text style={styles.totalRatingText}>5.00</Text>
+              <View style={styles.detailTextView}>
+                <View style={{ paddingHorizontal: ms(5) }}>
+                  <Text style={styles.subHeadingText}>
+                    {strings.businessProfile.overview}
                   </Text>
-                  <View>
-                    <Text style={styles.subHeadingText}>
-                      {strings.businessProfile.verySatisfied}
+
+                  <Spacer space={SH(5)} />
+                  <View style={styles.ratingViewSheet}>
+                    <Text style={styles.ratingText}>
+                      4.5/<Text style={styles.totalRatingText}>5.0</Text>
                     </Text>
-                    <Text
-                      style={{
-                        fontFamily: Fonts.Regular,
-                        fontSize: ms(12),
-                        color: COLORS.darkGrey2,
-                      }}
-                    >
-                      {strings.businessProfile.reviews}
-                    </Text>
+                    <View>
+                      <Text style={styles.subHeadingText}>
+                        {strings.businessProfile.verySatisfied}
+                      </Text>
+                      <Text
+                        style={{
+                          fontFamily: Fonts.Regular,
+                          fontSize: ms(12),
+                          color: COLORS.darkGrey2,
+                        }}
+                      >
+                        {strings.businessProfile.reviews}
+                      </Text>
+                    </View>
                   </View>
                 </View>
+                <FlatList
+                  data={Rating}
+                  renderItem={itemRating}
+                  keyExtractor={(item) => item.id}
+                  showsVerticalScrollIndicator={false}
+                  // initialNumToRender={2}
+                  // maxToRenderPerBatch={2}
+                  // windowSize={1}
+                  // removeClippedSubviews={true}
+                />
               </View>
+
+              <Spacer space={SH(20)} />
+
               <FlatList
-                data={Rating}
-                renderItem={itemRating}
+                data={ReviewDetail}
+                renderItem={CustomerReviews}
                 keyExtractor={(item) => item.id}
                 showsVerticalScrollIndicator={false}
-                // initialNumToRender={2}
-                // maxToRenderPerBatch={2}
-                // windowSize={1}
-                // removeClippedSubviews={true}
               />
-            </View>
 
-            <Spacer space={SH(20)} />
-
-            {/* <View style={styles.customerRatingView}>
-              <View style={styles.innerView}>
-                <Image
-                  resizeMode="stretch"
-                  source={flagAmerica}
-                  style={{ height: vs(20), width: ms(20), marginRight: ms(5) }}
-                />
-                <Text style={styles.subHeadingText}>B********h</Text>
-              </View>
-              <Text style={styles.customerReviewText}>
-                {strings.businessProfile.customerReview}
-              </Text>
-            </View> */}
-            <FlatList
-              data={ReviewDetail}
-              renderItem={CustomerReviews}
-              keyExtractor={(item) => item.id}
-              showsVerticalScrollIndicator={false}
-              // initialNumToRender={2}
-              // maxToRenderPerBatch={2}
-              // windowSize={1}
-              // removeClippedSubviews={true}
-            />
-
-            <Spacer space={SH(40)} />
-          </ScrollView>
+              <Spacer space={SH(40)} />
+            </ScrollView>
+          </View>
         </RBSheet>
       </ScrollView>
     </ScreenWrapper>

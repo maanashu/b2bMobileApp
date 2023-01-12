@@ -61,7 +61,7 @@ export const en = {
     cancel: "Cancel",
     enterYourPin: "Enter your PIN",
     logIn: "Log in",
-    reEnterPin: "Reenter your PIN",
+    reEnterPin: "Re-enter your PIN",
     done: "Done!",
     youVerified: "You are verified!",
     newPinSet: "Your new pin is set now",
@@ -85,6 +85,8 @@ export const en = {
     recomended: "Recommended Products",
     chatNow: "Chat Now",
     estimated: "Estimated arrival within 7 business days with JOBR shipping",
+    productDetailText:
+      "A popular type of cigarette from the Marlboro brand due to its smooth flavour and it being mid-priced",
   },
   sendInquiry: {
     quantity: "Quantity",
@@ -165,6 +167,8 @@ export const en = {
   newProducts: {
     newProducts: "New Products",
     filter: "Filter",
+    subText:
+      "It is a long established fact that a reader will be distracted by the readable content.",
   },
   business: {
     topManufactor: "Top-rank Manufacturers",
@@ -187,6 +191,8 @@ export const en = {
   topRankingManufacturers: {
     topManufacturers: "Top Manufacturers",
     topRankingManufacturers: "Top-Ranking \nManufacturers",
+    subText:
+      "It is a long established fact that a reader will be distracted by the readable content.",
   },
   businessProfile: {
     businessDetails: "Business Details",
@@ -355,5 +361,8 @@ export const en = {
     directOffer: "Direct Offer",
     takephoto: "Take a Photo",
     sendLocalPhoto: "Send Local Photo",
+  },
+  quickReplies: {
+    bestOffer: "Best Offer",
   },
 };

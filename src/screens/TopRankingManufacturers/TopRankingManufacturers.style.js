@@ -66,18 +66,21 @@ export const styles = StyleSheet.create({
     width: ms(65),
   },
   upperView: {
-    height: vs(120),
+    paddingVertical: SH(5),
     width: "100%",
     backgroundColor: COLORS.inputBorder,
-    paddingHorizontal: ms(20),
+    paddingHorizontal: ms(10),
+  },
+  upperRowView: {
+    paddingVertical: SH(10),
+    paddingHorizontal: ms(10),
     flexDirection: "row",
     alignItems: "center",
   },
   topBoldText: {
-    fontFamily: Fonts.Bold,
+    fontFamily: Fonts.SemiBold,
     color: COLORS.primary,
-    fontSize: ms(25),
-    marginLeft: ms(20),
+    fontSize: ms(20),
   },
   yewiView: {
     borderRadius: 10,
@@ -173,5 +176,15 @@ export const styles = StyleSheet.create({
   sendInquiryIcon: {
     height: vs(16),
     width: ms(19),
+  },
+  upperHalfView: {
+    flex: 1,
+    paddingLeft: SW(10),
+  },
+  subtitleText: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.light_grey,
+    fontSize: SF(12),
+    textAlign: "justify",
   },
 });

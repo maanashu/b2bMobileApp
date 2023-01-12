@@ -19,6 +19,16 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { goBack } from "@/navigation/NavigationRef";
 import { backArrow } from "@/assets";
 import { strings } from "@/localization";
+import {
+  CountEight,
+  CountEightFive,
+  CountNine,
+  CountNineFive,
+  CountSeven,
+  CountSevenFive,
+  CountSix,
+  CountTen,
+} from "./Components/CountButton";
 export function StartOrder() {
   const [sizeSix, setSizeSix] = useState(0);
   const [sizeSeven, setSizeSeven] = useState(0);
@@ -35,7 +45,12 @@ export function StartOrder() {
     { label: "EUR", value: "EUR" },
     { label: "U.K", value: "U.K" },
   ]);
+  console.log("Country Data", items);
 
+  const setCountry = () => {
+    setValue(items[0].value);
+    setItems(items[0].value);
+  };
   const ProductDetail = [
     {
       id: "1",
@@ -165,7 +180,7 @@ export function StartOrder() {
           </TouchableOpacity>
         </View>
       </View>
-      <ScrollView>
+      <ScrollView style={{ flex: 1 }}>
         <View style={styles.mainView}>
           <View style={styles.itemName}>
             <Text style={styles.itemNameText}>MOQ:10</Text>
@@ -194,17 +209,17 @@ export function StartOrder() {
 
           <Spacer space={SH(20)} />
 
-          <View>
-            <View
-              style={{
-                flexDirection: "row",
-
-                justifyContent: "space-between",
-              }}
-            >
-              <View style={styles.selectSizeView}>
-                <View style={styles.rowView}>
-                  <Text style={styles.selectSizetext}>Size</Text>
+          <View style={{ flex: 1 }}>
+            <View style={styles.upperView}>
+              <View style={styles.subHeadingView}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    flex: 1,
+                  }}
+                >
+                  <Text style={styles.boldTextHeading}>Size:</Text>
                   <DropDownPicker
                     open={open}
                     value={value}
@@ -212,187 +227,105 @@ export function StartOrder() {
                     setOpen={setOpen}
                     setValue={setValue}
                     setItems={setItems}
-                    placeholder={""}
+                    placeholder={"Country"}
                     style={{
                       borderWidth: 0,
-                      width: SW(80),
+                      width: SW(100),
                       backgroundColor: COLORS.white,
                     }}
                   />
                 </View>
-                <View style={styles.rowView}>
-                  <Text style={styles.selectSizetext}>Quantity :</Text>
-                  <Text style={styles.selectSizetext}>USA</Text>
+
+                <View>
+                  <Text style={styles.boldTextHeading}>
+                    Quantity:<Text style={styles.RegularTextHeading}> USA</Text>
+                  </Text>
                 </View>
               </View>
             </View>
             <Spacer space={SH(50)} />
 
             <View style={styles.counterView}>
-              <Text style={styles.shoeNumber}>6</Text>
-              <View style={styles.counterButtonView}>
-                <TouchableOpacity
-                  onPress={DecrementSix}
-                  style={styles.decrementView}
-                >
-                  <Text style={styles.decrementButton}>-</Text>
-                </TouchableOpacity>
-                <Text style={styles.selectedNumber}>{sizeSix}</Text>
-                <TouchableOpacity
-                  onPress={IncrementSix}
-                  style={styles.incrementView}
-                >
-                  <Text style={styles.incrementButton}>+</Text>
-                </TouchableOpacity>
-              </View>
+              <CountSix
+                OnPressDecrease={DecrementSix}
+                OnPressIncrease={IncrementSix}
+                text={sizeSix}
+              />
             </View>
 
             <Spacer space={SH(10)} />
 
             <View style={styles.counterView}>
-              <Text style={styles.shoeNumber}>7</Text>
-              <View style={styles.counterButtonView}>
-                <TouchableOpacity
-                  onPress={DecrementSeven}
-                  style={styles.decrementView}
-                >
-                  <Text style={styles.decrementButton}>-</Text>
-                </TouchableOpacity>
-                <Text style={styles.selectedNumber}>{sizeSeven}</Text>
-                <TouchableOpacity
-                  onPress={IncrementSeven}
-                  style={styles.incrementView}
-                >
-                  <Text style={styles.incrementButton}>+</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <Spacer space={SH(10)} />
-            <View style={styles.counterView}>
-              <Text style={styles.shoeNumber}>7.5</Text>
-              <View style={styles.counterButtonView}>
-                <TouchableOpacity
-                  onPress={DecrementSevenFive}
-                  style={styles.decrementView}
-                >
-                  <Text style={styles.decrementButton}>-</Text>
-                </TouchableOpacity>
-                <Text style={styles.selectedNumber}>{sizeSevenFive}</Text>
-                <TouchableOpacity
-                  onPress={IncrementSevenFive}
-                  style={styles.incrementView}
-                >
-                  <Text style={styles.incrementButton}>+</Text>
-                </TouchableOpacity>
-              </View>
+              <CountSeven
+                OnPressDecrease={DecrementSeven}
+                OnPressIncrease={IncrementSeven}
+                text={sizeSeven}
+              />
             </View>
 
             <Spacer space={SH(10)} />
 
             <View style={styles.counterView}>
-              <Text style={styles.shoeNumber}>8</Text>
-              <View style={styles.counterButtonView}>
-                <TouchableOpacity
-                  onPress={DecrementEight}
-                  style={styles.decrementView}
-                >
-                  <Text style={styles.decrementButton}>-</Text>
-                </TouchableOpacity>
-                <Text style={styles.selectedNumber}>{sizeEight}</Text>
-                <TouchableOpacity
-                  onPress={IncrementEight}
-                  style={styles.incrementView}
-                >
-                  <Text style={styles.incrementButton}>+</Text>
-                </TouchableOpacity>
-              </View>
+              <CountSevenFive
+                OnPressDecrease={DecrementSevenFive}
+                OnPressIncrease={IncrementSevenFive}
+                text={sizeSevenFive}
+              />
             </View>
 
             <Spacer space={SH(10)} />
 
             <View style={styles.counterView}>
-              <Text style={styles.shoeNumber}>8.5</Text>
-              <View style={styles.counterButtonView}>
-                <TouchableOpacity
-                  onPress={DecrementEightFive}
-                  style={styles.decrementView}
-                >
-                  <Text style={styles.decrementButton}>-</Text>
-                </TouchableOpacity>
-                <Text style={styles.selectedNumber}>{sizeEightFive}</Text>
-                <TouchableOpacity
-                  onPress={IncrementEightFive}
-                  style={styles.incrementView}
-                >
-                  <Text style={styles.incrementButton}>+</Text>
-                </TouchableOpacity>
-              </View>
+              <CountEight
+                OnPressDecrease={DecrementEight}
+                OnPressIncrease={IncrementEight}
+                text={sizeEight}
+              />
             </View>
 
             <Spacer space={SH(10)} />
 
             <View style={styles.counterView}>
-              <Text style={styles.shoeNumber}>9</Text>
-              <View style={styles.counterButtonView}>
-                <TouchableOpacity
-                  onPress={DecrementNine}
-                  style={styles.decrementView}
-                >
-                  <Text style={styles.decrementButton}>-</Text>
-                </TouchableOpacity>
-                <Text style={styles.selectedNumber}>{sizeNine}</Text>
-                <TouchableOpacity
-                  onPress={IncrementNine}
-                  style={styles.incrementView}
-                >
-                  <Text style={styles.incrementButton}>+</Text>
-                </TouchableOpacity>
-              </View>
+              <CountEightFive
+                OnPressDecrease={DecrementEightFive}
+                OnPressIncrease={IncrementEightFive}
+                text={sizeEightFive}
+              />
             </View>
 
             <Spacer space={SH(10)} />
 
             <View style={styles.counterView}>
-              <Text style={styles.shoeNumber}>9.5</Text>
-              <View style={styles.counterButtonView}>
-                <TouchableOpacity
-                  onPress={DecrementNineFive}
-                  style={styles.decrementView}
-                >
-                  <Text style={styles.decrementButton}>-</Text>
-                </TouchableOpacity>
-                <Text style={styles.selectedNumber}>{sizeNineFive}</Text>
-                <TouchableOpacity
-                  onPress={IncrementNineFive}
-                  style={styles.incrementView}
-                >
-                  <Text style={styles.incrementButton}>+</Text>
-                </TouchableOpacity>
-              </View>
+              <CountNine
+                OnPressDecrease={DecrementNine}
+                OnPressIncrease={IncrementNine}
+                text={sizeNine}
+              />
             </View>
 
             <Spacer space={SH(10)} />
 
             <View style={styles.counterView}>
-              <Text style={styles.shoeNumber}>10</Text>
-              <View style={styles.counterButtonView}>
-                <TouchableOpacity
-                  onPress={DecrementTen}
-                  style={styles.decrementView}
-                >
-                  <Text style={styles.decrementButton}>-</Text>
-                </TouchableOpacity>
-                <Text style={styles.selectedNumber}>{sizeTen}</Text>
-                <TouchableOpacity
-                  onPress={IncrementTen}
-                  style={styles.incrementView}
-                >
-                  <Text style={styles.incrementButton}>+</Text>
-                </TouchableOpacity>
-              </View>
+              <CountNineFive
+                OnPressDecrease={DecrementNineFive}
+                OnPressIncrease={IncrementNineFive}
+                text={sizeNineFive}
+              />
+            </View>
+
+            <Spacer space={SH(10)} />
+
+            <View style={styles.counterView}>
+              <CountTen
+                OnPressDecrease={DecrementTen}
+                OnPressIncrease={IncrementTen}
+                text={sizeTen}
+              />
             </View>
           </View>
+
           <Spacer space={SH(20)} />
+
           <View style={styles.buttonView}>
             <Button
               title={strings.startOrder.checkout}

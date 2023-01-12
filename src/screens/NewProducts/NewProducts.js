@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React from "react";
 import { styles } from "./NewProducts.style";
-import { Button, ScreenWrapper, Spacer } from "@/components";
+import { Button, ScreenWrapper, Spacer, SubHeader } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { useState } from "react";
@@ -23,6 +23,7 @@ import {
   verticalScale,
   moderateScale,
 } from "react-native-size-matters";
+import { Header } from "@/components/Header";
 export function NewProducts() {
   const layout = useWindowDimensions();
 
@@ -78,34 +79,14 @@ export function NewProducts() {
   };
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <View style={styles.header}>
-        <View style={styles.headerInnerView}>
-          <TouchableOpacity
-            style={{ flexDirection: "row", alignItems: "center" }}
-            onPress={() => goBack()}
-          >
-            <Image
-              resizeMode="contain"
-              source={backArrow}
-              style={{ height: 30, width: 30 }}
-            />
-            <Text style={styles.headerText}>
-              {strings.newProducts.newProducts}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.headerIconView}>
-            <Image
-              resizeMode="contain"
-              source={filter}
-              style={styles.filterIcon}
-            />
-            <Text style={styles.filterText}>{strings.newProducts.filter}</Text>
-          </TouchableOpacity>
-        </View>
+      <Header title={strings.newProducts.newProducts} back={backArrow} />
+
+      <View style={styles.upperView}>
+        <SubHeader
+          title={strings.newProducts.newProducts}
+          subTitle={strings.newProducts.subText}
+        />
       </View>
-
-      <Spacer space={SH(10)} />
-
       <TabView
         swipeEnabled={true}
         navigationState={{ index, routes }}

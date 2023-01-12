@@ -23,6 +23,7 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.placeholder,
     borderRadius: ms(5),
     paddingVertical: SH(10),
+    paddingHorizontal: SW(15),
   },
   Button: {
     borderWidth: 1,

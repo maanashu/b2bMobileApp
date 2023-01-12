@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
   },
   mainContainer: {
     backgroundColor: COLORS.white,
-    height: vs(120),
+    height: vs(130),
   },
   filterText: {
     fontFamily: Fonts.Regular,
@@ -87,11 +87,10 @@ export const styles = StyleSheet.create({
   },
   yewiView: {
     borderRadius: 10,
-    paddingVertical: SH(10),
+    paddingVertical: SH(12),
     backgroundColor: COLORS.white,
     ...ShadowStyles.shadow2,
     flex: 1,
-    height: SH(130),
     paddingHorizontal: SW(10),
     marginBottom: SW(2),
   },
@@ -129,12 +128,12 @@ export const styles = StyleSheet.create({
   yewistar: {
     height: SH(9),
     width: SW(9),
-    marginLeft: SW(5),
+    marginLeft: SW(7),
   },
   yewiClock: {
     height: SH(10),
     width: SW(9),
-    marginLeft: SW(5),
+    marginLeft: SW(8),
   },
   sideIcons: {
     height: SH(24),
@@ -183,7 +182,7 @@ export const styles = StyleSheet.create({
   itemS: {
     backgroundColor: COLORS.white,
     borderColor: "blue",
-
+    paddingVertical: SH(5),
     flexDirection: "row",
     flex: 1,
     justifyContent: "center",

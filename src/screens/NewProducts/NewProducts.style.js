@@ -62,4 +62,10 @@ export const styles = StyleSheet.create({
     borderRadius: 20,
     width: ms(65),
   },
+  upperView: {
+    paddingVertical: SH(5),
+    width: "100%",
+    backgroundColor: COLORS.inputBorder,
+    paddingHorizontal: ms(10),
+  },
 });

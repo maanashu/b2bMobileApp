@@ -3,7 +3,13 @@ import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
-import { moderateScale, ms, s, vs } from "react-native-size-matters";
+import {
+  moderateScale,
+  ms,
+  s,
+  verticalScale,
+  vs,
+} from "react-native-size-matters";
 
 export const styles = StyleSheet.create({
   container: {
@@ -262,13 +268,13 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   box: {
-    height: SH(40),
-    width: SW(48),
+    height: SH(43),
+    width: SW(60),
     justifyContent: "center",
     alignItems: "center",
-    borderWidth: 1.5,
+    borderWidth: 1,
     borderColor: COLORS.white,
-    borderRadius: 8,
+    borderRadius: 14,
   },
   placeOrderText: {
     fontFamily: Fonts.Bold,
@@ -436,5 +442,22 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.Regular,
     fontSize: s(11),
     textAlign: "justify",
+  },
+  scrollViewStyle: {
+    backgroundColor: "white",
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
+    paddingTop: verticalScale(20),
+  },
+  modalCloseView: {
+    backgroundColor: "#999999",
+    paddingBottom: vs(10),
+    paddingHorizontal: ms(20),
+    alignItems: "flex-end",
+  },
+  textStyle: {
+    fontFamily: Fonts.SemiBold,
+    fontSize: ms(14),
+    color: COLORS.white,
   },
 });

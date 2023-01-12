@@ -42,6 +42,7 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.inputBorder,
     height: vs(48),
     borderRadius: s(5),
+    paddingHorizontal: SW(15),
   },
   headingsText: {
     color: COLORS.darkGrey2,
@@ -56,6 +57,8 @@ export const styles = StyleSheet.create({
   },
   smallInput: {
     height: vs(48),
+    paddingHorizontal: SW(15),
+
     borderRadius: s(5),
     borderBottomWidth: 0,
     backgroundColor: COLORS.placeHolder,
@@ -93,5 +96,15 @@ export const styles = StyleSheet.create({
   saveCardView: {
     flexDirection: "row",
     alignItems: "center",
+  },
+  selectedCheck: {
+    height: ms(20),
+    width: ms(20),
+    marginRight: ms(10),
+  },
+  checkBoxStyle: {
+    height: ms(16),
+    width: ms(16),
+    marginRight: ms(10),
   },
 });

@@ -3,7 +3,7 @@ import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
-import { vs } from "react-native-size-matters";
+import { ms, vs } from "react-native-size-matters";
 
 export const styles = StyleSheet.create({
   container: {
@@ -76,7 +76,7 @@ export const styles = StyleSheet.create({
     paddingVertical: SH(10),
     marginHorizontal: SW(20),
     backgroundColor: COLORS.white,
-    ...ShadowStyles.shadow,
+    ...ShadowStyles.shadow2,
     flex: 1,
     height: SH(210),
     paddingHorizontal: SW(10),
@@ -123,13 +123,43 @@ export const styles = StyleSheet.create({
     marginLeft: SW(5),
   },
   ShoesStyle: {
-    height: vs(210),
     width: 180,
     ...ShadowStyles.shadow2,
     borderRadius: 1,
     backgroundColor: COLORS.white,
     margin: 2,
     flex: 1,
-    alignItems: "center",
+    paddingVertical: SH(10),
+  },
+  productsTitle: {
+    fontFamily: Fonts.SemiBold,
+    fontSize: ms(12),
+    color: COLORS.darkGrey,
+    paddingHorizontal: ms(12),
+  },
+  productSubTitle: {
+    fontFamily: Fonts.Regular,
+    fontSize: ms(12),
+    color: COLORS.darkGrey,
+    paddingHorizontal: ms(12),
+  },
+  productsQuantity: {
+    alignSelf: "flex-start",
+    fontFamily: Fonts.Regular,
+    paddingLeft: ms(12),
+    fontSize: ms(9),
+    color: COLORS.darkGrey,
+    marginTop: vs(2),
+  },
+  priceText: {
+    color: COLORS.primary,
+    fontFamily: Fonts.SemiBold,
+    fontSize: SF(16),
+    paddingLeft: SW(12),
+  },
+  categoryText: {
+    color: COLORS.primary,
+    fontFamily: Fonts.Regular,
+    fontSize: SF(12),
   },
 });
