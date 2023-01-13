@@ -2,7 +2,7 @@ import { Fonts } from "@/assets";
 import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { ms, vs } from "react-native-size-matters";
 
 export const styles = StyleSheet.create({
@@ -161,5 +161,11 @@ export const styles = StyleSheet.create({
     color: COLORS.primary,
     fontFamily: Fonts.Regular,
     fontSize: SF(12),
+  },
+  storeImg: {
+    height: SH(140),
+    width: Dimensions.get("window").width * 0.9,
+    borderRadius: 10,
+    alignSelf: "center",
   },
 });

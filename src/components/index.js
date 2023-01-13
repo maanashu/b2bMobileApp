@@ -9,3 +9,4 @@ export { NameHeaderCoins } from "./NameHeaderCoins";
 export { ChatBottomSheet } from "./ChatBottomSheet";
 export { SubHeader } from "@/components/SubHeader";
 export { SearchHeader } from "@/components/SearchHeader";
+export { CustomPagination } from "@/components/CustomPagination";

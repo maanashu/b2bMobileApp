@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Dimensions,
   FlatList,
   Image,
   ScrollView,
@@ -9,7 +10,7 @@ import {
 } from "react-native";
 import { styles } from "./Products.styles";
 import { useState } from "react";
-import { ScreenWrapper, Spacer } from "@/components";
+import { CustomPagination, ScreenWrapper, Spacer } from "@/components";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { SliderBox } from "react-native-image-slider-box";
@@ -44,6 +45,7 @@ import { ms, vs } from "react-native-size-matters";
 import { NAVIGATION } from "@/constants";
 import { Search } from "@/components/Search";
 import { strings } from "@/localization";
+import SwiperFlatList from "react-native-swiper-flatlist";
 export function Products({ onPress }) {
   const [selectedId, setSelectedId] = useState("");
 
@@ -152,7 +154,24 @@ export function Products({ onPress }) {
     },
   ];
 
-  const images = [slideImage, slideImage];
+  const images = [
+    {
+      id: 1,
+      img: slideImage,
+    },
+    {
+      id: 2,
+      img: slideImage,
+    },
+    {
+      id: 3,
+      img: slideImage,
+    },
+    {
+      id: 4,
+      img: slideImage,
+    },
+  ];
 
   const Item = ({ item, onPress }) => (
     <TouchableOpacity style={styles.item}>
@@ -216,6 +235,20 @@ export function Products({ onPress }) {
       </Text>
     </TouchableOpacity>
   );
+
+  const renderRecentItem = ({ item, index }) => (
+    <TouchableOpacity
+      style={{
+        width: Dimensions.get("window").width,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 15,
+      }}
+    >
+      {/* <View style={{ height: 80, width: 100, backgroundColor: "green" }} /> */}
+      <Image source={slideImage} style={styles.storeImg} resizeMode="cover" />
+    </TouchableOpacity>
+  );
   return (
     <ScreenWrapper>
       <Spacer space={SH(10)} />
@@ -236,29 +269,21 @@ export function Products({ onPress }) {
           />
         </View>
         <Spacer space={SH(20)} />
-        <View style={{ marginLeft: SW(9) }}>
-          <SliderBox
-            images={images}
-            autoplay={false}
-            circleLoop={false}
-            resizeMode={"stretch"}
-            autoplayInterval={3000}
-            // parentWidth={SW(380)}
-            paginationBoxStyle={{
-              position: "absolute",
-              bottom: 0,
-              padding: 0,
-              alignItems: "center",
-              alignSelf: "center",
-              justifyContent: "center",
-            }}
-            ImageComponentStyle={{
-              borderRadius: 10,
-              width: "90%",
-              height: 130,
-              marginTop: 5,
-              marginRight: ms(20),
-            }}
+        <View
+          style={{
+            paddingTop: SH(10),
+            paddingBottom: SH(30),
+          }}
+        >
+          <SwiperFlatList
+            autoplay
+            autoplayDelay={2}
+            // index={1}
+            showPagination
+            data={images}
+            renderItem={renderRecentItem}
+            PaginationComponent={CustomPagination}
+            paginationActiveColor={COLORS.black}
           />
         </View>
         <Spacer space={SH(20)} />

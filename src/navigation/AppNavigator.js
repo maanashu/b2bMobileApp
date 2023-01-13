@@ -5,10 +5,16 @@ import { TabBarIcon } from "@/components";
 import { NAVIGATION } from "@/constants";
 import { HomeNavigator } from "@/navigation/HomeNavigator";
 import { ProfileNavigator } from "@/navigation/ProfileNavigator";
-import { bottomHome, bottomMyJobr } from "@/assets";
+import {
+  bottomHome,
+  bottomMyJobr,
+  bottomOrders,
+  bottomProducts,
+} from "@/assets";
 import { Image } from "react-native";
 import { AuthNavigator } from "./AuthNavigator";
 import { COLORS } from "@/theme";
+import { ProductNavigator } from "./ProductNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -40,6 +46,22 @@ export function AppNavigator() {
               color={color}
               source={bottomHome}
               style={{ height: 24, width: 24 }}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={NAVIGATION.productInquiry}
+        component={ProductNavigator}
+        options={{
+          headerShown: false,
+          tabBarLabel: "Products",
+          tabBarIcon: ({ color, size }) => (
+            <Image
+              resizeMode="contain"
+              color={color}
+              source={bottomProducts}
+              style={{ height: 22, width: 22 }}
             />
           ),
         }}

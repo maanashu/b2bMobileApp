@@ -3,11 +3,15 @@ import { createNativeStackNavigator } from "react-native-screens/native-stack";
 import { NAVIGATION } from "@/constants";
 import {
   AboutUs,
+  AddCoupon,
   AddShippingLocation,
   CompanyInfo,
   ContactUs,
   CookiesPolicy,
+  CurrentCoupons,
+  MyCatalogue,
   NotificationSetting,
+  PastCoupons,
   PrivacyPolicy,
   Profile,
   QrCode,
@@ -107,6 +111,26 @@ export function ProfileNavigator() {
         name={NAVIGATION.termsConditions}
         component={TermsConditions}
         options={{ headerLargeTitle: false, headerShown: false }}
+      />
+      <Stack.Screen
+        component={MyCatalogue}
+        name={NAVIGATION.myCatalogue}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={AddCoupon}
+        name={NAVIGATION.addCoupon}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={CurrentCoupons}
+        name={NAVIGATION.currentCoupons}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={PastCoupons}
+        name={NAVIGATION.pastCoupons}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

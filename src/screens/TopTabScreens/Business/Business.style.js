@@ -1,7 +1,7 @@
 import { Fonts } from "@/assets";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { ms, vs } from "react-native-size-matters";
 
 export const styles = StyleSheet.create({
@@ -53,5 +53,11 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  storeImg: {
+    height: SH(140),
+    width: Dimensions.get("window").width * 0.9,
+    borderRadius: 10,
+    alignSelf: "center",
   },
 });

@@ -1,0 +1,54 @@
+diff --git a/node_modules/react-native-swiper-flatlist/src/components/Pagination/Pagination.tsx b/node_modules/react-native-swiper-flatlist/src/components/Pagination/Pagination.tsx
+index 5a440ee..128ae4e 100644
+--- a/node_modules/react-native-swiper-flatlist/src/components/Pagination/Pagination.tsx
++++ b/node_modules/react-native-swiper-flatlist/src/components/Pagination/Pagination.tsx
+@@ -35,6 +35,7 @@ export const Pagination: React.FC<PaginationProps> = ({
+   onPaginationSelectedIndex,
+   paginationTapDisabled = false,
+   e2eID = '',
++  children,
+ }) => {
+   return (
+     <View style={[styles.container, paginationStyle]}>
+@@ -47,7 +48,9 @@ export const Pagination: React.FC<PaginationProps> = ({
+             paginationIndex === index
+               ? { backgroundColor: paginationActiveColor }
+               : { backgroundColor: paginationDefaultColor },
+-            paginationIndex === index ? paginationStyleItemActive : paginationStyleItemInactive,
++            paginationIndex === index
++              ? paginationStyleItemActive
++              : paginationStyleItemInactive,
+           ]}
+           key={index}
+           onPress={() => {
+@@ -55,7 +58,9 @@ export const Pagination: React.FC<PaginationProps> = ({
+             onPaginationSelectedIndex?.();
+           }}
+           disabled={paginationTapDisabled}
+-        />
++        >
++          {paginationIndex === index ? children : null}
++        </TouchableOpacity>
+       ))}
+     </View>
+   );
+diff --git a/node_modules/react-native-swiper-flatlist/src/components/Pagination/PaginationProps.tsx b/node_modules/react-native-swiper-flatlist/src/components/Pagination/PaginationProps.tsx
+index a3f087b..0ae33b6 100644
+--- a/node_modules/react-native-swiper-flatlist/src/components/Pagination/PaginationProps.tsx
++++ b/node_modules/react-native-swiper-flatlist/src/components/Pagination/PaginationProps.tsx
+@@ -1,3 +1,4 @@
++import { ReactNode } from 'react';
+ import { ViewStyle } from 'react-native';
+ 
+ export type PaginationProps = {
+@@ -68,4 +69,10 @@ export type PaginationProps = {
+    *
+    */
+   e2eID?: string;
++
++  /**
++   * Custom Pagination Children View
++   * You can design custom pagination as per your own design requirements
++   */
++  children?: ReactNode;
+ };

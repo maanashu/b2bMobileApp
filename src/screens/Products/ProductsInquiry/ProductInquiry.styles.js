@@ -129,7 +129,7 @@ export const styles = StyleSheet.create({
   },
   yewiView: {
     borderRadius: 10,
-    paddingVertical: SH(15),
+    paddingVertical: SH(10),
     backgroundColor: COLORS.placeholder,
     ...ShadowStyles.shadow2,
     flex: 1,
@@ -442,10 +442,39 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: SH(5),
+    justifyContent: "space-between",
   },
   aboutCompanyText: {
     fontFamily: Fonts.Regular,
     fontSize: SF(12),
     color: COLORS.darkGrey,
+  },
+  buttonView: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  followButton: {
+    paddingHorizontal: SW(5),
+    paddingVertical: SH(2),
+    backgroundColor: COLORS.blue,
+    borderRadius: 5,
+    marginRight: SW(10),
+  },
+  followText: {
+    fontFamily: Fonts.Regular,
+    fontSize: SF(14),
+    color: COLORS.white,
+  },
+  visitButton: {
+    paddingHorizontal: SW(5),
+    paddingVertical: SH(3),
+    backgroundColor: COLORS.white,
+    borderRadius: 5,
+    marginRight: SW(10),
+  },
+  visitText: {
+    fontFamily: Fonts.Regular,
+    fontSize: SF(14),
+    color: COLORS.primary,
   },
 });

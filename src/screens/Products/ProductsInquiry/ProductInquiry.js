@@ -286,6 +286,19 @@ export function ProductInquiry() {
               <Text style={styles.aboutCompanyText}>
                 {strings.productInquiry.aboutCompany}
               </Text>
+
+              <View style={styles.buttonView}>
+                <TouchableOpacity style={styles.followButton}>
+                  <Text style={styles.followText}>
+                    {strings.productInquiry.follow}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.visitButton}>
+                  <Text style={styles.visitText}>
+                    {strings.productInquiry.visitStore}
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
             <Spacer space={SH(10)} />
 
