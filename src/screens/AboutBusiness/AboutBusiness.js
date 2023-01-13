@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { styles } from "./AboutBusiness.style";
-import { ScreenWrapper, Spacer } from "@/components";
+import { ScreenWrapper, SearchHeader, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import {
@@ -19,13 +19,13 @@ import {
   star,
   clock,
   backArrow,
+  filter,
+  backIcon,
 } from "@/assets";
-import { TabView, SceneMap, TabBar } from "react-native-tab-view";
+import { TabView, SceneMap, TabBar, renderItem } from "react-native-tab-view";
 import { BusinessHome, BusinessProducts, BusinessProfile } from "@/screens";
 import { moderateScale, ms } from "react-native-size-matters";
 import { Header } from "@/components/Header";
-import { string } from "prop-types";
-import { strings } from "@/localization";
 
 export function AboutBusiness() {
   const layout = useWindowDimensions();
@@ -75,7 +75,7 @@ export function AboutBusiness() {
             </View>
           );
         }}
-        indicatorStyle={{ backgroundColor: COLORS.primary, width: "0.5%" }}
+        indicatorStyle={{ backgroundColor: COLORS.primary, width: "0.3%" }}
         style={{
           elevation: 0,
           backgroundColor: COLORS.inputBorder,
@@ -136,7 +136,7 @@ export function AboutBusiness() {
 
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <Header back={backArrow} />
+      <SearchHeader back={backArrow} />
       <View showsVerticalScrollIndicator={false} style={styles.mainContainer}>
         <View
           style={{
@@ -187,13 +187,13 @@ export function AboutBusiness() {
               </View>
             </View>
 
-            <Spacer space={SH(20)} />
+            <Spacer space={SH(15)} />
 
             <FlatList
+              showsVerticalScrollIndicator={false}
               data={Data}
               renderItem={SecondItem}
               keyExtractor={(item) => item.id}
-              //   extraData={product}
               numColumns={3}
             />
           </View>

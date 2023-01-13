@@ -129,11 +129,10 @@ export const styles = StyleSheet.create({
   },
   yewiView: {
     borderRadius: 10,
-    paddingVertical: SH(10),
+    paddingVertical: SH(15),
     backgroundColor: COLORS.placeholder,
     ...ShadowStyles.shadow2,
     flex: 1,
-    height: SH(140),
     paddingHorizontal: SW(10),
   },
   yewiInnerView: {
@@ -437,6 +436,16 @@ export const styles = StyleSheet.create({
   shoesSubTitle: {
     paddingRight: 5,
     fontFamily: Fonts.Regular,
+    color: COLORS.darkGrey,
+  },
+  aboutCompanyView: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: SH(5),
+  },
+  aboutCompanyText: {
+    fontFamily: Fonts.Regular,
+    fontSize: SF(12),
     color: COLORS.darkGrey,
   },
 });

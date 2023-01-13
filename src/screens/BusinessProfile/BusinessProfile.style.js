@@ -188,7 +188,7 @@ export const styles = StyleSheet.create({
   ratingView: {
     backgroundColor: COLORS.white,
     ...ShadowStyles.shadow2,
-    width: "40%",
+    width: "30%",
     borderRadius: 10,
     paddingHorizontal: moderateScale(5),
     paddingVertical: verticalScale(20),
@@ -196,7 +196,7 @@ export const styles = StyleSheet.create({
   },
   ratingText: {
     fontFamily: Fonts.Bold,
-    fontSize: s(25),
+    fontSize: s(20),
     color: COLORS.darkGrey,
   },
   totalRatingText: {
@@ -264,8 +264,9 @@ export const styles = StyleSheet.create({
   subHeadingText: {
     fontFamily: Fonts.SemiBold,
     color: COLORS.darkGrey,
-    fontSize: moderateScale(14),
+    fontSize: moderateScale(12),
     paddingVertical: verticalScale(5),
+    marginRight: SW(30),
   },
   detailText: {
     paddingVertical: verticalScale(5),

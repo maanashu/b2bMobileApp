@@ -70,6 +70,7 @@ export const styles = StyleSheet.create({
   tabButtonView: {
     borderRadius: 20,
     width: ms(65),
+    flexDirection: "row",
   },
   upperView: {
     height: vs(120),

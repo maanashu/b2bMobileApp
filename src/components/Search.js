@@ -10,7 +10,7 @@ import { strings } from "@/localization";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 
-export function Search({ style, imgStyle, backRequired }) {
+export function Search({ style, imgStyle, backRequired, placeholder }) {
   const [code, setCode] = useState("");
 
   const styles = useMemo(
@@ -61,7 +61,7 @@ export function Search({ style, imgStyle, backRequired }) {
         //   setCode({ code: "" });
         // }}
         style={styles.inputStyle}
-        placeholder={strings.search.search}
+        placeholder={placeholder}
         placeholderTextColor={"#A7A7A7"}
         onChangeText={setCode}
         value={code}

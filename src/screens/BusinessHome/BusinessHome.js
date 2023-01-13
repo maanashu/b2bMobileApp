@@ -145,8 +145,8 @@ export function BusinessHome() {
             }}
             ImageComponentStyle={{
               borderRadius: 10,
-              width: 280,
-              height: 100,
+              width: 360,
+              height: 150,
               marginTop: 5,
               marginRight: 22,
             }}

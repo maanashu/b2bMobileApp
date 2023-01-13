@@ -192,6 +192,7 @@ export function BusinessProfile() {
       </View>
     </View>
   );
+
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <ScrollView
@@ -233,7 +234,7 @@ export function BusinessProfile() {
               style={styles.ratingView}
             >
               <Text style={styles.ratingText}>
-                4.5/<Text style={styles.totalRatingText}>5.00</Text>
+                4.5/<Text style={styles.totalRatingText}>5.0</Text>
               </Text>
               <Text style={styles.companyReviewText}>
                 {strings.businessProfile.companyReview}

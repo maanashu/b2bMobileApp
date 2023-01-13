@@ -218,7 +218,8 @@ export function Business() {
         style={{ paddingHorizontal: ms(10) }}
       >
         <Spacer space={SH(10)} />
-        <Search />
+
+        <Search placeholder={strings.business.searchHere} />
 
         <Spacer space={SH(10)} />
 

@@ -43,6 +43,7 @@ import { LastData } from "@/screens/Products/ProductsInquiry/FlatlistData";
 import { ms, vs } from "react-native-size-matters";
 import { NAVIGATION } from "@/constants";
 import { Search } from "@/components/Search";
+import { strings } from "@/localization";
 export function Products({ onPress }) {
   const [selectedId, setSelectedId] = useState("");
 
@@ -219,7 +220,8 @@ export function Products({ onPress }) {
     <ScreenWrapper>
       <Spacer space={SH(10)} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Search />
+        <Search placeholder={strings.business.searchHere} />
+
         <Spacer space={SH(10)} />
 
         <View style={{ paddingHorizontal: SW(16) }}>

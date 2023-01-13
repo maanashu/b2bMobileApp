@@ -158,7 +158,6 @@ export function ProductInquiry() {
             resizeMethod={"resize"}
             resizeMode={"cover"}
             autoplayInterval={3000}
-            // parentWidth={SW(380)}
             paginationBoxStyle={styles.paginationBoxStyle}
             ImageComponentStyle={styles.imageComponentStyle}
           />
@@ -283,6 +282,13 @@ export function ProductInquiry() {
           <Spacer space={SH(20)} />
 
           <View style={styles.yewiView}>
+            <View style={styles.aboutCompanyView}>
+              <Text style={styles.aboutCompanyText}>
+                {strings.productInquiry.aboutCompany}
+              </Text>
+            </View>
+            <Spacer space={SH(10)} />
+
             <View style={styles.yewiInnerView}>
               <Image source={yewiLogo} style={styles.logoYewi} />
               <View style={{ paddingHorizontal: SW(10) }}>

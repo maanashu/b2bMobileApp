@@ -1,28 +1,13 @@
-import {
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-  useWindowDimensions,
-} from "react-native";
+import { Text, View, useWindowDimensions } from "react-native";
 import React from "react";
 import { styles } from "./NewProducts.style";
-import { Button, ScreenWrapper, Spacer, SubHeader } from "@/components";
-import { SH, SW } from "@/theme/ScalerDimensions";
+import { ScreenWrapper, SubHeader } from "@/components";
+import { SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { useState } from "react";
-import { goBack, navigate } from "@/navigation/NavigationRef";
 import { backArrow, filter, Fonts } from "@/assets";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { strings } from "@/localization";
-import { NAVIGATION } from "@/constants";
-import { Apparel, Business, Products } from "@/screens";
-import {
-  ms,
-  vs,
-  verticalScale,
-  moderateScale,
-} from "react-native-size-matters";
+import { Apparel, Business } from "@/screens";
 import { Header } from "@/components/Header";
 export function NewProducts() {
   const layout = useWindowDimensions();
@@ -60,6 +45,7 @@ export function NewProducts() {
                   color: focused ? COLORS.primary : COLORS.text,
                   textAlignVertical: "center",
                   fontFamily: focused ? Fonts.SemiBold : Fonts.Regular,
+                  marginLeft: SW(5),
                 }}
               >
                 {route.title}
@@ -67,7 +53,7 @@ export function NewProducts() {
             </View>
           );
         }}
-        indicatorStyle={{ backgroundColor: COLORS.primary }}
+        indicatorStyle={{ backgroundColor: COLORS.primary, width: "0.5%" }}
         style={{
           elevation: 0,
           backgroundColor: COLORS.white,

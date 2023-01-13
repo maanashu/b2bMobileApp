@@ -70,6 +70,9 @@ export const en = {
     search: "Search here",
   },
   productInquiry: {
+    aboutCompany: "About Company",
+    follow: "Follow",
+    visitStore: "Visit Store",
     productDetails: "Product Details",
     recomended: "Recomended products",
     startOrder: "Start Order",
@@ -187,6 +190,9 @@ export const en = {
     tobacco: "Tobacco",
     apparel: "Apparel",
     getSamples: "Get Samples",
+    searchInStore: "Search in this store",
+    filter: "Filter",
+    searchHere: "Search here",
   },
   topRankingManufacturers: {
     topManufacturers: "Top Manufacturers",
@@ -203,7 +209,7 @@ export const en = {
     profile: "Profile",
     products: "Products",
     home: "Home",
-    madeWell: "Made well colored cozy short cardigan",
+    madeWell: "Made well",
     moq: "MOQ: 10",
     basicInformaion: "Basic Inforamation",
     bottomSheetText:
