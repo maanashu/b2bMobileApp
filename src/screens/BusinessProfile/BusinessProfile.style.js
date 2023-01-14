@@ -188,7 +188,7 @@ export const styles = StyleSheet.create({
   ratingView: {
     backgroundColor: COLORS.white,
     ...ShadowStyles.shadow2,
-    width: "30%",
+    width: "40%",
     borderRadius: 10,
     paddingHorizontal: moderateScale(5),
     paddingVertical: verticalScale(20),

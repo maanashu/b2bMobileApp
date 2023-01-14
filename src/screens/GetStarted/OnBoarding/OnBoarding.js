@@ -10,7 +10,7 @@ import {
 import { styles } from "./OnBoarding.styles";
 import { mainLogo, backStripe } from "@/assets";
 import { Button, ScreenWrapper, Spacer } from "@/components";
-import { SH } from "@/theme/ScalerDimensions";
+import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme";
 import { strings } from "@/localization";
 import { navigate } from "@/navigation/NavigationRef";
@@ -72,7 +72,7 @@ export function OnBoarding() {
           <Image source={backStripe} style={styles.backImage} />
         </View>
 
-        <Spacer space={SH(340)} />
+        <Spacer space={SH(300)} />
 
         <View style={{ paddingHorizontal: 25 }}>
           <Text style={styles.heading}>{strings.auth.tellBusiness}</Text>
@@ -89,6 +89,8 @@ export function OnBoarding() {
             numColumns={2}
           />
           <Spacer space={SH(15)} />
+          </View>
+          <View style={{paddingHorizontal:SW(20)}}>
           <Button
             onPress={() => navigate(NAVIGATION.categories)}
             // onPress={() => alert('jkfhegght')}
@@ -96,8 +98,9 @@ export function OnBoarding() {
             style={styles.buttonStyle}
             textStyle={styles.textStyle}
           />
-          <Spacer space={SH(20)} />
-        </View>
+          </View>
+          <Spacer space={SH(60)} />
+        
       </View>
     </View>
   );

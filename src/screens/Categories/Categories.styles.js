@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     paddingVertical: SH(10),
     paddingHorizontal: SW(20),
-    shadowOpacity: 10,
+    shadowOpacity: 0.1,
     shadowRadius: 5,
   },
 

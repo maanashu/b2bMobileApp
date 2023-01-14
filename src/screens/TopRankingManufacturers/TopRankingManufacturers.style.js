@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
   header: {
     height: SH(50),
     backgroundColor: COLORS.white,
-    ...ShadowStyles.shadow,
+    ...ShadowStyles.shadow2,
     paddingHorizontal: SW(20),
     justifyContent: "center",
   },

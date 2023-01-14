@@ -6,7 +6,7 @@ import { StyleSheet } from "react-native";
  */
 export const ShadowStyles = StyleSheet.create({
   shadow: {
-    elevation: 8,
+    elevation: 2,
     shadowColor: Platform.OS == "ios" ? "#ababab" : "#000000",
     shadowRadius: 1.41,
     shadowOpacity: 0.4,

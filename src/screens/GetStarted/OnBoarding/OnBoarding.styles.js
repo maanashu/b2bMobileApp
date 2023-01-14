@@ -16,8 +16,8 @@ export const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingVertical: 10,
-    shadowOpacity: 10,
-    shadowRadius: 5,
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
   },
   mainImg: {
     marginTop: SH(10),
@@ -64,7 +64,7 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.Regular,
   },
   item: {
-    height: SH(36),
+    height: SH(32),
     marginVertical: 8,
     marginRight: 16,
     justifyContent: "center",
@@ -72,9 +72,10 @@ export const styles = StyleSheet.create({
     borderColor: COLORS.lightSky,
     borderWidth: 1,
     borderRadius: 3,
+    
   },
   title: {
-    fontSize: SF(16),
+    fontSize: SF(14),
     fontFamily: Fonts.Regular,
     paddingHorizontal: moderateScale(12),
     color: COLORS.btnText,
@@ -83,6 +84,7 @@ export const styles = StyleSheet.create({
     marginTop: SH(15),
     flex: 1,
     paddingHorizontal: 20,
+    alignItems:"center"
   },
   buttonStyle: {
     backgroundColor: COLORS.placeHolder,
