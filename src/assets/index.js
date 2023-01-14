@@ -215,6 +215,7 @@ export { default as chat_translator } from "@/assets/icons/ic_chat/chat_translat
 export { default as chat_videoCall } from "@/assets/icons/ic_chat/chat_videoCall.png";
 export { default as chat_voiceMessage } from "@/assets/icons/ic_chat/chat_voiceMessage.png";
 export { default as chat_folder } from "@/assets/icons/ic_chat/chat_folder.png";
+export { default as dropdownIcon } from "@/assets/icons/ic_home/dropdown.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

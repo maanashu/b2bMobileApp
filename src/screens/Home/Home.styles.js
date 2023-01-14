@@ -18,4 +18,61 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
   },
+  headerStyle: {
+    height: SH(50),
+    backgroundColor: COLORS.white,
+    paddingHorizontal: SW(20),
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    zIndex: 999,
+  },
+  locationView: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  locationText: {
+    color: COLORS.black,
+    fontFamily: Fonts.SemiBold,
+    fontSize: SF(13),
+  },
+  locationIcon: {
+    tintColor: COLORS.primary,
+    height: ms(15),
+    width: ms(15),
+    marginRight: SW(5),
+  },
+  bagIcon: {
+    height: ms(25),
+    width: ms(25),
+    marginRight: SW(15),
+  },
+  coinView: {
+    paddingHorizontal: SW(10),
+    paddingVertical: SH(3),
+    backgroundColor: COLORS.primary,
+    borderRadius: SW(15),
+    width: SW(50),
+    flexDirection: "row",
+    alignContent: "center",
+    justifyContent: "space-between",
+  },
+  coinIcon: {
+    height: ms(17),
+    width: ms(17),
+  },
+  balanceText: {
+    fontFamily: Fonts.SemiBold,
+    fontSize: SF(14),
+    color: COLORS.white,
+  },
+  rowView: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  downIcon: {
+    height: ms(15),
+    width: ms(15),
+    marginLeftL: ms(5),
+  },
 });

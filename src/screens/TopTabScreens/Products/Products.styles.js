@@ -125,11 +125,10 @@ export const styles = StyleSheet.create({
   ShoesStyle: {
     width: 180,
     ...ShadowStyles.shadow2,
-    borderRadius: 1,
+    borderRadius: 5,
     backgroundColor: COLORS.white,
     margin: 2,
     flex: 1,
-    paddingVertical: SH(10),
   },
   productsTitle: {
     fontFamily: Fonts.SemiBold,

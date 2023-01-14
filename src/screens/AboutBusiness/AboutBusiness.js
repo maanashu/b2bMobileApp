@@ -21,11 +21,14 @@ import {
   backArrow,
   filter,
   backIcon,
+  addToBag,
+  bagGrey,
 } from "@/assets";
 import { TabView, SceneMap, TabBar, renderItem } from "react-native-tab-view";
 import { BusinessHome, BusinessProducts, BusinessProfile } from "@/screens";
 import { moderateScale, ms } from "react-native-size-matters";
 import { Header } from "@/components/Header";
+import { Icon } from "react-native-vector-icons/Icon";
 
 export function AboutBusiness() {
   const layout = useWindowDimensions();

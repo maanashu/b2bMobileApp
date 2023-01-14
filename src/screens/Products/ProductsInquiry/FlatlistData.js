@@ -22,7 +22,7 @@ import {
 
 export const LastData = [
   {
-    id: "1",
+    id: 1,
     title: "Made well",
     subTitle: "colored cozy short cardigan",
     image: image1,
@@ -31,7 +31,7 @@ export const LastData = [
     category: "carton",
   },
   {
-    id: "2",
+    id: 2,
     title: "Made well",
     subTitle: "colored cozy short cardigan",
     image: image2,
@@ -40,7 +40,7 @@ export const LastData = [
     category: "carton",
   },
   {
-    id: "3",
+    id: 3,
     title: "Made well",
     subTitle: "colored cozy short cardigan",
     image: image3,
@@ -49,7 +49,7 @@ export const LastData = [
     category: "carton",
   },
   {
-    id: "4",
+    id: 4,
     title: "Made well",
     subTitle: "colored cozy short cardigan",
     image: image4,
@@ -58,7 +58,7 @@ export const LastData = [
     category: "carton",
   },
   {
-    id: "5",
+    id: 5,
     title: "Made well",
     subTitle: "colored cozy short cardigan",
     image: image5,
@@ -67,7 +67,7 @@ export const LastData = [
     category: "carton",
   },
   {
-    id: "6",
+    id: 6,
     title: "Made well",
     subTitle: "colored cozy short cardigan",
     image: image6,
@@ -76,7 +76,7 @@ export const LastData = [
     category: "carton",
   },
   {
-    id: "7",
+    id: 7,
     title: "Made well",
     subTitle: "colored cozy short cardigan",
     image: image7,
@@ -85,7 +85,7 @@ export const LastData = [
     category: "carton",
   },
   {
-    id: "8",
+    id: 8,
     title: "Made well",
     subTitle: "colored cozy short cardigan",
     image: image8,
@@ -94,7 +94,7 @@ export const LastData = [
     category: "carton",
   },
   {
-    id: "9",
+    id: 9,
     title: "Made well",
     subTitle: "colored cozy short cardigan",
     image: image9,
@@ -103,7 +103,7 @@ export const LastData = [
     category: "carton",
   },
   {
-    id: "10",
+    id: 10,
     title: "Made well",
     subTitle: "colored cozy short cardigan",
     image: image10,
@@ -112,7 +112,7 @@ export const LastData = [
     category: "carton",
   },
   {
-    id: "11",
+    id: 11,
     title: "Made well",
     subTitle: "colored cozy short cardigan",
     image: image11,
@@ -121,7 +121,7 @@ export const LastData = [
     category: "carton",
   },
   {
-    id: "12",
+    id: 12,
     title: "Made well",
     subTitle: "colored cozy short cardigan",
     image: image12,

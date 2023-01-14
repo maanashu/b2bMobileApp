@@ -20,9 +20,49 @@ import { NAVIGATION } from "@/constants";
 export function Apparel({ onPress }) {
   const listData = LastData;
 
-  const listDetail = ({ item, onPress }) => (
+  function dynamicHeight(_index) {
+    if (_index % 2 == 0) {
+      return 260;
+    } else if (_index % 2 !== 0) {
+      return 240;
+    } else {
+      return 220;
+    }
+  }
+  function dynamicImageHeight(_index) {
+    if (_index % 2 == 0) {
+      return 150;
+    } else if (_index % 2 !== 0) {
+      return 130;
+    } else {
+      return 100;
+    }
+  }
+  function dynamicMarginTop(_index) {
+    if (_index % 2 !== 0) {
+      return 0;
+    } else {
+      return 20;
+    }
+  }
+  function dynamicMarginBottom(_index) {
+    if (_index % 2 == 0) {
+      return 10;
+    } else {
+      return 10;
+    }
+  }
+
+  const listDetail = ({ item, index }) => (
     <TouchableOpacity
-      style={styles.ShoesStyle}
+      style={[
+        styles.ShoesStyle,
+        {
+          height: dynamicHeight(index),
+          marginTop: dynamicMarginTop(index),
+          marginBottom: dynamicMarginBottom(index),
+        },
+      ]}
       onPress={() => navigate(NAVIGATION.productInquiry)}
     >
       <Spacer space={SH(10)} />
@@ -30,7 +70,11 @@ export function Apparel({ onPress }) {
         <Image
           source={item.image}
           resizeMode="contain"
-          style={{ height: vs(140), width: ms(150) }}
+          style={{
+            height: vs(140),
+            width: ms(150),
+            height: dynamicImageHeight(index),
+          }}
         />
       </View>
       <Text style={styles.productsTitle}>

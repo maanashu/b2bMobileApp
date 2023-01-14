@@ -31,7 +31,6 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     margin: 2,
     flex: 1,
-    alignItems: "center",
     paddingVertical: SH(5),
   },
   filerView: {

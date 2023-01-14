@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   TouchableOpacity,
   View,
   useWindowDimensions,
+  Image,
 } from "react-native";
 import { ScreenWrapper } from "@/components";
 import { COLORS } from "@/theme/Colors";
@@ -11,14 +12,23 @@ import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { Business, Products } from "@/screens";
 import { styles } from "./Home.styles";
-
-import { Fonts } from "@/assets";
+import DropDownPicker from "react-native-dropdown-picker";
+import { bagGrey, coinStack, dropdownIcon, Fonts, location } from "@/assets";
 import { ShadowStyles } from "@/theme";
+import { ms } from "react-native-size-matters";
+import { HomeHeader } from "@/components/HomeHeader";
 
 export function Home() {
   const layout = useWindowDimensions();
 
   const [index, setIndex] = React.useState(0);
+
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    { label: "5-50", value: "5-50" },
+    { label: "50-100", value: "50-100" },
+  ]);
 
   const [routes] = React.useState([
     { key: "products", title: "Products" },
@@ -84,26 +94,18 @@ export function Home() {
 
   return (
     <ScreenWrapper>
-      <View
-        style={{
-          height: SH(50),
-          backgroundColor: COLORS.white,
-          paddingHorizontal: SW(10),
-          justifyContent: "center",
-        }}
-      >
-        <TouchableOpacity>
-          <Text>Select Your Address</Text>
-        </TouchableOpacity>
+      <HomeHeader />
+
+      <View style={{ flex: 1, paddingVertical: 10 }}>
+        <TabView
+          navigationState={{ index, routes }}
+          renderScene={renderScene}
+          onIndexChange={setIndex}
+          initialLayout={{ width: layout.width }}
+          renderTabBar={renderTabBar}
+          swipeEnabled={false}
+        />
       </View>
-      <TabView
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        initialLayout={{ width: layout.width }}
-        renderTabBar={renderTabBar}
-        swipeEnabled={false}
-      />
     </ScreenWrapper>
   );
 }

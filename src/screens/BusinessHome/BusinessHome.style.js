@@ -14,14 +14,13 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 40,
   },
   ShoesStyle: {
-    height: vs(180),
     width: 180,
     ...ShadowStyles.shadow2,
-    borderRadius: 1,
+    borderRadius: 5,
     backgroundColor: COLORS.white,
     margin: 2,
     flex: 1,
-    alignItems: "center",
+    paddingVertical: SH(5),
   },
 
   mainContainer: {

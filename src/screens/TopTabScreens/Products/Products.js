@@ -173,6 +173,43 @@ export function Products({ onPress }) {
     },
   ];
 
+  function dynamicHeight(_index) {
+    if (_index % 2 == 0) {
+      return 260;
+    } else if (_index % 2 !== 0) {
+      return 240;
+    } else {
+      return 220;
+    }
+  }
+  function dynamicImageHeight(_index) {
+    if (_index % 2 == 0) {
+      return 150;
+    } else if (_index % 2 !== 0) {
+      return 130;
+    } else {
+      return 100;
+    }
+  }
+  function dynamicMarginTop(_index) {
+    if (_index === 1) {
+      return;
+    } else if (_index % 2 !== 0) {
+      return -30;
+    } else {
+      return 20;
+    }
+  }
+  function dynamicMarginBottom(_index) {
+    if (_index % 2 == 0) {
+      return 10;
+    } else if (_index % 2 !== 0) {
+      return -50;
+    } else {
+      return 20;
+    }
+  }
+
   const Item = ({ item, onPress }) => (
     <TouchableOpacity style={styles.item}>
       <Image source={item.image} style={styles.roundIcons} />
@@ -211,14 +248,26 @@ export function Products({ onPress }) {
   const renderThirdItem = ({ item }) => {
     return <Item item={item} onPress={() => setProduct(item.id)} />;
   };
-  const listDetail = ({ item, onPress }) => (
-    <TouchableOpacity style={styles.ShoesStyle}>
+  const listDetail = ({ item, index }) => (
+    <TouchableOpacity
+      style={[
+        styles.ShoesStyle,
+        {
+          height: dynamicHeight(index),
+          marginTop: dynamicMarginTop(index),
+          marginBottom: dynamicMarginBottom(index),
+        },
+      ]}
+    >
       <Spacer space={SH(10)} />
       <View style={{ alignItems: "center" }}>
         <Image
           source={item.image}
           resizeMode="contain"
-          style={{ height: vs(140), width: ms(150) }}
+          style={{
+            width: ms(150),
+            height: dynamicImageHeight(index),
+          }}
         />
       </View>
       <Text style={styles.productsTitle}>
@@ -245,7 +294,6 @@ export function Products({ onPress }) {
         borderRadius: 15,
       }}
     >
-      {/* <View style={{ height: 80, width: 100, backgroundColor: "green" }} /> */}
       <Image source={slideImage} style={styles.storeImg} resizeMode="cover" />
     </TouchableOpacity>
   );
@@ -432,12 +480,17 @@ export function Products({ onPress }) {
         </View>
 
         <Spacer space={SH(30)} />
-        <View style={{ paddingHorizontal: ms(20), flex: 1 }}>
+        <View
+          style={{
+            paddingHorizontal: ms(20),
+            paddingVertical: vs(10),
+            flex: 1,
+          }}
+        >
           <FlatList
             data={LastData}
             renderItem={listDetail}
             keyExtractor={(item) => item.id}
-            // extraData={product}
             numColumns={2}
           />
         </View>

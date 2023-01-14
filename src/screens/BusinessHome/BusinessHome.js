@@ -30,6 +30,39 @@ import { SliderBox } from "react-native-image-slider-box";
 export function BusinessHome() {
   const images = [sliderBag, sliderBag];
 
+  function dynamicHeight(_index) {
+    if (_index === 0 || _index === 2) {
+      return 200;
+    } else if (_index === 1 || _index === 3) {
+      return 180;
+    } else {
+      return 160;
+    }
+  }
+  function dynamicImageHeight(_index) {
+    if (_index === 0 || _index === 2) {
+      return 150;
+    } else if (_index === 1 || _index === 3) {
+      return 130;
+    } else {
+      return 60;
+    }
+  }
+  function dynamicMarginTop(_index) {
+    if (_index === 3) {
+      return -20;
+    } else {
+      return 10;
+    }
+  }
+  function dynamicMarginBottom(_index) {
+    if (_index === 2) {
+      return;
+    } else {
+      return 10;
+    }
+  }
+
   const Bags = [
     {
       id: 1,
@@ -75,15 +108,25 @@ export function BusinessHome() {
     },
   ];
 
-  const SecondItem = ({ item }) => (
+  const SecondItem = ({ item, index }) => (
     <TouchableOpacity
-      style={styles.ShoesStyle}
-      // onPress={() => navigate(NAVIGATION.productInquiry)}
+      style={[
+        styles.ShoesStyle,
+        {
+          height: dynamicHeight(index),
+          marginTop: dynamicMarginTop(index),
+          marginBottom: dynamicMarginBottom(index),
+        },
+      ]}
     >
       <Image
         source={item.image}
         resizeMode="contain"
-        style={{ height: vs(130), width: ms(140) }}
+        style={{
+          height: vs(130),
+          width: ms(140),
+          height: dynamicImageHeight(index),
+        }}
       />
 
       <Text
