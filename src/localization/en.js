@@ -202,6 +202,7 @@ export const en = {
   },
   businessProfile: {
     businessDetails: "Business Details",
+    subTitle: "colored cozy short cardigan",
     text: "Mauris eget blandit ex. Ut facilisis, lacus a faucibus finibus, nisi nisl pharetra enim, id fringilla ",
     companyReview: "Company Review",
     certification: "Certification",
@@ -369,6 +370,32 @@ export const en = {
     sendLocalPhoto: "Send Local Photo",
   },
   quickReplies: {
-    bestOffer: "Best Offer",
+    bestOffer: "Hi, What’s the best price you can offer?",
+  },
+  videoCall: {
+    notOnline:
+      "We are not online for instant video calls. Please make a schedule for a video call. Our representative will join you at the right time",
+    schedule: "Schedule",
+  },
+  files: {
+    localFiles: "Send local files",
+  },
+  cardDetails: {
+    send: "Send",
+  },
+  voiceMessage: {
+    hold: "Hold to talk",
+  },
+  chatShippingAddress: {
+    addAddress: "Add Address",
+  },
+
+  STATIC: {
+    cardDetails: {
+      userName: "Steven D. Daum",
+      email: "steven.daum@gmail.com",
+      phoneNo: "805-627-55874",
+      companyName: "Company Name",
+    },
   },
 };

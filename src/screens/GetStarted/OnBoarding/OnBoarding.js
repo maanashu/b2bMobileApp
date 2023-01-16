@@ -89,8 +89,8 @@ export function OnBoarding() {
             numColumns={2}
           />
           <Spacer space={SH(15)} />
-          </View>
-          <View style={{paddingHorizontal:SW(20)}}>
+        </View>
+        <View style={{ paddingHorizontal: SW(20) }}>
           <Button
             onPress={() => navigate(NAVIGATION.categories)}
             // onPress={() => alert('jkfhegght')}
@@ -98,9 +98,8 @@ export function OnBoarding() {
             style={styles.buttonStyle}
             textStyle={styles.textStyle}
           />
-          </View>
-          <Spacer space={SH(60)} />
-        
+        </View>
+        <Spacer space={SH(20)} />
       </View>
     </View>
   );

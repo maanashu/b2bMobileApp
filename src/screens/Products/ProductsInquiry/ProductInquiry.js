@@ -12,7 +12,7 @@ import { styles } from "./ProductInquiry.styles";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants/navigation";
 import { useState } from "react";
-import { ScreenWrapper, Spacer } from "@/components";
+import { CompanyDetailView, ScreenWrapper, Spacer } from "@/components";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { SliderBox } from "react-native-image-slider-box";
@@ -302,41 +302,7 @@ export function ProductInquiry() {
             </View>
             <Spacer space={SH(10)} />
 
-            <View style={styles.yewiInnerView}>
-              <Image source={yewiLogo} style={styles.logoYewi} />
-              <View style={{ paddingHorizontal: SW(10) }}>
-                <Text style={styles.yewiHeadingText}>
-                  Yiwu Leqi E-Commerce Firm
-                </Text>
-                <View style={styles.yewiSmallView}>
-                  <Image
-                    source={yewiCertified}
-                    resizeMode="contain"
-                    style={styles.certified}
-                  />
-                  <View style={styles.yewiDirection}>
-                    <Image
-                      source={location}
-                      resizeMode="contain"
-                      style={styles.yewiIcons}
-                    />
-                    <Text style={styles.yewiSmallText}> Miami, USA</Text>
-                    <Image
-                      source={star}
-                      resizeMode="contain"
-                      style={styles.yewistar}
-                    />
-                    <Text style={styles.yewiSmallText}> 4.5</Text>
-                    <Image
-                      source={clock}
-                      resizeMode="contain"
-                      style={styles.yewiClock}
-                    />
-                    <Text style={styles.yewiSmallText}> Since 2022</Text>
-                  </View>
-                </View>
-              </View>
-            </View>
+            <CompanyDetailView />
 
             <Spacer space={SH(20)} />
 
@@ -405,7 +371,7 @@ export function ProductInquiry() {
           <TouchableOpacity>
             <View style={styles.iconView}>
               <Image
-                resizeMode="stretch"
+                resizeMode="contain"
                 source={check}
                 style={styles.tradeIcon}
               />
@@ -416,15 +382,7 @@ export function ProductInquiry() {
                     Trade Assurance
                   </Text>
 
-                  <Text
-                    style={{
-                      fontFamily: Fonts.Regular,
-                      fontSize: ms(10),
-                      marginLeft: ms(5),
-                    }}
-                  >
-                    Protects your orders
-                  </Text>
+                  <Text style={styles.tradeText}>Protects your orders</Text>
                 </View>
 
                 <Image source={forward} style={styles.forward} />

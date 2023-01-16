@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     fontSize: SF(25),
   },
   buttons: {
-    height: SW(40),
+    height: SW(36.5),
     width: SW(110),
     alignItems: "center",
     flexDirection: "row",
@@ -62,8 +62,8 @@ export const styles = StyleSheet.create({
     width: ms(17),
   },
   plusButtonIcon: {
-    height: ms(12),
-    width: ms(12),
+    height: ms(11),
+    width: ms(11),
   },
   headerText: {
     fontFamily: Fonts.SemiBold,
@@ -178,8 +178,9 @@ export const styles = StyleSheet.create({
   },
   sideIcons: {
     height: SH(24),
-    width: SW(16),
-    marginRight: SW(5),
+    width: SW(24),
+    marginRight: SW(-2),
+    marginLeft: SW(-3),
   },
   claimNowIcon: {
     height: SH(24),
@@ -188,7 +189,7 @@ export const styles = StyleSheet.create({
   tradeIcon: {
     height: SH(24),
     width: SW(20),
-    marginRight: SW(5),
+    marginRight: SW(4),
   },
   forward: {
     height: SH(20),
@@ -217,12 +218,12 @@ export const styles = StyleSheet.create({
     alignItems: "flex-end",
     paddingHorizontal: SW(5),
     backgroundColor: COLORS.termsBorder,
-    width: SW(90),
+    width: SW(80),
     alignSelf: "flex-end",
-    height: SH(40),
+    height: SH(35),
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 8,
+    borderRadius: 5,
   },
   viewImage: {
     height: SH(60),
@@ -421,7 +422,7 @@ export const styles = StyleSheet.create({
   viewAllText: {
     fontFamily: Fonts.Regular,
     color: COLORS.black,
-    fontSize: SF(16),
+    fontSize: SF(15),
   },
   shoeQuantityText: {
     fontFamily: Fonts.Regular,
@@ -446,7 +447,7 @@ export const styles = StyleSheet.create({
   },
   aboutCompanyText: {
     fontFamily: Fonts.Regular,
-    fontSize: SF(12),
+    fontSize: SF(13),
     color: COLORS.darkGrey,
   },
   buttonView: {
@@ -454,27 +455,32 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   followButton: {
-    paddingHorizontal: SW(5),
-    paddingVertical: SH(2),
+    paddingHorizontal: SW(8),
+    paddingVertical: SH(4),
     backgroundColor: COLORS.blue,
-    borderRadius: 5,
+    borderRadius: 4,
     marginRight: SW(10),
   },
   followText: {
     fontFamily: Fonts.Regular,
-    fontSize: SF(14),
+    fontSize: SF(12),
     color: COLORS.white,
   },
   visitButton: {
     paddingHorizontal: SW(5),
-    paddingVertical: SH(3),
+    paddingVertical: SH(4),
     backgroundColor: COLORS.white,
-    borderRadius: 5,
+    borderRadius: 4,
     marginRight: SW(10),
   },
   visitText: {
     fontFamily: Fonts.Regular,
-    fontSize: SF(14),
+    fontSize: SF(12),
     color: COLORS.primary,
+  },
+  tradeText: {
+    fontFamily: Fonts.Regular,
+    fontSize: ms(10),
+    marginLeft: ms(5),
   },
 });

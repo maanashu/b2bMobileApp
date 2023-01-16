@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 5,
     borderWidth: 1,
-    padding: 10,
+    padding: 5,
     width: "100%",
     backgroundColor: COLORS.activeTab,
     borderWidth: 0,

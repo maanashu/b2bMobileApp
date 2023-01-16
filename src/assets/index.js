@@ -216,6 +216,15 @@ export { default as chat_videoCall } from "@/assets/icons/ic_chat/chat_videoCall
 export { default as chat_voiceMessage } from "@/assets/icons/ic_chat/chat_voiceMessage.png";
 export { default as chat_folder } from "@/assets/icons/ic_chat/chat_folder.png";
 export { default as dropdownIcon } from "@/assets/icons/ic_home/dropdown.png";
+export { default as closeX } from "@/assets/icons/ic_chat/closeX.png";
+export { default as addLocation } from "@/assets/icons/ic_chat/addLocation.png";
+export { default as email_chat } from "@/assets/icons/ic_chat/email.png";
+export { default as files } from "@/assets/icons/ic_chat/files.png";
+export { default as companyBuildings } from "@/assets/icons/ic_chat/companyBuilding.png";
+export { default as pdfDocImage } from "@/assets/icons/ic_chat/pdfImage.png";
+export { default as phoneCall } from "@/assets/icons/ic_chat/phoneCall.png";
+export { default as voiceButton } from "@/assets/icons/ic_chat/voiceButton.png";
+export { default as userPhoto } from "@/assets/icons/ic_chat/userPhoto.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

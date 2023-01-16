@@ -1,3 +1,5 @@
+import { ChatHeader } from "./ChatHeader";
+
 export { Button } from "@/components/Button";
 export { ErrorView } from "@/components/ErrorView";
 export { TabBarIcon } from "@/components/TabBarIcon";
@@ -10,3 +12,5 @@ export { ChatBottomSheet } from "./ChatBottomSheet";
 export { SubHeader } from "@/components/SubHeader";
 export { SearchHeader } from "@/components/SearchHeader";
 export { CustomPagination } from "@/components/CustomPagination";
+export { ChatHeader } from "@/components/ChatHeader";
+export { CompanyDetailView } from "@/components/CompanyDetailView";

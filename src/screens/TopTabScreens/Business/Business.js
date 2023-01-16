@@ -270,8 +270,8 @@ export function Business() {
         >
           <SwiperFlatList
             autoplay
-            autoplayDelay={2}
-            // index={1}
+            autoplayDelay={3}
+            autoplayLoop={true}
             showPagination
             data={images}
             renderItem={renderRecentItem}
@@ -282,7 +282,7 @@ export function Business() {
 
         <Spacer space={SH(30)} />
 
-        <View style={{ paddingHorizontal: ms(10) }}>
+        <View style={{ paddingHorizontal: ms(20) }}>
           <View style={styles.horizontalView}>
             <View style={styles.innerViewHorizontal}>
               <View>
@@ -328,7 +328,7 @@ export function Business() {
 
         <Spacer space={SH(30)} />
 
-        <View style={{ paddingHorizontal: ms(10) }}>
+        <View style={{ paddingHorizontal: ms(20) }}>
           <View style={styles.horizontalView}>
             <View style={styles.innerViewHorizontal}>
               <View>

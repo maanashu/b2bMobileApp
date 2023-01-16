@@ -4,27 +4,7 @@ import { styles } from "./Chatting.styles";
 import { ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import {
-  backArrow,
-  addPerson,
-  messageSend,
-  attachPic,
-  addAttachment,
-  chat_photo,
-  chat_quickMessage,
-  chat_videoCall,
-  chat_file,
-  chat_card,
-  chat_latestPrice,
-  chat_voiceMessage,
-  chat_translator,
-  chat_sendCatalogue,
-  chat_shipping,
-  chat_directOffer,
-  cross,
-  camera,
-  gallery_image,
-} from "@/assets";
+import { messageSend, attachPic, addAttachment, closeX } from "@/assets";
 import {
   GiftedChat,
   Send,
@@ -34,10 +14,15 @@ import {
 import { useCallback } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { goBack } from "@/navigation/NavigationRef";
 import { ms } from "react-native-size-matters";
-import { strings } from "@/localization";
 import RBSheet from "react-native-raw-bottom-sheet";
+import {
+  BottomOptions,
+  Catalogue,
+  LatestPrice,
+  ShippingAddress,
+  VoiceMessage,
+} from "./BottomSheet";
 import {
   BusinessCard,
   File,
@@ -45,118 +30,86 @@ import {
   QuickReply,
   VideoCall,
 } from "./BottomSheet";
+import { ChatHeader } from "@/components";
+import { navigate } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
 
 export function Chatting() {
   const refRBSheet = useRef();
 
-  const BottomOptions = [
-    {
-      id: 1,
-      icon: chat_photo,
-      title: strings.chatting.photo,
-    },
-    {
-      id: 2,
-      icon: chat_quickMessage,
-      title: strings.chatting.quickMessage,
-    },
-    {
-      id: 3,
-      icon: chat_videoCall,
-      title: strings.chatting.videoCall,
-    },
-    {
-      id: 4,
-      icon: chat_file,
-      title: strings.chatting.file,
-    },
-    {
-      id: 5,
-      icon: chat_card,
-      title: strings.chatting.businessCard,
-    },
-    {
-      id: 6,
-      icon: chat_latestPrice,
-      title: strings.chatting.latestPrice,
-    },
-    {
-      id: 7,
-      icon: chat_voiceMessage,
-      title: strings.chatting.voiceMessages,
-    },
-    {
-      id: 8,
-      icon: chat_translator,
-      title: strings.chatting.translator,
-    },
-    {
-      id: 9,
-      icon: chat_sendCatalogue,
-      title: strings.chatting.sendCatalogues,
-    },
-    {
-      id: 10,
-      icon: chat_shipping,
-      title: strings.chatting.shippingAddress,
-    },
-    {
-      id: 11,
-      icon: chat_directOffer,
-      title: strings.chatting.directOffer,
-    },
-    {
-      id: 12,
-      icon: "",
-      title: "",
-    },
-  ];
   const [index, setIndex] = useState("");
   const [messages, setMessages] = useState([]);
-
   const [showView, setShowView] = useState("");
 
   const bottomSheetHandler = (index) => {
     if (index == 0) {
-      setIndex("0");
+      setIndex(index);
       refRBSheet.current.open();
     } else if (index == 1) {
       refRBSheet.current.open();
-      setIndex("1");
+      setIndex(index);
     } else if (index == 2) {
       refRBSheet.current.open();
-      setIndex("2");
+      setIndex(index);
     } else if (index == 3) {
       refRBSheet.current.open();
-      setIndex("3");
+      setIndex(index);
     } else if (index == 4) {
       refRBSheet.current.open();
-      setIndex("4");
+      setIndex(index);
     } else if (index == 5) {
-      refRBSheet.current.open();
-      setIndex("5");
+      navigate(NAVIGATION.sendInquiry);
+      setIndex(index);
     } else if (index == 6) {
       refRBSheet.current.open();
-      setIndex("6");
+      setIndex(index);
     } else if (index == 7) {
       refRBSheet.current.open();
-      setIndex("7");
+      setIndex(index);
     } else if (index == 8) {
       refRBSheet.current.open();
-      setIndex("8");
+      setIndex(index);
     } else if (index == 9) {
       refRBSheet.current.open();
-      setIndex("9");
+      setIndex(index);
     } else if (index == 10) {
       refRBSheet.current.open();
-      setIndex("10");
-    } else if (index == 11) {
-      refRBSheet.current.open();
-      setIndex("11");
+      setIndex(index);
     }
   };
+
+  const AdjustSHeetHeight = () => {
+    if (index == 0) {
+      return 200;
+    } else if (index == 1) {
+      return 300;
+    } else if (index == 2) {
+      return 300;
+    } else if (index == 3) {
+      return 50;
+    } else if (index == 4) {
+      return 50;
+    } else if (index == 5) {
+      return 50;
+    } else if (index == 6) {
+      return 50;
+    } else if (index == 7) {
+      return 50;
+    } else if (index == 8) {
+      return 50;
+    } else if (index == 9) {
+      return 50;
+    } else if (index == 10) {
+      return 50;
+    }
+  };
+
   const moreOptions = () => {
     setShowView(!showView);
+  };
+
+  const closeSheet = () => {
+    refRBSheet.current.close();
   };
 
   const renderSend = (props) => {
@@ -171,7 +124,7 @@ export function Chatting() {
         </TouchableOpacity>
         <TouchableOpacity onPress={moreOptions}>
           <Image
-            source={addAttachment}
+            source={showView ? closeX : addAttachment}
             resizeMode="stretch"
             style={styles.chattingIcon}
           />
@@ -181,12 +134,7 @@ export function Chatting() {
           <Image
             source={messageSend}
             resizeMode="stretch"
-            style={{
-              height: SW(32),
-              width: SW(32),
-              marginRight: SW(10),
-              marginBottom: SH(11),
-            }}
+            style={styles.sendIcon}
           />
         </Send>
       </View>
@@ -194,17 +142,10 @@ export function Chatting() {
   };
 
   const renderOptions = ({ item, index }) => (
-    <View
-      style={{
-        justifyContent: "space-between",
-        flex: 1,
-      }}
-    >
+    <View style={styles.renderOptionsView}>
       <TouchableOpacity
         onPress={() => bottomSheetHandler(index)}
-        style={{
-          alignItems: "center",
-        }}
+        style={styles.align}
       >
         <Image
           source={item.icon}
@@ -224,16 +165,16 @@ export function Chatting() {
         _id: 1,
         text: "Hello developer",
         createdAt: new Date(),
+        image: "https://facebook.github.io/react/img/logo_og.png",
+        sent: true,
+        received: true,
+        pending: true,
 
         user: {
           _id: 2,
           name: "React Native",
           avatar: "https://placeimg.com/140/140/any",
         },
-        image: "https://facebook.github.io/react/img/logo_og.png",
-        sent: true,
-        received: true,
-        pending: true,
       },
     ]);
   }, []);
@@ -246,31 +187,7 @@ export function Chatting() {
   }, []);
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <View style={styles.header}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <TouchableOpacity onPress={() => goBack()}>
-            <Image
-              source={backArrow}
-              resizeMode="contain"
-              style={{ height: 35, width: 35 }}
-            />
-          </TouchableOpacity>
-          <View>
-            <Text style={styles.HeaderNameText}>Senia PanFang</Text>
-            <Text style={styles.headerCompanyName}>
-              Yiwu Leqi E-Commerce Firm
-            </Text>
-          </View>
-        </View>
-
-        <TouchableOpacity>
-          <Image
-            source={addPerson}
-            resizeMode="contain"
-            style={{ height: 30, width: 30 }}
-          />
-        </TouchableOpacity>
-      </View>
+      <ChatHeader />
 
       <Spacer space={SH(10)} />
 
@@ -290,14 +207,7 @@ export function Chatting() {
               return (
                 <InputToolbar
                   {...props}
-                  containerStyle={{
-                    borderWidth: 1,
-                    borderRadius: SW(20),
-                    borderTopWidth: 1,
-                    borderTopColor: "black",
-                    height: 50,
-                    justifyContent: "center",
-                  }}
+                  containerStyle={styles.inputToolbarStyle}
                 ></InputToolbar>
               );
             }}
@@ -305,12 +215,7 @@ export function Chatting() {
               return (
                 <MessageImage
                   {...props}
-                  containerStyle={{
-                    height: 100,
-                    borderRadius: 20,
-
-                    margin: SH(5),
-                  }}
+                  containerStyle={styles.messageProps}
                 ></MessageImage>
               );
             }}
@@ -336,6 +241,7 @@ export function Chatting() {
         closeOnDragDown={false}
         closeOnPressMask={true}
         paddingVertical={SH(10)}
+        height={100}
         customStyles={{
           wrapper: {
             opacity: 1,
@@ -344,6 +250,7 @@ export function Chatting() {
             backgroundColor: "#ffffff",
             borderTopLeftRadius: 30,
             borderTopRightRadius: 30,
+            flex: 1,
           },
           draggableIcon: {
             backgroundColor: "#000",
@@ -351,15 +258,21 @@ export function Chatting() {
         }}
       >
         {index == 0 ? (
-          <PhotoFunction />
+          <PhotoFunction onClosePress={closeSheet} />
         ) : index == 1 ? (
-          <QuickReply />
+          <QuickReply onClosePress={closeSheet} />
         ) : index == 2 ? (
-          <VideoCall />
+          <VideoCall onClosePress={closeSheet} />
         ) : index == 3 ? (
-          <File />
+          <File onClosePress={closeSheet} />
         ) : index == 4 ? (
-          <BusinessCard />
+          <BusinessCard onClosePress={closeSheet} />
+        ) : index == 6 ? (
+          <VoiceMessage onClosePress={closeSheet} />
+        ) : index == 8 ? (
+          <Catalogue onClosePress={closeSheet} />
+        ) : index == 9 ? (
+          <ShippingAddress onClosePress={closeSheet} />
         ) : null}
       </RBSheet>
     </ScreenWrapper>

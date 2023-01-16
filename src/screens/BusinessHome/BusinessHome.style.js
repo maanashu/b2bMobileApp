@@ -2,7 +2,7 @@ import { Fonts } from "@/assets";
 import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { ms, s, verticalScale, vs } from "react-native-size-matters";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
@@ -62,5 +62,36 @@ export const styles = StyleSheet.create({
     fontSize: SF(12),
     fontFamily: Fonts.Regular,
     color: COLORS.darkGrey2,
+  },
+  storeImg: {
+    height: SH(140),
+    // width: Dimensions.get("window").width * 0.9,
+    borderRadius: 10,
+    alignSelf: "center",
+    width: SW(310),
+  },
+  subTitleText: {
+    fontFamily: Fonts.Regular,
+    fontSize: SF(14),
+  },
+  titleText: {
+    fontFamily: Fonts.SemiBold,
+    fontSize: ms(12),
+    color: COLORS.darkGrey,
+    paddingHorizontal: ms(10),
+  },
+  moqText: {
+    alignSelf: "flex-start",
+    fontFamily: Fonts.Regular,
+    paddingLeft: ms(10),
+    fontSize: ms(9),
+    color: COLORS.darkGrey,
+    marginTop: vs(5),
+  },
+  swiperView: {
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 15,
+    marginRight: 10,
   },
 });

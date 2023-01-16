@@ -232,9 +232,6 @@ export function Products({ onPress }) {
     </View>
   );
 
-  const renderSecondItem = ({ item }) => {
-    return <Item item={item} onPress={() => setProduct(item.id)} />;
-  };
   const thirdItem = ({ item, onPress }) => (
     <TouchableOpacity style={styles.item}>
       <Image source={item.image} style={styles.thirdView} />
@@ -245,9 +242,6 @@ export function Products({ onPress }) {
     </TouchableOpacity>
   );
 
-  const renderThirdItem = ({ item }) => {
-    return <Item item={item} onPress={() => setProduct(item.id)} />;
-  };
   const listDetail = ({ item, index }) => (
     <TouchableOpacity
       style={[
@@ -325,8 +319,8 @@ export function Products({ onPress }) {
         >
           <SwiperFlatList
             autoplay
-            autoplayDelay={2}
-            // index={1}
+            autoplayDelay={3}
+            autoplayLoop={true}
             showPagination
             data={images}
             renderItem={renderRecentItem}

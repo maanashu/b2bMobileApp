@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { styles } from "./BusinessHome.style";
-import { ScreenWrapper, Spacer } from "@/components";
+import { CustomPagination, ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import {
@@ -25,16 +25,21 @@ import {
 } from "@/assets";
 import { strings } from "@/localization";
 import { ms, vs } from "react-native-size-matters";
-import { SliderBox } from "react-native-image-slider-box";
+import SwiperFlatList from "react-native-swiper-flatlist";
+import { Images, Bags } from "./Components";
 
 export function BusinessHome() {
-  const images = [sliderBag, sliderBag];
+  const renderRecentItem = ({ item, index }) => (
+    <TouchableOpacity style={styles.swiperView}>
+      <Image source={item.img} style={styles.storeImg} resizeMode="cover" />
+    </TouchableOpacity>
+  );
 
   function dynamicHeight(_index) {
     if (_index === 0 || _index === 2) {
-      return 200;
+      return 225;
     } else if (_index === 1 || _index === 3) {
-      return 180;
+      return 205;
     } else {
       return 160;
     }
@@ -62,33 +67,6 @@ export function BusinessHome() {
       return 10;
     }
   }
-
-  const Bags = [
-    {
-      id: 1,
-      image: videoPic1,
-      title: strings.businessProfile.madeWell,
-      quantity: strings.businessProfile.moq,
-    },
-    {
-      id: 2,
-      image: videoPic2,
-      title: strings.businessProfile.madeWell,
-      quantity: strings.businessProfile.moq,
-    },
-    {
-      id: 3,
-      image: videoPic3,
-      title: strings.businessProfile.madeWell,
-      quantity: strings.businessProfile.moq,
-    },
-    {
-      id: 4,
-      image: videoPic4,
-      title: strings.businessProfile.madeWell,
-      quantity: strings.businessProfile.moq,
-    },
-  ];
 
   const secondData = [
     {
@@ -123,34 +101,17 @@ export function BusinessHome() {
         source={item.image}
         resizeMode="contain"
         style={{
-          height: vs(130),
-          width: ms(140),
+          width: ms(145),
           height: dynamicImageHeight(index),
+          alignSelf: "center",
         }}
       />
 
-      <Text
-        style={{
-          fontFamily: Fonts.SemiBold,
-          fontSize: ms(12),
-          color: COLORS.darkGrey,
-          paddingHorizontal: ms(10),
-        }}
-      >
+      <Text style={styles.titleText}>
         {item.title}
+        <Text style={styles.subTitleText}> {item.subtitle}</Text>
       </Text>
-      <Text
-        style={{
-          alignSelf: "flex-start",
-          fontFamily: Fonts.Regular,
-          paddingLeft: ms(18),
-          fontSize: ms(10),
-          color: COLORS.darkGrey,
-          marginTop: vs(2),
-        }}
-      >
-        {item.quantity}
-      </Text>
+      <Text style={styles.moqText}>{item.quantity}</Text>
     </TouchableOpacity>
   );
   const secondItem = ({ item, onPress }) => (
@@ -170,29 +131,15 @@ export function BusinessHome() {
       >
         <Spacer space={SH(20)} />
 
-        <View>
-          <SliderBox
-            images={images}
-            autoplay={false}
-            circleLoop={false}
-            resizeMode={"stretch"}
-            autoplayInterval={3000}
-            // parentWidth={SW(380)}
-            paginationBoxStyle={{
-              // position: "absolute",
-              bottom: 0,
-              padding: 0,
-              alignItems: "center",
-              alignSelf: "center",
-              justifyContent: "center",
-            }}
-            ImageComponentStyle={{
-              borderRadius: 10,
-              width: 360,
-              height: 150,
-              marginTop: 5,
-              marginRight: 22,
-            }}
+        <View style={{ paddingBottom: SH(30) }}>
+          <SwiperFlatList
+            autoplay
+            autoplayDelay={2}
+            showPagination
+            data={Images}
+            renderItem={renderRecentItem}
+            PaginationComponent={CustomPagination}
+            paginationActiveColor={COLORS.black}
           />
         </View>
 
@@ -237,7 +184,6 @@ export function BusinessHome() {
           data={Bags}
           renderItem={SecondItem}
           keyExtractor={(item) => item.id}
-          //   extraData={product}
           numColumns={2}
         />
       </ScrollView>
