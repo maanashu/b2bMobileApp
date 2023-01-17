@@ -1,7 +1,7 @@
 import { Image, Text, View } from "react-native";
 import React from "react";
 import { styles } from "./ShipTo.styles";
-import { Button, Spacer } from "@/components";
+import { Button, ScreenWrapper, Spacer } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
 import { navigate } from "@/navigation/NavigationRef";
 import { backArrow, flagAmerica, forward } from "@/assets";
@@ -11,6 +11,7 @@ import { NameHeader } from "@/components";
 
 export function ShipTo() {
   return (
+    <ScreenWrapper>
     <View style={styles.container}>
       <NameHeader title={strings.settings.shipTo} back={backArrow} />
 
@@ -61,5 +62,6 @@ export function ShipTo() {
         <Spacer space={SH(20)} />
       </View>
     </View>
+    </ScreenWrapper>
   );
 }

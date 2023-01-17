@@ -1,7 +1,7 @@
 import { View, Image, Text } from "react-native";
 import React from "react";
 import { styles } from "./ContactUs.styles";
-import { Spacer } from "@/components";
+import { ScreenWrapper, Spacer } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
 import { backArrow, call, callIcon, email, jobr_logo_icon } from "@/assets";
 import { strings } from "@/localization";
@@ -10,6 +10,7 @@ import { ms } from "react-native-size-matters";
 
 export function ContactUs() {
   return (
+    <ScreenWrapper>
     <View style={styles.container}>
       <NameHeader title={strings.settings.contactUs} back={backArrow} />
 
@@ -58,5 +59,6 @@ export function ContactUs() {
         </View>
       </View>
     </View>
+    </ScreenWrapper>
   );
 }

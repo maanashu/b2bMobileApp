@@ -1,7 +1,7 @@
 import { Image, Text, View } from "react-native";
 import React from "react";
 import { styles } from "./AboutUs.styles";
-import { Spacer } from "@/components";
+import { ScreenWrapper, Spacer } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
 import { backArrow, jobr_logo_icon } from "@/assets";
 import { strings } from "@/localization";
@@ -9,6 +9,7 @@ import { NameHeader } from "@/components";
 
 export function AboutUs() {
   return (
+    <ScreenWrapper>
     <View style={styles.container}>
       <NameHeader title={strings.settings.aboutUs} back={backArrow} />
 
@@ -33,5 +34,6 @@ export function AboutUs() {
         <Text style={styles.paraText}>{strings.aboutUs.paragraph2}</Text>
       </View>
     </View>
+    </ScreenWrapper>
   );
 }

@@ -1,7 +1,7 @@
 import { Text, View, ScrollView } from "react-native";
 import React from "react";
 import { styles } from "./PrivacyPolicy.styles";
-import { Spacer } from "@/components";
+import { ScreenWrapper, Spacer } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
 import { backArrow } from "@/assets";
 import { strings } from "@/localization";
@@ -9,6 +9,7 @@ import { NameHeader } from "@/components";
 
 export function PrivacyPolicy() {
   return (
+    <ScreenWrapper>
     <View style={styles.container}>
       <NameHeader title={strings.settings.privacyPolicy} back={backArrow} />
 
@@ -77,5 +78,6 @@ export function PrivacyPolicy() {
         <Text style={styles.paraText}>{strings.privacyPolicy.para11}</Text>
       </ScrollView>
     </View>
+    </ScreenWrapper>
   );
 }
