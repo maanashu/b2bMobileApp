@@ -27,7 +27,10 @@ export function ScreenWrapper(props) {
   );
 
   return (
-    <SafeAreaView style={[styles.containerStyle, props.containerPropStyle]}>
+    <SafeAreaView
+      style={[styles.containerStyle, props.containerPropStyle]}
+      onTouchStart={props.onTouchStart}
+    >
       <View
         style={{
           paddingHorizontal: Platform.OS === "ios" ? SW(1) : SW(0),

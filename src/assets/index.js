@@ -225,6 +225,9 @@ export { default as pdfDocImage } from "@/assets/icons/ic_chat/pdfImage.png";
 export { default as phoneCall } from "@/assets/icons/ic_chat/phoneCall.png";
 export { default as voiceButton } from "@/assets/icons/ic_chat/voiceButton.png";
 export { default as userPhoto } from "@/assets/icons/ic_chat/userPhoto.png";
+export { default as calendarDate } from "@/assets/icons/ic_chat/calendarDate.png";
+export { default as toggleOff } from "@/assets/icons/ic_chat/toggleOff.png";
+export { default as toggleOn } from "@/assets/icons/ic_chat/toggleOn.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

@@ -46,3 +46,4 @@ export { MyCatalogue } from "@/screens/Settings/MyCatalogue/MyCatalogue";
 export { AddCoupon } from "@/screens/Settings/Coupons/AddCoupon/AddCoupon";
 export { CurrentCoupons } from "@/screens/Settings/Coupons/CurrentCoupons/CurrentCoupons";
 export { PastCoupons } from "@/screens/Settings/Coupons/PastCoupons/PastCoupons";
+export { MakeAnOffer } from "@/screens/MakeAnOffer/MakeAnOffer";

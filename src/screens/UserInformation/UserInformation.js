@@ -13,111 +13,15 @@ import { logout } from "@/actions/UserActions";
 import { Button, ScreenWrapper, Spacer } from "@/components";
 import { strings } from "@/localization";
 import { styles } from "./UserInformation.styles";
-import { SF, SH, SW, TextStyles, COLORS } from "@/theme";
-import {
-  backArrow,
-  building,
-  businessBag,
-  businessCard,
-  buildingLocation,
-  calendar,
-  call,
-  camera,
-  cooperation,
-  email,
-  jobrRound,
-  qrCode,
-  userFull,
-  userIcon,
-  businessProfit,
-  rocket,
-  forward,
-  close,
-} from "@/assets";
+import { SH } from "@/theme";
+import { backArrow, camera, qrCode, forward, close } from "@/assets";
 import { ms, vs } from "react-native-size-matters";
 import { goBack, navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import Modal from "react-native-modal";
 import { useState } from "react";
 import ImageCropPicker from "react-native-image-crop-picker";
-
-const personalInfo = [
-  {
-    id: 1,
-    heading: strings.userInformation.name,
-    title: "Karam Manab Attia",
-    icon: userIcon,
-  },
-  {
-    id: 2,
-    heading: strings.userInformation.email,
-    title: "Flowers@gmail.com",
-    icon: email,
-  },
-  {
-    id: 3,
-    heading: strings.userInformation.phoneNumber,
-    title: "612717070",
-    icon: call,
-  },
-  {
-    id: 4,
-    heading: strings.userInformation.ssn,
-    title: "-------5698",
-    icon: calendar,
-  },
-  {
-    id: 5,
-    heading: strings.userInformation.dob,
-    title: "01/02/1988",
-    icon: calendar,
-  },
-];
-
-const CompanyInfo = [
-  {
-    id: 1,
-    heading: strings.userInformation.companyName,
-    title: "ABC Distro",
-    icon: building,
-  },
-  {
-    id: 2,
-    heading: strings.userInformation.businessType,
-    title: strings.userInformation.label,
-    icon: cooperation,
-  },
-  {
-    id: 3,
-    heading: strings.userInformation.jobFunction,
-    title: strings.userInformation.label,
-    icon: businessBag,
-  },
-  {
-    id: 4,
-    heading: strings.userInformation.jobLevel,
-    title: strings.userInformation.label,
-    icon: userFull,
-  },
-  {
-    id: 5,
-    heading: strings.userInformation.officeAddress,
-    title: strings.userInformation.label,
-    icon: buildingLocation,
-  },
-  {
-    id: 6,
-    heading: strings.userInformation.asv,
-    title: strings.userInformation.label,
-    icon: businessProfit,
-  },
-  {
-    id: 7,
-    heading: strings.userInformation.sellingChannel,
-    title: strings.userInformation.label,
-    icon: rocket,
-  },
-];
+import { personalInfo, CompanyInfo } from "./Components.js/FlatlistData";
 
 export function UserInformation() {
   const [isModalVisible, setModalVisible] = useState(false);

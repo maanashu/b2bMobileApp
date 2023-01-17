@@ -390,6 +390,20 @@ export const en = {
     addAddress: "Add Address",
   },
 
+  translation: {
+    longPress: "Long press translation setting",
+    autoDetect: "Auto-detect",
+    outGoingMessage: "Translate outgoing message",
+  },
+
+  makeAnOffer: {
+    makeAnOffer: "Make an offer",
+    selectCategory: "Select Category",
+    selectSubCategory: "Select Sub Category",
+    selectproduct: "Select Product",
+    selectBrand: "Select Brand",
+  },
+
   STATIC: {
     cardDetails: {
       userName: "Steven D. Daum",

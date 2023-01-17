@@ -236,4 +236,31 @@ export const styles = StyleSheet.create({
     color: COLORS.light_grey,
     fontSize: SF(12),
   },
+  translationHeadingText: {
+    fontFamily: Fonts.Regular,
+    fontSize: SF(14),
+    color: COLORS.black,
+  },
+  translationText: {
+    fontFamily: Fonts.Regular,
+    fontSize: SF(13),
+    color: COLORS.text,
+    marginLeft: SW(18),
+  },
+  autoDetectView: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: SW(10),
+    paddingVertical: SH(2),
+    marginTop: SH(10),
+    ...ShadowStyles.shadow2,
+  },
+  outgoingMessageview: {
+    flexDirection: "row",
+    paddingLeft: SW(10),
+    alignItems: "center",
+    paddingVertical: SH(2),
+    marginTop: SH(10),
+    ...ShadowStyles.shadow2,
+  },
 });

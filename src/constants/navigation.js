@@ -47,4 +47,5 @@ export const NAVIGATION = {
   currentCoupons: "CurrentCoupons",
   pastCoupons: "PastCoupons",
   products: "Products",
+  makeAnOffer: "MakeAnOffer",
 };

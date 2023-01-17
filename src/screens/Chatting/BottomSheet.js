@@ -1,8 +1,10 @@
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { styles } from "./Chatting.styles";
 import { Button, CompanyDetailView, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
+import DropDownPicker from "react-native-dropdown-picker";
+
 import {
   cross,
   camera,
@@ -18,25 +20,28 @@ import {
   chat_sendCatalogue,
   chat_shipping,
   chat_directOffer,
-  Shoes2,
-  calendar,
   calendarDate,
   files,
   userPhoto,
   companyBuildings,
   email_chat,
   phoneCall,
-  recPic,
   voiceButton,
   pdfDocImage,
   addLocation,
+  Shoes2,
+  toggleOn,
+  toggleOff,
 } from "@/assets";
 import { strings } from "@/localization";
 import { ButtonIcon } from "@/components/ButtonIcon";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
+import Icon from "react-native-vector-icons/FontAwesome5";
+import { ms, scale, vs } from "react-native-size-matters";
+import { COLORS } from "@/theme";
 
-export function PhotoFunction({ onClosePress }) {
+export function PhotoFunction({ onClosePress, onPressCamera, onPressGallery }) {
   return (
     <View style={{ paddingHorizontal: SW(20), paddingVertical: SH(10) }}>
       <TouchableOpacity onPress={onClosePress} style={styles.crossIconView}>
@@ -45,7 +50,7 @@ export function PhotoFunction({ onClosePress }) {
 
       <Spacer space={SH(20)} />
 
-      <TouchableOpacity style={styles.cameraView}>
+      <TouchableOpacity style={styles.cameraView} onPress={onPressCamera}>
         <Image
           source={camera}
           resizeMode="stretch"
@@ -56,7 +61,7 @@ export function PhotoFunction({ onClosePress }) {
 
       <Spacer space={SH(40)} />
 
-      <TouchableOpacity style={styles.cameraView}>
+      <TouchableOpacity style={styles.cameraView} onPress={onPressGallery}>
         <Image
           source={gallery_image}
           resizeMode="stretch"
@@ -135,6 +140,7 @@ export function VideoCall({ onClosePress }) {
 
         <ButtonIcon
           icon={calendarDate}
+          iconStyle={{ height: 20, width: 20 }}
           title={strings.videoCall.schedule}
           style={styles.scheduleButton}
           textStyle={styles.buttonText}
@@ -152,10 +158,10 @@ export function File({ onClosePress }) {
 
       <Spacer space={SH(20)} />
 
-      <View style={styles.fileView}>
+      <TouchableOpacity style={styles.fileView}>
         <Image source={files} resizeMode="contain" style={styles.filesIcon} />
         <Text style={styles.filesText}>{strings.files.localFiles}</Text>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -307,6 +313,98 @@ export function ShippingAddress({ onClosePress }) {
         </Text>
         <Text style={styles.addLocationText}>(0/5)</Text>
       </TouchableOpacity>
+    </View>
+  );
+}
+
+export function Translation({ onClosePress }) {
+  const [translationText, setTranslationText] = useState();
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    { label: "English", value: "English" },
+    { label: "Spanish", value: "Spanish" },
+  ]);
+  const [open2, setOpen2] = useState(false);
+  const [value2, setValue2] = useState(null);
+  const [items2, setItems2] = useState([
+    { label: "Spanish", value: "Spanish" },
+    { label: "Dutch", value: "Dutch" },
+  ]);
+  return (
+    <View style={{ paddingHorizontal: SW(20), paddingVertical: SH(20) }}>
+      <TouchableOpacity onPress={onClosePress} style={styles.crossIconView}>
+        <Image source={cross} resizeMode="contain" style={styles.iconStyle} />
+      </TouchableOpacity>
+
+      <Spacer space={SH(30)} />
+      <Text style={styles.translationHeadingText}>
+        {strings.translation.longPress}
+      </Text>
+      <View style={styles.autoDetectView}>
+        <Text style={styles.translationText}>
+          {strings.translation.autoDetect}
+        </Text>
+        <Icon
+          name={"arrow-right"}
+          color="black"
+          size={scale(10)}
+          style={{ marginLeft: SW(40), marginRight: SW(15) }}
+        />
+        <DropDownPicker
+          open={open}
+          value={value}
+          items={items}
+          setOpen={setOpen}
+          setValue={setValue}
+          setItems={setItems}
+          placeholder="English(US)"
+          style={{
+            borderWidth: 0,
+            width: SW(120),
+          }}
+          // containerStyle={{ zIndex: 100 }}
+          // dropDownContainerStyle={{ zIndex: 999 }}
+        />
+      </View>
+
+      <View
+        style={{ borderBottomWidth: 1, borderColor: COLORS.termsBorder }}
+      ></View>
+
+      <View style={styles.outgoingMessageview}>
+        <Text style={styles.translationText}>English(US)</Text>
+        <Icon
+          name={"arrow-right"}
+          color="black"
+          size={scale(10)}
+          style={{ marginLeft: SW(43), marginRight: SW(15) }}
+        />
+        <DropDownPicker
+          open={open2}
+          value={value2}
+          items={items2}
+          setOpen={setOpen2}
+          setValue={setValue2}
+          setItems={setItems2}
+          placeholder="Spanish"
+          style={{
+            borderWidth: 0,
+            width: SW(120),
+          }}
+        />
+
+        <TouchableOpacity
+          style={{}}
+          onPress={() => setTranslationText(!translationText)}
+        >
+          <Image
+            resizeMode="contain"
+            style={{ height: ms(20), width: ms(20) }}
+            source={translationText ? toggleOn : toggleOff}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

@@ -2,7 +2,7 @@ import { Fonts } from "@/assets";
 import { COLORS } from "@/theme/Colors";
 import { SH, SF, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
-import { moderateScale, ms } from "react-native-size-matters";
+import { moderateScale, ms, vs } from "react-native-size-matters";
 
 export const styles = StyleSheet.create({
   mainContainer: {
@@ -221,6 +221,9 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.placeholder,
     borderRadius: 5,
     height: SH(280),
+    textAlignVertical: "top",
+    paddingVertical: vs(15),
+    paddingHorizontal: ms(15),
   },
   dashedView: {
     width: "100%",

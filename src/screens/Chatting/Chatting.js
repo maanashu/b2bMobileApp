@@ -1,45 +1,91 @@
-import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
-import React, { useRef } from "react";
+import {
+  FlatList,
+  Image,
+  Keyboard,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import { styles } from "./Chatting.styles";
 import { ScreenWrapper, Spacer } from "@/components";
-import { SH, SW } from "@/theme/ScalerDimensions";
+import { SH } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { messageSend, attachPic, addAttachment, closeX } from "@/assets";
+import { MakeAnOffer } from "@/screens";
 import {
   GiftedChat,
   Send,
   InputToolbar,
   MessageImage,
 } from "react-native-gifted-chat";
-import { useCallback } from "react";
-import { useState } from "react";
-import { useEffect } from "react";
 import { ms } from "react-native-size-matters";
 import RBSheet from "react-native-raw-bottom-sheet";
+import ImageCropPicker from "react-native-image-crop-picker";
 import {
   BottomOptions,
-  Catalogue,
-  LatestPrice,
   ShippingAddress,
+  Translation,
   VoiceMessage,
-} from "./BottomSheet";
-import {
   BusinessCard,
   File,
   PhotoFunction,
   QuickReply,
   VideoCall,
 } from "./BottomSheet";
+
 import { ChatHeader } from "@/components";
-import { navigate } from "@/navigation/NavigationRef";
+import { navigate, navigationRef } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 
-export function Chatting() {
+export function Chatting({ navigation }) {
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const refRBSheet = useRef();
-
   const [index, setIndex] = useState("");
   const [messages, setMessages] = useState([]);
   const [showView, setShowView] = useState("");
+  const [userImage, setUserImage] = useState();
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setKeyboardVisible(false);
+        setShowView(false);
+      }
+    );
+    return () => {
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
+  const OpenCamera = () => {
+    ImageCropPicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+    })
+      .then((image) => {
+        setUserImage(image.path);
+      })
+      .catch((e) => {
+        console.log("Error: " + e);
+      });
+  };
+
+  const OpenGallery = () => {
+    ImageCropPicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+    })
+      .then((image) => {
+        setUserImage(image.path);
+      })
+      .catch((e) => {
+        console.log("Error: " + e);
+      });
+  };
 
   const bottomSheetHandler = (index) => {
     if (index == 0) {
@@ -73,8 +119,7 @@ export function Chatting() {
       refRBSheet.current.open();
       setIndex(index);
     } else if (index == 10) {
-      refRBSheet.current.open();
-      setIndex(index);
+      navigate(NAVIGATION.makeAnOffer);
     }
   };
 
@@ -106,6 +151,7 @@ export function Chatting() {
 
   const moreOptions = () => {
     setShowView(!showView);
+    Keyboard.dismiss();
   };
 
   const closeSheet = () => {
@@ -122,6 +168,7 @@ export function Chatting() {
             style={styles.chattingIcon}
           />
         </TouchableOpacity>
+
         <TouchableOpacity onPress={moreOptions}>
           <Image
             source={showView ? closeX : addAttachment}
@@ -222,7 +269,7 @@ export function Chatting() {
           />
         </View>
 
-        {showView ? (
+        {showView && (
           <View style={styles.bottomOptionsView}>
             <FlatList
               data={BottomOptions}
@@ -232,7 +279,7 @@ export function Chatting() {
               numColumns={4}
             />
           </View>
-        ) : null}
+        )}
       </View>
 
       <RBSheet
@@ -241,7 +288,8 @@ export function Chatting() {
         closeOnDragDown={false}
         closeOnPressMask={true}
         paddingVertical={SH(10)}
-        height={100}
+        height={150}
+        minClosingHeight={100}
         customStyles={{
           wrapper: {
             opacity: 1,
@@ -258,7 +306,11 @@ export function Chatting() {
         }}
       >
         {index == 0 ? (
-          <PhotoFunction onClosePress={closeSheet} />
+          <PhotoFunction
+            onClosePress={closeSheet}
+            onPressGallery={OpenGallery}
+            onPressCamera={OpenCamera}
+          />
         ) : index == 1 ? (
           <QuickReply onClosePress={closeSheet} />
         ) : index == 2 ? (
@@ -269,10 +321,14 @@ export function Chatting() {
           <BusinessCard onClosePress={closeSheet} />
         ) : index == 6 ? (
           <VoiceMessage onClosePress={closeSheet} />
-        ) : index == 8 ? (
-          <Catalogue onClosePress={closeSheet} />
+        ) : index == 7 ? (
+          <Translation onClosePress={closeSheet} />
         ) : index == 9 ? (
           <ShippingAddress onClosePress={closeSheet} />
+        ) : index == 9 ? (
+          <ShippingAddress onClosePress={closeSheet} />
+        ) : index == 10 ? (
+          <MakeAnOffer onClosePress={closeSheet} />
         ) : null}
       </RBSheet>
     </ScreenWrapper>

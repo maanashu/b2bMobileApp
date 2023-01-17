@@ -11,6 +11,7 @@ import {
   Chatting,
   Delivery,
   Home,
+  MakeAnOffer,
   NewProducts,
   PaymentMethod,
   ProductInquiry,
@@ -19,6 +20,7 @@ import {
   StartOrder,
   TopRankingManufacturers,
 } from "@/screens";
+import { ScreenNavigator } from "./ScreenNavigator";
 
 const Stack = createNativeStackNavigator();
 
@@ -105,6 +107,11 @@ export function HomeNavigator() {
       <Stack.Screen
         component={Chatting}
         name={NAVIGATION.chatting}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={MakeAnOffer}
+        name={NAVIGATION.makeAnOffer}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
