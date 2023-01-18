@@ -376,6 +376,9 @@ export const en = {
     notOnline:
       "We are not online for instant video calls. Please make a schedule for a video call. Our representative will join you at the right time",
     schedule: "Schedule",
+    chooseTime: "Please choose a time below",
+    fifteenMin:
+      "It would be 15 minutes call with Yiwu Leqi E-Commerce Firm reprentative",
   },
   files: {
     localFiles: "Send local files",
@@ -410,6 +413,9 @@ export const en = {
       email: "steven.daum@gmail.com",
       phoneNo: "805-627-55874",
       companyName: "Company Name",
+    },
+    videoCall: {
+      userName: "Senia PanFang",
     },
   },
 };

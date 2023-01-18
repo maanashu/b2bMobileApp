@@ -4,6 +4,7 @@ import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
 import { moderateScale, ms, s, vs } from "react-native-size-matters";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 export const styles = StyleSheet.create({
   container: {
@@ -60,6 +61,11 @@ export const styles = StyleSheet.create({
   },
   crossIconView: {
     alignItems: "flex-end",
+  },
+  crossIconViewCalendar: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   iconStyle: {
     height: SW(30),
@@ -262,5 +268,50 @@ export const styles = StyleSheet.create({
     paddingVertical: SH(2),
     marginTop: SH(10),
     ...ShadowStyles.shadow2,
+  },
+  bottomSheetView: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 999,
+    backgroundColor: "white",
+    borderTopLeftRadius: SW(30),
+    borderTopRightRadius: SW(30),
+    ...ShadowStyles.shadow2,
+  },
+
+  calendarTopHeader: {
+    textAlign: "left",
+    fontFamily: Fonts.SemiBold,
+    fontSize: SF(16),
+    color: COLORS.black,
+  },
+  calendarHeading: {
+    textAlign: "left",
+    fontFamily: Fonts.Regular,
+    fontSize: SF(14),
+    color: COLORS.black,
+  },
+  userNameCalendar: {
+    fontFamily: Fonts.SemiBold,
+    fontSize: SF(14),
+    color: COLORS.black,
+  },
+  timingsView: {
+    backgroundColor: COLORS.placeHolder,
+    padding: moderateScale(5),
+    alignItems: "center",
+    flex: 1,
+    borderWidth: 1,
+    marginBottom: SH(7),
+    marginHorizontal: SW(2),
+    borderRadius: 3,
+  },
+  timingText: {
+    fontFamily: Fonts.Regular,
+  },
+  dayText: {
+    color: COLORS.black,
   },
 });

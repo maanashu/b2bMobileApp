@@ -3,16 +3,14 @@ import {
   FlatList,
   Image,
   Platform,
-  ScrollView,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
 import { styles } from "./OnBoarding.styles";
 import { mainLogo, backStripe } from "@/assets";
-import { Button, ScreenWrapper, Spacer } from "@/components";
+import { Button, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
-import { COLORS } from "@/theme";
 import { strings } from "@/localization";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
@@ -100,7 +98,7 @@ export function OnBoarding() {
             textStyle={styles.textStyle}
           />
         </View>
-        <Spacer space={Platform.OS==="ios"?SW(60):SW(20)} />
+        <Spacer space={Platform.OS === "ios" ? SW(60) : SW(20)} />
       </View>
     </View>
   );

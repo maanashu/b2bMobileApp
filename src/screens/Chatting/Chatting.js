@@ -6,10 +6,16 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  useCallback,
+  useMemo,
+} from "react";
 import { styles } from "./Chatting.styles";
 import { ScreenWrapper, Spacer } from "@/components";
-import { SH } from "@/theme/ScalerDimensions";
+import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { messageSend, attachPic, addAttachment, closeX } from "@/assets";
 import { MakeAnOffer } from "@/screens";
@@ -20,7 +26,7 @@ import {
   MessageImage,
 } from "react-native-gifted-chat";
 import { ms } from "react-native-size-matters";
-import RBSheet from "react-native-raw-bottom-sheet";
+import BottomSheet from "@gorhom/bottom-sheet";
 import ImageCropPicker from "react-native-image-crop-picker";
 import {
   BottomOptions,
@@ -37,14 +43,16 @@ import {
 import { ChatHeader } from "@/components";
 import { navigate, navigationRef } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
+import { ShadowStyles } from "@/theme";
 
 export function Chatting({ navigation }) {
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
-  const refRBSheet = useRef();
   const [index, setIndex] = useState("");
   const [messages, setMessages] = useState([]);
   const [showView, setShowView] = useState("");
   const [userImage, setUserImage] = useState();
+
+  const [isBottomViewVisible, setisBottomViewVisible] = useState(false);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -87,75 +95,13 @@ export function Chatting({ navigation }) {
       });
   };
 
-  const bottomSheetHandler = (index) => {
-    if (index == 0) {
-      setIndex(index);
-      refRBSheet.current.open();
-    } else if (index == 1) {
-      refRBSheet.current.open();
-      setIndex(index);
-    } else if (index == 2) {
-      refRBSheet.current.open();
-      setIndex(index);
-    } else if (index == 3) {
-      refRBSheet.current.open();
-      setIndex(index);
-    } else if (index == 4) {
-      refRBSheet.current.open();
-      setIndex(index);
-    } else if (index == 5) {
-      navigate(NAVIGATION.sendInquiry);
-      setIndex(index);
-    } else if (index == 6) {
-      refRBSheet.current.open();
-      setIndex(index);
-    } else if (index == 7) {
-      refRBSheet.current.open();
-      setIndex(index);
-    } else if (index == 8) {
-      refRBSheet.current.open();
-      setIndex(index);
-    } else if (index == 9) {
-      refRBSheet.current.open();
-      setIndex(index);
-    } else if (index == 10) {
-      navigate(NAVIGATION.makeAnOffer);
-    }
-  };
-
-  const AdjustSHeetHeight = () => {
-    if (index == 0) {
-      return 200;
-    } else if (index == 1) {
-      return 300;
-    } else if (index == 2) {
-      return 300;
-    } else if (index == 3) {
-      return 50;
-    } else if (index == 4) {
-      return 50;
-    } else if (index == 5) {
-      return 50;
-    } else if (index == 6) {
-      return 50;
-    } else if (index == 7) {
-      return 50;
-    } else if (index == 8) {
-      return 50;
-    } else if (index == 9) {
-      return 50;
-    } else if (index == 10) {
-      return 50;
-    }
-  };
-
   const moreOptions = () => {
     setShowView(!showView);
     Keyboard.dismiss();
   };
 
   const closeSheet = () => {
-    refRBSheet.current.close();
+    setisBottomViewVisible(false);
   };
 
   const renderSend = (props) => {
@@ -191,7 +137,10 @@ export function Chatting({ navigation }) {
   const renderOptions = ({ item, index }) => (
     <View style={styles.renderOptionsView}>
       <TouchableOpacity
-        onPress={() => bottomSheetHandler(index)}
+        onPress={() => {
+          setIndex(index);
+          setisBottomViewVisible(true);
+        }}
         style={styles.align}
       >
         <Image
@@ -282,55 +231,39 @@ export function Chatting({ navigation }) {
         )}
       </View>
 
-      <RBSheet
-        ref={refRBSheet}
-        animationType="fade"
-        closeOnDragDown={false}
-        closeOnPressMask={true}
-        paddingVertical={SH(10)}
-        height={150}
-        minClosingHeight={100}
-        customStyles={{
-          wrapper: {
-            opacity: 1,
-          },
-          container: {
-            backgroundColor: "#ffffff",
-            borderTopLeftRadius: 30,
-            borderTopRightRadius: 30,
-            flex: 1,
-          },
-          draggableIcon: {
-            backgroundColor: "#000",
-          },
-        }}
-      >
-        {index == 0 ? (
-          <PhotoFunction
-            onClosePress={closeSheet}
-            onPressGallery={OpenGallery}
-            onPressCamera={OpenCamera}
-          />
-        ) : index == 1 ? (
-          <QuickReply onClosePress={closeSheet} />
-        ) : index == 2 ? (
-          <VideoCall onClosePress={closeSheet} />
-        ) : index == 3 ? (
-          <File onClosePress={closeSheet} />
-        ) : index == 4 ? (
-          <BusinessCard onClosePress={closeSheet} />
-        ) : index == 6 ? (
-          <VoiceMessage onClosePress={closeSheet} />
-        ) : index == 7 ? (
-          <Translation onClosePress={closeSheet} />
-        ) : index == 9 ? (
-          <ShippingAddress onClosePress={closeSheet} />
-        ) : index == 9 ? (
-          <ShippingAddress onClosePress={closeSheet} />
-        ) : index == 10 ? (
-          <MakeAnOffer onClosePress={closeSheet} />
-        ) : null}
-      </RBSheet>
+      {isBottomViewVisible && (
+        <View style={styles.bottomSheetView}>
+          {index == 0 ? (
+            <PhotoFunction
+              onClosePress={closeSheet}
+              onPressGallery={OpenGallery}
+              onPressCamera={OpenCamera}
+            />
+          ) : index == 1 ? (
+            <QuickReply onClosePress={closeSheet} />
+          ) : index == 2 ? (
+            <VideoCall onClosePress={closeSheet} />
+          ) : index == 3 ? (
+            <File onClosePress={closeSheet} />
+          ) : index == 4 ? (
+            <BusinessCard onClosePress={closeSheet} />
+          ) : index == 5 ? (
+            (setisBottomViewVisible(false), navigate(NAVIGATION.sendInquiry))
+          ) : index == 6 ? (
+            <VoiceMessage onClosePress={closeSheet} />
+          ) : index == 7 ? (
+            <Translation onClosePress={closeSheet} />
+          ) : index == 9 ? (
+            <ShippingAddress onClosePress={closeSheet} />
+          ) : index == 9 ? (
+            <ShippingAddress onClosePress={closeSheet} />
+          ) : index == 10 ? (
+            (console.log("check index: " + index),
+            setisBottomViewVisible(false),
+            navigate(NAVIGATION.makeAnOffer))
+          ) : null}
+        </View>
+      )}
     </ScreenWrapper>
   );
 }

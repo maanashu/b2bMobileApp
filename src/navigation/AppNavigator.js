@@ -1,5 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useTheme } from "@react-navigation/native";
+import {
+  getFocusedRouteNameFromRoute,
+  useTheme,
+} from "@react-navigation/native";
 import React from "react";
 import { TabBarIcon } from "@/components";
 import { NAVIGATION } from "@/constants";
@@ -24,11 +27,13 @@ export function AppNavigator() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarStyle: { borderTopWidth: 0 },
-
-        tabBarIcon: ({ color }) => (
-          <TabBarIcon color={color} routeName={route.name} />
-        ),
+        tabBarStyle: ((route) => {
+          const routeName = getFocusedRouteNameFromRoute(route) ?? "";
+          if (routeName === NAVIGATION.sendInquiry) {
+            return { display: "none" };
+          }
+          return { borderTopWidth: 0 };
+        })(route),
       })}
       tabBarOptions={{
         activeTintColor: COLORS.black,

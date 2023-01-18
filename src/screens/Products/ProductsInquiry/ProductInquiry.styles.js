@@ -94,7 +94,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
-    height: 40,
+    height: 37,
     width: SW(108),
     borderWidth: 1,
     borderColor: COLORS.primary,

@@ -1,4 +1,11 @@
-import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useState } from "react";
 import { styles } from "./Chatting.styles";
 import { Button, CompanyDetailView, Spacer } from "@/components";
@@ -40,6 +47,8 @@ import { NAVIGATION } from "@/constants";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { ms, scale, vs } from "react-native-size-matters";
 import { COLORS } from "@/theme";
+import { Calendar } from "react-native-calendars";
+import moment from "moment";
 
 export function PhotoFunction({ onClosePress, onPressCamera, onPressGallery }) {
   return (
@@ -69,6 +78,7 @@ export function PhotoFunction({ onClosePress, onPressCamera, onPressGallery }) {
         />
         <Text style={styles.cameraText}>{strings.chatting.sendLocalPhoto}</Text>
       </TouchableOpacity>
+      <Spacer space={SH(20)} />
     </View>
   );
 }
@@ -111,11 +121,52 @@ export function QuickReply({ onClosePress }) {
           What is your min. oder quantity?
         </Text>
       </TouchableOpacity>
+      <Spacer space={SH(20)} />
     </View>
   );
 }
 
 export function VideoCall({ onClosePress }) {
+  const [isVisible, setisVisible] = useState(false);
+
+  const [selectedTiming, setselectedTiming] = useState("");
+
+  const [date, setDate] = useState(new Date());
+
+  const SelectDate = (event, selectedDate) => {
+    const month = selectedDate.getMonth() + 1;
+    const day = selectedDate.getDate();
+    const year = selectedDate.getFullYear();
+
+    const fullDate = month + " / " + day + " / " + year;
+    setDate(fullDate);
+  };
+
+  const renderTimings = ({ item, index }) => (
+    <TouchableOpacity
+      style={[
+        styles.timingsView,
+        {
+          borderColor:
+            item.title === selectedTiming ? COLORS.primary : COLORS.placeHolder,
+        },
+      ]}
+      onPress={() => setselectedTiming(item.title)}
+    >
+      <Text
+        style={[
+          styles.timingText,
+          {
+            color:
+              item.title === selectedTiming ? COLORS.primary : COLORS.darkGrey,
+          },
+        ]}
+      >
+        {item.title}
+      </Text>
+    </TouchableOpacity>
+  );
+
   return (
     <View
       style={{
@@ -123,29 +174,92 @@ export function VideoCall({ onClosePress }) {
         paddingVertical: SH(20),
       }}
     >
-      <TouchableOpacity onPress={onClosePress} style={styles.crossIconView}>
-        <Image source={cross} resizeMode="contain" style={styles.iconStyle} />
-      </TouchableOpacity>
-
+      {!isVisible ? (
+        <TouchableOpacity onPress={onClosePress} style={styles.crossIconView}>
+          <Image source={cross} resizeMode="contain" style={styles.iconStyle} />
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          onPress={() => setisVisible(false)}
+          style={styles.crossIconViewCalendar}
+        >
+          <Text style={styles.calendarTopHeader}>
+            {strings.videoCall.chooseTime}
+          </Text>
+          <Image source={cross} resizeMode="contain" style={styles.iconStyle} />
+        </TouchableOpacity>
+      )}
       <Spacer space={SH(20)} />
 
-      <View style={{ alignItems: "center" }}>
-        <CompanyDetailView />
+      {!isVisible && (
+        <View style={{ alignItems: "center" }}>
+          <CompanyDetailView />
 
-        <Spacer space={SH(40)} />
+          <Spacer space={SH(40)} />
 
-        <Text style={styles.waitingText}>{strings.videoCall.notOnline}</Text>
+          <Text style={styles.waitingText}>{strings.videoCall.notOnline}</Text>
 
-        <Spacer space={SH(30)} />
+          <Spacer space={SH(30)} />
 
-        <ButtonIcon
-          icon={calendarDate}
-          iconStyle={{ height: 20, width: 20 }}
-          title={strings.videoCall.schedule}
-          style={styles.scheduleButton}
-          textStyle={styles.buttonText}
-        />
-      </View>
+          <ButtonIcon
+            icon={calendarDate}
+            iconStyle={{ height: 20, width: 20 }}
+            title={strings.videoCall.schedule}
+            style={styles.scheduleButton}
+            textStyle={styles.buttonText}
+            onPress={() => setisVisible(true)}
+          />
+        </View>
+      )}
+      {isVisible && (
+        <View
+          style={{
+            flex: 1,
+            height: Dimensions.get("window").height * 0.8,
+          }}
+        >
+          <Text style={styles.calendarHeading}>
+            {strings.videoCall.fifteenMin}
+            <Text style={styles.userNameCalendar}>
+              {" "}
+              {strings.STATIC.videoCall.userName}
+            </Text>
+          </Text>
+
+          <Spacer space={SH(20)} />
+
+          <Calendar
+            style={{}}
+            theme={{
+              textMonthFontSize: ms(13),
+              textMonthFontWeight: "bold",
+              arrowColor: COLORS.darkGrey,
+              textDayStyle: styles.dayText,
+              textDayFontSize: ms(13),
+              selectedDayTextColor: COLORS.white,
+              selectedDayBackgroundColor: COLORS.primary,
+              arrowStyle: "arrow",
+              todayTextColor: COLORS.black,
+            }}
+            onDayPress={(day) => {
+              const date = day.day;
+              const month = moment(day).subtract(1, "months").format("MMM");
+              const year = day.year;
+              const fullYear = month + " " + date + "," + year;
+              setDate(fullYear);
+            }}
+          />
+          <Spacer space={SH(30)} />
+
+          <FlatList
+            data={VideoCallTimings}
+            keyExtractor={(item) => item.id}
+            renderItem={renderTimings}
+            numColumns={3}
+          />
+        </View>
+      )}
+      <Spacer space={SH(20)} />
     </View>
   );
 }
@@ -162,6 +276,7 @@ export function File({ onClosePress }) {
         <Image source={files} resizeMode="contain" style={styles.filesIcon} />
         <Text style={styles.filesText}>{strings.files.localFiles}</Text>
       </TouchableOpacity>
+      <Spacer space={SH(20)} />
     </View>
   );
 }
@@ -231,6 +346,7 @@ export function BusinessCard({ onClosePress }) {
           title={strings.cardDetails.send}
         />
       </View>
+      <Spacer space={SH(20)} />
     </View>
   );
 }
@@ -255,6 +371,7 @@ export function VoiceMessage({ onClosePress }) {
           style={styles.micIcon}
         />
       </TouchableOpacity>
+      <Spacer space={SH(20)} />
     </View>
   );
 }
@@ -286,6 +403,7 @@ export function Catalogue({ onClosePress }) {
         data={PDFDATA}
         keyExtractor={(item) => item.id}
       />
+      <Spacer space={SH(20)} />
     </View>
   );
 }
@@ -313,6 +431,7 @@ export function ShippingAddress({ onClosePress }) {
         </Text>
         <Text style={styles.addLocationText}>(0/5)</Text>
       </TouchableOpacity>
+      <Spacer space={SH(20)} />
     </View>
   );
 }
@@ -405,6 +524,7 @@ export function Translation({ onClosePress }) {
           />
         </TouchableOpacity>
       </View>
+      <Spacer space={SH(20)} />
     </View>
   );
 }
@@ -469,4 +589,22 @@ export const BottomOptions = [
     icon: "",
     title: "",
   },
+];
+
+export const VideoCallTimings = [
+  { id: 1, title: "9:00a-10:00a" },
+  { id: 2, title: "10:00a-11:00a" },
+  { id: 3, title: "11:00a-12:00p" },
+  { id: 4, title: "12:00p-1:00p" },
+  { id: 5, title: "1:00p-2:00p" },
+  { id: 6, title: "2:00p-3:00p" },
+  { id: 7, title: "3:00p-4:00p" },
+  { id: 8, title: "4:00p-5:00p" },
+  { id: 9, title: "5:00p-6:00p" },
+  { id: 10, title: "6:00p-7:00p" },
+  { id: 11, title: "7:00p-8:00p" },
+  { id: 12, title: "8:00p-9:00p" },
+  { id: 13, title: "9:00p-10:00p" },
+  { id: 14, title: "10:00p-11:00p" },
+  { id: 15, title: "11:00p-12:00a" },
 ];

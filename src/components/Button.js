@@ -2,7 +2,7 @@ import { useTheme } from "@react-navigation/native";
 import PropTypes from "prop-types";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import { COLORS, TextStyles } from "@/theme";
+import { COLORS, SH, TextStyles } from "@/theme";
 
 const styles = StyleSheet.create({
   button: {
@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: COLORS.activeTab,
     borderWidth: 0,
+    height: SH(45),
   },
 });
 

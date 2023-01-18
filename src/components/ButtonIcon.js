@@ -4,9 +4,16 @@ import { COLORS } from "@/theme";
 import { Fonts } from "@/assets";
 import { ms, vs } from "react-native-size-matters";
 
-export function ButtonIcon({ title, icon, style, textStyle, iconStyle }) {
+export function ButtonIcon({
+  title,
+  icon,
+  style,
+  textStyle,
+  iconStyle,
+  onPress,
+}) {
   return (
-    <TouchableOpacity style={[styles.button, style]}>
+    <TouchableOpacity style={[styles.button, style]} onPress={onPress}>
       <Image
         source={icon}
         resizeMode="contain"

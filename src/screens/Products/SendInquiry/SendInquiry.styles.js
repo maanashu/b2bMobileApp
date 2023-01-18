@@ -292,4 +292,7 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.Regular,
     fontSize: moderateScale(11),
   },
+  buttonStyle: {
+    height: SH(45),
+  },
 });
