@@ -20,6 +20,7 @@
 		70100D425415498F9AF07F4C /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F86FA69C1A048E0A306D9AE /* Montserrat-SemiBold.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-B2B-B2BTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-B2B-B2BTests.a */; };
 		A2ECD5D1294C823A00B2680B /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2ECD5D0294C823A00B2680B /* BootSplash.storyboard */; };
+		A2FAFB762979720600D7C88F /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAFB752979720600D7C88F /* File.swift */; };
 		D0A9F57435E74936BDDDEEE2 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3425507720FA4C2090ECE912 /* Montserrat-Bold.ttf */; };
 		D2F5D17E221C487F895940D1 /* Montserrat-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8A55D612A43E4D5B9CE19F02 /* Montserrat-Italic.ttf */; };
 		F1B6DD0B6B6D41ECB619F016 /* MaisonMonoTRIAL-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 582F32619A5140668B5DBC4B /* MaisonMonoTRIAL-Bold.otf */; };
@@ -61,6 +62,8 @@
 		95C3E8AD175B4F99B93D3D7D /* Montserrat-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-MediumItalic.ttf"; path = "../src/assets/fonts/Montserrat-MediumItalic.ttf"; sourceTree = "<group>"; };
 		A034199DA2EF44AB876C8EC7 /* Maison Mono Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Maison Mono Regular.ttf"; path = "../src/assets/fonts/Maison Mono Regular.ttf"; sourceTree = "<group>"; };
 		A2ECD5D0294C823A00B2680B /* BootSplash.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BootSplash.storyboard; sourceTree = "<group>"; };
+		A2FAFB742979720600D7C88F /* B2B-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "B2B-Bridging-Header.h"; sourceTree = "<group>"; };
+		A2FAFB752979720600D7C88F /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -110,6 +113,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				A2ECD5D0294C823A00B2680B /* BootSplash.storyboard */,
+				A2FAFB752979720600D7C88F /* File.swift */,
+				A2FAFB742979720600D7C88F /* B2B-Bridging-Header.h */,
 			);
 			name = B2B;
 			sourceTree = "<group>";
@@ -242,7 +247,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1400;
 					};
 				};
 			};
@@ -457,6 +462,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
+				A2FAFB762979720600D7C88F /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -476,6 +482,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-B2B-B2BTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -503,6 +510,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-B2B-B2BTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = B2BTests/Info.plist;
@@ -545,6 +553,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.b2b;
 				PRODUCT_NAME = B2B;
+				SWIFT_OBJC_BRIDGING_HEADER = "B2B-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -572,6 +581,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.b2b;
 				PRODUCT_NAME = B2B;
+				SWIFT_OBJC_BRIDGING_HEADER = "B2B-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
