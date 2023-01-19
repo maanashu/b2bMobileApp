@@ -130,7 +130,6 @@ def reactNativeArchitectures() {
 
 android {
     ndkVersion rootProject.ext.ndkVersion
-
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
@@ -256,6 +255,9 @@ android {
 }
 
 dependencies {
+
+     implementation project(':react-native-audio-recorder-player')
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     //noinspection GradleDynamicVersion

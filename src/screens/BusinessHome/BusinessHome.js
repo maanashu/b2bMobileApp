@@ -11,20 +11,8 @@ import { styles } from "./BusinessHome.style";
 import { CustomPagination, ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import {
-  drink,
-  Fonts,
-  forward,
-  girl,
-  shampoo,
-  sliderBag,
-  videoPic1,
-  videoPic2,
-  videoPic3,
-  videoPic4,
-} from "@/assets";
-import { strings } from "@/localization";
-import { ms, vs } from "react-native-size-matters";
+import { drink, Fonts, forward, girl, shampoo } from "@/assets";
+import { ms } from "react-native-size-matters";
 import SwiperFlatList from "react-native-swiper-flatlist";
 import { Images, Bags } from "./Components";
 
@@ -37,34 +25,34 @@ export function BusinessHome() {
 
   function dynamicHeight(_index) {
     if (_index === 0 || _index === 2) {
-      return 225;
+      return SH(250);
     } else if (_index === 1 || _index === 3) {
-      return 205;
+      return SH(215);
     } else {
-      return 160;
+      return SH(180);
     }
   }
   function dynamicImageHeight(_index) {
     if (_index === 0 || _index === 2) {
-      return 150;
+      return SH(170);
     } else if (_index === 1 || _index === 3) {
-      return 130;
+      return SH(145);
     } else {
-      return 60;
+      return SH(80);
     }
   }
   function dynamicMarginTop(_index) {
     if (_index === 3) {
-      return -20;
+      return SH(-25);
     } else {
-      return 10;
+      return SH(10);
     }
   }
   function dynamicMarginBottom(_index) {
     if (_index === 2) {
       return;
     } else {
-      return 10;
+      return SH(20);
     }
   }
 

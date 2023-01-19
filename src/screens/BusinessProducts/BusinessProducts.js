@@ -49,34 +49,34 @@ export function BusinessProducts() {
 
   function dynamicHeight(_index) {
     if (_index === 0 || _index === 2) {
-      return 240;
+      return SH(230);
     } else if (_index === 1 || _index === 3) {
-      return 210;
+      return SH(210);
     } else {
-      return 160;
+      return SH(160);
     }
   }
   function dynamicImageHeight(_index) {
     if (_index === 0 || _index === 2) {
-      return 150;
+      return SH(150);
     } else if (_index === 1 || _index === 3) {
-      return 130;
+      return SH(130);
     } else {
-      return 60;
+      return SH(70);
     }
   }
   function dynamicMarginTop(_index) {
     if (_index === 3) {
-      return -20;
+      return SH(-20);
     } else {
-      return 10;
+      return SH(10);
     }
   }
   function dynamicMarginBottom(_index) {
     if (_index === 2) {
       return;
     } else {
-      return 10;
+      return SH(10);
     }
   }
   const SecondItem = ({ item, index }) => (

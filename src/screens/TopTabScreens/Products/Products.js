@@ -10,7 +10,13 @@ import {
 } from "react-native";
 import { styles } from "./Products.styles";
 import { useState } from "react";
-import { CustomPagination, ScreenWrapper, Spacer } from "@/components";
+import {
+  CompanyDetailView,
+  CustomPagination,
+  ScreenWrapper,
+  Spacer,
+  SubHeader,
+} from "@/components";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { SliderBox } from "react-native-image-slider-box";
@@ -40,7 +46,14 @@ import {
   star,
   clock,
 } from "@/assets";
-import { LastData } from "@/screens/Products/ProductsInquiry/FlatlistData";
+import {
+  LastData,
+  images,
+  fourthData,
+  thirdData,
+  secondData,
+  DATA,
+} from "./Components/FlatlisitData";
 import { ms, vs } from "react-native-size-matters";
 import { NAVIGATION } from "@/constants";
 import { Search } from "@/components/Search";
@@ -51,162 +64,40 @@ export function Products({ onPress }) {
 
   const [product, setProduct] = useState("");
 
-  const DATA = [
-    {
-      id: "1",
-      title: "Apparel",
-      image: roundApparel,
-    },
-    {
-      id: "2",
-      title: "Electronics",
-      image: roundElectronices,
-    },
-    {
-      id: "3",
-      title: "Appliance",
-      image: roundAppliance,
-    },
-    {
-      id: "4",
-      title: "Personal Care",
-      image: roundPersonal,
-    },
-    {
-      id: "5",
-      title: "Sports",
-      image: roundSports,
-    },
-    {
-      id: "6",
-      title: "Shoes",
-      image: roundShoes,
-    },
-    {
-      id: "7",
-      title: "Tobbacco",
-      image: roundTobbacco,
-    },
-    {
-      id: "8",
-      title: "All",
-      image: roundAll,
-    },
-  ];
-  const secondData = [
-    {
-      id: "1",
-      title: " MOQ30 ",
-      image: girl,
-    },
-    {
-      id: "2",
-      title: " MOQ30 ",
-      image: drink,
-    },
-    {
-      id: "3",
-      title: " MOQ30 ",
-      image: shampoo,
-    },
-  ];
-  const thirdData = [
-    {
-      id: "1",
-      title: " MOQ30 ",
-      image: cream,
-    },
-    {
-      id: "2",
-      title: " MOQ30 ",
-      image: phone,
-    },
-    {
-      id: "3",
-      title: " MOQ30 ",
-      image: foldScreen,
-    },
-  ];
-  const fourthData = [
-    {
-      id: "1",
-      price: "$2.20",
-      title: " MOQ30 ",
-      image: yewi,
-    },
-    {
-      id: "2",
-      price: "$2.20",
-      title: " MOQ30 ",
-      image: yewi,
-    },
-    {
-      id: "3",
-      price: "$2.20",
-      title: " MOQ30 ",
-      image: yewi,
-    },
-    {
-      id: "4",
-      price: "$2.20",
-      title: " MOQ30 ",
-      image: yewi,
-    },
-  ];
-
-  const images = [
-    {
-      id: 1,
-      img: slideImage,
-    },
-    {
-      id: 2,
-      img: slideImage,
-    },
-    {
-      id: 3,
-      img: slideImage,
-    },
-    {
-      id: 4,
-      img: slideImage,
-    },
-  ];
-
   function dynamicHeight(_index) {
     if (_index % 2 == 0) {
-      return 260;
+      return SH(275);
     } else if (_index % 2 !== 0) {
-      return 240;
+      return SH(255);
     } else {
-      return 220;
+      return SH(230);
     }
   }
   function dynamicImageHeight(_index) {
     if (_index % 2 == 0) {
-      return 150;
+      return SH(170);
     } else if (_index % 2 !== 0) {
-      return 130;
+      return SH(150);
     } else {
-      return 100;
+      return SH(100);
     }
   }
   function dynamicMarginTop(_index) {
     if (_index === 1) {
       return;
     } else if (_index % 2 !== 0) {
-      return -30;
+      return SH(-30);
     } else {
-      return 20;
+      return SH(10);
     }
   }
   function dynamicMarginBottom(_index) {
     if (_index % 2 == 0) {
       return 10;
     } else if (_index % 2 !== 0) {
-      return -50;
+      return SH(-70);
     } else {
-      return 20;
+      return SH(37);
     }
   }
 
@@ -291,6 +182,7 @@ export function Products({ onPress }) {
       <Image source={slideImage} style={styles.storeImg} resizeMode="cover" />
     </TouchableOpacity>
   );
+
   return (
     <ScreenWrapper>
       <Spacer space={SH(10)} />
@@ -424,43 +316,7 @@ export function Products({ onPress }) {
         <Spacer space={SH(15)} />
 
         <View style={styles.yewiView}>
-          <View style={styles.yewiInnerView}>
-            <Image source={yewiLogo} style={styles.logoYewi} />
-            <View style={{ paddingHorizontal: SW(10) }}>
-              <Text style={styles.yewiHeadingText}>
-                Yiwu Leqi E-Commerce Firm
-              </Text>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Image
-                  source={yewiCertified}
-                  resizeMode="contain"
-                  style={styles.certified}
-                />
-                <View
-                  style={{
-                    paddingHorizontal: SW(5),
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <Image source={location} style={styles.yewiIcons} />
-                  <Text style={styles.yewiSmallText}> Miami, USA</Text>
-                  <Image
-                    source={star}
-                    resizeMode="contain"
-                    style={styles.yewistar}
-                  />
-                  <Text style={styles.yewiSmallText}> 4.5</Text>
-                  <Image
-                    source={clock}
-                    resizeMode="contain"
-                    style={styles.yewiClock}
-                  />
-                  <Text style={styles.yewiSmallText}> Since 2022</Text>
-                </View>
-              </View>
-            </View>
-          </View>
+          <CompanyDetailView />
 
           <Spacer space={SH(20)} />
 

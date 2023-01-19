@@ -48,13 +48,12 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.placeholder,
     flex: 1,
     height: SH(180),
-
     paddingHorizontal: SW(10),
   },
   innerView: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginHorizontal: SW(25),
+    marginHorizontal: SW(5),
   },
   secondView: {
     height: SH(85),

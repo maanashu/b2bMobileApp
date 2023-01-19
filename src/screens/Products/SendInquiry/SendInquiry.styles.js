@@ -24,8 +24,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: SH(10),
     backgroundColor: COLORS.placeholder,
-    paddingHorizontal: SW(5),
-    height: SH(190),
+    paddingVertical: SH(10),
     paddingHorizontal: SW(10),
   },
   yewiInnerView: {
@@ -160,8 +159,8 @@ export const styles = StyleSheet.create({
   },
   topButtonRight: {
     marginRight: 5,
-    height: SH(40),
-    width: SW(90),
+    height: SH(30),
+    width: SW(80),
     borderRadius: 5,
     backgroundColor: COLORS.white,
     justifyContent: "center",
@@ -169,8 +168,8 @@ export const styles = StyleSheet.create({
   },
   topButtonLeft: {
     marginRight: 5,
-    height: SH(40),
-    width: SW(90),
+    height: SH(30),
+    width: SW(80),
     borderRadius: 5,
     backgroundColor: COLORS.sky,
     justifyContent: "center",
@@ -193,8 +192,8 @@ export const styles = StyleSheet.create({
   },
   productImage: {
     height: 80,
-    width: 350,
-    marginLeft: -50,
+    width: "100%",
+    alignSelf: "center",
     borderRadius: 5,
   },
   QuantityView: {
@@ -264,7 +263,7 @@ export const styles = StyleSheet.create({
   },
   agreeText: {
     color: COLORS.black,
-    fontSize: SF(12),
+    fontSize: SF(14),
     fontFamily: Fonts.SemiBold,
     fontWeight: "500",
     flex: 1,

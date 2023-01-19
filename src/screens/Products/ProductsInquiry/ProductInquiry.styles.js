@@ -49,8 +49,8 @@ export const styles = StyleSheet.create({
     fontSize: SF(25),
   },
   buttons: {
-    height: SW(36.5),
-    width: SW(110),
+    height: SH(40),
+    width: SW(109),
     alignItems: "center",
     flexDirection: "row",
     backgroundColor: COLORS.sky,
@@ -94,8 +94,8 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
-    height: 37,
-    width: SW(108),
+    height: SH(40),
+    width: SW(109),
     borderWidth: 1,
     borderColor: COLORS.primary,
     borderRadius: 3,
@@ -326,7 +326,6 @@ export const styles = StyleSheet.create({
   header: {
     height: SH(50),
     backgroundColor: COLORS.white,
-
     paddingHorizontal: SW(20),
     justifyContent: "space-between",
     flexDirection: "row",

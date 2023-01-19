@@ -100,14 +100,14 @@ export const styles = StyleSheet.create({
     height: SW(32),
     width: SW(32),
     marginRight: SW(10),
-    marginBottom: SH(11),
+    marginBottom: SH(14),
   },
   inputToolbarStyle: {
     borderWidth: 1,
     borderRadius: SW(22),
     borderTopWidth: 1,
     borderTopColor: "black",
-    height: 50,
+    height: SH(55),
     justifyContent: "center",
   },
   renderOptionsView: {
@@ -310,6 +310,7 @@ export const styles = StyleSheet.create({
   },
   timingText: {
     fontFamily: Fonts.Regular,
+    fontSize: SF(12),
   },
   dayText: {
     color: COLORS.black,

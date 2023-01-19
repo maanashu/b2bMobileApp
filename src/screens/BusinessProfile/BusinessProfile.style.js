@@ -355,4 +355,24 @@ export const styles = StyleSheet.create({
     paddingHorizontal: moderateScale(20),
     paddingBottom: SH(10),
   },
+  bagsQuantityText: {
+    alignSelf: "flex-start",
+    fontFamily: Fonts.Regular,
+    paddingLeft: ms(5),
+    fontSize: ms(10),
+    color: COLORS.darkGrey,
+    marginTop: vs(2),
+  },
+  titleBoldText: {
+    fontFamily: Fonts.SemiBold,
+    fontSize: ms(12),
+    color: COLORS.darkGrey,
+    paddingHorizontal: ms(5),
+  },
+  titleRegularText: {
+    fontFamily: Fonts.Regular,
+    fontSize: ms(12),
+    color: COLORS.darkGrey,
+    paddingHorizontal: ms(10),
+  },
 });

@@ -58,24 +58,28 @@ export const Bags = [
     id: 1,
     image: videoPic1,
     title: strings.businessProfile.madeWell,
+    subTitle: strings.businessProfile.subTitle,
     quantity: strings.businessProfile.moq,
   },
   {
     id: 2,
     image: videoPic2,
     title: strings.businessProfile.madeWell,
+    subTitle: strings.businessProfile.subTitle,
     quantity: strings.businessProfile.moq,
   },
   {
     id: 3,
     image: videoPic3,
     title: strings.businessProfile.madeWell,
+    subTitle: strings.businessProfile.subTitle,
     quantity: strings.businessProfile.moq,
   },
   {
     id: 4,
     image: videoPic4,
     title: strings.businessProfile.madeWell,
+    subTitle: strings.businessProfile.subTitle,
     quantity: strings.businessProfile.moq,
   },
 ];

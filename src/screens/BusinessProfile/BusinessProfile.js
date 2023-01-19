@@ -65,28 +65,11 @@ export function BusinessProfile() {
         style={{ height: vs(130), width: ms(140) }}
       />
 
-      <Text
-        style={{
-          fontFamily: Fonts.SemiBold,
-          fontSize: ms(12),
-          color: COLORS.darkGrey,
-          paddingHorizontal: ms(10),
-        }}
-      >
+      <Text style={styles.titleBoldText}>
         {item.title}
+        <Text style={styles.titleRegularText}> {item.subTitle}</Text>
       </Text>
-      <Text
-        style={{
-          alignSelf: "flex-start",
-          fontFamily: Fonts.Regular,
-          paddingLeft: ms(18),
-          fontSize: ms(10),
-          color: COLORS.darkGrey,
-          marginTop: vs(2),
-        }}
-      >
-        {item.quantity}
-      </Text>
+      <Text style={styles.bagsQuantityText}>{item.quantity}</Text>
     </TouchableOpacity>
   );
 
@@ -217,13 +200,12 @@ export function BusinessProfile() {
                 <Text style={styles.businessDetailsHeading}>
                   {strings.businessProfile.businessDetails}
                 </Text>
-                <TouchableOpacity onPress={() => refRBSheet.current.open()}>
-                  <Image
-                    resizeMode="contain"
-                    source={forward}
-                    style={{ height: 14, width: 14 }}
-                  />
-                </TouchableOpacity>
+
+                <Image
+                  resizeMode="contain"
+                  source={forward}
+                  style={{ height: 14, width: 14 }}
+                />
               </View>
               <Text style={styles.businessText}>
                 {strings.businessProfile.text}

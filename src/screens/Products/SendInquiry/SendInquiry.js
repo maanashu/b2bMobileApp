@@ -3,7 +3,7 @@ import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { styles } from "./SendInquiry.styles";
 import { strings } from "@/localization";
-import { TextField } from "@/components";
+import { CompanyDetailView, TextField } from "@/components";
 import { useState } from "react";
 import { ScreenWrapper, Spacer } from "@/components";
 import { COLORS } from "@/theme/Colors";
@@ -135,28 +135,13 @@ export function SendInquiry() {
           </View>
 
           <Spacer space={SH(10)} />
-
-          <View style={styles.yewiInnerView}>
-            <Image source={yewiLogo} style={styles.logoYewi} />
-            <View style={{ paddingHorizontal: SW(10) }}>
-              <Text style={styles.yewiHeadingText}>
-                Yiwu Leqi E-Commerce Firm
-              </Text>
-              <View style={styles.yewiSmallView}>
-                <Image source={yewiCertified} style={styles.certified} />
-                <View style={styles.yewiDirection}>
-                  <Image source={location} style={styles.yewiIcons} />
-                  <Text style={styles.yewiSmallText}> Miami, USA</Text>
-                  <Image source={star} style={styles.yewistar} />
-                  <Text style={styles.yewiSmallText}> 4.5</Text>
-                  <Image source={clock} style={styles.yewiClock} />
-                  <Text style={styles.yewiSmallText}> Since 2022</Text>
-                </View>
-              </View>
-              <Spacer space={SH(5)} />
-              <Image source={productss} style={styles.productImage} />
-            </View>
-          </View>
+          <CompanyDetailView />
+          <Spacer space={SH(10)} />
+          <Image
+            resizeMode="stretch"
+            source={productss}
+            style={styles.productImage}
+          />
         </View>
 
         {/* second view */}

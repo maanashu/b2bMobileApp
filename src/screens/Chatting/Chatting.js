@@ -43,7 +43,7 @@ import {
 import { ChatHeader } from "@/components";
 import { navigate, navigationRef } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
-import { ShadowStyles } from "@/theme";
+import DocumentPicker from "react-native-document-picker";
 
 export function Chatting({ navigation }) {
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
@@ -51,8 +51,23 @@ export function Chatting({ navigation }) {
   const [messages, setMessages] = useState([]);
   const [showView, setShowView] = useState("");
   const [userImage, setUserImage] = useState();
-
+  const [fileResponse, setFileResponse] = useState([]);
   const [isBottomViewVisible, setisBottomViewVisible] = useState(false);
+
+  const handleDocumentSelection = useCallback(async () => {
+    try {
+      const response = await DocumentPicker.pick({
+        presentationStyle: "fullScreen",
+        allowMultiSelection: true,
+      });
+
+      console.log("doc picker resp", response);
+      setFileResponse(response);
+      setisBottomViewVisible(false);
+    } catch (err) {
+      console.warn(err);
+    }
+  }, []);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -244,7 +259,7 @@ export function Chatting({ navigation }) {
           ) : index == 2 ? (
             <VideoCall onClosePress={closeSheet} />
           ) : index == 3 ? (
-            <File onClosePress={closeSheet} />
+            <File onClosePress={closeSheet} onPress={handleDocumentSelection} />
           ) : index == 4 ? (
             <BusinessCard onClosePress={closeSheet} />
           ) : index == 5 ? (

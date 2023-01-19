@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { styles } from "./Chatting.styles";
 import { Button, CompanyDetailView, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
@@ -36,7 +36,6 @@ import {
   voiceButton,
   pdfDocImage,
   addLocation,
-  Shoes2,
   toggleOn,
   toggleOff,
 } from "@/assets";
@@ -45,10 +44,11 @@ import { ButtonIcon } from "@/components/ButtonIcon";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { ms, scale, vs } from "react-native-size-matters";
+import { ms, scale } from "react-native-size-matters";
 import { COLORS } from "@/theme";
 import { Calendar } from "react-native-calendars";
 import moment from "moment";
+import AudioRecorderPlayer from "react-native-audio-recorder-player";
 
 export function PhotoFunction({ onClosePress, onPressCamera, onPressGallery }) {
   return (
@@ -130,17 +130,10 @@ export function VideoCall({ onClosePress }) {
   const [isVisible, setisVisible] = useState(false);
 
   const [selectedTiming, setselectedTiming] = useState("");
+  console.log("selected timings", selectedTiming);
 
   const [date, setDate] = useState(new Date());
-
-  const SelectDate = (event, selectedDate) => {
-    const month = selectedDate.getMonth() + 1;
-    const day = selectedDate.getDate();
-    const year = selectedDate.getFullYear();
-
-    const fullDate = month + " / " + day + " / " + year;
-    setDate(fullDate);
-  };
+  console.log("selected date", date);
 
   const renderTimings = ({ item, index }) => (
     <TouchableOpacity
@@ -263,7 +256,9 @@ export function VideoCall({ onClosePress }) {
     </View>
   );
 }
-export function File({ onClosePress }) {
+export function File({ onClosePress, onPress }) {
+  const [fileResponse, setFileResponse] = useState([]);
+
   return (
     <View style={{ paddingHorizontal: SW(20), paddingVertical: SH(20) }}>
       <TouchableOpacity onPress={onClosePress} style={styles.crossIconView}>
@@ -272,7 +267,7 @@ export function File({ onClosePress }) {
 
       <Spacer space={SH(20)} />
 
-      <TouchableOpacity style={styles.fileView}>
+      <TouchableOpacity style={styles.fileView} onPress={onPress}>
         <Image source={files} resizeMode="contain" style={styles.filesIcon} />
         <Text style={styles.filesText}>{strings.files.localFiles}</Text>
       </TouchableOpacity>
@@ -352,6 +347,33 @@ export function BusinessCard({ onClosePress }) {
 }
 
 export function VoiceMessage({ onClosePress }) {
+  const [recordingTime, setrecordingTime] = useState(0);
+  const audioRecorderPlayer = new AudioRecorderPlayer();
+  const onStartRecord = async () => {
+    try {
+      const result = await audioRecorderPlayer.startRecorder();
+      audioRecorderPlayer.addRecordBackListener((e) => {
+        console.log(
+          "on play timing",
+          audioRecorderPlayer.mmssss(Math.floor(e.currentPosition))
+        );
+        // setrecordingTime(
+        //   audioRecorderPlayer.mmssss(Math.floor(e.currentPosition / 100))
+        // );
+        // return;
+      });
+    } catch (error) {
+      error;
+    }
+  };
+
+  const onStopRecord = async () => {
+    const result = await audioRecorderPlayer.stopRecorder();
+    audioRecorderPlayer.removeRecordBackListener();
+    setrecordingTime(0);
+    console.log(result);
+    console.log("saved timings", recordingTime);
+  };
   return (
     <View style={{ paddingHorizontal: SW(20), paddingVertical: SH(20) }}>
       <TouchableOpacity onPress={onClosePress} style={styles.crossIconView}>
@@ -364,7 +386,11 @@ export function VoiceMessage({ onClosePress }) {
 
       <Spacer space={SH(60)} />
 
-      <TouchableOpacity style={styles.micIcon}>
+      <TouchableOpacity
+        style={styles.micIcon}
+        onPressIn={onStartRecord}
+        onPressOut={onStopRecord}
+      >
         <Image
           source={voiceButton}
           resizeMode="contain"
