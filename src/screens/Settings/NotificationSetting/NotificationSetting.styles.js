@@ -21,60 +21,28 @@ export const styles = StyleSheet.create({
     paddingHorizontal: ms(20),
     flex: 1,
   },
-  backgroundView: {
-    backgroundColor: COLORS.placeholder,
-    paddingHorizontal: ms(10),
-    paddingVertical: vs(10),
-    borderRadius: moderateScale(10),
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  inputText: {
-    paddingVertical: vs(5),
-  },
-  innerView: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  flagStyle: {
-    height: moderateScale(25),
-    width: moderateScale(25),
-    marginRight: ms(10),
-  },
-  forwardIcon: {
-    height: vs(15),
-    width: ms(20),
-  },
   rowView: {
     flexDirection: "row",
     alignItems: "center",
-  },
-  backgroundViewHalf: {
-    backgroundColor: COLORS.placeholder,
-    paddingHorizontal: ms(10),
-    paddingVertical: vs(10),
-    borderRadius: moderateScale(10),
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    width: "40%",
-  },
-  nameView: {
-    flexDirection: "row",
     justifyContent: "space-between",
   },
-  nameInput: {
-    backgroundColor: COLORS.inputBorder,
-    height: SH(50),
-    borderRadius: SW(5),
-    alignItems: "center",
-    justifyContent: "space-between",
-    flexDirection: "row",
+  switchIcon: {
+    height: SH(15),
+    width: SW(25),
   },
-  headingText: {
-    color: COLORS.darkGrey2,
-    fontFamily: Fonts.Medium,
-    fontSize: SF(15),
+  textStyle: {
+    fontFamily: Fonts.Regular,
+    fontSize: SF(14),
+    color: COLORS.text,
+  },
+  topNotiView: {
+    backgroundColor: COLORS.placeHolder,
+    paddingHorizontal: SW(20),
+    paddingVertical: SH(20),
+    borderRadius: 10,
+  },
+  bottomLine: {
+    borderBottomWidth: SH(0.5),
+    borderColor: COLORS.termsBorder,
   },
 });

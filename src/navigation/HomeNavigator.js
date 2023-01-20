@@ -10,12 +10,14 @@ import {
   BusinessProfile,
   Chatting,
   Delivery,
+  FaceIdPin,
   Home,
   MakeAnOffer,
   NewProducts,
   PaymentMethod,
   ProductInquiry,
   ReviewAndPayment,
+  SendAnOffer,
   SendInquiry,
   StartOrder,
   TopRankingManufacturers,
@@ -112,6 +114,11 @@ export function HomeNavigator() {
       <Stack.Screen
         component={MakeAnOffer}
         name={NAVIGATION.makeAnOffer}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={SendAnOffer}
+        name={NAVIGATION.sendAnOffer}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

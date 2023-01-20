@@ -1,4 +1,10 @@
 export const en = {
+  buttonText: {
+    next: "Next",
+    send: "Send",
+    add: "Add",
+    sendOffer: "SendOffer",
+  },
   common: {
     loading: "Loading",
     connectionError: "Connection error",
@@ -405,6 +411,38 @@ export const en = {
     selectSubCategory: "Select Sub Category",
     selectproduct: "Select Product",
     selectBrand: "Select Brand",
+    brand: "Brand:",
+    subCategory: "Sub-Category:",
+    category: "Category:",
+    selectedProduct: "Selected Product:",
+    productName: "Product Name:",
+  },
+  sendAnOffer: {
+    offering: "Offering",
+    currentPrice: "Current Price",
+    offeringPrice: "Offering Price",
+    minimunOrder: "Minimun Order",
+    carton: "Carton",
+    offerValidity: "Offer Validity",
+    selectDate: "Select Date",
+    datePlaceholder: "dd/ mm/ yyyy",
+  },
+  notifications: {
+    allowNoti: "Allow Notification",
+    allowNotiPopup: "Allow Notification popup",
+    chatMessages: "Chat Messages",
+    promotions: "Promotions",
+    orders: "Orders",
+    feeds: "Feeds",
+    rqf: "RQF",
+  },
+  faceId: {
+    enable: "Enable",
+    faceId: "Face Id",
+    pin: "Pin",
+    text: "It is a long established fact that a reader will be distracted by the readable content.",
+    setupFaceId: "Set up Face ID",
+    setupPin: "Set up PIN",
   },
 
   STATIC: {
@@ -416,6 +454,12 @@ export const en = {
     },
     videoCall: {
       userName: "Senia PanFang",
+    },
+    makeAnOffer: {
+      marlboroSilver: "Marlboro Silver",
+      marlboro: "Marlboro",
+      cigarettes: "Cigarettes",
+      tobacco: "Tobacco",
     },
   },
 };

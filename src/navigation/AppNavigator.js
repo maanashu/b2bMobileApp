@@ -29,7 +29,7 @@ export function AppNavigator() {
       screenOptions={({ route }) => ({
         tabBarStyle: ((route) => {
           const routeName = getFocusedRouteNameFromRoute(route) ?? "";
-          if (routeName === NAVIGATION.sendInquiry) {
+          if (routeName === NAVIGATION.chatting) {
             return { display: "none" };
           }
           return { borderTopWidth: 0 };

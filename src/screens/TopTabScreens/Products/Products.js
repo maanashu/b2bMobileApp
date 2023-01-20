@@ -20,7 +20,7 @@ import {
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { SliderBox } from "react-native-image-slider-box";
-import { navigate } from "@/navigation/NavigationRef";
+import { navigate, navigationRef } from "@/navigation/NavigationRef";
 import {
   cream,
   drink,
@@ -59,7 +59,8 @@ import { NAVIGATION } from "@/constants";
 import { Search } from "@/components/Search";
 import { strings } from "@/localization";
 import SwiperFlatList from "react-native-swiper-flatlist";
-export function Products({ onPress }) {
+
+export function Products({ navigation }) {
   const [selectedId, setSelectedId] = useState("");
 
   const [product, setProduct] = useState("");

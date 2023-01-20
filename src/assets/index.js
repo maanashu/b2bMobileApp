@@ -228,6 +228,8 @@ export { default as userPhoto } from "@/assets/icons/ic_chat/userPhoto.png";
 export { default as calendarDate } from "@/assets/icons/ic_chat/calendarDate.png";
 export { default as toggleOff } from "@/assets/icons/ic_chat/toggleOff.png";
 export { default as toggleOn } from "@/assets/icons/ic_chat/toggleOn.png";
+export { default as marlboroPic } from "@/assets/images/marlboroPic.png";
+export { default as faceIdIcon } from "@/assets/icons/ic_auth/faceId.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

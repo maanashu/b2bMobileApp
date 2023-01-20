@@ -18,13 +18,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export function Button({ style, textStyle, title, ...rest }) {
+export function Button({ style, textStyle, title, onPress, ...rest }) {
   const { colors } = useTheme();
 
   return (
     <TouchableOpacity
       style={[styles.button, { borderColor: colors.border }, style]}
       {...rest}
+      onPress={onPress}
     >
       <Text style={[{ color: COLORS.white }, TextStyles.label, textStyle]}>
         {title}

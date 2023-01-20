@@ -1,17 +1,55 @@
 import React from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { NameHeader, ScreenWrapper, Spacer } from "@/components";
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { Button, NameHeader, ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
-import { backArrow, Fonts } from "@/assets";
+import { backArrow, Fonts, marlboroPic } from "@/assets";
 import { styles } from "./MakeAnOffer.styles";
 import { strings } from "@/localization";
 import SelectDropdown from "react-native-select-dropdown";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { scale } from "react-native-size-matters";
 import { COLORS } from "@/theme";
+import { navigate } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
 
 export function MakeAnOffer() {
   const countries = ["Egypt", "Canada", "Australia", "Ireland"];
+  const Details = [
+    {
+      id: 1,
+      heading: strings.makeAnOffer.productName,
+      selectedProduct: strings.STATIC.makeAnOffer.marlboroSilver,
+    },
+    {
+      id: 2,
+      heading: strings.makeAnOffer.brand,
+      selectedProduct: strings.STATIC.makeAnOffer.marlboro,
+    },
+    {
+      id: 3,
+      heading: strings.makeAnOffer.subCategory,
+      selectedProduct: strings.STATIC.makeAnOffer.cigarettes,
+    },
+    {
+      id: 4,
+      heading: strings.makeAnOffer.category,
+      selectedProduct: strings.STATIC.makeAnOffer.tobacco,
+    },
+  ];
+
+  const renderProductDetails = ({ item, index }) => (
+    <View>
+      <Text style={styles.maisonProductDetailHeading}>{item.heading}</Text>
+      <Text style={styles.ProductDetailHeading}>{item.selectedProduct}</Text>
+    </View>
+  );
 
   return (
     <ScreenWrapper>
@@ -35,7 +73,7 @@ export function MakeAnOffer() {
             buttonTextStyle={{
               flex: 1,
               alignSelf: "center",
-              color: COLORS.darkGrey2,
+              color: COLORS.darkGrey,
               fontSize: SF(14),
               fontFamily: Fonts.Italic,
             }}
@@ -48,7 +86,7 @@ export function MakeAnOffer() {
               />
             )}
             data={countries}
-            buttonStyle={{ width: SW(312) }}
+            buttonStyle={{ width: SW(310), alignSelf: "center" }}
             onSelect={(selectedItem, index) => {
               console.log(selectedItem, index);
             }}
@@ -72,7 +110,7 @@ export function MakeAnOffer() {
             buttonTextStyle={{
               flex: 1,
               alignSelf: "center",
-              color: COLORS.darkGrey2,
+              color: COLORS.darkGrey,
               fontSize: SF(14),
               fontFamily: Fonts.Italic,
             }}
@@ -85,7 +123,7 @@ export function MakeAnOffer() {
               />
             )}
             data={countries}
-            buttonStyle={{ width: SW(312) }}
+            buttonStyle={{ width: SW(310), alignSelf: "center" }}
             onSelect={(selectedItem, index) => {
               console.log(selectedItem, index);
             }}
@@ -109,7 +147,7 @@ export function MakeAnOffer() {
             buttonTextStyle={{
               flex: 1,
               alignSelf: "center",
-              color: COLORS.darkGrey2,
+              color: COLORS.darkGrey,
               fontSize: SF(14),
               fontFamily: Fonts.Italic,
             }}
@@ -122,7 +160,7 @@ export function MakeAnOffer() {
               />
             )}
             data={countries}
-            buttonStyle={{ width: SW(312) }}
+            buttonStyle={{ width: SW(310), alignSelf: "center" }}
             onSelect={(selectedItem, index) => {
               console.log(selectedItem, index);
             }}
@@ -146,7 +184,7 @@ export function MakeAnOffer() {
             buttonTextStyle={{
               flex: 1,
               alignSelf: "center",
-              color: COLORS.darkGrey2,
+              color: COLORS.darkGrey,
               fontSize: SF(14),
               fontFamily: Fonts.Italic,
             }}
@@ -159,7 +197,7 @@ export function MakeAnOffer() {
               />
             )}
             data={countries}
-            buttonStyle={{ width: SW(312) }}
+            buttonStyle={{ width: SW(310), alignSelf: "center" }}
             onSelect={(selectedItem, index) => {
               console.log(selectedItem, index);
             }}
@@ -171,6 +209,38 @@ export function MakeAnOffer() {
             }}
           />
         </View>
+
+        <Spacer space={SH(20)} />
+
+        <View style={styles.outerBorderView}>
+          <Text style={styles.headingMaisonText}>
+            {strings.makeAnOffer.selectedProduct}
+          </Text>
+          <Spacer space={SH(5)} />
+          <Image
+            source={marlboroPic}
+            resizeMode="contain"
+            style={styles.marlboroPicStyle}
+          />
+
+          <Spacer space={SH(15)} />
+
+          <FlatList
+            data={Details}
+            renderItem={renderProductDetails}
+            keyExtractor={(item) => item.id}
+          />
+        </View>
+
+        <Spacer space={SH(30)} />
+
+        <Button
+          title={strings.buttonText.send}
+          style={styles.buttonStyle}
+          onPress={() => navigate(NAVIGATION.sendAnOffer)}
+        />
+
+        <Spacer space={SH(20)} />
       </ScrollView>
     </ScreenWrapper>
   );

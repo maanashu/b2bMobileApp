@@ -9,6 +9,7 @@ import {
   ContactUs,
   CookiesPolicy,
   CurrentCoupons,
+  FaceIdPin,
   MyCatalogue,
   NotificationSetting,
   PastCoupons,
@@ -130,6 +131,11 @@ export function ProfileNavigator() {
       <Stack.Screen
         component={PastCoupons}
         name={NAVIGATION.pastCoupons}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={FaceIdPin}
+        name={NAVIGATION.FaceIdPin}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

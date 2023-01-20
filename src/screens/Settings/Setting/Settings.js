@@ -119,6 +119,8 @@ export function Settings() {
       navigate(NAVIGATION.cookiesPolicy);
     } else if (item.title === strings.settings.terms) {
       navigate(NAVIGATION.termsConditions);
+    } else if (item.title === strings.settings.faceId) {
+      navigate(NAVIGATION.FaceIdPin);
     }
   };
   const FirstData = ({ item, index }) => (

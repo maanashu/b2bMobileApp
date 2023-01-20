@@ -35,4 +35,5 @@ export const COLORS = {
   light_blue: "#F4FAFF",
   termsBorder: "#CACACA",
   offWhite: "#E8E8E8",
+  backgroundGrey: "#E1E3E4",
 };

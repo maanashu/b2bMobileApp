@@ -48,4 +48,6 @@ export const NAVIGATION = {
   pastCoupons: "PastCoupons",
   products: "Products",
   makeAnOffer: "MakeAnOffer",
+  sendAnOffer: "SendAnOffer",
+  FaceIdPin: "FaceIdPin",
 };
