@@ -9,7 +9,7 @@ import {
 import React, { useRef } from "react";
 import { styles } from "./BusinessProfile.style";
 import { ScreenWrapper, Spacer } from "@/components";
-import { SH } from "@/theme/ScalerDimensions";
+import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import RBSheet from "react-native-raw-bottom-sheet";
 import {
@@ -107,11 +107,11 @@ export function BusinessProfile() {
     </View>
   );
   const Equipment = ({ item }) => (
-    <View style={{ paddingBottom: vs(5), paddingHorizontal: ms(2) }}>
+    <View style={{ paddingBottom: SH(10), paddingHorizontal: SW(2) }}>
       <Image
         resizeMode="stretch"
         source={item.image}
-        style={{ height: vs(145), width: ms(145), margin: 1 }}
+        style={{ height: SH(145), width: SW(156), margin: 1 }}
       />
     </View>
   );
@@ -271,6 +271,9 @@ export function BusinessProfile() {
           </View>
 
           <Spacer space={SH(20)} />
+
+          {/* product listing */}
+
           <FlatList
             data={Bags}
             renderItem={SecondItem}

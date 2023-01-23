@@ -13,8 +13,7 @@ import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants/navigation";
 import { useState } from "react";
 import { CompanyDetailView, ScreenWrapper, Spacer } from "@/components";
-import { COLORS } from "@/theme/Colors";
-import { SF, SH, SW } from "@/theme/ScalerDimensions";
+import { SH, SW } from "@/theme/ScalerDimensions";
 import { SliderBox } from "react-native-image-slider-box";
 import {
   womenShoes,
@@ -23,16 +22,10 @@ import {
   ratingStar,
   chatNow,
   sendInquiry,
-  location,
   forward,
-  star,
-  clock,
-  yewiCertified,
-  yewiLogo,
   checkPrice,
   check,
   simpleCheck,
-  viewAll,
   plusIcon,
   Fonts,
   bagWhite,

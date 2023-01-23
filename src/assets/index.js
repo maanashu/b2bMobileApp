@@ -230,6 +230,16 @@ export { default as toggleOff } from "@/assets/icons/ic_chat/toggleOff.png";
 export { default as toggleOn } from "@/assets/icons/ic_chat/toggleOn.png";
 export { default as marlboroPic } from "@/assets/images/marlboroPic.png";
 export { default as faceIdIcon } from "@/assets/icons/ic_auth/faceId.png";
+export { default as downright } from "@/assets/icons/ic_wallet/downright.png";
+export { default as uparrow } from "@/assets/icons/ic_wallet/uparrow.png";
+export { default as downleft } from "@/assets/icons/ic_wallet/downleft.png";
+export { default as jbrLogo } from "@/assets/icons/ic_home/jbrLogo.png";
+export { default as marlboroLogo } from "@/assets/icons/ic_logo/marlboroLogo.png";
+export { default as iJoyLogo } from "@/assets/icons/ic_logo/iJoyLogo.png";
+export { default as HMLogo } from "@/assets/icons/ic_logo/H&MLogo.png";
+export { default as adequateLogo } from "@/assets/icons/ic_logo/adequateLogo.png";
+export { default as vomedoLogo } from "@/assets/icons/ic_logo/vomedoLogo.png";
+export { default as businessCardUser } from "@/assets/icons/ic_profile/businessCardUser.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

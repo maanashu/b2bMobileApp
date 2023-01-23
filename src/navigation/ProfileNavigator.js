@@ -5,11 +5,16 @@ import {
   AboutUs,
   AddCoupon,
   AddShippingLocation,
+  Brands,
+  BrandsProduct,
+  BusinessCards,
   CompanyInfo,
   ContactUs,
   CookiesPolicy,
   CurrentCoupons,
   FaceIdPin,
+  JbrWallet,
+  Manufacturers,
   MyCatalogue,
   NotificationSetting,
   PastCoupons,
@@ -22,6 +27,7 @@ import {
   Settings,
   ShipTo,
   TermsConditions,
+  TransactionHistory,
   UserInformation,
 } from "@/screens";
 
@@ -136,6 +142,37 @@ export function ProfileNavigator() {
       <Stack.Screen
         component={FaceIdPin}
         name={NAVIGATION.FaceIdPin}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={JbrWallet}
+        name={NAVIGATION.jbrWallet}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        component={TransactionHistory}
+        name={NAVIGATION.transactionHistory}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={Brands}
+        name={NAVIGATION.brands}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={BrandsProduct}
+        name={NAVIGATION.brandsProduct}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={Manufacturers}
+        name={NAVIGATION.manufacturers}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={BusinessCards}
+        name={NAVIGATION.businessCards}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

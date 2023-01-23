@@ -1,5 +1,5 @@
 export { Home } from "@/screens/Home/Home";
-export { Profile } from "@/screens/Profile/Profile";
+export { Profile } from "@/screens/Profile/Profile/Profile";
 export { Splash } from "@/screens/GetStarted/Splash/Splash";
 export { OnBoarding } from "@/screens/GetStarted/OnBoarding/OnBoarding";
 export { Login } from "@/screens/GetStarted/Login/Login";
@@ -48,3 +48,9 @@ export { PastCoupons } from "@/screens/Settings/Coupons/PastCoupons/PastCoupons"
 export { MakeAnOffer } from "@/screens/MakeAnOffer/MakeAnOffer";
 export { SendAnOffer } from "@/screens/SendAnOffer/SendAnOffer";
 export { FaceIdPin } from "@/screens/Settings/FaceIdPin/FaceIdPin";
+export { JbrWallet } from "@/screens/Profile/Wallet/JbrWallet/JbrWallet";
+export { TransactionHistory } from "@/screens/Profile/Wallet/TransactionHistory/TransactionHistory";
+export { Brands } from "@/screens/Profile/Wallet/Brands/Brands";
+export { BrandsProduct } from "@/screens/Profile/Wallet/BrandsProduct/BrandsProduct";
+export { Manufacturers } from "@/screens/Profile/Wallet/Manufacturers/Manufacturers";
+export { BusinessCards } from "@/screens/Profile/BusinessCards/BusinessCards";

@@ -267,6 +267,8 @@ export const styles = StyleSheet.create({
     fontSize: moderateScale(12),
     paddingVertical: verticalScale(5),
     marginRight: SW(30),
+    marginLeft: SW(5),
+    paddingTop: SH(10),
   },
   detailText: {
     paddingVertical: verticalScale(5),

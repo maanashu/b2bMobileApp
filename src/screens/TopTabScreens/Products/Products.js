@@ -242,7 +242,7 @@ export function Products({ navigation }) {
                 <Text style={styles.smallText}>See all </Text>
                 <Image
                   source={forward}
-                  style={{ height: SH(10), width: SW(6), marginTop: SH(5) }}
+                  style={{ height: SH(15), width: SW(15), marginTop: SH(3) }}
                 />
               </View>
             </View>
@@ -302,11 +302,12 @@ export function Products({ navigation }) {
               color: COLORS.black,
               fontSize: SF(16),
               fontFamily: Fonts.SemiBold,
+              paddingLeft: SW(20),
             }}
           >
             Recomended Wholesalers
           </Text>
-          <TouchableOpacity>
+          <TouchableOpacity style={{ paddingRight: SW(20) }}>
             <View style={{ flexDirection: "row" }}>
               <Text style={styles.smallText}>See all </Text>
               <Image source={forward} style={styles.forwardIcon} />

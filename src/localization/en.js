@@ -39,7 +39,7 @@ export const en = {
     shippingAddress: "Shipping Address",
     jbrWallet: "JBR Wallet",
     paymentMethods: "Payment Methods",
-    businessCard: "Business Card",
+    businessCard: "Business Cards",
     myCatalogs: "My Catalogs",
     helpCenter: "Help Center",
     settings: "Settings",
@@ -78,6 +78,7 @@ export const en = {
   productInquiry: {
     aboutCompany: "About Company",
     follow: "Follow",
+    followed: "Followed",
     visitStore: "Visit Store",
     productDetails: "Product Details",
     recomended: "Recomended products",
@@ -444,7 +445,26 @@ export const en = {
     setupFaceId: "Set up Face ID",
     setupPin: "Set up PIN",
   },
+  jbrWallet: {
+    availableBalance: "Available Balance",
+    JBR: "JBR",
+    buyingCapacity: "Buying capacity",
+    brands: "Brands",
+    purchases: "Purchases",
+    earn: "Earn",
+    transactionHistory: "Transaction history",
+    buy: "Buy",
+    added: "Added",
+    earnRef: "Earn_ref",
+    jbrAdded: "JBR added",
+    purcased: "Purchased",
+    products: "Products",
+    manfacturer: "Manfacturer",
+  },
 
+  // Static strings
+
+  //
   STATIC: {
     cardDetails: {
       userName: "Steven D. Daum",
@@ -460,6 +480,15 @@ export const en = {
       marlboro: "Marlboro",
       cigarettes: "Cigarettes",
       tobacco: "Tobacco",
+    },
+
+    businessCards: {
+      userName: "Chad M. Johnson",
+      companyName: "Company Name",
+      address: "1457 New Street Heppner, OR 97836",
+      email: "emailaddress@email.com",
+      phone: "805-627-5874",
+      apparel: "Apparel",
     },
   },
 };

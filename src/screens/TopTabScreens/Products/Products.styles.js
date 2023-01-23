@@ -61,13 +61,13 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
   },
   forwardIcon: {
-    height: SH(10),
-    width: SW(6),
-    marginTop: SH(5),
+    height: SH(15),
+    width: SW(15),
+    marginTop: SH(3),
   },
   smallText: {
     color: COLORS.text,
-    fontSize: SF(14),
+    fontSize: SF(15),
     fontFamily: Fonts.Regular,
   },
   yewiView: {

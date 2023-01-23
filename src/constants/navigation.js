@@ -50,4 +50,10 @@ export const NAVIGATION = {
   makeAnOffer: "MakeAnOffer",
   sendAnOffer: "SendAnOffer",
   FaceIdPin: "FaceIdPin",
+  jbrWallet: "JbrWallet",
+  transactionHistory: "TransactionHistory",
+  brands: "Brands",
+  brandsProduct: "BrandsProduct",
+  manufacturers: "Manufacturers",
+  businessCards: "BusinessCards",
 };

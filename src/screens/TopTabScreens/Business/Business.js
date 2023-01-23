@@ -154,7 +154,7 @@ export function Business() {
   };
 
   const secondItem = ({ item, onPress }) => (
-    <TouchableOpacity style={styles.secondFlatlist}>
+    <View style={styles.secondFlatlist}>
       <Spacer space={SH(10)} />
       <Image source={item.image} style={styles.secondView} />
 
@@ -162,10 +162,10 @@ export function Business() {
 
       <Text style={styles.commonFlatlistTextBold}>{item.title}</Text>
       <Text style={styles.commonFlatlistText}>{item.subtitle}</Text>
-    </TouchableOpacity>
+    </View>
   );
   const thirdItem = ({ item, onPress }) => (
-    <TouchableOpacity style={styles.secondFlatlist}>
+    <View style={styles.secondFlatlist}>
       <Spacer space={SH(10)} />
       <Image source={item.image} style={styles.secondView} />
 
@@ -173,54 +173,7 @@ export function Business() {
 
       <Text style={styles.commonFlatlistTextBold}>{item.title}</Text>
       <Text style={styles.commonFlatlistText}>{item.subtitle}</Text>
-    </TouchableOpacity>
-  );
-
-  const FourthItem = ({ item, onPress }) => (
-    <TouchableOpacity style={styles.item}>
-      <Image source={item.image} style={styles.thirdView} />
-
-      <Spacer space={SH(10)} />
-      <Text style={styles.yiwuPriceText}>{item.price}</Text>
-      <Text style={styles.yiwuItemTitleText}>{item.title}</Text>
-    </TouchableOpacity>
-  );
-
-  const renderThirdItem = ({ item }) => {
-    return <Item item={item} onPress={() => setProduct(item.id)} />;
-  };
-  const listDetail = ({ item, onPress }) => (
-    <TouchableOpacity style={styles.ShoesStyle}>
-      <Spacer space={SH(10)} />
-      <Image
-        source={item.image}
-        resizeMode="contain"
-        style={{ height: vs(140), width: ms(150) }}
-      />
-
-      <Text
-        style={{
-          fontFamily: Fonts.SemiBold,
-          fontSize: ms(12),
-          color: COLORS.darkGrey,
-          paddingHorizontal: ms(10),
-        }}
-      >
-        {item.title}
-      </Text>
-      <Text
-        style={{
-          alignSelf: "flex-start",
-          fontFamily: Fonts.Regular,
-          paddingLeft: ms(18),
-          fontSize: ms(10),
-          color: COLORS.darkGrey,
-          marginTop: vs(2),
-        }}
-      >
-        {item.pieces}
-      </Text>
-    </TouchableOpacity>
+    </View>
   );
 
   const renderRecentItem = ({ item, index }) => (
@@ -232,7 +185,6 @@ export function Business() {
         borderRadius: 15,
       }}
     >
-      {/* <View style={{ height: 80, width: 100, backgroundColor: "green" }} /> */}
       <Image source={slideImage} style={styles.storeImg} resizeMode="cover" />
     </TouchableOpacity>
   );
@@ -285,7 +237,7 @@ export function Business() {
         <View style={{ paddingHorizontal: ms(20) }}>
           <View style={styles.horizontalView}>
             <View style={styles.innerViewHorizontal}>
-              <View>
+              <View style={{ paddingHorizontal: SW(5) }}>
                 <Text
                   style={{
                     fontFamily: Fonts.Bold,
@@ -311,7 +263,7 @@ export function Business() {
                 <Image
                   resizeMode="contain"
                   source={forward}
-                  style={{ height: vs(12) }}
+                  style={{ height: vs(15), width: vs(15) }}
                 />
               </TouchableOpacity>
             </View>
@@ -331,7 +283,7 @@ export function Business() {
         <View style={{ paddingHorizontal: ms(20) }}>
           <View style={styles.horizontalView}>
             <View style={styles.innerViewHorizontal}>
-              <View>
+              <View style={{ paddingHorizontal: SW(5) }}>
                 <Text
                   style={{
                     fontFamily: Fonts.Bold,
@@ -358,7 +310,7 @@ export function Business() {
                 <Image
                   resizeMode="contain"
                   source={forward}
-                  style={{ height: vs(12) }}
+                  style={{ height: vs(15), width: vs(15) }}
                 />
               </TouchableOpacity>
             </View>

@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "@/actions/UserActions";
 import { Button, ScreenWrapper, Spacer } from "@/components";
 import { strings } from "@/localization";
-import { styles } from "@/screens/Profile/Profile.styles";
+import { styles } from "./Profile.styles";
 import { SH } from "@/theme";
 import { getUser } from "@/selectors/UserSelectors";
 import { useSelector } from "react-redux";
@@ -139,6 +139,10 @@ export function Profile() {
       navigate(NAVIGATION.myCatalogue);
     } else if (item.title === strings.profile.myCoupons) {
       navigate(NAVIGATION.addCoupon);
+    } else if (item.title === strings.profile.jbrWallet) {
+      navigate(NAVIGATION.jbrWallet);
+    } else if (item.title === strings.profile.businessCard) {
+      navigate(NAVIGATION.businessCards);
     }
   };
 
