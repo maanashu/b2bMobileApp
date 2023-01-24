@@ -18,6 +18,7 @@ import {
 import { strings } from "@/localization";
 import { ms, vs } from "react-native-size-matters";
 import { style } from "deprecated-react-native-prop-types/DeprecatedViewPropTypes";
+import { HeaderCoin } from "../Wallet/Components/HeaderCoin";
 
 const Cards = [
   {
@@ -178,7 +179,7 @@ export function BusinessCards() {
   return (
     <ScreenWrapper>
       <>
-        <Header title={strings.profile.businessCard} back={backArrow} />
+        <HeaderCoin title={strings.profile.businessCard} amount={"0"} />
       </>
       <Spacer space={SH(15)} />
 

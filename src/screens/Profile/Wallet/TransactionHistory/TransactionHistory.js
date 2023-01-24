@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { View, Image, Text, FlatList, useWindowDimensions } from "react-native";
-import { ScreenWrapper, Spacer, Header } from "@/components";
+import { ScreenWrapper, Spacer } from "@/components";
 import { styles } from "./TransactionHistory.styles";
 import { COLORS, SH, SW } from "@/theme";
 import { transactionHistory } from "@/constants/flatlistData";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { backArrow } from "@/assets";
+import { HeaderCoin } from "../Components/HeaderCoin";
+import { strings } from "@/localization";
 
 const Item = ({ title, date, balance, image }) => (
   <View style={styles.tranHisCon}>
@@ -95,11 +97,9 @@ export function TransactionHistory() {
 
   return (
     <ScreenWrapper>
-      <>
-        <Header title={"Transaction History"} back={backArrow} />
-      </>
-      <Spacer space={SH(15)} />
+      <HeaderCoin amount={"0"} title={strings.jbrWallet.transactionHistory} />
 
+      <Spacer space={SH(15)} />
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}

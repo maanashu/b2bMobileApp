@@ -5,6 +5,8 @@ import { styles } from "./Manufacturers.styles.";
 import { SH } from "@/theme";
 import { backArrow } from "@/assets";
 import { CompanyView } from "./Components/CompanyView";
+import { strings } from "@/localization";
+import { HeaderSubName } from "../Components/HeaderSubName";
 
 export function Manufacturers({ route }) {
   const CompanyData = [
@@ -35,7 +37,10 @@ export function Manufacturers({ route }) {
 
   return (
     <ScreenWrapper>
-      <Header back={backArrow} title={"Manufacturers"} />
+      <HeaderSubName
+        title={strings.jbrWallet.manfacturer}
+        subTitle={strings.STATIC.jbrWallet.manufacturers}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.mainContainer}

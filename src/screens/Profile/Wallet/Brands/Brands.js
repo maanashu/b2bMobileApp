@@ -15,6 +15,8 @@ import {
   forward,
   iJoyLogo,
 } from "@/assets";
+import { HeaderSubName } from "../Components/HeaderSubName";
+import { strings } from "@/localization";
 
 const data = [
   {
@@ -86,25 +88,10 @@ export function Brands() {
 
   return (
     <ScreenWrapper>
-      <View style={styles.container}>
-        <View style={styles.maincontainer}>
-          <Text style={styles.title}>{"Brands"}</Text>
-        </View>
-        <Text
-          style={[
-            styles.title,
-            {
-              fontFamily: Fonts.Regular,
-              marginHorizontal: 16,
-              marginTop: -16,
-              fontSize: 12,
-            },
-          ]}
-        >
-          {"5 brands"}
-        </Text>
-        <Spacer space={SH(10)} />
-      </View>
+      <HeaderSubName
+        title={strings.jbrWallet.brands}
+        subTitle={strings.STATIC.jbrWallet.brands}
+      />
 
       <FlatList
         data={data}

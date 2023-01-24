@@ -1,7 +1,8 @@
 import React from "react";
 import { View, Image, Text, TouchableOpacity, FlatList } from "react-native";
 import { styles } from "./JbrWallet.styles";
-import { ScreenWrapper, Spacer, Header } from "@/components";
+import { ScreenWrapper, Spacer } from "@/components";
+import { Header } from "../Components/NameHeader";
 import { COLORS, SH, SW } from "@/theme";
 import { jbrLogo, downleft, downright, uparrow, backArrow } from "@/assets";
 import { strings } from "@/localization";
@@ -85,13 +86,12 @@ export function JbrWallet() {
             </TouchableOpacity>
           </View>
         </View>
-        <Spacer space={SH(40)} />
+        <Spacer space={SH(30)} />
         {/* ********DeliveryHistory start********** */}
         <View style={{ paddingHorizontal: SW(20) }}>
           <Text style={styles.delHiStText}>
             {strings.jbrWallet.buyingCapacity}
           </Text>
-          <Spacer space={SH(20)} />
           <View
             style={{
               display: "flex",
@@ -108,14 +108,14 @@ export function JbrWallet() {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.medalCon, styles.deliver]}
-              // onPress={() => navigate(NAVIGATION.brandsProduct)}
+              onPress={() => navigate(NAVIGATION.brandsProduct)}
             >
               <Text style={[styles.returnCount]}>19</Text>
               <Text style={styles.medalText}>{strings.jbrWallet.products}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.medalCon, styles.return]}
-              // onPress={() => navigate(NAVIGATION.walletStore)}
+              onPress={() => navigate(NAVIGATION.manufacturers)}
             >
               <Text style={styles.returnCount}>3</Text>
               <Text style={styles.medalText}>
@@ -124,7 +124,7 @@ export function JbrWallet() {
             </TouchableOpacity>
           </View>
         </View>
-        <Spacer space={SH(45)} />
+        <Spacer space={SH(30)} />
         {/* ********DeliveryHistory end********** */}
 
         {/* ********TransactionHistory start********** */}
@@ -132,7 +132,7 @@ export function JbrWallet() {
           <Text style={styles.delHiStText}>
             {strings.jbrWallet.transactionHistory}
           </Text>
-          <Spacer space={SH(15)} />
+          <Spacer space={SH(10)} />
 
           <FlatList
             data={transactionHistory}

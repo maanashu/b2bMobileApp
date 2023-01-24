@@ -459,7 +459,7 @@ export const en = {
     jbrAdded: "JBR added",
     purcased: "Purchased",
     products: "Products",
-    manfacturer: "Manfacturer",
+    manfacturer: "Manfacturers",
   },
 
   // Static strings
@@ -489,6 +489,11 @@ export const en = {
       email: "emailaddress@email.com",
       phone: "805-627-5874",
       apparel: "Apparel",
+    },
+    jbrWallet: {
+      brands: "5 brands",
+      productPurchases: "7 Products Purchases",
+      manufacturers: "3 Manufacturers",
     },
   },
 };

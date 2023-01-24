@@ -20,10 +20,10 @@ import {
   backArrow,
 } from "@/assets";
 import { ms, vs } from "react-native-size-matters";
+import { HeaderSubName } from "../Components/HeaderSubName";
 
 export function BrandsProduct({ route }) {
-  const data = route.params.data || {};
-  console.log(data);
+  // const data = route.params.data || {};
 
   const Bags = [
     {
@@ -91,7 +91,11 @@ export function BrandsProduct({ route }) {
 
   return (
     <ScreenWrapper>
-      <Header back={backArrow} title={data} />
+      <HeaderSubName
+        title={"H&M"}
+        subTitle={strings.STATIC.jbrWallet.productPurchases}
+      />
+      <Spacer space={SH(1)} />
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.mainContainer}
