@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { styles } from "./Settings.styles";
-import { Button, NameHeaderCoins, Spacer } from "@/components";
+import { Button, NameHeaderCoins, ScreenWrapper, Spacer } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
 import { useState } from "react";
 import { goBack, navigate } from "@/navigation/NavigationRef";
@@ -151,7 +151,7 @@ export function Settings() {
   );
 
   return (
-    <View style={styles.container}>
+    <ScreenWrapper>
       <NameHeaderCoins
         title={strings.profile.settings}
         back={backArrow}
@@ -190,6 +190,6 @@ export function Settings() {
           showsVerticalScrollIndicator={false}
         />
       </View>
-    </View>
+      </ScreenWrapper>
   );
 }

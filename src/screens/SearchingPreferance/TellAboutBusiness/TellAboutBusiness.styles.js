@@ -13,11 +13,8 @@ export const styles = StyleSheet.create({
     marginTop: SH(20),
     backgroundColor: COLORS.white,
     flex: 1,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
     paddingVertical: 10,
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
+
   },
   mainImg: {
     marginTop: SH(10),

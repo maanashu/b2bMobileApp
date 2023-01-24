@@ -104,7 +104,7 @@ export function TellAboutBusiness() {
             textStyle={styles.textStyle}
           />
         </View>
-        <Spacer space={Platform.OS === "ios" ? SW(60) : SW(20)} />
+        <Spacer space={ SW(20)} />
       </View>
     </ScreenWrapper>
   );
