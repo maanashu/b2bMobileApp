@@ -92,6 +92,8 @@ export function JbrWallet() {
           <Text style={styles.delHiStText}>
             {strings.jbrWallet.buyingCapacity}
           </Text>
+          <Spacer space={SH(15)} />
+
           <View
             style={{
               display: "flex",

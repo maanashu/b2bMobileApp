@@ -1,13 +1,11 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity, FlatList } from "react-native";
-import { Spacer, ScreenWrapper, BackIcon } from "@/components";
+import { ScreenWrapper } from "@/components";
 import { styles } from "./Brands.styles";
 import { SH, SW } from "@/theme";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import {
-  mask,
-  Fonts,
   marlboroLogo,
   vomedoLogo,
   adequateLogo,

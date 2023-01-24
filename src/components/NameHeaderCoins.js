@@ -30,7 +30,9 @@ export function NameHeaderCoins({ title, back, amount }) {
             flexDirection: "row",
             alignItems: "center",
             paddingHorizontal: ms(6),
-            paddingVertical: verticalScale(4),
+            paddingVertical: verticalScale(3),
+            justifyContent: "center",
+            width: SW(50),
           }}
         >
           <Text
@@ -82,6 +84,6 @@ export const styles = StyleSheet.create({
   },
   crossIcon: {
     height: SH(17),
-    width: SW(22),
+    width: SW(17),
   },
 });

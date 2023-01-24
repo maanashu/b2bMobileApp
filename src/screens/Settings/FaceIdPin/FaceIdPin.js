@@ -1,8 +1,8 @@
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import React, { useState } from "react";
 import { styles } from "./FaceIdPin.styles";
 import { ScreenWrapper, Spacer, Switch } from "@/components";
-import { SH, SW } from "@/theme/ScalerDimensions";
+import { SH } from "@/theme/ScalerDimensions";
 import {
   backArrow,
   faceIdIcon,
@@ -12,7 +12,6 @@ import {
 } from "@/assets";
 import { strings } from "@/localization";
 import { NameHeader } from "@/components";
-import { COLORS } from "@/theme";
 
 export function FaceIdPin() {
   const [faceId, setFaceId] = useState(false);

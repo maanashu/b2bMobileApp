@@ -3,7 +3,9 @@ import { createNativeStackNavigator } from "react-native-screens/native-stack";
 import { NAVIGATION } from "@/constants";
 import {
   AboutUs,
+  AddCategories,
   AddCoupon,
+  Addresses,
   AddShippingLocation,
   Brands,
   BrandsProduct,
@@ -23,9 +25,11 @@ import {
   QrCode,
   SelectCity,
   SelectCountry,
+  SelectedPreferance,
   SelectState,
   Settings,
   ShipTo,
+  TellAboutBusiness,
   TermsConditions,
   TransactionHistory,
   UserInformation,
@@ -173,6 +177,28 @@ export function ProfileNavigator() {
       <Stack.Screen
         component={BusinessCards}
         name={NAVIGATION.businessCards}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        component={SelectedPreferance}
+        name={NAVIGATION.selectedPreferance}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        component={TellAboutBusiness}
+        name={NAVIGATION.tellAboutBusiness}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={AddCategories}
+        name={NAVIGATION.addCategories}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={Addresses}
+        name={NAVIGATION.addresses}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

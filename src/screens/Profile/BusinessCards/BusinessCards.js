@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Image, Text, FlatList, useWindowDimensions } from "react-native";
+import {
+  View,
+  Image,
+  Text,
+  FlatList,
+  useWindowDimensions,
+  TouchableOpacity,
+} from "react-native";
 import { ScreenWrapper, Spacer, Header } from "@/components";
 import { styles } from "./BusinessCards.styles";
 import { COLORS, SH, SW } from "@/theme";
@@ -192,14 +199,14 @@ export function BusinessCards() {
         style={{ flex: 0 }}
       />
 
-      <View style={styles.filter}>
+      <TouchableOpacity style={styles.filter}>
         <Text style={styles.filterText}>Filter</Text>
         <Image
           source={filter}
           resizeMode="contain"
           style={styles.filterIconStyle}
         />
-      </View>
+      </TouchableOpacity>
 
       <Spacer space={SH(15)} />
 

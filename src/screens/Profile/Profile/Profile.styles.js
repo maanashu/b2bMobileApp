@@ -41,22 +41,23 @@ export const styles = StyleSheet.create({
     paddingHorizontal: ms(20),
   },
   filterText: {
-    fontFamily: Fonts.Regular,
+    fontFamily: Fonts.SemiBold,
     color: COLORS.white,
+    marginRight: SW(1),
   },
   headerIconView: {
-    height: SH(35),
-    width: SW(60),
+    height: SH(29),
+    width: SW(50),
     backgroundColor: COLORS.primary,
     borderRadius: ms(20),
     flexDirection: "row",
-    paddingHorizontal: ms(10),
+    justifyContent: "center",
     alignItems: "center",
-    justifyContent: "space-between",
   },
   filterIcon: {
-    height: vs(22),
-    width: ms(18),
+    height: vs(16),
+    width: ms(16),
+    marginLeft: SW(1),
   },
   tabButtonView: {
     borderRadius: 20,
@@ -126,8 +127,8 @@ export const styles = StyleSheet.create({
     width: ms(20),
   },
   forwardIcon: {
-    height: ms(15),
-    width: ms(8),
+    height: ms(17),
+    width: ms(17),
   },
   buttonStyle: {
     height: verticalScale(40),

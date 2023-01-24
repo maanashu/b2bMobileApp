@@ -240,6 +240,12 @@ export { default as HMLogo } from "@/assets/icons/ic_logo/H&MLogo.png";
 export { default as adequateLogo } from "@/assets/icons/ic_logo/adequateLogo.png";
 export { default as vomedoLogo } from "@/assets/icons/ic_logo/vomedoLogo.png";
 export { default as businessCardUser } from "@/assets/icons/ic_profile/businessCardUser.png";
+export { default as catalogueImage } from "@/assets/images/Catalogue.png";
+export { default as checkBoxPrimary } from "@/assets/icons/ic_profile/checkBoxPrimary.png";
+export { default as onlineStore } from "@/assets/icons/ic_profile/onlineStore.png";
+export { default as work } from "@/assets/icons/ic_profile/work.png";
+export { default as pencil } from "@/assets/icons/ic_profile/pencil.png";
+export { default as home } from "@/assets/icons/ic_profile/home.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

@@ -6,19 +6,13 @@ import {
   FlatList,
   ScrollView,
 } from "react-native";
-import { Spacer, ScreenWrapper, Header } from "@/components";
+import { Spacer, ScreenWrapper } from "@/components";
 import { strings } from "@/localization";
 import { styles } from "./BrandsProduct.styles";
 import { SH } from "@/theme";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
-import {
-  videoPic1,
-  videoPic2,
-  videoPic3,
-  videoPic4,
-  backArrow,
-} from "@/assets";
+import { videoPic1, videoPic2, videoPic3, videoPic4 } from "@/assets";
 import { ms, vs } from "react-native-size-matters";
 import { HeaderSubName } from "../Components/HeaderSubName";
 

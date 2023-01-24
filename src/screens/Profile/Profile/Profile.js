@@ -143,6 +143,10 @@ export function Profile() {
       navigate(NAVIGATION.jbrWallet);
     } else if (item.title === strings.profile.businessCard) {
       navigate(NAVIGATION.businessCards);
+    } else if (item.title === strings.profile.searchingPreference) {
+      navigate(NAVIGATION.selectedPreferance);
+    } else if (item.title === strings.profile.shippingAddress) {
+      navigate(NAVIGATION.addresses);
     }
   };
 

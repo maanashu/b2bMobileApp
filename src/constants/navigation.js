@@ -56,4 +56,8 @@ export const NAVIGATION = {
   brandsProduct: "BrandsProduct",
   manufacturers: "Manufacturers",
   businessCards: "BusinessCards",
+  selectedPreferance: "SelectedPreferance",
+  tellAboutBusiness: "TellAboutBusiness",
+  addCategories: "AddCategories",
+  addresses: "Addresses",
 };

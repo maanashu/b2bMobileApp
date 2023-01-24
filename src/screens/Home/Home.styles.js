@@ -48,8 +48,8 @@ export const styles = StyleSheet.create({
     marginRight: SW(15),
   },
   coinView: {
-    paddingHorizontal: SW(10),
-    paddingVertical: SH(3),
+    paddingHorizontal: SW(11),
+    paddingVertical: SH(4),
     backgroundColor: COLORS.primary,
     borderRadius: SW(15),
     width: SW(50),
@@ -58,13 +58,14 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   coinIcon: {
-    height: ms(17),
-    width: ms(17),
+    height: vs(16),
+    width: ms(16),
+    marginLeft: SW(1),
   },
   balanceText: {
     fontFamily: Fonts.SemiBold,
-    fontSize: SF(14),
     color: COLORS.white,
+    marginRight: SW(1),
   },
   rowView: {
     flexDirection: "row",

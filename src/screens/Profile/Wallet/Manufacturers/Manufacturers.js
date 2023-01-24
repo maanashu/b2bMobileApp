@@ -3,7 +3,6 @@ import { Text, TouchableOpacity, ScrollView, View } from "react-native";
 import { Spacer, ScreenWrapper, Header } from "@/components";
 import { styles } from "./Manufacturers.styles.";
 import { SH } from "@/theme";
-import { backArrow } from "@/assets";
 import { CompanyView } from "./Components/CompanyView";
 import { strings } from "@/localization";
 import { HeaderSubName } from "../Components/HeaderSubName";

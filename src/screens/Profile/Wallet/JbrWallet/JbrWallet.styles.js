@@ -3,13 +3,7 @@ import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
-import {
-  moderateScale,
-  ms,
-  s,
-  verticalScale,
-  vs,
-} from "react-native-size-matters";
+import { moderateScale, verticalScale } from "react-native-size-matters";
 
 export const styles = StyleSheet.create({
   container: {

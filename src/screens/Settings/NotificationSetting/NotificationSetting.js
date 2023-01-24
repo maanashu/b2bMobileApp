@@ -1,4 +1,4 @@
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { View } from "react-native";
 import React, { useState } from "react";
 import { styles } from "./NotificationSetting.styles";
 import { ScreenWrapper, Spacer } from "@/components";
@@ -6,8 +6,7 @@ import { SH, SW } from "@/theme/ScalerDimensions";
 import { backArrow, toggleOff, toggleOn } from "@/assets";
 import { strings } from "@/localization";
 import { NameHeader } from "@/components";
-import { NotiView, Switch } from "./Components/Switch";
-import { TabRouter } from "@react-navigation/native";
+import { Switch } from "@/components";
 
 export function NotificationSetting() {
   const [allowNoti, setallowNoti] = useState(true);
@@ -56,7 +55,7 @@ export function NotificationSetting() {
               onPress={() => setMessages(!messages)}
             />
 
-            <Spacer space={SH(35)} />
+            <Spacer space={SH(25)} />
 
             <Switch
               title={strings.notifications.promotions}
@@ -64,7 +63,7 @@ export function NotificationSetting() {
               onPress={() => setPromotions(!promotions)}
             />
 
-            <Spacer space={SH(35)} />
+            <Spacer space={SH(25)} />
 
             <Switch
               title={strings.notifications.orders}
@@ -72,7 +71,7 @@ export function NotificationSetting() {
               onPress={() => setOrders(!orders)}
             />
 
-            <Spacer space={SH(35)} />
+            <Spacer space={SH(25)} />
 
             <Switch
               title={strings.notifications.feeds}
@@ -80,7 +79,7 @@ export function NotificationSetting() {
               onPress={() => setFeeds(!feeds)}
             />
 
-            <Spacer space={SH(35)} />
+            <Spacer space={SH(25)} />
 
             <Switch
               title={strings.notifications.rqf}
@@ -88,7 +87,7 @@ export function NotificationSetting() {
               onPress={() => setRqf(!rqf)}
             />
 
-            <Spacer space={SH(35)} />
+            <Spacer space={SH(25)} />
           </View>
           <Spacer space={SH(20)} />
         </View>

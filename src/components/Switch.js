@@ -19,7 +19,7 @@ export function Switch({
       <TouchableOpacity onPress={onPress}>
         <Image
           source={source}
-          resizeMode={resizeMode}
+          resizeMode={"contain"}
           style={[styles.switchIcon, iconStyle]}
         />
       </TouchableOpacity>
@@ -34,8 +34,8 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   switchIcon: {
-    height: SH(15),
-    width: SW(25),
+    height: SH(25),
+    width: SW(35),
   },
   textStyle: {
     fontFamily: Fonts.Regular,

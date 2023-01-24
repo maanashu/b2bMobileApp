@@ -4,6 +4,8 @@ export const en = {
     send: "Send",
     add: "Add",
     sendOffer: "SendOffer",
+    edit: "Edit",
+    save: "Save",
   },
   common: {
     loading: "Loading",
@@ -75,6 +77,14 @@ export const en = {
   search: {
     search: "Search here",
   },
+
+  categories: {
+    addtopCat: "Add your top categories",
+    letsHelp: "Lets help you find what you need.",
+    seatchHere: "Search here",
+    suggestion: "Suggestions",
+  },
+
   productInquiry: {
     aboutCompany: "About Company",
     follow: "Follow",
@@ -461,7 +471,31 @@ export const en = {
     products: "Products",
     manfacturer: "Manfacturers",
   },
-
+  searchingPreferance: {
+    yourBusiness: "Your Business:",
+    onlineStore: "Online Store",
+    personalizeBusiness: "Personalize your business",
+    tellus: "Tell us about your business",
+    decribes: "Which of the following best describes your business?",
+    onlineStore: "Online Store",
+    manufacturer: "Manufacturer",
+    retailer: "Retailer",
+    wholesaler: "Wholesaller/distro",
+    other: "Other",
+    letsHelp: "Lets help you find what you need.",
+    addCategories: "Add you top categories",
+  },
+  addresses: {
+    addresses: "Addresses",
+    home: "Home",
+    work: "Work",
+    addressDetails: "Address details",
+    addLabel: "Add label",
+    billing: "Billing",
+    other: "Other",
+    apartment: "Apartment",
+    floor: "Floor or Apt No(Optional)",
+  },
   // Static strings
 
   //

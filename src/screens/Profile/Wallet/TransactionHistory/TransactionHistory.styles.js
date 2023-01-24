@@ -2,7 +2,7 @@ import { SH, SW, SF, COLORS, ShadowStyles } from "@/theme";
 import { Fonts } from "@/assets";
 import { StyleSheet } from "react-native";
 
-import { moderateScale, scale, verticalScale } from "react-native-size-matters";
+import { moderateScale, verticalScale } from "react-native-size-matters";
 
 export const styles = StyleSheet.create({
   container: {

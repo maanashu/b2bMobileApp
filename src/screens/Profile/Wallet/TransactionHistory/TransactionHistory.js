@@ -5,7 +5,6 @@ import { styles } from "./TransactionHistory.styles";
 import { COLORS, SH, SW } from "@/theme";
 import { transactionHistory } from "@/constants/flatlistData";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
-import { backArrow } from "@/assets";
 import { HeaderCoin } from "../Components/HeaderCoin";
 import { strings } from "@/localization";
 

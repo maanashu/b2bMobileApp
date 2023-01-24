@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { styles } from "./Settings.styles";
-import { Button, Spacer } from "@/components";
+import { Button, NameHeaderCoins, Spacer } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
 import { useState } from "react";
 import { goBack, navigate } from "@/navigation/NavigationRef";
@@ -152,30 +152,11 @@ export function Settings() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.headerInnerView}>
-          <TouchableOpacity
-            style={{ flexDirection: "row", alignItems: "center" }}
-            onPress={() => goBack()}
-          >
-            <Image
-              resizeMode="contain"
-              source={backArrow}
-              style={{ height: 30, width: 30 }}
-            />
-            <Text style={styles.headerText}>{strings.profile.settings}</Text>
-          </TouchableOpacity>
-
-          <View style={styles.coinView}>
-            <Text style={styles.coinText}>0</Text>
-            <Image
-              resizeMode="contain"
-              source={coinStack}
-              style={styles.coinStackIcon}
-            />
-          </View>
-        </View>
-      </View>
+      <NameHeaderCoins
+        title={strings.profile.settings}
+        back={backArrow}
+        amount={"0"}
+      />
 
       <View style={styles.mainView}>
         <Spacer space={SH(30)} />

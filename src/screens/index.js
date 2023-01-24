@@ -54,3 +54,7 @@ export { Brands } from "@/screens/Profile/Wallet/Brands/Brands";
 export { BrandsProduct } from "@/screens/Profile/Wallet/BrandsProduct/BrandsProduct";
 export { Manufacturers } from "@/screens/Profile/Wallet/Manufacturers/Manufacturers";
 export { BusinessCards } from "@/screens/Profile/BusinessCards/BusinessCards";
+export { SelectedPreferance } from "@/screens/SearchingPreferance/SelectedPreferance/SelectedPreferance";
+export { TellAboutBusiness } from "@/screens/SearchingPreferance/TellAboutBusiness/TellAboutBusiness";
+export { AddCategories } from "@/screens/SearchingPreferance/AddCategories/AddCategories";
+export { Addresses } from "@/screens/Addresses/Addresses";

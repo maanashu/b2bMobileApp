@@ -1,21 +1,12 @@
 import React, { useState } from "react";
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  useWindowDimensions,
-  Image,
-} from "react-native";
+import { Text, View, useWindowDimensions } from "react-native";
 import { ScreenWrapper } from "@/components";
 import { COLORS } from "@/theme/Colors";
-import { SF, SH, SW } from "@/theme/ScalerDimensions";
+import { SF, SW } from "@/theme/ScalerDimensions";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { Business, Products } from "@/screens";
 import { styles } from "./Home.styles";
-import DropDownPicker from "react-native-dropdown-picker";
-import { bagGrey, coinStack, dropdownIcon, Fonts, location } from "@/assets";
-import { ShadowStyles } from "@/theme";
-import { ms } from "react-native-size-matters";
+import { Fonts } from "@/assets";
 import { HomeHeader } from "@/components/HomeHeader";
 
 export function Home() {
