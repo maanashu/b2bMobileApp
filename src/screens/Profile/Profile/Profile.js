@@ -209,7 +209,7 @@ export function Profile() {
         </View>
       </View>
 
-      <ScrollView style={styles.mainContainer}>
+      <ScrollView style={styles.mainContainer} showsVerticalScrollIndicator={false}>
         <TouchableOpacity
           onPress={() => navigate(NAVIGATION.userInformation)}
           style={styles.userView}
