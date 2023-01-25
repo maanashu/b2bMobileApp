@@ -8,7 +8,8 @@ export const TextStyles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    fontWeight: "400",
+    fontWeight: "300",
+    fontFamily: Fonts.Regular,
   },
   label: {
     fontSize: 16,

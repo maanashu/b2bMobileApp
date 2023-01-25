@@ -33,7 +33,7 @@ export function ScreenWrapper(props) {
     >
       <View
         style={{
-          paddingHorizontal: Platform.OS === "ios" ? SW(1) : SW(0),
+          paddingHorizontal: Platform.OS === "ios" ? SW(0) : SW(0),
           flex: 1,
           overflow: Platform.OS === "ios" ? "hidden" : "visible",
         }}

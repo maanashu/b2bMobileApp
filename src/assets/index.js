@@ -246,6 +246,15 @@ export { default as onlineStore } from "@/assets/icons/ic_profile/onlineStore.pn
 export { default as work } from "@/assets/icons/ic_profile/work.png";
 export { default as pencil } from "@/assets/icons/ic_profile/pencil.png";
 export { default as home } from "@/assets/icons/ic_profile/home.png";
+export { default as pinMap } from "@/assets/icons/ic_profile/pinMap.png";
+export { default as invoice } from "@/assets/icons/ic_profile/invoice.png";
+export { default as mapView } from "@/assets/icons/ic_profile/mapView.png";
+export { default as plusGray } from "@/assets/icons/ic_profile/plusGray.png";
+export { default as locationNear } from "@/assets/icons/ic_home/locationNear.png";
+export { default as shopLight } from "@/assets/icons/ic_home/shopLight.png";
+export { default as wareHouseLogo } from "@/assets/icons/ic_home/wareHouseLogo.png";
+export { default as manufactureLogo } from "@/assets/icons/ic_home/manufactureLogo.png";
+export { default as nearMeMap } from "@/assets/images/nearMeMap.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

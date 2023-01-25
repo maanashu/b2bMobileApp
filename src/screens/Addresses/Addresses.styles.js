@@ -37,4 +37,9 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.SemiBold,
     marginLeft: SW(8),
   },
+  buttonView: {
+    flex: 1,
+    justifyContent: "flex-end",
+    paddingHorizontal: SW(20),
+  },
 });

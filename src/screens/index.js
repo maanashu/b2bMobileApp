@@ -58,3 +58,7 @@ export { SelectedPreferance } from "@/screens/SearchingPreferance/SelectedPrefer
 export { TellAboutBusiness } from "@/screens/SearchingPreferance/TellAboutBusiness/TellAboutBusiness";
 export { AddCategories } from "@/screens/SearchingPreferance/AddCategories/AddCategories";
 export { Addresses } from "@/screens/Addresses/Addresses";
+export { AddressDetails } from "@/screens/AddressDetails/AddressDetails";
+export { FavouriteList } from "@/screens/FavouriteList/FavouriteList";
+export { Inquiries } from "@/screens/Inquiries/Inquiries";
+export { NearMe } from "@/screens/NearMe/NearMe";

@@ -165,7 +165,10 @@ export function ReviewAndPayment({ navigation }) {
 
       <Spacer space={SH(10)} />
 
-      <ScrollView style={styles.mainContainer}>
+      <ScrollView
+        style={styles.mainContainer}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.deliveryView}>
           <View style={styles.deliveryViewDirection}>
             <View>

@@ -5,6 +5,7 @@ import {
   AboutUs,
   AddCategories,
   AddCoupon,
+  AddressDetails,
   Addresses,
   AddShippingLocation,
   Brands,
@@ -15,9 +16,12 @@ import {
   CookiesPolicy,
   CurrentCoupons,
   FaceIdPin,
+  FavouriteList,
+  Inquiries,
   JbrWallet,
   Manufacturers,
   MyCatalogue,
+  NearMe,
   NotificationSetting,
   PastCoupons,
   PrivacyPolicy,
@@ -45,13 +49,11 @@ export function ProfileNavigator() {
         component={Profile}
         options={{ headerLargeTitle: false, headerShown: false }}
       />
-
       <Stack.Screen
         name={NAVIGATION.userInformation}
         component={UserInformation}
         options={{ headerLargeTitle: false, headerShown: false }}
       />
-
       <Stack.Screen
         name={NAVIGATION.qrCode}
         component={QrCode}
@@ -92,7 +94,6 @@ export function ProfileNavigator() {
         component={SelectCity}
         options={{ headerLargeTitle: false, headerShown: false }}
       />
-
       <Stack.Screen
         name={NAVIGATION.notificationSetting}
         component={NotificationSetting}
@@ -153,7 +154,6 @@ export function ProfileNavigator() {
         name={NAVIGATION.jbrWallet}
         options={{ headerShown: false }}
       />
-
       <Stack.Screen
         component={TransactionHistory}
         name={NAVIGATION.transactionHistory}
@@ -179,13 +179,11 @@ export function ProfileNavigator() {
         name={NAVIGATION.businessCards}
         options={{ headerShown: false }}
       />
-
       <Stack.Screen
         component={SelectedPreferance}
         name={NAVIGATION.selectedPreferance}
         options={{ headerShown: false }}
       />
-
       <Stack.Screen
         component={TellAboutBusiness}
         name={NAVIGATION.tellAboutBusiness}
@@ -199,6 +197,26 @@ export function ProfileNavigator() {
       <Stack.Screen
         component={Addresses}
         name={NAVIGATION.addresses}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={AddressDetails}
+        name={NAVIGATION.addressDetails}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={FavouriteList}
+        name={NAVIGATION.favouriteList}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={Inquiries}
+        name={NAVIGATION.inquiries}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={NearMe}
+        name={NAVIGATION.nearMe}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

@@ -93,6 +93,14 @@ export function Addresses() {
           keyExtractor={(item) => item.id}
         />
       </View>
+      <View style={styles.buttonView}>
+        <Button
+          title={strings.buttonText.addNewAddressNo}
+          onPress={() => navigate(NAVIGATION.addressDetails)}
+        />
+      </View>
+
+      <Spacer space={SH(20)} />
     </ScreenWrapper>
   );
 }

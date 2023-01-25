@@ -60,4 +60,8 @@ export const NAVIGATION = {
   tellAboutBusiness: "TellAboutBusiness",
   addCategories: "AddCategories",
   addresses: "Addresses",
+  addressDetails: "AddressDetails",
+  favouriteList: "favouriteList",
+  inquiries: "Inquiries",
+  nearMe: "NearMe",
 };

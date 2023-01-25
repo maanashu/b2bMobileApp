@@ -6,6 +6,8 @@ export const en = {
     sendOffer: "SendOffer",
     edit: "Edit",
     save: "Save",
+    addNewAddressNo: "Add new address (2/5)",
+    addNewAddress: "Add new address",
   },
   common: {
     loading: "Loading",
@@ -148,6 +150,8 @@ export const en = {
     savedefault: "Save as defult shippng address",
     enterFirstName: "Enter your first name",
     enterLastName: "Enter your last name",
+    note: "Note",
+    addAddress: "Add Address",
   },
   wallet: {
     agreement:
@@ -494,7 +498,7 @@ export const en = {
     billing: "Billing",
     other: "Other",
     apartment: "Apartment",
-    floor: "Floor or Apt No(Optional)",
+    floor: "Floor or Apt No (Optional)",
   },
   // Static strings
 

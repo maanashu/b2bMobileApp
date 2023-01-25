@@ -62,6 +62,7 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.Regular,
     fontSize: SF(13),
     color: COLORS.darkGrey,
+    marginLeft: SW(7),
   },
   buttonView: {
     flexDirection: "row",

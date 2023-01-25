@@ -5,7 +5,7 @@ import { strings } from "@/localization";
 import { styles } from "../Manufacturers.styles.";
 import { SH } from "@/theme";
 
-export function CompanyView() {
+export function CompanyView({ about }) {
   const CompanyData = [
     {
       id: "1",
@@ -35,7 +35,7 @@ export function CompanyView() {
   return (
     <View style={styles.yewiView}>
       <View style={styles.aboutCompanyView}>
-        <Text style={styles.aboutCompanyText}>{""}</Text>
+        <Text style={styles.aboutCompanyText}>{about}</Text>
 
         <View style={styles.buttonView}>
           <TouchableOpacity style={styles.followButton}>

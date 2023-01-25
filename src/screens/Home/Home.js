@@ -4,7 +4,7 @@ import { ScreenWrapper } from "@/components";
 import { COLORS } from "@/theme/Colors";
 import { SF, SW } from "@/theme/ScalerDimensions";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
-import { Business, Products } from "@/screens";
+import { Business, NearMe, Products } from "@/screens";
 import { styles } from "./Home.styles";
 import { Fonts } from "@/assets";
 import { HomeHeader } from "@/components/HomeHeader";
@@ -14,12 +14,12 @@ export function Home() {
 
   const [index, setIndex] = React.useState(0);
 
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    { label: "5-50", value: "5-50" },
-    { label: "50-100", value: "50-100" },
-  ]);
+  // const [open, setOpen] = useState(false);
+  // const [value, setValue] = useState(null);
+  // const [items, setItems] = useState([
+  //   { label: "5-50", value: "5-50" },
+  //   { label: "50-100", value: "50-100" },
+  // ]);
 
   const [routes] = React.useState([
     { key: "products", title: "Products" },
@@ -29,7 +29,7 @@ export function Home() {
 
   const FirstRoute = () => <Products />;
   const SecondRoute = () => <Business />;
-  const ThirdRoute = () => <Business />;
+  const ThirdRoute = () => <NearMe />;
 
   const renderScene = SceneMap({
     products: FirstRoute,

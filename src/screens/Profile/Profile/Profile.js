@@ -147,6 +147,12 @@ export function Profile() {
       navigate(NAVIGATION.selectedPreferance);
     } else if (item.title === strings.profile.shippingAddress) {
       navigate(NAVIGATION.addresses);
+    } else if (item.title === strings.profile.paymentMethods) {
+      navigate(NAVIGATION.paymentMethod);
+    } else if (item.title === strings.profile.favouriteList) {
+      navigate(NAVIGATION.favouriteList);
+    } else if (item.title === strings.profile.inquiries) {
+      navigate(NAVIGATION.inquiries);
     }
   };
 
@@ -204,7 +210,10 @@ export function Profile() {
       </View>
 
       <ScrollView style={styles.mainContainer}>
-        <View style={styles.userView}>
+        <TouchableOpacity
+          onPress={() => navigate(NAVIGATION.userInformation)}
+          style={styles.userView}
+        >
           <Image
             source={profileLogo}
             resizeMode="stretch"
@@ -216,9 +225,7 @@ export function Profile() {
                 {strings.profile.username}
               </Text>
 
-              <TouchableOpacity
-                onPress={() => navigate(NAVIGATION.userInformation)}
-              >
+              <TouchableOpacity>
                 <Image
                   source={forward}
                   style={styles.forwardIcon}
@@ -240,7 +247,7 @@ export function Profile() {
               {strings.profile.manufacturer}
             </Text>
           </View>
-        </View>
+        </TouchableOpacity>
 
         <Spacer space={SH(20)} />
 
