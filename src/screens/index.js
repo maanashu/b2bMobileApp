@@ -62,3 +62,4 @@ export { AddressDetails } from "@/screens/AddressDetails/AddressDetails";
 export { FavouriteList } from "@/screens/FavouriteList/FavouriteList";
 export { Inquiries } from "@/screens/Inquiries/Inquiries";
 export { NearMe } from "@/screens/NearMe/NearMe";
+export { NearMeOptions } from "@/screens/NearMe/NearMeOptions/NearMeOptions";

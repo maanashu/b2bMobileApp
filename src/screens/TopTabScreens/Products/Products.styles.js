@@ -12,19 +12,22 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   roundIcons: {
-    height: SH(56),
+    height: SW(56),
     width: SW(56),
+    borderRadius: SW(50),
   },
   item: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     padding: SH(2),
+    marginBottom: SH(8),
   },
   title: {
     fontSize: SF(12),
     fontFamily: Fonts.Regular,
     color: COLORS.darkGrey2,
+    marginTop: SH(5),
   },
   commonFlatlistText: {
     fontSize: SF(14),
@@ -165,5 +168,15 @@ export const styles = StyleSheet.create({
     width: Dimensions.get("window").width * 0.9,
     borderRadius: 10,
     alignSelf: "center",
+  },
+  headingText: {
+    color: COLORS.black,
+    fontSize: SF(16),
+    fontFamily: Fonts.SemiBold,
+  },
+  bottomListView: {
+    paddingHorizontal: ms(20),
+    paddingVertical: vs(10),
+    flex: 1,
   },
 });

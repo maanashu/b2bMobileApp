@@ -64,4 +64,5 @@ export const NAVIGATION = {
   favouriteList: "favouriteList",
   inquiries: "Inquiries",
   nearMe: "NearMe",
+  nearMeOptions: "NearMeOptions",
 };

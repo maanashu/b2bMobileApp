@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Dimensions,
   FlatList,
@@ -15,55 +15,45 @@ import {
   CustomPagination,
   ScreenWrapper,
   Spacer,
-  SubHeader,
 } from "@/components";
 import { COLORS } from "@/theme/Colors";
-import { SF, SH, SW } from "@/theme/ScalerDimensions";
-import { SliderBox } from "react-native-image-slider-box";
-import { navigate, navigationRef } from "@/navigation/NavigationRef";
-import {
-  cream,
-  drink,
-  foldScreen,
-  Fonts,
-  forward,
-  girl,
-  phone,
-  roundAll,
-  roundApparel,
-  roundAppliance,
-  roundElectronices,
-  roundPersonal,
-  roundShoes,
-  roundSports,
-  roundTobbacco,
-  shampoo,
-  slideImage,
-  yewi,
-  yewiLogo,
-  location,
-  yewiCertified,
-  star,
-  clock,
-} from "@/assets";
+import { SH, SW } from "@/theme/ScalerDimensions";
+import { navigate } from "@/navigation/NavigationRef";
+import { forward, roundAll, slideImage } from "@/assets";
 import {
   LastData,
   images,
   fourthData,
   thirdData,
   secondData,
-  DATA,
 } from "./Components/FlatlisitData";
-import { ms, vs } from "react-native-size-matters";
+import { ms } from "react-native-size-matters";
 import { NAVIGATION } from "@/constants";
 import { Search } from "@/components/Search";
 import { strings } from "@/localization";
 import SwiperFlatList from "react-native-swiper-flatlist";
+import { useDispatch, useSelector } from "react-redux";
+import { getCategorySelector } from "@/selectors/CategorySelectors";
+import { getCategory } from "@/actions/CategoryActions";
 
 export function Products({ navigation }) {
+  const dispatch = useDispatch();
+  const categoryData = useSelector(getCategorySelector);
+
+  const categoryArray = categoryData?.categories;
+
+  const splicedArray = categoryArray.slice(0, 8);
+
+  console.log("sliced data", splicedArray);
+
   const [selectedId, setSelectedId] = useState("");
 
   const [product, setProduct] = useState("");
+  const [viewAll, setviewAll] = useState(splicedArray);
+
+  useEffect(() => {
+    dispatch(getCategory());
+  }, []);
 
   function dynamicHeight(_index) {
     if (_index % 2 == 0) {
@@ -102,17 +92,38 @@ export function Products({ navigation }) {
     }
   }
 
-  const Item = ({ item, onPress }) => (
-    <TouchableOpacity style={styles.item}>
-      <Image source={item.image} style={styles.roundIcons} />
+  const renderItem = ({ item, index }) => (
+    <>
+      {index == 7 ? (
+        <TouchableOpacity
+          onPress={() => {
+            viewAll === categoryArray
+              ? setviewAll(splicedArray)
+              : setviewAll(categoryArray);
+          }}
+          style={{ alignItems: "center" }}
+        >
+          <Image
+            source={roundAll}
+            resizeMode="contain"
+            style={{ height: SW(85), width: SW(85), marginTop: SH(2) }}
+          />
+          <Text style={[styles.title, { marginTop: SH(-18) }]}>
+            {viewAll === categoryArray ? "Less" : "All"}
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={styles.item}
+          onPress={() => setSelectedId(item.id)}
+        >
+          <Image source={{ uri: item.image }} style={styles.roundIcons} />
 
-      <Text style={styles.title}>{item.title}</Text>
-    </TouchableOpacity>
+          <Text style={styles.title}>{item.name}</Text>
+        </TouchableOpacity>
+      )}
+    </>
   );
-
-  const renderItem = ({ item }) => {
-    return <Item item={item} onPress={() => setSelectedId(item.id)} />;
-  };
 
   const secondItem = ({ item, onPress }) => (
     <View style={styles.item}>
@@ -196,10 +207,10 @@ export function Products({ navigation }) {
           <Spacer space={SH(18)} />
 
           <FlatList
-            data={DATA}
+            data={viewAll}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
-            extraData={selectedId}
+            extraData={viewAll}
             numColumns={4}
           />
         </View>
@@ -228,18 +239,12 @@ export function Products({ navigation }) {
           style={styles.ProductView}
         >
           <View style={styles.innerView}>
-            <Text
-              style={{
-                color: COLORS.black,
-                fontSize: SF(16),
-                fontFamily: Fonts.SemiBold,
-              }}
-            >
-              New Products
+            <Text style={styles.headingText}>
+              {strings.products.newProducts}
             </Text>
             <View>
               <View style={{ flexDirection: "row" }}>
-                <Text style={styles.smallText}>See all </Text>
+                <Text style={styles.smallText}>{strings.products.seeAll} </Text>
                 <Image
                   source={forward}
                   style={{ height: SH(15), width: SW(15), marginTop: SH(3) }}
@@ -266,18 +271,12 @@ export function Products({ navigation }) {
           style={styles.ProductView}
         >
           <View style={styles.innerView}>
-            <Text
-              style={{
-                color: COLORS.black,
-                fontSize: SF(16),
-                fontFamily: Fonts.SemiBold,
-              }}
-            >
-              New Products
+            <Text style={styles.headingText}>
+              {strings.products.newProducts}
             </Text>
             <View>
               <View style={{ flexDirection: "row" }}>
-                <Text style={styles.smallText}>See all </Text>
+                <Text style={styles.smallText}>{strings.products.seeAll} </Text>
                 <Image source={forward} style={styles.forwardIcon} />
               </View>
             </View>
@@ -297,19 +296,12 @@ export function Products({ navigation }) {
         <Spacer space={SH(25)} />
 
         <View style={styles.innerView}>
-          <Text
-            style={{
-              color: COLORS.black,
-              fontSize: SF(16),
-              fontFamily: Fonts.SemiBold,
-              paddingLeft: SW(20),
-            }}
-          >
-            Recomended Wholesalers
+          <Text style={[styles.headingText, { paddingLeft: SW(20) }]}>
+            {strings.products.recomendedWholesalers}
           </Text>
           <TouchableOpacity style={{ paddingRight: SW(20) }}>
             <View style={{ flexDirection: "row" }}>
-              <Text style={styles.smallText}>See all </Text>
+              <Text style={styles.smallText}>{strings.products.seeAll} </Text>
               <Image source={forward} style={styles.forwardIcon} />
             </View>
           </TouchableOpacity>
@@ -332,13 +324,7 @@ export function Products({ navigation }) {
         </View>
 
         <Spacer space={SH(30)} />
-        <View
-          style={{
-            paddingHorizontal: ms(20),
-            paddingVertical: vs(10),
-            flex: 1,
-          }}
-        >
+        <View style={styles.bottomListView}>
           <FlatList
             data={LastData}
             renderItem={listDetail}

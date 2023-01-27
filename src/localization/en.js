@@ -8,10 +8,12 @@ export const en = {
     save: "Save",
     addNewAddressNo: "Add new address (2/5)",
     addNewAddress: "Add new address",
+    skip: "Skip",
   },
   common: {
     loading: "Loading",
     connectionError: "Connection error",
+    noDataFound: "No data found",
   },
   home: {
     header: "Home",
@@ -187,6 +189,11 @@ export const en = {
     yes: "Yes",
     no: "No",
     addCard: "Add Card",
+  },
+  products: {
+    newProducts: "New Products",
+    seeAll: "See all",
+    recomendedWholesalers: "Recomended Wholesalers",
   },
   newProducts: {
     newProducts: "New Products",

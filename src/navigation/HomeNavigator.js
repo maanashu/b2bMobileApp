@@ -8,12 +8,15 @@ import {
   BusinessHome,
   BusinessProducts,
   BusinessProfile,
+  Categories,
   Chatting,
   Delivery,
   FaceIdPin,
   Home,
   MakeAnOffer,
+  NearMeOptions,
   NewProducts,
+  OnBoarding,
   PaymentMethod,
   ProductInquiry,
   ReviewAndPayment,
@@ -23,12 +26,23 @@ import {
   TopRankingManufacturers,
 } from "@/screens";
 import { ScreenNavigator } from "./ScreenNavigator";
+import { strings } from "@/localization";
 
 const Stack = createNativeStackNavigator();
 
 export function HomeNavigator() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName={NAVIGATION.onboarding}>
+      <Stack.Screen
+        component={OnBoarding}
+        name={NAVIGATION.onboarding}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={Categories}
+        name={NAVIGATION.categories}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name={NAVIGATION.home}
         component={Home}
@@ -119,6 +133,11 @@ export function HomeNavigator() {
       <Stack.Screen
         component={SendAnOffer}
         name={NAVIGATION.sendAnOffer}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={NearMeOptions}
+        name={NAVIGATION.nearMeOptions}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

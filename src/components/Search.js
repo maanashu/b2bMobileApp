@@ -21,7 +21,7 @@ export function Search({ style, imgStyle, backRequired, placeholder }) {
           flexDirection: "row",
           alignItems: "center",
           height: SH(50),
-          width: "90%",
+          width: "95%",
           alignSelf: "center",
 
           backgroundColor: COLORS.inputBorder,
