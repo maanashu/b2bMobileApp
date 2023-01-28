@@ -63,3 +63,7 @@ export { FavouriteList } from "@/screens/FavouriteList/FavouriteList";
 export { Inquiries } from "@/screens/Inquiries/Inquiries";
 export { NearMe } from "@/screens/NearMe/NearMe";
 export { NearMeOptions } from "@/screens/NearMe/NearMeOptions/NearMeOptions";
+export { ManufacturersNearMe } from "@/screens/NearMe/ManufacturersNearMe/ManufacturersNearMe";
+export { DistributorsNearMe } from "@/screens/NearMe/DistributorsNearMe/DistributorsNearMe";
+export { RetailersNearMe } from "@/screens/NearMe/RetailersNearMe/RetailersNearMe";
+export { MyPurchase } from "@/screens/MyPurchaseMain/MyPurchase/MyPurchase";

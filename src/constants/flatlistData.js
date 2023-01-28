@@ -1,4 +1,4 @@
-import { downleft } from "@/assets";
+import { downleft, forward, loactionPinFilled } from "@/assets";
 
 export const transactionHistory = [
   {
@@ -49,5 +49,78 @@ export const transactionHistory = [
     date: "21 Jun, 2022",
     balance: "JBR 150.00",
     image: downleft,
+  },
+];
+
+export const nearMeData = [
+  {
+    id: 1,
+    title: "Yiwu Leqi E-Commerce Firm",
+    distance: "0.3 mi",
+    forwardIcon: forward,
+    icon: loactionPinFilled,
+  },
+  {
+    id: 2,
+    title: "G&G CARGO SERVICES",
+    distance: "0.3 mi",
+    forwardIcon: forward,
+    icon: loactionPinFilled,
+  },
+  {
+    id: 3,
+    title: "G&G CARGO SERVICES",
+    distance: "0.3 mi",
+    forwardIcon: forward,
+    icon: loactionPinFilled,
+  },
+  {
+    id: 5,
+    title: "G&G CARGO SERVICES",
+    distance: "0.3 mi",
+    forwardIcon: forward,
+    icon: loactionPinFilled,
+  },
+  {
+    id: 6,
+    title: "G&G CARGO SERVICES",
+    distance: "0.3 mi",
+    forwardIcon: forward,
+    icon: loactionPinFilled,
+  },
+  {
+    id: 7,
+    title: "G&G CARGO SERVICES",
+    distance: "0.3 mi",
+    forwardIcon: forward,
+    icon: loactionPinFilled,
+  },
+  {
+    id: 8,
+    title: "G&G CARGO SERVICES",
+    distance: "0.3 mi",
+    forwardIcon: forward,
+    icon: loactionPinFilled,
+  },
+  {
+    id: 9,
+    title: "G&G CARGO SERVICES",
+    distance: "0.3 mi",
+    forwardIcon: forward,
+    icon: loactionPinFilled,
+  },
+  {
+    id: 10,
+    title: "G&G CARGO SERVICES",
+    distance: "0.3 mi",
+    forwardIcon: forward,
+    icon: loactionPinFilled,
+  },
+  {
+    id: 11,
+    title: "G&G CARGO SERVICES",
+    distance: "0.3 mi",
+    forwardIcon: forward,
+    icon: loactionPinFilled,
   },
 ];

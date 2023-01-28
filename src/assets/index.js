@@ -255,6 +255,7 @@ export { default as shopLight } from "@/assets/icons/ic_home/shopLight.png";
 export { default as wareHouseLogo } from "@/assets/icons/ic_home/wareHouseLogo.png";
 export { default as manufactureLogo } from "@/assets/icons/ic_home/manufactureLogo.png";
 export { default as nearMeMap } from "@/assets/images/nearMeMap.png";
+export { default as loactionPinFilled } from "@/assets/icons/ic_home/loactionPinFilled.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

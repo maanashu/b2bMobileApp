@@ -10,12 +10,10 @@ import {
   ImageBackground,
 } from "react-native";
 import { NameHeader, ScreenWrapper, Spacer, TextField } from "@/components";
-import { styles } from "./NearMeOptions.styles";
+import { styles } from "./MyPurchase.styles";
 import { COLORS, SF, SH, ShadowStyles, SW } from "@/theme";
-import { transactionHistory } from "@/constants/flatlistData";
 import { HeaderCoin } from "../../Profile/Wallet/Components/HeaderCoin";
 import { strings } from "@/localization";
-import { CompanyView } from "../../Profile/Wallet/Manufacturers/Components/CompanyView";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import {
@@ -31,33 +29,37 @@ import {
   wareHouseLogo,
 } from "@/assets";
 import { Search } from "@/components/Search";
-import { store } from "@/store";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
-import { Products } from "@/screens/TopTabScreens/Products/Products";
-import { Business } from "@/screens/TopTabScreens/Business/Business";
-import { NearMe } from "../NearMe";
-import { ManufacturersNearMe } from "../ManufacturersNearMe/ManufacturersNearMe";
-import { DistributorsNearMe } from "../DistributorsNearMe/DistributorsNearMe";
-import { RetailersNearMe } from "../RetailersNearMe/RetailersNearMe";
+import { Pending } from "../Pending/Pending";
+import { Processing } from "../Processing/Processing";
+import { Completed } from "../Completed/Completed";
+import { Refund } from "../Refund/Refund";
+import { Cancelled } from "../Cancelled/Cancelled";
 
-export function NearMeOptions() {
+export function MyPurchase() {
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
 
   const [routes] = React.useState([
-    { key: "products", title: "Manufacturers" },
-    { key: "business", title: "Distributors" },
-    { key: "nearme", title: "Retailers" },
+    { key: "first", title: "Pending" },
+    { key: "second", title: "Processing" },
+    { key: "third", title: "Completed" },
+    { key: "fourth", title: "Refund" },
+    // { key: "fifth", title: "Cancelled" },
   ]);
 
-  const FirstRoute = () => <ManufacturersNearMe />;
-  const SecondRoute = () => <DistributorsNearMe />;
-  const ThirdRoute = () => <RetailersNearMe />;
+  const FirstRoute = () => <Pending />;
+  const SecondRoute = () => <Processing />;
+  const ThirdRoute = () => <Completed />;
+  const FourthRoute = () => <Refund />;
+  // const FifthRoute = () => <Cancelled />;
 
   const renderScene = SceneMap({
-    products: FirstRoute,
-    business: SecondRoute,
-    nearme: ThirdRoute,
+    first: FirstRoute,
+    second: SecondRoute,
+    third: ThirdRoute,
+    fourth: FourthRoute,
+    // fifth: FifthRoute,
   });
   const renderTabBar = (props) => {
     return (
@@ -99,13 +101,18 @@ export function NearMeOptions() {
           elevation: 0,
         }}
         pressColor={COLORS.white}
-        tabStyle={{ width: "auto" }}
+        tabStyle={{ width: "auto", marginHorizontal: SW(-5) }}
       />
     );
   };
   return (
     <ScreenWrapper>
       <NameHeader back={backArrow} title={strings.home.nearMe} />
+      <Spacer space={SH(20)} />
+      <Search
+        placeholder={strings.business.searchHere}
+        styling={{ fontFamily: Fonts.Regular }}
+      />
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}

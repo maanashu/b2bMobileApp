@@ -98,7 +98,7 @@ export function OnBoarding() {
             textStyle={styles.textStyle}
           />
         </View>
-        <Spacer space={Platform.OS === "ios" ? SW(60) : SW(20)} />
+        <Spacer space={Platform.OS === "ios" ? SW(20) : SW(20)} />
       </View>
     </View>
   );

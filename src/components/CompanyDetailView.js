@@ -4,12 +4,14 @@ import { styles } from "@/screens/Products/ProductsInquiry/ProductInquiry.styles
 import { SW } from "@/theme/ScalerDimensions";
 import { clock, location, star, yewiCertified, yewiLogo } from "@/assets";
 
-export function CompanyDetailView() {
+export function CompanyDetailView({ title }) {
   return (
     <View style={styles.yewiInnerView}>
       <Image source={yewiLogo} style={styles.logoYewi} />
       <View style={{ paddingHorizontal: SW(10) }}>
-        <Text style={styles.yewiHeadingText}>Yiwu Leqi E-Commerce Firm</Text>
+        <Text style={styles.yewiHeadingText}>
+          Yiwu Leqi E-Commerce Firm{title}
+        </Text>
         <View style={styles.yewiSmallView}>
           <Image
             source={yewiCertified}

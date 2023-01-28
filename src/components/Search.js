@@ -10,7 +10,13 @@ import { strings } from "@/localization";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 
-export function Search({ style, imgStyle, backRequired, placeholder }) {
+export function Search({
+  style,
+  imgStyle,
+  backRequired,
+  placeholder,
+  styling,
+}) {
   const [code, setCode] = useState("");
 
   const styles = useMemo(
@@ -21,7 +27,7 @@ export function Search({ style, imgStyle, backRequired, placeholder }) {
           flexDirection: "row",
           alignItems: "center",
           height: SH(50),
-          width: "95%",
+          width: "90%",
           alignSelf: "center",
 
           backgroundColor: COLORS.inputBorder,
@@ -60,7 +66,7 @@ export function Search({ style, imgStyle, backRequired, placeholder }) {
         //   navigate(NAVIGATION.search, { code: code });
         //   setCode({ code: "" });
         // }}
-        style={styles.inputStyle}
+        style={[styles.inputStyle, { styling }]}
         placeholder={placeholder}
         placeholderTextColor={"#A7A7A7"}
         onChangeText={setCode}

@@ -40,6 +40,7 @@ export const styles = StyleSheet.create({
     height: SH(50),
     backgroundColor: COLORS.white,
     ...ShadowStyles.shadow,
+    marginBottom: SH(1),
     paddingHorizontal: SW(20),
     justifyContent: "center",
   },

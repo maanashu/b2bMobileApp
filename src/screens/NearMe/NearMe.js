@@ -14,7 +14,6 @@ import {
   manufactureLogo,
   nearMeMap,
   locationNear,
-  pinMap,
   shopLight,
   wareHouseLogo,
 } from "@/assets";
@@ -62,10 +61,7 @@ export function NearMe() {
         <View style={styles.absoluteView}>
           <View style={styles.searchRowView}>
             <Search />
-            <TouchableOpacity
-              onPress={() => navigate(NAVIGATION.nearMeOptions)}
-              style={styles.filterView}
-            >
+            <TouchableOpacity style={styles.filterView}>
               <Text style={styles.filterText}>Filter</Text>
               <Image
                 source={filter}
@@ -75,7 +71,10 @@ export function NearMe() {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={[styles.middleView]}>
+        <TouchableOpacity
+          onPress={() => navigate(NAVIGATION.nearMeOptions)}
+          style={[styles.middleView]}
+        >
           <Image
             source={locationNear}
             resizeMode="contain"
@@ -85,7 +84,7 @@ export function NearMe() {
             {" "}
             In your<Text style={styles.nearMeTextBold}> 5 miles</Text>
           </Text>
-        </View>
+        </TouchableOpacity>
 
         <View style={styles.bottomAbsoluteView}>
           <FlatList

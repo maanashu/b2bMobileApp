@@ -2,30 +2,15 @@ import { SH, SW, SF, COLORS, ShadowStyles } from "@/theme";
 import { Fonts } from "@/assets";
 import { StyleSheet } from "react-native";
 
-import {
-  moderateScale,
-  ms,
-  verticalScale,
-  vs,
-} from "react-native-size-matters";
-
 export const styles = StyleSheet.create({
-  tabButtonView: {
-    borderRadius: 20,
-    height: SH(30),
-    // width: SW(95),
-    alignItems: "center",
-    justifyContent: "center",
-    alignSelf: "center",
-    paddingHorizontal: SW(10),
-  },
   headingText: {
-    fontFamily: Fonts.Bold,
+    fontFamily: Fonts.MaisonMonoBold,
     fontSize: SF(20),
-    color: COLORS.darkGrey,
+    color: COLORS.text,
+    marginLeft: SW(10),
   },
   touchableView: {
-    paddingHorizontal: SW(10),
+    paddingHorizontal: SW(5),
     paddingVertical: SH(20),
     backgroundColor: COLORS.white,
     flexDirection: "row",

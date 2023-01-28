@@ -14,6 +14,7 @@ import {
   FaceIdPin,
   Home,
   MakeAnOffer,
+  MyPurchase,
   NearMeOptions,
   NewProducts,
   OnBoarding,
@@ -138,6 +139,11 @@ export function HomeNavigator() {
       <Stack.Screen
         component={NearMeOptions}
         name={NAVIGATION.nearMeOptions}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={MyPurchase}
+        name={NAVIGATION.myPurchase}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

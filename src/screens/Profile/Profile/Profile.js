@@ -131,8 +131,8 @@ export function Profile() {
     dispatch(logout());
   };
   const navigationHandler = (item) => {
-    if (item.title === "My Purchase") {
-      Alert.alert("My Purchase");
+    if (item.title === strings.profile.myPurchase) {
+      navigate(NAVIGATION.myPurchase);
     } else if (item.title === strings.profile.settings) {
       navigate(NAVIGATION.settings);
     } else if (item.title === strings.profile.myCatalogs) {
@@ -209,7 +209,10 @@ export function Profile() {
         </View>
       </View>
 
-      <ScrollView style={styles.mainContainer} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.mainContainer}
+        showsVerticalScrollIndicator={false}
+      >
         <TouchableOpacity
           onPress={() => navigate(NAVIGATION.userInformation)}
           style={styles.userView}

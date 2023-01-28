@@ -19,6 +19,7 @@ export const en = {
     header: "Home",
     message: "Welcome",
     variant: "App variant: ",
+    nearMe: "Near me",
   },
   login: {
     username: "Username",

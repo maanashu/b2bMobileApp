@@ -87,7 +87,7 @@ export function Home() {
     <ScreenWrapper>
       <HomeHeader />
 
-      <View style={{ flex: 1, paddingVertical: 10 }}>
+      <View style={{ flex: 1, paddingVertical: 0 }}>
         <TabView
           navigationState={{ index, routes }}
           renderScene={renderScene}
