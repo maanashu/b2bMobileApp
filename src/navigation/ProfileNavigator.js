@@ -21,6 +21,8 @@ import {
   JbrWallet,
   Manufacturers,
   MyCatalogue,
+  MyOrders,
+  MyPurchase,
   NearMe,
   NotificationSetting,
   PastCoupons,
@@ -217,6 +219,16 @@ export function ProfileNavigator() {
       <Stack.Screen
         component={NearMe}
         name={NAVIGATION.nearMe}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={MyPurchase}
+        name={NAVIGATION.myPurchase}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={MyOrders}
+        name={NAVIGATION.myOrders}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

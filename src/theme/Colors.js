@@ -36,4 +36,6 @@ export const COLORS = {
   termsBorder: "#CACACA",
   offWhite: "#E8E8E8",
   backgroundGrey: "#E1E3E4",
+  rose: "#D33300",
+  light_peach: "#CCD2E3",
 };

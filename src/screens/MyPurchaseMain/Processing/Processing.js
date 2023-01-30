@@ -1,36 +1,56 @@
-import React, { useState } from "react";
-import {
-  View,
-  Image,
-  Text,
-  FlatList,
-  useWindowDimensions,
-  ScrollView,
-  TouchableOpacity,
-  ImageBackground,
-} from "react-native";
-import { NameHeader, ScreenWrapper, Spacer, TextField } from "@/components";
-import { styles } from "./MyPurchaseMain.styles";
-import { COLORS, SF, SH, ShadowStyles, SW } from "@/theme";
-import { transactionHistory } from "@/constants/flatlistData";
-import { HeaderCoin } from "../../Profile/Wallet/Components/HeaderCoin";
-import { strings } from "@/localization";
-import { CompanyView } from "../../Profile/Wallet/Manufacturers/Components/CompanyView";
+import React from "react";
+import { View, FlatList } from "react-native";
+import { PurchaseView, ScreenWrapper } from "@/components";
+import { SW } from "@/theme";
+import { womenShoes, yewiLogo } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
-import {
-  backArrow,
-  filter,
-  Fonts,
-  forward,
-  loactionPinFilled,
-  location,
-  manufactureLogo,
-  nearMeMap,
-  shopLight,
-  wareHouseLogo,
-} from "@/assets";
 
 export function Processing() {
-  return <ScreenWrapper></ScreenWrapper>;
+  const data = [
+    {
+      id: 1,
+      productImage: womenShoes,
+      companyLogo: yewiLogo,
+      companyName: "Yiwu Leqi E-Commerce Firm",
+      productName: "PUMA Men's Tazon 6 Wide Sneaker",
+      quantity: "5000 Pairs",
+      price: "US$ 1.4",
+      orderedAmount: "USD $7056.00",
+      date: "14 Jun, 21:33",
+    },
+  ];
+
+  const renderItem = ({ item, index }) => (
+    <>
+      <PurchaseView
+        onPress={() => navigate(NAVIGATION.myOrders, { item: "Processing" })}
+        companyLogo={item.companyLogo}
+        companyName={item.companyName}
+        price={item.price}
+        quantity={item.quantity}
+        orderedAmount={item.orderedAmount}
+        productImage={item.productImage}
+        productName={item.productName}
+        date={item.date}
+      />
+    </>
+  );
+
+  return (
+    <ScreenWrapper>
+      <View
+        style={{
+          paddingHorizontal: SW(20),
+          width: "100%",
+        }}
+      >
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+        />
+      </View>
+    </ScreenWrapper>
+  );
 }

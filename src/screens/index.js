@@ -67,3 +67,4 @@ export { ManufacturersNearMe } from "@/screens/NearMe/ManufacturersNearMe/Manufa
 export { DistributorsNearMe } from "@/screens/NearMe/DistributorsNearMe/DistributorsNearMe";
 export { RetailersNearMe } from "@/screens/NearMe/RetailersNearMe/RetailersNearMe";
 export { MyPurchase } from "@/screens/MyPurchaseMain/MyPurchase/MyPurchase";
+export { MyOrders } from "@/screens/MyPurchaseMain/MyOrders/MyOrders";

@@ -16,3 +16,4 @@ export { ChatHeader } from "@/components/ChatHeader";
 export { CompanyDetailView } from "@/components/CompanyDetailView";
 export { Switch } from "@/components/Switch";
 export { Header } from "@/components/Header";
+export { PurchaseView } from "@/components/PurchaseView";

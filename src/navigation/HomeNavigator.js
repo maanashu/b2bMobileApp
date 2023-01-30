@@ -141,11 +141,6 @@ export function HomeNavigator() {
         name={NAVIGATION.nearMeOptions}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        component={MyPurchase}
-        name={NAVIGATION.myPurchase}
-        options={{ headerShown: false }}
-      />
     </Stack.Navigator>
   );
 }

@@ -7,6 +7,7 @@ export const ApiUserInventory = {};
 
 export const ApiProductInventory = {
   getCategory: "categories/get-all/category",
+  getProduct: "categories/get-all/category",
 };
 
 // export const ApiSupportInventory = {

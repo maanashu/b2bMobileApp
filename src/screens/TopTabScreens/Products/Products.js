@@ -42,7 +42,7 @@ export function Products({ navigation }) {
 
   const categoryArray = categoryData?.categories;
 
-  const splicedArray = categoryArray.slice(0, 8);
+  const splicedArray = categoryArray?.slice(0, 8);
 
   console.log("sliced data", splicedArray);
 
@@ -115,7 +115,7 @@ export function Products({ navigation }) {
       ) : (
         <TouchableOpacity
           style={styles.item}
-          onPress={() => setSelectedId(item.id)}
+          onPress={() => setSelectedId(item.name)}
         >
           <Image source={{ uri: item.image }} style={styles.roundIcons} />
 

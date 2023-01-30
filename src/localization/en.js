@@ -273,6 +273,7 @@ export const en = {
     estimatedDelivery: "Estimated Delivery",
     addShippingAddress: "Add Shipping Address",
     days: "3-5 Days",
+    workingdays: "3-5 working days",
     orderDetails: "Order Details",
     byCompleting: "By completing this order, I agree to all",
     terms: "terms & conditions",
@@ -507,6 +508,15 @@ export const en = {
     other: "Other",
     apartment: "Apartment",
     floor: "Floor or Apt No (Optional)",
+  },
+  myPurchase: {
+    orderDetails: "Order Details",
+    pending: "Pending",
+    toBeConfirmed: "To be Confirmed",
+    paid: "Paid",
+    pendingQuote: "Pending Quote",
+    quote:
+      "This order will autometically be cancled if the manufactured does not provide a shipping cost",
   },
   // Static strings
 

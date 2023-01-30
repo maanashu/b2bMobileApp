@@ -19,7 +19,7 @@ export function NameHeader({ title, back }) {
           <Image
             resizeMode="contain"
             source={back}
-            style={{ height: 30, width: 30 }}
+            style={{ height: 25, width: 25 }}
           />
           <Text style={styles.headerText}>{title}</Text>
         </TouchableOpacity>

@@ -3,15 +3,12 @@ import { createNativeStackNavigator } from "react-native-screens/native-stack";
 import { NAVIGATION } from "@/constants";
 import {
   Splash,
-  OnBoarding,
   Login,
   MobileNumber,
   Verify,
   EnterPin,
   ReEnterPin,
-  Categories,
 } from "@/screens";
-import { HomeNavigator } from "./HomeNavigator";
 import { AppNavigator } from "./AppNavigator";
 
 const Stack = createNativeStackNavigator();
@@ -24,11 +21,7 @@ export function AuthNavigator() {
         name={NAVIGATION.splash}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        component={OnBoarding}
-        name={NAVIGATION.onboarding}
-        options={{ headerShown: false }}
-      />
+
       <Stack.Screen
         component={Login}
         name={NAVIGATION.login}
@@ -52,11 +45,6 @@ export function AuthNavigator() {
       <Stack.Screen
         component={ReEnterPin}
         name={NAVIGATION.reEnterPin}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        component={Categories}
-        name={NAVIGATION.categories}
         options={{ headerShown: false }}
       />
 
