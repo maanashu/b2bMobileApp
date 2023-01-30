@@ -1,33 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Image,
   Text,
   FlatList,
-  useWindowDimensions,
   ScrollView,
   TouchableOpacity,
-  ImageBackground,
 } from "react-native";
 import {
   CompanyDetailView,
   NameHeader,
   ScreenWrapper,
   Spacer,
-  TextField,
 } from "@/components";
 import { styles } from "./MyOrders.styles";
-import { COLORS, SF, SH, ShadowStyles, SW } from "@/theme";
-import { transactionHistory } from "@/constants/flatlistData";
+import { COLORS, SH, SW } from "@/theme";
 import { strings } from "@/localization";
-import { navigate } from "@/navigation/NavigationRef";
-import { NAVIGATION } from "@/constants";
 import {
   backArrow,
   chatNow,
   deliveryMap,
   deliveryTruck,
-  dhl,
   forward,
   location,
   orderDetails,

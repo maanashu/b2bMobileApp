@@ -44,8 +44,6 @@ export function Products({ navigation }) {
 
   const splicedArray = categoryArray?.slice(0, 8);
 
-  console.log("sliced data", splicedArray);
-
   const [selectedId, setSelectedId] = useState("");
 
   const [product, setProduct] = useState("");

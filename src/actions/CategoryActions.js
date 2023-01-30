@@ -10,7 +10,7 @@ const getCategorySuccess = (categoryList) => ({
   payload: { categoryList },
 });
 const getCategoryError = (error) => ({
-  type: TYPES.GET_CATEGORY_ERROR,
+  type: TYPES.GET_PRODUCT_ERROR,
   payload: { error },
 });
 

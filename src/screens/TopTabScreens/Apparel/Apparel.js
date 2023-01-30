@@ -18,8 +18,6 @@ import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 
 export function Apparel({ onPress }) {
-  const listData = LastData;
-
   function dynamicHeight(_index) {
     if (_index % 2 == 0) {
       return 260;
@@ -97,7 +95,7 @@ export function Apparel({ onPress }) {
         <Spacer space={SH(30)} />
         <View style={{ paddingHorizontal: ms(20), flex: 1 }}>
           <FlatList
-            data={listData}
+            data={LastData}
             renderItem={listDetail}
             keyExtractor={(item) => item.id}
             // extraData={product}

@@ -2,22 +2,23 @@ import { ProductController } from "@/controllers";
 import { TYPES } from "@/Types/Types";
 
 const getProductRequest = () => ({
-  type: TYPES.GET_CATEGORY_REQUEST,
+  type: TYPES.GET_PRODUCT_REQUEST,
   payload: null,
 });
-const getProductSuccess = (categoryList) => ({
-  type: TYPES.GET_CATEGORY_SUCCESS,
-  payload: { categoryList },
+const getProductSuccess = (productList) => ({
+  type: TYPES.GET_PRODUCT_SUCCESS,
+  payload: { productList },
 });
 const getProductError = (error) => ({
-  type: TYPES.GET_CATEGORY_ERROR,
+  type: TYPES.GET_PRODUCT_ERROR,
   payload: { error },
 });
 
-export const getProduct = () => async (dispatch) => {
+export const getProduct = (selectedId) => async (dispatch) => {
   dispatch(getProductRequest());
   try {
-    const res = await ProductController.getProduct();
+    const res = await ProductController.getProduct(selectedId);
+    console.log("check response of selected category", JSON.stringify(res));
     dispatch(getProductSuccess(res));
   } catch (error) {
     dispatch(getProductError(error.message));

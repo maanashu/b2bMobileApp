@@ -11,9 +11,9 @@ import {
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { HttpClient } from "./HttpClient";
 export class ProductController {
-  static async getProduct() {
+  static async getProduct(categoryId) {
     return new Promise((resolve, reject) => {
-      const endpoint = PRODUCT_URL + ApiProductInventory.getProduct;
+      const endpoint = PRODUCT_URL + ApiProductInventory.getProduct(categoryId);
       HttpClient.get(endpoint)
 
         .then((response) => {
