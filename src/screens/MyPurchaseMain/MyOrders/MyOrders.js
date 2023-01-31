@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import {
+  Button,
   CompanyDetailView,
   NameHeader,
   ScreenWrapper,
@@ -25,6 +26,8 @@ import {
   location,
   orderDetails,
 } from "@/assets";
+import { navigate } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
 
 export function MyOrders({ route }) {
   const Details = [
@@ -286,7 +289,9 @@ export function MyOrders({ route }) {
             <Spacer space={SH(10)} />
 
             <View style={styles.pricesView}>
-              <Text style={styles.deliveryPriceText}>{"Delivery fees"}</Text>
+              <Text style={styles.pricesText}>
+                {"DHL Standard shipping fees"}
+              </Text>
               <Text style={styles.pricesText}>{"$1.00"}</Text>
             </View>
 
@@ -299,7 +304,15 @@ export function MyOrders({ route }) {
           </ScrollView>
         </View>
 
-        <Spacer space={SH(15)} />
+        <Spacer space={SH(30)} />
+
+        {route.params.item == "Processing" && (
+          <Button
+            onPress={() => navigate(NAVIGATION.trackOrder)}
+            title={strings.myPurchase.trackOrder}
+            style={styles.trackOrderButton}
+          />
+        )}
       </ScrollView>
     </ScreenWrapper>
   );

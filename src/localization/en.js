@@ -9,6 +9,7 @@ export const en = {
     addNewAddressNo: "Add new address (2/5)",
     addNewAddress: "Add new address",
     skip: "Skip",
+    submit: "Submit",
   },
   common: {
     loading: "Loading",
@@ -517,7 +518,35 @@ export const en = {
     pendingQuote: "Pending Quote",
     quote:
       "This order will autometically be cancled if the manufactured does not provide a shipping cost",
+    trackOrder: "Track your order",
   },
+  trackOrder: {
+    trackYourOrder: "Track your order",
+    orderStatus: "Order status",
+    preparingYourOrder: "Preparing your order",
+    verifyCode: "Verify code",
+    delivery: "Delivery",
+    withTenMin: "within 10 minutes",
+    inWarehouse: "In Warehouse",
+    productPickup: "Product Pickup by DHL",
+    pickedByDhl: "Picked by DHL",
+    orderProcessing: "Order Processing",
+    madepayment: "Made Payment",
+    map: "Map",
+    order: "Order",
+    rateYourExperience: "Rate Your Experience",
+    areYou: "Are you satisfy with delivery service?",
+    driver: "Driver",
+    shop: "Shop",
+    overallService: "Overall service",
+    fiveStar: "5 star",
+    rude: "Delivery man was rude",
+    goodBehavior: "Good behavior",
+    speed: "Speed and Efficiency",
+    experienced: "Experienced",
+    writeAdditional: "Write your additional feedback",
+  },
+
   // Static strings
 
   //

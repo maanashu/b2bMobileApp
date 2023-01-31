@@ -84,7 +84,7 @@ export function NewProducts() {
 
   const getProductsList = (item) => {
     setSelectedId(item.id);
-    dispatch(getProduct(selectedId));
+    dispatch(getProduct(item.id));
   };
 
   console.log("product list according to category id-->", Products);

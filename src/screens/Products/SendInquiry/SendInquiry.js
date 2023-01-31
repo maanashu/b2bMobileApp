@@ -14,11 +14,6 @@ import { goBack } from "@/navigation/NavigationRef";
 import { Button } from "@/components";
 import {
   productss,
-  location,
-  star,
-  clock,
-  yewiCertified,
-  yewiLogo,
   import_picture,
   gallery_image,
   close,

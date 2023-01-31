@@ -257,6 +257,11 @@ export { default as manufactureLogo } from "@/assets/icons/ic_home/manufactureLo
 export { default as nearMeMap } from "@/assets/images/nearMeMap.png";
 export { default as loactionPinFilled } from "@/assets/icons/ic_home/loactionPinFilled.png";
 export { default as deliveryMap } from "@/assets/images/deliveryMap.png";
+export { default as dashedLineUp } from "@/assets/icons/ic_profile/dashedLineUp.png";
+export { default as roundBlank } from "@/assets/icons/ic_profile/roundBlank.png";
+export { default as roundCheck } from "@/assets/icons/ic_profile/roundCheck.png";
+export { default as trackingMap } from "@/assets/images/trackingMap.png";
+export { default as mapViewLogo } from "@/assets/icons/ic_home/mapViewLogo.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

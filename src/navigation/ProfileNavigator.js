@@ -29,6 +29,7 @@ import {
   PrivacyPolicy,
   Profile,
   QrCode,
+  RateExperience,
   SelectCity,
   SelectCountry,
   SelectedPreferance,
@@ -37,6 +38,7 @@ import {
   ShipTo,
   TellAboutBusiness,
   TermsConditions,
+  TrackOrder,
   TransactionHistory,
   UserInformation,
 } from "@/screens";
@@ -229,6 +231,16 @@ export function ProfileNavigator() {
       <Stack.Screen
         component={MyOrders}
         name={NAVIGATION.myOrders}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={TrackOrder}
+        name={NAVIGATION.trackOrder}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={RateExperience}
+        name={NAVIGATION.rateExperience}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

@@ -3,6 +3,8 @@ import { View, FlatList } from "react-native";
 import { PurchaseView, ScreenWrapper } from "@/components";
 import { SW } from "@/theme";
 import { womenShoes, yewiLogo } from "@/assets";
+import { navigate } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
 
 export function Completed() {
   const data = [
@@ -22,6 +24,7 @@ export function Completed() {
   const renderItem = ({ item, index }) => (
     <>
       <PurchaseView
+        onPress={() => navigate(NAVIGATION.rateExperience)}
         companyLogo={item.companyLogo}
         companyName={item.companyName}
         price={item.price}

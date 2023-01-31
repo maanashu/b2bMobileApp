@@ -2,13 +2,6 @@ import { SH, SW, SF, COLORS, ShadowStyles } from "@/theme";
 import { Fonts } from "@/assets";
 import { StyleSheet } from "react-native";
 
-import {
-  moderateScale,
-  ms,
-  verticalScale,
-  vs,
-} from "react-native-size-matters";
-
 export const styles = StyleSheet.create({
   orderStatus: {
     backgroundColor: COLORS.placeHolder,
@@ -158,7 +151,7 @@ export const styles = StyleSheet.create({
   },
   orderedProductsView: {
     backgroundColor: COLORS.white,
-    height: SH(300),
+    height: SH(400),
     flex: 1,
     borderRadius: 10,
     marginHorizontal: 1,
@@ -207,7 +200,7 @@ export const styles = StyleSheet.create({
   pricesText: {
     fontFamily: Fonts.Regular,
     color: COLORS.darkGrey,
-    fontSize: SF(14),
+    fontSize: SF(12),
   },
   deliveryPriceText: {
     fontFamily: Fonts.Regular,
@@ -228,5 +221,9 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.SemiBold,
     color: COLORS.darkGrey,
     fontSize: SF(13),
+  },
+  trackOrderButton: {
+    backgroundColor: COLORS.darkGrey,
+    height: SH(50),
   },
 });
