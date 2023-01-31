@@ -39,7 +39,7 @@ export function Categories() {
   const SelectCategory = (item) => {
     const newItem = select.map((val) => {
       if (val.id === item.id) {
-        return { ...val, selected: !val.selected };
+        return { ...val, selected: !val.selected};
       } else {
         return val;
       }

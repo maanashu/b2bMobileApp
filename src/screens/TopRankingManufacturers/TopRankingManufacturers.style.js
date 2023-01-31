@@ -84,7 +84,7 @@ export const styles = StyleSheet.create({
   },
   yewiView: {
     borderRadius: 10,
-    paddingVertical: SH(10),
+    paddingVertical: SH(11),
     backgroundColor: COLORS.white,
     ...ShadowStyles.shadow2,
     flex: 1,
