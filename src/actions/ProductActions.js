@@ -18,10 +18,34 @@ export const getProduct = (selectedId) => async (dispatch) => {
   dispatch(getProductRequest());
   try {
     const res = await ProductController.getProduct(selectedId);
-    console.log("check response of selected category", JSON.stringify(res));
+    //   console.log("check response of selected category", JSON.stringify(res));
     dispatch(getProductSuccess(res));
   } catch (error) {
     dispatch(getProductError(error.message));
+  }
+};
+
+const getProductDetailRequest = () => ({
+  type: TYPES.GET_PRODUCT_DETAIL_REQUEST,
+  payload: null,
+});
+const getProductDetailSuccess = (productDetail) => ({
+  type: TYPES.GET_PRODUCT_DETAIL_SUCCESS,
+  payload: { productDetail },
+});
+const getProductDetailError = (error) => ({
+  type: TYPES.GET_PRODUCT_DETAIL_ERROR,
+  payload: { error },
+});
+
+export const getProductDetail = (selectedId) => async (dispatch) => {
+  dispatch(getProductDetailRequest());
+  try {
+    const res = await ProductController.getProductDetail(selectedId);
+    //   console.log("check response of selected category", JSON.stringify(res));
+    dispatch(getProductDetailSuccess(res));
+  } catch (error) {
+    dispatch(getProductDetailError(error.message));
   }
 };
 

@@ -4,42 +4,21 @@ import {
   PRODUCT_URL,
   ApiProductInventory,
   ApiUserInventory,
+  ORDER_URL,
+  ApiOrderInventory,
 } from "@/Utils/APIinventory";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { HttpClient } from "./HttpClient";
-export class ProductController {
-  static async getProduct(categoryId) {
+export class BannerController {
+  static async getBanners() {
     return new Promise((resolve, reject) => {
-      const endpoint = PRODUCT_URL + ApiProductInventory.getProduct(categoryId);
+      const endpoint = PRODUCT_URL + ApiProductInventory.getBanners;
       HttpClient.get(endpoint)
 
         .then((response) => {
           resolve(response);
         })
         .catch((error) => {
-          console.log("product error: " + error);
-          Toast.show({
-            text2: error.msg,
-            position: "bottom",
-            type: "error_toast",
-            visibilityTime: 1500,
-          });
-          reject(new Error((strings.valiadtion.error = error.msg)));
-        });
-    });
-  }
-
-  static async getProductDetail(productId) {
-    return new Promise((resolve, reject) => {
-      const endpoint =
-        PRODUCT_URL + ApiProductInventory.getProductDetail(productId);
-      HttpClient.get(endpoint)
-
-        .then((response) => {
-          resolve(response);
-        })
-        .catch((error) => {
-          console.log("product error: " + error);
           Toast.show({
             text2: error.msg,
             position: "bottom",

@@ -22,7 +22,6 @@ import { navigate } from "@/navigation/NavigationRef";
 import { forward, roundAll, slideImage } from "@/assets";
 import {
   LastData,
-  images,
   fourthData,
   thirdData,
   secondData,
@@ -35,22 +34,24 @@ import SwiperFlatList from "react-native-swiper-flatlist";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
 import { getCategory } from "@/actions/CategoryActions";
+import { getBanners } from "@/actions/BannerActions";
+import { getBannerSelector } from "@/selectors/BannerSelectors";
 
 export function Products({ navigation }) {
   const dispatch = useDispatch();
   const categoryData = useSelector(getCategorySelector);
-
   const categoryArray = categoryData?.categories;
-
   const splicedArray = categoryArray?.slice(0, 8);
-
-  const [selectedId, setSelectedId] = useState("");
-
-  const [product, setProduct] = useState("");
   const [viewAll, setviewAll] = useState(splicedArray);
+  const [selectedId, setSelectedId] = useState("");
+  const [product, setProduct] = useState("");
+
+  const BannerData = useSelector(getBannerSelector);
+  const BannerList = BannerData?.banners;
 
   useEffect(() => {
     dispatch(getCategory());
+    dispatch(getBanners());
   }, []);
 
   function dynamicHeight(_index) {
@@ -117,7 +118,9 @@ export function Products({ navigation }) {
         >
           <Image source={{ uri: item.image }} style={styles.roundIcons} />
 
-          <Text style={styles.title}>{item.name}</Text>
+          <Text numberOfLines={1} style={styles.title}>
+            {item.name}
+          </Text>
         </TouchableOpacity>
       )}
     </>
@@ -189,7 +192,11 @@ export function Products({ navigation }) {
         borderRadius: 15,
       }}
     >
-      <Image source={slideImage} style={styles.storeImg} resizeMode="cover" />
+      <Image
+        source={{ uri: item.path }}
+        style={styles.storeImg}
+        resizeMode="cover"
+      />
     </TouchableOpacity>
   );
 
@@ -213,18 +220,13 @@ export function Products({ navigation }) {
           />
         </View>
         <Spacer space={SH(20)} />
-        <View
-          style={{
-            paddingTop: SH(10),
-            paddingBottom: SH(30),
-          }}
-        >
+        <View style={styles.swiperView}>
           <SwiperFlatList
             autoplay
             autoplayDelay={3}
             autoplayLoop={true}
             showPagination
-            data={images}
+            data={BannerList}
             renderItem={renderRecentItem}
             PaginationComponent={CustomPagination}
             paginationActiveColor={COLORS.black}

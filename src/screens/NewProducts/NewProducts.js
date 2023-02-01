@@ -73,21 +73,22 @@ export function NewProducts() {
   const dispatch = useDispatch();
   const categoryData = useSelector(getCategorySelector);
   const categoryArray = categoryData?.categories;
-  const splicedArray = categoryArray?.slice(0, 6);
+  const splicedArray = categoryArray?.slice(0, 7);
 
   const ProductsData = useSelector(getProductSelector);
   const Products = ProductsData?.product;
+  // const [productLists, setProductLists] = useState([Products]);
+  console.log("product list according to category id-->", Products);
 
   useEffect(() => {
     dispatch(getCategory());
+    dispatch(getProduct(1));
   }, []);
 
   const getProductsList = (item) => {
     setSelectedId(item.id);
     dispatch(getProduct(item.id));
   };
-
-  console.log("product list according to category id-->", Products);
 
   const renderCategory = ({ item, index }) => (
     <>
@@ -122,7 +123,7 @@ export function NewProducts() {
 
   function dynamicHeight(_index) {
     if (_index % 2 == 0) {
-      return SH(260);
+      return SH(250);
     } else if (_index % 2 !== 0) {
       return SH(245);
     } else {
@@ -154,44 +155,47 @@ export function NewProducts() {
   }
 
   const listDetail = ({ item, index }) => (
-    <TouchableOpacity
-      style={[
-        styles.ShoesStyle,
-        {
-          height: dynamicHeight(index),
-          marginTop: dynamicMarginTop(index),
-          marginBottom: dynamicMarginBottom(index),
-        },
-      ]}
-    >
-      <Spacer space={SH(10)} />
-      <View style={{ alignItems: "center" }}>
-        <Image
-          source={item.image}
-          resizeMode="cover"
-          style={{
-            height: SH(160),
-            width: SW(160),
-            height: dynamicImageHeight(index),
-            borderRadius: 10,
-          }}
-        />
-      </View>
-      <Spacer space={SH(5)} />
+    <>
+      {index >= 8 ? null : (
+        <TouchableOpacity
+          style={[
+            styles.ShoesStyle,
+            {
+              height: dynamicHeight(index),
+              marginTop: dynamicMarginTop(index),
+              marginBottom: dynamicMarginBottom(index),
+            },
+          ]}
+        >
+          <Spacer space={SH(10)} />
+          <View style={{ alignItems: "center" }}>
+            <Image
+              source={{ uri: item.image }}
+              resizeMode="cover"
+              style={{
+                width: SW(153),
+                height: dynamicImageHeight(index),
+                borderRadius: SW(10),
+              }}
+            />
+          </View>
+          <Spacer space={SH(5)} />
 
-      <Text style={styles.productsTitle}>
-        {item.title}
-        <Text style={styles.productSubTitle}> {item.subTitle}</Text>
-      </Text>
-      <Spacer space={SH(2)} />
-      <Text style={styles.productsQuantity}>{item.pieces}</Text>
-      <Spacer space={SH(5)} />
+          <Text numberOfLines={2} style={styles.productsTitle}>
+            {item.name}
+            <Text style={styles.productSubTitle}> {item.description}</Text>
+          </Text>
+          <Spacer space={SH(5)} />
+          <Text style={styles.productsQuantity}>{`MOQ:10`}</Text>
+          <Spacer space={SH(1)} />
 
-      <Text style={styles.priceText}>
-        {item.price}
-        <Text style={styles.categoryText}>{item.category}</Text>
-      </Text>
-    </TouchableOpacity>
+          <Text style={styles.priceText}>
+            {item.price} /
+            <Text style={styles.categoryText}> {item.product_type.name}</Text>
+          </Text>
+        </TouchableOpacity>
+      )}
+    </>
   );
 
   return (
@@ -218,11 +222,11 @@ export function NewProducts() {
       <View style={{ paddingHorizontal: SW(20), flex: 1 }}>
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={LastData}
+          data={Products ?? []}
+          extraData={Products}
           renderItem={listDetail}
           keyExtractor={(item) => item.id}
           numColumns={2}
-          extraData
         />
       </View>
     </ScreenWrapper>

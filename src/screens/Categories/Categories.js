@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./Categories.styles";
 import { Apparel, Electronices, Food, Sports, Tobacco } from "@/assets";
 import { Button, ScreenWrapper, Spacer } from "@/components";
@@ -18,28 +11,26 @@ import { COLORS } from "@/theme";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "@/actions/CategoryActions";
 import { strings } from "@/localization";
-import { categoryReducer } from "@/reducers/CategoryReducer";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
-import { isLoadingSelector } from "@/selectors/StatusSelectors";
-import { TYPES } from "@/Types/Types";
+
 export function Categories() {
   const dispatch = useDispatch();
   const categoryData = useSelector(getCategorySelector);
 
-  const categoryArray = categoryData?.categories;
+  const [select, setSelect] = useState();
 
-  const [selectedId, setSelectedId] = useState(null);
+  useEffect(() => {
+    setSelect(categoryData?.categories ?? []);
+  }, [categoryData?.categories]);
 
-  const [select, setSelect] = useState(categoryArray);
-
-  const isCategoryLoading = useSelector((state) =>
-    isLoadingSelector([TYPES.GET_CATEGORY], state)
-  );
+  useEffect(() => {
+    dispatch(getCategory());
+  }, []);
 
   const SelectCategory = (item) => {
     const newItem = select.map((val) => {
       if (val.id === item.id) {
-        return { ...val, selected: !val.selected};
+        return { ...val, selected: !val.selected };
       } else {
         return val;
       }
@@ -47,12 +38,6 @@ export function Categories() {
 
     setSelect(newItem);
   };
-
-  const renderNoData = () => (
-    <View>
-      <Text>{strings.common.noDataFound}</Text>
-    </View>
-  );
 
   const DATA = [
     {
@@ -81,7 +66,7 @@ export function Categories() {
       image: Sports,
     },
   ];
-  const Item = ({ item, onPress, backgroundColor, textColor }) => (
+  const renderItem = ({ item, index, backgroundColor, textColor }) => (
     <TouchableOpacity
       onPress={() => SelectCategory(item)}
       style={[
@@ -94,23 +79,6 @@ export function Categories() {
       <Text style={[styles.title, textColor]}> {item?.name}</Text>
     </TouchableOpacity>
   );
-  const renderItem = ({ item }) => {
-    const color = item.title === selectedId ? "red" : "black";
-
-    return (
-      <Item
-        item={item}
-        onPress={() => setSelectedId(item.title)}
-        textColor={{ color }}
-      />
-    );
-  };
-
-  useEffect(() => {
-    dispatch(getCategory());
-  }, []);
-
-  useEffect(() => {}, [categoryData]);
 
   return (
     <ScreenWrapper style={styles.mainContainer}>
@@ -135,19 +103,15 @@ export function Categories() {
         <Text style={styles.smalltext}>{strings.categories.suggestion}</Text>
 
         <Spacer space={SH(10)} />
-        {isCategoryLoading ? (
-          <ActivityIndicator size="large" color={COLORS.primary} />
-        ) : (
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={select}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-            extraData={select}
-            numColumns={3}
-            ListEmptyComponent={renderNoData}
-          />
-        )}
+
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={select}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          extraData={select}
+          numColumns={3}
+        />
 
         <Spacer space={SH(15)} />
 

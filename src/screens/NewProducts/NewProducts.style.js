@@ -73,9 +73,11 @@ export const styles = StyleSheet.create({
     ...ShadowStyles.shadow2,
     borderRadius: 1,
     backgroundColor: COLORS.white,
-    margin: 2,
+    margin: SW(6),
     flex: 1,
-    paddingVertical: SH(10),
+    paddingBottom: SH(10),
+    borderTopLeftRadius: SW(10),
+    borderTopRightRadius: SW(10),
   },
   productsTitle: {
     fontFamily: Fonts.SemiBold,
@@ -88,6 +90,7 @@ export const styles = StyleSheet.create({
     fontSize: ms(12),
     color: COLORS.darkGrey,
     paddingHorizontal: ms(12),
+    marginVertical: SH(2),
   },
   productsQuantity: {
     alignSelf: "flex-start",

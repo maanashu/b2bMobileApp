@@ -53,11 +53,14 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    marginRight: SW(0.5),
+    marginTop: SH(0.5),
   },
   filterIcon: {
     height: vs(16),
     width: ms(16),
     marginLeft: SW(1),
+    marginTop: SH(0.5),
   },
   tabButtonView: {
     borderRadius: 20,

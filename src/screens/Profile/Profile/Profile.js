@@ -7,7 +7,6 @@ import {
   Image,
   FlatList,
   ScrollView,
-  Alert,
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { logout } from "@/actions/UserActions";

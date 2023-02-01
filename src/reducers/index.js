@@ -4,6 +4,7 @@ import { statusReducer } from "@/reducers/StatusReducer";
 import { userReducer } from "@/reducers/UserReducer";
 import { categoryReducer } from "@/reducers/CategoryReducer";
 import { productReducer } from "@/reducers/ProductReducer";
+import { bannerReducer } from "./BannerReducer";
 
 export const rootReducer = combineReducers({
   error: errorReducer,
@@ -11,4 +12,5 @@ export const rootReducer = combineReducers({
   user: userReducer,
   category: categoryReducer,
   product: productReducer,
+  banner: bannerReducer,
 });

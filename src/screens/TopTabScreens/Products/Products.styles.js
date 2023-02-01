@@ -164,7 +164,7 @@ export const styles = StyleSheet.create({
     fontSize: SF(12),
   },
   storeImg: {
-    height: SH(140),
+    height: SH(185),
     width: Dimensions.get("window").width * 0.9,
     borderRadius: 10,
     alignSelf: "center",
@@ -178,5 +178,9 @@ export const styles = StyleSheet.create({
     paddingHorizontal: ms(20),
     paddingVertical: vs(10),
     flex: 1,
+  },
+  swiperView: {
+    paddingTop: SH(10),
+    paddingBottom: SH(30),
   },
 });

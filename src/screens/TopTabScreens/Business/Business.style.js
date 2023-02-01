@@ -12,13 +12,16 @@ export const styles = StyleSheet.create({
   },
 
   roundIcons: {
-    height: SH(56),
+    height: SW(56),
     width: SW(56),
+    borderRadius: SW(50),
   },
   item: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    padding: SH(2),
+    marginBottom: SH(8),
   },
   title: {
     fontSize: SF(12),
@@ -55,9 +58,40 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   storeImg: {
-    height: SH(140),
+    height: SH(185),
     width: Dimensions.get("window").width * 0.9,
     borderRadius: 10,
     alignSelf: "center",
+  },
+  swiperView: {
+    paddingTop: SH(10),
+    paddingBottom: SH(30),
+  },
+  rowView: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  boldText: {
+    fontFamily: Fonts.Bold,
+    fontSize: ms(14),
+    color: COLORS.darkGrey,
+  },
+  regularText: {
+    fontFamily: Fonts.Regular,
+    fontSize: ms(12),
+    color: COLORS.darkGrey2,
+  },
+  iconStyle: {
+    height: vs(15),
+    width: vs(15),
+  },
+  swiperStyle: {
+    width: Dimensions.get("window").width,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 15,
+  },
+  paddingView: {
+    paddingHorizontal: ms(20),
   },
 });

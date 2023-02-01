@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Dimensions,
   FlatList,
@@ -40,12 +40,28 @@ import { NAVIGATION } from "@/constants";
 import { Search } from "@/components/Search";
 import { strings } from "@/localization";
 import SwiperFlatList from "react-native-swiper-flatlist";
+import { useDispatch, useSelector } from "react-redux";
+import { getBannerSelector } from "@/selectors/BannerSelectors";
+import { getBanners } from "@/actions/BannerActions";
+import { getCategorySelector } from "@/selectors/CategorySelectors";
+import { getCategory } from "@/actions/CategoryActions";
 export function Business() {
-  const listData = LastData;
-
   const [selectedId, setSelectedId] = useState("");
-
   const [product, setProduct] = useState("");
+
+  const dispatch = useDispatch();
+  const categoryData = useSelector(getCategorySelector);
+  const categoryArray = categoryData?.categories;
+  const splicedArray = categoryArray?.slice(0, 8);
+  const [viewAll, setviewAll] = useState(splicedArray);
+
+  const BannerData = useSelector(getBannerSelector);
+  const BannerList = BannerData?.banners;
+
+  useEffect(() => {
+    dispatch(getCategory());
+    dispatch(getBanners());
+  }, []);
 
   const DATA = [
     {
@@ -130,28 +146,40 @@ export function Business() {
     },
   ];
 
-  const images = [
-    {
-      id: 1,
-      img: slideImage,
-    },
-    {
-      id: 2,
-      img: slideImage,
-    },
-  ];
+  const Item = ({ item, index }) => (
+    <>
+      {index == 7 ? (
+        <TouchableOpacity
+          onPress={() => {
+            viewAll === categoryArray
+              ? setviewAll(splicedArray)
+              : setviewAll(categoryArray);
+          }}
+          style={{ alignItems: "center" }}
+        >
+          <Image
+            source={roundAll}
+            resizeMode="contain"
+            style={{ height: SW(85), width: SW(85), marginTop: SH(2) }}
+          />
+          <Text style={[styles.title, { marginTop: SH(-18) }]}>
+            {viewAll === categoryArray ? "Less" : "All"}
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={styles.item}
+          onPress={() => setSelectedId(item.name)}
+        >
+          <Image source={{ uri: item.image }} style={styles.roundIcons} />
 
-  const Item = ({ item, onPress }) => (
-    <TouchableOpacity style={styles.item}>
-      <Image source={item.image} style={styles.roundIcons} />
-
-      <Text style={styles.title}>{item.title}</Text>
-    </TouchableOpacity>
+          <Text numberOfLines={1} style={styles.title}>
+            {item.name}
+          </Text>
+        </TouchableOpacity>
+      )}
+    </>
   );
-
-  const renderItem = ({ item }) => {
-    return <Item item={item} onPress={() => setSelectedId(item.id)} />;
-  };
 
   const secondItem = ({ item, onPress }) => (
     <View style={styles.secondFlatlist}>
@@ -177,15 +205,12 @@ export function Business() {
   );
 
   const renderRecentItem = ({ item, index }) => (
-    <TouchableOpacity
-      style={{
-        width: Dimensions.get("window").width,
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 15,
-      }}
-    >
-      <Image source={slideImage} style={styles.storeImg} resizeMode="cover" />
+    <TouchableOpacity style={styles.swiperStyle}>
+      <Image
+        source={{ uri: item.path }}
+        style={styles.storeImg}
+        resizeMode="cover"
+      />
     </TouchableOpacity>
   );
   return (
@@ -200,32 +225,27 @@ export function Business() {
 
         <Spacer space={SH(10)} />
 
-        <View style={{ paddingHorizontal: SW(0), marginRight: ms(8) }}>
+        <View style={{ paddingHorizontal: SW(16) }}>
           <Spacer space={SH(18)} />
 
           <FlatList
-            data={DATA}
-            renderItem={renderItem}
+            data={viewAll}
+            renderItem={Item}
             keyExtractor={(item) => item.id}
-            extraData={selectedId}
+            extraData={viewAll}
             numColumns={4}
           />
         </View>
 
         <Spacer space={SH(20)} />
 
-        <View
-          style={{
-            paddingTop: SH(10),
-            paddingBottom: SH(30),
-          }}
-        >
+        <View style={styles.swiperView}>
           <SwiperFlatList
             autoplay
             autoplayDelay={3}
             autoplayLoop={true}
             showPagination
-            data={images}
+            data={BannerList}
             renderItem={renderRecentItem}
             PaginationComponent={CustomPagination}
             paginationActiveColor={COLORS.black}
@@ -234,36 +254,20 @@ export function Business() {
 
         <Spacer space={SH(30)} />
 
-        <View style={{ paddingHorizontal: ms(20) }}>
+        <View style={styles.paddingView}>
           <View style={styles.horizontalView}>
             <View style={styles.innerViewHorizontal}>
               <View style={{ paddingHorizontal: SW(5) }}>
-                <Text
-                  style={{
-                    fontFamily: Fonts.Bold,
-                    fontSize: ms(14),
-                    color: COLORS.darkGrey,
-                  }}
-                >
+                <Text style={styles.boldText}>
                   {strings.business.getSamples}
                 </Text>
               </View>
-              <TouchableOpacity
-                style={{ flexDirection: "row", alignItems: "center" }}
-              >
-                <Text
-                  style={{
-                    fontFamily: Fonts.Regular,
-                    fontSize: ms(12),
-                    color: COLORS.darkGrey2,
-                  }}
-                >
-                  See all
-                </Text>
+              <TouchableOpacity style={styles.rowView}>
+                <Text style={styles.regularText}>{"See all"}</Text>
                 <Image
                   resizeMode="contain"
                   source={forward}
-                  style={{ height: vs(15), width: vs(15) }}
+                  style={styles.iconStyle}
                 />
               </TouchableOpacity>
             </View>
@@ -280,37 +284,27 @@ export function Business() {
 
         <Spacer space={SH(30)} />
 
-        <View style={{ paddingHorizontal: ms(20) }}>
+        <View style={styles.paddingView}>
           <View style={styles.horizontalView}>
             <View style={styles.innerViewHorizontal}>
               <View style={{ paddingHorizontal: SW(5) }}>
-                <Text
-                  style={{
-                    fontFamily: Fonts.Bold,
-                    fontSize: ms(14),
-                    color: COLORS.darkGrey,
-                  }}
-                >
+                <Text style={styles.boldText}>
                   {strings.business.topManufactor}
                 </Text>
               </View>
+
               <TouchableOpacity
                 onPress={() => navigate(NAVIGATION.topRankingManufacturers)}
-                style={{ flexDirection: "row", alignItems: "center" }}
+                style={styles.rowView}
               >
-                <Text
-                  style={{
-                    fontFamily: Fonts.Regular,
-                    fontSize: ms(12),
-                    color: COLORS.darkGrey2,
-                  }}
-                >
+                <Text style={styles.regularText}>
                   {strings.business.seeAll}
                 </Text>
+
                 <Image
                   resizeMode="contain"
                   source={forward}
-                  style={{ height: vs(15), width: vs(15) }}
+                  style={styles.iconStyle}
                 />
               </TouchableOpacity>
             </View>
@@ -324,6 +318,7 @@ export function Business() {
             />
           </View>
         </View>
+
         <Spacer space={SH(30)} />
       </ScrollView>
     </ScreenWrapper>
