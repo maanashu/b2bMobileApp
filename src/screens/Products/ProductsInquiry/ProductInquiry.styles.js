@@ -482,4 +482,23 @@ export const styles = StyleSheet.create({
     fontSize: ms(10),
     marginLeft: ms(5),
   },
+  ratingRowStyle: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  ratingQuesText: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.text,
+    fontSize: SF(12),
+  },
+  ratingAnsText: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.darkGrey,
+    fontSize: SF(13),
+  },
+  bottomLine: {
+    borderBottomWidth: SH(0.5),
+    borderColor: COLORS.input_bg,
+    marginTop: SH(15),
+  },
 });

@@ -72,7 +72,9 @@ export function Categories() {
       style={[
         styles.item,
         backgroundColor,
-        { borderColor: item.selected ? COLORS.primary : COLORS.light_border },
+        {
+          borderColor: item.selected ? COLORS.primary : COLORS.light_border,
+        },
       ]}
     >
       <Image source={{ uri: item?.image }} style={styles.iconStyle} />
@@ -105,6 +107,9 @@ export function Categories() {
         <Spacer space={SH(10)} />
 
         <FlatList
+          columnWrapperStyle={{
+            alignItems: "flex-start",
+          }}
           showsVerticalScrollIndicator={false}
           data={select}
           renderItem={renderItem}

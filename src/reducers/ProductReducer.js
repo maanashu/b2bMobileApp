@@ -9,7 +9,7 @@ export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return { ...state, product: payload.productList.payload.data };
 
     case TYPES.GET_PRODUCT_DETAIL_SUCCESS:
-      return { ...state, productDetail: payload.productDetail.payload.data };
+      return { ...state, productDetail: payload.productDetail.payload };
 
     default:
       return state;

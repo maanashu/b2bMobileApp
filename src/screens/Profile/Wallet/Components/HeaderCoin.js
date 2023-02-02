@@ -20,7 +20,7 @@ export function HeaderCoin({ title, back, amount }) {
           <Image
             resizeMode="contain"
             source={backArrow}
-            style={{ height: 25, width: 25 }}
+            style={{ height: 20, width: 20 }}
           />
           <View>
             <Text style={styles.headerText}>{title}</Text>
@@ -65,26 +65,26 @@ export const styles = StyleSheet.create({
   headerText: {
     fontFamily: Fonts.SemiBold,
     color: COLORS.black,
-    fontSize: s(14),
+    fontSize: s(12),
   },
   coinButton: {
     backgroundColor: COLORS.primary,
-    paddingVertical: SH(4),
     borderRadius: SW(20),
+    height: SH(29),
     width: SW(50),
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "center",
   },
   buyText: {
-    color: COLORS.white,
     fontFamily: Fonts.SemiBold,
-    fontSize: SF(16),
+    color: COLORS.white,
     marginRight: SW(1),
   },
   coinStyle: {
-    height: SW(18),
-    width: SW(18),
+    height: SH(19),
+    width: SW(19),
     marginLeft: SW(1),
+    marginTop: SH(0.5),
   },
 });

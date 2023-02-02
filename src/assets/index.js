@@ -262,6 +262,10 @@ export { default as roundBlank } from "@/assets/icons/ic_profile/roundBlank.png"
 export { default as roundCheck } from "@/assets/icons/ic_profile/roundCheck.png";
 export { default as trackingMap } from "@/assets/images/trackingMap.png";
 export { default as mapViewLogo } from "@/assets/icons/ic_home/mapViewLogo.png";
+export { default as mailShadow } from "@/assets/icons/ic_profile/mailShadow.png";
+export { default as infoBlack } from "@/assets/icons/ic_profile/infoBlack.png";
+export { default as ProfileUser } from "@/assets/icons/ic_profile/ProfileUser.png";
+export { default as menuDots } from "@/assets/icons/ic_profile/menuDots.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

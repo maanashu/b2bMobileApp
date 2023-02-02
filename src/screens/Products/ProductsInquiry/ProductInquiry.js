@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   FlatList,
   Image,
@@ -38,23 +38,35 @@ import {
   priceData,
   CompanyData,
   ShoesData,
-  ProductRatingData,
   ProductDetailData,
 } from "./FlatlistData";
 import { login } from "@/actions/UserActions";
+import { getProductDetail } from "@/actions/ProductActions";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { Header } from "./Components/Header";
-export function ProductInquiry() {
+import { getProductSelector } from "@/selectors/ProductSelectors";
+import { Rating } from "react-native-ratings";
+
+export function ProductInquiry({ route }) {
   const [favourite, setFavourite] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector(getUser);
-  const images = [womenShoes];
+  const images = [womenShoes, womenShoes];
   const colorChange = () => {
     setFavourite(!favourite);
   };
 
-  const Item = ({ item }) => (
+  const ProductDetail = useSelector(getProductSelector);
+  const ProductList = ProductDetail?.productDetail;
+
+  console.log("product detail--->", ProductDetail);
+
+  useEffect(() => {
+    dispatch(getProductDetail(1));
+  }, []);
+
+  const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.item}>
       <View style={styles.upperButtons}>
         <Text style={styles.primaryColorText}>{item.price}</Text>
@@ -63,14 +75,6 @@ export function ProductInquiry() {
     </TouchableOpacity>
   );
 
-  const renderItem = ({ item }) => {
-    return (
-      <Item
-        item={item}
-        // onPress={() => setSelectedId(item.id)}
-      />
-    );
-  };
   const SecondItem = ({ item }) => (
     <TouchableOpacity style={styles.itemS}>
       <View style={styles.upperButtons}>
@@ -80,15 +84,6 @@ export function ProductInquiry() {
     </TouchableOpacity>
   );
 
-  const StarProductRating = ({ item }) => (
-    <View style={styles.starProduct}>
-      <Image
-        resizeMode="contain"
-        source={item.image}
-        style={styles.starRating}
-      />
-    </View>
-  );
   const ProductDetails = ({ item }) => (
     <View>
       <View style={styles.productDetail}>
@@ -165,16 +160,16 @@ export function ProductInquiry() {
               style={{ marginHorizontal: SW(5), height: 15, width: 15 }}
             />
             <Text>4.5 </Text>
-            <Text style={styles.productSubHeading}>(500+ ratings)</Text>
+            <Text style={styles.productSubHeading}>{"(500+ ratings)"}</Text>
           </View>
 
           <Spacer space={SH(40)} />
 
           <Text style={styles.productHeading}>
-            PUMA Men's Tazon 6 Wide Sneaker
+            {"PUMA Men's Tazon 6 Wide Sneaker"}
           </Text>
           <Text style={styles.productSubHeading}>
-            Women Burgundy Waterproof 3 in 1 Travel Trekking Jacket
+            {"Women Burgundy Waterproof 3 in 1 Travel Trekking Jacket"}
           </Text>
 
           <Spacer space={SH(40)} />
@@ -320,7 +315,7 @@ export function ProductInquiry() {
 
               <View style={styles.starBadge}>
                 <Text style={styles.companyServicesText}>
-                  Top most popular in Running shoes
+                  {"Top most popular in Running shoes"}
                 </Text>
 
                 <Image source={forward} style={styles.forward} />
@@ -344,9 +339,9 @@ export function ProductInquiry() {
 
               <View style={styles.iconStyling}>
                 <View>
-                  <Text style={styles.companyServicesText}>Claim now</Text>
+                  <Text style={styles.companyServicesText}>{"Claim now"}</Text>
                   <Text style={styles.companyServicesBoldText}>
-                    Quick refunds on order uder $1000
+                    {"Quick refunds on order uder $1000"}
                   </Text>
                 </View>
 
@@ -372,10 +367,10 @@ export function ProductInquiry() {
               <View style={styles.trade}>
                 <View>
                   <Text style={styles.companyServicesBoldText}>
-                    Trade Assurance
+                    {"Trade Assurance"}
                   </Text>
 
-                  <Text style={styles.tradeText}>Protects your orders</Text>
+                  <Text style={styles.tradeText}>{"Protects your orders"}</Text>
                 </View>
 
                 <Image source={forward} style={styles.forward} />
@@ -391,14 +386,18 @@ export function ProductInquiry() {
                   source={simpleCheck}
                   style={styles.checks}
                 />
-                <Text style={styles.companyServicesText}>On-time delivery</Text>
+                <Text style={styles.companyServicesText}>
+                  {"On-time delivery"}
+                </Text>
               </View>
 
               <Spacer space={SH(10)} />
 
               <View style={{ flexDirection: "row" }}>
                 <Image source={simpleCheck} style={styles.checks} />
-                <Text style={styles.companyServicesText}>Refund Policy</Text>
+                <Text style={styles.companyServicesText}>
+                  {"Refund Policy"}
+                </Text>
               </View>
             </View>
 
@@ -409,33 +408,115 @@ export function ProductInquiry() {
 
           <Spacer space={SH(25)} />
 
-          <Text style={styles.reviewText}>Reviews</Text>
+          <Text style={styles.reviewText}>{"Reviews"}</Text>
 
           <View style={styles.ratingView}>
             <Text style={styles.boldTextStyle}>
-              4.5
-              <Text style={styles.simpleText}>/5.0</Text>
+              {"4.5"}
+              <Text style={styles.simpleText}>{"/5.0"}</Text>
             </Text>
             <View style={{ paddingHorizontal: SW(10) }}>
-              <Text style={styles.reviewText}>Very Satisfied</Text>
+              <Text style={styles.reviewText}>{"Very Satisfied<"}</Text>
 
-              <Text style={{ fontFamily: Fonts.Regular }}>21 Reviews</Text>
+              <Text style={{ fontFamily: Fonts.Regular }}>{"21 Reviews"}</Text>
             </View>
           </View>
 
           <Spacer space={SH(10)} />
 
-          <FlatList
+          {/* <FlatList
             showsVerticalScrollIndicator={false}
             data={ProductRatingData}
             renderItem={StarProductRating}
             keyExtractor={(item) => item.id}
-          />
+          /> */}
 
-          <Spacer space={SH(10)} />
+          <View
+            style={{
+              ...styles.ratingRowStyle,
+              justifyContent: "space-between",
+            }}
+          >
+            <Text style={styles.ratingQuesText}>{"Supplier Service"}</Text>
+            <View style={styles.ratingRowStyle}>
+              <Rating
+                type="star"
+                ratingColor="#3498db"
+                ratingBackgroundColor="#c8c7c8"
+                ratingCount={5}
+                imageSize={17}
+                style={{ paddingHorizontal: 10 }}
+                readonly
+                startingValue={4.5}
+                // onFinishRating={(rating) => setOrderRating(rating)}
+              />
+
+              <Text style={styles.ratingAnsText}>| {"4.5 Acceptable"}</Text>
+            </View>
+          </View>
+
+          <View style={styles.bottomLine}></View>
+
+          <Spacer space={SH(20)} />
+
+          <View
+            style={{
+              ...styles.ratingRowStyle,
+              justifyContent: "space-between",
+            }}
+          >
+            <Text style={styles.ratingQuesText}>{"On-time Shipment"}</Text>
+            <View style={styles.ratingRowStyle}>
+              <Rating
+                type="star"
+                ratingColor="#3498db"
+                ratingBackgroundColor="#c8c7c8"
+                ratingCount={5}
+                imageSize={17}
+                style={{ paddingHorizontal: 10 }}
+                readonly
+                startingValue={5}
+                // onFinishRating={(rating) => setOrderRating(rating)}
+              />
+
+              <Text style={styles.ratingAnsText}>| {"5.0 Acceptable"}</Text>
+            </View>
+          </View>
+
+          <View style={styles.bottomLine}></View>
+
+          <Spacer space={SH(20)} />
+
+          <View
+            style={{
+              ...styles.ratingRowStyle,
+              justifyContent: "space-between",
+            }}
+          >
+            <Text style={styles.ratingQuesText}>{"Product Quality"}</Text>
+            <View style={styles.ratingRowStyle}>
+              <Rating
+                type="star"
+                ratingColor="#3498db"
+                ratingBackgroundColor="#c8c7c8"
+                ratingCount={5}
+                imageSize={17}
+                style={{ paddingHorizontal: 10 }}
+                readonly
+                startingValue={4.5}
+                // onFinishRating={(rating) => setOrderRating(rating)}
+              />
+
+              <Text style={styles.ratingAnsText}>| {"4.5 Acceptable"}</Text>
+            </View>
+          </View>
+
+          <View style={styles.bottomLine}></View>
+
+          <Spacer space={SH(20)} />
 
           <TouchableOpacity style={styles.viewAll}>
-            <Text style={styles.viewAllText}>View all</Text>
+            <Text style={styles.viewAllText}>{"View all"}</Text>
           </TouchableOpacity>
 
           <Spacer space={SH(20)} />

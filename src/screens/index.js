@@ -70,3 +70,4 @@ export { MyPurchase } from "@/screens/MyPurchaseMain/MyPurchase/MyPurchase";
 export { MyOrders } from "@/screens/MyPurchaseMain/MyOrders/MyOrders";
 export { TrackOrder } from "@/screens/MyPurchaseMain/TrackOrder/TrackOrder";
 export { RateExperience } from "@/screens/MyPurchaseMain/RateExperience/RateExperience";
+export { HelpCenter } from "@/screens/HelpCenter/HelpCenter";

@@ -13,6 +13,8 @@ import { LastData } from "../Products/ProductsInquiry/FlatlistData";
 import { getCategory } from "@/actions/CategoryActions";
 import { getProduct } from "@/actions/ProductActions";
 import { getProductSelector } from "@/selectors/ProductSelectors";
+import { navigate } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
 export function NewProducts() {
   // const layout = useWindowDimensions();
 
@@ -78,7 +80,7 @@ export function NewProducts() {
   const ProductsData = useSelector(getProductSelector);
   const Products = ProductsData?.product;
   // const [productLists, setProductLists] = useState([Products]);
-  console.log("product list according to category id-->", Products);
+  // console.log("product list according to category id-->", Products);
 
   useEffect(() => {
     dispatch(getCategory());
@@ -93,7 +95,10 @@ export function NewProducts() {
   const renderCategory = ({ item, index }) => (
     <>
       <TouchableOpacity
-        style={{ paddingLeft: SW(10), alignItems: "center" }}
+        style={{
+          paddingLeft: SW(10),
+          alignItems: "center",
+        }}
         onPress={() => {
           // console.log("check selected category", item);
           getProductsList(item);
@@ -158,6 +163,7 @@ export function NewProducts() {
     <>
       {index >= 8 ? null : (
         <TouchableOpacity
+          onPress={() => navigate(NAVIGATION.productInquiry, { data: item.id })}
           style={[
             styles.ShoesStyle,
             {

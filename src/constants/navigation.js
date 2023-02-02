@@ -69,4 +69,5 @@ export const NAVIGATION = {
   myOrders: "MyOrders",
   trackOrder: "TrackOrder",
   rateExperience: "RateExperience",
+  helpCenter: "HelpCenter",
 };

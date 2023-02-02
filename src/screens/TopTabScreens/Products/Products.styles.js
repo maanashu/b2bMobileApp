@@ -17,11 +17,19 @@ export const styles = StyleSheet.create({
     borderRadius: SW(50),
   },
   item: {
-    flex: 1,
-    justifyContent: "center",
     alignItems: "center",
     padding: SH(2),
     marginBottom: SH(8),
+    justifyContent: "space-between",
+    marginVertical: 8,
+    flex: 1 / 4,
+  },
+  itemS: {
+    alignItems: "center",
+    padding: SH(2),
+    marginBottom: SH(10),
+    justifyContent: "space-between",
+    marginBottom: 4,
   },
   title: {
     fontSize: SF(12),

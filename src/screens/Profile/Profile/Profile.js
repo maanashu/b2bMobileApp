@@ -152,6 +152,8 @@ export function Profile() {
       navigate(NAVIGATION.favouriteList);
     } else if (item.title === strings.profile.inquiries) {
       navigate(NAVIGATION.inquiries);
+    } else if (item.title === strings.profile.helpCenter) {
+      navigate(NAVIGATION.helpCenter);
     }
   };
 

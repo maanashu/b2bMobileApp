@@ -17,6 +17,7 @@ import {
   CurrentCoupons,
   FaceIdPin,
   FavouriteList,
+  HelpCenter,
   Inquiries,
   JbrWallet,
   Manufacturers,
@@ -241,6 +242,11 @@ export function ProfileNavigator() {
       <Stack.Screen
         component={RateExperience}
         name={NAVIGATION.rateExperience}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={HelpCenter}
+        name={NAVIGATION.helpCenter}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

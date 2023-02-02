@@ -100,12 +100,16 @@ export function Products({ navigation }) {
               ? setviewAll(splicedArray)
               : setviewAll(categoryArray);
           }}
-          style={{ alignItems: "center" }}
+          style={{ alignItems: "center", marginRight: SW(-82.5) }}
         >
           <Image
             source={roundAll}
             resizeMode="contain"
-            style={{ height: SW(85), width: SW(85), marginTop: SH(2) }}
+            style={{
+              height: SW(85),
+              width: SW(85),
+              marginTop: SH(2),
+            }}
           />
           <Text style={[styles.title, { marginTop: SH(-18) }]}>
             {viewAll === categoryArray ? "Less" : "All"}
@@ -127,7 +131,7 @@ export function Products({ navigation }) {
   );
 
   const secondItem = ({ item, onPress }) => (
-    <View style={styles.item}>
+    <View style={styles.itemS}>
       <Image source={item.image} style={styles.secondView} />
 
       <Spacer space={SH(10)} />
@@ -212,6 +216,7 @@ export function Products({ navigation }) {
           <Spacer space={SH(18)} />
 
           <FlatList
+            columnWrapperStyle={{ justifyContent: "flex-start" }}
             data={viewAll}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}

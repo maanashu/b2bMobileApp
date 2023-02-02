@@ -64,6 +64,7 @@ export const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 4,
     borderWidth: 0.5,
+    flex: 1 / 3,
   },
   title: {
     fontSize: SF(10),

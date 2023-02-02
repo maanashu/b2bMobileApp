@@ -1,7 +1,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "react-native-screens/native-stack";
 import { NAVIGATION } from "@/constants";
-import { Chatting, MakeAnOffer, ProductInquiry } from "@/screens";
+import { Chatting, MakeAnOffer, NewProducts, ProductInquiry } from "@/screens";
 
 const Stack = createNativeStackNavigator();
 
@@ -9,8 +9,8 @@ export function ProductNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        component={ProductInquiry}
-        name={NAVIGATION.productInquiry}
+        component={NewProducts}
+        name={NAVIGATION.newProducts}
         options={{ headerShown: false }}
       />
       {/* <Stack.Screen

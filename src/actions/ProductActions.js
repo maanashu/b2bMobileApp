@@ -29,9 +29,9 @@ const getProductDetailRequest = () => ({
   type: TYPES.GET_PRODUCT_DETAIL_REQUEST,
   payload: null,
 });
-const getProductDetailSuccess = (productDetail) => ({
+const getProductDetailSuccess = (productDetails) => ({
   type: TYPES.GET_PRODUCT_DETAIL_SUCCESS,
-  payload: { productDetail },
+  payload: { productDetails },
 });
 const getProductDetailError = (error) => ({
   type: TYPES.GET_PRODUCT_DETAIL_ERROR,
@@ -42,7 +42,7 @@ export const getProductDetail = (selectedId) => async (dispatch) => {
   dispatch(getProductDetailRequest());
   try {
     const res = await ProductController.getProductDetail(selectedId);
-    //   console.log("check response of selected category", JSON.stringify(res));
+    // console.log("check response of selected category", JSON.stringify(res));
     dispatch(getProductDetailSuccess(res));
   } catch (error) {
     dispatch(getProductDetailError(error.message));
