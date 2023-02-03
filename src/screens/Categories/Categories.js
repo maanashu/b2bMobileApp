@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCategory } from "@/actions/CategoryActions";
 import { strings } from "@/localization";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
+import FastImage from "react-native-fast-image";
 
 export function Categories() {
   const dispatch = useDispatch();
@@ -66,6 +67,7 @@ export function Categories() {
       image: Sports,
     },
   ];
+
   const renderItem = ({ item, index, backgroundColor, textColor }) => (
     <TouchableOpacity
       onPress={() => SelectCategory(item)}
@@ -77,7 +79,7 @@ export function Categories() {
         },
       ]}
     >
-      <Image source={{ uri: item?.image }} style={styles.iconStyle} />
+      <FastImage source={{ uri: item?.image }} style={styles.iconStyle} />
       <Text style={[styles.title, textColor]}> {item?.name}</Text>
     </TouchableOpacity>
   );

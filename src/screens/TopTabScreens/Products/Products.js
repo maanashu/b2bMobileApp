@@ -42,9 +42,30 @@ export function Products({ navigation }) {
   const categoryData = useSelector(getCategorySelector);
   const categoryArray = categoryData?.categories;
   const splicedArray = categoryArray?.slice(0, 8);
+
+  const newArr =
+    categoryArray?.length === 0 ? [] : [...categoryArray, { isButton: true }];
   const [viewAll, setviewAll] = useState(splicedArray);
   const [selectedId, setSelectedId] = useState("");
   const [product, setProduct] = useState("");
+
+  const allCategories = [];
+  const index = 0;
+
+  console.log("check new arr", newArr);
+
+  // for (let index = 0; index < categoryArray.length; index += 1) {
+  //   const element = categoryArray[index];
+  //   allCategories.push(element);
+  // }
+
+  // while (index < categoryArray.length) {
+  //   let CategoriesAll = categoryArray[index];
+  //   allCategories.push(CategoriesAll);
+  //   index += 1;
+  // }
+
+  console.log("pushed array---------------->", allCategories);
 
   const BannerData = useSelector(getBannerSelector);
   const BannerList = BannerData?.banners;
@@ -96,7 +117,7 @@ export function Products({ navigation }) {
       {index == 7 ? (
         <TouchableOpacity
           onPress={() => {
-            viewAll === categoryArray
+            viewAll == categoryArray
               ? setviewAll(splicedArray)
               : setviewAll(categoryArray);
           }}
@@ -111,9 +132,41 @@ export function Products({ navigation }) {
               marginTop: SH(2),
             }}
           />
-          <Text style={[styles.title, { marginTop: SH(-18) }]}>
-            {viewAll === categoryArray ? "Less" : "All"}
+          <Text style={[styles.title, { marginTop: SH(-18) }]}>{"All"}</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={styles.item}
+          onPress={() => setSelectedId(item.name)}
+        >
+          <Image source={{ uri: item.image }} style={styles.roundIcons} />
+
+          <Text numberOfLines={1} style={styles.title}>
+            {item.name}
           </Text>
+        </TouchableOpacity>
+      )}
+    </>
+  );
+  const renderItemFull = ({ item, index }) => (
+    <>
+      {item.isButton ? (
+        <TouchableOpacity
+          onPress={() => {
+            () => setviewAll(newArr);
+          }}
+          style={{ alignItems: "center", marginRight: SW(-82.5) }}
+        >
+          <Image
+            source={roundAll}
+            resizeMode="contain"
+            style={{
+              height: SW(85),
+              width: SW(85),
+              marginTop: SH(2),
+            }}
+          />
+          <Text style={[styles.title, { marginTop: SH(-18) }]}>{"Less"}</Text>
         </TouchableOpacity>
       ) : (
         <TouchableOpacity
@@ -218,13 +271,16 @@ export function Products({ navigation }) {
           <FlatList
             columnWrapperStyle={{ justifyContent: "flex-start" }}
             data={viewAll}
+            // renderItem={viewAll === splicedArray ? renderItemFull : renderItem}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
             extraData={viewAll}
             numColumns={4}
           />
         </View>
+
         <Spacer space={SH(20)} />
+
         <View style={styles.swiperView}>
           <SwiperFlatList
             autoplay

@@ -4,19 +4,12 @@ import {
   useTheme,
 } from "@react-navigation/native";
 import React from "react";
-import { TabBarIcon } from "@/components";
 import { NAVIGATION } from "@/constants";
 import { HomeNavigator } from "@/navigation/HomeNavigator";
 import { ProfileNavigator } from "@/navigation/ProfileNavigator";
-import {
-  bottomHome,
-  bottomMyJobr,
-  bottomOrders,
-  bottomProducts,
-} from "@/assets";
+import { bottomHome, bottomProducts, ProfileUser } from "@/assets";
 import { Image } from "react-native";
-import { AuthNavigator } from "./AuthNavigator";
-import { COLORS } from "@/theme";
+import { COLORS, SH, SW } from "@/theme";
 import { ProductNavigator } from "./ProductNavigator";
 
 const Tab = createBottomTabNavigator();
@@ -50,7 +43,7 @@ export function AppNavigator() {
             <Image
               color={color}
               source={bottomHome}
-              style={{ height: 24, width: 24 }}
+              style={{ height: SH(26), width: SW(26) }}
             />
           ),
         }}
@@ -66,7 +59,7 @@ export function AppNavigator() {
               resizeMode="contain"
               color={color}
               source={bottomProducts}
-              style={{ height: 22, width: 22 }}
+              style={{ height: SH(24), width: SW(24) }}
             />
           ),
         }}
@@ -81,8 +74,8 @@ export function AppNavigator() {
             <Image
               resizeMode="contain"
               color={color}
-              source={bottomMyJobr}
-              style={{ height: 22, width: 22 }}
+              source={ProfileUser}
+              style={{ height: SH(22), width: SW(22) }}
             />
           ),
         }}
