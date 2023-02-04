@@ -266,6 +266,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.Regular,
     fontSize: SF(14),
     flex: 1,
+    height:SH(50)
   },
   userIcon: {
     width: SW(18),
