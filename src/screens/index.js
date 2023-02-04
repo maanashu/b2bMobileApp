@@ -71,3 +71,5 @@ export { MyOrders } from "@/screens/MyPurchaseMain/MyOrders/MyOrders";
 export { TrackOrder } from "@/screens/MyPurchaseMain/TrackOrder/TrackOrder";
 export { RateExperience } from "@/screens/MyPurchaseMain/RateExperience/RateExperience";
 export { HelpCenter } from "@/screens/HelpCenter/HelpCenter";
+export { SupportRequest } from "@/screens/HelpCenter/SupportRequest/SupportRequest";
+export { MySupport } from "@/screens/HelpCenter/SupportRequest/MySupport";

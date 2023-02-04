@@ -30,6 +30,8 @@ import { styles } from "./HelpCenter.styles";
 import { strings } from "@/localization";
 import { HeaderCoin } from "../Profile/Wallet/Components/HeaderCoin";
 import { COLORS } from "@/theme";
+import { navigate } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
 
 export function HelpCenter() {
   const Details = [
@@ -70,10 +72,18 @@ export function HelpCenter() {
       icon: menuDots,
     },
   ];
+  const navigationHandler = (item) => {
+    if (item.title === strings.helpCenter.mySupportRequest) {
+      navigate(NAVIGATION.supportRequest);
+    } else if (item.title === strings.profile.settings) {
+      navigate(NAVIGATION.settings);
+    }
+  };
 
   const renderItems = ({ item, index, pending }) => (
     <>
       <TouchableOpacity
+        onPress={() => navigationHandler(item)}
         style={{
           flexDirection: "row",
           alignItems: "center",

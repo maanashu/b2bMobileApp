@@ -37,6 +37,7 @@ import {
   SelectState,
   Settings,
   ShipTo,
+  SupportRequest,
   TellAboutBusiness,
   TermsConditions,
   TrackOrder,
@@ -247,6 +248,11 @@ export function ProfileNavigator() {
       <Stack.Screen
         component={HelpCenter}
         name={NAVIGATION.helpCenter}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={SupportRequest}
+        name={NAVIGATION.supportRequest}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

@@ -70,4 +70,5 @@ export const NAVIGATION = {
   trackOrder: "TrackOrder",
   rateExperience: "RateExperience",
   helpCenter: "HelpCenter",
+  supportRequest: "SupportRequest",
 };

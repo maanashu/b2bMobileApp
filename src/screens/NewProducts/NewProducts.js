@@ -196,8 +196,8 @@ export function NewProducts() {
           <Spacer space={SH(1)} />
 
           <Text style={styles.priceText}>
-            {item.price} /
-            <Text style={styles.categoryText}> {item.product_type.name}</Text>
+            {item.price}/
+            {/* <Text style={styles.categoryText}> {item.product_type.name}</Text> */}
           </Text>
         </TouchableOpacity>
       )}

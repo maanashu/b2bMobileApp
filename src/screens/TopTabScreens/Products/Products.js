@@ -54,19 +54,6 @@ export function Products({ navigation }) {
 
   console.log("check new arr", newArr);
 
-  // for (let index = 0; index < categoryArray.length; index += 1) {
-  //   const element = categoryArray[index];
-  //   allCategories.push(element);
-  // }
-
-  // while (index < categoryArray.length) {
-  //   let CategoriesAll = categoryArray[index];
-  //   allCategories.push(CategoriesAll);
-  //   index += 1;
-  // }
-
-  console.log("pushed array---------------->", allCategories);
-
   const BannerData = useSelector(getBannerSelector);
   const BannerList = BannerData?.banners;
 
@@ -132,7 +119,9 @@ export function Products({ navigation }) {
               marginTop: SH(2),
             }}
           />
-          <Text style={[styles.title, { marginTop: SH(-18) }]}>{"All"}</Text>
+          <Text style={[styles.title, { marginTop: SH(-18) }]}>
+            {viewAll == categoryArray ? "Less" : "All"}
+          </Text>
         </TouchableOpacity>
       ) : (
         <TouchableOpacity
