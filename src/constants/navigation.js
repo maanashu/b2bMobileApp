@@ -71,4 +71,10 @@ export const NAVIGATION = {
   rateExperience: "RateExperience",
   helpCenter: "HelpCenter",
   supportRequest: "SupportRequest",
+  pastOrders: "PastOrders",
+  helpWithOrders: "HelpWithOrders",
+  needMoreHelp: "NeedMoreHelp",
+  faq: "Faq",
+  faqVerified: "FaqVerified",
+  supportDetails: "SupportDetails",
 };

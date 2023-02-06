@@ -1,25 +1,58 @@
-import React, { useState } from 'react';
-import { View, Image, Text, TextInput } from 'react-native';
-import { useTheme } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import CountryPicker from 'react-native-country-picker-modal';
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import {blueLogo, authImage} from '@/assets';
-import { strings } from '@/localization';
-import { COLORS, SF, SH, TextStyles } from '@/theme';
-import { Spacer, Button, ScreenWrapper, Logo } from '@/components';
+import React, { useState } from "react";
+import { View, Image, Text, TextInput } from "react-native";
+import { useTheme } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/FontAwesome5";
+import CountryPicker from "react-native-country-picker-modal";
+import { moderateScale, scale, verticalScale } from "react-native-size-matters";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { blueLogo, authImage } from "@/assets";
+import { strings } from "@/localization";
+import { COLORS, SF, SH, TextStyles } from "@/theme";
+import { Spacer, Button, ScreenWrapper, Logo } from "@/components";
 
-import { styles } from '@/screens/GetStarted/MobileNumber/MobileNumber.styles';
-import { panGestureHandlerCustomNativeProps } from 'react-native-gesture-handler/lib/typescript/handlers/PanGestureHandler';
-import { navigate } from '@/navigation/NavigationRef';
-import { NAVIGATION } from '@/constants';
+import { styles } from "@/screens/GetStarted/MobileNumber/MobileNumber.styles";
+import { navigate } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
+import { digits } from "@/Utils/validators";
+import { sendOtp } from "@/actions/UserActions";
+import { useDispatch } from "react-redux";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 export function MobileNumber() {
+  const dispatch = useDispatch();
   const { colors } = useTheme();
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [flag, setFlag] = useState('US');
-  const [countryCode, setCountryCode] = useState('+1');
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [flag, setFlag] = useState("US");
+  const [countryCode, setCountryCode] = useState("+1");
+
+  const onChangePhoneNumber = (phone) => setPhoneNumber(phone);
+
+  const submit = () => {
+    if (phoneNumber && phoneNumber.length >= 10 && digits.test(phoneNumber)) {
+      dispatch(sendOtp(phoneNumber, countryCode, param));
+    } else if (phoneNumber && phoneNumber.length < 10) {
+      Toast.show({
+        position: "bottom",
+        type: "error_toast",
+        text2: strings.validation.phoneLength,
+        visibilityTime: 2000,
+      });
+    } else if (phoneNumber && digits.test(phoneNumber) === false) {
+      Toast.show({
+        position: "bottom",
+        type: "error_toast",
+        text2: strings.validation.validPhone,
+        visibilityTime: 2000,
+      });
+    } else {
+      Toast.show({
+        position: "bottom",
+        type: "error_toast",
+        text2: strings.validation.enterPhone,
+        visibilityTime: 2000,
+      });
+    }
+  };
 
   return (
     <ScreenWrapper>
@@ -30,16 +63,11 @@ export function MobileNumber() {
         showsVerticalScrollIndicator={false}
       >
         <Spacer space={SH(54)} />
-        <Image source={blueLogo} style={styles.blueLogo}/>
+        <Image source={blueLogo} style={styles.blueLogo} />
         <Spacer space={SH(24)} />
-        <Image
-          style={styles.loginImg}
-          source={authImage}
-        />
+        <Image style={styles.loginImg} source={authImage} />
         <Spacer space={SH(40)} />
-        <Text
-          style={styles.enterMobile}
-        >{strings.auth.enterMobile}</Text>
+        <Text style={styles.enterMobile}>{strings.auth.enterMobile}</Text>
         <Spacer space={SH(10)} />
 
         <Text style={styles.pleaseEnterMobile}>
@@ -49,12 +77,12 @@ export function MobileNumber() {
 
         <View style={[styles.textInputView]}>
           <CountryPicker
-            onSelect={code => {
+            onSelect={(code) => {
               setFlag(code.cca2);
               if (code.callingCode !== []) {
-                setCountryCode('+' + code.callingCode.flat());
+                setCountryCode("+" + code.callingCode.flat());
               } else {
-                setCountryCode('');
+                setCountryCode("");
               }
             }}
             countryCode={flag}
@@ -62,7 +90,7 @@ export function MobileNumber() {
             withCallingCode
           />
           <Icon
-            name={'sort-down'}
+            name={"sort-down"}
             color="black"
             size={scale(8)}
             style={{ right: moderateScale(4), bottom: verticalScale(2) }}
@@ -72,11 +100,11 @@ export function MobileNumber() {
           <TextInput
             returnKeyType="done"
             keyboardType="number-pad"
-            // value={phoneNumber}
-            // onChangeText={onChangePhoneNumber}
+            value={phoneNumber}
+            onChangeText={onChangePhoneNumber}
             style={styles.textInputContainer}
             placeholder={strings.auth.mobilePlaceholder}
-            placeholderTextColor={'#A7A7A7'}
+            placeholderTextColor={"#A7A7A7"}
             maxLength={15}
           />
         </View>
@@ -88,10 +116,10 @@ export function MobileNumber() {
           title={strings.auth.continue}
           textStyle={styles.text}
           style={styles.loginButton}
-          onPress = {() => navigate(NAVIGATION.verify)}
+          onPress={() => navigate(NAVIGATION.verify)}
         />
       </KeyboardAwareScrollView>
-      <Spacer space={SH(30)}/>
+      <Spacer space={SH(30)} />
     </ScreenWrapper>
   );
 }

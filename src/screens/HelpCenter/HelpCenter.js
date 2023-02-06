@@ -75,8 +75,14 @@ export function HelpCenter() {
   const navigationHandler = (item) => {
     if (item.title === strings.helpCenter.mySupportRequest) {
       navigate(NAVIGATION.supportRequest);
-    } else if (item.title === strings.profile.settings) {
-      navigate(NAVIGATION.settings);
+    } else if (item.title === strings.helpCenter.pastorders) {
+      navigate(NAVIGATION.pastOrders);
+    } else if (item.title === strings.helpCenter.myAccount) {
+      navigate(NAVIGATION.faq, { data: item.title });
+    } else if (item.title === strings.helpCenter.reportIssue) {
+      navigate(NAVIGATION.needMoreHelp, { data: item.title });
+    } else if (item.title === strings.helpCenter.faq) {
+      navigate(NAVIGATION.faq, { data: item.title });
     }
   };
 

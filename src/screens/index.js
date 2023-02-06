@@ -73,3 +73,9 @@ export { RateExperience } from "@/screens/MyPurchaseMain/RateExperience/RateExpe
 export { HelpCenter } from "@/screens/HelpCenter/HelpCenter";
 export { SupportRequest } from "@/screens/HelpCenter/SupportRequest/SupportRequest";
 export { MySupport } from "@/screens/HelpCenter/SupportRequest/MySupport";
+export { PastOrders } from "@/screens/HelpCenter/PastOrders/PastOrders";
+export { HelpWithOrders } from "@/screens/HelpCenter/PastOrders/HelpWithOrders";
+export { NeedMoreHelp } from "@/screens/HelpCenter/PastOrders/NeedMoreHelp";
+export { Faq } from "@/screens/HelpCenter/Faq/Faq";
+export { FaqVerified } from "@/screens/HelpCenter/Faq/FaqVerified";
+export { SupportDetails } from "@/screens/HelpCenter/SupportDetails/SupportDetails";

@@ -6,7 +6,6 @@ import {
   StyleSheet,
   Dimensions,
   TextInput,
-  TouchableWithoutFeedback,
   TouchableOpacity,
 } from "react-native";
 import { Spacer, ScreenWrapper, TextField, Button } from "@/components";
@@ -19,8 +18,6 @@ import {
   gallery_image,
   import_picture,
   ProfileUser,
-  uparrow,
-  uploadPic,
 } from "@/assets";
 
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
@@ -29,14 +26,13 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 import DocumentPicker from "react-native-document-picker";
 
-import DropDownPicker from "react-native-dropdown-picker";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { string } from "prop-types";
+import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
 
-export function SupportTicket() {
+export function NeedMoreHelp(props) {
   const dropdownData = ["abc", "def"];
   const [fileResponse, setFileResponse] = useState([]);
   const [isBottomViewVisible, setisBottomViewVisible] = useState(false);
@@ -58,13 +54,21 @@ export function SupportTicket() {
 
   return (
     <ScreenWrapper>
+      <HeaderCoin
+        title={
+          props.route.params.data == "Need more help"
+            ? "Get help with my orders"
+            : props.route.params.data
+        }
+        amount={0}
+      />
       <KeyboardAwareScrollView
         showsVerticalScrollIndicator={false}
         style={styles.mainContainer}
       >
-        <Spacer space={SH(10)} />
+        <Spacer space={SH(30)} />
 
-        <Text style={styles.heading}>{strings.helpCenter.openNewTicket}</Text>
+        <Text style={styles.heading}>{props.route.params.data}</Text>
 
         <Spacer space={SH(10)} />
 

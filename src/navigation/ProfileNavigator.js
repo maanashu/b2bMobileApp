@@ -16,8 +16,11 @@ import {
   CookiesPolicy,
   CurrentCoupons,
   FaceIdPin,
+  Faq,
+  FaqVerified,
   FavouriteList,
   HelpCenter,
+  HelpWithOrders,
   Inquiries,
   JbrWallet,
   Manufacturers,
@@ -25,8 +28,10 @@ import {
   MyOrders,
   MyPurchase,
   NearMe,
+  NeedMoreHelp,
   NotificationSetting,
   PastCoupons,
+  PastOrders,
   PrivacyPolicy,
   Profile,
   QrCode,
@@ -37,6 +42,7 @@ import {
   SelectState,
   Settings,
   ShipTo,
+  SupportDetails,
   SupportRequest,
   TellAboutBusiness,
   TermsConditions,
@@ -253,6 +259,36 @@ export function ProfileNavigator() {
       <Stack.Screen
         component={SupportRequest}
         name={NAVIGATION.supportRequest}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={PastOrders}
+        name={NAVIGATION.pastOrders}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={HelpWithOrders}
+        name={NAVIGATION.helpWithOrders}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={NeedMoreHelp}
+        name={NAVIGATION.needMoreHelp}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={Faq}
+        name={NAVIGATION.faq}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={FaqVerified}
+        name={NAVIGATION.faqVerified}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={SupportDetails}
+        name={NAVIGATION.supportDetails}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
