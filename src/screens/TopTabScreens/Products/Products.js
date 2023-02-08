@@ -43,12 +43,12 @@ export function Products({ navigation }) {
   const listRef = useRef();
   const dispatch = useDispatch();
   const categoryData = useSelector(getCategorySelector);
-
   // const newArr =
   //   categoryData?.categories === 0
   //     ? []
   //     : [...categoryData?.categories, { isButton: true }];
-
+  // const slicedArray = categoryData?.categoryList;
+  // console.log("print spliced array", slicedArray);
   const [categoryArray, setcategoryArray] = useState([]);
   const [splicedArray, setsplicedArray] = useState([]);
   const [selectedId, setSelectedId] = useState("");
@@ -63,8 +63,10 @@ export function Products({ navigation }) {
   }, []);
 
   useEffect(() => {
-    const categoryArr = categoryData?.categories;
-    const splicedArr = categoryArray?.slice(0, 8);
+    const categoryArr = categoryData?.categoryList;
+    console.log("categorylist--------->", categoryArr);
+    const splicedArr = categoryArr?.slice(0, 8);
+
     setcategoryArray(categoryArr);
     setsplicedArray(splicedArr);
   }, [categoryData?.categories]);

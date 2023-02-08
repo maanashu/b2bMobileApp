@@ -6,17 +6,19 @@ import {
   ApiUserInventory,
   ORDER_URL,
   ApiOrderInventory,
+  CATEGORY_URL,
 } from "@/Utils/APIinventory";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { HttpClient } from "./HttpClient";
 export class CategoryController {
   static async getCategory() {
     return new Promise((resolve, reject) => {
-      const endpoint = PRODUCT_URL + ApiProductInventory.getCategory;
+      const endpoint = CATEGORY_URL + ApiProductInventory.getCategory;
       HttpClient.get(endpoint)
 
         .then((response) => {
           resolve(response);
+          console.log("response", response);
         })
         .catch((error) => {
           Toast.show({

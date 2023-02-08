@@ -1,6 +1,7 @@
 import { TYPES } from "@/Types/Types";
 const INITIALSTATE = {
-  categories: [],
+  categoryList: [],
+  subCategories: [],
 };
 export const categoryReducer = (
   state = { INITIALSTATE },
@@ -8,8 +9,10 @@ export const categoryReducer = (
 ) => {
   switch (type) {
     case TYPES.GET_CATEGORY_SUCCESS:
-      return { ...state, categories: payload.categoryList.payload.data };
-
+      return {
+        ...state,
+        categoryList: payload.categoryList.payload.data,
+      };
     default:
       return state;
   }
