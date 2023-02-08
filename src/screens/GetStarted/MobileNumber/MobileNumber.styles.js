@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
     alignSelf: "center",
   },
   enterMobile: {
-    color: COLORS.grey,
+    color: COLORS.text,
     fontSize: SF(24),
     fontFamily: Fonts.MaisonMonoBold,
     paddingHorizontal: moderateScale(20),

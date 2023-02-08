@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   Dimensions,
   FlatList,
@@ -36,23 +36,23 @@ import { getCategorySelector } from "@/selectors/CategorySelectors";
 import { getCategory } from "@/actions/CategoryActions";
 import { getBanners } from "@/actions/BannerActions";
 import { getBannerSelector } from "@/selectors/BannerSelectors";
+import FastImage from "react-native-fast-image";
+import { getUser } from "@/selectors/UserSelectors";
 
 export function Products({ navigation }) {
+  const listRef = useRef();
   const dispatch = useDispatch();
   const categoryData = useSelector(getCategorySelector);
-  const categoryArray = categoryData?.categories;
-  const splicedArray = categoryArray?.slice(0, 8);
 
-  const newArr =
-    categoryArray?.length === 0 ? [] : [...categoryArray, { isButton: true }];
-  const [viewAll, setviewAll] = useState(splicedArray);
+  // const newArr =
+  //   categoryData?.categories === 0
+  //     ? []
+  //     : [...categoryData?.categories, { isButton: true }];
+
+  const [categoryArray, setcategoryArray] = useState([]);
+  const [splicedArray, setsplicedArray] = useState([]);
   const [selectedId, setSelectedId] = useState("");
   const [product, setProduct] = useState("");
-
-  const allCategories = [];
-  const index = 0;
-
-  console.log("check new arr", newArr);
 
   const BannerData = useSelector(getBannerSelector);
   const BannerList = BannerData?.banners;
@@ -61,6 +61,13 @@ export function Products({ navigation }) {
     dispatch(getCategory());
     dispatch(getBanners());
   }, []);
+
+  useEffect(() => {
+    const categoryArr = categoryData?.categories;
+    const splicedArr = categoryArray?.slice(0, 8);
+    setcategoryArray(categoryArr);
+    setsplicedArray(splicedArr);
+  }, [categoryData?.categories]);
 
   function dynamicHeight(_index) {
     if (_index % 2 == 0) {
@@ -99,78 +106,50 @@ export function Products({ navigation }) {
     }
   }
 
-  const renderItem = ({ item, index }) => (
-    <>
-      {index == 7 ? (
-        <TouchableOpacity
-          onPress={() => {
-            viewAll == categoryArray
-              ? setviewAll(splicedArray)
-              : setviewAll(categoryArray);
-          }}
-          style={{ alignItems: "center", marginRight: SW(-82.5) }}
-        >
-          <Image
-            source={roundAll}
-            resizeMode="contain"
-            style={{
-              height: SW(85),
-              width: SW(85),
-              marginTop: SH(2),
+  const renderItem = ({ item, index }) => {
+    return (
+      <>
+        {index == 7 ? (
+          <TouchableOpacity
+            onPress={() => navigate(NAVIGATION.subCategories)}
+            style={{ alignItems: "center", marginRight: SW(-82.5) }}
+          >
+            <FastImage
+              source={roundAll}
+              resizeMode="contain"
+              style={{
+                height: SW(85),
+                width: SW(85),
+                marginTop: SH(2),
+              }}
+            />
+            <Text style={[styles.title, { marginTop: SH(-18) }]}>{"All"}</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => {
+              console.log("pressed");
+              setSelectedId(item.name);
             }}
-          />
-          <Text style={[styles.title, { marginTop: SH(-18) }]}>
-            {viewAll == categoryArray ? "Less" : "All"}
-          </Text>
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity
-          style={styles.item}
-          onPress={() => setSelectedId(item.name)}
-        >
-          <Image source={{ uri: item.image }} style={styles.roundIcons} />
+          >
+            <Image source={{ uri: item.image }} style={styles.roundIcons} />
 
-          <Text numberOfLines={1} style={styles.title}>
-            {item.name}
-          </Text>
-        </TouchableOpacity>
-      )}
-    </>
-  );
-  const renderItemFull = ({ item, index }) => (
-    <>
-      {item.isButton ? (
-        <TouchableOpacity
-          onPress={() => {
-            () => setviewAll(newArr);
-          }}
-          style={{ alignItems: "center", marginRight: SW(-82.5) }}
-        >
-          <Image
-            source={roundAll}
-            resizeMode="contain"
-            style={{
-              height: SW(85),
-              width: SW(85),
-              marginTop: SH(2),
-            }}
-          />
-          <Text style={[styles.title, { marginTop: SH(-18) }]}>{"Less"}</Text>
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity
-          style={styles.item}
-          onPress={() => setSelectedId(item.name)}
-        >
-          <Image source={{ uri: item.image }} style={styles.roundIcons} />
-
-          <Text numberOfLines={1} style={styles.title}>
-            {item.name}
-          </Text>
-        </TouchableOpacity>
-      )}
-    </>
-  );
+            <Text numberOfLines={1} style={styles.title}>
+              {item.name}
+            </Text>
+          </TouchableOpacity>
+        )}
+      </>
+    );
+  };
+  // const scrollToTop = () => {
+  //   setisVisibleFlatlist(true);
+  //   listRef.current?.scrollTo({
+  //     y: 0,
+  //     animated: true,
+  //   });
+  // };
 
   const secondItem = ({ item, onPress }) => (
     <View style={styles.itemS}>
@@ -249,7 +228,8 @@ export function Products({ navigation }) {
   return (
     <ScreenWrapper>
       <Spacer space={SH(10)} />
-      <ScrollView showsVerticalScrollIndicator={false}>
+
+      <ScrollView showsVerticalScrollIndicator={false} ref={listRef}>
         <Search placeholder={strings.business.searchHere} />
 
         <Spacer space={SH(10)} />
@@ -259,11 +239,10 @@ export function Products({ navigation }) {
 
           <FlatList
             columnWrapperStyle={{ justifyContent: "flex-start" }}
-            data={viewAll}
-            // renderItem={viewAll === splicedArray ? renderItemFull : renderItem}
+            data={splicedArray}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
-            extraData={viewAll}
+            extraData={splicedArray}
             numColumns={4}
           />
         </View>

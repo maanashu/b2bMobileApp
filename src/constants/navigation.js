@@ -77,4 +77,5 @@ export const NAVIGATION = {
   faq: "Faq",
   faqVerified: "FaqVerified",
   supportDetails: "SupportDetails",
+  subCategories: "SubCategories",
 };

@@ -1,7 +1,9 @@
 import { NAVIGATION } from "@/constants";
 import { strings } from "@/localization";
 import { navigate } from "@/navigation/NavigationRef";
-import { ApiUserInventory } from "@/Utils/APIinventory";
+import { ApiUserInventory, USER_URL } from "@/Utils/APIinventory";
+import Toast from "react-native-toast-message";
+import { HttpClient } from "./HttpClient";
 
 export class UserController {
   static async login(username, password) {
@@ -24,88 +26,47 @@ export class UserController {
 
   static async sendOtp(phoneNumber, countryCode, key) {
     return new Promise((resolve, reject) => {
-      const endpoint = ApiUserInventory.sendOtp;
-      const body = key
-        ? {
-            phone_code: countryCode,
-            phone_no: phoneNumber,
-            isAlreadyCheck: true,
-          }
-        : {
-            phone_code: countryCode,
-            phone_no: phoneNumber,
-          };
+      const endpoint = USER_URL + ApiUserInventory.sendOtp;
+
+      const body = {
+        phone_code: countryCode,
+        phone_no: phoneNumber,
+      };
+
       HttpClient.post(endpoint, body)
         .then((response) => {
-          if (response.status_code === 200) {
-            if (response?.payload?.is_phone_exits) {
-              navigate(NAVIGATION.enterPin);
-            } else {
-              Toast.show({
-                position: "bottom",
-                type: "success_toast",
-                text2: "OTP sent successfully !",
-                visibilityTime: 2000,
-              });
-              navigate(NAVIGATION.verify, {
-                id: response.payload.id,
-                key: key,
-              });
-            }
+          if (response?.payload?.is_phone_exits) {
+            console.log("User already Registered", response);
+            navigate(NAVIGATION.enterPin);
           } else {
-            Toast.show({
-              text2: response.msg,
-              position: "bottom",
-              type: "success_toast",
-              visibilityTime: 2000,
-            });
+            console.log("New User", response.payload.id);
+            navigate(NAVIGATION.verify, { id: response.payload.id });
           }
+
           resolve(response);
         })
         .catch((error) => {
-          Toast.show({
-            text2: error.msg,
-            position: "bottom",
-            type: "error_toast",
-            visibilityTime: 2000,
-          });
-          reject(error);
+          console.log("catching error", error);
         });
     });
   }
-
   static async verifyOtp(id, value, key) {
-    const endpoint = ApiUserInventory.verifyOtp;
-    const body = key
-      ? {
-          otp: value,
-          id: id,
-          role_id: 7,
-          isAlreadyCheck: true,
-        }
-      : {
-          otp: value,
-          id: id,
-          role_id: 7,
-        };
-    await HttpClient.post(endpoint, body)
+    const endpoint = USER_URL + ApiUserInventory.verifyPhone;
+
+    const body = {
+      id: id,
+      otp: value,
+    };
+
+    HttpClient.post(endpoint, body)
       .then((response) => {
         if (response.status_code === 200) {
-          Toast.show({
-            type: "success_toast",
-            text2: strings.successMessages.otpVerified,
-            position: "bottom",
-            visibilityTime: 1500,
-          });
-          key ? navigate(NAVIGATION.enterPin) : navigate(NAVIGATION.register);
+          console.log("api success");
         } else {
-          Toast.show({
-            text2: "Invalid OTP",
-            position: "bottom",
-            type: "error_toast",
-            visibilityTime: 1500,
-          });
+          console.log("api failed", response);
         }
+
+        resolve(response);
       })
       .catch((error) => {
         Toast.show({

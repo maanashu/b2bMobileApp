@@ -24,6 +24,7 @@ import {
   SendAnOffer,
   SendInquiry,
   StartOrder,
+  SubCategories,
   TopRankingManufacturers,
 } from "@/screens";
 import { ScreenNavigator } from "./ScreenNavigator";
@@ -33,8 +34,8 @@ const Stack = createNativeStackNavigator();
 
 export function HomeNavigator() {
   return (
-    <Stack.Navigator initialRouteName={NAVIGATION.onboarding}>
-      <Stack.Screen
+    <Stack.Navigator initialRouteName={NAVIGATION.home}>
+      {/* <Stack.Screen
         component={OnBoarding}
         name={NAVIGATION.onboarding}
         options={{ headerShown: false }}
@@ -43,7 +44,7 @@ export function HomeNavigator() {
         component={Categories}
         name={NAVIGATION.categories}
         options={{ headerShown: false }}
-      />
+      /> */}
       <Stack.Screen
         name={NAVIGATION.home}
         component={Home}
@@ -139,6 +140,11 @@ export function HomeNavigator() {
       <Stack.Screen
         component={NearMeOptions}
         name={NAVIGATION.nearMeOptions}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={SubCategories}
+        name={NAVIGATION.subCategories}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

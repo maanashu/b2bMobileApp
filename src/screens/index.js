@@ -79,3 +79,4 @@ export { NeedMoreHelp } from "@/screens/HelpCenter/PastOrders/NeedMoreHelp";
 export { Faq } from "@/screens/HelpCenter/Faq/Faq";
 export { FaqVerified } from "@/screens/HelpCenter/Faq/FaqVerified";
 export { SupportDetails } from "@/screens/HelpCenter/SupportDetails/SupportDetails";
+export { SubCategories } from "@/screens/SubCategories/SubCategories";

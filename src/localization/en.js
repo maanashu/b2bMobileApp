@@ -11,6 +11,9 @@ export const en = {
     skip: "Skip",
     submit: "Submit",
   },
+  verify: {
+    error: "Error",
+  },
   common: {
     loading: "Loading",
     connectionError: "Connection error",

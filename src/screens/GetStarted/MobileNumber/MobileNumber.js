@@ -7,25 +7,33 @@ import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { blueLogo, authImage } from "@/assets";
 import { strings } from "@/localization";
-import { COLORS, SF, SH, TextStyles } from "@/theme";
+import { COLORS, SF, SH } from "@/theme";
 import { Spacer, Button, ScreenWrapper, Logo } from "@/components";
-
 import { styles } from "@/screens/GetStarted/MobileNumber/MobileNumber.styles";
-import { navigate } from "@/navigation/NavigationRef";
-import { NAVIGATION } from "@/constants";
 import { digits } from "@/Utils/validators";
 import { sendOtp } from "@/actions/UserActions";
 import { useDispatch } from "react-redux";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 
-export function MobileNumber() {
+export function MobileNumber(props) {
   const dispatch = useDispatch();
   const { colors } = useTheme();
   const [phoneNumber, setPhoneNumber] = useState("");
   const [flag, setFlag] = useState("US");
   const [countryCode, setCountryCode] = useState("+1");
+  const param = props?.route?.params?.data;
 
   const onChangePhoneNumber = (phone) => setPhoneNumber(phone);
+
+  const clearInputs = () => {
+    alert("call");
+    setPhoneNumber("");
+  };
+
+  // const submit = () => {
+  //   // console.log("dispatch action", phoneNumber, countryCode);
+  //   dispatch(sendOtp(phoneNumber, countryCode));
+  // };
 
   const submit = () => {
     if (phoneNumber && phoneNumber.length >= 10 && digits.test(phoneNumber)) {
@@ -34,26 +42,25 @@ export function MobileNumber() {
       Toast.show({
         position: "bottom",
         type: "error_toast",
-        text2: strings.validation.phoneLength,
+        text2: "strings.validation.phoneLength",
         visibilityTime: 2000,
       });
     } else if (phoneNumber && digits.test(phoneNumber) === false) {
       Toast.show({
         position: "bottom",
         type: "error_toast",
-        text2: strings.validation.validPhone,
+        text2: "strings.validation.validPhone",
         visibilityTime: 2000,
       });
     } else {
       Toast.show({
         position: "bottom",
         type: "error_toast",
-        text2: strings.validation.enterPhone,
+        text2: "strings.validation.enterPhone",
         visibilityTime: 2000,
       });
     }
   };
-
   return (
     <ScreenWrapper>
       <KeyboardAwareScrollView
@@ -116,7 +123,7 @@ export function MobileNumber() {
           title={strings.auth.continue}
           textStyle={styles.text}
           style={styles.loginButton}
-          onPress={() => navigate(NAVIGATION.verify)}
+          onPress={submit}
         />
       </KeyboardAwareScrollView>
       <Spacer space={SH(30)} />

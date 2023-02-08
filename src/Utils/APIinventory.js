@@ -3,7 +3,12 @@ export const USER_URL = "https://apiuserservice.jobr.com/api/v1/";
 export const ORDER_URL = "https://apiorder.jobr.com:8004/api/v1/";
 export const PRODUCT_URL = "https://apiproductmgmt.jobr.com/api/v1/";
 
-export const ApiUserInventory = {};
+export const ApiUserInventory = {
+  sendOtp: "user_phones/",
+  verifyPhone: "user_phones/verify-phone",
+  userRegister: "users",
+  login: "login/",
+};
 
 export const ApiProductInventory = {
   getCategory: "categories/get-all/category",

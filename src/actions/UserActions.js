@@ -6,6 +6,14 @@ export const TYPES = {
   LOGIN_REQUEST: "LOGIN_REQUEST",
   LOGIN_ERROR: "LOGIN_ERROR",
   LOGIN_SUCCESS: "LOGIN_SUCCESS",
+  SEND_OTP_REQUEST: "SEND_OTP_REQUEST",
+  SAVE_PHONE: "SAVE_PHONE",
+  SEND_OTP_ERROR: "SEND_OTP_ERROR",
+  SEND_OTP_SUCCESS: "SEND_OTP_SUCCESS",
+  SAVE_OTP: "SAVE_OTP",
+  VERIFY_OTP_REQUEST: "VERIFY_OTP_REQUEST",
+  VERIFY_OTP_ERROR: "VERIFY_OTP_ERROR",
+  VERIFY_OTP_SUCCESS: "VERIFY_OTP_SUCCESS",
 };
 
 const loginRequest = () => ({
@@ -124,11 +132,12 @@ export const getUser = (data) => async (dispatch) => {
   }
 };
 
-export const sendOtp = (phoneNumber, countryCode, key) => async (dispatch) => {
+export const sendOtp = (phoneNumber, countryCode) => async (dispatch) => {
   dispatch(sendOtpRequest());
+
   try {
     dispatch(savePhone({ phoneNumber, countryCode }));
-    const res = await UserController.sendOtp(phoneNumber, countryCode, key);
+    const res = await UserController.sendOtp(phoneNumber, countryCode);
     dispatch(sendOtpSuccess(res));
     dispatch(saveOtp(res.payload.otp));
   } catch (error) {
@@ -136,12 +145,13 @@ export const sendOtp = (phoneNumber, countryCode, key) => async (dispatch) => {
   }
 };
 
-export const verifyOtp = (id, value, key) => async (dispatch) => {
+export const verifyOtp = (id, value) => async (dispatch) => {
   dispatch(verifyOtpRequest());
   try {
     dispatch(saveOtp(value));
-    const res = await UserController.verifyOtp(id, value, key);
+    const res = await UserController.verifyOtp(id, value);
     dispatch(verifyOtpSuccess(res));
+    console.log("checking responce of id and value", res);
   } catch (error) {
     dispatch(verifyOtpError(error.message));
   }
