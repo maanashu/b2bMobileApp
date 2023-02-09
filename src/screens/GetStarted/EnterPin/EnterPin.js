@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import {
   CodeField,
@@ -13,15 +13,27 @@ import { SH, TextStyles, COLORS } from "@/theme";
 import { goBack, navigate } from "@/navigation/NavigationRef";
 import { Button, Spacer, ScreenWrapper } from "@/components";
 import { styles } from "@/screens/GetStarted/EnterPin/EnterPin.styles";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser as getUserSelector } from "@/selectors/UserSelectors";
+import { getUser as getUserAction } from "@/actions/UserActions";
+import { getCategorySelector } from "@/selectors/CategorySelectors";
 const CELL_COUNT = 4;
 
 export function EnterPin() {
+  const dispatch = useDispatch();
   const [value, setValue] = useState("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [prop, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   });
+
+  const phoneNumber = useSelector(getUserSelector);
+  console.log("user reducer data" + phoneNumber);
+
+  useEffect(() => {
+    dispatch(getUserAction);
+  }, []);
 
   return (
     <ScreenWrapper>

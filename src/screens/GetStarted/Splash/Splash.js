@@ -31,6 +31,7 @@ export function Splash() {
         title={strings.splash.register}
         style={styles.register}
         textStyle={styles.textStyle}
+        onPress={() => navigate(NAVIGATION.mobileNumber)}
       />
       <Spacer space={SH(30)} />
     </LinearGradient>

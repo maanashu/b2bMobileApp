@@ -2,7 +2,7 @@ import { TYPES } from "@/Types/Types";
 
 const INITIALSTATE = {
   registered: {},
-  phoneData: {},
+  phone: {},
   user: {},
   editProfile: [],
   personalInformation: {},
@@ -35,7 +35,7 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
     case TYPES.SAVE_PHONE:
       return {
         ...state,
-        phoneData: payload,
+        phone: payload,
       };
     case TYPES.SAVE_OTP:
       return {

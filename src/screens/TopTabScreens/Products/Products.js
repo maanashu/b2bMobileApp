@@ -37,19 +37,18 @@ import { getCategory } from "@/actions/CategoryActions";
 import { getBanners } from "@/actions/BannerActions";
 import { getBannerSelector } from "@/selectors/BannerSelectors";
 import FastImage from "react-native-fast-image";
-import { getUser } from "@/selectors/UserSelectors";
 
 export function Products({ navigation }) {
   const listRef = useRef();
   const dispatch = useDispatch();
   const categoryData = useSelector(getCategorySelector);
+  const arrayArray = categoryData?.categoryList?.slice(0, 8);
   // const newArr =
   //   categoryData?.categories === 0
   //     ? []
   //     : [...categoryData?.categories, { isButton: true }];
-  // const slicedArray = categoryData?.categoryList;
-  // console.log("print spliced array", slicedArray);
-  const [categoryArray, setcategoryArray] = useState([]);
+
+  // const [categoryArray, setcategoryArray] = useState([]);
   const [splicedArray, setsplicedArray] = useState([]);
   const [selectedId, setSelectedId] = useState("");
   const [product, setProduct] = useState("");
@@ -62,13 +61,13 @@ export function Products({ navigation }) {
     dispatch(getBanners());
   }, []);
 
-  useEffect(() => {
-    const categoryArr = categoryData?.categoryList;
-    const splicedArr = categoryArr?.slice(0, 8);
+  // useEffect(() => {
+  //   const categoryArr = categoryData?.categoryList;
+  //   const splicedArr = categoryArr?.slice(0, 8);
 
-    setcategoryArray(categoryArr);
-    setsplicedArray(splicedArr);
-  }, [categoryData?.categories]);
+  //   // setcategoryArray(categoryArr);
+  //   setsplicedArray(splicedArr);
+  // }, [categoryData?.categories]);
 
   function dynamicHeight(_index) {
     if (_index % 2 == 0) {
@@ -240,10 +239,10 @@ export function Products({ navigation }) {
 
           <FlatList
             columnWrapperStyle={{ justifyContent: "flex-start" }}
-            data={splicedArray}
+            data={arrayArray}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
-            extraData={splicedArray}
+            extraData={arrayArray}
             numColumns={4}
           />
         </View>
