@@ -9,43 +9,38 @@ import { strings } from "@/localization";
 import { Header } from "@/components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
-import { LastData } from "../Products/ProductsInquiry/FlatlistData";
-import { getCategory } from "@/actions/CategoryActions";
+import { getCategory, getSubCategory } from "@/actions/CategoryActions";
 import { getProduct } from "@/actions/ProductActions";
 import { getProductSelector } from "@/selectors/ProductSelectors";
-import { navigate } from "@/navigation/NavigationRef";
-import { NAVIGATION } from "@/constants";
+import FastImage from "react-native-fast-image";
+
 export function SubCategories() {
-  const [selectedId, setSelectedId] = useState(1);
+  const [selectedId, setSelectedId] = useState();
   console.log("selectedId", selectedId);
   const dispatch = useDispatch();
   const categoryData = useSelector(getCategorySelector);
-  const categoryArray = categoryData?.categories;
-  const splicedArray = categoryArray?.slice(0, 7);
+  const categoryArray = categoryData?.categoryList;
 
   const ProductsData = useSelector(getProductSelector);
   const Products = ProductsData?.product;
-  // const [productLists, setProductLists] = useState([Products]);
-  // console.log("product list according to category id-->", Products);
 
-  const dummyData = [
-    { id: 1, image: Apparel, title: "Sub Category" },
-    { id: 2, image: Apparel, title: "Sub Category" },
-    { id: 3, image: Apparel, title: "Sub Category" },
-    { id: 4, image: Apparel, title: "Sub Category" },
-    { id: 5, image: Apparel, title: "Sub Category" },
-    { id: 6, image: Apparel, title: "Sub Category" },
-    { id: 7, image: Apparel, title: "Sub Category" },
-  ];
+  const SUBCATEGORIES = useSelector(getCategorySelector);
+  const SubCatArray = SUBCATEGORIES?.subCategoryList;
 
   useEffect(() => {
     dispatch(getCategory());
-    dispatch(getProduct(1));
+    // dispatch(getProduct(1));
+    setSelectedId(categoryArray[0]?.id);
+  }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(getSubCategory(categoryArray[0]?.id));
+    }, 1000);
   }, []);
 
-  const getProductsList = (item) => {
+  const getSubCategoryList = (item) => {
     setSelectedId(item.id);
-    dispatch(getProduct(item.id));
+    dispatch(getSubCategory(item.id));
   };
 
   const renderCategory = ({ item, index }) => (
@@ -57,7 +52,7 @@ export function SubCategories() {
         }}
         onPress={() => {
           // console.log("check selected category", item);
-          getProductsList(item);
+          getSubCategoryList(item);
           // dispatch(getProduct(selectedId));
         }}
       >
@@ -170,8 +165,8 @@ export function SubCategories() {
           alignItems: "center",
         }}
       >
-        <Image
-          source={item.image}
+        <FastImage
+          source={{ uri: item.image }}
           resizeMode="contain"
           style={{ height: SW(30), width: SW(30), borderRadius: SW(15) }}
         />
@@ -183,7 +178,7 @@ export function SubCategories() {
               fontSize: SF(16),
             }}
           >
-            {item.title}
+            {item.name}
           </Text>
         </View>
       </TouchableOpacity>
@@ -209,7 +204,7 @@ export function SubCategories() {
       <View style={{ paddingHorizontal: SW(20), flex: 1, marginTop: SH(20) }}>
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={dummyData}
+          data={SubCatArray}
           renderItem={listDetail}
           keyExtractor={(item) => item.id}
         />

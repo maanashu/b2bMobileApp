@@ -13,6 +13,8 @@ export const ApiUserInventory = {
 
 export const ApiProductInventory = {
   getCategory: "api/v1/categories/b2b?page=1&limit=20&main_category=true",
+  getSubCategory: (categoryID) =>
+    `api/v1/categories/b2b?page=1&limit=20&main_category=true&category_id=${categoryID}`,
   getProduct: (categoryId) =>
     `products/category/get-all/${categoryId}?page=1&limit=10`,
   getBanners: "banners/get-all?page=1&limit=10",

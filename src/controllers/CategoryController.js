@@ -18,7 +18,26 @@ export class CategoryController {
 
         .then((response) => {
           resolve(response);
-          console.log("response", response);
+        })
+        .catch((error) => {
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
+          reject(new Error((strings.valiadtion.error = error.msg)));
+        });
+    });
+  }
+
+  static async getSubCategory(categoryID) {
+    return new Promise((resolve, reject) => {
+      const endpoint =
+        CATEGORY_URL + ApiProductInventory.getSubCategory(categoryID);
+      HttpClient.get(endpoint)
+        .then((response) => {
+          resolve(response);
         })
         .catch((error) => {
           Toast.show({

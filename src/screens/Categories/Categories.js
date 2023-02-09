@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./Categories.styles";
 import { Apparel, Electronices, Food, Sports, Tobacco } from "@/assets";
 import { Button, ScreenWrapper, Spacer } from "@/components";
@@ -21,8 +21,8 @@ export function Categories() {
   const [select, setSelect] = useState();
 
   useEffect(() => {
-    setSelect(categoryData?.categories ?? []);
-  }, [categoryData?.categories]);
+    setSelect(categoryData?.categoryList ?? []);
+  }, [categoryData?.categoryList]);
 
   useEffect(() => {
     dispatch(getCategory());

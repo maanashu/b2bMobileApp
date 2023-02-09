@@ -64,7 +64,6 @@ export function Products({ navigation }) {
 
   useEffect(() => {
     const categoryArr = categoryData?.categoryList;
-    console.log("categorylist--------->", categoryArr);
     const splicedArr = categoryArr?.slice(0, 8);
 
     setcategoryArray(categoryArr);

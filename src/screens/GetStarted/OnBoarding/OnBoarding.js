@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FlatList,
   Image,
@@ -17,6 +17,8 @@ import { NAVIGATION } from "@/constants";
 
 export function OnBoarding() {
   const [selectedId, setSelectedId] = useState(null);
+
+  const [select, setselect] = useState();
 
   const DATA = [
     {
@@ -46,17 +48,36 @@ export function OnBoarding() {
     </TouchableOpacity>
   );
   const renderItem = ({ item }) => {
-    const color = item.title === selectedId ? "red" : "black";
+    const color = item.selected ? "red" : "black";
 
     return (
       <Item
         item={item}
-        onPress={() => setSelectedId(item.title)}
+        onPress={() => {
+          setSelectedId(item.title);
+          SelectCategory(item);
+        }}
         textColor={{ color }}
       />
     );
   };
-  console.log("state----->", selectedId);
+  // console.log("state----->", selectedId);
+
+  useEffect(() => {
+    setselect(DATA);
+  }, []);
+
+  const SelectCategory = (item) => {
+    const newItem = select.map((val) => {
+      if (val.id === item.id) {
+        return { ...val, selected: !val.selected };
+      } else {
+        return val;
+      }
+    });
+    setselect(newItem);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.innerView}>
@@ -81,10 +102,10 @@ export function OnBoarding() {
         <View style={styles.flatlistView}>
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={DATA}
+            data={select}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
-            extraData={selectedId}
+            extraData={select}
             numColumns={2}
           />
           <Spacer space={SH(15)} />

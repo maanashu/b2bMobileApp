@@ -14,6 +14,19 @@ const getCategoryError = (error) => ({
   payload: { error },
 });
 
+const getSubCategoryRequest = () => ({
+  type: TYPES.GET_SUB_CATEGORY_REQUEST,
+  payload: null,
+});
+const getSubCategorySuccess = (subCategoryList) => ({
+  type: TYPES.GET_SUB_CATEGORY_SUCCESS,
+  payload: { subCategoryList },
+});
+const getSubCategoryError = (error) => ({
+  type: TYPES.GET_SUB_CATEGORY_ERROR,
+  payload: { error },
+});
+
 export const getCategory = () => async (dispatch) => {
   dispatch(getCategoryRequest());
   try {
@@ -21,6 +34,17 @@ export const getCategory = () => async (dispatch) => {
     dispatch(getCategorySuccess(res));
   } catch (error) {
     dispatch(getCategoryError(error.message));
+  }
+};
+
+export const getSubCategory = (categoryID) => async (dispatch) => {
+  console.log("categoryID", categoryID);
+  dispatch(getSubCategoryRequest());
+  try {
+    const res = await CategoryController.getSubCategory(categoryID);
+    dispatch(getSubCategorySuccess(res));
+  } catch (error) {
+    dispatch(getSubCategoryError(error.message));
   }
 };
 
