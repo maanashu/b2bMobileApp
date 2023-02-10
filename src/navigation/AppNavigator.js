@@ -15,7 +15,7 @@ import {
   ProfileUser,
 } from "@/assets";
 import { Image, Text } from "react-native";
-import { COLORS, SF, SH, SW } from "@/theme";
+import { COLORS, SF, SH, ShadowStyles, SW } from "@/theme";
 import {
   AboutBusiness,
   AboutUs,
@@ -168,7 +168,7 @@ export function AppNavigator() {
         tabBarStyle: ((route) => {
           const routeName = getFocusedRouteNameFromRoute(route) ?? "";
 
-          return { borderTopWidth: 0, height: SH(60), paddingBottom: SH(10) };
+          return { borderTopWidth: 0, height: SH(70), paddingBottom: SH(20),...ShadowStyles.shadow4,backgroundColor:COLORS.white };
         })(route),
       })}
     >
