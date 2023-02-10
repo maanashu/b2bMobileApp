@@ -1,8 +1,8 @@
-export const USER_URL = "https://apiuserservice.jobr.com/api/v1/";
+export const USER_URL = "https://stgapiuserservice.jobr.com/api/v1/";
 // export const SUPPORT_URL = 'https://apisupport.jobr.com/api/v1/';
-export const ORDER_URL = "https://apiorder.jobr.com:8004/api/v1/";
-export const PRODUCT_URL = "https://apiproductmgmt.jobr.com/api/v1/";
-export const CATEGORY_URL = "https://stgapiproductmgmt.jobr.com/";
+export const ORDER_URL = "https://stgdapiorder.jobr.com:8024/api/v1/";
+export const BANNER_URL = "https://apiproductmgmt.jobr.com/api/v1/";
+export const PRODUCT_URL = "https://stgapiproductmgmt.jobr.com/api/v1/";
 
 export const ApiUserInventory = {
   sendOtp: "user_phones/",
@@ -12,9 +12,9 @@ export const ApiUserInventory = {
 };
 
 export const ApiProductInventory = {
-  getCategory: "api/v1/categories/b2b?page=1&limit=20&main_category=true",
+  getCategory: "categories/b2b?page=1&limit=20&main_category=true",
   getSubCategory: (categoryID) =>
-    `api/v1/categories/b2b?page=1&limit=20&main_category=true&category_id=${categoryID}`,
+    `categories/b2b?page=1&limit=20&main_category=true&category_id=${categoryID}`,
   getProduct: (categoryId) =>
     `products/category/get-all/${categoryId}?page=1&limit=10`,
   getBanners: "banners/get-all?page=1&limit=10",

@@ -18,8 +18,6 @@ import { NAVIGATION } from "@/constants";
 export function OnBoarding() {
   const [selectedId, setSelectedId] = useState(null);
 
-  const [select, setselect] = useState();
-
   const DATA = [
     {
       id: "1",
@@ -63,21 +61,6 @@ export function OnBoarding() {
   };
   // console.log("state----->", selectedId);
 
-  useEffect(() => {
-    setselect(DATA);
-  }, []);
-
-  const SelectCategory = (item) => {
-    const newItem = select.map((val) => {
-      if (val.id === item.id) {
-        return { ...val, selected: !val.selected };
-      } else {
-        return val;
-      }
-    });
-    setselect(newItem);
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.innerView}>
@@ -102,10 +85,10 @@ export function OnBoarding() {
         <View style={styles.flatlistView}>
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={select}
+            data={DATA}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
-            extraData={select}
+            extraData={DATA}
             numColumns={2}
           />
           <Spacer space={SH(15)} />

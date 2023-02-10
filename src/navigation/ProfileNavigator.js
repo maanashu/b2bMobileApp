@@ -56,7 +56,7 @@ const Stack = createNativeStackNavigator();
 export function ProfileNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen
+      {/* <Stack.Screen
         name={NAVIGATION.profile}
         component={Profile}
         options={{ headerLargeTitle: false, headerShown: false }}
@@ -290,7 +290,7 @@ export function ProfileNavigator() {
         component={SupportDetails}
         name={NAVIGATION.supportDetails}
         options={{ headerShown: false }}
-      />
+      /> */}
     </Stack.Navigator>
   );
 }

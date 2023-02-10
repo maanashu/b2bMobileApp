@@ -266,6 +266,13 @@ export { default as mailShadow } from "@/assets/icons/ic_profile/mailShadow.png"
 export { default as infoBlack } from "@/assets/icons/ic_profile/infoBlack.png";
 export { default as ProfileUser } from "@/assets/icons/ic_profile/ProfileUser.png";
 export { default as menuDots } from "@/assets/icons/ic_profile/menuDots.png";
+export { default as jobrBottomIcon } from "@/assets/icons/ic_home/jobrBottomIcon.png";
+export { default as pendingNotiBell } from "@/assets/icons/ic_home/pendingNotiBell.png";
+export { default as phoneBook } from "@/assets/icons/ic_home/phoneBook.png";
+export { default as orderProducts } from "@/assets/icons/ic_messages/Order_products.png";
+export { default as promotions } from "@/assets/icons/ic_messages/promotions.png";
+export { default as RFQinquiry } from "@/assets/icons/ic_messages/RFQ_inquiry.png";
+export { default as inquiry } from "@/assets/icons/ic_messages/inquiry.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",
@@ -277,4 +284,5 @@ export const Fonts = {
   MaisonRegular: "Maison Mono Regular",
   MaisonBold: "Maison Neue Bold",
   MaisonMonoBold: "MaisonMonoTRIAL-Bold",
+  MaisonMono: "Maison Mono Regular",
 };

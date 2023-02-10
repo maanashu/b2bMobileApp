@@ -21,6 +21,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    backgroundColor: COLORS.white,
     alignItems: "center",
   },
   headerText: {
@@ -37,8 +38,8 @@ export const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    backgroundColor: COLORS.white,
     paddingHorizontal: ms(20),
+    paddingVertical: SH(15),
   },
   filterText: {
     fontFamily: Fonts.SemiBold,

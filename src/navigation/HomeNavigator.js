@@ -45,12 +45,12 @@ export function HomeNavigator() {
         name={NAVIGATION.categories}
         options={{ headerShown: false }}
       /> */}
-      <Stack.Screen
+      {/* <Stack.Screen
         name={NAVIGATION.home}
         component={Home}
         options={{ headerShown: false }}
-      />
-      <Stack.Screen
+      /> */}
+      {/* <Stack.Screen
         component={ProductInquiry}
         name={NAVIGATION.productInquiry}
         options={{ headerShown: false }}
@@ -91,8 +91,8 @@ export function HomeNavigator() {
         component={AddCreditCard}
         name={NAVIGATION.addCreditCard}
         options={{ headerShown: false }}
-      />
-      <Stack.Screen
+      /> */}
+      {/* <Stack.Screen
         component={NewProducts}
         name={NAVIGATION.newProducts}
         options={{ headerShown: false }}
@@ -146,7 +146,7 @@ export function HomeNavigator() {
         component={SubCategories}
         name={NAVIGATION.subCategories}
         options={{ headerShown: false }}
-      />
+      /> */}
     </Stack.Navigator>
   );
 }

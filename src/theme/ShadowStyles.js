@@ -45,4 +45,14 @@ export const ShadowStyles = StyleSheet.create({
       height: 1,
     },
   },
+  shadow5: {
+    elevation: 3,
+    shadowColor: "#ababab",
+    shadowRadius: 1.11,
+    shadowOpacity: 0.1,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+  },
 });

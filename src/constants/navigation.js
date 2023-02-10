@@ -78,4 +78,6 @@ export const NAVIGATION = {
   faqVerified: "FaqVerified",
   supportDetails: "SupportDetails",
   subCategories: "SubCategories",
+  messages: "Messages",
+  orders: "Orders",
 };

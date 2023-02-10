@@ -6,13 +6,14 @@ import {
   ApiUserInventory,
   ORDER_URL,
   ApiOrderInventory,
+  BANNER_URL,
 } from "@/Utils/APIinventory";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { HttpClient } from "./HttpClient";
 export class BannerController {
   static async getBanners() {
     return new Promise((resolve, reject) => {
-      const endpoint = PRODUCT_URL + ApiProductInventory.getBanners;
+      const endpoint = BANNER_URL + ApiProductInventory.getBanners;
       HttpClient.get(endpoint)
 
         .then((response) => {

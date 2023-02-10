@@ -4,7 +4,7 @@ import { styles } from "./SubCategories.styles";
 import { NameHeader, ScreenWrapper, Spacer, SubHeader } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { Apparel, backArrow, Fonts } from "@/assets";
+import { Apparel, backArrow, Fonts, Tobacco } from "@/assets";
 import { strings } from "@/localization";
 import { Header } from "@/components/Header";
 import { useDispatch, useSelector } from "react-redux";
@@ -166,7 +166,7 @@ export function SubCategories() {
         }}
       >
         <FastImage
-          source={{ uri: item.image }}
+          source={Tobacco}
           resizeMode="contain"
           style={{ height: SW(30), width: SW(30), borderRadius: SW(15) }}
         />

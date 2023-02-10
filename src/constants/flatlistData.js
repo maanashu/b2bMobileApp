@@ -1,4 +1,12 @@
-import { downleft, forward, loactionPinFilled } from "@/assets";
+import {
+  downleft,
+  forward,
+  inquiry,
+  loactionPinFilled,
+  orderProducts,
+  promotions,
+  RFQinquiry,
+} from "@/assets";
 
 export const transactionHistory = [
   {
@@ -122,5 +130,28 @@ export const nearMeData = [
     distance: "0.3 mi",
     forwardIcon: forward,
     icon: loactionPinFilled,
+  },
+];
+
+export const MessageHeader = [
+  {
+    id: 1,
+    title: "Orders (17)",
+    image: orderProducts,
+  },
+  {
+    id: 2,
+    title: "RFQ",
+    image: RFQinquiry,
+  },
+  {
+    id: 3,
+    title: "Inquiries",
+    image: inquiry,
+  },
+  {
+    id: 4,
+    title: "Promotions",
+    image: promotions,
   },
 ];

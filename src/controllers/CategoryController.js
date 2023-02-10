@@ -13,7 +13,7 @@ import { HttpClient } from "./HttpClient";
 export class CategoryController {
   static async getCategory() {
     return new Promise((resolve, reject) => {
-      const endpoint = CATEGORY_URL + ApiProductInventory.getCategory;
+      const endpoint = PRODUCT_URL + ApiProductInventory.getCategory;
       HttpClient.get(endpoint)
 
         .then((response) => {
@@ -34,7 +34,7 @@ export class CategoryController {
   static async getSubCategory(categoryID) {
     return new Promise((resolve, reject) => {
       const endpoint =
-        CATEGORY_URL + ApiProductInventory.getSubCategory(categoryID);
+        PRODUCT_URL + ApiProductInventory.getSubCategory(categoryID);
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);

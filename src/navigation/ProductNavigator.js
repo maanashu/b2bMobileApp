@@ -8,11 +8,11 @@ const Stack = createNativeStackNavigator();
 export function ProductNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen
+      {/* <Stack.Screen
         component={NewProducts}
         name={NAVIGATION.newProducts}
         options={{ headerShown: false }}
-      />
+      /> */}
       {/* <Stack.Screen
         component={Chatting}
         name={NAVIGATION.chatting}
