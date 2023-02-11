@@ -7,14 +7,13 @@ import React from "react";
 import { NAVIGATION } from "@/constants";
 import {
   bottomchat,
-  bottomHome,
   bottomProducts,
   Fonts,
   jobrBottomIcon,
   ordersIcon,
   ProfileUser,
 } from "@/assets";
-import { Image, Text } from "react-native";
+import { Image, Platform, Text } from "react-native";
 import { COLORS, SF, SH, ShadowStyles, SW } from "@/theme";
 import {
   AboutBusiness,
@@ -168,7 +167,13 @@ export function AppNavigator() {
         tabBarStyle: ((route) => {
           const routeName = getFocusedRouteNameFromRoute(route) ?? "";
 
-          return { borderTopWidth: 0, height: SH(70), paddingBottom: SH(20),...ShadowStyles.shadow4,backgroundColor:COLORS.white };
+          return {
+            borderTopWidth: 0,
+            height: Platform.OS == "ios" ? SH(70) : SH(60),
+            paddingBottom: Platform.OS == "ios" ? SH(20) : SH(15),
+            ...ShadowStyles.shadow4,
+            backgroundColor: COLORS.white,
+          };
         })(route),
       })}
     >

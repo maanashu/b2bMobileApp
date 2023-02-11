@@ -69,6 +69,14 @@ export function Products({ navigation }) {
   //   setsplicedArray(splicedArr);
   // }, [categoryData?.categories]);
 
+  // const scrollToTop = () => {
+  //   setisVisibleFlatlist(true);
+  //   listRef.current?.scrollTo({
+  //     y: 0,
+  //     animated: true,
+  //   });
+  // };
+
   function dynamicHeight(_index) {
     if (_index % 2 == 0) {
       return SH(275);
@@ -129,8 +137,12 @@ export function Products({ navigation }) {
           <TouchableOpacity
             style={styles.item}
             onPress={() => {
-              console.log("pressed");
+              console.log("item id", item.id);
               setSelectedId(item.name);
+              navigate(NAVIGATION.subCategories, {
+                idItem: item.id,
+                index: index,
+              });
             }}
           >
             <Image source={{ uri: item.image }} style={styles.roundIcons} />
@@ -143,13 +155,6 @@ export function Products({ navigation }) {
       </>
     );
   };
-  // const scrollToTop = () => {
-  //   setisVisibleFlatlist(true);
-  //   listRef.current?.scrollTo({
-  //     y: 0,
-  //     animated: true,
-  //   });
-  // };
 
   const secondItem = ({ item, onPress }) => (
     <View style={styles.itemS}>

@@ -68,38 +68,7 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.inputBorder,
     paddingHorizontal: ms(10),
   },
-  ShoesStyle: {
-    width: 180,
-    ...ShadowStyles.shadow2,
-    borderRadius: 1,
-    backgroundColor: COLORS.white,
-    margin: SW(6),
-    flex: 1,
-    paddingBottom: SH(10),
-    borderTopLeftRadius: SW(10),
-    borderTopRightRadius: SW(10),
-  },
-  productsTitle: {
-    fontFamily: Fonts.SemiBold,
-    fontSize: ms(12),
-    color: COLORS.darkGrey,
-    paddingHorizontal: ms(12),
-  },
-  productSubTitle: {
-    fontFamily: Fonts.Regular,
-    fontSize: ms(12),
-    color: COLORS.darkGrey,
-    paddingHorizontal: ms(12),
-    marginVertical: SH(2),
-  },
-  productsQuantity: {
-    alignSelf: "flex-start",
-    fontFamily: Fonts.Regular,
-    paddingLeft: ms(12),
-    fontSize: ms(9),
-    color: COLORS.darkGrey,
-    marginTop: vs(2),
-  },
+
   priceText: {
     color: COLORS.primary,
     fontFamily: Fonts.SemiBold,
@@ -110,5 +79,34 @@ export const styles = StyleSheet.create({
     color: COLORS.primary,
     fontFamily: Fonts.Regular,
     fontSize: SF(12),
+  },
+  categoryImages: {
+    height: SW(22),
+    width: SW(22),
+    borderRadius: 11,
+    marginRight: SW(2),
+  },
+  categoryTouchableView: {
+    paddingLeft: SW(10),
+    height: SH(40),
+  },
+  rowView: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  subCategoryTextStyle: {
+    color: COLORS.text,
+    fontFamily: Fonts.Regular,
+    fontSize: SF(16),
+  },
+  subCatTouchableView: {
+    flexDirection: "row",
+    paddingVertical: SH(10),
+    alignItems: "center",
+  },
+  subCatImages: {
+    height: SW(30),
+    width: SW(30),
+    borderRadius: SW(15),
   },
 });
