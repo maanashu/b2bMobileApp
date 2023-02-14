@@ -1,34 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Image,
-  Text,
-  FlatList,
-  ScrollView,
-  TouchableOpacity,
-  Modal,
-} from "react-native";
-import {
-  Button,
-  CompanyDetailView,
-  NameHeader,
-  ScreenWrapper,
-  Spacer,
-} from "@/components";
+import { View, Image, Text, FlatList, TouchableOpacity } from "react-native";
+import { ScreenWrapper, Spacer } from "@/components";
 import { styles } from "./TrackOrder.styles";
-import { COLORS, SF, SH, SW } from "@/theme";
+import { COLORS, SH, SW } from "@/theme";
 import { strings } from "@/localization";
 import {
-  backArrow,
-  chatNow,
   dashedLineUp,
-  deliveryMap,
-  deliveryTruck,
-  Fonts,
-  forward,
-  location,
   mapViewLogo,
-  orderDetails,
   ordersIcon,
   roundBlank,
   roundCheck,

@@ -1,7 +1,14 @@
 import { Text, View, FlatList, TouchableOpacity } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { styles } from "./SubCategories.styles";
-import { NameHeader, ScreenWrapper, Spacer } from "@/components";
+import {
+  Button,
+  ChatHeader,
+  Header,
+  NameHeader,
+  ScreenWrapper,
+  Spacer,
+} from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { backArrow, Fonts, Tobacco } from "@/assets";
@@ -9,14 +16,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
 import { getCategory, getSubCategory } from "@/actions/CategoryActions";
 import FastImage from "react-native-fast-image";
+import Modal from "react-native-modal";
 
 export function SubCategories(params) {
   const listRef = useRef();
+  const modalRef = useRef();
 
   const routeId = params?.route?.params?.idItem;
   const getIndex = params?.route?.params?.index;
 
   const [selectedId, setSelectedId] = useState(params?.route?.params?.idItem);
+  const [serviceModalisVisible, setserviceModalisVisible] = useState(false);
 
   const dispatch = useDispatch();
   const categoryData = useSelector(getCategorySelector);
@@ -103,9 +113,17 @@ export function SubCategories(params) {
     </>
   );
 
+  const toggleModal = () => {
+    setserviceModalisVisible(!serviceModalisVisible);
+  };
+
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <NameHeader title={"Categories"} back={backArrow} />
+      <Header
+        title={"Categories"}
+        back={backArrow}
+        onFilterPress={toggleModal}
+      />
 
       <View style={styles.upperView}>
         <Spacer space={SH(10)} />
@@ -132,6 +150,38 @@ export function SubCategories(params) {
           renderItem={listDetail}
           keyExtractor={(item) => item.id}
         />
+      </View>
+
+      <View
+        style={{
+          height: 200,
+        }}
+      >
+        <Modal
+          isVisible={serviceModalisVisible}
+          backdropColor="FFFFFF"
+          backdropOpacity={0}
+          onBackdropPress={toggleModal}
+          onBackButtonPress={toggleModal}
+          style={{ marginTop: SH(-580), marginLeft: SW(250) }}
+          hideModalContentWhileAnimating
+          animationInTiming={10}
+          animationOutTiming={10}
+        >
+          <>
+            <View style={styles.modalContainer}>
+              <Text style={{ color: COLORS.darkGrey, paddingVertical: SH(5) }}>
+                Retail
+              </Text>
+              <Text style={{ color: COLORS.darkGrey, paddingVertical: SH(5) }}>
+                Fashion
+              </Text>
+              <Text style={{ color: COLORS.darkGrey, paddingVertical: SH(5) }}>
+                All
+              </Text>
+            </View>
+          </>
+        </Modal>
       </View>
     </ScreenWrapper>
   );

@@ -109,4 +109,11 @@ export const styles = StyleSheet.create({
     width: SW(30),
     borderRadius: SW(15),
   },
+  modalContainer: {
+    paddingVertical: SH(10),
+    backgroundColor: COLORS.white,
+    padding: SW(10),
+    borderRadius: SW(10),
+    ...ShadowStyles.shadow5,
+  },
 });

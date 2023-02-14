@@ -18,7 +18,7 @@ import { strings } from "@/localization";
 import { Button, Spacer } from "@/components";
 import { ShadowStyles } from "@/theme";
 
-export function Header({ title, back }) {
+export function Header({ title, back, onFilterPress }) {
   return (
     <View style={styles.header}>
       <View style={styles.headerInnerView}>
@@ -41,7 +41,10 @@ export function Header({ title, back }) {
               style={styles.searchIcon}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.headerIconView}>
+          <TouchableOpacity
+            style={styles.headerIconView}
+            onPress={onFilterPress}
+          >
             <Image
               resizeMode="contain"
               source={filter}
@@ -95,6 +98,7 @@ export const styles = StyleSheet.create({
   filterText: {
     fontFamily: Fonts.Regular,
     color: COLORS.white,
+    fontSize: SF(14),
   },
   headerIconView: {
     height: SH(28),

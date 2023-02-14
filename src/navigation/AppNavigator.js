@@ -173,6 +173,7 @@ export function AppNavigator() {
             paddingBottom: Platform.OS == "ios" ? SH(20) : SH(15),
             ...ShadowStyles.shadow4,
             backgroundColor: COLORS.white,
+            marginLeft: SH(-5),
           };
         })(route),
       })}

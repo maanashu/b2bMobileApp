@@ -6,6 +6,7 @@ import {
   orderProducts,
   promotions,
   RFQinquiry,
+  userPhoto,
 } from "@/assets";
 
 export const transactionHistory = [
@@ -153,5 +154,62 @@ export const MessageHeader = [
     id: 4,
     title: "Promotions",
     image: promotions,
+  },
+];
+
+export const messageRenderData = [
+  { id: 1, title: "New Messages (17)" },
+  { id: 2, title: "All" },
+];
+export const ChatData = [
+  {
+    id: 1,
+    pic: userPhoto,
+    businessName: "Carrols Restaurant Group",
+    userName: "Daniel W. Gay",
+    position: "Sales Manager",
+    message:
+      "The obvious strategy of a tag line is to make your The obvious strategy of a tag line is to make your",
+    time: "10:39 am",
+  },
+  {
+    id: 2,
+    pic: userPhoto,
+    businessName: "Carrols Restaurant Group",
+    userName: "Daniel W. Gay",
+    position: "Sales Manager",
+    message:
+      "The obvious strategy of a tag line is to make your The obvious strategy of a tag line is to make your",
+    time: "10:39 am",
+  },
+  {
+    id: 3,
+    pic: userPhoto,
+    businessName: "Carrols Restaurant Group",
+    userName: "Daniel W. Gay",
+    position: "Sales Manager",
+    message:
+      "The obvious strategy of a tag line is to make your The obvious strategy of a tag line is to make your",
+    time: "10:39 am",
+  },
+  {
+    id: 4,
+    pic: userPhoto,
+    businessName: "Carrols Restaurant Group",
+    userName: "Daniel W. Gay",
+    position: "Sales Manager",
+    message:
+      "The obvious strategy of a tag line is to make your The obvious strategy of a tag line is to make your",
+    time: "10:39 am",
+  },
+  {
+    id: 5,
+    pic: userPhoto,
+    businessName: "Carrols Restaurant Group",
+    userName: "Daniel W. Gay",
+    position: "Sales Manager",
+    message:
+      "The obvious strategy of a tag line is to make your The obvious strategy of a tag line is to make your",
+    time: "10:39 am",
   },
 ];

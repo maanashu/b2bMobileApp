@@ -19,7 +19,8 @@ import {
 import { COLORS } from "@/theme/Colors";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { navigate } from "@/navigation/NavigationRef";
-import { forward, roundAll, slideImage } from "@/assets";
+import { forward, roundAll } from "@/assets";
+
 import {
   LastData,
   fourthData,
