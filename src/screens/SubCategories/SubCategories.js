@@ -1,14 +1,7 @@
 import { Text, View, FlatList, TouchableOpacity } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { styles } from "./SubCategories.styles";
-import {
-  Button,
-  ChatHeader,
-  Header,
-  NameHeader,
-  ScreenWrapper,
-  Spacer,
-} from "@/components";
+import { Header, ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { backArrow, Fonts, Tobacco } from "@/assets";
@@ -122,7 +115,7 @@ export function SubCategories(params) {
       <Header
         title={"Categories"}
         back={backArrow}
-        onFilterPress={toggleModal}
+        // onFilterPress={toggleModal}
       />
 
       <View style={styles.upperView}>
@@ -152,37 +145,31 @@ export function SubCategories(params) {
         />
       </View>
 
-      <View
-        style={{
-          height: 200,
-        }}
+      <Modal
+        isVisible={serviceModalisVisible}
+        backdropColor="FFFFFF"
+        backdropOpacity={0}
+        onBackdropPress={toggleModal}
+        onBackButtonPress={toggleModal}
+        style={{ marginTop: SH(-530), marginLeft: SW(250) }}
+        hideModalContentWhileAnimating
+        animationInTiming={10}
+        animationOutTiming={10}
       >
-        <Modal
-          isVisible={serviceModalisVisible}
-          backdropColor="FFFFFF"
-          backdropOpacity={0}
-          onBackdropPress={toggleModal}
-          onBackButtonPress={toggleModal}
-          style={{ marginTop: SH(-580), marginLeft: SW(250) }}
-          hideModalContentWhileAnimating
-          animationInTiming={10}
-          animationOutTiming={10}
-        >
-          <>
-            <View style={styles.modalContainer}>
-              <Text style={{ color: COLORS.darkGrey, paddingVertical: SH(5) }}>
-                Retail
-              </Text>
-              <Text style={{ color: COLORS.darkGrey, paddingVertical: SH(5) }}>
-                Fashion
-              </Text>
-              <Text style={{ color: COLORS.darkGrey, paddingVertical: SH(5) }}>
-                All
-              </Text>
-            </View>
-          </>
-        </Modal>
-      </View>
+        <>
+          <View style={styles.modalContainer}>
+            <TouchableOpacity>
+              <Text style={styles.servicesText}>{"Retail"}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Text style={styles.servicesText}>{"Fashion"}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Text style={styles.servicesText}>{"All"}</Text>
+            </TouchableOpacity>
+          </View>
+        </>
+      </Modal>
     </ScreenWrapper>
   );
 }

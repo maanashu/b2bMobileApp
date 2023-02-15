@@ -51,31 +51,26 @@ export class UserController {
     });
   }
   static async verifyOtp(id, value, key) {
-    const endpoint = USER_URL + ApiUserInventory.verifyPhone;
+    return new Promise((resolve, reject) => {
+      const endpoint = USER_URL + ApiUserInventory.verifyPhone;
 
-    const body = {
-      id: id,
-      otp: value,
-    };
-
-    HttpClient.post(endpoint, body)
-      .then((response) => {
-        if (response.status_code === 200) {
-          console.log("api success");
-        } else {
-          console.log("api failed", response);
-        }
-
-        resolve(response);
-      })
-      .catch((error) => {
-        Toast.show({
-          text2: error.msg,
-          position: "bottom",
-          type: "error_toast",
-          visibilityTime: 1500,
+      const body = {
+        id: id,
+        otp: value,
+      };
+      HttpClient.post(endpoint, body)
+        .then((response) => {
+          if (response.status_code === 200) {
+            console.log("api success", response);
+          } else {
+            console.log("api failed", response);
+          }
+          resolve(response);
+        })
+        .catch((error) => {
+          console.log("catching error", error);
         });
-      });
+    });
   }
 
   static async register(data) {

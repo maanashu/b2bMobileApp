@@ -273,6 +273,8 @@ export { default as orderProducts } from "@/assets/icons/ic_messages/Order_produ
 export { default as promotions } from "@/assets/icons/ic_messages/promotions.png";
 export { default as RFQinquiry } from "@/assets/icons/ic_messages/RFQ_inquiry.png";
 export { default as inquiry } from "@/assets/icons/ic_messages/inquiry.png";
+export { default as agentPhoto } from "@/assets/icons/ic_chat/agentPhoto.png";
+export { default as infoBlue } from "@/assets/icons/ic_chat/infoBlue.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

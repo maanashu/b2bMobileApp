@@ -23,7 +23,7 @@ export function Home() {
 
   const [routes] = React.useState([
     { key: "products", title: "Products" },
-    { key: "business", title: "Business" },
+    { key: "business", title: "Services" },
     { key: "nearme", title: "Near me" },
   ]);
 

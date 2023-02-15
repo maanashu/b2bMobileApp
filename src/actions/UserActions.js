@@ -151,9 +151,11 @@ export const verifyOtp = (id, value) => async (dispatch) => {
     dispatch(saveOtp(value));
     const res = await UserController.verifyOtp(id, value);
     dispatch(verifyOtpSuccess(res));
-    console.log("checking responce of id and value", res);
+    console.log("dispatching resp--->", res);
   } catch (error) {
     dispatch(verifyOtpError(error.message));
+
+    console.log("dispatching error--->", error);
   }
 };
 

@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { View, Image, Text, TouchableOpacity } from "react-native";
-import { ScreenWrapper, Spacer, BackIcon } from "@/components";
+import { ScreenWrapper, Spacer } from "@/components";
 // import { CustomHeader } from '@/screens/Support/CustomHeader';
 import { strings } from "@/localization";
 import { styles } from "./SupportDetails.style";
 import {
-  responderPic,
-  blueMenu,
-  roundedEmail,
-  call,
-  location1,
   Fonts,
   userPhoto,
+  callIcon,
+  agentPhoto,
+  email_chat,
+  location,
+  infoBlue,
 } from "@/assets";
 import { SH } from "@/theme";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -29,85 +29,63 @@ export function SupportDetails() {
                 setShowModal(!showModal);
               }}
             >
-              {/* <Image source={responderPic} style={styles.manLogo} /> */}
+              <Image source={userPhoto} style={styles.manLogo} />
             </TouchableOpacity>
 
             <View style={{ paddingHorizontal: 7 }}>
-              <Text style={styles.deliverManText}>
-                {/* {strings.supportDetails.supporterName} */}
-              </Text>
-              <Text style={styles.address}>
-                {/* {strings.supportDetails.supporterAddr} */}
-              </Text>
+              <Text style={styles.deliverManText}>{"Florecilla Jonny"}</Text>
+              <Text style={styles.address}>{"Me"}</Text>
             </View>
           </View>
           <Spacer space={SH(10)} />
           <View style={styles.aboutSupporter}>
-            {/* <Image source={call} style={styles.supporterLogo} /> */}
-            <Text style={styles.supporterNum}>
-              {/* {strings.supportDetails.supporterNum} */}
-            </Text>
+            <Image source={callIcon} style={styles.callIcon} />
+            <Text style={styles.supporterNum}>{"4703-515-1193"}</Text>
           </View>
-          <Spacer space={SH(10)} />
+          <Spacer space={SH(5)} />
           <View style={styles.aboutSupporter}>
-            {/* <Image source={roundedEmail} style={styles.supporterLogo} /> */}
-            <Text style={styles.supporterNum}>
-              {/* {strings.supportDetails.supporterMail} */}
-            </Text>
+            <Image source={email_chat} style={styles.supporterLogo} />
+            <Text style={styles.supporterNum}>{"vidal.webe2@gmail.com"}</Text>
           </View>
-          <Spacer space={SH(10)} />
+          <Spacer space={SH(5)} />
           <View style={styles.aboutSupporter}>
-            {/* <Image source={location1} style={styles.supporterLogo} /> */}
+            <Image source={location} style={styles.supporterLogo} />
             <Text style={styles.supporterNum}>
-              {/* {strings.supportDetails.supporteraddress} */}
+              {"4318 Daffodil Lane, Savage, Virginia(VA), 20763"}
             </Text>
           </View>
           <View style={styles.modelHr}></View>
           <View style={styles.aboutSupporter}>
-            <Text style={styles.totalTicket}>
-              {/* {strings.supportDetails.totalTicket} */}
-            </Text>
+            <Text style={styles.totalTicket}>{"Total Tickets:"}</Text>
             <Text
               style={[
                 styles.supporterNum,
                 { color: "#6C63F0", fontFamily: Fonts.SemiBold },
               ]}
             >
-              {/* {strings.supportDetails.totalCount} */}
+              {"16"}
             </Text>
           </View>
           <Spacer space={SH(10)} />
           <View style={styles.aboutTicket}>
             <Text style={styles.ticketText}>
-              {/* {strings.supportDetails.solved}{' '} */}
-              <Text style={styles.ticketCount}>
-                {" "}
-                {/* {strings.supportDetails.solvedCount} */}
-              </Text>
+              {"Solved"}
+              <Text style={styles.ticketCount}> {"9"}</Text>
             </Text>
             <Text style={[styles.ticketText, { marginHorizontal: 30 }]}>
-              {strings.supportDetails.cancel}{" "}
-              <Text style={styles.ticketCount}>
-                {" "}
-                {/* {strings.supportDetails.cancelCount} */}
-              </Text>
+              {"cancel"}
+              <Text style={styles.ticketCount}> {"1"}</Text>
             </Text>
           </View>
           <Spacer space={SH(10)} />
           <View style={styles.aboutTicket}>
             <Text style={styles.ticketText}>
-              {/* {strings.supportDetails.open}{' '} */}
-              <Text style={styles.ticketCount}>
-                {" "}
-                {/* {strings.supportDetails.openCount}{' '} */}
-              </Text>
+              {"Open"}
+              <Text style={styles.ticketCount}> {"1"}</Text>
             </Text>
             <Text style={[styles.ticketText, { marginHorizontal: 30 }]}>
-              {/* {strings.supportDetails.unrespond}{' '} */}
-              <Text style={styles.ticketCount}>
-                {" "}
-                {/* {strings.supportDetails.unrespondCount} */}
-              </Text>
+              {"Unrespond"}
+              <Text style={styles.ticketCount}> {"1"}</Text>
             </Text>
           </View>
         </View>
@@ -118,41 +96,31 @@ export function SupportDetails() {
     if (showModal) {
       return (
         <View style={styles.agentpopupMainView}>
-          <Text style={styles.asignText}>
-            {/* {strings.supportDetails.asignAgent} */}
-          </Text>
+          <Text style={styles.asignText}>{"Assigned agent:"}</Text>
           <Spacer space={SH(10)} backgroundColor="#F5F6F7" />
           <View style={{ display: "flex", flexDirection: "row" }}>
-            {/* <Image source={responderPic} style={styles.agentLogo} /> */}
+            <Image source={agentPhoto} style={styles.agentLogo} />
 
             <View style={{ paddingHorizontal: 7 }}>
-              <Text style={styles.agentName}>
-                {/* {strings.supportDetails.asignName} */}
-              </Text>
-              <Text style={styles.address}>
-                {/* {strings.supportDetails.asignDate} */}
-              </Text>
+              <Text style={styles.agentName}>{"Satomi D."}</Text>
+              <Text style={styles.address}>{"13 Jun, 2022  |   12:25p"}</Text>
             </View>
           </View>
           <Spacer space={SH(10)} backgroundColor="#F5F6F7" />
           <Text style={styles.asignText}>
-            {/* {strings.supportDetails.alsoTicket} */}
+            {strings.STATIC.supportDetails.alsoOnTicket}
           </Text>
           <Spacer space={SH(10)} backgroundColor="#F5F6F7" />
           <View style={styles.alsoAgent}>
-            {/* <Image source={responderPic} style={styles.agentLogo} /> */}
+            <Image source={agentPhoto} style={styles.agentLogo} />
             <View style={{ paddingHorizontal: 7 }}>
-              <Text style={styles.agentTicket}>
-                {/* {strings.supportDetails.asignName} */}
-              </Text>
+              <Text style={styles.agentTicket}>{"Satomi D."}</Text>
             </View>
           </View>
           <View style={styles.alsoAgent}>
-            {/* <Image source={responderPic} style={styles.agentLogo} /> */}
+            <Image source={agentPhoto} style={styles.agentLogo} />
             <View style={{ paddingHorizontal: 7 }}>
-              <Text style={styles.agentTicket}>
-                {/* {strings.supportDetails.asignName} */}
-              </Text>
+              <Text style={styles.agentTicket}>{"Satomi D."}</Text>
             </View>
           </View>
         </View>
@@ -165,10 +133,14 @@ export function SupportDetails() {
         <View style={styles.maincontainer}>
           <View style={{ flexDirection: "row" }}>
             {/* <BackIcon inner /> */}
-            <Text style={styles.headerTitle}>#hhlgkoypglv</Text>
+            <Text style={styles.headerTitle}>#XD1256P67</Text>
           </View>
           <TouchableOpacity onPress={() => setShowModal(!showModal)}>
-            {/* <Image source={blueMenu} resizeMode="cover" style={styles.image} /> */}
+            <Image
+              source={infoBlue}
+              resizeMode="contain"
+              style={styles.image}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -181,7 +153,7 @@ export function SupportDetails() {
 
         {supporterPopup()}
         {agentPopup()}
-        {/* <Spacer space={SH(10)} /> */}
+        <Spacer space={SH(10)} />
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
           style={styles.container}
@@ -194,56 +166,50 @@ export function SupportDetails() {
 
                 <View style={{ paddingHorizontal: 7 }}>
                   <Text style={styles.deliverManText}>
-                    {/* {strings.supportDetails.supporterName} */}
+                    {"Florecilla Jonny"}
                   </Text>
-                  <Text style={styles.address}>
-                    {/* {strings.supportDetails.supporterAddr} */}
-                  </Text>
+                  <Text style={styles.address}>{"Me"}</Text>
                 </View>
               </View>
             </View>
             <Spacer space={SH(10)} />
 
             <Text style={styles.supporterText}>
-              {/* {strings.supportDetails.supporterMsg} */}
+              {strings.STATIC.supportDetails.userMessage}
             </Text>
             <Spacer space={SH(10)} />
             <Text style={styles.supporterTime}>
-              {/* {strings.supportDetails.supporterTime} */}
+              {"20 May, 2022   | 08:09am"}
             </Text>
             <View style={styles.hr}></View>
           </View>
 
-          <Spacer space={SH(30)} />
+          <Spacer space={SH(15)} />
 
           <View style={styles.supporterCon}>
             <View style={{ display: "flex", flexDirection: "column" }}>
               <Spacer space={SH(8)} />
 
               <View style={{ display: "flex", flexDirection: "row" }}>
-                <Image source={userPhoto} style={styles.manLogo} />
+                <Image source={agentPhoto} style={styles.manLogo} />
                 <View style={{ paddingHorizontal: 7 }}>
-                  <Text style={styles.deliverManText}>
-                    {/* {strings.supportDetails.agentName} */}
-                  </Text>
-                  <Text style={styles.address}>
-                    {/* {strings.supportDetails.agentAddress} */}
-                  </Text>
+                  <Text style={styles.deliverManText}>{"Satomi D."}</Text>
+                  <Text style={styles.address}>{"JOBR agent"}</Text>
                 </View>
               </View>
             </View>
             <Spacer space={SH(10)} />
             <Text style={styles.supporterText}>
-              {/* {strings.supportDetails.agentMsg} */}
+              {strings.STATIC.supportDetails.agentMessage}
             </Text>
             <Spacer space={SH(10)} />
             <Text style={styles.supporterText}>--------------</Text>
             <Spacer space={SH(10)} />
-            <Text style={styles.supporterText}>Regards,</Text>
+            <Text style={styles.supporterText}>{"Regards,"}</Text>
             <Spacer space={SH(7)} />
-            <Text style={styles.supporterText}>Satomi D.</Text>
+            <Text style={styles.supporterText}>{"Satomi D."}</Text>
             <Spacer space={SH(5)} />
-            <Text style={styles.supporterText}>Jobr.com Support Team</Text>
+            <Text style={styles.supporterText}>{"Jobr.com Support Team"}</Text>
             <Spacer space={SH(10)} />
             <Text style={styles.supporterTime}>
               {/* {strings.supportDetails.agentTime} */}

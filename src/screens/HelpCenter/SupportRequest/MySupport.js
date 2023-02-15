@@ -6,65 +6,69 @@ import { theme, SH, SW, COLORS, SF } from "@/theme";
 import { Fonts } from "@/assets";
 import { userPhoto } from "@/assets";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
-import { navigate } from "@/utils/NavigationRef";
 import { NAVIGATION } from "@/constants";
+import { navigate } from "@/navigation/NavigationRef";
 
 export function MySupport() {
   return (
     <View style={styles.sopportContainer}>
-      <View style={styles.orderCon}>
-        <Text style={styles.order}>{"#XD1256P67"}</Text>
+      <TouchableOpacity onPress={() => navigate(NAVIGATION.supportDetails)}>
+        <View style={styles.orderCon}>
+          <Text style={styles.order}>{"#XD1256P67"}</Text>
 
-        <TouchableOpacity>
-          <Text style={styles.deliveredText}>{strings.helpCenter.pending}</Text>
-        </TouchableOpacity>
-      </View>
-
-      <Spacer space={SH(10)} />
-
-      <View style={styles.hr}></View>
-
-      <Spacer space={SH(5)} />
-
-      <View style={styles.secondCon}>
-        <View style={styles.aboutPayment}>
-          <Text style={styles.supportText}>{strings.helpCenter.subject}</Text>
-
-          <Spacer space={SH(8)} />
-
-          <Text style={styles.paymentIssue}>
-            {strings.helpCenter.paymentIssue}
-          </Text>
-
-          <Spacer space={SH(5)} />
-
-          <Text style={styles.description}>
-            {strings.helpCenter.issueMessage}
-          </Text>
+          <TouchableOpacity>
+            <Text style={styles.deliveredText}>
+              {strings.helpCenter.pending}
+            </Text>
+          </TouchableOpacity>
         </View>
-
-        <Spacer space={SH(5)} />
-
-        <View style={styles.hr}></View>
 
         <Spacer space={SH(10)} />
 
-        <View style={{ display: "flex", flexDirection: "column" }}>
-          <Text style={styles.pickUpText}>
-            {strings.helpCenter.lastRespond}
-          </Text>
+        <View style={styles.hr}></View>
 
-          <Spacer space={SH(8)} />
+        <Spacer space={SH(5)} />
 
-          <View style={{ display: "flex", flexDirection: "row" }}>
-            <Image source={userPhoto} style={styles.manLogo} />
-            <View style={{ paddingHorizontal: 7 }}>
-              <Text style={styles.deliverManText}>{"Satomi D."}</Text>
-              <Text style={styles.address}>{"13 Jun, 2022  |   12:25p"}</Text>
+        <View style={styles.secondCon}>
+          <View style={styles.aboutPayment}>
+            <Text style={styles.supportText}>{strings.helpCenter.subject}</Text>
+
+            <Spacer space={SH(8)} />
+
+            <Text style={styles.paymentIssue}>
+              {strings.helpCenter.paymentIssue}
+            </Text>
+
+            <Spacer space={SH(5)} />
+
+            <Text style={styles.description}>
+              {strings.helpCenter.issueMessage}
+            </Text>
+          </View>
+
+          <Spacer space={SH(5)} />
+
+          <View style={styles.hr}></View>
+
+          <Spacer space={SH(10)} />
+
+          <View style={{ display: "flex", flexDirection: "column" }}>
+            <Text style={styles.pickUpText}>
+              {strings.helpCenter.lastRespond}
+            </Text>
+
+            <Spacer space={SH(8)} />
+
+            <View style={{ display: "flex", flexDirection: "row" }}>
+              <Image source={userPhoto} style={styles.manLogo} />
+              <View style={{ paddingHorizontal: 7 }}>
+                <Text style={styles.deliverManText}>{"Satomi D."}</Text>
+                <Text style={styles.address}>{"13 Jun, 2022  |   12:25p"}</Text>
+              </View>
             </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }

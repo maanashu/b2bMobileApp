@@ -650,5 +650,14 @@ export const en = {
       productPurchases: "7 Products Purchases",
       manufacturers: "3 Manufacturers",
     },
+
+    supportDetails: {
+      userMessage:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ultrices suscipit vehicula. Phasellus feugiat, velit nec volutpat pretium, massa metus blandit sem, et auctor est nisi at neque. Phasellus eget velit efficitur.",
+      agentMessage:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ultrices suscipit vehicula. Phasellus feugiat, velit nec volutpat pretium, massa metus blandit sem, et auctor est nisi at neque. Phasellus eget velit efficitur, posuere erat sit amet, mollis ante. Nunc eleifend nisl commodo facilisis dictum. Sed sodales iaculis euismod. Etiam auctor lectus sed tortor pulvinar aliquam. Etiam in ipsum odio. Duis ut orci gravida mauris semper suscipit.",
+      regards: "Regards",
+      alsoOnTicket: "Also on this ticket:",
+    },
   },
 };

@@ -116,4 +116,9 @@ export const styles = StyleSheet.create({
     borderRadius: SW(10),
     ...ShadowStyles.shadow5,
   },
+  servicesText: {
+    color: COLORS.darkGrey,
+    paddingVertical: SH(5),
+    fontSize: SF(22),
+  },
 });

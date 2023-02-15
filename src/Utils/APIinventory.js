@@ -9,7 +9,6 @@ export const ApiUserInventory = {
   userRegister: "users",
   login: "login/",
 };
-
 export const ApiProductInventory = {
   getCategory: "categories/b2b?page=1&limit=20&main_category=true",
   getSubCategory: (categoryID) =>

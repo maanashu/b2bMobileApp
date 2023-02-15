@@ -28,7 +28,6 @@ export function Verify(params) {
 
   const id = params?.route?.params?.id;
   const [value, setValue] = useState("");
-  console.log("counts", value);
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [prop, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
