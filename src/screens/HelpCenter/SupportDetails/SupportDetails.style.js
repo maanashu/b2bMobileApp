@@ -37,8 +37,8 @@ export const styles = StyleSheet.create({
   },
   image: {
     // alignSelf: 'center',
-    height: SH(25),
-    width: SW(25),
+    height: SH(26),
+    width: SW(26),
   },
   supporterCon: {
     padding: 12,
