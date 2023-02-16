@@ -50,6 +50,27 @@ export class CategoryController {
         });
     });
   }
+
+  static async getBrands(categoryid) {
+    return new Promise((resolve, reject) => {
+      const endpoint = PRODUCT_URL + ApiProductInventory.getBrands(categoryid);
+      HttpClient.get(endpoint)
+        .then((response) => {
+          console.log("brands controller success", response);
+          resolve(response);
+        })
+        .catch((error) => {
+          // Toast.show({
+          //   text2: error.msg,
+          //   position: "bottom",
+          //   type: "error_toast",
+          //   visibilityTime: 1500,
+          // });
+          console.log("brands controller error: " + error);
+          reject(new Error((strings.valiadtion.error = error.msg)));
+        });
+    });
+  }
   // static async getSubCategory(selectedId) {
   //   return new Promise((resolve, reject) => {
   //     const endpoint =

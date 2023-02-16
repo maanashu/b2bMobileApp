@@ -27,6 +27,19 @@ const getSubCategoryError = (error) => ({
   payload: { error },
 });
 
+const getBrandsRequest = () => ({
+  type: TYPES.GET_BRANDS_REQUEST,
+  payload: null,
+});
+const getBrandsSuccess = (brandsList) => ({
+  type: TYPES.GET_BRANDS_SUCCESS,
+  payload: { brandsList },
+});
+const getBrandsError = (error) => ({
+  type: TYPES.GET_BRANDS_ERROR,
+  payload: { error },
+});
+
 export const getCategory = () => async (dispatch) => {
   dispatch(getCategoryRequest());
   try {
@@ -48,6 +61,19 @@ export const getSubCategory = (categoryID) => async (dispatch) => {
   }
 };
 
+export const getBrands = (categoryid) => async (dispatch) => {
+  console.log("categoryid", categoryid);
+  dispatch(getBrandsRequest());
+  try {
+    const res = await CategoryController.getBrands(categoryid);
+    console.log("brands action success", res);
+    dispatch(getBrandsSuccess(res));
+  } catch (error) {
+    console.log("brands action error", error);
+
+    dispatch(getBrandsError(error.message));
+  }
+};
 // export const getProduct =
 //   (selectedId, subSelectedId, brandSelectedId, sellerID) =>
 //   async (dispatch) => {

@@ -1,6 +1,6 @@
 import { Text, View, FlatList, TouchableOpacity } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
-import { styles } from "./SubCategories.styles";
+import { styles } from "./BrandsProducts.styles";
 import { Header, ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
@@ -11,12 +11,11 @@ import { getCategory, getSubCategory } from "@/actions/CategoryActions";
 import FastImage from "react-native-fast-image";
 import Modal from "react-native-modal";
 
-export function SubCategories(params) {
+export function BrandsProducts(params) {
   const listRef = useRef();
-  const modalRef = useRef();
 
-  const routeId = params?.route?.params?.idItem;
-  const getIndex = params?.route?.params?.index;
+  // const routeId = params?.route?.params?.idItem;
+  // const getIndex = params?.route?.params?.index;
 
   const [selectedId, setSelectedId] = useState(params?.route?.params?.idItem);
   const [serviceModalisVisible, setserviceModalisVisible] = useState(false);
@@ -24,11 +23,6 @@ export function SubCategories(params) {
   const dispatch = useDispatch();
   const categoryData = useSelector(getCategorySelector);
   const categoryArray = categoryData?.categoryList;
-
-  const SUBCATEGORIES = useSelector(getCategorySelector);
-  const SubCatArray = SUBCATEGORIES?.subCategoryList;
-
-  console.log("consoling sub categories: " + SubCatArray);
 
   useEffect(() => {
     dispatch(getCategory());
