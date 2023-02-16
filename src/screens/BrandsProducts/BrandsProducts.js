@@ -7,48 +7,45 @@ import { COLORS } from "@/theme/Colors";
 import { backArrow, Fonts, Tobacco } from "@/assets";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
-import { getCategory, getSubCategory } from "@/actions/CategoryActions";
+import {
+  getBrands,
+  getCategory,
+  getSubCategory,
+} from "@/actions/CategoryActions";
 import FastImage from "react-native-fast-image";
 import Modal from "react-native-modal";
+import { navigate } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
 
 export function BrandsProducts(params) {
-  const listRef = useRef();
-
-  // const routeId = params?.route?.params?.idItem;
+  const routeId = params?.route?.params?.categoryId;
   // const getIndex = params?.route?.params?.index;
 
-  const [selectedId, setSelectedId] = useState(params?.route?.params?.idItem);
-  const [serviceModalisVisible, setserviceModalisVisible] = useState(false);
+  const [selectedId, setSelectedId] = useState(
+    params?.route?.params?.categoryId
+  );
 
   const dispatch = useDispatch();
-  const categoryData = useSelector(getCategorySelector);
-  const categoryArray = categoryData?.categoryList;
+
+  const brandsData = useSelector(getCategorySelector);
+  const brandsArray = brandsData?.brandsList;
+  // console.log("brands data console", brandsArray[0]?.id);
 
   useEffect(() => {
-    dispatch(getCategory());
-    setSelectedId(routeId || categoryArray[0]?.id);
+    dispatch(getBrands(params?.route?.params?.categoryId));
+    setSelectedId(brandsData?.brandsList[0]?.id);
   }, []);
 
-  useEffect(() => {
-    onScrollToSelectItem(getIndex);
-  }, []);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setSelectedId(selectedId || categoryArray[0]?.id);
-      dispatch(getSubCategory(routeId || categoryArray[0]?.id));
-    }, 1000);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setSelectedId(selectedId || brandsArray[0]?.id);
+  //     dispatch(getSubCategory(routeId || brandsArray[0]?.id));
+  //   }, 1000);
+  // }, []);
 
   const getSubCategoryList = (item) => {
     setSelectedId(item.id);
     dispatch(getSubCategory(item.id));
-  };
-
-  const onScrollToSelectItem = (index) => {
-    if (listRef.current) {
-      listRef.current.scrollToIndex({ animated: true, index: index || 0 });
-    }
   };
 
   const renderCategory = ({ item, index }) => (
@@ -89,7 +86,12 @@ export function BrandsProducts(params) {
 
   const listDetail = ({ item, index }) => (
     <>
-      <TouchableOpacity style={styles.subCatTouchableView}>
+      <TouchableOpacity
+        style={styles.subCatTouchableView}
+        onPress={() =>
+          navigate(NAVIGATION.brandsProducts, { categoryId: item.id })
+        }
+      >
         <FastImage
           source={Tobacco}
           resizeMode="contain"
@@ -102,17 +104,9 @@ export function BrandsProducts(params) {
     </>
   );
 
-  const toggleModal = () => {
-    setserviceModalisVisible(!serviceModalisVisible);
-  };
-
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <Header
-        title={"Categories"}
-        back={backArrow}
-        // onFilterPress={toggleModal}
-      />
+      <Header title={"Products"} back={backArrow} />
 
       <View style={styles.upperView}>
         <Spacer space={SH(10)} />
@@ -120,52 +114,20 @@ export function BrandsProducts(params) {
         <FlatList
           showsHorizontalScrollIndicator={false}
           horizontal
-          data={categoryArray}
+          data={brandsArray}
           renderItem={renderCategory}
           keyExtractor={(item) => item.id}
-          getItemLayout={(data, index) => ({
-            length: SH(70),
-            offset: SH(70) * index,
-            index,
-          })}
-          ref={listRef}
         />
       </View>
 
       <View style={{ paddingHorizontal: SW(20), flex: 1, marginTop: SH(20) }}>
-        <FlatList
+        {/* <FlatList
           showsVerticalScrollIndicator={false}
           data={SubCatArray}
           renderItem={listDetail}
           keyExtractor={(item) => item.id}
-        />
+        /> */}
       </View>
-
-      <Modal
-        isVisible={serviceModalisVisible}
-        backdropColor="FFFFFF"
-        backdropOpacity={0}
-        onBackdropPress={toggleModal}
-        onBackButtonPress={toggleModal}
-        style={{ marginTop: SH(-530), marginLeft: SW(250) }}
-        hideModalContentWhileAnimating
-        animationInTiming={10}
-        animationOutTiming={10}
-      >
-        <>
-          <View style={styles.modalContainer}>
-            <TouchableOpacity>
-              <Text style={styles.servicesText}>{"Retail"}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.servicesText}>{"Fashion"}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.servicesText}>{"All"}</Text>
-            </TouchableOpacity>
-          </View>
-        </>
-      </Modal>
     </ScreenWrapper>
   );
 }

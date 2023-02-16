@@ -15,7 +15,8 @@ export const ApiProductInventory = {
     `categories/b2b?page=1&limit=20&main_category=true&category_id=${categoryID}`,
   getBrands: (categoryid) =>
     `brands/b2b?page=1&limit=10&category_id=${categoryid}`,
-  getProduct: "products/b2b",
+  getProduct: (selectedId) =>
+    `products/b2b?page=1&limit=20&brand_id=${selectedId}`,
   getBanners: "banners/b2b?service_id=2&page=1&limit=10",
   getProductDetail: (productId) => `products/product-detail/${productId}`,
 };

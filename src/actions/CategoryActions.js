@@ -51,10 +51,10 @@ export const getCategory = () => async (dispatch) => {
 };
 
 export const getSubCategory = (categoryID) => async (dispatch) => {
-  console.log("categoryID", categoryID);
   dispatch(getSubCategoryRequest());
   try {
     const res = await CategoryController.getSubCategory(categoryID);
+
     dispatch(getSubCategorySuccess(res));
   } catch (error) {
     dispatch(getSubCategoryError(error.message));
@@ -66,11 +66,8 @@ export const getBrands = (categoryid) => async (dispatch) => {
   dispatch(getBrandsRequest());
   try {
     const res = await CategoryController.getBrands(categoryid);
-    console.log("brands action success", res);
     dispatch(getBrandsSuccess(res));
   } catch (error) {
-    console.log("brands action error", error);
-
     dispatch(getBrandsError(error.message));
   }
 };

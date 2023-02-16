@@ -18,9 +18,11 @@ export const getProduct = (selectedId) => async (dispatch) => {
   dispatch(getProductRequest());
   try {
     const res = await ProductController.getProduct(selectedId);
-    //   console.log("check response of selected category", JSON.stringify(res));
+    console.log("check action success", JSON.stringify(res));
     dispatch(getProductSuccess(res));
   } catch (error) {
+    console.log("check action error", error);
+
     dispatch(getProductError(error.message));
   }
 };
@@ -42,9 +44,10 @@ export const getProductDetail = (selectedId) => async (dispatch) => {
   dispatch(getProductDetailRequest());
   try {
     const res = await ProductController.getProductDetail(selectedId);
-    // console.log("check response of selected category", JSON.stringify(res));
+    console.log("check action success---> ", JSON.stringify(res));
     dispatch(getProductDetailSuccess(res));
   } catch (error) {
+    console.log("check action error---> ", error);
     dispatch(getProductDetailError(error.message));
   }
 };

@@ -8,13 +8,14 @@ import {
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { HttpClient } from "./HttpClient";
 export class ProductController {
-  static async getProduct(categoryId) {
+  static async getProduct(selectedId) {
     return new Promise((resolve, reject) => {
-      const endpoint = PRODUCT_URL + ApiProductInventory.getProduct(categoryId);
+      const endpoint = PRODUCT_URL + ApiProductInventory.getProduct(selectedId);
       HttpClient.get(endpoint)
 
         .then((response) => {
           resolve(response);
+          console.log("product controller success", response);
         })
         .catch((error) => {
           console.log("product error: " + error);

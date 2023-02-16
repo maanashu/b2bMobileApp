@@ -27,6 +27,7 @@ import {
   AddShippingLocation,
   Brands,
   BrandsProduct,
+  BrandsProducts,
   BusinessCards,
   BusinessHome,
   BusinessProducts,
@@ -686,6 +687,11 @@ export function AppBottom() {
         options={{ headerShown: false }}
       />
 
+      <Stack.Screen
+        component={BrandsProducts}
+        name={NAVIGATION.brandsProducts}
+        options={{ headerShown: false }}
+      />
       {/* Home navigator ends here */}
     </Stack.Navigator>
   );

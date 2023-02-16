@@ -10,6 +10,8 @@ import { getCategorySelector } from "@/selectors/CategorySelectors";
 import { getCategory, getSubCategory } from "@/actions/CategoryActions";
 import FastImage from "react-native-fast-image";
 import Modal from "react-native-modal";
+import { navigate } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
 
 export function SubCategories(params) {
   const listRef = useRef();
@@ -19,6 +21,7 @@ export function SubCategories(params) {
   const getIndex = params?.route?.params?.index;
 
   const [selectedId, setSelectedId] = useState(params?.route?.params?.idItem);
+
   const [serviceModalisVisible, setserviceModalisVisible] = useState(false);
 
   const dispatch = useDispatch();
@@ -27,8 +30,6 @@ export function SubCategories(params) {
 
   const SUBCATEGORIES = useSelector(getCategorySelector);
   const SubCatArray = SUBCATEGORIES?.subCategoryList;
-
-  console.log("consoling sub categories: " + SubCatArray);
 
   useEffect(() => {
     dispatch(getCategory());
@@ -95,7 +96,12 @@ export function SubCategories(params) {
 
   const listDetail = ({ item, index }) => (
     <>
-      <TouchableOpacity style={styles.subCatTouchableView}>
+      <TouchableOpacity
+        style={styles.subCatTouchableView}
+        onPress={() =>
+          navigate(NAVIGATION.brandsProducts, { categoryId: selectedId })
+        }
+      >
         <FastImage
           source={Tobacco}
           resizeMode="contain"

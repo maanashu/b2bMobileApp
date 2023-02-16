@@ -80,4 +80,5 @@ export const NAVIGATION = {
   subCategories: "SubCategories",
   messages: "Messages",
   orders: "Orders",
+  brandsProducts: "BrandsProducts",
 };

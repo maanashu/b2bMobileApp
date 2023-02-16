@@ -56,7 +56,6 @@ export class CategoryController {
       const endpoint = PRODUCT_URL + ApiProductInventory.getBrands(categoryid);
       HttpClient.get(endpoint)
         .then((response) => {
-          console.log("brands controller success", response);
           resolve(response);
         })
         .catch((error) => {
@@ -66,7 +65,6 @@ export class CategoryController {
           //   type: "error_toast",
           //   visibilityTime: 1500,
           // });
-          console.log("brands controller error: " + error);
           reject(new Error((strings.valiadtion.error = error.msg)));
         });
     });
