@@ -18,10 +18,10 @@ export const getProduct = (selectedId) => async (dispatch) => {
   dispatch(getProductRequest());
   try {
     const res = await ProductController.getProduct(selectedId);
-    console.log("check action success", JSON.stringify(res));
+    // console.log("check action success", JSON.stringify(res));
     dispatch(getProductSuccess(res));
   } catch (error) {
-    console.log("check action error", error);
+    // console.log("check action error", error);
 
     dispatch(getProductError(error.message));
   }

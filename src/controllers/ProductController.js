@@ -15,10 +15,8 @@ export class ProductController {
 
         .then((response) => {
           resolve(response);
-          console.log("product controller success", response);
         })
         .catch((error) => {
-          console.log("product error: " + error);
           Toast.show({
             text2: error.msg,
             position: "bottom",

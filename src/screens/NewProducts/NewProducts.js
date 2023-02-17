@@ -15,6 +15,7 @@ import { getProduct } from "@/actions/ProductActions";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
+import FastImage from "react-native-fast-image";
 export function NewProducts() {
   // const layout = useWindowDimensions();
 
@@ -175,7 +176,7 @@ export function NewProducts() {
         >
           <Spacer space={SH(10)} />
           <View style={{ alignItems: "center" }}>
-            <Image
+            <FastImage
               source={{ uri: item.image }}
               resizeMode="cover"
               style={{

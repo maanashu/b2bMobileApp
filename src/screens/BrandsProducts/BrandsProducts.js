@@ -1,59 +1,86 @@
-import { Text, View, FlatList, TouchableOpacity } from "react-native";
+import { Text, View, FlatList, TouchableOpacity, Image } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { styles } from "./BrandsProducts.styles";
 import { Header, ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { backArrow, Fonts, Tobacco } from "@/assets";
+import { backArrow, Fonts } from "@/assets";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
-import {
-  getBrands,
-  getCategory,
-  getSubCategory,
-} from "@/actions/CategoryActions";
+import { getBrands } from "@/actions/CategoryActions";
 import FastImage from "react-native-fast-image";
-import Modal from "react-native-modal";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
+import { getProduct } from "@/actions/ProductActions";
+import { getProductSelector } from "@/selectors/ProductSelectors";
 
 export function BrandsProducts(params) {
   const routeId = params?.route?.params?.categoryId;
-  // const getIndex = params?.route?.params?.index;
 
-  const [selectedId, setSelectedId] = useState(
-    params?.route?.params?.categoryId
-  );
+  const [selectedId, setSelectedId] = useState([0]);
 
   const dispatch = useDispatch();
 
   const brandsData = useSelector(getCategorySelector);
-  const brandsArray = brandsData?.brandsList;
-  // console.log("brands data console", brandsArray[0]?.id);
+  // const brandsArray = brandsData?.brandsList;
+
+  const productsData = useSelector(getProductSelector);
+  // const productsArray = productsData?.product;
 
   useEffect(() => {
     dispatch(getBrands(params?.route?.params?.categoryId));
-    setSelectedId(brandsData?.brandsList[0]?.id);
   }, []);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setSelectedId(selectedId || brandsArray[0]?.id);
-  //     dispatch(getSubCategory(routeId || brandsArray[0]?.id));
-  //   }, 1000);
-  // }, []);
+  useEffect(() => {
+    setSelectedId(brandsData?.brandsList[0]?.id);
 
-  const getSubCategoryList = (item) => {
+    dispatch(getProduct(brandsData?.brandsList[0]?.id));
+  }, [brandsData]);
+
+  const getProducts = (item) => {
     setSelectedId(item.id);
-    dispatch(getSubCategory(item.id));
+    dispatch(getProduct(item.id));
   };
+
+  function dynamicHeight(_index) {
+    if (_index % 2 == 0) {
+      return SH(250);
+    } else if (_index % 2 !== 0) {
+      return SH(245);
+    } else {
+      return SH(230);
+    }
+  }
+  function dynamicImageHeight(_index) {
+    if (_index % 2 == 0) {
+      return SH(150);
+    } else if (_index % 2 !== 0) {
+      return SH(135);
+    } else {
+      return 100;
+    }
+  }
+  function dynamicMarginTop(_index) {
+    if (_index % 2 !== 0) {
+      return 0;
+    } else {
+      return SH(20);
+    }
+  }
+  function dynamicMarginBottom(_index) {
+    if (_index % 2 == 0) {
+      return SH(10);
+    } else {
+      return SH(10);
+    }
+  }
 
   const renderCategory = ({ item, index }) => (
     <>
       <TouchableOpacity
         style={styles.categoryTouchableView}
         onPress={() => {
-          getSubCategoryList(item);
+          getProducts(item);
         }}
       >
         <View style={styles.rowView}>
@@ -83,27 +110,48 @@ export function BrandsProducts(params) {
       </TouchableOpacity>
     </>
   );
-
   const listDetail = ({ item, index }) => (
     <>
       <TouchableOpacity
-        style={styles.subCatTouchableView}
-        onPress={() =>
-          navigate(NAVIGATION.brandsProducts, { categoryId: item.id })
-        }
+        // onPress={() => navigate(NAVIGATION.productInquiry, { data: item.id })}
+        style={[
+          styles.ShoesStyle,
+          {
+            height: dynamicHeight(index),
+            marginTop: dynamicMarginTop(index),
+            marginBottom: dynamicMarginBottom(index),
+          },
+        ]}
       >
-        <FastImage
-          source={Tobacco}
-          resizeMode="contain"
-          style={styles.subCatImages}
-        />
-        <View style={{ marginLeft: SW(10) }}>
-          <Text style={styles.subCategoryTextStyle}>{item.name}</Text>
+        <Spacer space={SH(10)} />
+        <View style={{ alignItems: "center" }}>
+          <FastImage
+            source={{ uri: item.image }}
+            resizeMode="cover"
+            style={{
+              width: SW(153),
+              height: dynamicImageHeight(index),
+              borderRadius: SW(10),
+            }}
+          />
         </View>
+        <Spacer space={SH(5)} />
+
+        <Text numberOfLines={2} style={styles.productsTitle}>
+          {item.name}
+          <Text style={styles.productSubTitle}> {item.description}</Text>
+        </Text>
+        <Spacer space={SH(5)} />
+        <Text style={styles.productsQuantity}>{`MOQ:10`}</Text>
+        <Spacer space={SH(1)} />
+
+        <Text style={styles.priceText}>
+          {/* {item.price}/ */}
+          {/* <Text style={styles.categoryText}> {item.product_type.name}</Text> */}
+        </Text>
       </TouchableOpacity>
     </>
   );
-
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <Header title={"Products"} back={backArrow} />
@@ -114,19 +162,22 @@ export function BrandsProducts(params) {
         <FlatList
           showsHorizontalScrollIndicator={false}
           horizontal
-          data={brandsArray}
+          data={brandsData?.brandsList ?? []}
           renderItem={renderCategory}
           keyExtractor={(item) => item.id}
+          // extraData={selectedId}
         />
       </View>
 
       <View style={{ paddingHorizontal: SW(20), flex: 1, marginTop: SH(20) }}>
-        {/* <FlatList
+        <FlatList
           showsVerticalScrollIndicator={false}
-          data={SubCatArray}
+          data={productsData?.product ?? []}
+          // extraData={productsArray}
           renderItem={listDetail}
           keyExtractor={(item) => item.id}
-        /> */}
+          numColumns={2}
+        />
       </View>
     </ScreenWrapper>
   );

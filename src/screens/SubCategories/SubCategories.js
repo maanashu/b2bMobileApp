@@ -7,7 +7,11 @@ import { COLORS } from "@/theme/Colors";
 import { backArrow, Fonts, Tobacco } from "@/assets";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
-import { getCategory, getSubCategory } from "@/actions/CategoryActions";
+import {
+  getBrands,
+  getCategory,
+  getSubCategory,
+} from "@/actions/CategoryActions";
 import FastImage from "react-native-fast-image";
 import Modal from "react-native-modal";
 import { navigate } from "@/navigation/NavigationRef";
@@ -32,6 +36,7 @@ export function SubCategories(params) {
   const SubCatArray = SUBCATEGORIES?.subCategoryList;
 
   useEffect(() => {
+    dispatch(getBrands(1));
     dispatch(getCategory());
     setSelectedId(routeId || categoryArray[0]?.id);
   }, []);
