@@ -3,6 +3,7 @@ const INITIALSTATE = {
   categoryList: [],
   subCategoryList: [],
   brandsList: [],
+  serviceCategoryList: [],
 };
 export const categoryReducer = (
   state = { INITIALSTATE },
@@ -23,6 +24,11 @@ export const categoryReducer = (
       return {
         ...state,
         brandsList: payload.brandsList.payload.data,
+      };
+    case TYPES.GET_SERVICE_CATEGORY_SUCCESS:
+      return {
+        ...state,
+        serviceCategoryList: payload.serviceCategoryList.payload.data,
       };
     default:
       return state;

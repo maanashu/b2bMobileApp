@@ -41,14 +41,18 @@ import {
   ProductDetailData,
 } from "./FlatlistData";
 import { login } from "@/actions/UserActions";
-import { getProductDetail } from "@/actions/ProductActions";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { Header } from "./Components/Header";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import { Rating } from "react-native-ratings";
 
-export function ProductInquiry({ route }) {
+export function ProductInquiry(props) {
+  const [routedData, setroutedData] = useState(
+    JSON.stringify(props?.route?.params?.data)
+  );
+  console.log("routed item-->" + routedData);
+  // const propsData = JSON.stringify(props?.route?.params?.data);
   const [favourite, setFavourite] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector(getUser);
@@ -60,11 +64,11 @@ export function ProductInquiry({ route }) {
   const ProductDetail = useSelector(getProductSelector);
   const ProductList = ProductDetail?.productDetail;
 
-  console.log("product detail--->", ProductDetail);
+  // console.log("product detail--->", ProductDetail);
 
-  useEffect(() => {
-    dispatch(getProductDetail(1));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getProductDetail(1));
+  // }, []);
 
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.item}>
@@ -121,7 +125,7 @@ export function ProductInquiry({ route }) {
   };
   return (
     <ScreenWrapper>
-      <Header back={backArrow} bell={bellGrey} bag={bagGrey} />
+      <Header back={backArrow} bell={bellGrey} ba g={bagGrey} />
       <Spacer space={SH(10)} />
 
       <ScrollView
@@ -159,23 +163,17 @@ export function ProductInquiry({ route }) {
               source={ratingStar}
               style={{ marginHorizontal: SW(5), height: 15, width: 15 }}
             />
-            <Text>4.5 </Text>
+
+            <Text>{"4.5"} </Text>
             <Text style={styles.productSubHeading}>{"(500+ ratings)"}</Text>
           </View>
-
           <Spacer space={SH(40)} />
-
-          <Text style={styles.productHeading}>
-            {"PUMA Men's Tazon 6 Wide Sneaker"}
-          </Text>
+          {/* <Text style={styles.productHeading}>{propsData.description}</Text> */}
           <Text style={styles.productSubHeading}>
             {"Women Burgundy Waterproof 3 in 1 Travel Trekking Jacket"}
           </Text>
-
           <Spacer space={SH(40)} />
-
           <Spacer space={SH(5)} />
-
           <FlatList
             data={priceData}
             renderItem={renderItem}

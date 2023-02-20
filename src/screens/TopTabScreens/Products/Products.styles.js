@@ -12,9 +12,9 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   roundIcons: {
-    height: SW(56),
-    width: SW(56),
-    borderRadius: SW(50),
+    height: SH(56),
+    width: SW(54),
+    borderRadius: SW(10),
   },
   item: {
     alignItems: "center",
@@ -190,5 +190,16 @@ export const styles = StyleSheet.create({
   swiperView: {
     paddingTop: SH(10),
     paddingBottom: SH(30),
+  },
+  allButton: {
+    backgroundColor: COLORS.white,
+    ...ShadowStyles.shadow2,
+    borderRadius: SW(10),
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  allIcon: {
+    height: SH(56),
+    width: SW(54),
   },
 });

@@ -134,17 +134,17 @@ export const LastData = [
 export const priceData = [
   {
     id: "1",
-    price: "USD 5.60",
+    price: "USD $$$",
     quantity: " 5-50 Pieces ",
   },
   {
     id: "2",
-    price: "USD 5.20",
+    price: "USD $$$",
     quantity: " 5-50 Pieces ",
   },
   {
     id: "3",
-    price: "USD 5.10",
+    price: "USD $$$",
     quantity: " 5-50 Pieces ",
   },
 ];

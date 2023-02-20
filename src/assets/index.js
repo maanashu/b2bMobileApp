@@ -275,6 +275,7 @@ export { default as RFQinquiry } from "@/assets/icons/ic_messages/RFQ_inquiry.pn
 export { default as inquiry } from "@/assets/icons/ic_messages/inquiry.png";
 export { default as agentPhoto } from "@/assets/icons/ic_chat/agentPhoto.png";
 export { default as infoBlue } from "@/assets/icons/ic_chat/infoBlue.png";
+export { default as threeDots } from "@/assets/icons/ic_home/threeDots.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

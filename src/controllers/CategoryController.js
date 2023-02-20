@@ -31,6 +31,26 @@ export class CategoryController {
     });
   }
 
+  static async getServiceCategory() {
+    return new Promise((resolve, reject) => {
+      const endpoint = PRODUCT_URL + ApiProductInventory.getServiceCategory;
+      HttpClient.get(endpoint)
+
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
+          reject(new Error((strings.valiadtion.error = error.msg)));
+        });
+    });
+  }
+
   static async getSubCategory(categoryID) {
     return new Promise((resolve, reject) => {
       const endpoint =

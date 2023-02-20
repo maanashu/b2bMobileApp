@@ -10,6 +10,7 @@ import { getCategorySelector } from "@/selectors/CategorySelectors";
 import {
   getBrands,
   getCategory,
+  getServiceCategory,
   getSubCategory,
 } from "@/actions/CategoryActions";
 import FastImage from "react-native-fast-image";
@@ -31,14 +32,21 @@ export function SubCategories(params) {
   const dispatch = useDispatch();
   const categoryData = useSelector(getCategorySelector);
   const categoryArray = categoryData?.categoryList;
+  const serviceCategoryArray = categoryData?.categoryList;
 
   const SUBCATEGORIES = useSelector(getCategorySelector);
   const SubCatArray = SUBCATEGORIES?.subCategoryList;
 
   useEffect(() => {
     dispatch(getBrands(1));
-    dispatch(getCategory());
-    setSelectedId(routeId || categoryArray[0]?.id);
+    if (params?.route?.params?.serviceType == "product") {
+      dispatch(getCategory());
+    } else if (params?.route?.params?.serviceType == "business") {
+      dispatch(getServiceCategory());
+    }
+
+    setSelectedId(routeId || categoryArray[0]?.id) ||
+      serviceCategoryArray[0]?.id;
   }, []);
 
   useEffect(() => {
@@ -47,8 +55,14 @@ export function SubCategories(params) {
 
   useEffect(() => {
     setTimeout(() => {
-      setSelectedId(selectedId || categoryArray[0]?.id);
-      dispatch(getSubCategory(routeId || categoryArray[0]?.id));
+      setSelectedId(
+        selectedId || categoryArray[0]?.id || serviceCategoryArray[0]?.id
+      );
+      dispatch(
+        getSubCategory(
+          routeId || categoryArray[0]?.id || serviceCategoryArray[0]?.id
+        )
+      );
     }, 1000);
   }, []);
 
@@ -137,7 +151,11 @@ export function SubCategories(params) {
         <FlatList
           showsHorizontalScrollIndicator={false}
           horizontal
-          data={categoryArray}
+          data={
+            params?.route?.params?.serviceType === "product"
+              ? categoryData?.categoryList
+              : categoryData?.serviceCategoryList
+          }
           renderItem={renderCategory}
           keyExtractor={(item) => item.id}
           getItemLayout={(data, index) => ({

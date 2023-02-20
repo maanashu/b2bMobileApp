@@ -1,4 +1,5 @@
 import { Fonts } from "@/assets";
+import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { Dimensions, StyleSheet } from "react-native";
@@ -12,21 +13,23 @@ export const styles = StyleSheet.create({
   },
 
   roundIcons: {
-    height: SW(56),
-    width: SW(56),
-    borderRadius: SW(50),
+    height: SH(56),
+    width: SW(54),
+    borderRadius: SW(10),
   },
   item: {
-    flex: 1,
-    justifyContent: "center",
     alignItems: "center",
     padding: SH(2),
     marginBottom: SH(8),
+    justifyContent: "space-between",
+    marginVertical: 8,
+    flex: 1 / 4,
   },
   title: {
     fontSize: SF(12),
     fontFamily: Fonts.Regular,
     color: COLORS.darkGrey2,
+    marginTop: SH(5),
   },
   commonFlatlistTextBold: {
     fontSize: SF(14),
@@ -93,5 +96,16 @@ export const styles = StyleSheet.create({
   },
   paddingView: {
     paddingHorizontal: ms(20),
+  },
+  allButton: {
+    backgroundColor: COLORS.white,
+    ...ShadowStyles.shadow2,
+    borderRadius: SW(10),
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  allIcon: {
+    height: SH(56),
+    width: SW(54),
   },
 });

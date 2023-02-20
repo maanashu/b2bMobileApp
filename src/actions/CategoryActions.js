@@ -10,7 +10,20 @@ const getCategorySuccess = (categoryList) => ({
   payload: { categoryList },
 });
 const getCategoryError = (error) => ({
-  type: TYPES.GET_PRODUCT_ERROR,
+  type: TYPES.GET_CATEGORY_ERROR,
+  payload: { error },
+});
+
+const getServiceCategoryRequest = () => ({
+  type: TYPES.GET_SERVICE_CATEGORY_REQUEST,
+  payload: null,
+});
+const getServiceCategorySuccess = (serviceCategoryList) => ({
+  type: TYPES.GET_SERVICE_CATEGORY_SUCCESS,
+  payload: { serviceCategoryList },
+});
+const getServiceCategoryError = (error) => ({
+  type: TYPES.GET_SERVICE_CATEGORY_ERROR,
   payload: { error },
 });
 
@@ -47,6 +60,16 @@ export const getCategory = () => async (dispatch) => {
     dispatch(getCategorySuccess(res));
   } catch (error) {
     dispatch(getCategoryError(error.message));
+  }
+};
+
+export const getServiceCategory = () => async (dispatch) => {
+  dispatch(getServiceCategoryRequest());
+  try {
+    const res = await CategoryController.getServiceCategory();
+    dispatch(getServiceCategorySuccess(res));
+  } catch (error) {
+    dispatch(getServiceCategoryError(error.message));
   }
 };
 

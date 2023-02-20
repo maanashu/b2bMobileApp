@@ -192,8 +192,11 @@ export function NewProducts() {
             {item.name}
             <Text style={styles.productSubTitle}> {item.description}</Text>
           </Text>
+
           <Spacer space={SH(5)} />
+
           <Text style={styles.productsQuantity}>{`MOQ:10`}</Text>
+
           <Spacer space={SH(1)} />
 
           <Text style={styles.priceText}>

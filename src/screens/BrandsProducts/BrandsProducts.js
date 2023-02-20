@@ -22,10 +22,10 @@ export function BrandsProducts(params) {
   const dispatch = useDispatch();
 
   const brandsData = useSelector(getCategorySelector);
-  // const brandsArray = brandsData?.brandsList;
 
   const productsData = useSelector(getProductSelector);
-  // const productsArray = productsData?.product;
+
+  // console.log("product details", productsData?.product);
 
   useEffect(() => {
     dispatch(getBrands(params?.route?.params?.categoryId));
@@ -75,6 +75,12 @@ export function BrandsProducts(params) {
     }
   }
 
+  const navigationHandler = (item) => {
+    // if (item === item) {
+    navigate(NAVIGATION.productInquiry, { data: item });
+    // }
+  };
+
   const renderCategory = ({ item, index }) => (
     <>
       <TouchableOpacity
@@ -113,7 +119,8 @@ export function BrandsProducts(params) {
   const listDetail = ({ item, index }) => (
     <>
       <TouchableOpacity
-        // onPress={() => navigate(NAVIGATION.productInquiry, { data: item.id })}
+        // onPress={() => navigate(NAVIGATION.productInquiry, { data: item })}
+        onPress={() => navigationHandler(item)}
         style={[
           styles.ShoesStyle,
           {

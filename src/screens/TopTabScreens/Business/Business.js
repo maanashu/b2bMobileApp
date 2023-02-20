@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import {
-  Dimensions,
   FlatList,
   Image,
   ScrollView,
@@ -13,29 +12,18 @@ import { useState } from "react";
 import { CustomPagination, ScreenWrapper, Spacer } from "@/components";
 import { COLORS } from "@/theme/Colors";
 import { SH, SW } from "@/theme/ScalerDimensions";
-import { SliderBox } from "react-native-image-slider-box";
 import { navigate } from "@/navigation/NavigationRef";
 import {
-  Fonts,
   forward,
   roundAll,
-  roundApparel,
-  roundAppliance,
-  roundElectronices,
-  roundPersonal,
-  roundShoes,
-  roundSports,
-  roundTobbacco,
-  slideImage,
   headphones,
   lighter,
   jacket,
   shoesBusiness,
   watch,
   boots,
+  threeDots,
 } from "@/assets";
-import { LastData } from "@/screens/Products/ProductsInquiry/FlatlistData";
-import { ms, vs } from "react-native-size-matters";
 import { NAVIGATION } from "@/constants";
 import { Search } from "@/components/Search";
 import { strings } from "@/localization";
@@ -44,67 +32,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBannerSelector } from "@/selectors/BannerSelectors";
 import { getBanners } from "@/actions/BannerActions";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
-import { getCategory } from "@/actions/CategoryActions";
+import { getCategory, getServiceCategory } from "@/actions/CategoryActions";
+import FastImage from "react-native-fast-image";
 export function Business() {
   const [selectedId, setSelectedId] = useState("");
   const [product, setProduct] = useState("");
 
   const dispatch = useDispatch();
   const categoryData = useSelector(getCategorySelector);
-  const categoryArray = categoryData?.categories;
-  const splicedArray = categoryArray?.slice(0, 8);
-  const [viewAll, setviewAll] = useState(splicedArray);
-
   const BannerData = useSelector(getBannerSelector);
-  const BannerList = BannerData?.banners;
 
   useEffect(() => {
-    dispatch(getCategory());
+    dispatch(getServiceCategory());
     dispatch(getBanners());
   }, []);
 
-  const DATA = [
-    {
-      id: "1",
-      title: "Apparel",
-      image: roundApparel,
-    },
-    {
-      id: "2",
-      title: "Electronics",
-      image: roundElectronices,
-    },
-    {
-      id: "3",
-      title: "Appliance",
-      image: roundAppliance,
-    },
-    {
-      id: "4",
-      title: "Personal Care",
-      image: roundPersonal,
-    },
-    {
-      id: "5",
-      title: "Sports",
-      image: roundSports,
-    },
-    {
-      id: "6",
-      title: "Shoes",
-      image: roundShoes,
-    },
-    {
-      id: "7",
-      title: "Tobbacco",
-      image: roundTobbacco,
-    },
-    {
-      id: "8",
-      title: "All",
-      image: roundAll,
-    },
-  ];
   const secondData = [
     {
       id: "1",
@@ -146,41 +88,50 @@ export function Business() {
     },
   ];
 
-  const Item = ({ item, index }) => (
-    <>
-      {index == 7 ? (
-        <TouchableOpacity
-          onPress={() => {
-            viewAll === categoryArray
-              ? setviewAll(splicedArray)
-              : setviewAll(categoryArray);
-          }}
-          style={{ alignItems: "center" }}
-        >
-          <Image
-            source={roundAll}
-            resizeMode="contain"
-            style={{ height: SW(85), width: SW(85), marginTop: SH(2) }}
-          />
-          <Text style={[styles.title, { marginTop: SH(-18) }]}>
-            {viewAll === categoryArray ? "Less" : "All"}
-          </Text>
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity
-          style={styles.item}
-          onPress={() => setSelectedId(item.name)}
-        >
-          <Image source={{ uri: item.image }} style={styles.roundIcons} />
+  const Item = ({ item, index }) => {
+    return (
+      <>
+        {index == 7 ? (
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() =>
+              navigate(NAVIGATION.subCategories, { serviceType: "service" })
+            }
+          >
+            <View style={styles.allButton}>
+              <Image
+                source={threeDots}
+                resizeMode="contain"
+                style={styles.allIcon}
+              />
+            </View>
+            <Text numberOfLines={1} style={styles.title}>
+              {"All"}
+            </Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => {
+              console.log("item id", item.id);
+              setSelectedId(item.name);
+              navigate(NAVIGATION.subCategories, {
+                idItem: item.id,
+                index: index,
+                serviceType: "service",
+              });
+            }}
+          >
+            <FastImage source={{ uri: item.image }} style={styles.roundIcons} />
 
-          <Text numberOfLines={1} style={styles.title}>
-            {item.name}
-          </Text>
-        </TouchableOpacity>
-      )}
-    </>
-  );
-
+            <Text numberOfLines={1} style={styles.title}>
+              {item.name}
+            </Text>
+          </TouchableOpacity>
+        )}
+      </>
+    );
+  };
   const secondItem = ({ item, onPress }) => (
     <View style={styles.secondFlatlist}>
       <Spacer space={SH(10)} />
@@ -203,7 +154,6 @@ export function Business() {
       <Text style={styles.commonFlatlistText}>{item.subtitle}</Text>
     </View>
   );
-
   const renderRecentItem = ({ item, index }) => (
     <TouchableOpacity style={styles.swiperStyle}>
       <Image
@@ -229,10 +179,11 @@ export function Business() {
           <Spacer space={SH(18)} />
 
           <FlatList
-            data={viewAll}
+            columnWrapperStyle={{ justifyContent: "flex-start" }}
+            data={categoryData?.serviceCategoryList?.slice(0, 8) ?? []}
             renderItem={Item}
             keyExtractor={(item) => item.id}
-            extraData={viewAll}
+            extraData={categoryData?.serviceCategoryList?.slice(0, 8) ?? []}
             numColumns={4}
           />
         </View>
@@ -245,7 +196,7 @@ export function Business() {
             autoplayDelay={3}
             autoplayLoop={true}
             showPagination
-            data={BannerList}
+            data={BannerData?.banners ?? []}
             renderItem={renderRecentItem}
             PaginationComponent={CustomPagination}
             paginationActiveColor={COLORS.black}

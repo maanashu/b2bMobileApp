@@ -19,7 +19,7 @@ import {
 import { COLORS } from "@/theme/Colors";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { navigate } from "@/navigation/NavigationRef";
-import { forward, roundAll } from "@/assets";
+import { forward, menuDots, roundAll, threeDots } from "@/assets";
 
 import {
   LastData,
@@ -42,20 +42,18 @@ import FastImage from "react-native-fast-image";
 export function Products({ navigation }) {
   const listRef = useRef();
   const dispatch = useDispatch();
+
   const categoryData = useSelector(getCategorySelector);
-  const arrayArray = categoryData?.categoryList?.slice(0, 8);
   // const newArr =
   //   categoryData?.categories === 0
   //     ? []
   //     : [...categoryData?.categories, { isButton: true }];
 
   // const [categoryArray, setcategoryArray] = useState([]);
-  const [splicedArray, setsplicedArray] = useState([]);
+
   const [selectedId, setSelectedId] = useState("");
-  const [product, setProduct] = useState("");
 
   const BannerData = useSelector(getBannerSelector);
-  const BannerList = BannerData?.banners;
 
   useEffect(() => {
     dispatch(getCategory());
@@ -120,33 +118,36 @@ export function Products({ navigation }) {
       <>
         {index == 7 ? (
           <TouchableOpacity
-            onPress={() => navigate(NAVIGATION.subCategories)}
-            style={{ alignItems: "center", marginRight: SW(-82.5) }}
+            style={styles.item}
+            onPress={() =>
+              navigate(NAVIGATION.subCategories, { serviceType: "product" })
+            }
           >
-            <FastImage
-              source={roundAll}
-              resizeMode="contain"
-              style={{
-                height: SW(85),
-                width: SW(85),
-                marginTop: SH(2),
-              }}
-            />
-            <Text style={[styles.title, { marginTop: SH(-18) }]}>{"All"}</Text>
+            <View style={styles.allButton}>
+              <Image
+                source={threeDots}
+                resizeMode="contain"
+                style={styles.allIcon}
+              />
+            </View>
+
+            <Text numberOfLines={1} style={styles.title}>
+              {"All"}
+            </Text>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             style={styles.item}
             onPress={() => {
-              console.log("item id", item.id);
               setSelectedId(item.name);
               navigate(NAVIGATION.subCategories, {
                 idItem: item.id,
                 index: index,
+                serviceType: "product",
               });
             }}
           >
-            <Image source={{ uri: item.image }} style={styles.roundIcons} />
+            <FastImage source={{ uri: item.image }} style={styles.roundIcons} />
 
             <Text numberOfLines={1} style={styles.title}>
               {item.name}
@@ -244,11 +245,11 @@ export function Products({ navigation }) {
           <Spacer space={SH(18)} />
 
           <FlatList
-            columnWrapperStyle={{ justifyContent: "flex-start" }}
-            data={arrayArray}
+            columnWrapperStyle={{ justifyContent: "space-between" }}
+            data={categoryData?.categoryList?.slice(0, 8) ?? []}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
-            extraData={arrayArray}
+            extraData={categoryData?.categoryList?.slice(0, 8) ?? []}
             numColumns={4}
           />
         </View>
@@ -261,7 +262,7 @@ export function Products({ navigation }) {
             autoplayDelay={3}
             autoplayLoop={true}
             showPagination
-            data={BannerList}
+            data={BannerData?.banners ?? []}
             renderItem={renderRecentItem}
             PaginationComponent={CustomPagination}
             paginationActiveColor={COLORS.black}
@@ -294,7 +295,6 @@ export function Products({ navigation }) {
             data={secondData}
             renderItem={secondItem}
             keyExtractor={(item) => item.id}
-            extraData={product}
             numColumns={3}
           />
         </TouchableOpacity>
@@ -323,7 +323,6 @@ export function Products({ navigation }) {
             data={thirdData}
             renderItem={secondItem}
             keyExtractor={(item) => item.id}
-            extraData={product}
             numColumns={3}
           />
         </TouchableOpacity>
@@ -353,7 +352,6 @@ export function Products({ navigation }) {
             data={fourthData}
             renderItem={thirdItem}
             keyExtractor={(item) => item.id}
-            extraData={product}
             numColumns={4}
           />
         </View>

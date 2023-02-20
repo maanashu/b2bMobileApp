@@ -14,6 +14,8 @@ export class ProductController {
       HttpClient.get(endpoint)
 
         .then((response) => {
+          console.log();
+
           resolve(response);
         })
         .catch((error) => {
