@@ -4,6 +4,7 @@ const INITIALSTATE = {
   registered: {},
   phone: {},
   user: {},
+  getuser: {},
   editProfile: [],
   personalInformation: {},
   userProfile: {},
@@ -24,7 +25,7 @@ const INITIALSTATE = {
 export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
   switch (type) {
     case TYPES.LOGIN_SUCCESS:
-      return { ...state, ...payload.user };
+      return { ...state, user: payload.user };
 
     case TYPES.CLEAR_STORE:
       return {};
@@ -68,7 +69,7 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
     case TYPES.GET_USER_SUCCESS:
       return {
         ...state,
-        userProfile: payload.getuser,
+        getuser: payload.getuser,
       };
   }
 };

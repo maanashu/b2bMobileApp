@@ -1,50 +1,20 @@
-import { useTheme } from "@react-navigation/native";
 import React from "react";
 import {
   Text,
   View,
   TouchableOpacity,
   Image,
-  FlatList,
-  ScrollView,
   useWindowDimensions,
 } from "react-native";
-import { useDispatch } from "react-redux";
-import { logout } from "@/actions/UserActions";
-import { Button, ScreenWrapper, Spacer } from "@/components";
+import { ScreenWrapper } from "@/components";
 import { strings } from "@/localization";
 import { styles } from "./Orders.styles";
 import { COLORS, SF, SH, SW } from "@/theme";
-import { getUser } from "@/selectors/UserSelectors";
-import { useSelector } from "react-redux";
 
-import {
-  businessCard,
-  catalogue,
-  coinStack,
-  discount,
-  Fonts,
-  forward,
-  heartIcon,
-  helpCenter,
-  jobrWallet,
-  ordersIcon,
-  pinPoint,
-  profileLogo,
-  question,
-  quote,
-  search,
-  searchDoc,
-  settings,
-  shippingAddressIcon,
-} from "@/assets";
-import { ms } from "react-native-size-matters";
-import { navigate } from "@/navigation/NavigationRef";
-import { NAVIGATION } from "@/constants";
+import { coinStack, Fonts, search } from "@/assets";
 import { Pending } from "../MyPurchaseMain/Pending/Pending";
 import { Processing } from "../MyPurchaseMain/Processing/Processing";
 import { Completed } from "../MyPurchaseMain/Completed/Completed";
-import { Refund } from "../MyPurchaseMain/Refund/Refund";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
 
 export function Orders() {

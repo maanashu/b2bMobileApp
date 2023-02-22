@@ -40,7 +40,27 @@ export class ProductController {
           resolve(response);
         })
         .catch((error) => {
-          console.log("product error: " + error);
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
+          reject(new Error((strings.valiadtion.error = error.msg)));
+        });
+    });
+  }
+
+  static async getTrendingSellers() {
+    return new Promise((resolve, reject) => {
+      const endpoint = PRODUCT_URL + ApiProductInventory.getTrendingSellers;
+      HttpClient.get(endpoint)
+
+        .then((response) => {
+          resolve(response);
+          console.log("trending sellers controller success", response);
+        })
+        .catch((error) => {
           Toast.show({
             text2: error.msg,
             position: "bottom",

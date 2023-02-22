@@ -16,7 +16,7 @@ const Stack = createNativeStackNavigator();
 export function AuthNavigator() {
   return (
     <Stack.Navigator initialRouteName="Splash">
-      <Stack.Screen
+      {/* <Stack.Screen
         component={Splash}
         name={NAVIGATION.splash}
         options={{ headerShown: false }}
@@ -52,7 +52,7 @@ export function AuthNavigator() {
         component={AppNavigator}
         name={"HomeScreen"}
         options={{ headerShown: false }}
-      />
+      /> */}
 
       {/* <Stack.Screen
         component={ProductInquiry}

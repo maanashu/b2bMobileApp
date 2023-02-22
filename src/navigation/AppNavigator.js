@@ -38,6 +38,7 @@ import {
   CookiesPolicy,
   CurrentCoupons,
   Delivery,
+  EnterPin,
   FaceIdPin,
   Faq,
   FaqVerified,
@@ -47,9 +48,11 @@ import {
   Home,
   Inquiries,
   JbrWallet,
+  Login,
   MakeAnOffer,
   Manufacturers,
   Messages,
+  MobileNumber,
   MyCatalogue,
   MyOrders,
   MyPurchase,
@@ -67,6 +70,7 @@ import {
   Profile,
   QrCode,
   RateExperience,
+  ReEnterPin,
   ReviewAndPayment,
   SelectCity,
   SelectCountry,
@@ -76,6 +80,7 @@ import {
   SendInquiry,
   Settings,
   ShipTo,
+  Splash,
   StartOrder,
   SubCategories,
   SupportDetails,
@@ -86,6 +91,7 @@ import {
   TrackOrder,
   TransactionHistory,
   UserInformation,
+  Verify,
 } from "@/screens";
 import { createNativeStackNavigator } from "react-native-screens/native-stack";
 
@@ -693,6 +699,41 @@ export function AppBottom() {
         options={{ headerShown: false }}
       />
       {/* Home navigator ends here */}
+
+      {/* Auth Navigator starts here*/}
+      <Stack.Screen
+        component={Splash}
+        name={NAVIGATION.splash}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        component={Login}
+        name={NAVIGATION.login}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={MobileNumber}
+        name={NAVIGATION.mobileNumber}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={Verify}
+        name={NAVIGATION.verify}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={EnterPin}
+        name={NAVIGATION.enterPin}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={ReEnterPin}
+        name={NAVIGATION.reEnterPin}
+        options={{ headerShown: false }}
+      />
+
+      {/* Auth Navigator ends here */}
     </Stack.Navigator>
   );
 }

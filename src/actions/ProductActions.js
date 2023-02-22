@@ -31,12 +31,25 @@ const getProductDetailRequest = () => ({
   type: TYPES.GET_PRODUCT_DETAIL_REQUEST,
   payload: null,
 });
-const getProductDetailSuccess = (productDetails) => ({
+const getProductDetailSuccess = (productDetail) => ({
   type: TYPES.GET_PRODUCT_DETAIL_SUCCESS,
-  payload: { productDetails },
+  payload: { productDetail },
 });
 const getProductDetailError = (error) => ({
   type: TYPES.GET_PRODUCT_DETAIL_ERROR,
+  payload: { error },
+});
+
+const getTrendingSellersRequest = () => ({
+  type: TYPES.GET_TRENDING_SELLERS_REQUEST,
+  payload: null,
+});
+const getTrendingSellersSuccess = (trendingSellers) => ({
+  type: TYPES.GET_TRENDING_SELLERS_SUCCESS,
+  payload: { trendingSellers },
+});
+const getTrendingSellersError = (error) => ({
+  type: TYPES.GET_TRENDING_SELLERS_ERROR,
   payload: { error },
 });
 
@@ -44,11 +57,20 @@ export const getProductDetail = (selectedId) => async (dispatch) => {
   dispatch(getProductDetailRequest());
   try {
     const res = await ProductController.getProductDetail(selectedId);
-    console.log("check action success---> ", JSON.stringify(res));
     dispatch(getProductDetailSuccess(res));
   } catch (error) {
-    console.log("check action error---> ", error);
     dispatch(getProductDetailError(error.message));
+  }
+};
+export const getTrendingSellers = () => async (dispatch) => {
+  dispatch(getTrendingSellersRequest());
+  try {
+    const res = await ProductController.getTrendingSellers();
+    console.log("trending sellers action success", res);
+
+    dispatch(getTrendingSellersSuccess(res));
+  } catch (error) {
+    dispatch(getTrendingSellersError(error.message));
   }
 };
 

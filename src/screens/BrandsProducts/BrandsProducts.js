@@ -77,7 +77,7 @@ export function BrandsProducts(params) {
 
   const navigationHandler = (item) => {
     // if (item === item) {
-    navigate(NAVIGATION.productInquiry, { data: item });
+    navigate(NAVIGATION.productInquiry, { itemId: item.id });
     // }
   };
 

@@ -1,6 +1,7 @@
 import {
   downleft,
   forward,
+  headphones,
   inquiry,
   loactionPinFilled,
   orderProducts,
@@ -212,4 +213,10 @@ export const ChatData = [
       "The obvious strategy of a tag line is to make your The obvious strategy of a tag line is to make your",
     time: "10:39 am",
   },
+];
+export const recommendedWholesalerData = [
+  { id: 1, image: headphones, moq: "moq 30" },
+  { id: 2, image: headphones, moq: "moq 30" },
+  { id: 3, image: headphones, moq: "moq 30" },
+  { id: 4, image: headphones, moq: "moq 30" },
 ];

@@ -8,10 +8,9 @@ import { Fonts } from "@/assets";
 const styles = StyleSheet.create({
   paginationContainer: {},
   active: {
-    borderRadius: 12,
-    height: 17,
-    width: 24,
-
+    borderRadius: 4,
+    height: 8,
+    width: 8,
     backgroundColor: COLORS.darkGrey2,
   },
   inactive: {
@@ -23,6 +22,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginHorizontal: 4,
+    top: 40,
   },
 });
 

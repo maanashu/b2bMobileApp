@@ -309,6 +309,7 @@ export function Products({ navigation }) {
             <Text style={styles.headingText}>
               {strings.products.newProducts}
             </Text>
+
             <View>
               <View style={{ flexDirection: "row" }}>
                 <Text style={styles.smallText}>{strings.products.seeAll} </Text>
@@ -333,6 +334,7 @@ export function Products({ navigation }) {
           <Text style={[styles.headingText, { paddingLeft: SW(20) }]}>
             {strings.products.recomendedWholesalers}
           </Text>
+
           <TouchableOpacity style={{ paddingRight: SW(20) }}>
             <View style={{ flexDirection: "row" }}>
               <Text style={styles.smallText}>{strings.products.seeAll} </Text>

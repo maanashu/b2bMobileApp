@@ -9,13 +9,17 @@ import {
 } from "react-native";
 import { styles } from "./Business.style";
 import { useState } from "react";
-import { CustomPagination, ScreenWrapper, Spacer } from "@/components";
+import {
+  CompanyDetailView,
+  CustomPagination,
+  ScreenWrapper,
+  Spacer,
+} from "@/components";
 import { COLORS } from "@/theme/Colors";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { navigate } from "@/navigation/NavigationRef";
 import {
   forward,
-  roundAll,
   headphones,
   lighter,
   jacket,
@@ -32,8 +36,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBannerSelector } from "@/selectors/BannerSelectors";
 import { getBanners } from "@/actions/BannerActions";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
-import { getCategory, getServiceCategory } from "@/actions/CategoryActions";
+import { getServiceCategory } from "@/actions/CategoryActions";
 import FastImage from "react-native-fast-image";
+import { recommendedWholesalerData } from "@/constants/flatlistData";
+import { renderWholesale } from "@/components/FlatlistStyling";
+
 export function Business() {
   const [selectedId, setSelectedId] = useState("");
   const [product, setProduct] = useState("");
@@ -271,6 +278,17 @@ export function Business() {
         </View>
 
         <Spacer space={SH(30)} />
+
+        <View style={styles.paddingView}>
+          <CompanyDetailView title={""} />
+          <Spacer space={SH(10)} />
+
+          <FlatList
+            data={recommendedWholesalerData}
+            renderItem={renderWholesale}
+            numColumns={4}
+          />
+        </View>
       </ScrollView>
     </ScreenWrapper>
   );

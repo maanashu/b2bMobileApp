@@ -2,7 +2,7 @@ import { Fonts } from "@/assets";
 import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { moderateScale, ms, s, vs } from "react-native-size-matters";
 
 export const styles = StyleSheet.create({
@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     margin: 2,
     borderRadius: 5,
-    ...ShadowStyles.shadow2,
+    borderWidth: 0.5,
   },
   itemS: {
     backgroundColor: COLORS.white,
@@ -377,7 +377,7 @@ export const styles = StyleSheet.create({
   },
   paginationBoxStyle: {
     position: "absolute",
-    bottom: 0,
+    bottom: -30,
     padding: 0,
     alignItems: "center",
     alignSelf: "center",
@@ -500,5 +500,11 @@ export const styles = StyleSheet.create({
     borderBottomWidth: SH(0.5),
     borderColor: COLORS.input_bg,
     marginTop: SH(15),
+  },
+  storeImg: {
+    height: SH(185),
+    width: Dimensions.get("window").width * 0.9,
+    borderRadius: 10,
+    alignSelf: "center",
   },
 });

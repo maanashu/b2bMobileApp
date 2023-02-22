@@ -264,15 +264,13 @@ export function Profile() {
 
         <Spacer space={SH(30)} />
 
-        {user ? (
+        {user && (
           <Button
             title={strings.profile.logout}
             onPress={logoutUser}
             style={styles.buttonStyle}
             textStyle={styles.buttonText}
           />
-        ) : (
-          <View></View>
         )}
       </ScrollView>
     </ScreenWrapper>
