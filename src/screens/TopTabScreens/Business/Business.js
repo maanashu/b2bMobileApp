@@ -314,12 +314,14 @@ export function Business() {
           </TouchableOpacity>
         </View>
         <Spacer space={SH(20)} />
-        <ScrollView horizontal style={styles.recommendedScrollView}>
+        <ScrollView horizontal style={styles.recommendedScrollView} showsHorizontalScrollIndicator={false}>
           <View style={styles.marginRightStyle}>
             <FlatList
               data={companies}
               renderItem={renderCompanies}
               horizontal
+              showsHorizontalScrollIndicator={false}
+
             />
             <Spacer space={SH(5)} />
           </View>
@@ -340,6 +342,7 @@ export function Business() {
             data={topCategoryManufacturer}
             renderItem={renderHorizontalData}
             horizontal
+            showsHorizontalScrollIndicator={false}
           />
         </View>
       </ScrollView>

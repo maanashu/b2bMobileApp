@@ -120,6 +120,7 @@ export const renderCompanies = ({ item }) => {
               data={imagesArray}
               renderItem={renderImages}
               numColumns={4}
+              showsHorizontalScrollIndicator={false}
             />
           </View>
         </View>
