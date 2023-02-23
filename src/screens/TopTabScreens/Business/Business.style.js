@@ -5,6 +5,8 @@ import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { Dimensions, StyleSheet } from "react-native";
 import { ms, vs } from "react-native-size-matters";
 
+const fullWidth = Dimensions.get("window").width * 0.98;
+
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -81,7 +83,7 @@ export const styles = StyleSheet.create({
   },
   regularText: {
     fontFamily: Fonts.Regular,
-    fontSize: ms(12),
+    fontSize: ms(10),
     color: COLORS.darkGrey2,
   },
   iconStyle: {
@@ -107,5 +109,27 @@ export const styles = StyleSheet.create({
   allIcon: {
     height: SH(56),
     width: SW(54),
+  },
+  rowViewJustify: {
+    paddingHorizontal: SW(20),
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  marginRightStyle: {
+    marginRight: 2,
+  },
+  recommendedScrollView: {
+    width: fullWidth,
+    paddingHorizontal: SW(12),
+  },
+  categoryTouchableView: {
+    paddingLeft: SW(10),
+    height: SH(40),
+  },
+  upperView: {
+    paddingVertical: SH(5),
+    width: "100%",
+    paddingHorizontal: ms(10),
   },
 });

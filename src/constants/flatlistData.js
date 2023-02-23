@@ -8,6 +8,7 @@ import {
   promotions,
   RFQinquiry,
   userPhoto,
+  yewiLogo,
 } from "@/assets";
 
 export const transactionHistory = [
@@ -219,4 +220,45 @@ export const recommendedWholesalerData = [
   { id: 2, image: headphones, moq: "moq 30" },
   { id: 3, image: headphones, moq: "moq 30" },
   { id: 4, image: headphones, moq: "moq 30" },
+];
+export const companies = [
+  {
+    id: 1,
+    logo: yewiLogo,
+    name: "Yewi Leqi E-Commerce Firm",
+    location: "Miami, USA",
+    since: "2000",
+    rating: "4.5",
+  },
+  {
+    id: 2,
+    logo: yewiLogo,
+    name: "Yewi Leqi E-Commerce Firm",
+    location: "Miami, USA",
+    since: "2000",
+    rating: "4.5",
+  },
+  {
+    id: 3,
+    logo: yewiLogo,
+    name: "Yewi Leqi E-Commerce Firm",
+    location: "Miami, USA",
+    since: "2000",
+    rating: "4.5",
+  },
+  {
+    id: 4,
+    logo: yewiLogo,
+    name: "Yewi Leqi E-Commerce Firm",
+    location: "Miami, USA",
+    since: "2000",
+    rating: "4.5",
+  },
+];
+
+export const topCategoryManufacturer = [
+  { id: 1, title: "Women's Fashion" },
+  { id: 2, title: "Men's Fashion" },
+  { id: 3, title: "Phones & Telecommunications" },
+  { id: 4, title: "Women's Fashion" },
 ];

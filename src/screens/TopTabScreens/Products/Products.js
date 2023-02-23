@@ -3,6 +3,7 @@ import {
   Dimensions,
   FlatList,
   Image,
+  LogBox,
   ScrollView,
   Text,
   TouchableOpacity,
@@ -42,6 +43,10 @@ import FastImage from "react-native-fast-image";
 export function Products({ navigation }) {
   const listRef = useRef();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    LogBox.ignoreAllLogs();
+  }, []);
 
   const categoryData = useSelector(getCategorySelector);
   // const newArr =

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import {
+  Dimensions,
   FlatList,
   Image,
   ScrollView,
@@ -9,13 +10,7 @@ import {
 } from "react-native";
 import { styles } from "./Business.style";
 import { useState } from "react";
-import {
-  CompanyDetailView,
-  CustomPagination,
-  ScreenWrapper,
-  Spacer,
-} from "@/components";
-import { COLORS } from "@/theme/Colors";
+import { ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { navigate } from "@/navigation/NavigationRef";
 import {
@@ -27,32 +22,35 @@ import {
   watch,
   boots,
   threeDots,
+  Fonts,
 } from "@/assets";
 import { NAVIGATION } from "@/constants";
 import { Search } from "@/components/Search";
 import { strings } from "@/localization";
-import SwiperFlatList from "react-native-swiper-flatlist";
 import { useDispatch, useSelector } from "react-redux";
-import { getBannerSelector } from "@/selectors/BannerSelectors";
-import { getBanners } from "@/actions/BannerActions";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
 import { getServiceCategory } from "@/actions/CategoryActions";
 import FastImage from "react-native-fast-image";
-import { recommendedWholesalerData } from "@/constants/flatlistData";
-import { renderWholesale } from "@/components/FlatlistStyling";
+import { companies, topCategoryManufacturer } from "@/constants/flatlistData";
+import { renderCompanies } from "@/components/FlatlistStyling";
+import { COLORS } from "@/theme";
 
 export function Business() {
+  const dispatch = useDispatch();
+
   const [selectedId, setSelectedId] = useState("");
   const [product, setProduct] = useState("");
+  const [manufacturersCategoryId, setmanufacturersCategoryId] = useState(1);
 
-  const dispatch = useDispatch();
   const categoryData = useSelector(getCategorySelector);
-  const BannerData = useSelector(getBannerSelector);
 
   useEffect(() => {
     dispatch(getServiceCategory());
-    dispatch(getBanners());
   }, []);
+
+  const categoryHandler = (item) => {
+    setmanufacturersCategoryId(item.id);
+  };
 
   const secondData = [
     {
@@ -161,15 +159,49 @@ export function Business() {
       <Text style={styles.commonFlatlistText}>{item.subtitle}</Text>
     </View>
   );
-  const renderRecentItem = ({ item, index }) => (
-    <TouchableOpacity style={styles.swiperStyle}>
-      <Image
-        source={{ uri: item.path }}
-        style={styles.storeImg}
-        resizeMode="cover"
-      />
-    </TouchableOpacity>
+
+  const renderHorizontalData = ({ item, index }) => (
+    <>
+      <TouchableOpacity
+        style={styles.categoryTouchableView}
+        onPress={() => {
+          categoryHandler(item);
+        }}
+      >
+        <View style={styles.rowView}>
+          <FastImage
+            source={{ uri: item.image }}
+            resizeMode="cover"
+            style={styles.categoryImages}
+          />
+          <Text
+            style={{
+              marginHorizontal: SW(2),
+              fontFamily:
+                item.id === manufacturersCategoryId
+                  ? Fonts.Bold
+                  : Fonts.Regular,
+              color:
+                item.id === manufacturersCategoryId
+                  ? COLORS.primary
+                  : COLORS.text,
+            }}
+          >
+            {item.title}
+          </Text>
+        </View>
+        <Spacer space={SH(5)} />
+        <View
+          style={{
+            borderBottomWidth: item.id === manufacturersCategoryId ? 1 : null,
+            borderColor: item.id === manufacturersCategoryId && COLORS.primary,
+            width: "100%",
+          }}
+        ></View>
+      </TouchableOpacity>
+    </>
   );
+
   return (
     <ScreenWrapper>
       <ScrollView
@@ -185,6 +217,7 @@ export function Business() {
         <View style={{ paddingHorizontal: SW(16) }}>
           <Spacer space={SH(18)} />
 
+          {/* Categories Below */}
           <FlatList
             columnWrapperStyle={{ justifyContent: "flex-start" }}
             data={categoryData?.serviceCategoryList?.slice(0, 8) ?? []}
@@ -197,20 +230,7 @@ export function Business() {
 
         <Spacer space={SH(20)} />
 
-        <View style={styles.swiperView}>
-          <SwiperFlatList
-            autoplay
-            autoplayDelay={3}
-            autoplayLoop={true}
-            showPagination
-            data={BannerData?.banners ?? []}
-            renderItem={renderRecentItem}
-            PaginationComponent={CustomPagination}
-            paginationActiveColor={COLORS.black}
-          />
-        </View>
-
-        <Spacer space={SH(30)} />
+        {/* Get samples below */}
 
         <View style={styles.paddingView}>
           <View style={styles.horizontalView}>
@@ -242,6 +262,7 @@ export function Business() {
 
         <Spacer space={SH(30)} />
 
+        {/* Top-ranking Manufacturers below */}
         <View style={styles.paddingView}>
           <View style={styles.horizontalView}>
             <View style={styles.innerViewHorizontal}>
@@ -279,14 +300,46 @@ export function Business() {
 
         <Spacer space={SH(30)} />
 
-        <View style={styles.paddingView}>
-          <CompanyDetailView title={""} />
-          <Spacer space={SH(10)} />
+        {/* Recommended wholesalers below */}
 
+        <View style={styles.rowViewJustify}>
+          <Text style={styles.boldText}>{"Recommended Manufacturers"}</Text>
+          <TouchableOpacity style={styles.rowView}>
+            <Text style={styles.regularText}>{"See all"}</Text>
+            <Image
+              source={forward}
+              resizeMode="contain"
+              style={styles.iconStyle}
+            />
+          </TouchableOpacity>
+        </View>
+        <Spacer space={SH(20)} />
+        <ScrollView horizontal style={styles.recommendedScrollView}>
+          <View style={styles.marginRightStyle}>
+            <FlatList
+              data={companies}
+              renderItem={renderCompanies}
+              horizontal
+            />
+            <Spacer space={SH(5)} />
+          </View>
+        </ScrollView>
+
+        <Spacer space={SH(20)} />
+
+        {/* Top Category manufacturers below */}
+
+        <Text style={[styles.boldText, { paddingHorizontal: SW(20) }]}>
+          {"Top Category manufacturers"}
+        </Text>
+
+        <Spacer space={SH(20)} />
+
+        <View style={styles.upperView}>
           <FlatList
-            data={recommendedWholesalerData}
-            renderItem={renderWholesale}
-            numColumns={4}
+            data={topCategoryManufacturer}
+            renderItem={renderHorizontalData}
+            horizontal
           />
         </View>
       </ScrollView>
