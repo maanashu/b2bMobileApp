@@ -1,4 +1,11 @@
-import { Text, View, FlatList, TouchableOpacity, Image } from "react-native";
+import {
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+  Image,
+  ActivityIndicator,
+} from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { styles } from "./BrandsProducts.styles";
 import { Header, ScreenWrapper, Spacer } from "@/components";
@@ -13,6 +20,9 @@ import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { getProduct } from "@/actions/ProductActions";
 import { getProductSelector } from "@/selectors/ProductSelectors";
+import { renderNoData } from "@/components/FlatlistStyling";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
 
 export function BrandsProducts(params) {
   const routeId = params?.route?.params?.categoryId;
@@ -41,6 +51,13 @@ export function BrandsProducts(params) {
     setSelectedId(item.id);
     dispatch(getProduct(item.id));
   };
+
+  const isLoadingBrands = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_BRANDS], state)
+  );
+  const isLoadingProducts = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_PRODUCT], state)
+  );
 
   function dynamicHeight(_index) {
     if (_index % 2 == 0) {
@@ -165,26 +182,39 @@ export function BrandsProducts(params) {
 
       <View style={styles.upperView}>
         <Spacer space={SH(10)} />
-
-        <FlatList
-          showsHorizontalScrollIndicator={false}
-          horizontal
-          data={brandsData?.brandsList ?? []}
-          renderItem={renderCategory}
-          keyExtractor={(item) => item.id}
-          // extraData={selectedId}
-        />
+        {isLoadingBrands ? (
+          <View>
+            <ActivityIndicator size="large" color={COLORS.primary} />
+          </View>
+        ) : (
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            data={brandsData?.brandsList ?? []}
+            renderItem={renderCategory}
+            ListEmptyComponent={renderNoData}
+            keyExtractor={(item) => item.id}
+            // extraData={selectedId}
+          />
+        )}
       </View>
 
       <View style={{ paddingHorizontal: SW(20), flex: 1, marginTop: SH(20) }}>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={productsData?.product ?? []}
-          // extraData={productsArray}
-          renderItem={listDetail}
-          keyExtractor={(item) => item.id}
-          numColumns={2}
-        />
+        {isLoadingProducts ? (
+          <View>
+            <ActivityIndicator size="large" color={COLORS.primary} />
+          </View>
+        ) : (
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={productsData?.product ?? []}
+            // extraData={productsArray}
+            renderItem={listDetail}
+            ListEmptyComponent={renderNoData}
+            keyExtractor={(item) => item.id}
+            numColumns={2}
+          />
+        )}
       </View>
     </ScreenWrapper>
   );

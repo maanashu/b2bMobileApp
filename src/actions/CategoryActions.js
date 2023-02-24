@@ -77,7 +77,7 @@ export const getSubCategory = (categoryID) => async (dispatch) => {
   dispatch(getSubCategoryRequest());
   try {
     const res = await CategoryController.getSubCategory(categoryID);
-
+    console.log("checking action resp of sub cat--->", JSON.stringify(res));
     dispatch(getSubCategorySuccess(res));
   } catch (error) {
     dispatch(getSubCategoryError(error.message));

@@ -1,4 +1,10 @@
-import { Text, View, FlatList, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { styles } from "./SubCategories.styles";
 import { Header, ScreenWrapper, Spacer } from "@/components";
@@ -17,6 +23,9 @@ import FastImage from "react-native-fast-image";
 import Modal from "react-native-modal";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
+import { renderNoData } from "@/components/FlatlistStyling";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
 
 export function SubCategories(params) {
   const listRef = useRef();
@@ -36,7 +45,12 @@ export function SubCategories(params) {
 
   const SUBCATEGORIES = useSelector(getCategorySelector);
   const SubCatArray = SUBCATEGORIES?.subCategoryList;
-
+  const [subCategoryArray, setsubCategoryArray] = useState(
+    SUBCATEGORIES?.subCategoryList
+  );
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_SUB_CATEGORY], state)
+  );
   useEffect(() => {
     dispatch(getBrands(1));
     if (params?.route?.params?.serviceType == "product") {
@@ -45,8 +59,8 @@ export function SubCategories(params) {
       dispatch(getServiceCategory());
     }
 
-    setSelectedId(routeId || categoryArray[0]?.id) ||
-      serviceCategoryArray[0]?.id;
+    setSelectedId(routeId || categoryData?.categoryList[0]?.id) ||
+      categoryData?.categoryList[0]?.id;
   }, []);
 
   useEffect(() => {
@@ -54,21 +68,27 @@ export function SubCategories(params) {
   }, []);
 
   useEffect(() => {
-    setTimeout(() => {
-      setSelectedId(
-        selectedId || categoryArray[0]?.id || serviceCategoryArray[0]?.id
-      );
-      dispatch(
-        getSubCategory(
-          routeId || categoryArray[0]?.id || serviceCategoryArray[0]?.id
-        )
-      );
-    }, 1000);
+    setSelectedId(
+      selectedId ||
+        categoryData?.categoryList[0]?.id ||
+        categoryData?.categoryList[0]?.id
+    );
+    dispatch(
+      getSubCategory(
+        routeId ||
+          categoryData?.categoryList[0]?.id ||
+          categoryData?.categoryList[0]?.id
+      )
+    );
   }, []);
 
   const getSubCategoryList = (item) => {
     setSelectedId(item.id);
     dispatch(getSubCategory(item.id));
+    // console.log("checking data", SUBCATEGORIES?.subCategoryList);
+    // if (item.id === undefined) {
+    //   setsubCategoryArray({ ...subCategoryArray });
+    // }
   };
 
   const onScrollToSelectItem = (index) => {
@@ -163,17 +183,25 @@ export function SubCategories(params) {
             offset: SH(70) * index,
             index,
           })}
+          ListEmptyComponent={renderNoData}
           ref={listRef}
         />
       </View>
 
       <View style={{ paddingHorizontal: SW(20), flex: 1, marginTop: SH(20) }}>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={SubCatArray}
-          renderItem={listDetail}
-          keyExtractor={(item) => item.id}
-        />
+        {isLoading ? (
+          <View>
+            <ActivityIndicator size="large" color={COLORS.primary} />
+          </View>
+        ) : (
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={SUBCATEGORIES?.subCategoryList}
+            renderItem={listDetail}
+            ListEmptyComponent={renderNoData}
+            keyExtractor={(item) => item.id}
+          />
+        )}
       </View>
 
       <Modal

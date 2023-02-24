@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import {
-  Dimensions,
   FlatList,
   Image,
   ScrollView,
@@ -314,14 +313,17 @@ export function Business() {
           </TouchableOpacity>
         </View>
         <Spacer space={SH(20)} />
-        <ScrollView horizontal style={styles.recommendedScrollView} showsHorizontalScrollIndicator={false}>
+        <ScrollView
+          horizontal
+          style={styles.recommendedScrollView}
+          showsHorizontalScrollIndicator={false}
+        >
           <View style={styles.marginRightStyle}>
             <FlatList
               data={companies}
               renderItem={renderCompanies}
               horizontal
               showsHorizontalScrollIndicator={false}
-
             />
             <Spacer space={SH(5)} />
           </View>
@@ -344,6 +346,10 @@ export function Business() {
             horizontal
             showsHorizontalScrollIndicator={false}
           />
+        </View>
+
+        <View style={styles.upperView}>
+          <FlatList />
         </View>
       </ScrollView>
     </ScreenWrapper>

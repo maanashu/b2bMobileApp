@@ -39,6 +39,7 @@ import { getCategory } from "@/actions/CategoryActions";
 import { getBanners } from "@/actions/BannerActions";
 import { getBannerSelector } from "@/selectors/BannerSelectors";
 import FastImage from "react-native-fast-image";
+import { renderNoData } from "@/components/FlatlistStyling";
 
 export function Products({ navigation }) {
   const listRef = useRef();
@@ -256,6 +257,7 @@ export function Products({ navigation }) {
             keyExtractor={(item) => item.id}
             extraData={categoryData?.categoryList?.slice(0, 8) ?? []}
             numColumns={4}
+            ListEmptyComponent={renderNoData}
           />
         </View>
 
@@ -300,6 +302,7 @@ export function Products({ navigation }) {
             data={secondData}
             renderItem={secondItem}
             keyExtractor={(item) => item.id}
+            ListEmptyComponent={renderNoData}
             numColumns={3}
           />
         </TouchableOpacity>
@@ -329,6 +332,7 @@ export function Products({ navigation }) {
             data={thirdData}
             renderItem={secondItem}
             keyExtractor={(item) => item.id}
+            ListEmptyComponent={renderNoData}
             numColumns={3}
           />
         </TouchableOpacity>
@@ -359,6 +363,7 @@ export function Products({ navigation }) {
             data={fourthData}
             renderItem={thirdItem}
             keyExtractor={(item) => item.id}
+            ListEmptyComponent={renderNoData}
             numColumns={4}
           />
         </View>
@@ -369,6 +374,7 @@ export function Products({ navigation }) {
             data={LastData}
             renderItem={listDetail}
             keyExtractor={(item) => item.id}
+            ListEmptyComponent={renderNoData}
             numColumns={2}
           />
         </View>

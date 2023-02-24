@@ -58,6 +58,7 @@ import { TYPES } from "@/Types/Types";
 import SwiperFlatList from "react-native-swiper-flatlist";
 import { COLORS } from "@/theme";
 import FastImage from "react-native-fast-image";
+import { renderNoData } from "@/components/FlatlistStyling";
 
 export function ProductInquiry(params) {
   const [routedData, setroutedData] = useState(ProductDetail?.productDetail);
@@ -341,6 +342,7 @@ export function ProductInquiry(params) {
                 renderItem={SecondItem}
                 keyExtractor={(item) => item.id}
                 //   extraData={product}
+                ListEmptyComponent={renderNoData}
                 numColumns={3}
               />
             </View>
@@ -579,6 +581,7 @@ export function ProductInquiry(params) {
 
             <FlatList
               data={ProductDetailData}
+              ListEmptyComponent={renderNoData}
               renderItem={ProductDetails}
               keyExtractor={(item) => item.id}
             />
@@ -593,6 +596,7 @@ export function ProductInquiry(params) {
               data={ShoesData}
               renderItem={ShoesDetail}
               keyExtractor={(item) => item.id}
+              ListEmptyComponent={renderNoData}
               numColumns={2}
             />
           </View>
