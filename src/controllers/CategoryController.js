@@ -58,11 +58,8 @@ export class CategoryController {
         PRODUCT_URL + ApiProductInventory.getSubCategory(categoryID);
       HttpClient.get(endpoint)
         .then((response) => {
-          if (response == null) {
-            resolve(emptyListDataResponseTemplate);
-          } else {
-            resolve(response);
-          }
+          resolve(response);
+
           // console.log(
           //   "checking controller response-->",
           //   JSON.stringify(response)
