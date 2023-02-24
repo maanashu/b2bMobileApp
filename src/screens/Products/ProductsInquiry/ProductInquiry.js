@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import {
+  ActivityIndicator,
   Dimensions,
   FlatList,
   Image,
@@ -165,6 +166,7 @@ export function ProductInquiry(params) {
       user ? navigate(NAVIGATION.startOrder) : navigate(NAVIGATION.splash);
     }
   };
+
   return (
     <ScreenWrapper>
       <Header back={backArrow} bell={bellGrey} bag={bagGrey} />
@@ -187,16 +189,22 @@ export function ProductInquiry(params) {
 
           <Spacer space={SH(10)} />
 
-          <SwiperFlatList
-            autoplay
-            autoplayDelay={3}
-            autoplayLoop={true}
-            showPagination
-            data={[ProductDetail?.productDetail?.product_detail] ?? []}
-            renderItem={renderSliderImages}
-            PaginationComponent={CustomPaginationWithoutText}
-            paginationActiveColor={COLORS.black}
-          />
+          {isLoading ? (
+            <View>
+              <ActivityIndicator size="large" color={COLORS.primary} />
+            </View>
+          ) : (
+            <SwiperFlatList
+              autoplay
+              autoplayDelay={3}
+              autoplayLoop={true}
+              showPagination
+              data={[ProductDetail?.productDetail?.product_detail] ?? []}
+              renderItem={renderSliderImages}
+              PaginationComponent={CustomPaginationWithoutText}
+              paginationActiveColor={COLORS.black}
+            />
+          )}
         </View>
 
         <Spacer space={SH(25)} />

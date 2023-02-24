@@ -58,15 +58,15 @@ export class CategoryController {
         PRODUCT_URL + ApiProductInventory.getSubCategory(categoryID);
       HttpClient.get(endpoint)
         .then((response) => {
-          if (response.status_code === 204) {
+          if (response == null) {
             resolve(emptyListDataResponseTemplate);
           } else {
             resolve(response);
           }
-          console.log(
-            "checking controller response-->",
-            JSON.stringify(response)
-          );
+          // console.log(
+          //   "checking controller response-->",
+          //   JSON.stringify(response)
+          // );
         })
         .catch((error) => {
           Toast.show({
