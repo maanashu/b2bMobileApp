@@ -10,10 +10,7 @@ export const ApiUserInventory = {
   login: "login/",
 };
 export const ApiProductInventory = {
-  getCategory:
-    "categories/b2b?page=1&limit=10&main_category=true&service_type=product",
-  getServiceCategory:
-    "categories/b2b?page=1&limit=10&main_category=true&service_type=service",
+  getCategory: `${PRODUCT_URL}categories/b2b`,
   getSubCategory: (categoryID) =>
     `categories/b2b?page=1&limit=10&category_id=${categoryID}&main_category=true`,
   getBrands: (categoryid) =>

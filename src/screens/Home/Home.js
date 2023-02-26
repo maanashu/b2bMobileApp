@@ -2,24 +2,18 @@ import React, { useState } from "react";
 import { Text, View, useWindowDimensions } from "react-native";
 import { ScreenWrapper } from "@/components";
 import { COLORS } from "@/theme/Colors";
-import { SF, SW } from "@/theme/ScalerDimensions";
+import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { Business, NearMe, Products } from "@/screens";
 import { styles } from "./Home.styles";
 import { Fonts } from "@/assets";
+const Tab = createMaterialTopTabNavigator();
 import { HomeHeader } from "@/components/HomeHeader";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { NAVIGATION } from "@/constants";
 
 export function Home() {
   const layout = useWindowDimensions();
-
-  const [index, setIndex] = React.useState(0);
-
-  // const [open, setOpen] = useState(false);
-  // const [value, setValue] = useState(null);
-  // const [items, setItems] = useState([
-  //   { label: "5-50", value: "5-50" },
-  //   { label: "50-100", value: "50-100" },
-  // ]);
 
   const [routes] = React.useState([
     { key: "products", title: "Products" },
@@ -31,11 +25,6 @@ export function Home() {
   const SecondRoute = () => <Business />;
   const ThirdRoute = () => <NearMe />;
 
-  const renderScene = SceneMap({
-    products: FirstRoute,
-    business: SecondRoute,
-    nearme: ThirdRoute,
-  });
   const renderTabBar = (props) => {
     return (
       <TabBar
@@ -67,7 +56,7 @@ export function Home() {
                   fontSize: SF(12),
                 }}
               >
-                {route.title}
+                {route.name}
               </Text>
             </View>
           );
@@ -86,16 +75,12 @@ export function Home() {
   return (
     <ScreenWrapper>
       <HomeHeader />
-
-      <View style={{ flex: 1, paddingVertical: 0 }}>
-        <TabView
-          navigationState={{ index, routes }}
-          renderScene={renderScene}
-          onIndexChange={setIndex}
-          initialLayout={{ width: layout.width }}
-          renderTabBar={renderTabBar}
-          swipeEnabled={false}
-        />
+      <View style={{ flex: 1 }}>
+        <Tab.Navigator tabBar={(props) => renderTabBar(props)}>
+          <Tab.Screen name={NAVIGATION.products} component={Products} />
+          <Tab.Screen name={NAVIGATION.business} component={Business} />
+          <Tab.Screen name={NAVIGATION.nearMe} component={NearMe} />
+        </Tab.Navigator>
       </View>
     </ScreenWrapper>
   );

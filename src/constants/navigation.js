@@ -47,6 +47,7 @@ export const NAVIGATION = {
   currentCoupons: "CurrentCoupons",
   pastCoupons: "PastCoupons",
   products: "Products",
+  business: "Business",
   makeAnOffer: "MakeAnOffer",
   sendAnOffer: "SendAnOffer",
   FaceIdPin: "FaceIdPin",

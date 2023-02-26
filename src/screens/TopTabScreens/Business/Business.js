@@ -29,11 +29,15 @@ import { Search } from "@/components/Search";
 import { strings } from "@/localization";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
-import { getServiceCategory } from "@/actions/CategoryActions";
+import { getCategory, getServiceCategory } from "@/actions/CategoryActions";
 import FastImage from "react-native-fast-image";
 import { companies, topCategoryManufacturer } from "@/constants/flatlistData";
 import { renderCompanies } from "@/components/FlatlistStyling";
 import { COLORS } from "@/theme";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
+import { Loader } from "@/components/Loader";
 
 export function Business() {
   const dispatch = useDispatch();
@@ -43,14 +47,24 @@ export function Business() {
   const [manufacturersCategoryId, setmanufacturersCategoryId] = useState(1);
 
   const categoryData = useSelector(getCategorySelector);
+  const categoryObject = {
+    page: 1,
+    limit: 10,
+    service_type: "service",
+    main_category: true,
+  };
 
   useEffect(() => {
-    dispatch(getServiceCategory());
+    dispatch(getServiceCategory(categoryObject));
   }, []);
 
   const categoryHandler = (item) => {
     setmanufacturersCategoryId(item.id);
   };
+
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_SUB_CATEGORY], state)
+  );
 
   const secondData = [
     {
@@ -93,7 +107,7 @@ export function Business() {
     },
   ];
 
-  const Item = ({ item, index }) => {
+  const renderCategoryItem = ({ item, index }) => {
     return (
       <>
         {index == 7 ? (
@@ -219,11 +233,13 @@ export function Business() {
 
           {/* Categories Below */}
           <FlatList
-            columnWrapperStyle={{ justifyContent: "flex-start" }}
-            data={categoryData?.serviceCategoryList?.slice(0, 8) ?? []}
-            renderItem={Item}
+            columnWrapperStyle={{ justifyContent: "space-between" }}
+            data={categoryData?.serviceCategoryList?.data?.slice(0, 8) ?? []}
+            renderItem={renderCategoryItem}
             keyExtractor={(item) => item.id}
-            extraData={categoryData?.serviceCategoryList?.slice(0, 8) ?? []}
+            extraData={
+              categoryData?.serviceCategoryList?.data?.slice(0, 8) ?? []
+            }
             numColumns={4}
           />
         </View>
@@ -314,14 +330,17 @@ export function Business() {
           </TouchableOpacity>
         </View>
         <Spacer space={SH(20)} />
-        <ScrollView horizontal style={styles.recommendedScrollView} showsHorizontalScrollIndicator={false}>
+        <ScrollView
+          horizontal
+          style={styles.recommendedScrollView}
+          showsHorizontalScrollIndicator={false}
+        >
           <View style={styles.marginRightStyle}>
             <FlatList
               data={companies}
               renderItem={renderCompanies}
               horizontal
               showsHorizontalScrollIndicator={false}
-
             />
             <Spacer space={SH(5)} />
           </View>
@@ -346,6 +365,7 @@ export function Business() {
           />
         </View>
       </ScrollView>
+      {isLoading ? <Loader message="Loading data ..." /> : null}
     </ScreenWrapper>
   );
 }

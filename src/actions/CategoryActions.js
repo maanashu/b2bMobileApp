@@ -53,20 +53,20 @@ const getBrandsError = (error) => ({
   payload: { error },
 });
 
-export const getCategory = () => async (dispatch) => {
+export const getCategory = (data) => async (dispatch) => {
   dispatch(getCategoryRequest());
   try {
-    const res = await CategoryController.getCategory();
+    const res = await CategoryController.getCategory(data);
     dispatch(getCategorySuccess(res));
   } catch (error) {
     dispatch(getCategoryError(error.message));
   }
 };
 
-export const getServiceCategory = () => async (dispatch) => {
+export const getServiceCategory = (data) => async (dispatch) => {
   dispatch(getServiceCategoryRequest());
   try {
-    const res = await CategoryController.getServiceCategory();
+    const res = await CategoryController.getCategory(data);
     dispatch(getServiceCategorySuccess(res));
   } catch (error) {
     dispatch(getServiceCategoryError(error.message));

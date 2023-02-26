@@ -153,8 +153,8 @@ export function SubCategories(params) {
           horizontal
           data={
             params?.route?.params?.serviceType === "product"
-              ? categoryData?.categoryList
-              : categoryData?.serviceCategoryList
+              ? categoryData?.categoryList.data
+              : categoryData?.serviceCategoryList.data
           }
           renderItem={renderCategory}
           keyExtractor={(item) => item.id}

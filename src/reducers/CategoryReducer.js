@@ -13,7 +13,7 @@ export const categoryReducer = (
     case TYPES.GET_CATEGORY_SUCCESS:
       return {
         ...state,
-        categoryList: payload.categoryList.payload.data,
+        categoryList: payload.categoryList.payload,
       };
     case TYPES.GET_SUB_CATEGORY_SUCCESS:
       return {
@@ -28,7 +28,7 @@ export const categoryReducer = (
     case TYPES.GET_SERVICE_CATEGORY_SUCCESS:
       return {
         ...state,
-        serviceCategoryList: payload.serviceCategoryList.payload.data,
+        serviceCategoryList: payload.serviceCategoryList.payload,
       };
     default:
       return state;

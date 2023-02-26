@@ -11,31 +11,11 @@ import {
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { HttpClient } from "./HttpClient";
 export class CategoryController {
-  static async getCategory() {
+  static async getCategory(data) {
     return new Promise((resolve, reject) => {
-      const endpoint = PRODUCT_URL + ApiProductInventory.getCategory;
+      const params = new URLSearchParams(data).toString();
+      const endpoint = `${ApiProductInventory.getCategory}?${params}`;
       HttpClient.get(endpoint)
-
-        .then((response) => {
-          resolve(response);
-        })
-        .catch((error) => {
-          Toast.show({
-            text2: error.msg,
-            position: "bottom",
-            type: "error_toast",
-            visibilityTime: 1500,
-          });
-          reject(new Error((strings.valiadtion.error = error.msg)));
-        });
-    });
-  }
-
-  static async getServiceCategory() {
-    return new Promise((resolve, reject) => {
-      const endpoint = PRODUCT_URL + ApiProductInventory.getServiceCategory;
-      HttpClient.get(endpoint)
-
         .then((response) => {
           resolve(response);
         })

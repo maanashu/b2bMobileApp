@@ -39,47 +39,34 @@ import { getCategory } from "@/actions/CategoryActions";
 import { getBanners } from "@/actions/BannerActions";
 import { getBannerSelector } from "@/selectors/BannerSelectors";
 import FastImage from "react-native-fast-image";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
+import { Loader } from "@/components/Loader";
 
 export function Products({ navigation }) {
   const listRef = useRef();
   const dispatch = useDispatch();
+  const categoryData = useSelector(getCategorySelector);
+  const BannerData = useSelector(getBannerSelector);
+  const [selectedId, setSelectedId] = useState("");
+  const categoryObject = {
+    page: 1,
+    limit: 10,
+    service_type: "product",
+    main_category: true,
+  };
 
   useEffect(() => {
     LogBox.ignoreAllLogs();
   }, []);
 
-  const categoryData = useSelector(getCategorySelector);
-  // const newArr =
-  //   categoryData?.categories === 0
-  //     ? []
-  //     : [...categoryData?.categories, { isButton: true }];
-
-  // const [categoryArray, setcategoryArray] = useState([]);
-
-  const [selectedId, setSelectedId] = useState("");
-
-  const BannerData = useSelector(getBannerSelector);
-
   useEffect(() => {
-    dispatch(getCategory());
-    dispatch(getBanners());
+    dispatch(getCategory(categoryObject));
   }, []);
 
-  // useEffect(() => {
-  //   const categoryArr = categoryData?.categoryList;
-  //   const splicedArr = categoryArr?.slice(0, 8);
-
-  //   // setcategoryArray(categoryArr);
-  //   setsplicedArray(splicedArr);
-  // }, [categoryData?.categories]);
-
-  // const scrollToTop = () => {
-  //   setisVisibleFlatlist(true);
-  //   listRef.current?.scrollTo({
-  //     y: 0,
-  //     animated: true,
-  //   });
-  // };
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_CATEGORY], state)
+  );
 
   function dynamicHeight(_index) {
     if (_index % 2 == 0) {
@@ -118,7 +105,7 @@ export function Products({ navigation }) {
     }
   }
 
-  const renderItem = ({ item, index }) => {
+  const renderCategoryItem = ({ item, index }) => {
     return (
       <>
         {index == 7 ? (
@@ -251,10 +238,10 @@ export function Products({ navigation }) {
 
           <FlatList
             columnWrapperStyle={{ justifyContent: "space-between" }}
-            data={categoryData?.categoryList?.slice(0, 8) ?? []}
-            renderItem={renderItem}
+            data={categoryData?.categoryList?.data?.slice(0, 8) ?? []}
+            renderItem={renderCategoryItem}
             keyExtractor={(item) => item.id}
-            extraData={categoryData?.categoryList?.slice(0, 8) ?? []}
+            extraData={categoryData?.categoryList?.data?.slice(0, 8) ?? []}
             numColumns={4}
           />
         </View>
@@ -372,7 +359,7 @@ export function Products({ navigation }) {
             numColumns={2}
           />
         </View>
-
+        {isLoading ? <Loader message="Loading data ..." /> : null}
         <Spacer space={SH(30)} />
       </ScrollView>
     </ScreenWrapper>
