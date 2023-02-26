@@ -11,6 +11,7 @@ export const en = {
     skip: "Skip",
     submit: "Submit",
   },
+
   verify: {
     error: "Error",
   },
@@ -659,5 +660,6 @@ export const en = {
       regards: "Regards",
       alsoOnTicket: "Also on this ticket:",
     },
+    noDataFound: "No data found",
   },
 };

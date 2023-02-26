@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import {
+  ActivityIndicator,
   Dimensions,
   FlatList,
   Image,
@@ -58,6 +59,7 @@ import { TYPES } from "@/Types/Types";
 import SwiperFlatList from "react-native-swiper-flatlist";
 import { COLORS } from "@/theme";
 import FastImage from "react-native-fast-image";
+import { renderNoData } from "@/components/FlatlistStyling";
 
 export function ProductInquiry(params) {
   const [routedData, setroutedData] = useState(ProductDetail?.productDetail);
@@ -164,6 +166,7 @@ export function ProductInquiry(params) {
       user ? navigate(NAVIGATION.startOrder) : navigate(NAVIGATION.splash);
     }
   };
+
   return (
     <ScreenWrapper>
       <Header back={backArrow} bell={bellGrey} bag={bagGrey} />
@@ -186,16 +189,22 @@ export function ProductInquiry(params) {
 
           <Spacer space={SH(10)} />
 
-          <SwiperFlatList
-            autoplay
-            autoplayDelay={3}
-            autoplayLoop={true}
-            showPagination
-            data={[ProductDetail?.productDetail?.product_detail] ?? []}
-            renderItem={renderSliderImages}
-            PaginationComponent={CustomPaginationWithoutText}
-            paginationActiveColor={COLORS.black}
-          />
+          {isLoading ? (
+            <View>
+              <ActivityIndicator size="large" color={COLORS.primary} />
+            </View>
+          ) : (
+            <SwiperFlatList
+              autoplay
+              autoplayDelay={3}
+              autoplayLoop={true}
+              showPagination
+              data={[ProductDetail?.productDetail?.product_detail] ?? []}
+              renderItem={renderSliderImages}
+              PaginationComponent={CustomPaginationWithoutText}
+              paginationActiveColor={COLORS.black}
+            />
+          )}
         </View>
 
         <Spacer space={SH(25)} />
@@ -341,6 +350,7 @@ export function ProductInquiry(params) {
                 renderItem={SecondItem}
                 keyExtractor={(item) => item.id}
                 //   extraData={product}
+                ListEmptyComponent={renderNoData}
                 numColumns={3}
               />
             </View>
@@ -579,6 +589,7 @@ export function ProductInquiry(params) {
 
             <FlatList
               data={ProductDetailData}
+              ListEmptyComponent={renderNoData}
               renderItem={ProductDetails}
               keyExtractor={(item) => item.id}
             />
@@ -593,6 +604,7 @@ export function ProductInquiry(params) {
               data={ShoesData}
               renderItem={ShoesDetail}
               keyExtractor={(item) => item.id}
+              ListEmptyComponent={renderNoData}
               numColumns={2}
             />
           </View>

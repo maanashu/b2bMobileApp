@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import {
-  Dimensions,
   FlatList,
   Image,
   ScrollView,
@@ -363,6 +362,10 @@ export function Business() {
             horizontal
             showsHorizontalScrollIndicator={false}
           />
+        </View>
+
+        <View style={styles.upperView}>
+          <FlatList />
         </View>
       </ScrollView>
       {isLoading ? <Loader message="Loading data ..." /> : null}

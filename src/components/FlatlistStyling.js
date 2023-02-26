@@ -16,6 +16,7 @@ import { CompanyDetailView } from "./CompanyDetailView";
 import { Spacer } from "./Spacer";
 import FastImage from "react-native-fast-image";
 import { Fonts, headphones } from "@/assets";
+import { strings } from "@/localization";
 
 const width = Dimensions.get("window").width * 0.8;
 const widthImage = Dimensions.get("window").width * 0.75;
@@ -128,3 +129,19 @@ export const renderCompanies = ({ item }) => {
     </>
   );
 };
+
+export const renderNoData = ({ item }) => (
+  <>
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Text
+        style={{
+          color: COLORS.primary,
+          fontFamily: Fonts.Regular,
+          fontSize: SF(16),
+        }}
+      >
+        {strings.STATIC.noDataFound}
+      </Text>
+    </View>
+  </>
+);

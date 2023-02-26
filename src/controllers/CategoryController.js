@@ -8,6 +8,7 @@ import {
   ApiOrderInventory,
   CATEGORY_URL,
 } from "@/Utils/APIinventory";
+import { emptyListDataResponseTemplate } from "@/Utils/EmptyResponseTemplates";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { HttpClient } from "./HttpClient";
 export class CategoryController {
@@ -38,6 +39,11 @@ export class CategoryController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
+
+          // console.log(
+          //   "checking controller response-->",
+          //   JSON.stringify(response)
+          // );
         })
         .catch((error) => {
           Toast.show({
