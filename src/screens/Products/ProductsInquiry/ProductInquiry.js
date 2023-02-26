@@ -156,11 +156,6 @@ export function ProductInquiry(params) {
     );
   };
 
-  // const handleSubmit = () => {
-  //   {
-  //     user ? navigate(NAVIGATION.startOrder) : dispatch(login("test", "test"));
-  //   }
-  // };
   const handleSubmit = () => {
     {
       user ? navigate(NAVIGATION.startOrder) : navigate(NAVIGATION.splash);
@@ -588,7 +583,9 @@ export function ProductInquiry(params) {
             <Spacer space={SH(20)} />
 
             <FlatList
-              data={ProductDetailData}
+              data={
+                ProductDetail?.productDetail?.product_detail?.product_attribute
+              }
               ListEmptyComponent={renderNoData}
               renderItem={ProductDetails}
               keyExtractor={(item) => item.id}

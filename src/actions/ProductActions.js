@@ -14,15 +14,12 @@ const getProductError = (error) => ({
   payload: { error },
 });
 
-export const getProduct = (selectedId) => async (dispatch) => {
+export const getProduct = (data) => async (dispatch) => {
   dispatch(getProductRequest());
   try {
-    const res = await ProductController.getProduct(selectedId);
-    // console.log("check action success", JSON.stringify(res));
-    dispatch(getProductSuccess(res));
+    const res = await ProductController.getProduct(data);
+    dispatch(getProductSuccess(res.payload));
   } catch (error) {
-    // console.log("check action error", error);
-
     dispatch(getProductError(error.message));
   }
 };

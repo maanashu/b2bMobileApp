@@ -32,18 +32,17 @@ export class CategoryController {
     });
   }
 
-  static async getSubCategory(categoryID) {
+  static async getSubCategory(data) {
     return new Promise((resolve, reject) => {
-      const endpoint =
-        PRODUCT_URL + ApiProductInventory.getSubCategory(categoryID);
+      const params = new URLSearchParams(data).toString();
+      const endpoint = `${ApiProductInventory.getCategory}?${params}`;
       HttpClient.get(endpoint)
         .then((response) => {
-          resolve(response);
-
-          // console.log(
-          //   "checking controller response-->",
-          //   JSON.stringify(response)
-          // );
+          if (response.length === 0) {
+            resolve([]);
+          } else {
+            resolve(response);
+          }
         })
         .catch((error) => {
           Toast.show({
@@ -65,12 +64,12 @@ export class CategoryController {
           resolve(response);
         })
         .catch((error) => {
-          // Toast.show({
-          //   text2: error.msg,
-          //   position: "bottom",
-          //   type: "error_toast",
-          //   visibilityTime: 1500,
-          // });
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
           reject(new Error((strings.valiadtion.error = error.msg)));
         });
     });

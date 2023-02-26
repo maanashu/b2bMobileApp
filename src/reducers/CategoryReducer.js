@@ -18,7 +18,7 @@ export const categoryReducer = (
     case TYPES.GET_SUB_CATEGORY_SUCCESS:
       return {
         ...state,
-        subCategoryList: payload.subCategoryList.payload.data,
+        subCategoryList: payload.subCategoryList,
       };
     case TYPES.GET_BRANDS_SUCCESS:
       return {

@@ -1,10 +1,4 @@
-import {
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-  ActivityIndicator,
-} from "react-native";
+import { Text, View, FlatList, TouchableOpacity, Image } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { styles } from "./SubCategories.styles";
 import { Header, ScreenWrapper, Spacer } from "@/components";
@@ -26,6 +20,8 @@ import { NAVIGATION } from "@/constants";
 import { renderNoData } from "@/components/FlatlistStyling";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { Loader } from "@/components/Loader";
 
 export function SubCategories(params) {
   const listRef = useRef();
@@ -35,9 +31,15 @@ export function SubCategories(params) {
   const getIndex = params?.route?.params?.index;
 
   const [selectedId, setSelectedId] = useState(params?.route?.params?.idItem);
-
   const [serviceModalisVisible, setserviceModalisVisible] = useState(false);
-
+  const subcategoryObject = {
+    page: 1,
+    limit: 10,
+    category_id: routeId,
+    service_type:
+      params?.route?.params?.serviceType == "product" ? "product" : "service",
+    main_category: true,
+  };
   const dispatch = useDispatch();
   const categoryData = useSelector(getCategorySelector);
   const categoryArray = categoryData?.categoryList;
@@ -51,6 +53,7 @@ export function SubCategories(params) {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_SUB_CATEGORY], state)
   );
+
   useEffect(() => {
     dispatch(getBrands(1));
     if (params?.route?.params?.serviceType == "product") {
@@ -73,22 +76,17 @@ export function SubCategories(params) {
         categoryData?.categoryList[0]?.id ||
         categoryData?.categoryList[0]?.id
     );
-    dispatch(
-      getSubCategory(
-        routeId ||
-          categoryData?.categoryList[0]?.id ||
-          categoryData?.categoryList[0]?.id
-      )
-    );
+    dispatch(getSubCategory(subcategoryObject));
   }, []);
 
   const getSubCategoryList = (item) => {
     setSelectedId(item.id);
-    dispatch(getSubCategory(item.id));
-    // console.log("checking data", SUBCATEGORIES?.subCategoryList);
-    // if (item.id === undefined) {
-    //   setsubCategoryArray({ ...subCategoryArray });
-    // }
+    let categoryObject = {
+      ...subcategoryObject,
+      category_id: item.id,
+    };
+
+    dispatch(getSubCategory(categoryObject));
   };
 
   const onScrollToSelectItem = (index) => {
@@ -133,30 +131,36 @@ export function SubCategories(params) {
     </>
   );
 
-  const listDetail = ({ item, index }) => (
-    <>
-      <TouchableOpacity
-        style={styles.subCatTouchableView}
-        onPress={() =>
-          navigate(NAVIGATION.brandsProducts, { categoryId: selectedId })
-        }
-      >
-        <FastImage
-          source={Tobacco}
-          resizeMode="contain"
-          style={styles.subCatImages}
-        />
-        <View style={{ marginLeft: SW(10) }}>
-          <Text style={styles.subCategoryTextStyle}>{item.name}</Text>
-        </View>
-      </TouchableOpacity>
-    </>
+  const renderSubcategoryItem = ({ item, index }) => (
+    <TouchableOpacity
+      style={styles.rowCard}
+      onPress={() =>
+        navigate(NAVIGATION.brandsProducts, { categoryId: item.id })
+      }
+    >
+      <View style={styles.row}>
+        {item.image ? (
+          <Image
+            source={{ uri: item.image }}
+            resizeMode="cover"
+            style={[styles.img, { borderRadius: 20 }]}
+          />
+        ) : (
+          <View style={styles.emptyImg} />
+        )}
+        <Text style={[styles.subName, { paddingHorizontal: 10 }]}>
+          {item.name}
+        </Text>
+      </View>
+      <Ionicons name="chevron-forward" size={20} color="black" />
+    </TouchableOpacity>
   );
 
   const toggleModal = () => {
     setserviceModalisVisible(!serviceModalisVisible);
   };
 
+  console.log("===>>", SUBCATEGORIES?.subCategoryList?.data);
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <Header
@@ -189,19 +193,14 @@ export function SubCategories(params) {
       </View>
 
       <View style={{ paddingHorizontal: SW(20), flex: 1, marginTop: SH(20) }}>
-        {isLoading ? (
-          <View>
-            <ActivityIndicator size="large" color={COLORS.primary} />
-          </View>
-        ) : (
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={SUBCATEGORIES?.subCategoryList}
-            renderItem={listDetail}
-            ListEmptyComponent={renderNoData}
-            keyExtractor={(item) => item.id}
-          />
-        )}
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={SUBCATEGORIES?.subCategoryList?.data}
+          renderItem={renderSubcategoryItem}
+          ListEmptyComponent={renderNoData}
+          keyExtractor={(item) => item.id}
+        />
+        {isLoading ? <Loader message="Loading data..." /> : null}
       </View>
 
       <Modal

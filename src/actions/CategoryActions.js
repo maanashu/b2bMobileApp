@@ -73,12 +73,12 @@ export const getServiceCategory = (data) => async (dispatch) => {
   }
 };
 
-export const getSubCategory = (categoryID) => async (dispatch) => {
+export const getSubCategory = (data) => async (dispatch) => {
   dispatch(getSubCategoryRequest());
   try {
-    const res = await CategoryController.getSubCategory(categoryID);
-    // console.log("checking action resp of sub cat--->", JSON.stringify(res));
-    dispatch(getSubCategorySuccess(res));
+    const res = await CategoryController.getCategory(data);
+    //console.log("checking action resp of sub cat--->", JSON.stringify(res));
+    dispatch(getSubCategorySuccess(res.payload));
   } catch (error) {
     dispatch(getSubCategoryError(error.message));
   }

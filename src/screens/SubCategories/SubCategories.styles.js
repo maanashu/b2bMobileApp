@@ -121,4 +121,34 @@ export const styles = StyleSheet.create({
     paddingVertical: SH(5),
     fontSize: SF(22),
   },
+  rowCard: {
+    flexDirection: "row",
+    backgroundColor: COLORS.white,
+    padding: SH(16),
+    justifyContent: "space-between",
+    borderBottomColor: COLORS.input_bg,
+    borderBottomWidth: 1,
+    alignItems: "center",
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  img: {
+    height: SH(39),
+    width: SW(36),
+  },
+  emptyImg: {
+    height: SH(40),
+    width: SW(40),
+    borderWidth: SH(1),
+    borderRadius: SH(20),
+    borderColor: COLORS.black,
+  },
+  subName: {
+    color: COLORS.text,
+    fontFamily: Fonts.Medium,
+    fontSize: SH(14),
+    alignSelf: "center",
+  },
 });

@@ -7,7 +7,7 @@ const INITIALSTATE = {
 export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
   switch (type) {
     case TYPES.GET_PRODUCT_SUCCESS:
-      return { ...state, product: payload.productList.payload.data };
+      return { ...state, product: payload.productList };
 
     case TYPES.GET_PRODUCT_DETAIL_SUCCESS:
       return { ...state, productDetail: payload.productDetail.payload };

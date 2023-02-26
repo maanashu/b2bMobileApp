@@ -16,6 +16,10 @@ import { getProductSelector } from "@/selectors/ProductSelectors";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import FastImage from "react-native-fast-image";
+import { renderNoData } from "@/components/FlatlistStyling";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
+import { Loader } from "@/components/Loader";
 export function NewProducts() {
   // const layout = useWindowDimensions();
 
@@ -75,22 +79,38 @@ export function NewProducts() {
   console.log("selectedId", selectedId);
   const dispatch = useDispatch();
   const categoryData = useSelector(getCategorySelector);
-  const categoryArray = categoryData?.categories;
+  const categoryArray = categoryData?.categoryList?.data;
   const splicedArray = categoryArray?.slice(0, 7);
 
   const ProductsData = useSelector(getProductSelector);
   const Products = ProductsData?.product;
-  // const [productLists, setProductLists] = useState([Products]);
-  // console.log("product list according to category id-->", Products);
 
   useEffect(() => {
-    dispatch(getCategory());
-    dispatch(getProduct(1));
+    const Object = {
+      page: 1,
+      limit: 10,
+    };
+    dispatch(getCategory(Object));
+    const probject = {
+      page: 1,
+      limit: 10,
+      category_ids: categoryData?.categoryList?.data?.[0]?.id,
+    };
+    dispatch(getProduct(probject));
   }, []);
+
+  const isLoadingProducts = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_PRODUCT], state)
+  );
 
   const getProductsList = (item) => {
     setSelectedId(item.id);
-    dispatch(getProduct(item.id));
+    const probject = {
+      page: 1,
+      limit: 10,
+      category_ids: item.id,
+    };
+    dispatch(getProduct(probject));
   };
 
   const renderCategory = ({ item, index }) => (
@@ -101,9 +121,7 @@ export function NewProducts() {
           alignItems: "center",
         }}
         onPress={() => {
-          // console.log("check selected category", item);
           getProductsList(item);
-          // dispatch(getProduct(selectedId));
         }}
       >
         <Text
@@ -232,12 +250,14 @@ export function NewProducts() {
       <View style={{ paddingHorizontal: SW(20), flex: 1 }}>
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={Products ?? []}
-          extraData={Products}
+          data={Products?.data ?? []}
+          extraData={Products?.data}
           renderItem={listDetail}
           keyExtractor={(item) => item.id}
+          ListEmptyComponent={renderNoData}
           numColumns={2}
         />
+        {isLoadingProducts ? <Loader /> : null}
       </View>
     </ScreenWrapper>
   );

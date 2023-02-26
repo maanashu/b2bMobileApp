@@ -27,7 +27,7 @@ export function Loader({ message }) {
           color: COLORS.primary,
         }}
       >
-        {message}
+        {message || "Loading data ..."}
       </Text>
     </View>
   );
