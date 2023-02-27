@@ -84,6 +84,7 @@ export const styles = StyleSheet.create({
   productSubHeading: {
     fontFamily: Fonts.Regular,
     fontSize: ms(11),
+    color: COLORS.white,
   },
   chatText: {
     fontFamily: Fonts.SemiBold,
@@ -298,6 +299,10 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
     alignItems: "center",
+    alignSelf: "flex-end",
+    backgroundColor: "#828282",
+    borderRadius: SH(10),
+    padding: SH(5),
   },
   semiBoldtext: {
     color: COLORS.black,

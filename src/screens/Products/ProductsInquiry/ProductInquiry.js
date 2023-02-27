@@ -79,7 +79,7 @@ export function ProductInquiry(params) {
   //   dispatch(getProductDetail(params?.route?.params?.itemId));
   // }, []);
   useEffect(() => {
-    dispatch(getProductDetail(1));
+    dispatch(getProductDetail(params?.route?.params?.itemId));
   }, []);
 
   const renderItem = ({ item }) => (
@@ -149,7 +149,6 @@ export function ProductInquiry(params) {
             width: Dimensions.get("window").width,
             justifyContent: "center",
             alignItems: "center",
-            borderRadius: 15,
           }}
         >
           <FastImage
@@ -190,34 +189,30 @@ export function ProductInquiry(params) {
 
           <Spacer space={SH(10)} />
 
-          {isLoading ? (
-            <View>
-              <ActivityIndicator size="large" color={COLORS.primary} />
-            </View>
-          ) : (
-            <SwiperFlatList
-              autoplay
-              autoplayDelay={3}
-              autoplayLoop={true}
-              showPagination
-              data={[ProductDetail?.productDetail?.product_detail] ?? []}
-              renderItem={renderSliderImages}
-              PaginationComponent={CustomPaginationWithoutText}
-              paginationActiveColor={COLORS.black}
-            />
-          )}
+          <SwiperFlatList
+            autoplay
+            autoplayDelay={3}
+            autoplayLoop={true}
+            showPagination
+            data={[ProductDetail?.productDetail?.product_detail] ?? []}
+            renderItem={renderSliderImages}
+            PaginationComponent={CustomPaginationWithoutText}
+            paginationActiveColor={COLORS.black}
+          />
         </View>
 
         <Spacer space={SH(25)} />
         <View style={{ paddingHorizontal: SW(10) }}>
-          <View style={{ paddingHorizontal: SW(10) }}>
+          <View style={{ paddingHorizontal: SW(20) }}>
             <View style={styles.belowImage}>
               <Image
                 source={ratingStar}
                 style={{ marginHorizontal: SW(5), height: 15, width: 15 }}
               />
 
-              <Text>{"4.5"} </Text>
+              <Text style={{ color: COLORS.white }}>
+                {ProductDetail?.productDetail?.product_rating?.rating}
+              </Text>
               <Text style={styles.productSubHeading}>{"(500+ ratings)"}</Text>
             </View>
             <Spacer space={SH(40)} />
@@ -621,8 +616,8 @@ export function ProductInquiry(params) {
             />
           </View>
         </View>
-        {isLoadingDetails ? <Loader /> : null}
       </ScrollView>
+      {isLoadingDetails ? <Loader /> : null}
     </ScreenWrapper>
   );
 }

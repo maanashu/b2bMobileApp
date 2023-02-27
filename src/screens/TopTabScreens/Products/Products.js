@@ -43,12 +43,16 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
 import { renderNoData } from "@/components/FlatlistStyling";
+import { getProduct } from "@/actions/ProductActions";
+import { getProductSelector } from "@/selectors/ProductSelectors";
 
 export function Products({ navigation }) {
   const listRef = useRef();
   const dispatch = useDispatch();
   const categoryData = useSelector(getCategorySelector);
   const BannerData = useSelector(getBannerSelector);
+  const ProductsData = useSelector(getProductSelector);
+  const Products = ProductsData?.product;
   const [selectedId, setSelectedId] = useState("");
   const categoryObject = {
     page: 1,
@@ -64,7 +68,16 @@ export function Products({ navigation }) {
   useEffect(() => {
     dispatch(getCategory(categoryObject));
     dispatch(getBanners());
+    getAllProducts();
   }, []);
+
+  const getAllProducts = () => {
+    const probject = {
+      page: 1,
+      limit: 10,
+    };
+    dispatch(getProduct(probject));
+  };
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_CATEGORY], state)
@@ -154,11 +167,11 @@ export function Products({ navigation }) {
 
   const secondItem = ({ item, onPress }) => (
     <View style={styles.itemS}>
-      <Image source={item.image} style={styles.secondView} />
+      <Image source={{ uri: item?.image }} style={styles.secondView} />
 
       <Spacer space={SH(10)} />
 
-      <Text style={styles.commonFlatlistText}>{item.title}</Text>
+      <Text style={styles.commonFlatlistText}>{item?.name}</Text>
     </View>
   );
 
@@ -275,7 +288,14 @@ export function Products({ navigation }) {
             </Text>
             <View>
               <View style={{ flexDirection: "row" }}>
-                <Text style={styles.smallText}>{strings.products.seeAll} </Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate(NAVIGATION.newProducts)}
+                >
+                  <Text style={styles.smallText}>
+                    {strings.products.seeAll}{" "}
+                  </Text>
+                </TouchableOpacity>
+
                 <Image
                   source={forward}
                   style={{ height: SH(15), width: SW(15), marginTop: SH(3) }}
@@ -287,43 +307,15 @@ export function Products({ navigation }) {
           <Spacer space={SH(20)} />
 
           <FlatList
-            data={secondData}
+            data={Products?.data}
             renderItem={secondItem}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item?.id}
             ListEmptyComponent={renderNoData}
             numColumns={3}
           />
         </TouchableOpacity>
 
         <Spacer space={SH(20)} />
-
-        <TouchableOpacity
-          onPress={() => navigate(NAVIGATION.newProducts)}
-          style={styles.ProductView}
-        >
-          <View style={styles.innerView}>
-            <Text style={styles.headingText}>
-              {strings.products.newProducts}
-            </Text>
-
-            <View>
-              <View style={{ flexDirection: "row" }}>
-                <Text style={styles.smallText}>{strings.products.seeAll} </Text>
-                <Image source={forward} style={styles.forwardIcon} />
-              </View>
-            </View>
-          </View>
-
-          <Spacer space={SH(15)} />
-
-          <FlatList
-            data={thirdData}
-            renderItem={secondItem}
-            keyExtractor={(item) => item.id}
-            ListEmptyComponent={renderNoData}
-            numColumns={3}
-          />
-        </TouchableOpacity>
 
         <Spacer space={SH(25)} />
 

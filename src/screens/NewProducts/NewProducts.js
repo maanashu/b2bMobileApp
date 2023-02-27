@@ -21,8 +21,8 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
 export function NewProducts() {
-  const [selectedId, setSelectedId] = useState(1);
-  console.log("selectedId", selectedId);
+  const [selectedId, setSelectedId] = useState(0);
+
   const dispatch = useDispatch();
   const categoryData = useSelector(getCategorySelector);
   const categoryArray = categoryData?.categoryList?.data;
@@ -37,13 +37,16 @@ export function NewProducts() {
       limit: 10,
     };
     dispatch(getCategory(Object));
+    getAllProducts();
+  }, []);
+
+  const getAllProducts = () => {
     const probject = {
       page: 1,
       limit: 10,
-      category_ids: categoryData?.categoryList?.data?.[0]?.id,
     };
     dispatch(getProduct(probject));
-  }, []);
+  };
 
   const isLoadingProducts = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT], state)
@@ -127,7 +130,7 @@ export function NewProducts() {
   const listDetail = ({ item, index }) => (
     <>
       <TouchableOpacity
-        onPress={() => navigate(NAVIGATION.productInquiry, { data: item.id })}
+        onPress={() => navigate(NAVIGATION.productInquiry, { itemId: item.id })}
         style={[
           styles.ShoesStyle,
           {
@@ -181,14 +184,38 @@ export function NewProducts() {
         />
 
         <Spacer space={SH(10)} />
+        <View style={{ flexDirection: "row" }}>
+          <TouchableOpacity
+            style={{
+              paddingLeft: SW(10),
+              alignItems: "center",
+              borderBottomColor: 0 === selectedId ? COLORS.primary : null,
+              borderBottomWidth: 0 === selectedId ? 1 : 0,
+            }}
+            onPress={() => {
+              setSelectedId(0);
+              getAllProducts();
+            }}
+          >
+            <Text
+              style={{
+                marginHorizontal: SW(1),
+                fontFamily: 0 === selectedId ? Fonts.Bold : Fonts.Regular,
+                color: 0 === selectedId ? COLORS.primary : COLORS.text,
+              }}
+            >
+              All categories
+            </Text>
+          </TouchableOpacity>
 
-        <FlatList
-          showsHorizontalScrollIndicator={false}
-          horizontal
-          data={splicedArray}
-          renderItem={renderCategory}
-          keyExtractor={(item) => item.id}
-        />
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            data={splicedArray}
+            renderItem={renderCategory}
+            keyExtractor={(item) => item.id}
+          />
+        </View>
       </View>
 
       <View style={{ paddingHorizontal: SW(20), flex: 1 }}>
