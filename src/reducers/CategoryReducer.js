@@ -20,6 +20,12 @@ export const categoryReducer = (
         ...state,
         subCategoryList: payload.subCategoryList,
       };
+
+    case TYPES.GET_SUB_CATEGORY_RESET:
+      return {
+        ...state,
+        subCategoryList: [],
+      };
     case TYPES.GET_BRANDS_SUCCESS:
       return {
         ...state,

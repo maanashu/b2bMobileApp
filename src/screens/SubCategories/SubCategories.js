@@ -42,11 +42,8 @@ export function SubCategories(params) {
   };
   const dispatch = useDispatch();
   const categoryData = useSelector(getCategorySelector);
-  const categoryArray = categoryData?.categoryList;
-  const serviceCategoryArray = categoryData?.categoryList;
 
   const SUBCATEGORIES = useSelector(getCategorySelector);
-  const SubCatArray = SUBCATEGORIES?.subCategoryList;
   const [subCategoryArray, setsubCategoryArray] = useState(
     SUBCATEGORIES?.subCategoryList
   );

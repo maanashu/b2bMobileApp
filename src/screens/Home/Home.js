@@ -76,7 +76,10 @@ export function Home() {
     <ScreenWrapper>
       <HomeHeader />
       <View style={{ flex: 1 }}>
-        <Tab.Navigator tabBar={(props) => renderTabBar(props)}>
+        <Tab.Navigator
+          tabBar={(props) => renderTabBar(props)}
+          swipeEnabled={false}
+        >
           <Tab.Screen name={NAVIGATION.products} component={Products} />
           <Tab.Screen name={NAVIGATION.business} component={Business} />
           <Tab.Screen name={NAVIGATION.nearMe} component={NearMe} />

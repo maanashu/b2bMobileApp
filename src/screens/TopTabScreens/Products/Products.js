@@ -63,6 +63,7 @@ export function Products({ navigation }) {
 
   useEffect(() => {
     dispatch(getCategory(categoryObject));
+    dispatch(getBanners());
   }, []);
 
   const isLoading = useSelector((state) =>
@@ -365,7 +366,7 @@ export function Products({ navigation }) {
             numColumns={2}
           />
         </View>
-        {isLoading ? <Loader message="Loading data ..." /> : null}
+        {/* {isLoading ? <Loader message="Loading data ..." /> : null} */}
         <Spacer space={SH(30)} />
       </ScrollView>
     </ScreenWrapper>

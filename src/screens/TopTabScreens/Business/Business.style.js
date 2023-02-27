@@ -132,4 +132,29 @@ export const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: ms(10),
   },
+  productLogosIcon: {
+    height: SH(30),
+    width: SW(30),
+  },
+  productTypesView: {
+    paddingVertical: SH(15),
+    width: Dimensions.get("window").fullWidth,
+    marginHorizontal: SW(15),
+    backgroundColor: COLORS.placeHolder,
+    paddingHorizontal: SW(15),
+    borderRadius: SW(10),
+  },
+  logoBackGround: {
+    backgroundColor: COLORS.lightBlue,
+    height: SW(35),
+    width: SW(35),
+    borderRadius: SW(15),
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 1,
+  },
+  productCategoriesText: {
+    color: COLORS.black,
+    fontSize: SF(16),
+  },
 });

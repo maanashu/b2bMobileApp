@@ -1,17 +1,20 @@
-import axios from 'axios';
-import { Config } from 'react-native-config';
-import { strings } from '@/localization';
+import axios from "axios";
+import { Config } from "react-native-config";
+import { strings } from "@/localization";
 
 const client = axios.create({
   baseURL: Config.API_BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
 client.interceptors.response.use(
-  response => response.data,
-  error => {
+  (response) =>
+    response.status === 204
+      ? Promise.reject({ error: "emptyContent", statusCode: 204 })
+      : response.data,
+  (error) => {
     if (error.response) {
       return Promise.reject(error.response.data);
     } else if (error.request) {
@@ -22,7 +25,7 @@ client.interceptors.response.use(
   }
 );
 
-const setAuthorization = token => {
+const setAuthorization = (token) => {
   client.defaults.headers.common.authorization = token;
 };
 

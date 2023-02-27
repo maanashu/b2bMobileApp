@@ -13,6 +13,10 @@ const getProductError = (error) => ({
   type: TYPES.GET_PRODUCT_ERROR,
   payload: { error },
 });
+const getProductReset = () => ({
+  type: TYPES.GET_PRODUCT_RESET,
+  payload: null,
+});
 
 export const getProduct = (data) => async (dispatch) => {
   dispatch(getProductRequest());
@@ -20,7 +24,11 @@ export const getProduct = (data) => async (dispatch) => {
     const res = await ProductController.getProduct(data);
     dispatch(getProductSuccess(res.payload));
   } catch (error) {
-    dispatch(getProductError(error.message));
+    if (error.statusCode === 204) {
+      dispatch(getProductReset());
+    } else {
+      dispatch(getProductError(error.message));
+    }
   }
 };
 
@@ -63,7 +71,6 @@ export const getTrendingSellers = () => async (dispatch) => {
   dispatch(getTrendingSellersRequest());
   try {
     const res = await ProductController.getTrendingSellers();
-    console.log("trending sellers action success", res);
 
     dispatch(getTrendingSellersSuccess(res));
   } catch (error) {

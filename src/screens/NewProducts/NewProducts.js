@@ -21,60 +21,6 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
 export function NewProducts() {
-  // const layout = useWindowDimensions();
-
-  // const [index, setIndex] = React.useState(0);
-
-  // const [routes] = React.useState([
-  //   { key: "Apparel", title: "Apparel" },
-  //   { key: "Tobacco", title: "Tobacco" },
-  // ]);
-
-  // const FirstRoute = () => <Apparel />;
-  // const SecondRoute = () => <Business />;
-
-  // const renderScene = SceneMap({
-  //   Apparel: FirstRoute,
-  //   Tobacco: SecondRoute,
-  // });
-  // const renderTabBar = (props) => {
-  //   return (
-  //     <TabBar
-  //       {...props}
-  //       renderLabel={({ focused, route }) => {
-  //         return (
-  //           <View
-  //             style={[
-  //               styles.tabButtonView,
-  //               {
-  //                 borderColor: focused ? COLORS.primary : COLORS.light_border,
-  //               },
-  //             ]}
-  //           >
-  //             <Text
-  //               style={{
-  //                 color: focused ? COLORS.primary : COLORS.text,
-  //                 textAlignVertical: "center",
-  //                 fontFamily: focused ? Fonts.SemiBold : Fonts.Regular,
-  //                 marginLeft: SW(5),
-  //               }}
-  //             >
-  //               {route.title}
-  //             </Text>
-  //           </View>
-  //         );
-  //       }}
-  //       indicatorStyle={{ backgroundColor: COLORS.primary, width: "0.5%" }}
-  //       style={{
-  //         elevation: 0,
-  //         backgroundColor: COLORS.white,
-  //       }}
-  //       pressColor={COLORS.white}
-  //       tabStyle={{ width: "auto" }}
-  //     />
-  //   );
-  // };
-
   const [selectedId, setSelectedId] = useState(1);
   console.log("selectedId", selectedId);
   const dispatch = useDispatch();
@@ -180,49 +126,47 @@ export function NewProducts() {
 
   const listDetail = ({ item, index }) => (
     <>
-      {index >= 8 ? null : (
-        <TouchableOpacity
-          onPress={() => navigate(NAVIGATION.productInquiry, { data: item.id })}
-          style={[
-            styles.ShoesStyle,
-            {
-              height: dynamicHeight(index),
-              marginTop: dynamicMarginTop(index),
-              marginBottom: dynamicMarginBottom(index),
-            },
-          ]}
-        >
-          <Spacer space={SH(10)} />
-          <View style={{ alignItems: "center" }}>
-            <FastImage
-              source={{ uri: item.image }}
-              resizeMode="cover"
-              style={{
-                width: SW(153),
-                height: dynamicImageHeight(index),
-                borderRadius: SW(10),
-              }}
-            />
-          </View>
-          <Spacer space={SH(5)} />
+      <TouchableOpacity
+        onPress={() => navigate(NAVIGATION.productInquiry, { data: item.id })}
+        style={[
+          styles.ShoesStyle,
+          {
+            height: dynamicHeight(index),
+            marginTop: dynamicMarginTop(index),
+            marginBottom: dynamicMarginBottom(index),
+          },
+        ]}
+      >
+        <Spacer space={SH(10)} />
+        <View style={{ alignItems: "center" }}>
+          <FastImage
+            source={{ uri: item.image }}
+            resizeMode="cover"
+            style={{
+              width: SW(153),
+              height: dynamicImageHeight(index),
+              borderRadius: SW(10),
+            }}
+          />
+        </View>
+        <Spacer space={SH(5)} />
 
-          <Text numberOfLines={2} style={styles.productsTitle}>
-            {item.name}
-            <Text style={styles.productSubTitle}> {item.description}</Text>
-          </Text>
+        <Text numberOfLines={2} style={styles.productsTitle}>
+          {item.name}
+          <Text style={styles.productSubTitle}> {item.description}</Text>
+        </Text>
 
-          <Spacer space={SH(5)} />
+        <Spacer space={SH(5)} />
 
-          <Text style={styles.productsQuantity}>{`MOQ:10`}</Text>
+        <Text style={styles.productsQuantity}>{`MOQ:10`}</Text>
 
-          <Spacer space={SH(1)} />
+        <Spacer space={SH(1)} />
 
-          <Text style={styles.priceText}>
-            {item.price}/
-            {/* <Text style={styles.categoryText}> {item.product_type.name}</Text> */}
-          </Text>
-        </TouchableOpacity>
-      )}
+        <Text style={styles.priceText}>
+          {item.price}/
+          {/* <Text style={styles.categoryText}> {item.product_type.name}</Text> */}
+        </Text>
+      </TouchableOpacity>
     </>
   );
 

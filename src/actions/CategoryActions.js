@@ -35,6 +35,10 @@ const getSubCategorySuccess = (subCategoryList) => ({
   type: TYPES.GET_SUB_CATEGORY_SUCCESS,
   payload: { subCategoryList },
 });
+const getSubCategoryReset = () => ({
+  type: TYPES.GET_SUB_CATEGORY_RESET,
+  payload: null,
+});
 const getSubCategoryError = (error) => ({
   type: TYPES.GET_SUB_CATEGORY_ERROR,
   payload: { error },
@@ -77,15 +81,17 @@ export const getSubCategory = (data) => async (dispatch) => {
   dispatch(getSubCategoryRequest());
   try {
     const res = await CategoryController.getCategory(data);
-    //console.log("checking action resp of sub cat--->", JSON.stringify(res));
     dispatch(getSubCategorySuccess(res.payload));
   } catch (error) {
-    dispatch(getSubCategoryError(error.message));
+    if (error?.statusCode === 204) {
+      dispatch(getSubCategoryReset());
+    } else {
+      dispatch(getSubCategoryError(error.message));
+    }
   }
 };
 
 export const getBrands = (categoryid) => async (dispatch) => {
-  console.log("categoryid", categoryid);
   dispatch(getBrandsRequest());
   try {
     const res = await CategoryController.getBrands(categoryid);

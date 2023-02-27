@@ -16,14 +16,12 @@ import { NAVIGATION } from "@/constants/navigation";
 import { useState } from "react";
 import {
   CompanyDetailView,
-  CustomPagination,
   CustomPaginationWithoutText,
   ScreenWrapper,
   Spacer,
 } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import {
-  womenShoes,
   fav,
   starBadge,
   ratingStar,
@@ -41,13 +39,7 @@ import {
   bagGrey,
 } from "@/assets";
 import { ms } from "react-native-size-matters";
-import {
-  priceData,
-  CompanyData,
-  ShoesData,
-  ProductDetailData,
-} from "./FlatlistData";
-import { login } from "@/actions/UserActions";
+import { priceData, CompanyData, ShoesData } from "./FlatlistData";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { Header } from "./Components/Header";
@@ -60,10 +52,10 @@ import SwiperFlatList from "react-native-swiper-flatlist";
 import { COLORS } from "@/theme";
 import FastImage from "react-native-fast-image";
 import { renderNoData } from "@/components/FlatlistStyling";
+import { Loader } from "@/components/Loader";
 
 export function ProductInquiry(params) {
   const [routedData, setroutedData] = useState(ProductDetail?.productDetail);
-  // console.log("routed item-->" + ProductDetail?.productDetail?.product_detail);
 
   const [favourite, setFavourite] = useState(false);
   const dispatch = useDispatch();
@@ -72,27 +64,38 @@ export function ProductInquiry(params) {
   const colorChange = () => {
     setFavourite(!favourite);
   };
-  // console.log("routed id-->", params?.route?.params?.itemId);
 
   const ProductDetail = useSelector(getProductSelector);
-  // const sliderImages = images.push(
-  //   ProductDetail?.productDetail?.product_detail?.description
-  // );
+
+  const isLoadingDetails = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
+  );
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
   );
 
+  // useEffect(() => {
+  //   dispatch(getProductDetail(params?.route?.params?.itemId));
+  // }, []);
   useEffect(() => {
-    dispatch(getProductDetail(params?.route?.params?.itemId));
-    // console.log("user details", user?.user);
+    dispatch(getProductDetail(1));
   }, []);
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.item}>
+    <TouchableOpacity style={[styles.item, { marginTop: SH(30) }]}>
       <View style={styles.upperButtons}>
-        <Text style={styles.primaryColorText}>{item.price}</Text>
-        <Text style={styles.smallText}>{item.quantity}</Text>
+        <Text style={styles.primaryColorText}>
+          {"USD"}{" "}
+          <Text>
+            {"$ "}
+            {item.price}
+          </Text>
+        </Text>
+        <Text style={styles.smallText}>
+          {item.qty}
+          <Text>{" Pieces"}</Text>
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -109,8 +112,11 @@ export function ProductInquiry(params) {
   const ProductDetails = ({ item }) => (
     <View>
       <View style={styles.productDetail}>
-        <Text style={styles.questions}>{item.title} :</Text>
-        <Text style={styles.productAnswer}> {item.productAnswer}</Text>
+        <Text style={styles.questions}>{item?.attributes?.name} :</Text>
+
+        {item?.attributes?.attribute_values.map((item, index) => (
+          <Text style={styles.productAnswer}> {`${item?.name}  `}</Text>
+        ))}
       </View>
       <Spacer space={SH(5)} />
       <View style={styles.borderTop}></View>
@@ -221,13 +227,18 @@ export function ProductInquiry(params) {
             <Text style={styles.productSubHeading}>
               {ProductDetail?.productDetail?.product_detail?.description}
             </Text>
-            <Spacer space={SH(35)} />
-            <FlatList
-              data={priceData}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id}
-              numColumns={3}
-            />
+
+            {ProductDetail?.productDetail?.product_detail?.bundle_products
+              .length !== 0 && (
+              <FlatList
+                data={
+                  ProductDetail?.productDetail?.product_detail?.bundle_products
+                }
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id}
+                numColumns={3}
+              />
+            )}
           </View>
 
           <Spacer space={SH(20)} />
@@ -500,7 +511,9 @@ export function ProductInquiry(params) {
                   imageSize={17}
                   style={{ paddingHorizontal: 10 }}
                   readonly
-                  startingValue={4.5}
+                  startingValue={
+                    ProductDetail?.productDetail?.seller_rating?.rating
+                  }
                   // onFinishRating={(rating) => setOrderRating(rating)}
                 />
 
@@ -512,7 +525,7 @@ export function ProductInquiry(params) {
 
             <Spacer space={SH(20)} />
 
-            <View
+            {/* <View
               style={{
                 ...styles.ratingRowStyle,
                 justifyContent: "space-between",
@@ -538,7 +551,7 @@ export function ProductInquiry(params) {
 
             <View style={styles.bottomLine}></View>
 
-            <Spacer space={SH(20)} />
+            <Spacer space={SH(20)} /> */}
 
             <View
               style={{
@@ -556,7 +569,9 @@ export function ProductInquiry(params) {
                   imageSize={17}
                   style={{ paddingHorizontal: 10 }}
                   readonly
-                  startingValue={4.5}
+                  startingValue={
+                    ProductDetail?.productDetail?.product_rating?.rating
+                  }
                   // onFinishRating={(rating) => setOrderRating(rating)}
                 />
 
@@ -606,6 +621,7 @@ export function ProductInquiry(params) {
             />
           </View>
         </View>
+        {isLoadingDetails ? <Loader /> : null}
       </ScrollView>
     </ScreenWrapper>
   );

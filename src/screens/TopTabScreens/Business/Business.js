@@ -22,6 +22,7 @@ import {
   boots,
   threeDots,
   Fonts,
+  jeanLogo,
 } from "@/assets";
 import { NAVIGATION } from "@/constants";
 import { Search } from "@/components/Search";
@@ -364,7 +365,18 @@ export function Business() {
           />
         </View>
 
-        <View style={styles.upperView}>
+        <View style={[styles.productTypesView]}>
+          <View style={styles.rowView}>
+            <View style={styles.logoBackGround}>
+              <Image
+                source={jeanLogo}
+                resizeMode="contain"
+                style={styles.productLogosIcon}
+              />
+            </View>
+
+            <Text style={styles.productCategoriesText}>{"Jeans"}</Text>
+          </View>
           <FlatList />
         </View>
       </ScrollView>

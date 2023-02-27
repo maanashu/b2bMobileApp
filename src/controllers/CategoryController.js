@@ -21,13 +21,14 @@ export class CategoryController {
           resolve(response);
         })
         .catch((error) => {
-          Toast.show({
-            text2: error.msg,
-            position: "bottom",
-            type: "error_toast",
-            visibilityTime: 1500,
-          });
-          reject(new Error((strings.valiadtion.error = error.msg)));
+          reject(error);
+          // Toast.show({
+          //   text2: error.msg,
+          //   position: "bottom",
+          //   type: "error_toast",
+          //   visibilityTime: 1500,
+          // });
+          // reject(new Error((strings.validation.error = error.msg)));
         });
     });
   }
@@ -38,20 +39,23 @@ export class CategoryController {
       const endpoint = `${ApiProductInventory.getCategory}?${params}`;
       HttpClient.get(endpoint)
         .then((response) => {
-          if (response.length === 0) {
-            resolve([]);
-          } else {
-            resolve(response);
-          }
+          // if (response.length === 0) {
+          //   resolve([]);
+          // } else {
+          //   resolve(response);
+          // }
+          resolve(response);
         })
         .catch((error) => {
-          Toast.show({
-            text2: error.msg,
-            position: "bottom",
-            type: "error_toast",
-            visibilityTime: 1500,
-          });
-          reject(new Error((strings.valiadtion.error = error.msg)));
+          console.log(`Check error :${error}`);
+          reject(error);
+          // Toast.show({
+          //   text2: error.msg,
+          //   position: "bottom",
+          //   type: "error_toast",
+          //   visibilityTime: 1500,
+          // });
+          // reject(new Error((strings.valiadtion.error = error.msg)));
         });
     });
   }
@@ -70,7 +74,7 @@ export class CategoryController {
             type: "error_toast",
             visibilityTime: 1500,
           });
-          reject(new Error((strings.valiadtion.error = error.msg)));
+          reject(new Error((strings.validation.error = error.msg)));
         });
     });
   }
