@@ -42,6 +42,7 @@ export function NewProducts() {
     };
     dispatch(getCategory(Object));
     getAllProducts();
+    setSelectedId(splicedArray[0]?.id);
   }, []);
 
   const getAllProducts = () => {
