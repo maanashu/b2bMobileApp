@@ -3,6 +3,7 @@ const INITIALSTATE = {
   product: [],
   productDetail: [],
   trendingSellers: [],
+  trendingList: [],
 };
 export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
   switch (type) {
@@ -16,6 +17,17 @@ export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
       };
     case TYPES.GET_PRODUCT_DETAIL_SUCCESS:
       return { ...state, productDetail: payload.productDetail.payload };
+
+    case TYPES.GET_TRENDING_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        trendingList: payload.trendingList,
+      };
+    case TYPES.GET_TRENDING_PRODUCTS_RESET:
+      return {
+        ...state,
+        trendingList: [],
+      };
 
     case TYPES.GET_TRENDING_SELLERS_SUCCESS:
       return {

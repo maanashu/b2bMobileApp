@@ -1,14 +1,23 @@
 import {
+  certifiedLogo,
   downleft,
   forward,
+  gownLogo,
   headphones,
   inquiry,
+  jeanLogo,
   loactionPinFilled,
   orderProducts,
   promotions,
   RFQinquiry,
+  shortsLogo,
+  skirtLogo,
   userPhoto,
+  yewiCertified,
   yewiLogo,
+  yiwuJean1,
+  yiwuJean2,
+  yiwuJean3,
 } from "@/assets";
 
 export const transactionHistory = [
@@ -261,4 +270,55 @@ export const topCategoryManufacturer = [
   { id: 2, title: "Men's Fashion" },
   { id: 3, title: "Phones & Telecommunications" },
   { id: 4, title: "Women's Fashion" },
+];
+
+export const CategoryManufacturers = [
+  {
+    id: 1,
+    title: "Jeans",
+    logo: jeanLogo,
+    manufacturersCount: "100+ Manufacturers",
+  },
+  {
+    id: 2,
+    title: "Shorts",
+    logo: shortsLogo,
+    manufacturersCount: "100+ Manufacturers",
+  },
+  {
+    id: 3,
+    title: "Skirts",
+    logo: skirtLogo,
+    manufacturersCount: "100+ Manufacturers",
+  },
+  {
+    id: 3,
+    title: "Gowns",
+    logo: gownLogo,
+    manufacturersCount: "100+ Manufacturers",
+  },
+];
+
+export const CategoryManufacturersProducts = [
+  {
+    id: 1,
+    image: yiwuJean1,
+    orderQauntity: "100+ Orders",
+    certified: certifiedLogo,
+    title: "Argon Denim",
+  },
+  {
+    id: 2,
+    image: yiwuJean2,
+    orderQauntity: "100+ Orders",
+    certified: certifiedLogo,
+    title: "Desh Denim",
+  },
+  {
+    id: 3,
+    image: yiwuJean3,
+    orderQauntity: "100+ Orders",
+    certified: certifiedLogo,
+    title: "Envoy Textile",
+  },
 ];

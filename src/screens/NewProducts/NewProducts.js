@@ -31,6 +31,10 @@ export function NewProducts() {
   const ProductsData = useSelector(getProductSelector);
   const Products = ProductsData?.product;
 
+  const newValue = { name: "All" };
+  splicedArray.unshift(newValue);
+  console.log(splicedArray);
+
   useEffect(() => {
     const Object = {
       page: 1,
@@ -70,7 +74,12 @@ export function NewProducts() {
           alignItems: "center",
         }}
         onPress={() => {
-          getProductsList(item);
+          if (index === 0) {
+            setSelectedId();
+            getAllProducts();
+          } else {
+            getProductsList(item);
+          }
         }}
       >
         <Text
@@ -185,7 +194,7 @@ export function NewProducts() {
 
         <Spacer space={SH(10)} />
         <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={{
               paddingLeft: SW(10),
               alignItems: "center",
@@ -206,7 +215,7 @@ export function NewProducts() {
             >
               All categories
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <FlatList
             showsHorizontalScrollIndicator={false}

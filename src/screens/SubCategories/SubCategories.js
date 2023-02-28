@@ -157,7 +157,6 @@ export function SubCategories(params) {
     setserviceModalisVisible(!serviceModalisVisible);
   };
 
-  console.log("===>>", SUBCATEGORIES?.subCategoryList?.data);
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <Header

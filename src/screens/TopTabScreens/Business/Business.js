@@ -31,7 +31,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
 import { getCategory, getServiceCategory } from "@/actions/CategoryActions";
 import FastImage from "react-native-fast-image";
-import { companies, topCategoryManufacturer } from "@/constants/flatlistData";
+import {
+  CategoryManufacturers,
+  CategoryManufacturersProducts,
+  companies,
+  topCategoryManufacturer,
+} from "@/constants/flatlistData";
 import { renderCompanies } from "@/components/FlatlistStyling";
 import { COLORS } from "@/theme";
 import { useFocusEffect, useIsFocused } from "@react-navigation/native";
@@ -216,6 +221,89 @@ export function Business() {
     </>
   );
 
+  const rendercategoryManufacturers = ({ item, index }) => {
+    return (
+      <>
+        <View style={[styles.productTypesView]}>
+          <View style={styles.rowView}>
+            <View style={styles.logoBackGround}>
+              <Image
+                source={item.logo}
+                resizeMode="contain"
+                style={styles.productLogosIcon}
+              />
+            </View>
+
+            <View
+              style={[
+                styles.rowView,
+                { justifyContent: "space-between", flex: 1 },
+              ]}
+            >
+              <View>
+                <Text style={styles.productCategoriesText}>{item.title}</Text>
+                <Text style={styles.categoryManufacturersText}>
+                  {item.manufacturersCount}
+                </Text>
+              </View>
+
+              <TouchableOpacity style={[styles.rowView, {}]}>
+                <Text style={styles.regularText}>
+                  {strings.business.seeAll}
+                </Text>
+
+                <Image
+                  resizeMode="contain"
+                  source={forward}
+                  style={styles.iconStyle}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <Spacer space={SH(10)} />
+          <FlatList
+            data={CategoryManufacturersProducts}
+            renderItem={renderMAnufacturersProducts}
+            numColumns={3}
+            keyExtractor={(item) => item.id}
+          />
+        </View>
+
+        <Spacer space={SH(20)} />
+      </>
+    );
+  };
+  const renderMAnufacturersProducts = ({ item, index }) => (
+    <>
+      <View style={{ flex: 1, alignItems: "center" }}>
+        <View style={styles.backgroundViewImage}>
+          <Image
+            source={item.image}
+            resizeMode="cover"
+            style={styles.manufacturersProductImages}
+          />
+          <Spacer space={SH(5)} />
+
+          <Text numberOfLines={1} style={styles.productsTitle}>
+            {item.title}
+          </Text>
+
+          <Spacer space={SH(4)} />
+
+          <Image
+            source={item.certified}
+            resizeMode="contain"
+            style={styles.certifeidLogo}
+          />
+
+          <Spacer space={SH(3)} />
+
+          <Text style={styles.regularText}>{item.orderQauntity}</Text>
+        </View>
+      </View>
+    </>
+  );
   return (
     <ScreenWrapper>
       <ScrollView
@@ -365,20 +453,14 @@ export function Business() {
           />
         </View>
 
-        <View style={[styles.productTypesView]}>
-          <View style={styles.rowView}>
-            <View style={styles.logoBackGround}>
-              <Image
-                source={jeanLogo}
-                resizeMode="contain"
-                style={styles.productLogosIcon}
-              />
-            </View>
+        {/* top-category Manufacturers starts below */}
 
-            <Text style={styles.productCategoriesText}>{"Jeans"}</Text>
-          </View>
-          <FlatList />
-        </View>
+        <FlatList
+          data={CategoryManufacturers}
+          renderItem={rendercategoryManufacturers}
+        />
+
+        <Spacer space={SH(20)} />
       </ScrollView>
       {isLoading ? <Loader message="Loading data ..." /> : null}
     </ScreenWrapper>

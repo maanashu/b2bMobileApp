@@ -139,7 +139,7 @@ export const styles = StyleSheet.create({
   productTypesView: {
     paddingVertical: SH(15),
     width: Dimensions.get("window").fullWidth,
-    marginHorizontal: SW(15),
+    marginHorizontal: SW(20),
     backgroundColor: COLORS.placeHolder,
     paddingHorizontal: SW(15),
     borderRadius: SW(10),
@@ -155,6 +155,35 @@ export const styles = StyleSheet.create({
   },
   productCategoriesText: {
     color: COLORS.black,
-    fontSize: SF(16),
+    paddingHorizontal: SW(5),
+    fontSize: SF(14),
+    fontFamily: Fonts.SemiBold,
+  },
+  categoryManufacturersText: {
+    fontFamily: Fonts.Regular,
+    fontSize: SF(11),
+    paddingHorizontal: SW(5),
+    color: COLORS.light_grey,
+  },
+  manufacturersProductImages: {
+    height: SH(70),
+    width: SW(85),
+    borderRadius: SW(8),
+  },
+  backgroundViewImage: {
+    backgroundColor: COLORS.white,
+    paddingVertical: SH(8),
+    paddingHorizontal: SW(6),
+    borderRadius: SW(8),
+  },
+  productsTitle: {
+    fontFamily: Fonts.SemiBold,
+    fontSize: SF(11),
+    paddingHorizontal: SW(5),
+    color: COLORS.darkGrey,
+  },
+  certifeidLogo: {
+    height: SH(12),
+    width: SW(35),
   },
 });

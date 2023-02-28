@@ -45,7 +45,10 @@ import { getUser } from "@/selectors/UserSelectors";
 import { Header } from "./Components/Header";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import { Rating } from "react-native-ratings";
-import { getProductDetail } from "@/actions/ProductActions";
+import {
+  getProductDetail,
+  getTrendingProducts,
+} from "@/actions/ProductActions";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import SwiperFlatList from "react-native-swiper-flatlist";
@@ -74,12 +77,15 @@ export function ProductInquiry(params) {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
   );
-
+  const object = {
+    service_type: "product",
+  };
   // useEffect(() => {
-  //   dispatch(getProductDetail(params?.route?.params?.itemId));
+  //   dispatch(getProductDetail(1));
   // }, []);
   useEffect(() => {
     dispatch(getProductDetail(params?.route?.params?.itemId));
+    dispatch(getTrendingProducts(object));
   }, []);
 
   const renderItem = ({ item }) => (

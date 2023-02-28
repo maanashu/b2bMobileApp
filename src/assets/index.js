@@ -277,6 +277,10 @@ export { default as agentPhoto } from "@/assets/icons/ic_chat/agentPhoto.png";
 export { default as infoBlue } from "@/assets/icons/ic_chat/infoBlue.png";
 export { default as threeDots } from "@/assets/icons/ic_home/threeDots.png";
 export { default as jeanLogo } from "@/assets/icons/ic_business/jeanLogo.png";
+export { default as shortsLogo } from "@/assets/icons/ic_business/shortsLogo.png";
+export { default as gownLogo } from "@/assets/icons/ic_business/gownLogo.png";
+export { default as skirtLogo } from "@/assets/icons/ic_business/skirtLogo.png";
+export { default as certifiedLogo } from "@/assets/icons/ic_business/certifiedLogo.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

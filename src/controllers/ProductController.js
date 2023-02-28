@@ -54,6 +54,28 @@ export class ProductController {
     });
   }
 
+  static async getTrendingProducts(data) {
+    return new Promise((resolve, reject) => {
+      const params = new URLSearchParams(data).toString();
+      const endpoint = `${ApiProductInventory.getTrendingProducts}?${params}`;
+
+      HttpClient.get(endpoint)
+        .then((response) => {
+          console.log("controller success", response);
+          resolve(response);
+        })
+        .catch((error) => {
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
+          reject(error);
+        });
+    });
+  }
+
   static async getTrendingSellers() {
     return new Promise((resolve, reject) => {
       const endpoint = PRODUCT_URL + ApiProductInventory.getTrendingSellers;

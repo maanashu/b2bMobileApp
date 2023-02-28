@@ -18,20 +18,6 @@ const getProductReset = () => ({
   payload: null,
 });
 
-export const getProduct = (data) => async (dispatch) => {
-  dispatch(getProductRequest());
-  try {
-    const res = await ProductController.getProduct(data);
-    dispatch(getProductSuccess(res.payload));
-  } catch (error) {
-    if (error.statusCode === 204) {
-      dispatch(getProductReset());
-    } else {
-      dispatch(getProductError(error.message));
-    }
-  }
-};
-
 const getProductDetailRequest = () => ({
   type: TYPES.GET_PRODUCT_DETAIL_REQUEST,
   payload: null,
@@ -43,6 +29,23 @@ const getProductDetailSuccess = (productDetail) => ({
 const getProductDetailError = (error) => ({
   type: TYPES.GET_PRODUCT_DETAIL_ERROR,
   payload: { error },
+});
+
+const getTrendingProductsRequest = () => ({
+  type: TYPES.GET_TRENDING_PRODUCTS_REQUEST,
+  payload: null,
+});
+const getTrendingProductsSuccess = (trendingList) => ({
+  type: TYPES.GET_TRENDING_PRODUCTS_SUCCESS,
+  payload: { trendingList },
+});
+const getTrendingProductsError = (error) => ({
+  type: TYPES.GET_TRENDING_PRODUCTS_ERROR,
+  payload: { error },
+});
+const getTrendingProductsReset = () => ({
+  type: TYPES.GET_TRENDING_PRODUCTS_RESET,
+  payload: null,
 });
 
 const getTrendingSellersRequest = () => ({
@@ -57,6 +60,19 @@ const getTrendingSellersError = (error) => ({
   type: TYPES.GET_TRENDING_SELLERS_ERROR,
   payload: { error },
 });
+export const getProduct = (data) => async (dispatch) => {
+  dispatch(getProductRequest());
+  try {
+    const res = await ProductController.getProduct(data);
+    dispatch(getProductSuccess(res.payload));
+  } catch (error) {
+    if (error.statusCode === 204) {
+      dispatch(getProductReset());
+    } else {
+      dispatch(getProductError(error.message));
+    }
+  }
+};
 
 export const getProductDetail = (selectedId) => async (dispatch) => {
   dispatch(getProductDetailRequest());
@@ -67,6 +83,24 @@ export const getProductDetail = (selectedId) => async (dispatch) => {
     dispatch(getProductDetailError(error.message));
   }
 };
+
+export const getTrendingProducts = (data) => async (dispatch) => {
+  dispatch(getTrendingProductsRequest());
+
+  try {
+    const res = await ProductController.getTrendingProducts(data);
+    console.log(console.log("action success", JSON.stringify(res)));
+    dispatch(getTrendingProductsSuccess(res.payload));
+  } catch (error) {
+    if (error.statusCode === 204) {
+      console.log("no content in trending products action");
+      dispatch(getTrendingProductsReset());
+    } else {
+      dispatch(getTrendingProductsError(error.message));
+    }
+  }
+};
+
 export const getTrendingSellers = () => async (dispatch) => {
   dispatch(getTrendingSellersRequest());
   try {
