@@ -331,7 +331,7 @@ export function StartOrder() {
               title={strings.startOrder.checkout}
               style={styles.checkoutButton}
               textStyle={styles.checkoutButtonText}
-              onPress={() => navigate(NAVIGATION.delivery)}
+              onPress={() => navigate(NAVIGATION.checkout)}
             />
           </View>
         </View>

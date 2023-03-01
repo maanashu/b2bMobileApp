@@ -167,10 +167,14 @@ export function ProductInquiry(params) {
     );
   };
 
+  // const handleSubmit = () => {
+  //   {
+  //     user ? navigate(NAVIGATION.startOrder) : navigate(NAVIGATION.splash);
+  //   }
+  // };
+
   const handleSubmit = () => {
-    {
-      user ? navigate(NAVIGATION.startOrder) : navigate(NAVIGATION.splash);
-    }
+    navigate(NAVIGATION.startOrder);
   };
 
   return (
@@ -230,7 +234,7 @@ export function ProductInquiry(params) {
             </Text>
 
             {ProductDetail?.productDetail?.product_detail?.bundle_products
-              .length !== 0 && (
+              ?.length !== 0 && (
               <FlatList
                 data={
                   ProductDetail?.productDetail?.product_detail?.bundle_products

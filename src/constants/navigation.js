@@ -82,4 +82,5 @@ export const NAVIGATION = {
   messages: "Messages",
   orders: "Orders",
   brandsProducts: "BrandsProducts",
+  checkout: "Checkout",
 };

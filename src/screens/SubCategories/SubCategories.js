@@ -157,6 +157,10 @@ export function SubCategories(params) {
     setserviceModalisVisible(!serviceModalisVisible);
   };
 
+  // const loadMoreFunction = () => {
+  //   dispatch(getSubCategory(subcategoryObject.page + 1));
+  // };
+
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <Header
@@ -195,6 +199,9 @@ export function SubCategories(params) {
           renderItem={renderSubcategoryItem}
           ListEmptyComponent={renderNoData}
           keyExtractor={(item) => item.id}
+          // renderScrollComponent={loadMoreFunction}
+          // onEndReached={loadMoreFunction}
+          // onEndReachedThreshold={0}
         />
         {isLoading ? <Loader message="Loading data..." /> : null}
       </View>

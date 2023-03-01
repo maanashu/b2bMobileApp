@@ -139,10 +139,10 @@ export const styles = StyleSheet.create({
     width: SW(36),
   },
   emptyImg: {
-    height: SH(40),
+    height: SW(40),
     width: SW(40),
     borderWidth: SH(1),
-    borderRadius: SH(20),
+    borderRadius: SW(20),
     borderColor: COLORS.black,
   },
   subName: {

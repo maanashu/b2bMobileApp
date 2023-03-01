@@ -33,6 +33,7 @@ import {
   BusinessProducts,
   BusinessProfile,
   Chatting,
+  Checkout,
   CompanyInfo,
   ContactUs,
   CookiesPolicy,
@@ -590,6 +591,11 @@ export function AppBottom() {
       <Stack.Screen
         component={MyOrders}
         name={NAVIGATION.myOrders}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={Checkout}
+        name={NAVIGATION.checkout}
         options={{ headerShown: false }}
       />
       <Stack.Screen
