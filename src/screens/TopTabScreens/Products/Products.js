@@ -41,10 +41,13 @@ import { getBannerSelector } from "@/selectors/BannerSelectors";
 import FastImage from "react-native-fast-image";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
-import { Loader } from "@/components/Loader";
 import { renderNoData } from "@/components/FlatlistStyling";
 import { getProduct } from "@/actions/ProductActions";
 import { getProductSelector } from "@/selectors/ProductSelectors";
+import { Loader } from "@/components/Loader";
+import HomeCategorySkeleton, {
+  HomeNewProductsSkeleton,
+} from "@/components/SkeletonContent";
 
 export function Products({ navigation }) {
   const listRef = useRef();
@@ -82,7 +85,12 @@ export function Products({ navigation }) {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_CATEGORY], state)
   );
-
+  const isLoadingProducts = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_PRODUCT], state)
+  );
+  const LoadingData = () => {
+    <>{isLoading ? <Loader message="Loading data ..." /> : null}</>;
+  };
   function dynamicHeight(_index) {
     if (_index % 2 == 0) {
       return SH(275);
@@ -250,16 +258,19 @@ export function Products({ navigation }) {
 
         <View style={{ paddingHorizontal: SW(16) }}>
           <Spacer space={SH(18)} />
-
-          <FlatList
-            columnWrapperStyle={{ justifyContent: "space-between" }}
-            data={categoryData?.categoryList?.data?.slice(0, 8) ?? []}
-            renderItem={renderCategoryItem}
-            keyExtractor={(item) => item.id}
-            extraData={categoryData?.categoryList?.data?.slice(0, 8) ?? []}
-            numColumns={4}
-            ListEmptyComponent={renderNoData}
-          />
+          {isLoading ? (
+            <HomeCategorySkeleton />
+          ) : (
+            <FlatList
+              columnWrapperStyle={{ justifyContent: "space-between" }}
+              data={categoryData?.categoryList?.data?.slice(0, 8) ?? []}
+              renderItem={renderCategoryItem}
+              keyExtractor={(item) => item.id}
+              extraData={categoryData?.categoryList?.data?.slice(0, 8) ?? []}
+              numColumns={4}
+              ListEmptyComponent={LoadingData}
+            />
+          )}
         </View>
 
         <Spacer space={SH(20)} />
@@ -277,43 +288,54 @@ export function Products({ navigation }) {
           />
         </View>
         <Spacer space={SH(20)} />
+        <View>
+          {isLoadingProducts ? (
+            <Loader message="Loading data ..." />
+          ) : (
+            <TouchableOpacity
+              onPress={() => navigate(NAVIGATION.newProducts)}
+              style={styles.ProductView}
+            >
+              <View style={styles.innerView}>
+                <Text style={styles.headingText}>
+                  {strings.products.newProducts}
+                </Text>
+                <View>
+                  <View style={{ flexDirection: "row" }}>
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate(NAVIGATION.newProducts)
+                      }
+                    >
+                      <Text style={styles.smallText}>
+                        {strings.products.seeAll}{" "}
+                      </Text>
+                    </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => navigate(NAVIGATION.newProducts)}
-          style={styles.ProductView}
-        >
-          <View style={styles.innerView}>
-            <Text style={styles.headingText}>
-              {strings.products.newProducts}
-            </Text>
-            <View>
-              <View style={{ flexDirection: "row" }}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate(NAVIGATION.newProducts)}
-                >
-                  <Text style={styles.smallText}>
-                    {strings.products.seeAll}{" "}
-                  </Text>
-                </TouchableOpacity>
-
-                <Image
-                  source={forward}
-                  style={{ height: SH(15), width: SW(15), marginTop: SH(3) }}
-                />
+                    <Image
+                      source={forward}
+                      style={{
+                        height: SH(15),
+                        width: SW(15),
+                        marginTop: SH(3),
+                      }}
+                    />
+                  </View>
+                </View>
               </View>
-            </View>
-          </View>
 
-          <Spacer space={SH(20)} />
+              <Spacer space={SH(20)} />
 
-          <FlatList
-            data={Products?.data}
-            renderItem={secondItem}
-            keyExtractor={(item) => item?.id}
-            ListEmptyComponent={renderNoData}
-            numColumns={3}
-          />
-        </TouchableOpacity>
+              <FlatList
+                data={Products?.data}
+                renderItem={secondItem}
+                keyExtractor={(item) => item?.id}
+                ListEmptyComponent={renderNoData}
+                numColumns={3}
+              />
+            </TouchableOpacity>
+          )}
+        </View>
 
         <Spacer space={SH(20)} />
 

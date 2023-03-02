@@ -81,7 +81,7 @@ export function Home() {
           swipeEnabled={false}
         >
           <Tab.Screen name={NAVIGATION.products} component={Products} />
-          <Tab.Screen name={NAVIGATION.business} component={Business} />
+          <Tab.Screen name={"Services"} component={Business} />
           <Tab.Screen name={NAVIGATION.nearMe} component={NearMe} />
         </Tab.Navigator>
       </View>

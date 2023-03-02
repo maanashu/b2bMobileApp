@@ -33,7 +33,6 @@ export function NewProducts() {
 
   const newValue = { name: "All" };
   splicedArray.unshift(newValue);
-  console.log(splicedArray);
 
   useEffect(() => {
     const Object = {

@@ -29,6 +29,7 @@ import {
   CountSix,
   CountTen,
 } from "./Components/CountButton";
+import { useEffect } from "react";
 export function StartOrder() {
   const [sizeSix, setSizeSix] = useState(0);
   const [sizeSeven, setSizeSeven] = useState(0);
@@ -38,6 +39,8 @@ export function StartOrder() {
   const [sizeNine, setSizeNine] = useState(0);
   const [sizeNineFive, setSizeNineFive] = useState(0);
   const [sizeTen, setSizeTen] = useState(0);
+
+  const [selectedItem, setSelectedItem] = useState("");
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
@@ -53,46 +56,69 @@ export function StartOrder() {
   };
   const ProductDetail = [
     {
-      id: "1",
+      id: 1,
       image: puma1,
     },
     {
-      id: "2",
+      id: 2,
       image: puma2,
     },
     {
-      id: "3",
-      image: puma3,
+      id: 3,
+      image: puma1,
     },
     {
-      id: "4",
+      id: 4,
       image: puma4,
     },
     {
-      id: "5",
+      id: 5,
       image: puma5,
     },
   ];
-  const Item = ({ item, onPress }) => (
-    <TouchableOpacity style={styles.item}>
-      <View
-        style={{
-          flexDirection: "row",
-        }}
-      >
-        <Image resizeMode="contain" source={item.image} style={styles.shoes} />
-      </View>
-    </TouchableOpacity>
-  );
 
-  const renderItem = ({ item }) => {
-    return (
-      <Item
-        item={item}
-        // onPress={() => setSelectedId(item.id)}
-      />
-    );
+  const [SelectedItems, setSelectedItems] = useState(ProductDetail);
+
+  const SelectItem = (item) => {
+    const newItem = SelectedItems.map((val) => {
+      if (val.id === item.id) {
+        return { ...val, selected: !val.selected };
+      } else {
+        return val;
+      }
+    });
+
+    setSelectedItems(newItem);
   };
+
+  const renderItem = ({ item, onPress }) => (
+    <>
+      <TouchableOpacity
+        style={[
+          styles.item,
+          {
+            borderWidth: item.selected ? 1 : 0,
+            padding: SH(2),
+            borderColor: item.selected ? COLORS.primary : COLORS.light_border,
+          },
+        ]}
+        onPress={() => SelectItem(item)}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+          }}
+        >
+          <Image
+            resizeMode="contain"
+            source={item.image}
+            style={styles.shoes}
+          />
+        </View>
+      </TouchableOpacity>
+      <Spacer horizontal space={SH(5)} />
+    </>
+  );
 
   const IncrementSix = () => {
     setSizeSix(sizeSix + 1);
@@ -198,12 +224,11 @@ export function StartOrder() {
           <View>
             <FlatList
               showsVerticalScrollIndicator={false}
-              horizontal={true}
-              data={ProductDetail}
+              data={SelectedItems}
               renderItem={renderItem}
               keyExtractor={(item) => item.id}
               // extraData={product}
-              // numColumns={4}
+              numColumns={5}
             />
           </View>
 

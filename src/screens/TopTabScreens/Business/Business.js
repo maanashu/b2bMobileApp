@@ -22,14 +22,13 @@ import {
   boots,
   threeDots,
   Fonts,
-  jeanLogo,
 } from "@/assets";
 import { NAVIGATION } from "@/constants";
 import { Search } from "@/components/Search";
 import { strings } from "@/localization";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
-import { getCategory, getServiceCategory } from "@/actions/CategoryActions";
+import { getServiceCategory } from "@/actions/CategoryActions";
 import FastImage from "react-native-fast-image";
 import {
   CategoryManufacturers,
@@ -39,7 +38,6 @@ import {
 } from "@/constants/flatlistData";
 import { renderCompanies } from "@/components/FlatlistStyling";
 import { COLORS } from "@/theme";
-import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
@@ -47,8 +45,6 @@ import { Loader } from "@/components/Loader";
 export function Business() {
   const dispatch = useDispatch();
 
-  const [selectedId, setSelectedId] = useState("");
-  const [product, setProduct] = useState("");
   const [manufacturersCategoryId, setmanufacturersCategoryId] = useState(1);
 
   const categoryData = useSelector(getCategorySelector);
@@ -137,8 +133,7 @@ export function Business() {
           <TouchableOpacity
             style={styles.item}
             onPress={() => {
-              console.log("item id", item.id);
-              setSelectedId(item.name);
+              // setSelectedId(item.name);
               navigate(NAVIGATION.subCategories, {
                 idItem: item.id,
                 index: index,
@@ -358,7 +353,7 @@ export function Business() {
               data={secondData}
               renderItem={secondItem}
               keyExtractor={(item) => item.id}
-              extraData={product}
+              extraData={secondData}
               numColumns={3}
             />
           </View>
@@ -396,7 +391,7 @@ export function Business() {
               data={thirdData}
               renderItem={thirdItem}
               keyExtractor={(item) => item.id}
-              extraData={product}
+              extraData={thirdData}
               numColumns={3}
             />
           </View>

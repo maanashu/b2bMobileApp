@@ -63,11 +63,12 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   item: {
-    flexDirection: "row",
+    flex: 1 / 5,
+    borderRadius: SW(2),
   },
   shoes: {
     height: SH(65),
-    width: SW(66.4),
+    width: SW(58),
   },
   counterView: {
     flexDirection: "row",

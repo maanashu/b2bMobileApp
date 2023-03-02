@@ -88,7 +88,6 @@ export const styles = StyleSheet.create({
   },
   categoryTouchableView: {
     paddingLeft: SW(10),
-    height: SH(40),
   },
   rowView: {
     flexDirection: "row",
@@ -124,7 +123,7 @@ export const styles = StyleSheet.create({
   rowCard: {
     flexDirection: "row",
     backgroundColor: COLORS.white,
-    padding: SH(16),
+    padding: SH(15),
     justifyContent: "space-between",
     borderBottomColor: COLORS.input_bg,
     borderBottomWidth: 1,

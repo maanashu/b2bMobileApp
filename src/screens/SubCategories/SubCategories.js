@@ -4,15 +4,10 @@ import { styles } from "./SubCategories.styles";
 import { Header, ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { backArrow, Fonts, Tobacco } from "@/assets";
+import { backArrow, Fonts } from "@/assets";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
-import {
-  getBrands,
-  getCategory,
-  getServiceCategory,
-  getSubCategory,
-} from "@/actions/CategoryActions";
+import { getBrands, getSubCategory } from "@/actions/CategoryActions";
 import FastImage from "react-native-fast-image";
 import Modal from "react-native-modal";
 import { navigate } from "@/navigation/NavigationRef";
@@ -44,23 +39,13 @@ export function SubCategories(params) {
   const categoryData = useSelector(getCategorySelector);
 
   const SUBCATEGORIES = useSelector(getCategorySelector);
-  const [subCategoryArray, setsubCategoryArray] = useState(
-    SUBCATEGORIES?.subCategoryList
-  );
+
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_SUB_CATEGORY], state)
   );
 
   useEffect(() => {
     dispatch(getBrands(1));
-    if (params?.route?.params?.serviceType == "product") {
-      dispatch(getCategory());
-    } else if (params?.route?.params?.serviceType == "business") {
-      dispatch(getServiceCategory());
-    }
-
-    setSelectedId(routeId || categoryData?.categoryList[0]?.id) ||
-      categoryData?.categoryList[0]?.id;
   }, []);
 
   useEffect(() => {
@@ -68,12 +53,13 @@ export function SubCategories(params) {
   }, []);
 
   useEffect(() => {
-    setSelectedId(
-      selectedId ||
-        categoryData?.categoryList[0]?.id ||
-        categoryData?.categoryList[0]?.id
-    );
     dispatch(getSubCategory(subcategoryObject));
+
+    setSelectedId(
+      params?.route?.params?.idItem ||
+        categoryData?.categoryList.data[0]?.id ||
+        categoryData?.serviceCategoryList.data[0]?.id
+    );
   }, []);
 
   const getSubCategoryList = (item) => {
@@ -100,30 +86,43 @@ export function SubCategories(params) {
           getSubCategoryList(item);
         }}
       >
-        <View style={styles.rowView}>
-          <FastImage
-            source={{ uri: item.image }}
-            resizeMode="cover"
-            style={styles.categoryImages}
-          />
-          <Text
-            style={{
-              marginHorizontal: SW(2),
-              fontFamily: item.id === selectedId ? Fonts.Bold : Fonts.Regular,
-              color: item.id === selectedId ? COLORS.primary : COLORS.text,
-            }}
-          >
-            {item.name}
-          </Text>
+        <View
+          style={{
+            borderWidth: item.id === selectedId ? 1 : null,
+            padding: SW(5),
+            borderRadius: SW(30),
+            borderColor:
+              item.id === selectedId ? COLORS.primary : COLORS.light_grey,
+
+            backgroundColor:
+              item.id === selectedId ? COLORS.white : COLORS.input_bg,
+          }}
+        >
+          <View style={styles.rowView}>
+            <FastImage
+              source={{ uri: item.image }}
+              resizeMode="cover"
+              style={styles.categoryImages}
+            />
+            <Text
+              style={{
+                marginHorizontal: SW(2),
+                fontFamily: item.id === selectedId ? Fonts.Bold : Fonts.Regular,
+                color: item.id === selectedId ? COLORS.primary : COLORS.text,
+              }}
+            >
+              {item.name}
+            </Text>
+          </View>
         </View>
         <Spacer space={SH(5)} />
-        <View
+        {/* <View
           style={{
             borderBottomWidth: item.id === selectedId ? 1 : null,
             borderColor: item.id === selectedId && COLORS.primary,
             width: "100%",
           }}
-        ></View>
+        ></View> */}
       </TouchableOpacity>
     </>
   );
@@ -183,8 +182,8 @@ export function SubCategories(params) {
           renderItem={renderCategory}
           keyExtractor={(item) => item.id}
           getItemLayout={(data, index) => ({
-            length: SH(70),
-            offset: SH(70) * index,
+            length: SH(75),
+            offset: SH(85) * index,
             index,
           })}
           ListEmptyComponent={renderNoData}
@@ -192,7 +191,7 @@ export function SubCategories(params) {
         />
       </View>
 
-      <View style={{ paddingHorizontal: SW(20), flex: 1, marginTop: SH(20) }}>
+      <View style={{ paddingHorizontal: SW(5), flex: 1, marginTop: SH(20) }}>
         <FlatList
           showsVerticalScrollIndicator={false}
           data={SUBCATEGORIES?.subCategoryList?.data}

@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
   },
   horizontalView: {
-    height: vs(160),
+    paddingVertical: SH(10),
     width: "100%",
     backgroundColor: COLORS.inputBorder,
     borderRadius: ms(10),
@@ -185,5 +185,10 @@ export const styles = StyleSheet.create({
   certifeidLogo: {
     height: SH(12),
     width: SW(35),
+  },
+  commonFlatlistText: {
+    fontSize: SF(12),
+    color: COLORS.light_grey,
+    fontFamily: Fonts.Regular,
   },
 });
