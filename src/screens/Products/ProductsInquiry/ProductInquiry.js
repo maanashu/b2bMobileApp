@@ -174,7 +174,7 @@ export function ProductInquiry(params) {
   // };
 
   const handleSubmit = () => {
-    navigate(NAVIGATION.startOrder);
+    user ? navigate(NAVIGATION.startOrder) : navigate(NAVIGATION.splash);
   };
 
   return (

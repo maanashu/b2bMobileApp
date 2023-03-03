@@ -11,8 +11,10 @@ import { COLORS, SF, SH } from "@/theme";
 import { Spacer, Button, ScreenWrapper, Logo } from "@/components";
 import { styles } from "@/screens/GetStarted/MobileNumber/MobileNumber.styles";
 import { digits } from "@/Utils/validators";
-import { sendOtp } from "@/actions/UserActions";
-import { useDispatch } from "react-redux";
+import { sendOtp, TYPES } from "@/actions/UserActions";
+import { useDispatch, useSelector } from "react-redux";
+import { Loader } from "@/components/Loader";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 export function MobileNumber(props) {
@@ -30,10 +32,9 @@ export function MobileNumber(props) {
     setPhoneNumber("");
   };
 
-  // const submit = () => {
-  //   // console.log("dispatch action", phoneNumber, countryCode);
-  //   dispatch(sendOtp(phoneNumber, countryCode));
-  // };
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.SEND_OTP], state)
+  );
 
   const submit = () => {
     if (phoneNumber && phoneNumber.length >= 10 && digits.test(phoneNumber)) {
@@ -42,7 +43,7 @@ export function MobileNumber(props) {
       Toast.show({
         position: "bottom",
         type: "error_toast",
-        text2: "strings.validation.phoneLength",
+        text2: strings.validation.phoneLength,
         visibilityTime: 2000,
       });
     } else if (phoneNumber && digits.test(phoneNumber) === false) {
@@ -127,6 +128,8 @@ export function MobileNumber(props) {
         />
       </KeyboardAwareScrollView>
       <Spacer space={SH(30)} />
+
+      {isLoading ? <Loader message="Loading data ..." /> : null}
     </ScreenWrapper>
   );
 }

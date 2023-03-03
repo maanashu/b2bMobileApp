@@ -56,6 +56,10 @@ const getBrandsError = (error) => ({
   type: TYPES.GET_BRANDS_ERROR,
   payload: { error },
 });
+const getBrandsReset = () => ({
+  type: TYPES.GET_BRANDS_RESET,
+  payload: null,
+});
 
 export const getCategory = (data) => async (dispatch) => {
   dispatch(getCategoryRequest());
@@ -97,7 +101,11 @@ export const getBrands = (categoryid) => async (dispatch) => {
     const res = await CategoryController.getBrands(categoryid);
     dispatch(getBrandsSuccess(res));
   } catch (error) {
-    dispatch(getBrandsError(error.message));
+    if (error?.statusCode === 204) {
+      dispatch(getBrandsReset());
+    } else {
+      dispatch(getBrandsError(error.message));
+    }
   }
 };
 // export const getProduct =

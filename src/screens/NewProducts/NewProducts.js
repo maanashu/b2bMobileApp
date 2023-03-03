@@ -82,23 +82,28 @@ export function NewProducts() {
           }
         }}
       >
-        <Text
-          style={{
-            marginHorizontal: SW(1),
-            fontFamily: item.id === selectedId ? Fonts.Bold : Fonts.Regular,
-            color: item.id === selectedId ? COLORS.primary : COLORS.text,
-          }}
-        >
-          {item.name}
-        </Text>
-        <Spacer space={SH(2)} />
         <View
           style={{
-            borderBottomWidth: item.id === selectedId ? 1 : null,
-            borderColor: item.id === selectedId && COLORS.primary,
-            width: "100%",
+            borderWidth: item.id === selectedId ? 1 : null,
+            padding: SW(5),
+            borderRadius: SW(20),
+            borderColor:
+              item.id === selectedId ? COLORS.primary : COLORS.light_grey,
+
+            backgroundColor:
+              item.id === selectedId ? COLORS.white : COLORS.input_bg,
           }}
-        ></View>
+        >
+          <Text
+            style={{
+              marginHorizontal: SW(1),
+              fontFamily: item.id === selectedId ? Fonts.Bold : Fonts.Regular,
+              color: item.id === selectedId ? COLORS.primary : COLORS.text,
+            }}
+          >
+            {item.name}
+          </Text>
+        </View>
       </TouchableOpacity>
     </>
   );
@@ -227,7 +232,9 @@ export function NewProducts() {
         </View>
       </View>
 
-      <View style={{ paddingHorizontal: SW(20), flex: 1 }}>
+      <View
+        style={{ paddingHorizontal: SW(20), flex: 1, paddingVertical: SH(15) }}
+      >
         <FlatList
           showsVerticalScrollIndicator={false}
           data={Products?.data ?? []}

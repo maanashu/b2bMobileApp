@@ -25,7 +25,7 @@ export class BannerController {
             type: "error_toast",
             visibilityTime: 1500,
           });
-          reject(new Error((strings.valiadtion.error = error.msg)));
+          reject(new Error((strings.validation.error = error.msg)));
         });
     });
   }

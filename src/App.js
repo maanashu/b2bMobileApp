@@ -6,8 +6,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "@/store";
 import { RootNavigator } from "@/navigation";
 import { useEffect } from "react";
-import { COLORS } from "./theme";
-import { Fonts } from "./assets";
+import { COLORS, SF, SH, SW } from "./theme";
+import { error, Fonts, success } from "./assets";
 import Toast, { BaseToast } from "react-native-toast-message";
 
 enableScreens();
@@ -16,7 +16,11 @@ const toastConfig = {
   success_toast: ({ text1, text2, ...rest }) => (
     <BaseToast
       {...rest}
-      style={{ borderLeftColor: COLORS.green, zIndex: 999 }}
+      style={{
+        borderLeftColor: COLORS.green,
+        zIndex: 999,
+        borderLeftColor: COLORS.green,
+      }}
       contentContainerstyle={{ paddingHorizontal: SW(15) }}
       leadingIcon={success}
       text2Style={{
@@ -39,7 +43,11 @@ const toastConfig = {
   error_toast: ({ text1, text2, ...rest }) => (
     <BaseToast
       {...rest}
-      style={{ borderLeftColor: COLORS.red, zIndex: 999 }}
+      style={{
+        borderLeftColor: COLORS.red,
+        zIndex: 999,
+        borderLeftColor: COLORS.black,
+      }}
       contentContainerstyle={{ paddingHorizontal: SW(15) }}
       leadingIcon={error}
       text2Style={{
@@ -68,6 +76,7 @@ export function App() {
     <Provider store={store}>
       <PersistGate onBeforeLift={hide} persistor={persistor}>
         <RootNavigator />
+        <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
       </PersistGate>
     </Provider>
   );

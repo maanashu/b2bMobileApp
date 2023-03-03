@@ -105,7 +105,7 @@ export function BrandsProducts(params) {
     // }
   };
 
-  const renderCategory = ({ item, index }) => (
+  const renderBrands = ({ item, index }) => (
     <>
       <TouchableOpacity
         style={styles.categoryTouchableView}
@@ -191,28 +191,35 @@ export function BrandsProducts(params) {
       <View style={styles.upperView}>
         <Spacer space={SH(10)} />
 
-        <FlatList
-          showsHorizontalScrollIndicator={false}
-          horizontal
-          data={brandsData?.brandsList ?? []}
-          renderItem={renderCategory}
-          ListEmptyComponent={renderNoData}
-          keyExtractor={(item) => item.id}
-          // extraData={selectedId}
-        />
+        {isLoadingBrands ? (
+          <ActivityIndicator size="large" color={COLORS.primary} />
+        ) : (
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            data={brandsData?.brandsList ?? []}
+            renderItem={renderBrands}
+            ListEmptyComponent={renderNoData}
+            keyExtractor={(item) => item.id}
+            // extraData={selectedId}
+          />
+        )}
       </View>
 
       <View style={{ paddingHorizontal: SW(20), flex: 1, marginTop: SH(20) }}>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={productsData?.product?.data ?? []}
-          // extraData={productsArray}
-          renderItem={listDetail}
-          ListEmptyComponent={renderNoData}
-          keyExtractor={(item) => item.id}
-          numColumns={2}
-        />
-        {isLoadingProducts ? <Loader /> : null}
+        {isLoadingProducts ? (
+          <ActivityIndicator size="large" color={COLORS.primary} />
+        ) : (
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={productsData?.product?.data ?? []}
+            // extraData={productsArray}
+            renderItem={listDetail}
+            ListEmptyComponent={renderNoData}
+            keyExtractor={(item) => item.id}
+            numColumns={2}
+          />
+        )}
       </View>
     </ScreenWrapper>
   );

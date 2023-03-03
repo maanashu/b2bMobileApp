@@ -1,6 +1,8 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { styles } from "../StartOrder.styles";
+import { Spacer } from "@/components";
+import { SH } from "@/theme";
 
 export function CountSix({ OnPressIncrease, OnPressDecrease, text }) {
   return (
@@ -25,26 +27,29 @@ export function CountSix({ OnPressIncrease, OnPressDecrease, text }) {
   );
 }
 
-export function CountSeven({ OnPressIncrease, OnPressDecrease, text }) {
+export function CountSeven({ OnPressIncrease, size, OnPressDecrease, text }) {
   return (
-    <View style={styles.innerCounterView}>
-      <Text style={styles.shoeNumber}>7</Text>
-      <View style={styles.counterButtonView}>
-        <TouchableOpacity
-          onPress={OnPressDecrease}
-          style={styles.decrementView}
-        >
-          <Text style={styles.decrementButton}>-</Text>
-        </TouchableOpacity>
-        <Text style={styles.selectedNumber}>{text}</Text>
-        <TouchableOpacity
-          onPress={OnPressIncrease}
-          style={styles.incrementView}
-        >
-          <Text style={styles.incrementButton}>+</Text>
-        </TouchableOpacity>
+    <>
+      <View style={styles.innerCounterView}>
+        <Text style={styles.shoeNumber}>{size}</Text>
+        <View style={styles.counterButtonView}>
+          <TouchableOpacity
+            onPress={OnPressDecrease}
+            style={styles.decrementView}
+          >
+            <Text style={styles.decrementButton}>-</Text>
+          </TouchableOpacity>
+          <Text style={styles.selectedNumber}>{text}</Text>
+          <TouchableOpacity
+            onPress={OnPressIncrease}
+            style={styles.incrementView}
+          >
+            <Text style={styles.incrementButton}>+</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+      <Spacer space={SH(20)} />
+    </>
   );
 }
 

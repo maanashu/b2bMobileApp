@@ -2,7 +2,14 @@ import { Fonts, forward, headphones } from "@/assets";
 import { strings } from "@/localization";
 import { COLORS, SF, SH, SW } from "@/theme";
 import React from "react";
-import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 
 const HomeCategorySkeleton = ({}) => (
@@ -10,6 +17,7 @@ const HomeCategorySkeleton = ({}) => (
     style={{
       flex: 1,
       paddingBottom: SH(10),
+      top: SH(5),
     }}
   >
     <SkeletonPlaceholder borderRadius={4}>
@@ -19,13 +27,45 @@ const HomeCategorySkeleton = ({}) => (
           alignItems: "center",
           justifyContent: "space-between",
           paddingHorizontal: SW(15),
-          top: SH(10),
+          top: SH(5),
         }}
       >
-        <SkeletonPlaceholder.Item width={60} height={55} borderRadius={10} />
-        <SkeletonPlaceholder.Item width={60} height={55} borderRadius={10} />
-        <SkeletonPlaceholder.Item width={60} height={55} borderRadius={10} />
-        <SkeletonPlaceholder.Item width={60} height={55} borderRadius={10} />
+        <View style={{ alignItems: "center" }}>
+          <SkeletonPlaceholder.Item width={60} height={55} borderRadius={10} />
+          <SkeletonPlaceholder.Item
+            width={45}
+            height={8}
+            marginTop={5}
+            borderRadius={10}
+          />
+        </View>
+        <View style={{ alignItems: "center" }}>
+          <SkeletonPlaceholder.Item width={60} height={55} borderRadius={10} />
+          <SkeletonPlaceholder.Item
+            width={45}
+            height={8}
+            marginTop={5}
+            borderRadius={10}
+          />
+        </View>
+        <View style={{ alignItems: "center" }}>
+          <SkeletonPlaceholder.Item width={60} height={55} borderRadius={10} />
+          <SkeletonPlaceholder.Item
+            width={45}
+            height={8}
+            marginTop={5}
+            borderRadius={10}
+          />
+        </View>
+        <View style={{ alignItems: "center" }}>
+          <SkeletonPlaceholder.Item width={60} height={55} borderRadius={10} />
+          <SkeletonPlaceholder.Item
+            width={45}
+            height={8}
+            marginTop={5}
+            borderRadius={10}
+          />
+        </View>
       </View>
 
       <View
@@ -34,14 +74,46 @@ const HomeCategorySkeleton = ({}) => (
           alignItems: "center",
           justifyContent: "space-between",
           paddingHorizontal: SW(15),
-          top: SH(8),
+          top: SH(10),
           height: 100,
         }}
       >
-        <SkeletonPlaceholder.Item width={60} height={55} borderRadius={10} />
-        <SkeletonPlaceholder.Item width={60} height={55} borderRadius={10} />
-        <SkeletonPlaceholder.Item width={60} height={55} borderRadius={10} />
-        <SkeletonPlaceholder.Item width={60} height={55} borderRadius={10} />
+        <View style={{ alignItems: "center" }}>
+          <SkeletonPlaceholder.Item width={60} height={55} borderRadius={10} />
+          <SkeletonPlaceholder.Item
+            width={45}
+            height={8}
+            marginTop={5}
+            borderRadius={10}
+          />
+        </View>
+        <View style={{ alignItems: "center" }}>
+          <SkeletonPlaceholder.Item width={60} height={55} borderRadius={10} />
+          <SkeletonPlaceholder.Item
+            width={45}
+            height={8}
+            marginTop={5}
+            borderRadius={10}
+          />
+        </View>
+        <View style={{ alignItems: "center" }}>
+          <SkeletonPlaceholder.Item width={60} height={55} borderRadius={10} />
+          <SkeletonPlaceholder.Item
+            width={45}
+            height={8}
+            marginTop={5}
+            borderRadius={10}
+          />
+        </View>
+        <View style={{ alignItems: "center" }}>
+          <SkeletonPlaceholder.Item width={60} height={55} borderRadius={10} />
+          <SkeletonPlaceholder.Item
+            width={45}
+            height={8}
+            marginTop={5}
+            borderRadius={10}
+          />
+        </View>
       </View>
     </SkeletonPlaceholder>
   </View>
@@ -59,50 +131,35 @@ export const HomeNewProductsSkeleton = ({}) => {
     { id: 3, title: "Apparel", image: headphones },
   ];
 
-  // const renderItem = ({ item }) => (
-  //   <SkeletonPlaceholder>
-  //     <View
-  //       style={{
-  //         borderRadius: 10,
-  //         paddingVertical: SH(10),
-  //         marginHorizontal: SW(20),
-  //         backgroundColor: COLORS.placeholder,
-  //         flex: 1,
-  //         height: SH(180),
-  //         paddingHorizontal: SW(10),
-  //       }}
-  //     >
-  //       <View
-  //         style={{
-  //           flexDirection: "row",
-  //           justifyContent: "space-between",
-  //           marginHorizontal: SW(5),
-  //         }}
-  //       >
-  //         <Text style={styles.headingText}>{strings.products.newProducts}</Text>
-  //         <View>
-  //           <View style={{ flexDirection: "row" }}>
-  //             <TouchableOpacity>
-  //               <Text style={styles.smallText}>{strings.products.seeAll} </Text>
-  //             </TouchableOpacity>
-
-  //             <Image
-  //               source={forward}
-  //               style={{ height: SH(15), width: SW(15), marginTop: SH(3) }}
-  //             />
-  //           </View>
-  //         </View>
-  //       </View>
-  //     </View>
-  //   </SkeletonPlaceholder>
-  // );
+  const renderItem = ({ item }) => (
+    <SkeletonPlaceholder>
+      <View
+        style={{
+          alignItems: "center",
+          flex: 1,
+          marginTop: SH(20),
+        }}
+      >
+        <SkeletonPlaceholder.Item
+          width={100}
+          height={100}
+          borderRadius={10}
+          marginHorizontal={SW(5)}
+        />
+      </View>
+    </SkeletonPlaceholder>
+  );
   return (
     <>
-      <View style={{ paddingHorizontal: SW(20), borderRadius: 20, flex: 1 }}>
-        <SkeletonPlaceholder
-          borderRadius={10}
-          shimmerWidth={"100%"}
-        ></SkeletonPlaceholder>
+      <View
+        style={{
+          paddingHorizontal: SW(20),
+          borderRadius: 20,
+          flex: 1,
+          alignItems: "center",
+        }}
+      >
+        <FlatList data={Data} renderItem={renderItem} numColumns={3} />
       </View>
     </>
   );

@@ -120,7 +120,7 @@ export const styles = StyleSheet.create({
 
   buttonView: {
     justifyContent: "flex-end",
-    flex: 1,
+    paddingHorizontal: 20,
   },
   checkoutButton: {
     backgroundColor: COLORS.activeTab,
@@ -146,6 +146,7 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     flex: 1,
     alignItems: "center",
+    marginBottom: SH(10),
   },
 
   upperView: {

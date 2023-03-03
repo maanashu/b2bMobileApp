@@ -41,6 +41,7 @@ import { COLORS } from "@/theme";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
+import HomeCategorySkeleton from "@/components/SkeletonContent";
 
 export function Business() {
   const dispatch = useDispatch();
@@ -315,16 +316,21 @@ export function Business() {
           <Spacer space={SH(18)} />
 
           {/* Categories Below */}
-          <FlatList
-            columnWrapperStyle={{ justifyContent: "space-between" }}
-            data={categoryData?.serviceCategoryList?.data?.slice(0, 8) ?? []}
-            renderItem={renderCategoryItem}
-            keyExtractor={(item) => item.id}
-            extraData={
-              categoryData?.serviceCategoryList?.data?.slice(0, 8) ?? []
-            }
-            numColumns={4}
-          />
+
+          {isLoading ? (
+            <HomeCategorySkeleton />
+          ) : (
+            <FlatList
+              columnWrapperStyle={{ justifyContent: "space-between" }}
+              data={categoryData?.serviceCategoryList?.data?.slice(0, 8) ?? []}
+              renderItem={renderCategoryItem}
+              keyExtractor={(item) => item.id}
+              extraData={
+                categoryData?.serviceCategoryList?.data?.slice(0, 8) ?? []
+              }
+              numColumns={4}
+            />
+          )}
         </View>
 
         <Spacer space={SH(20)} />

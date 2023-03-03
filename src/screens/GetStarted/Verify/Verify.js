@@ -20,6 +20,7 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { verifyOtp } from "@/actions/UserActions";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
+import { Loader } from "@/components/Loader";
 
 const CELL_COUNT = 5;
 
@@ -122,6 +123,7 @@ export function Verify(params) {
         />
       </KeyboardAwareScrollView>
       <Spacer space={SH(30)} />
+      {isLoading ? <Loader message="Loading data ..." /> : null}
     </ScreenWrapper>
   );
 }

@@ -281,7 +281,8 @@ export { default as shortsLogo } from "@/assets/icons/ic_business/shortsLogo.png
 export { default as gownLogo } from "@/assets/icons/ic_business/gownLogo.png";
 export { default as skirtLogo } from "@/assets/icons/ic_business/skirtLogo.png";
 export { default as certifiedLogo } from "@/assets/icons/ic_business/certifiedLogo.png";
-
+export { default as error } from "@/assets/icons/ic_common/error.png";
+export { default as success } from "@/assets/icons/ic_common/success.png";
 export const Fonts = {
   Bold: "Montserrat-Bold",
   Italic: "Montserrat-Italic",

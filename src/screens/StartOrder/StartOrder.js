@@ -48,7 +48,6 @@ export function StartOrder() {
     { label: "EUR", value: "EUR" },
     { label: "U.K", value: "U.K" },
   ]);
-  console.log("Country Data", items);
 
   const setCountry = () => {
     setValue(items[0].value);
@@ -77,7 +76,58 @@ export function StartOrder() {
     },
   ];
 
+  const Sizes = [
+    { id: 1, item: 6, qty: 0 },
+    { id: 2, item: 7, qty: 0 },
+    { id: 3, item: 7.5, qty: 0 },
+    { id: 4, item: 8, qty: 0 },
+    { id: 5, item: 8.5, qty: 0 },
+    { id: 6, item: 9, qty: 0 },
+    { id: 7, item: 9.5, qty: 0 },
+    { id: 8, item: 10, qty: 0 },
+  ];
+
   const [SelectedItems, setSelectedItems] = useState(ProductDetail);
+  const [SeaProductList, setSerProductArray] = useState(Sizes);
+  const [productArray, setProductArray] = useState(Sizes);
+  const [refresh, setRefresh] = useState();
+  const [data, setData] = useState();
+
+  // useEffect(() => {
+  //   setSerProductArray(Sizes.map((item) => ({ ...item, qty: 0 })) ?? []);
+  //   setTimeout(() => {
+  //     console.log("checking added item", SeaProductList);
+  //   }, 1000);
+  // }, []);
+  const array = [...Sizes];
+
+  const cartPlusOnPress = (index) => {
+    console.log("checking index", index);
+    try {
+      // const array ;
+      array[index].qty = array[index].qty + 1;
+      console.log("array", array[index].qty);
+      setProductArray(array);
+      setRefresh(Math.random());
+      console.log("successs", array);
+    } catch (error) {
+      console.log("caught error on plus: " + error);
+    }
+  };
+
+  const cartMinusOnPress = (index) => {
+    try {
+      // const array = NewArray;
+      array[index].qty =
+        array[index].qty > 0 ? array[index].qty - 1 : array[index].qty;
+      setData(array);
+      setProductArray(array);
+      setRefresh(Math.random());
+      console.log("successs", array);
+    } catch (error) {
+      console.log("caught error on minus: " + error);
+    }
+  };
 
   const SelectItem = (item) => {
     const newItem = SelectedItems.map((val) => {
@@ -120,70 +170,90 @@ export function StartOrder() {
     </>
   );
 
-  const IncrementSix = () => {
-    setSizeSix(sizeSix + 1);
+  // const IncrementSix = () => {
+  //   setSizeSix(sizeSix + 1);
+  // };
+  // const DecrementSix = () => {
+  //   if (sizeSix > 0) {
+  //     setSizeSix(sizeSix - 1);
+  //   }
+  // };
+  // const IncrementSeven = () => {
+  //   setSizeSeven(sizeSeven + 1);
+  // };
+  // const DecrementSeven = () => {
+  //   if (sizeSeven > 0) {
+  //     setSizeSeven(sizeSeven - 1);
+  //   }
+  // };
+  // const IncrementSevenFive = () => {
+  //   SetSizeSevenFive(sizeSevenFive + 1);
+  // };
+  // const DecrementSevenFive = () => {
+  //   if (sizeSevenFive) {
+  //     SetSizeSevenFive(sizeSevenFive - 1);
+  //   }
+  // };
+  // const IncrementEight = () => {
+  //   setSizeEight(sizeEight + 1);
+  // };
+  // const DecrementEight = () => {
+  //   if (sizeEight > 0) {
+  //     setSizeEight(sizeEight - 1);
+  //   }
+  // };
+  // const IncrementEightFive = () => {
+  //   setSizeEightFive(sizeEightFive + 1);
+  // };
+  // const DecrementEightFive = () => {
+  //   if (sizeEightFive > 0) {
+  //     setSizeEightFive(sizeEightFive - 1);
+  //   }
+  // };
+  // const IncrementNine = () => {
+  //   setSizeNine(sizeNine + 1);
+  // };
+  // const DecrementNine = () => {
+  //   if (sizeNine > 0) {
+  //     setSizeNine(sizeNine - 1);
+  //   }
+  // };
+  // const IncrementNineFive = () => {
+  //   setSizeNineFive(sizeNineFive + 1);
+  // };
+  // const DecrementNineFive = () => {
+  //   if (sizeNineFive > 0) {
+  //     setSizeNineFive(sizeNineFive - 1);
+  //   }
+  // };
+  // const IncrementTen = () => {
+  //   setSizeTen(sizeTen + 1);
+  // };
+  // const DecrementTen = () => {
+  //   if (sizeTen > 0) {
+  //     setSizeTen(sizeTen - 1);
+  //   }
+  // };
+
+  const [counterValue, setcounterValue] = useState(0);
+
+  // const handleCounterAction = (type) => {
+  //   let newValue;
+
+  //   if (type === "increment") {
+  //     newValue = setcounterValue(counterValue + 1);
+  //   } else if (type === "decrement") {
+  //     if (counterValue > 0) {
+  //       newValue = setcounterValue(counterValue - 1);
+  //     }
+  //   }
+  //   setcounterValue(newValue);
+  // };
+
+  const CartAddition = () => {
+    let finalArray = [...NewArray];
   };
-  const DecrementSix = () => {
-    if (sizeSix > 0) {
-      setSizeSix(sizeSix - 1);
-    }
-  };
-  const IncrementSeven = () => {
-    setSizeSeven(sizeSeven + 1);
-  };
-  const DecrementSeven = () => {
-    if (sizeSeven > 0) {
-      setSizeSeven(sizeSeven - 1);
-    }
-  };
-  const IncrementSevenFive = () => {
-    SetSizeSevenFive(sizeSevenFive + 1);
-  };
-  const DecrementSevenFive = () => {
-    if (sizeSevenFive) {
-      SetSizeSevenFive(sizeSevenFive - 1);
-    }
-  };
-  const IncrementEight = () => {
-    setSizeEight(sizeEight + 1);
-  };
-  const DecrementEight = () => {
-    if (sizeEight > 0) {
-      setSizeEight(sizeEight - 1);
-    }
-  };
-  const IncrementEightFive = () => {
-    setSizeEightFive(sizeEightFive + 1);
-  };
-  const DecrementEightFive = () => {
-    if (sizeEightFive > 0) {
-      setSizeEightFive(sizeEightFive - 1);
-    }
-  };
-  const IncrementNine = () => {
-    setSizeNine(sizeNine + 1);
-  };
-  const DecrementNine = () => {
-    if (sizeNine > 0) {
-      setSizeNine(sizeNine - 1);
-    }
-  };
-  const IncrementNineFive = () => {
-    setSizeNineFive(sizeNineFive + 1);
-  };
-  const DecrementNineFive = () => {
-    if (sizeNineFive > 0) {
-      setSizeNineFive(sizeNineFive - 1);
-    }
-  };
-  const IncrementTen = () => {
-    setSizeTen(sizeTen + 1);
-  };
-  const DecrementTen = () => {
-    if (sizeTen > 0) {
-      setSizeTen(sizeTen - 1);
-    }
-  };
+
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <View style={styles.header}>
@@ -206,35 +276,38 @@ export function StartOrder() {
           </TouchableOpacity>
         </View>
       </View>
-      <ScrollView style={{ flex: 1 }}>
-        <View style={styles.mainView}>
-          <View style={styles.itemName}>
-            <Text style={styles.itemNameText}>MOQ:10</Text>
-          </View>
+      <View style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1 }}>
+          <View style={styles.mainView}>
+            <View style={styles.itemName}>
+              <Text style={styles.itemNameText}>MOQ:10</Text>
+            </View>
 
-          <Spacer space={SH(16)} />
+            <Spacer space={SH(16)} />
 
-          <View style={styles.headingView}>
-            <Text style={styles.itemColorHeading}>Color :</Text>
-            <Text style={styles.itemFullName}>Puma White</Text>
-          </View>
+            <View style={styles.headingView}>
+              <Text style={styles.itemColorHeading}>Color :</Text>
+              <Text style={styles.itemFullName}>Puma White</Text>
+            </View>
 
-          <Spacer space={SH(20)} />
+            <Spacer space={SH(20)} />
 
-          <View>
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              data={SelectedItems}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id}
-              // extraData={product}
-              numColumns={5}
-            />
-          </View>
+            <View>
+              <FlatList
+                showsVerticalScrollIndicator={false}
+                data={SelectedItems}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id}
+                // extraData={product}
+                numColumns={5}
+              />
+            </View>
 
-          <Spacer space={SH(20)} />
+            <Spacer space={SH(20)} />
 
-          <View style={{ flex: 1 }}>
+            {/* Counter view below */}
+
+            {/* <View style={{ flex: 1 }}>
             <View style={styles.upperView}>
               <View style={styles.subHeadingView}>
                 <View
@@ -347,20 +420,33 @@ export function StartOrder() {
                 text={sizeTen}
               />
             </View>
-          </View>
+          </View> */}
 
-          <Spacer space={SH(20)} />
-
-          <View style={styles.buttonView}>
-            <Button
-              title={strings.startOrder.checkout}
-              style={styles.checkoutButton}
-              textStyle={styles.checkoutButtonText}
-              onPress={() => navigate(NAVIGATION.checkout)}
-            />
+            {Sizes.map((item, index) => {
+              return (
+                <View style={styles.counterView}>
+                  <CountSeven
+                    OnPressDecrease={() => cartMinusOnPress(index)}
+                    OnPressIncrease={() => cartPlusOnPress(index)}
+                    text={item.qty}
+                    size={item.item}
+                  />
+                </View>
+              );
+            })}
+            <Spacer space={SH(20)} />
           </View>
+        </ScrollView>
+        <View style={styles.buttonView}>
+          <Button
+            title={strings.startOrder.checkout}
+            style={styles.checkoutButton}
+            textStyle={styles.checkoutButtonText}
+            onPress={() => navigate(NAVIGATION.checkout)}
+          />
         </View>
-      </ScrollView>
+        <Spacer space={SH(20)} />
+      </View>
     </ScreenWrapper>
   );
 }

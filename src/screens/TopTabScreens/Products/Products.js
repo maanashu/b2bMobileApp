@@ -290,7 +290,8 @@ export function Products({ navigation }) {
         <Spacer space={SH(20)} />
         <View>
           {isLoadingProducts ? (
-            <Loader message="Loading data ..." />
+            // <Loader message="Loading data ..." />
+            <HomeNewProductsSkeleton />
           ) : (
             <TouchableOpacity
               onPress={() => navigate(NAVIGATION.newProducts)}
@@ -327,7 +328,7 @@ export function Products({ navigation }) {
               <Spacer space={SH(20)} />
 
               <FlatList
-                data={Products?.data}
+                data={ProductsData?.product?.data}
                 renderItem={secondItem}
                 keyExtractor={(item) => item?.id}
                 ListEmptyComponent={renderNoData}
