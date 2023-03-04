@@ -10,36 +10,16 @@ import React from "react";
 import { styles } from "./StartOrder.styles";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants/navigation";
-import { cross, puma1, puma2, puma3, puma4, puma5 } from "@/assets";
+import { cross, puma1, puma2, puma4, puma5 } from "@/assets";
 import { Button, ScreenWrapper, Spacer } from "@/components";
-import { SH, SW } from "@/theme/ScalerDimensions";
+import { SH } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { useState } from "react";
-import DropDownPicker from "react-native-dropdown-picker";
 import { goBack } from "@/navigation/NavigationRef";
 import { backArrow } from "@/assets";
 import { strings } from "@/localization";
-import {
-  CountEight,
-  CountEightFive,
-  CountNine,
-  CountNineFive,
-  CountSeven,
-  CountSevenFive,
-  CountSix,
-  CountTen,
-} from "./Components/CountButton";
-import { useEffect } from "react";
+import { CountSeven } from "./Components/CountButton";
 export function StartOrder() {
-  const [sizeSix, setSizeSix] = useState(0);
-  const [sizeSeven, setSizeSeven] = useState(0);
-  const [sizeSevenFive, SetSizeSevenFive] = useState(0);
-  const [sizeEight, setSizeEight] = useState(0);
-  const [sizeEightFive, setSizeEightFive] = useState(0);
-  const [sizeNine, setSizeNine] = useState(0);
-  const [sizeNineFive, setSizeNineFive] = useState(0);
-  const [sizeTen, setSizeTen] = useState(0);
-
   const [selectedItem, setSelectedItem] = useState("");
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -88,10 +68,6 @@ export function StartOrder() {
   ];
 
   const [SelectedItems, setSelectedItems] = useState(ProductDetail);
-  const [SeaProductList, setSerProductArray] = useState(Sizes);
-  const [productArray, setProductArray] = useState(Sizes);
-  const [refresh, setRefresh] = useState();
-  const [data, setData] = useState();
 
   // useEffect(() => {
   //   setSerProductArray(Sizes.map((item) => ({ ...item, qty: 0 })) ?? []);
@@ -99,17 +75,19 @@ export function StartOrder() {
   //     console.log("checking added item", SeaProductList);
   //   }, 1000);
   // }, []);
-  const array = [...Sizes];
 
-  const cartPlusOnPress = (index) => {
-    console.log("checking index", index);
+  const [productArray, setproductArray] = useState(Sizes ?? []);
+  const [setProductArrat, setsetProductArrat] = useState(Sizes ?? []);
+
+  const cartPlusOnPress = (index, item) => {
     try {
-      // const array ;
+      const array = [...productArray];
       array[index].qty = array[index].qty + 1;
-      console.log("array", array[index].qty);
-      setProductArray(array);
-      setRefresh(Math.random());
-      console.log("successs", array);
+      setsetProductArrat(array);
+
+      console.log(
+        "addition success->: " + index + "--->" + productArray[index]?.qty
+      );
     } catch (error) {
       console.log("caught error on plus: " + error);
     }
@@ -117,15 +95,14 @@ export function StartOrder() {
 
   const cartMinusOnPress = (index) => {
     try {
-      // const array = NewArray;
+      const array = [...productArray];
       array[index].qty =
         array[index].qty > 0 ? array[index].qty - 1 : array[index].qty;
-      setData(array);
-      setProductArray(array);
-      setRefresh(Math.random());
-      console.log("successs", array);
+      setsetProductArrat(array);
+
+      console.log("addition success->: " + index + productArray[index]?.qty);
     } catch (error) {
-      console.log("caught error on minus: " + error);
+      console.log("caught error on plus: " + error);
     }
   };
 
@@ -235,23 +212,17 @@ export function StartOrder() {
   //   }
   // };
 
-  const [counterValue, setcounterValue] = useState(0);
-
-  // const handleCounterAction = (type) => {
-  //   let newValue;
-
-  //   if (type === "increment") {
-  //     newValue = setcounterValue(counterValue + 1);
-  //   } else if (type === "decrement") {
-  //     if (counterValue > 0) {
-  //       newValue = setcounterValue(counterValue - 1);
-  //     }
-  //   }
-  //   setcounterValue(newValue);
-  // };
-
-  const CartAddition = () => {
-    let finalArray = [...NewArray];
+  const renderSizes = ({ item, index }) => {
+    return (
+      <View style={styles.counterView}>
+        <CountSeven
+          OnPressDecrease={() => cartMinusOnPress(index)}
+          OnPressIncrease={() => cartPlusOnPress(index)}
+          text={item.qty}
+          size={item.item}
+        />
+      </View>
+    );
   };
 
   return (
@@ -307,133 +278,26 @@ export function StartOrder() {
 
             {/* Counter view below */}
 
-            {/* <View style={{ flex: 1 }}>
-            <View style={styles.upperView}>
-              <View style={styles.subHeadingView}>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    flex: 1,
-                  }}
-                >
-                  <Text style={styles.boldTextHeading}>Size:</Text>
-                  <DropDownPicker
-                    open={open}
-                    value={value}
-                    items={items}
-                    setOpen={setOpen}
-                    setValue={setValue}
-                    setItems={setItems}
-                    placeholder={"Country"}
-                    style={{
-                      borderWidth: 0,
-                      width: SW(100),
-                      backgroundColor: COLORS.white,
-                    }}
-                  />
-                </View>
-
-                <View>
-                  <Text style={styles.boldTextHeading}>
-                    Quantity:<Text style={styles.RegularTextHeading}> USA</Text>
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <Spacer space={SH(50)} />
-
-            <View style={styles.counterView}>
-              <CountSix
-                OnPressDecrease={DecrementSix}
-                OnPressIncrease={IncrementSix}
-                text={sizeSix}
-              />
-            </View>
-
-            <Spacer space={SH(10)} />
-
-            <View style={styles.counterView}>
-              <CountSeven
-                OnPressDecrease={DecrementSeven}
-                OnPressIncrease={IncrementSeven}
-                text={sizeSeven}
-              />
-            </View>
-
-            <Spacer space={SH(10)} />
-
-            <View style={styles.counterView}>
-              <CountSevenFive
-                OnPressDecrease={DecrementSevenFive}
-                OnPressIncrease={IncrementSevenFive}
-                text={sizeSevenFive}
-              />
-            </View>
-
-            <Spacer space={SH(10)} />
-
-            <View style={styles.counterView}>
-              <CountEight
-                OnPressDecrease={DecrementEight}
-                OnPressIncrease={IncrementEight}
-                text={sizeEight}
-              />
-            </View>
-
-            <Spacer space={SH(10)} />
-
-            <View style={styles.counterView}>
-              <CountEightFive
-                OnPressDecrease={DecrementEightFive}
-                OnPressIncrease={IncrementEightFive}
-                text={sizeEightFive}
-              />
-            </View>
-
-            <Spacer space={SH(10)} />
-
-            <View style={styles.counterView}>
-              <CountNine
-                OnPressDecrease={DecrementNine}
-                OnPressIncrease={IncrementNine}
-                text={sizeNine}
-              />
-            </View>
-
-            <Spacer space={SH(10)} />
-
-            <View style={styles.counterView}>
-              <CountNineFive
-                OnPressDecrease={DecrementNineFive}
-                OnPressIncrease={IncrementNineFive}
-                text={sizeNineFive}
-              />
-            </View>
-
-            <Spacer space={SH(10)} />
-
-            <View style={styles.counterView}>
-              <CountTen
-                OnPressDecrease={DecrementTen}
-                OnPressIncrease={IncrementTen}
-                text={sizeTen}
-              />
-            </View>
-          </View> */}
-
-            {Sizes.map((item, index) => {
+            {/* {Sizes.map((item, index) => {
               return (
                 <View style={styles.counterView}>
                   <CountSeven
-                    OnPressDecrease={() => cartMinusOnPress(index)}
+                    OnPressDecrease={() => cartMinusOnPress(item, index)}
                     OnPressIncrease={() => cartPlusOnPress(index)}
-                    text={item.qty}
+                    text={array[index]?.qty}
                     size={item.item}
                   />
                 </View>
               );
-            })}
+            })} */}
+
+            <FlatList
+              data={setProductArrat}
+              renderItem={renderSizes}
+              extraData={productArray}
+              keyExtractor={(item) => item.id}
+            />
+
             <Spacer space={SH(20)} />
           </View>
         </ScrollView>
