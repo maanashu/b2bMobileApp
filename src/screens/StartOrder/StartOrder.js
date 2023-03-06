@@ -23,7 +23,12 @@ import { priceData } from "../Products/ProductsInquiry/FlatlistData";
 import SelectDropdown from "react-native-select-dropdown";
 import { scale } from "react-native-size-matters";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { useIsFocused } from "@react-navigation/native";
+import { useEffect } from "react";
+
 export function StartOrder(params) {
+  const isFocused = useIsFocused();
+
   const [selectedItem, setSelectedItem] = useState("");
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -67,7 +72,7 @@ export function StartOrder(params) {
       item: 6,
       qty: 0,
       image: puma1,
-      size: "US 7.5",
+      size: "US 6",
       price: "6.56",
       itemName: "PUMA Men's Tazon 6 Wide Sneaker",
       color: "Puma White",
@@ -77,7 +82,7 @@ export function StartOrder(params) {
       item: 7,
       qty: 0,
       image: puma2,
-      size: "US 7.5",
+      size: "US 7",
       color: "Puma White",
       price: "6.56",
       itemName: "PUMA Men's Tazon 6 Wide Sneaker",
@@ -97,7 +102,7 @@ export function StartOrder(params) {
       item: 8,
       qty: 0,
       image: puma4,
-      size: "US 7.5",
+      size: "US 8",
       itemName: "PUMA Men's Tazon 6 Wide Sneaker",
       color: "Puma White",
       price: "6.56",
@@ -107,7 +112,7 @@ export function StartOrder(params) {
       item: 8.5,
       qty: 0,
       image: puma5,
-      size: "US 7.5",
+      size: "US 8.5",
       itemName: "PUMA Men's Tazon 6 Wide Sneaker",
       color: "Puma White",
       price: "6.56",
@@ -118,7 +123,7 @@ export function StartOrder(params) {
       qty: 0,
       image: null,
       itemName: "PUMA Men's Tazon 6 Wide Sneaker",
-      size: "US 7.5",
+      size: "US 9",
       color: "Puma White",
       price: "6.56",
     },
@@ -127,7 +132,7 @@ export function StartOrder(params) {
       item: 9.5,
       qty: 0,
       image: null,
-      size: "US 7.5",
+      size: "US 9.5",
       itemName: "PUMA Men's Tazon 6 Wide Sneaker",
       color: "Puma White",
       price: "6.56",
@@ -137,7 +142,7 @@ export function StartOrder(params) {
       item: 10,
       qty: 0,
       image: null,
-      size: "US 7.5",
+      size: "US 10",
       itemName: "PUMA Men's Tazon 6 Wide Sneaker",
       color: "Puma White",
       price: "6.56",
@@ -155,6 +160,8 @@ export function StartOrder(params) {
   const [productArray, setproductArray] = useState(Sizes ?? []);
   const [setProductArrat, setsetProductArrat] = useState(Sizes ?? []);
   const [ArrayToRoute, setArrayToRoute] = useState([]);
+
+  useEffect(() => {}, [isFocused]);
 
   const cartPlusOnPress = (index, item) => {
     try {
@@ -270,7 +277,7 @@ export function StartOrder(params) {
         <View style={styles.headerInnerView}>
           <TouchableOpacity
             style={{ flexDirection: "row", alignItems: "center" }}
-            onPress={() => goBack()}
+            onPress={() => navigate(NAVIGATION.productInquiry)}
           >
             <Image
               resizeMode="contain"

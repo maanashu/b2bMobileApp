@@ -19,7 +19,8 @@ import { getUser as getUserAction } from "@/actions/UserActions";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
 const CELL_COUNT = 4;
 
-export function EnterPin() {
+export function EnterPin(params) {
+  const route = params?.route?.params?.route;
   const dispatch = useDispatch();
   const [value, setValue] = useState("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
@@ -34,7 +35,11 @@ export function EnterPin() {
   useEffect(() => {
     dispatch(getUserAction);
   }, []);
-
+  const navigationHandler = () => {
+    route === "registered"
+      ? navigate(NAVIGATION.startOrder)
+      : navigate(NAVIGATION.reEnterPin);
+  };
   return (
     <ScreenWrapper>
       <View style={styles.headerContainer}>
@@ -79,7 +84,7 @@ export function EnterPin() {
 
       <Spacer space={SH(20)} />
       <Button
-        onPress={() => navigate(NAVIGATION.reEnterPin)}
+        onPress={navigationHandler}
         title={strings.auth.continue}
         textStyle={styles.text}
         style={styles.loginButton}

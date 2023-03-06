@@ -37,7 +37,7 @@ export class UserController {
         .then((response) => {
           if (response?.payload?.is_phone_exits) {
             console.log("User already Registered", response);
-            navigate(NAVIGATION.enterPin);
+            navigate(NAVIGATION.enterPin, { route: "registered" });
           } else {
             console.log("New User", response.payload.id);
             navigate(NAVIGATION.verify, { id: response.payload.id });

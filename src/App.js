@@ -44,7 +44,7 @@ const toastConfig = {
     <BaseToast
       {...rest}
       style={{
-        borderLeftColor: COLORS.red,
+        borderLeftColor: COLORS.pinklight,
         zIndex: 999,
         borderLeftColor: COLORS.black,
       }}
@@ -52,7 +52,7 @@ const toastConfig = {
       leadingIcon={error}
       text2Style={{
         fontSize: SF(14),
-        color: COLORS.red,
+        color: COLORS.black,
         fontFamily: Fonts.SemiBold,
       }}
       text1={text1}

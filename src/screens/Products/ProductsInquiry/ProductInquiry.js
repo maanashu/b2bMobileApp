@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import {
-  ActivityIndicator,
   Dimensions,
   FlatList,
   Image,
@@ -37,11 +36,10 @@ import {
   backArrow,
   bellGrey,
   bagGrey,
-  shoesBusiness,
   image10,
 } from "@/assets";
 import { ms } from "react-native-size-matters";
-import { priceData, CompanyData, ShoesData } from "./FlatlistData";
+import { CompanyData, ShoesData } from "./FlatlistData";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { Header } from "./Components/Header";
@@ -99,7 +97,7 @@ export function ProductInquiry(params) {
           {"USD"}{" "}
           <Text>
             {"$ "}
-            {item.price}
+            {user ? item.price : "$$"}
           </Text>
         </Text>
         <Text style={styles.smallText}>
@@ -170,17 +168,6 @@ export function ProductInquiry(params) {
       </>
     );
   };
-
-  // const handleSubmit = () => {
-  //   {
-  //     user ? navigate(NAVIGATION.startOrder) : navigate(NAVIGATION.splash);
-  //   }
-  // };
-  console.log(
-    "bundle itemsss---->",
-
-    ProductDetail?.productDetail?.product_detail?.bundle_products
-  );
 
   const handleSubmit = () => {
     user

@@ -39,7 +39,7 @@ export function ReEnterPin({ navigation }) {
     // const dummyUserName = "Dummy";
     // const dummyUserPassword = "Dummy";
     // dispatch(login(dummyUserName, dummyUserPassword));
-    navigation.navigate("HomeScreen");
+    navigate(NAVIGATION.startOrder);
   };
 
   return (

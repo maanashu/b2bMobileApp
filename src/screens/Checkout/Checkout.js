@@ -33,7 +33,7 @@ export function Checkout(navigation) {
 
   const route = useRoute();
   const quantity = route?.params?.data;
-  console.log("routedArray", quantity);
+  console.log("checking shoe size", quantity);
 
   const [productArray, setproductArray] = useState(quantity ?? []);
   const [setProductArrat, setsetProductArrat] = useState(quantity ?? []);
@@ -42,12 +42,15 @@ export function Checkout(navigation) {
 
   const totalStore = [];
   useEffect(() => {
-    setProductArrat.reduce((sum, i) => {
-      var sepTotal = i.qty * i.price;
-      totalStore.push(sepTotal);
-    }, 0);
-
-    setstoreTotal(totalStore.reduce((a, b) => a + b, 0));
+    try {
+      setProductArrat.reduce((sum, i) => {
+        var sepTotal = i.qty * i.price;
+        totalStore.push(sepTotal);
+      }, 0);
+      setstoreTotal(totalStore.reduce((a, b) => a + b, 0));
+    } catch (error) {
+      console.log("reduce error", error);
+    }
   }, [setProductArrat]);
 
   const cartPlusOnPress = (index, item) => {
@@ -217,7 +220,7 @@ export function Checkout(navigation) {
             <Text style={{ color: "black" }}> {storeTotal.toFixed(2)}</Text>
           </Text>
 
-          <Spacer space={SH(25)} />
+          <Spacer space={SH(70)} />
         </ScrollView>
 
         <View style={styles.bottomButtonView}>
