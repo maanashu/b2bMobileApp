@@ -123,6 +123,8 @@ export const styles = StyleSheet.create({
   deliveryTime: {
     fontFamily: Fonts.MaisonRegular,
     margin: 1,
+    color: COLORS.light_grey,
+    fontSize: SF(14),
   },
   deliveryName: {
     color: COLORS.black,

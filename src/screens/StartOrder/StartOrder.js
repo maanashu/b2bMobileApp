@@ -10,16 +10,20 @@ import React from "react";
 import { styles } from "./StartOrder.styles";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants/navigation";
-import { cross, puma1, puma2, puma4, puma5 } from "@/assets";
+import { cross, Fonts, puma1, puma2, puma4, puma5 } from "@/assets";
 import { Button, ScreenWrapper, Spacer } from "@/components";
-import { SH } from "@/theme/ScalerDimensions";
+import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { useState } from "react";
 import { goBack } from "@/navigation/NavigationRef";
 import { backArrow } from "@/assets";
 import { strings } from "@/localization";
 import { CountSeven } from "./Components/CountButton";
-export function StartOrder() {
+import { priceData } from "../Products/ProductsInquiry/FlatlistData";
+import SelectDropdown from "react-native-select-dropdown";
+import { scale } from "react-native-size-matters";
+import Icon from "react-native-vector-icons/FontAwesome5";
+export function StartOrder(params) {
   const [selectedItem, setSelectedItem] = useState("");
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -28,6 +32,7 @@ export function StartOrder() {
     { label: "EUR", value: "EUR" },
     { label: "U.K", value: "U.K" },
   ]);
+  const SizeData = ["USA", "UK"];
 
   const setCountry = () => {
     setValue(items[0].value);
@@ -57,18 +62,89 @@ export function StartOrder() {
   ];
 
   const Sizes = [
-    { id: 1, item: 6, qty: 0 },
-    { id: 2, item: 7, qty: 0 },
-    { id: 3, item: 7.5, qty: 0 },
-    { id: 4, item: 8, qty: 0 },
-    { id: 5, item: 8.5, qty: 0 },
-    { id: 6, item: 9, qty: 0 },
-    { id: 7, item: 9.5, qty: 0 },
-    { id: 8, item: 10, qty: 0 },
+    {
+      id: 1,
+      item: 6,
+      qty: 0,
+      image: puma1,
+      size: "US 7.5",
+      price: "6.56",
+      itemName: "PUMA Men's Tazon 6 Wide Sneaker",
+      color: "Puma White",
+    },
+    {
+      id: 2,
+      item: 7,
+      qty: 0,
+      image: puma2,
+      size: "US 7.5",
+      color: "Puma White",
+      price: "6.56",
+      itemName: "PUMA Men's Tazon 6 Wide Sneaker",
+    },
+    {
+      id: 3,
+      item: 7.5,
+      qty: 0,
+      image: puma1,
+      size: "US 7.5",
+      color: "Puma White",
+      price: "6.56",
+      itemName: "PUMA Men's Tazon 6 Wide Sneaker",
+    },
+    {
+      id: 4,
+      item: 8,
+      qty: 0,
+      image: puma4,
+      size: "US 7.5",
+      itemName: "PUMA Men's Tazon 6 Wide Sneaker",
+      color: "Puma White",
+      price: "6.56",
+    },
+    {
+      id: 5,
+      item: 8.5,
+      qty: 0,
+      image: puma5,
+      size: "US 7.5",
+      itemName: "PUMA Men's Tazon 6 Wide Sneaker",
+      color: "Puma White",
+      price: "6.56",
+    },
+    {
+      id: 6,
+      item: 9,
+      qty: 0,
+      image: null,
+      itemName: "PUMA Men's Tazon 6 Wide Sneaker",
+      size: "US 7.5",
+      color: "Puma White",
+      price: "6.56",
+    },
+    {
+      id: 7,
+      item: 9.5,
+      qty: 0,
+      image: null,
+      size: "US 7.5",
+      itemName: "PUMA Men's Tazon 6 Wide Sneaker",
+      color: "Puma White",
+      price: "6.56",
+    },
+    {
+      id: 8,
+      item: 10,
+      qty: 0,
+      image: null,
+      size: "US 7.5",
+      itemName: "PUMA Men's Tazon 6 Wide Sneaker",
+      color: "Puma White",
+      price: "6.56",
+    },
   ];
 
   const [SelectedItems, setSelectedItems] = useState(ProductDetail);
-
   // useEffect(() => {
   //   setSerProductArray(Sizes.map((item) => ({ ...item, qty: 0 })) ?? []);
   //   setTimeout(() => {
@@ -78,15 +154,17 @@ export function StartOrder() {
 
   const [productArray, setproductArray] = useState(Sizes ?? []);
   const [setProductArrat, setsetProductArrat] = useState(Sizes ?? []);
+  const [ArrayToRoute, setArrayToRoute] = useState([]);
 
   const cartPlusOnPress = (index, item) => {
     try {
       const array = [...productArray];
       array[index].qty = array[index].qty + 1;
       setsetProductArrat(array);
-
+      setArrayToRoute(array);
+      console.log("sending item", ArrayToRoute);
       console.log(
-        "addition success->: " + index + "--->" + productArray[index]?.qty
+        "addition success->: " + index + "--->" + setProductArrat[index]?.qty
       );
     } catch (error) {
       console.log("caught error on plus: " + error);
@@ -106,16 +184,20 @@ export function StartOrder() {
     }
   };
 
-  const SelectItem = (item) => {
-    const newItem = SelectedItems.map((val) => {
-      if (val.id === item.id) {
-        return { ...val, selected: !val.selected };
-      } else {
-        return val;
-      }
-    });
+  // const SelectItem = (item) => {
+  //   const newItem = SelectedItems.map((val) => {
+  //     if (val.id === item.id) {
+  //       return { ...val, selected: !val.selected };
+  //     } else {
+  //       return val;
+  //     }
+  //   });
 
-    setSelectedItems(newItem);
+  //   setSelectedItems(newItem);
+  // };
+
+  const SelectItem = (item) => {
+    setSelectedItem(item.id);
   };
 
   const renderItem = ({ item, onPress }) => (
@@ -124,9 +206,10 @@ export function StartOrder() {
         style={[
           styles.item,
           {
-            borderWidth: item.selected ? 1 : 0,
+            borderWidth: item.id == selectedItem ? 1 : 0,
             padding: SH(2),
-            borderColor: item.selected ? COLORS.primary : COLORS.light_border,
+            borderColor:
+              item.id == selectedItem ? COLORS.primary : COLORS.light_border,
           },
         ]}
         onPress={() => SelectItem(item)}
@@ -147,82 +230,38 @@ export function StartOrder() {
     </>
   );
 
-  // const IncrementSix = () => {
-  //   setSizeSix(sizeSix + 1);
-  // };
-  // const DecrementSix = () => {
-  //   if (sizeSix > 0) {
-  //     setSizeSix(sizeSix - 1);
-  //   }
-  // };
-  // const IncrementSeven = () => {
-  //   setSizeSeven(sizeSeven + 1);
-  // };
-  // const DecrementSeven = () => {
-  //   if (sizeSeven > 0) {
-  //     setSizeSeven(sizeSeven - 1);
-  //   }
-  // };
-  // const IncrementSevenFive = () => {
-  //   SetSizeSevenFive(sizeSevenFive + 1);
-  // };
-  // const DecrementSevenFive = () => {
-  //   if (sizeSevenFive) {
-  //     SetSizeSevenFive(sizeSevenFive - 1);
-  //   }
-  // };
-  // const IncrementEight = () => {
-  //   setSizeEight(sizeEight + 1);
-  // };
-  // const DecrementEight = () => {
-  //   if (sizeEight > 0) {
-  //     setSizeEight(sizeEight - 1);
-  //   }
-  // };
-  // const IncrementEightFive = () => {
-  //   setSizeEightFive(sizeEightFive + 1);
-  // };
-  // const DecrementEightFive = () => {
-  //   if (sizeEightFive > 0) {
-  //     setSizeEightFive(sizeEightFive - 1);
-  //   }
-  // };
-  // const IncrementNine = () => {
-  //   setSizeNine(sizeNine + 1);
-  // };
-  // const DecrementNine = () => {
-  //   if (sizeNine > 0) {
-  //     setSizeNine(sizeNine - 1);
-  //   }
-  // };
-  // const IncrementNineFive = () => {
-  //   setSizeNineFive(sizeNineFive + 1);
-  // };
-  // const DecrementNineFive = () => {
-  //   if (sizeNineFive > 0) {
-  //     setSizeNineFive(sizeNineFive - 1);
-  //   }
-  // };
-  // const IncrementTen = () => {
-  //   setSizeTen(sizeTen + 1);
-  // };
-  // const DecrementTen = () => {
-  //   if (sizeTen > 0) {
-  //     setSizeTen(sizeTen - 1);
-  //   }
-  // };
-
   const renderSizes = ({ item, index }) => {
     return (
       <View style={styles.counterView}>
         <CountSeven
-          OnPressDecrease={() => cartMinusOnPress(index)}
-          OnPressIncrease={() => cartPlusOnPress(index)}
+          OnPressDecrease={() => cartMinusOnPress(index, item)}
+          OnPressIncrease={() => cartPlusOnPress(index, item)}
           text={item.qty}
           size={item.item}
         />
       </View>
     );
+  };
+
+  const renderBundle = ({ item }) => (
+    <TouchableOpacity style={[styles.bundleItems, { marginTop: SH(30) }]}>
+      <View style={styles.upperButtons}>
+        <Text style={styles.primaryColorText}>
+          {"USD"}{" "}
+          <Text>
+            {"$$$ "}
+            {/* {item.price} */}
+          </Text>
+        </Text>
+        <Text style={styles.smallText}>
+          {/* {item.qty} */}
+          <Text>{" Pieces"}</Text>
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+  const Checkout = () => {
+    navigate(NAVIGATION.checkout, { data: ArrayToRoute });
   };
 
   return (
@@ -254,6 +293,14 @@ export function StartOrder() {
               <Text style={styles.itemNameText}>MOQ:10</Text>
             </View>
 
+            <Spacer space={SH(1)} />
+
+            <FlatList
+              data={priceData}
+              renderItem={renderBundle}
+              keyExtractor={(item) => item.id}
+              numColumns={3}
+            />
             <Spacer space={SH(16)} />
 
             <View style={styles.headingView}>
@@ -290,14 +337,53 @@ export function StartOrder() {
                 </View>
               );
             })} */}
+            <View style={{ flex: 1 }}>
+              <View style={styles.rowAlign}>
+                <Text style={styles.boldTextHeading}>{"Size :"}</Text>
 
-            <FlatList
-              data={setProductArrat}
-              renderItem={renderSizes}
-              extraData={productArray}
-              keyExtractor={(item) => item.id}
-            />
-
+                <SelectDropdown
+                  defaultValue={SizeData[0]}
+                  buttonTextStyle={{
+                    flex: 1,
+                    alignSelf: "center",
+                    color: COLORS.darkGrey,
+                    fontSize: SF(14),
+                    fontFamily: Fonts.Regular,
+                    backgroundColor: "transparent",
+                  }}
+                  renderDropdownIcon={() => (
+                    <Icon
+                      name={"sort-down"}
+                      color={COLORS.darkGrey}
+                      size={scale(10)}
+                      style={{ alignSelf: "center", paddingRight: 5 }}
+                    />
+                  )}
+                  data={SizeData}
+                  buttonStyle={{
+                    width: SW(80),
+                    alignSelf: "center",
+                    backgroundColor: COLORS.white,
+                  }}
+                  render
+                  onSelect={(selectedItem, index) => {
+                    console.log(selectedItem, index);
+                  }}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return selectedItem;
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return item;
+                  }}
+                />
+              </View>
+              <FlatList
+                data={setProductArrat}
+                renderItem={renderSizes}
+                extraData={productArray}
+                keyExtractor={(item) => item.id}
+              />
+            </View>
             <Spacer space={SH(20)} />
           </View>
         </ScrollView>
@@ -306,7 +392,7 @@ export function StartOrder() {
             title={strings.startOrder.checkout}
             style={styles.checkoutButton}
             textStyle={styles.checkoutButtonText}
-            onPress={() => navigate(NAVIGATION.checkout)}
+            onPress={() => Checkout()}
           />
         </View>
         <Spacer space={SH(20)} />

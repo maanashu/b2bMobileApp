@@ -124,8 +124,9 @@ export const styles = StyleSheet.create({
   },
   checkoutButton: {
     backgroundColor: COLORS.activeTab,
-    borderRadius: 10,
+    borderRadius: 5,
     borderWidth: 0,
+    height: SH(55),
   },
   checkoutButtonText: {
     color: COLORS.white,
@@ -162,5 +163,35 @@ export const styles = StyleSheet.create({
     paddingHorizontal: SW(15),
     marginBottom: SH(-30),
   },
+  bundleItems: {
+    backgroundColor: COLORS.white,
+    borderColor: COLORS.blue,
+    borderRadius: 1,
+    flexDirection: "row",
+    flex: 1,
+    justifyContent: "center",
+    margin: 2,
+    borderRadius: 5,
+    borderWidth: 0.5,
+  },
+  upperButtons: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: SH(50),
+  },
+  primaryColorText: {
+    color: COLORS.primary,
+    fontSize: SF(16),
+    fontFamily: Fonts.SemiBold,
+  },
+  smallText: {
+    color: COLORS.darkGrey2,
+    fontSize: SF(12),
+    fontFamily: Fonts.Regular,
+  },
+  rowAlign: {
+    flexDirection: "row",
+    flex: 1,
+    alignItems: "center",
+  },
 });
-0;

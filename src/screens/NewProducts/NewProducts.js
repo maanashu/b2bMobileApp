@@ -4,7 +4,7 @@ import { styles } from "./NewProducts.style";
 import { ScreenWrapper, Spacer, SubHeader } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { backArrow, Fonts } from "@/assets";
+import { backArrow, Fonts, image10, shoesBusiness } from "@/assets";
 import { strings } from "@/localization";
 import { Header } from "@/components/Header";
 import { useDispatch, useSelector } from "react-redux";
@@ -157,7 +157,7 @@ export function NewProducts() {
         <Spacer space={SH(10)} />
         <View style={{ alignItems: "center" }}>
           <FastImage
-            source={{ uri: item.image }}
+            source={item.image == undefined ? image10 : { uri: item.image }}
             resizeMode="cover"
             style={{
               width: SW(153),

@@ -37,6 +37,8 @@ import {
   backArrow,
   bellGrey,
   bagGrey,
+  shoesBusiness,
+  image10,
 } from "@/assets";
 import { ms } from "react-native-size-matters";
 import { priceData, CompanyData, ShoesData } from "./FlatlistData";
@@ -69,6 +71,8 @@ export function ProductInquiry(params) {
   };
 
   const ProductDetail = useSelector(getProductSelector);
+  const bundleItems =
+    ProductDetail?.productDetail?.product_detail?.bundle_products;
 
   const isLoadingDetails = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
@@ -158,7 +162,7 @@ export function ProductInquiry(params) {
           }}
         >
           <FastImage
-            source={{ uri: item?.image }}
+            source={item?.image == undefined ? image10 : { uri: item?.image }}
             style={styles.storeImg}
             resizeMode="cover"
           />
@@ -172,9 +176,23 @@ export function ProductInquiry(params) {
   //     user ? navigate(NAVIGATION.startOrder) : navigate(NAVIGATION.splash);
   //   }
   // };
+  console.log(
+    "bundle itemsss---->",
+
+    ProductDetail?.productDetail?.product_detail?.bundle_products
+  );
 
   const handleSubmit = () => {
-    user ? navigate(NAVIGATION.startOrder) : navigate(NAVIGATION.splash);
+    user
+      ? navigate(NAVIGATION.startOrder, { bundleItems: bundleItems })
+      : navigate(NAVIGATION.splash);
+  };
+  const SwiperPaginationHandler = () => {
+    if (ProductDetail?.productDetail?.product_detail?.image === null) {
+      return null;
+    } else {
+      return CustomPaginationWithoutText();
+    }
   };
 
   return (
@@ -206,7 +224,7 @@ export function ProductInquiry(params) {
             showPagination
             data={[ProductDetail?.productDetail?.product_detail] ?? []}
             renderItem={renderSliderImages}
-            PaginationComponent={CustomPaginationWithoutText}
+            PaginationComponent={SwiperPaginationHandler}
             paginationActiveColor={COLORS.black}
           />
         </View>
