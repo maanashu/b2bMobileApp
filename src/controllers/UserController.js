@@ -63,7 +63,7 @@ export class UserController {
           if (response.status_code === 200) {
             console.log("api success", response);
 
-            // navigate(NAVIGATION.personalInformation);
+            navigate(NAVIGATION.personalInformation);
           } else {
             console.log("api failed", response);
           }
