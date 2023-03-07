@@ -28,9 +28,9 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     padding: SH(2),
     marginBottom: SH(10),
-    justifyContent: "space-between",
     marginBottom: 4,
     margin: SH(5),
+    flex: 1 / 3,
   },
   title: {
     fontSize: SF(12),
@@ -58,8 +58,7 @@ export const styles = StyleSheet.create({
     paddingVertical: SH(10),
     marginHorizontal: SW(20),
     backgroundColor: COLORS.placeholder,
-    flex: 1,
-    height: SH(180),
+    flex: 1 / 3,
     paddingHorizontal: SW(10),
   },
   innerView: {

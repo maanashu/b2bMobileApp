@@ -24,7 +24,7 @@ export class UserController {
     });
   }
 
-  static async sendOtp(phoneNumber, countryCode, key) {
+  static async sendOtp(phoneNumber, countryCode, flag) {
     return new Promise((resolve, reject) => {
       const endpoint = USER_URL + ApiUserInventory.sendOtp;
 
@@ -62,6 +62,8 @@ export class UserController {
         .then((response) => {
           if (response.status_code === 200) {
             console.log("api success", response);
+
+            // navigate(NAVIGATION.personalInformation);
           } else {
             console.log("api failed", response);
           }

@@ -47,6 +47,14 @@ export const en = {
     emptyEmail: "Please enter email address",
     invalidEmail: "Please enter valid email address",
   },
+  personalInformation: {
+    email: "Enter you email address",
+    userName: "Enter your username",
+    firstName: "Enter your first name",
+    lastName: "Enter your last name",
+    enterPin: "Set your pin",
+    reEnterPin: "Re-enter your pin",
+  },
   buttonText: {
     next: "Next",
     send: "Send",

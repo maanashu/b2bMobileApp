@@ -83,4 +83,5 @@ export const NAVIGATION = {
   orders: "Orders",
   brandsProducts: "BrandsProducts",
   checkout: "Checkout",
+  personalInformation: "PersonalInformation",
 };

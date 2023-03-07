@@ -84,3 +84,4 @@ export { Messages } from "@/screens/Messages/Messages";
 export { Orders } from "@/screens/Orders/Orders";
 export { BrandsProducts } from "@/screens/BrandsProducts/BrandsProducts";
 export { Checkout } from "@/screens/Checkout/Checkout";
+export { PersonalInformation } from "@/screens/GetStarted/PersonalInformation/PersonalInformation";

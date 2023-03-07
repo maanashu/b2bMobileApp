@@ -20,14 +20,9 @@ import {
 import { COLORS } from "@/theme/Colors";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { navigate } from "@/navigation/NavigationRef";
-import { forward, menuDots, roundAll, threeDots } from "@/assets";
+import { forward, threeDots } from "@/assets";
 
-import {
-  LastData,
-  fourthData,
-  thirdData,
-  secondData,
-} from "./Components/FlatlisitData";
+import { LastData, fourthData } from "./Components/FlatlisitData";
 import { ms } from "react-native-size-matters";
 import { NAVIGATION } from "@/constants";
 import { Search } from "@/components/Search";
@@ -48,6 +43,7 @@ import { Loader } from "@/components/Loader";
 import HomeCategorySkeleton, {
   HomeNewProductsSkeleton,
 } from "@/components/SkeletonContent";
+import { getUser } from "@/selectors/UserSelectors";
 
 export function Products({ navigation }) {
   const listRef = useRef();
@@ -57,6 +53,7 @@ export function Products({ navigation }) {
   const ProductsData = useSelector(getProductSelector);
   const Products = ProductsData?.product;
   const [selectedId, setSelectedId] = useState("");
+
   const categoryObject = {
     page: 1,
     limit: 10,
@@ -79,18 +76,29 @@ export function Products({ navigation }) {
       page: 1,
       limit: 10,
     };
+
     dispatch(getProduct(probject));
   };
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_CATEGORY], state)
   );
+
+  // const user = useSelector(getUser);
+  // const phoneDetails = user.phone;
+  // console.log(
+  //   "skvbkbfvkfbea",
+  //   phoneDetails.countryCode + phoneDetails.phoneNumber
+  // );
+
   const isLoadingProducts = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT], state)
   );
+
   const LoadingData = () => {
     <>{isLoading ? <Loader message="Loading data ..." /> : null}</>;
   };
+
   function dynamicHeight(_index) {
     if (_index % 2 == 0) {
       return SH(275);
@@ -173,14 +181,18 @@ export function Products({ navigation }) {
     );
   };
 
-  const secondItem = ({ item, onPress }) => (
-    <View style={styles.itemS}>
-      <Image source={{ uri: item?.image }} style={styles.secondView} />
+  const secondItem = ({ item, onPress, index }) => (
+    <>
+      {index <= 2 && (
+        <View style={styles.itemS}>
+          <Image source={{ uri: item?.image }} style={styles.secondView} />
 
-      <Spacer space={SH(10)} />
+          <Spacer space={SH(10)} />
 
-      <Text style={styles.commonFlatlistText}>{item?.name}</Text>
-    </View>
+          <Text style={styles.commonFlatlistText}>{item?.name}</Text>
+        </View>
+      )}
+    </>
   );
 
   const thirdItem = ({ item, onPress }) => (
@@ -258,6 +270,7 @@ export function Products({ navigation }) {
 
         <View style={{ paddingHorizontal: SW(16) }}>
           <Spacer space={SH(18)} />
+
           {isLoading ? (
             <HomeCategorySkeleton />
           ) : (

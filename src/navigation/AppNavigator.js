@@ -66,6 +66,7 @@ import {
   PastCoupons,
   PastOrders,
   PaymentMethod,
+  PersonalInformation,
   PrivacyPolicy,
   ProductInquiry,
   Profile,
@@ -736,6 +737,11 @@ export function AppBottom() {
       <Stack.Screen
         component={ReEnterPin}
         name={NAVIGATION.reEnterPin}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={PersonalInformation}
+        name={NAVIGATION.personalInformation}
         options={{ headerShown: false }}
       />
 

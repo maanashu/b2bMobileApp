@@ -146,13 +146,16 @@ export const getUser = (data) => async (dispatch) => {
   }
 };
 
-export const sendOtp = (phoneNumber, countryCode) => async (dispatch) => {
+export const sendOtp = (phoneNumber, countryCode, flag) => async (dispatch) => {
   dispatch(sendOtpRequest());
 
   try {
-    dispatch(savePhone({ phoneNumber, countryCode }));
-    const res = await UserController.sendOtp(phoneNumber, countryCode);
+    dispatch(savePhone({ phoneNumber, countryCode, flag }));
+
+    const res = await UserController.sendOtp(phoneNumber, countryCode, flag);
     dispatch(sendOtpSuccess(res));
+    console.log("checking flag " + JSON.stringify(res));
+
     dispatch(saveOtp(res.payload.otp));
   } catch (error) {
     dispatch(sendOtpError(error.message));

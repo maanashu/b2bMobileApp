@@ -38,7 +38,8 @@ export function MobileNumber(props) {
 
   const submit = () => {
     if (phoneNumber && phoneNumber.length >= 10 && digits.test(phoneNumber)) {
-      dispatch(sendOtp(phoneNumber, countryCode, param));
+      console.log("flag------", flag);
+      dispatch(sendOtp(phoneNumber, countryCode, param, flag));
     } else if (phoneNumber && phoneNumber.length < 10) {
       Toast.show({
         position: "bottom",
@@ -50,14 +51,14 @@ export function MobileNumber(props) {
       Toast.show({
         position: "bottom",
         type: "error_toast",
-        text2: "strings.validation.validPhone",
+        text2: strings.validation.validPhone,
         visibilityTime: 2000,
       });
     } else {
       Toast.show({
         position: "bottom",
         type: "error_toast",
-        text2: "strings.validation.enterPhone",
+        text2: strings.validation.enterPhone,
         visibilityTime: 2000,
       });
     }
