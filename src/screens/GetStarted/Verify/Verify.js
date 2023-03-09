@@ -27,7 +27,7 @@ const CELL_COUNT = 5;
 export function Verify(params) {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
-  console.log("skvbkbfvkfbea", user);
+  // console.log("skvbkbfvkfbea", user);
 
   const id = params?.route?.params?.id;
   const [value, setValue] = useState("");

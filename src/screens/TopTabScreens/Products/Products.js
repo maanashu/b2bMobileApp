@@ -385,6 +385,7 @@ export function Products({ navigation }) {
         </View>
 
         <Spacer space={SH(30)} />
+
         <View style={styles.bottomListView}>
           <FlatList
             data={LastData}

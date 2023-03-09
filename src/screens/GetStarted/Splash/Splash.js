@@ -8,8 +8,16 @@ import { strings } from "@/localization";
 import LinearGradient from "react-native-linear-gradient";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
+import { useDispatch } from "react-redux";
+import { logout } from "@/actions/UserActions";
 
 export function Splash() {
+  const dispatch = useDispatch();
+
+  const logoutUser = () => {
+    navigate(NAVIGATION.mobileNumber);
+    // dispatch(logout());
+  };
   return (
     <LinearGradient
       style={styles.container}
@@ -31,7 +39,7 @@ export function Splash() {
         title={strings.splash.register}
         style={styles.register}
         textStyle={styles.textStyle}
-        onPress={() => navigate(NAVIGATION.mobileNumber)}
+        onPress={logoutUser}
       />
       <Spacer space={SH(30)} />
     </LinearGradient>

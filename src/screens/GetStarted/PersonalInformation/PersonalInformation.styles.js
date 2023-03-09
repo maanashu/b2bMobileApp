@@ -78,6 +78,44 @@ export const styles = StyleSheet.create({
     height: SH(48),
     color: COLORS.darkGrey,
   },
+
+  modalView: {
+    width: windowWidth * 0.8,
+    height: SH(266),
+    backgroundColor: COLORS.white,
+    borderRadius: 15,
+    alignSelf: "center",
+    alignItems: "center",
+  },
+  logIn: {
+    width: windowWidth * 0.8,
+    backgroundColor: COLORS.sky,
+    height: SH(46),
+    borderRadius: 0,
+    borderBottomLeftRadius: 15,
+    borderBottomEndRadius: 15,
+    borderColor: COLORS.sky,
+  },
+  done: {
+    fontFamily: Fonts.MaisonMonoBold,
+    color: COLORS.sky,
+    fontSize: SF(24),
+  },
+  youVerified: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.grey,
+    fontSize: SF(14),
+  },
+  newPinSet: {
+    fontFamily: Fonts.MaisonMonoBold,
+    color: COLORS.darkGrey,
+    fontSize: SF(18),
+  },
+  Verified: {
+    width: SW(54),
+    height: SH(54),
+    resizeMode: "contain",
+  },
   googlePlacesTextField: {
     backgroundColor: COLORS.placeholder,
     borderColor: COLORS.transparent,

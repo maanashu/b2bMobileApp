@@ -63,7 +63,7 @@ export class UserController {
           if (response.status_code === 200) {
             console.log("api success", response);
 
-            // navigate(NAVIGATION.personalInformation);
+            navigate(NAVIGATION.personalInformation);
           } else {
             console.log("api failed", response);
           }
@@ -77,29 +77,29 @@ export class UserController {
 
   static async register(data) {
     return new Promise(async (resolve, reject) => {
-      const endpoint = ApiUserInventory.register;
+      const endpoint = USER_URL + ApiUserInventory.userRegister;
       const body = {
         username: data.username,
         firstname: data.firstname,
         lastname: data.lastname,
+        dob: data.dob,
         security_pin: data.pin,
         confirm_security_pin: data.confirmPin,
-        role_id: 7,
         phone_code: data.code,
         phone_no: data.phone,
       };
-      console.log("endpoint====", endpoint);
-      console.log("body====", body);
-      const uniqueId = await DeviceInfo.getUniqueId();
-      HttpClient.post(endpoint, body, {
-        headers: { "device-id": uniqueId },
-      })
+      // console.log("endpoint====", endpoint);
+      // console.log("body====", body);
+      // const uniqueId = await DeviceInfo.getUniqueId();
+      HttpClient.post(endpoint, body)
         .then((response) => {
-          console.log("response====", response);
+          // console.log("response====", response);
           if (response?.status_code === 201) {
-            navigate(NAVIGATION.personalInformation);
+            console.log("reg controller sucess====", response);
+            navigate(NAVIGATION.splash);
             resolve(response);
           } else {
+            console.log("reg controller error====", response?.msg);
             Toast.show({
               text2: response.msg,
               position: "bottom",
@@ -110,7 +110,7 @@ export class UserController {
           return;
         })
         .catch((error) => {
-          console.log("error====", error);
+          console.log("reg error====", error);
           Toast.show({
             text2: error.msg,
             position: "bottom",

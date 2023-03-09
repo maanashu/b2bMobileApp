@@ -180,8 +180,9 @@ export const register = (data) => async (dispatch) => {
   dispatch(registerRequest());
   try {
     const res = await UserController.register(data);
+
     dispatch(registerSuccess(res));
-    dispatch(getUser(res?.payload?.id));
+    // dispatch(getUser(res?.payload?.id));
   } catch (error) {
     dispatch(registerError(error.message));
   }

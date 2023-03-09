@@ -8,6 +8,7 @@ import {
   Verify,
   EnterPin,
   ReEnterPin,
+  PersonalInformation,
 } from "@/screens";
 import { AppNavigator } from "./AppNavigator";
 
@@ -16,7 +17,7 @@ const Stack = createNativeStackNavigator();
 export function AuthNavigator() {
   return (
     <Stack.Navigator initialRouteName="Splash">
-      {/* <Stack.Screen
+      <Stack.Screen
         component={Splash}
         name={NAVIGATION.splash}
         options={{ headerShown: false }}
@@ -47,66 +48,11 @@ export function AuthNavigator() {
         name={NAVIGATION.reEnterPin}
         options={{ headerShown: false }}
       />
-
       <Stack.Screen
-        component={AppNavigator}
-        name={"HomeScreen"}
-        options={{ headerShown: false }}
-      /> */}
-
-      {/* <Stack.Screen
-        component={ProductInquiry}
-        name={NAVIGATION.productInquiry}
+        component={PersonalInformation}
+        name={NAVIGATION.personalInformation}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        component={SendInquiry}
-        name={NAVIGATION.sendInquiry}
-        options={{ headerShown: false }}
-      />
-
-      <Stack.Screen
-        component={StartOrder}
-        name={NAVIGATION.startOrder}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        component={Delivery}
-        name={NAVIGATION.delivery}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        component={ReviewAndPayment}
-        name={NAVIGATION.reviewAndPayment}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        component={AddShippingAddress}
-        name={NAVIGATION.addShippingAddress}
-        options={{ headerShown: false }}
-      />
-
-      <Stack.Screen
-        component={PaymentMethod}
-        name={NAVIGATION.paymentMethod}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        component={AddCreditCard}
-        name={NAVIGATION.addCreditCard}
-        options={{ headerShown: false }}
-      /> */}
-
-      {/* <Stack.Screen
-        component={OnBoarding}
-        name={NAVIGATION.onboarding}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        component={Login}
-        name={NAVIGATION.login}
-        options={{ headerShown: false }}
-      /> */}
     </Stack.Navigator>
   );
 }
