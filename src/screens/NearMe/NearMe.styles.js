@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
   bottomAbsoluteView: {
     position: "absolute",
     flex: 1,
-    marginTop: SH(500),
+    marginTop: SH(450),
     paddingHorizontal: SW(15),
   },
   bottomView: {
@@ -103,7 +103,7 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.text,
     paddingHorizontal: SW(15),
     paddingVertical: SH(5),
-    marginTop: SH(440),
+    marginTop: SH(390),
     alignSelf: "center",
     flexDirection: "row",
     alignItems: "center",
