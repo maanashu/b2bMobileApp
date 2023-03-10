@@ -14,13 +14,15 @@ import { goBack, navigate } from "@/navigation/NavigationRef";
 import { Button, Spacer, ScreenWrapper } from "@/components";
 import { styles } from "@/screens/GetStarted/EnterPin/EnterPin.styles";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser as getUserSelector } from "@/selectors/UserSelectors";
-import { getUser as getUserAction } from "@/actions/UserActions";
-import { getCategorySelector } from "@/selectors/CategorySelectors";
+import { getUser } from "@/selectors/UserSelectors";
+import { login, TYPES } from "@/actions/UserActions";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { Loader } from "@/components/Loader";
 const CELL_COUNT = 4;
 
 export function EnterPin(params) {
   const route = params?.route?.params?.route;
+
   const dispatch = useDispatch();
   const [value, setValue] = useState("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
@@ -29,16 +31,14 @@ export function EnterPin(params) {
     setValue,
   });
 
-  const phoneNumber = useSelector(getUserSelector);
-  console.log("user reducer data" + phoneNumber);
+  const user = useSelector(getUser);
 
-  useEffect(() => {
-    dispatch(getUserAction);
-  }, []);
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.LOGIN], state)
+  );
+
   const navigationHandler = () => {
-    route === "registered"
-      ? navigate(NAVIGATION.startOrder)
-      : navigate(NAVIGATION.reEnterPin);
+    dispatch(login(value, user?.phone?.countryCode, user?.phone?.phoneNumber));
   };
   return (
     <ScreenWrapper>
@@ -90,6 +90,8 @@ export function EnterPin(params) {
         style={styles.loginButton}
       />
       <Spacer space={SH(30)} />
+
+      {isLoading ? <Loader message="Loading data ..." /> : null}
     </ScreenWrapper>
   );
 }

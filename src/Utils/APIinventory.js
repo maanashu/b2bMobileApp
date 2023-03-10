@@ -7,7 +7,8 @@ export const ApiUserInventory = {
   sendOtp: "user_phones/",
   verifyPhone: "user_phones/verify-phone",
   userRegister: "users",
-  login: "login/",
+  login: "users/login/",
+  nearMeSellers: "users/sellers/b2b",
 };
 export const ApiProductInventory = {
   getCategory: `${PRODUCT_URL}categories/b2b`,

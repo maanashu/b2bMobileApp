@@ -332,7 +332,8 @@ export function StartOrder(params) {
 
             {/* Counter view below */}
 
-            {/* {Sizes.map((item, index) => {
+            {/* 
+            {Sizes.map((item, index) => {
               return (
                 <View style={styles.counterView}>
                   <CountSeven

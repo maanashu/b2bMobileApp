@@ -24,10 +24,16 @@ export const TYPES = {
   GET_USER_ERROR: "GET_USER_ERROR",
   GET_USER_SUCCESS: "GET_USER_SUCCESS",
   GET_USER_REQUEST: "GET_USER_REQUEST",
+
   REGISTER: "REGISTER",
   REGISTER_SUCCESS: "REGISTER_SUCCESS",
   REGISTER_ERROR: "REGISTER_ERROR",
   REGISTER_REQUEST: "REGISTER_REQUEST",
+
+  NEAR_ME_SELLERS: "NEAR_ME_SELLERS",
+  NEAR_ME_SELLERS_SUCCESS: "NEAR_ME_SELLERS_SUCCESS",
+  NEAR_ME_SELLERS_ERROR: "NEAR_ME_SELLERS_ERROR",
+  NEAR_ME_SELLERS_REQUEST: "NEAR_ME_SELLERS_REQUEST",
 };
 
 const loginRequest = () => ({
@@ -118,10 +124,25 @@ const getUserError = (error) => ({
   payload: { error },
 });
 
-export const login = (username, password) => async (dispatch) => {
+const nearMeSellersRequest = () => ({
+  type: TYPES.NEAR_ME_SELLERS_REQUEST,
+  payload: null,
+});
+
+const nearMeSellersError = (error) => ({
+  type: TYPES.NEAR_ME_SELLERS_ERROR,
+  payload: { error },
+});
+
+const nearMeSellersSuccess = (nearMeSellers) => ({
+  type: TYPES.NEAR_ME_SELLERS_SUCCESS,
+  payload: { nearMeSellers },
+});
+
+export const login = (value, countryCode, phoneNumber) => async (dispatch) => {
   dispatch(loginRequest());
   try {
-    const user = await UserController.login(username, password);
+    const user = await UserController.login(value, countryCode, phoneNumber);
     dispatch(loginSuccess(user));
   } catch (error) {
     dispatch(loginError(error.message));
@@ -185,5 +206,18 @@ export const register = (data) => async (dispatch) => {
     // dispatch(getUser(res?.payload?.id));
   } catch (error) {
     dispatch(registerError(error.message));
+  }
+};
+
+export const NearMeSellers = (data) => async (dispatch) => {
+  dispatch(nearMeSellersRequest());
+  try {
+    const res = await UserController.verifyOtp(data);
+    dispatch(nearMeSellersSuccess(res));
+    console.log("dispatching resp--->", res);
+  } catch (error) {
+    dispatch(nearMeSellersError(error.message));
+
+    console.log("dispatching error--->", error);
   }
 };

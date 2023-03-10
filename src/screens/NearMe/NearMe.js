@@ -21,6 +21,7 @@ import { Search } from "@/components/Search";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { COLORS, SH, SW } from "@/theme";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
 export function NearMe() {
   const Data = [
@@ -51,26 +52,36 @@ export function NearMe() {
 
   return (
     <ScreenWrapper>
-      <View>
-        <ImageBackground
-          source={nearMeMap}
-          resizeMode="cover"
-          style={{ height: "100%" }}
-        />
-
-        <View style={styles.absoluteView}>
-          <View style={styles.searchRowView}>
-            <Search />
-            <TouchableOpacity style={styles.filterView}>
-              <Text style={styles.filterText}>Filter</Text>
-              <Image
-                source={filter}
-                resizeMode="contain"
-                style={styles.filterIcon}
-              />
-            </TouchableOpacity>
-          </View>
+      <MapView
+        style={{ flex: 1 }}
+        provider={PROVIDER_GOOGLE}
+        initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      />
+      <View
+        style={{
+          flex: 1,
+          position: "absolute",
+          marginTop: SH(20),
+          width: "100%",
+        }}
+      >
+        <View style={styles.searchRowView}>
+          <Search />
+          <TouchableOpacity style={styles.filterView}>
+            <Text style={styles.filterText}>Filter</Text>
+            <Image
+              source={filter}
+              resizeMode="contain"
+              style={styles.filterIcon}
+            />
+          </TouchableOpacity>
         </View>
+
         <TouchableOpacity
           onPress={() => navigate(NAVIGATION.nearMeOptions)}
           style={[styles.middleView]}

@@ -16,7 +16,7 @@ export function Splash() {
 
   const logoutUser = () => {
     navigate(NAVIGATION.mobileNumber);
-    // dispatch(logout());
+    dispatch(logout());
   };
   return (
     <LinearGradient
@@ -32,7 +32,7 @@ export function Splash() {
         title={strings.splash.signIn}
         style={styles.signIn}
         textStyle={styles.signtextStyle}
-        onPress={() => navigate(NAVIGATION.mobileNumber)}
+        onPress={logoutUser}
       />
       <Spacer space={SH(10)} />
       <Button

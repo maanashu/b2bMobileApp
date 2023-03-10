@@ -6,15 +6,29 @@ import Toast from "react-native-toast-message";
 import { HttpClient } from "./HttpClient";
 
 export class UserController {
-  static async login(username, password) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (username && password) {
-          resolve({ username });
-        } else {
-          reject(new Error(strings.login.invalidCredentials));
-        }
-      }, 500);
+  static async login(value, countryCode, phoneNumber) {
+    return new Promise(async (resolve, reject) => {
+      const endpoint = USER_URL + ApiUserInventory.login;
+      const body = {
+        phone_code: countryCode,
+        phone_number: phoneNumber,
+        password: value,
+      };
+      // const uniqueId = await DeviceInfo.getUniqueId();
+      HttpClient.post(endpoint, body)
+        .then((response) => {
+          navigate(NAVIGATION.startOrder);
+          resolve(response);
+        })
+        .catch((error) => {
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 2000,
+          });
+          reject(new Error((strings.login.loginError = error.msg)));
+        });
     });
   }
 
@@ -118,6 +132,27 @@ export class UserController {
             visibilityTime: 1500,
           });
           reject(new Error((strings.verify.error = error.msg)));
+        });
+    });
+  }
+
+  static async getNearSellers(data) {
+    return new Promise((resolve, reject) => {
+      const params = new URLSearchParams(data).toString();
+      const endpoint = `${ApiUserInventory.nearMeSellers}?${params}`;
+      HttpClient.get(endpoint)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+          // Toast.show({
+          //   text2: error.msg,
+          //   position: "bottom",
+          //   type: "error_toast",
+          //   visibilityTime: 1500,
+          // });
+          // reject(new Error((strings.validation.error = error.msg)));
         });
     });
   }
