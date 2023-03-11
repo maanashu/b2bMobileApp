@@ -1,6 +1,6 @@
 import { SH, SW, SF, COLORS, ShadowStyles } from "@/theme";
 import { Fonts } from "@/assets";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
   bottomAbsoluteView: {
     position: "absolute",
     flex: 1,
-    marginTop: SH(450),
+    marginTop: Platform.OS == "ios" ? SH(450) : SH(490),
     paddingHorizontal: SW(15),
   },
   bottomView: {
@@ -103,7 +103,7 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.text,
     paddingHorizontal: SW(15),
     paddingVertical: SH(5),
-    marginTop: SH(390),
+    marginTop: Platform.OS == "ios" ? SH(390) : SH(430),
     alignSelf: "center",
     flexDirection: "row",
     alignItems: "center",

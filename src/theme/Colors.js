@@ -38,4 +38,6 @@ export const COLORS = {
   backgroundGrey: "#E1E3E4",
   rose: "#D33300",
   light_peach: "#CCD2E3",
+  bright_blue: "#3498DB",
+  persian_green: "#00ADA7",
 };

@@ -47,6 +47,7 @@ export function PersonalInformation(props) {
   const [email, setEmail] = useState("");
   const [stateCode, setStateCode] = useState("");
   const [countryCode, setCountryCode] = useState("");
+
   const ref = useRef(null);
 
   useEffect(() => {
