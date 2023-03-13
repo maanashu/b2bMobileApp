@@ -139,13 +139,15 @@ export class UserController {
   static async getNearSellers(data) {
     return new Promise((resolve, reject) => {
       const params = new URLSearchParams(data).toString();
-      const endpoint = `${ApiUserInventory.nearMeSellers}?${params}`;
+      const endpoint = `${USER_URL}${ApiUserInventory.nearMeSellers}?${params}`;
+      console.log("checking endpoint: " + endpoint);
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
         })
         .catch((error) => {
           reject(error);
+          console.log("error in controller", error);
           // Toast.show({
           //   text2: error.msg,
           //   position: "bottom",

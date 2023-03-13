@@ -20,6 +20,7 @@ const INITIALSTATE = {
   walletProfile: {},
   requestKyc: {},
   checkKyc: {},
+  nearMeSellers: {},
 };
 
 export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -70,6 +71,12 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         getuser: payload.getuser,
+      };
+
+    case TYPES.NEAR_ME_SELLERS:
+      return {
+        ...state,
+        nearMeSellers: payload.nearMeSellers,
       };
   }
 };

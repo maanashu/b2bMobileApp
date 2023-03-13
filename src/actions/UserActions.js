@@ -212,12 +212,12 @@ export const register = (data) => async (dispatch) => {
 export const NearMeSellers = (data) => async (dispatch) => {
   dispatch(nearMeSellersRequest());
   try {
-    const res = await UserController.verifyOtp(data);
+    const res = await UserController.getNearSellers(data);
     dispatch(nearMeSellersSuccess(res));
-    console.log("dispatching resp--->", res);
+    console.log("action success--->", res);
   } catch (error) {
     dispatch(nearMeSellersError(error.message));
 
-    console.log("dispatching error--->", error);
+    console.log("action error--->", error);
   }
 };
