@@ -19,12 +19,18 @@ import {
   shopLight,
   wareHouseLogo,
   search,
+  pinPointMap,
 } from "@/assets";
 import { Search } from "@/components/Search";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { COLORS, SH, SW } from "@/theme";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, {
+  Callout,
+  CalloutSubview,
+  Marker,
+  PROVIDER_GOOGLE,
+} from "react-native-maps";
 import { useIsFocused } from "@react-navigation/native";
 import { useRef } from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
@@ -42,7 +48,9 @@ export function NearMe() {
   const googlePlacesRef = useRef(null);
 
   const sellers = useSelector(getUser);
-  console.log("reducer--", sellers);
+
+  const store = sellers?.nearMeSellers;
+  console.log("reducer", JSON.stringify(store));
 
   const Data = [
     { id: 1, icon: manufactureLogo, title: "Manufacturers", count: "18" },
@@ -55,11 +63,6 @@ export function NearMe() {
   const [initialLongitude, setinitialLongitude] = useState(Longitude);
   const [intialLatitude, setintialLatitude] = useState(Latitude);
 
-  useEffect(() => {
-    console.log("lat--->" + intialLatitude + "long-->", initialLongitude);
-  }, [initialLongitude, intialLatitude, isFocus]);
-  const [region, setRegion] = useState();
-
   const defaultRegion = {
     latitude: 59.9139,
     longitude: 10.7522,
@@ -68,8 +71,8 @@ export function NearMe() {
   };
 
   const newLocation = {
-    latitude: Latitude,
-    longitude: Longitude,
+    latitude: 30.7333,
+    longitude: 76.7794,
     latitudeDelta: 0.0922 / 1,
     longitudeDelta: 0.0521 / 1,
   };
@@ -135,7 +138,21 @@ export function NearMe() {
           latitudeDelta: 0.0922 / 1,
           longitudeDelta: 0.0521 / 1,
         }}
-      />
+      >
+        {store?.map((val, index) => {
+          return (
+            <Marker
+              coordinate={{
+                latitude: val?.user_locations[0]?.latitude,
+                longitude: val?.user_locations[0]?.longitude,
+              }}
+              pinColor={"red"} // any color
+              title={val?.user_profiles?.username}
+              // description={"description"}
+            />
+          );
+        })}
+      </MapView>
 
       <View
         style={{
@@ -175,7 +192,8 @@ export function NearMe() {
                 // components: "country:ca",
               }}
               textInputProps={{
-                InputComp: TextInput,
+                placeholderTextColor: COLORS.secondary,
+                returnKeyType: "search",
               }}
               onPress={(data, details) => {
                 setintialLatitude(details?.geometry?.location?.lat);
@@ -203,6 +221,21 @@ export function NearMe() {
                   color: COLORS.light_blue,
                 },
               }}
+              renderRightButton={() => (
+                <TouchableOpacity
+                  onPress={() => googlePlacesRef.current.clear()}
+                  style={styles.searchButtonView}
+                >
+                  <Text
+                    style={[
+                      styles.searchIcon,
+                      { top: SH(3), color: COLORS.secondary },
+                    ]}
+                  >
+                    X
+                  </Text>
+                </TouchableOpacity>
+              )}
             />
           </View>
 

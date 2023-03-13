@@ -214,10 +214,7 @@ export const NearMeSellers = (data) => async (dispatch) => {
   try {
     const res = await UserController.getNearSellers(data);
     dispatch(nearMeSellersSuccess(res));
-    console.log("action success--->", res);
   } catch (error) {
     dispatch(nearMeSellersError(error.message));
-
-    console.log("action error--->", error);
   }
 };
