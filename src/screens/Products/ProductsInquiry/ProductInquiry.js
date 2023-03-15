@@ -63,6 +63,7 @@ export function ProductInquiry(params) {
   const [favourite, setFavourite] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector(getUser);
+  const token = user?.user?.payload?.token;
 
   const colorChange = () => {
     setFavourite(!favourite);
@@ -97,7 +98,7 @@ export function ProductInquiry(params) {
           {"USD"}{" "}
           <Text>
             {"$ "}
-            {user ? item.price : "$$"}
+            {token ? item.price : "$$"}
           </Text>
         </Text>
         <Text style={styles.smallText}>
@@ -170,7 +171,7 @@ export function ProductInquiry(params) {
   };
 
   const handleSubmit = () => {
-    user
+    token
       ? navigate(NAVIGATION.startOrder, { bundleItems: bundleItems })
       : navigate(NAVIGATION.splash);
   };

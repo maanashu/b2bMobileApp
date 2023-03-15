@@ -126,6 +126,9 @@ export function Profile() {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
 
+  // console.log("token check-->", user?.user?.payload?.token);
+  const token = user?.user?.payload?.token;
+
   const logoutUser = () => {
     dispatch(logout());
   };
@@ -264,7 +267,7 @@ export function Profile() {
 
         <Spacer space={SH(30)} />
 
-        {user && (
+        {token && (
           <Button
             title={strings.profile.logout}
             onPress={logoutUser}
