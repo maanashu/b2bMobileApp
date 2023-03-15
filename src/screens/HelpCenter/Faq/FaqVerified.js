@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { View, Text, ScrollView, FlatList } from "react-native";
+import React from "react";
+import { View, Text, ScrollView } from "react-native";
 import { Spacer, ScreenWrapper, Button } from "@/components";
 import { styles } from "./Faq.styles";
 import { COLORS, SH, SW } from "@/theme";
@@ -11,11 +11,6 @@ import { NAVIGATION } from "@/constants";
 
 export function FaqVerified(props) {
   const RouteData = props?.route?.params?.data;
-
-  useEffect(() => {
-    console.log(RouteData?.answer, "data");
-  });
-
   return (
     <ScreenWrapper>
       <HeaderCoin title={RouteData?.question} back={backArrow} amount={0} />

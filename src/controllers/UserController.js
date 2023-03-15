@@ -2,9 +2,9 @@ import { NAVIGATION } from "@/constants";
 import { strings } from "@/localization";
 import { navigate } from "@/navigation/NavigationRef";
 import { ApiUserInventory, USER_URL } from "@/Utils/APIinventory";
+import DeviceInfo from "react-native-device-info";
 import Toast from "react-native-toast-message";
 import { HttpClient } from "./HttpClient";
-
 export class UserController {
   static async login(value, countryCode, phoneNumber) {
     return new Promise(async (resolve, reject) => {
@@ -15,7 +15,10 @@ export class UserController {
         password: value,
       };
       // const uniqueId = await DeviceInfo.getUniqueId();
-      HttpClient.post(endpoint, body)
+      const uniqueId = await DeviceInfo.getUniqueId();
+      HttpClient.post(endpoint, body, {
+        headers: { "device-id": uniqueId },
+      })
         .then((response) => {
           navigate(NAVIGATION.startOrder);
           resolve(response);
@@ -51,7 +54,7 @@ export class UserController {
         .then((response) => {
           if (response?.payload?.is_phone_exits) {
             console.log("User already Registered", response);
-            navigate(NAVIGATION.enterPin, { route: "registered" });
+            navigate(NAVIGATION.loginMethod, { route: "registered" });
           } else {
             console.log("New User", response.payload.id);
             navigate(NAVIGATION.verify, { id: response.payload.id });
@@ -105,7 +108,10 @@ export class UserController {
       // console.log("endpoint====", endpoint);
       // console.log("body====", body);
       // const uniqueId = await DeviceInfo.getUniqueId();
-      HttpClient.post(endpoint, body)
+      const uniqueId = await DeviceInfo.getUniqueId();
+      HttpClient.post(endpoint, body, {
+        headers: { "device-id": uniqueId },
+      })
         .then((response) => {
           // console.log("response====", response);
           if (response?.status_code === 201) {
@@ -132,6 +138,32 @@ export class UserController {
             visibilityTime: 1500,
           });
           reject(new Error((strings.verify.error = error.msg)));
+        });
+    });
+  }
+
+  static async deviceLogin() {
+    return new Promise(async (resolve, reject) => {
+      const endpoint = USER_URL + ApiUserInventory.deviceLogin;
+      const uniqueId = await DeviceInfo.getUniqueId();
+      const body = {
+        device: uniqueId,
+      };
+      HttpClient.post(endpoint, body)
+        .then((response) => {
+          resolve(response);
+          navigate(NAVIGATION.startOrder);
+        })
+        .catch((error) => {
+          console.log("controller error", error);
+
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 2000,
+          });
+          reject(new Error(error.msg));
         });
     });
   }

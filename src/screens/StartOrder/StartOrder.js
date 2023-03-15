@@ -1,4 +1,5 @@
 import {
+  BackHandler,
   FlatList,
   Image,
   ScrollView,
@@ -23,7 +24,7 @@ import { priceData } from "../Products/ProductsInquiry/FlatlistData";
 import SelectDropdown from "react-native-select-dropdown";
 import { scale } from "react-native-size-matters";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { useIsFocused } from "@react-navigation/native";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import { useEffect } from "react";
 
 export function StartOrder(params) {
@@ -271,6 +272,17 @@ export function StartOrder(params) {
     navigate(NAVIGATION.checkout, { data: ArrayToRoute });
   };
 
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        navigate(NAVIGATION.productInquiry);
+        return true;
+      };
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
+      return () =>
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, [])
+  );
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <View style={styles.header}>

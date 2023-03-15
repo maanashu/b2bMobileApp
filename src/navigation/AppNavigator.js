@@ -50,6 +50,7 @@ import {
   Inquiries,
   JbrWallet,
   Login,
+  LoginMethod,
   MakeAnOffer,
   Manufacturers,
   Messages,
@@ -742,6 +743,11 @@ export function AppBottom() {
       <Stack.Screen
         component={PersonalInformation}
         name={NAVIGATION.personalInformation}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={LoginMethod}
+        name={NAVIGATION.loginMethod}
         options={{ headerShown: false }}
       />
 

@@ -175,7 +175,6 @@ export const sendOtp = (phoneNumber, countryCode, flag) => async (dispatch) => {
 
     const res = await UserController.sendOtp(phoneNumber, countryCode, flag);
     dispatch(sendOtpSuccess(res));
-    console.log("checking flag " + JSON.stringify(res));
 
     dispatch(saveOtp(res.payload.otp));
   } catch (error) {
@@ -206,6 +205,19 @@ export const register = (data) => async (dispatch) => {
     // dispatch(getUser(res?.payload?.id));
   } catch (error) {
     dispatch(registerError(error.message));
+  }
+};
+
+export const deviceLogin = () => async (dispatch) => {
+  dispatch(loginRequest());
+  try {
+    const res = await UserController.deviceLogin();
+    dispatch(loginSuccess(res));
+    dispatch(getUser(res?.payload?.id));
+    console.log("action success-->", res);
+  } catch (error) {
+    console.log("action error-->", error);
+    dispatch(loginError(error.message));
   }
 };
 

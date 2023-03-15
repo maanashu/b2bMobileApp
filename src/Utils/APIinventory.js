@@ -10,6 +10,7 @@ export const ApiUserInventory = {
   userRegister: "users",
   login: "users/login/",
   nearMeSellers: "users/sellers/b2b",
+  deviceLogin: "users/login/device",
 };
 
 export const SupportInventory = {

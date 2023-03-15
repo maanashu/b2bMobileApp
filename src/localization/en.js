@@ -89,6 +89,8 @@ export const en = {
     password: "Password",
     passwordHint: "Enter your password",
     invalidCredentials: "Invalid Username/Password",
+    scanbutton: "Login with biometrics",
+    pinbutton: "Login with pin",
   },
   profile: {
     header: "Profile",

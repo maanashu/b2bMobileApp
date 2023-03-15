@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet, Dimensions, Platform } from "react-native";
 import { Fonts } from "@/assets";
 import { COLORS, SF, SH, SW, ShadowStyles } from "@/theme";
 import { verticalScale, moderateScale, scale } from "react-native-size-matters";
