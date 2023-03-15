@@ -288,6 +288,7 @@ export function StartOrder(params) {
               {strings.startOrder.startOrder}
             </Text>
           </TouchableOpacity>
+
           <TouchableOpacity>
             <Image source={cross} style={styles.crossIcon} />
           </TouchableOpacity>
@@ -311,8 +312,8 @@ export function StartOrder(params) {
             <Spacer space={SH(16)} />
 
             <View style={styles.headingView}>
-              <Text style={styles.itemColorHeading}>Color :</Text>
-              <Text style={styles.itemFullName}>Puma White</Text>
+              <Text style={styles.itemColorHeading}>{"Color :"}</Text>
+              <Text style={styles.itemFullName}>{"Puma White"}</Text>
             </View>
 
             <Spacer space={SH(20)} />

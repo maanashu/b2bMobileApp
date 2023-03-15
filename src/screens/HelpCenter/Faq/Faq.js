@@ -5,66 +5,42 @@ import { styles } from "./Faq.styles";
 import { SH } from "@/theme";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
-import {
-  mask,
-  doubledEmail,
-  account,
-  bag,
-  issue,
-  forward,
-  backArrow,
-} from "@/assets";
+import { forward, backArrow } from "@/assets";
 import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
-
-const helpTypeData = [
-  {
-    title: "Update account information",
-    id: 1,
-    img: forward,
-  },
-  {
-    title: "How to get verified ?",
-    id: 2,
-    img: forward,
-  },
-  {
-    title: "SMS verification not received",
-    id: 3,
-    img: forward,
-  },
-  {
-    title: "Delete my account",
-    id: 4,
-    img: forward,
-  },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { faq } from "@/actions/SupportAction";
+import { SupportSelector } from "@/selectors/SupportSelectors";
 
 export function Faq(props) {
+  const dispatch = useDispatch();
+  const faqData = useSelector(SupportSelector);
+  const Faq = faqData?.faqs;
+
+  const Body = {
+    page: 1,
+    limit: 10,
+  };
+
   useEffect(() => {
-    console.log(props.route.params.data, "data");
-  });
-  const navigationHandler = (item) => {
-    if (item.title === "How to get verified ?") {
-      navigate(NAVIGATION.faqVerified, { data: item.title });
-    } else if (item.title === "Update account information") {
-      navigate(NAVIGATION.faqVerified, { data: item.title });
-    } else if (item.title === "My account") {
-      alert("My account");
-    } else if (item.title === "Report other issue") {
-      alert("Report other issue");
-    } else if (item.title === "FAQ") {
-      alert("FAQ");
-    }
+    dispatch(faq(Body));
+  }, []);
+  const navigationHandler = (item, index) => {
+    navigate(NAVIGATION.faqVerified, {
+      data: item,
+    });
+    // console.log("item-->", JSON.stringify(item));
   };
 
   const renderdataItem = ({ item, index }) => {
+    // console.log("checking item", item[index]);
+
     return (
       <TouchableOpacity
         style={styles.flexRow}
-        onPress={() => navigationHandler(item)}
+        onPress={() => navigationHandler(item, index)}
       >
         <View style={styles.contentRow}>
-          <Text style={styles.helpText}>{item.title}</Text>
+          <Text style={styles.helpText}>{item.question}</Text>
         </View>
         <View style={styles.contentRow}>
           <Image source={forward} style={styles.mask} />
@@ -80,7 +56,7 @@ export function Faq(props) {
       <View style={styles.bodyContainer}>
         <Spacer space={SH(10)} />
         <FlatList
-          data={helpTypeData}
+          data={faqData?.faqs}
           renderItem={renderdataItem}
           keyExtractor={(item) => item.id}
           showsHorizontalScrollIndicator={false}

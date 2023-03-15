@@ -5,52 +5,38 @@ import {
   Text,
   FlatList,
   TouchableOpacity,
-  ImageBackground,
   Dimensions,
-  TextInput,
 } from "react-native";
 import { ScreenWrapper } from "@/components";
 import { styles } from "./NearMe.styles";
 import {
   filter,
   manufactureLogo,
-  nearMeMap,
   locationNear,
   shopLight,
   wareHouseLogo,
   search,
-  pinPointMap,
 } from "@/assets";
-import { Search } from "@/components/Search";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { COLORS, SH, SW } from "@/theme";
-import MapView, {
-  Callout,
-  CalloutSubview,
-  Marker,
-  PROVIDER_GOOGLE,
-} from "react-native-maps";
-import { useIsFocused } from "@react-navigation/native";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { useRef } from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { GOOGLE_MAP } from "@/constants/ApiKeys";
 import { useDispatch, useSelector } from "react-redux";
 import { NearMeSellers } from "@/actions/UserActions";
 import { getUser } from "@/selectors/UserSelectors";
-import { style } from "deprecated-react-native-prop-types/DeprecatedViewPropTypes";
-import { color } from "react-native-reanimated";
 export function NearMe() {
   const dispatch = useDispatch();
   const windowWidth = Dimensions.get("window").width * 0.6;
-  const isFocus = useIsFocused();
+
   const mapViewRef = useRef(null);
   const googlePlacesRef = useRef(null);
 
   const sellers = useSelector(getUser);
 
   const store = sellers?.nearMeSellers;
-  console.log("reducer", JSON.stringify(store));
 
   const Data = [
     { id: 1, icon: manufactureLogo, title: "Manufacturers", count: "18" },

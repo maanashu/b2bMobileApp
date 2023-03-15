@@ -116,7 +116,6 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.Medium,
     color: COLORS.text,
     lineHeight: SH(20),
-    textAlign: "justify",
   },
   submit: {
     backgroundColor: COLORS.white,

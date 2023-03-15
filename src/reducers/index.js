@@ -5,6 +5,7 @@ import { userReducer } from "@/reducers/UserReducer";
 import { categoryReducer } from "@/reducers/CategoryReducer";
 import { productReducer } from "@/reducers/ProductReducer";
 import { bannerReducer } from "./BannerReducer";
+import { supportReducer } from "@/reducers/SupportReducer";
 
 export const rootReducer = combineReducers({
   error: errorReducer,
@@ -13,4 +14,5 @@ export const rootReducer = combineReducers({
   category: categoryReducer,
   product: productReducer,
   banner: bannerReducer,
+  support: supportReducer,
 });

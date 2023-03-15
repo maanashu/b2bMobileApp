@@ -23,29 +23,3 @@ export const getBanners = () => async (dispatch) => {
     dispatch(getBabberError(error.message));
   }
 };
-
-// export const getProduct =
-//   (selectedId, subSelectedId, brandSelectedId, sellerID) =>
-//   async (dispatch) => {
-//     dispatch(getProductRequest());
-//     try {
-//       const res = await RetailController.getProduct(
-//         selectedId,
-//         subSelectedId,
-//         brandSelectedId,
-//         sellerID
-//       );
-//       dispatch(getProductSuccess(res));
-//     } catch (error) {
-//       dispatch(getProductError(error.message));
-//     }
-//   };
-// export const getSearchProduct = (search, sellerID) => async (dispatch) => {
-//   dispatch(getSeaProductRequest());
-//   try {
-//     const res = await RetailController.getSearchProduct(search, sellerID);
-//     dispatch(getSeaProductSuccess(res));
-//   } catch (error) {
-//     dispatch(getSeaProductError(error.message));
-//   }
-// };

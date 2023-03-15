@@ -1,71 +1,49 @@
-import { useTheme } from "@react-navigation/native";
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StatusBar,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
-import { useDispatch } from "react-redux";
-import { Button, Spacer, ScreenWrapper, Header } from "@/components";
-import { strings } from "@/localization";
+import React, { useEffect } from "react";
+import { View, Text, ScrollView, FlatList } from "react-native";
+import { Spacer, ScreenWrapper, Button } from "@/components";
 import { styles } from "./Faq.styles";
-import { SH, TextStyles, COLORS, SW } from "@/theme";
+import { COLORS, SH, SW } from "@/theme";
+
+import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
+import { backArrow } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 
-import {
-  useBlurOnFulfill,
-  useClearByFocusCell,
-} from "react-native-confirmation-code-field";
-import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
-import { backArrow } from "@/assets";
-
-const CELL_COUNT = 4;
-
 export function FaqVerified(props) {
-  useEffect(() => {
-    console.log(props.route.params.data, "data");
-  });
-  const { colors } = useTheme();
-  const dispatch = useDispatch();
+  const RouteData = props?.route?.params?.data;
 
-  const [value, setValue] = useState("");
-  const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
-  const [prop, getCellOnLayoutHandler] = useClearByFocusCell({
-    value,
-    setValue,
+  useEffect(() => {
+    console.log(RouteData?.answer, "data");
   });
 
   return (
     <ScreenWrapper>
-      <HeaderCoin title={props.route.params.data} back={backArrow} amount={0} />
-      <ScrollView style={{ paddingHorizontal: SW(20), flex: 1 }}>
-        <Spacer space={SH(20)} />
+      <HeaderCoin title={RouteData?.question} back={backArrow} amount={0} />
+      <View style={{ flex: 1 }}>
+        <ScrollView style={{ paddingHorizontal: SW(20), flex: 1 }}>
+          <Spacer space={SH(20)} />
 
-        <Text style={[styles.text]}>{props.route.params.data}</Text>
+          <Text style={[styles.text]}>{RouteData?.question}</Text>
 
-        <Spacer space={SH(10)} />
+          <Spacer space={SH(10)} />
 
-        <View style={styles.line} />
+          <View style={styles.line} />
 
-        <Spacer space={SH(34)} />
+          <Spacer space={SH(34)} />
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.stext]}>{RouteData?.answer}</Text>
+          </View>
 
-        <Text style={[styles.stext]}>{strings.faq.text1}</Text>
+          <Spacer space={SH(30)} />
+        </ScrollView>
 
-        <Spacer space={SH(20)} />
-
-        <Text style={[styles.stext]}>{strings.faq.text2}</Text>
-
-        <Spacer space={SH(20)} />
-
-        <Text style={[styles.stext]}>{strings.faq.text3}</Text>
-
-        <Spacer space={SH(30)} />
-
-        <View>
+        <View
+          style={{
+            justifyContent: "flex-end",
+            flex: 1,
+            padding: SW(20),
+          }}
+        >
           <Button
             onPress={() => navigate(NAVIGATION.helpCenter)}
             title={"Helpful"}
@@ -81,7 +59,7 @@ export function FaqVerified(props) {
             textStyle={{ color: COLORS.light_grey }}
           />
         </View>
-      </ScrollView>
+      </View>
     </ScreenWrapper>
   );
 }
