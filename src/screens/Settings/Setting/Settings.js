@@ -6,11 +6,10 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { styles } from "./Settings.styles";
 import { Button, NameHeaderCoins, ScreenWrapper, Spacer } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
-import { useState } from "react";
 import { goBack, navigate } from "@/navigation/NavigationRef";
 import { ms, vs } from "react-native-size-matters";
 import {
@@ -31,8 +30,16 @@ import {
 import { strings } from "@/localization";
 import { NAVIGATION } from "@/constants";
 import { COLORS } from "@/theme";
+import { useDispatch } from "react-redux";
+import { getBanners } from "@/actions/BannerActions";
+import { getSettings } from "@/actions/UserActions";
 
 export function Settings() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getSettings());
+  }, []);
   const Data = [
     {
       id: 1,
@@ -190,6 +197,6 @@ export function Settings() {
           showsVerticalScrollIndicator={false}
         />
       </View>
-      </ScreenWrapper>
+    </ScreenWrapper>
   );
 }

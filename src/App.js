@@ -72,8 +72,7 @@ const toastConfig = {
 export function App() {
   useEffect(() => {
     // return async () => await AsyncStorage.removeItem("acceptOrder");
-
-    bioMetricLogin();
+    // bioMetricLogin();
   }, []); // useEffect(() => {  //   Orientation.lockToLandscape();  // }, []);
 
   const rnBiometrics = new ReactNativeBiometrics({
@@ -125,7 +124,7 @@ export function App() {
 
         if (success) {
           console.log(signature);
-          dispatch(deviceLogin());
+          // dispatch(deviceLogin());
           //  verifySignatureWithServer(signature, payload);
         }
       })

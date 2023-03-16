@@ -1,5 +1,5 @@
 import { View, ScrollView, Text } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { styles } from "./TermsConditions.styles";
 import { ScreenWrapper, Spacer } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
@@ -7,17 +7,16 @@ import { backArrow } from "@/assets";
 import { strings } from "@/localization";
 import { NameHeader } from "@/components";
 import { useDispatch, useSelector } from "react-redux";
+import { getSettings } from "@/actions/UserActions";
 import { getUser } from "@/selectors/UserSelectors";
-import { useEffect } from "react";
-import { Settings } from "@/actions/UserActions";
+
 export function TermsConditions() {
   const dispatch = useDispatch();
 
-  const user = useSelector(getUser);
-  console.log("action-->", user);
+  const settingData = useSelector(getUser);
 
   useEffect(() => {
-    dispatch(Settings);
+    dispatch(getSettings());
   }, []);
 
   return (
@@ -37,6 +36,10 @@ export function TermsConditions() {
             {strings.privacyPolicy.welcome}
           </Text>
 
+          <Text style={styles.paraText}>
+            {settingData?.settings?.terms_and_conditons}
+          </Text>
+          {/* 
           <Text style={styles.paraText}>{strings.privacyPolicy.para1}</Text>
 
           <Spacer space={SH(15)} />
@@ -65,9 +68,9 @@ export function TermsConditions() {
 
           <Text style={styles.paraText}>{strings.privacyPolicy.licenses}</Text>
 
-          <Text style={styles.paraText}>{strings.privacyPolicy.para7}</Text>
+          <Text style={styles.paraText}>{strings.privacyPolicy.para7}</Text> */}
 
-          <Spacer space={SH(0)} />
+          {/* <Spacer space={SH(0)} />
 
           <Text style={styles.paraText}>
             {strings.privacyPolicy.youMustNot}
@@ -91,7 +94,7 @@ export function TermsConditions() {
 
           <Spacer space={SH(5)} />
 
-          <Text style={styles.paraText}>{strings.privacyPolicy.para11}</Text>
+          <Text style={styles.paraText}>{strings.privacyPolicy.para11}</Text> */}
         </ScrollView>
       </View>
     </ScreenWrapper>
