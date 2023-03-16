@@ -21,6 +21,7 @@ const INITIALSTATE = {
   requestKyc: {},
   checkKyc: {},
   nearMeSellers: [],
+  settings: [],
 };
 
 export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -77,6 +78,12 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         nearMeSellers: payload?.nearMeSellers?.payload?.sellers?.data,
+      };
+
+    case TYPES.SETTINGS_SUCCESS:
+      return {
+        ...state,
+        settings: payload?.settings?.payload,
       };
   }
 };

@@ -188,4 +188,27 @@ export class UserController {
         });
     });
   }
+
+  static async getSettings() {
+    return new Promise((resolve, reject) => {
+      const endpoint = USER_URL + ApiUserInventory.settings;
+      HttpClient.get(endpoint)
+        .then((response) => {
+          resolve(response);
+          console.log("controller success", response);
+        })
+        .catch((error) => {
+          console.log("controller error", error);
+
+          reject(error);
+          // Toast.show({
+          //   text2: error.msg,
+          //   position: "bottom",
+          //   type: "error_toast",
+          //   visibilityTime: 1500,
+          // });
+          // reject(new Error((strings.validation.error = error.msg)));
+        });
+    });
+  }
 }

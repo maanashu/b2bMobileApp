@@ -34,6 +34,11 @@ export const TYPES = {
   NEAR_ME_SELLERS_SUCCESS: "NEAR_ME_SELLERS_SUCCESS",
   NEAR_ME_SELLERS_ERROR: "NEAR_ME_SELLERS_ERROR",
   NEAR_ME_SELLERS_REQUEST: "NEAR_ME_SELLERS_REQUEST",
+
+  SETTINGS: "SETTINGS",
+  SETTINGS_SUCCESS: "SETTINGS_SUCCESS",
+  SETTINGS_ERROR: "SETTINGS_ERROR",
+  SETTINGS_REQUEST: "SETTINGS_REQUEST",
 };
 
 const loginRequest = () => ({
@@ -139,6 +144,21 @@ const nearMeSellersSuccess = (nearMeSellers) => ({
   payload: { nearMeSellers },
 });
 
+const settingsRequest = () => ({
+  type: TYPES.SETTINGS_REQUEST,
+  payload: null,
+});
+
+const settingsError = (error) => ({
+  type: TYPES.SETTINGS_ERROR,
+  payload: { error },
+});
+
+const settingsSuccess = (settings) => ({
+  type: TYPES.SETTINGS_SUCCESS,
+  payload: { settings },
+});
+
 export const login = (value, countryCode, phoneNumber) => async (dispatch) => {
   dispatch(loginRequest());
   try {
@@ -228,5 +248,18 @@ export const NearMeSellers = (data) => async (dispatch) => {
     dispatch(nearMeSellersSuccess(res));
   } catch (error) {
     dispatch(nearMeSellersError(error.message));
+  }
+};
+
+export const Settings = () => async (dispatch) => {
+  dispatch(settingsRequest());
+  try {
+    const res = await UserController.getSettings();
+    dispatch(settingsSuccess(res));
+    console.log("action success", res);
+  } catch (error) {
+    console.log("action error", error);
+
+    dispatch(settingsError(error.message));
   }
 };

@@ -11,6 +11,7 @@ export const ApiUserInventory = {
   login: "users/login/",
   nearMeSellers: "users/sellers/b2b",
   deviceLogin: "users/login/device",
+  settings: "settings",
 };
 
 export const SupportInventory = {

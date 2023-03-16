@@ -6,76 +6,94 @@ import { SH } from "@/theme/ScalerDimensions";
 import { backArrow } from "@/assets";
 import { strings } from "@/localization";
 import { NameHeader } from "@/components";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "@/selectors/UserSelectors";
+import { useEffect } from "react";
+import { Settings } from "@/actions/UserActions";
 export function TermsConditions() {
+  const dispatch = useDispatch();
+
+  const user = useSelector(getUser);
+  console.log("action-->", user);
+
+  useEffect(() => {
+    dispatch(Settings);
+  }, []);
+
   return (
     <ScreenWrapper>
-    <View style={styles.container}>
-      <NameHeader title={strings.settings.terms} back={backArrow} />
+      <View style={styles.container}>
+        <NameHeader title={strings.settings.terms} back={backArrow} />
 
-      <ScrollView style={styles.mainView}>
-        <Spacer space={SH(30)} />
+        <ScrollView style={styles.mainView}>
+          <Spacer space={SH(30)} />
 
-        <Text style={styles.privacyText}>{strings.settings.terms}</Text>
-        <View style={styles.borderBottom}></View>
+          <Text style={styles.privacyText}>{strings.settings.terms}</Text>
+          <View style={styles.borderBottom}></View>
 
-        <Spacer space={SH(20)} />
+          <Spacer space={SH(20)} />
 
-        <Text style={styles.headingText}>{strings.privacyPolicy.welcome}</Text>
+          <Text style={styles.headingText}>
+            {strings.privacyPolicy.welcome}
+          </Text>
 
-        <Text style={styles.paraText}>{strings.privacyPolicy.para1}</Text>
+          <Text style={styles.paraText}>{strings.privacyPolicy.para1}</Text>
 
-        <Spacer space={SH(15)} />
+          <Spacer space={SH(15)} />
 
-        <Text style={styles.paraText}>{strings.privacyPolicy.para2}</Text>
+          <Text style={styles.paraText}>{strings.privacyPolicy.para2}</Text>
 
-        <Spacer space={SH(15)} />
+          <Spacer space={SH(15)} />
 
-        <Text style={styles.paraText}>{strings.privacyPolicy.para3}</Text>
+          <Text style={styles.paraText}>{strings.privacyPolicy.para3}</Text>
 
-        <Spacer space={SH(15)} />
+          <Spacer space={SH(15)} />
 
-        <Text style={styles.paraText}>{strings.privacyPolicy.para4}</Text>
+          <Text style={styles.paraText}>{strings.privacyPolicy.para4}</Text>
 
-        <Spacer space={SH(15)} />
+          <Spacer space={SH(15)} />
 
-        <Text style={styles.paraText}>{strings.privacyPolicy.cookies}</Text>
+          <Text style={styles.paraText}>{strings.privacyPolicy.cookies}</Text>
 
-        <Text style={styles.paraText}>{strings.privacyPolicy.para5}</Text>
+          <Text style={styles.paraText}>{strings.privacyPolicy.para5}</Text>
 
-        <Spacer space={SH(15)} />
+          <Spacer space={SH(15)} />
 
-        <Text style={styles.paraText}>{strings.privacyPolicy.para6}</Text>
+          <Text style={styles.paraText}>{strings.privacyPolicy.para6}</Text>
 
-        <Spacer space={SH(15)} />
+          <Spacer space={SH(15)} />
 
-        <Text style={styles.paraText}>{strings.privacyPolicy.licenses}</Text>
+          <Text style={styles.paraText}>{strings.privacyPolicy.licenses}</Text>
 
-        <Text style={styles.paraText}>{strings.privacyPolicy.para7}</Text>
+          <Text style={styles.paraText}>{strings.privacyPolicy.para7}</Text>
 
-        <Spacer space={SH(0)} />
+          <Spacer space={SH(0)} />
 
-        <Text style={styles.paraText}>{strings.privacyPolicy.youMustNot}</Text>
+          <Text style={styles.paraText}>
+            {strings.privacyPolicy.youMustNot}
+          </Text>
 
-        <Text style={styles.paraText}>{strings.privacyPolicy.para8}</Text>
+          <Text style={styles.paraText}>{strings.privacyPolicy.para8}</Text>
 
-        <Spacer space={SH(15)} />
+          <Spacer space={SH(15)} />
 
-        <Text style={styles.paraText}>{strings.privacyPolicy.para9}</Text>
+          <Text style={styles.paraText}>{strings.privacyPolicy.para9}</Text>
 
-        <Spacer space={SH(0)} />
+          <Spacer space={SH(0)} />
 
-        <Text style={styles.paraText}>{strings.privacyPolicy.para10}</Text>
+          <Text style={styles.paraText}>{strings.privacyPolicy.para10}</Text>
 
-        <Spacer space={SH(15)} />
+          <Spacer space={SH(15)} />
 
-        <Text style={styles.paraText}>{strings.privacyPolicy.yourWarrant}</Text>
+          <Text style={styles.paraText}>
+            {strings.privacyPolicy.yourWarrant}
+          </Text>
 
-        <Spacer space={SH(5)} />
+          <Spacer space={SH(5)} />
 
-        <Text style={styles.paraText}>{strings.privacyPolicy.para11}</Text>
-      </ScrollView>
-    </View>
+          <Text style={styles.paraText}>{strings.privacyPolicy.para11}</Text>
+        </ScrollView>
+      </View>
     </ScreenWrapper>
   );
 }

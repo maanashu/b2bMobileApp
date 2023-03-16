@@ -1,12 +1,6 @@
 import React from "react";
 import { View, Image, Platform } from "react-native";
-import {
-  blueLogo,
-  faceIdIcon,
-  fingerPrint,
-  fingerprintLogin,
-  Shoes2,
-} from "@/assets";
+import { blueLogo, faceIdIcon, fingerprintLogin } from "@/assets";
 import { COLORS, SH, SW } from "@/theme";
 import { Spacer, Button, ScreenWrapper } from "@/components";
 import { styles } from "./LoginMethod.styles";
@@ -27,30 +21,38 @@ export function LoginMethod(props) {
 
   const bioMetricLogin = () => {
     rnBiometrics.isSensorAvailable().then((resultObject) => {
+      console.log("BIOMETRICS_RESULT--" + JSON.stringify(resultObject));
       const { available, biometryType } = resultObject;
+
       if (available && biometryType === BiometryTypes.TouchID) {
+        console.log("TouchID is supported");
         checkBioMetricKeyExists();
       } else if (available && biometryType === BiometryTypes.FaceID) {
+        console.log("FaceID is supported");
         checkBioMetricKeyExists();
       } else if (available && biometryType === BiometryTypes.Biometrics) {
+        console.log("Biometrics is supported");
         checkBioMetricKeyExists();
       } else {
         console.log("Biometrics not supported");
       }
     });
   };
-
   const checkBioMetricKeyExists = () => {
     rnBiometrics.biometricKeysExist().then((resultObject) => {
       const { keysExist } = resultObject;
       if (keysExist) {
+        console.log("Keys exist");
         promptBioMetricSignin();
       } else {
+        console.log("Keys do not exist or were deleted");
         createKeys();
       }
     });
   };
-
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.LOGIN], state)
+  );
   const promptBioMetricSignin = () => {
     let epochTimeSeconds = Math.round(new Date().getTime() / 1000).toString();
     let payload = epochTimeSeconds + "some message";
@@ -60,21 +62,39 @@ export function LoginMethod(props) {
         payload: payload,
       })
       .then((resultObject) => {
-        const { success } = resultObject;
+        const { success, signature } = resultObject;
+
         if (success) {
+          console.log(signature);
           dispatch(deviceLogin());
+          //  verifySignatureWithServer(signature, payload);
         }
       })
       .catch((error) => console.log("erorr-->>", error));
   };
 
-  const createKeys = () =>
-    rnBiometrics.createKeys().then(() => promptBioMetricSignin());
+  const createKeys = () => {
+    rnBiometrics.createKeys().then((resultObject) => {
+      const { publicKey } = resultObject;
+      console.log(publicKey);
+      promptBioMetricSignin();
+      // sendPublicKeyToServer(publicKey);
+    });
+  };
 
-  const isLoading = useSelector((state) =>
-    isLoadingSelector([TYPES.LOGIN], state)
-  );
+  const deleteKeys = () => {
+    rnBiometrics.deleteKeys().then((resultObject) => {
+      const { keysDeleted } = resultObject;
 
+      if (keysDeleted) {
+        console.log("Successful deletion");
+      } else {
+        console.log(
+          "Unsuccessful deletion because there were no keys to delete"
+        );
+      }
+    });
+  };
   return (
     <ScreenWrapper>
       <Spacer space={SH(54)} />
