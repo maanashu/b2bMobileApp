@@ -22,6 +22,7 @@ const INITIALSTATE = {
   checkKyc: {},
   nearMeSellers: [],
   settings: [],
+  isStatus: false,
 };
 
 export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -84,6 +85,12 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         settings: payload?.settings?.payload,
+      };
+
+    case TYPES.BIOMETRIC_SUCCESS:
+      return {
+        ...state,
+        isStatus: payload?.status,
       };
   }
 };

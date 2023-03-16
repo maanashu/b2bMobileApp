@@ -527,7 +527,7 @@ export const en = {
   },
   faceId: {
     enable: "Enable",
-    faceId: "Face Id",
+    faceId: "Biometrics",
     pin: "Pin",
     text: "It is a long established fact that a reader will be distracted by the readable content.",
     setupFaceId: "Set up Face ID",

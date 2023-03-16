@@ -1,7 +1,7 @@
 import React from "react";
 import { hide } from "react-native-bootsplash";
 import { enableScreens } from "react-native-screens";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "@/store";
 import { RootNavigator } from "@/navigation";
@@ -9,7 +9,6 @@ import { useEffect } from "react";
 import { COLORS, SF, SH, SW } from "./theme";
 import { error, Fonts, success } from "./assets";
 import Toast, { BaseToast } from "react-native-toast-message";
-import ReactNativeBiometrics, { BiometryTypes } from "react-native-biometrics";
 
 enableScreens();
 
@@ -72,87 +71,10 @@ const toastConfig = {
 export function App() {
   useEffect(() => {
     // return async () => await AsyncStorage.removeItem("acceptOrder");
-    // bioMetricLogin();
-  }, []); // useEffect(() => {  //   Orientation.lockToLandscape();  // }, []);
+  }, []);
 
-  const rnBiometrics = new ReactNativeBiometrics({
-    allowDeviceCredentials: true,
-  });
+  // useEffect(() => {  //   Orientation.lockToLandscape();  // }, []);
 
-  const bioMetricLogin = () => {
-    rnBiometrics.isSensorAvailable().then((resultObject) => {
-      console.log("BIOMETRICS_RESULT--" + JSON.stringify(resultObject));
-      const { available, biometryType } = resultObject;
-
-      if (available && biometryType === BiometryTypes.TouchID) {
-        console.log("TouchID is supported");
-        checkBioMetricKeyExists();
-      } else if (available && biometryType === BiometryTypes.FaceID) {
-        console.log("FaceID is supported");
-        checkBioMetricKeyExists();
-      } else if (available && biometryType === BiometryTypes.Biometrics) {
-        console.log("Biometrics is supported");
-        checkBioMetricKeyExists();
-      } else {
-        console.log("Biometrics not supported");
-      }
-    });
-  };
-  const checkBioMetricKeyExists = () => {
-    rnBiometrics.biometricKeysExist().then((resultObject) => {
-      const { keysExist } = resultObject;
-      if (keysExist) {
-        console.log("Keys exist");
-        promptBioMetricSignin();
-      } else {
-        console.log("Keys do not exist or were deleted");
-        createKeys();
-      }
-    });
-  };
-
-  const promptBioMetricSignin = () => {
-    let epochTimeSeconds = Math.round(new Date().getTime() / 1000).toString();
-    let payload = epochTimeSeconds + "some message";
-    rnBiometrics
-      .createSignature({
-        promptMessage: "Sign in",
-        payload: payload,
-      })
-      .then((resultObject) => {
-        const { success, signature } = resultObject;
-
-        if (success) {
-          console.log(signature);
-          // dispatch(deviceLogin());
-          //  verifySignatureWithServer(signature, payload);
-        }
-      })
-      .catch((error) => console.log("erorr-->>", error));
-  };
-
-  const createKeys = () => {
-    rnBiometrics.createKeys().then((resultObject) => {
-      const { publicKey } = resultObject;
-      console.log(publicKey);
-      promptBioMetricSignin();
-      // sendPublicKeyToServer(publicKey);
-    });
-  };
-
-  const deleteKeys = () => {
-    rnBiometrics.deleteKeys().then((resultObject) => {
-      const { keysDeleted } = resultObject;
-
-      if (keysDeleted) {
-        console.log("Successful deletion");
-      } else {
-        console.log(
-          "Unsuccessful deletion because there were no keys to delete"
-        );
-      }
-    });
-  };
   return (
     <Provider store={store}>
       <PersistGate onBeforeLift={hide} persistor={persistor}>

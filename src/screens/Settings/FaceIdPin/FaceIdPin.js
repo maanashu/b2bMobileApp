@@ -12,10 +12,19 @@ import {
 } from "@/assets";
 import { strings } from "@/localization";
 import { NameHeader } from "@/components";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "@/selectors/UserSelectors";
+import { biometricsSet } from "@/actions/GlobalActions";
 
 export function FaceIdPin() {
+  const dispatch = useDispatch();
   const [faceId, setFaceId] = useState(false);
   const [pin, setPin] = useState(false);
+
+  const handleBiometrics = () => {
+    setFaceId(!faceId);
+    dispatch(biometricsSet(faceId ? false : true));
+  };
 
   return (
     <ScreenWrapper>
@@ -30,13 +39,14 @@ export function FaceIdPin() {
             resizeMode="contain"
             style={styles.faceIconStyle}
           />
+
           <Spacer space={SH(60)} />
 
           <View style={styles.topNotiView}>
             <Text style={styles.headingBold}>{strings.faceId.enable}</Text>
             <Switch
               TextStyle={styles.bottomTexts}
-              onPress={() => setFaceId(!faceId)}
+              onPress={handleBiometrics}
               source={faceId ? toggleOn : toggleOff}
               title={strings.faceId.faceId}
             />

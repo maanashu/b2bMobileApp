@@ -18,6 +18,7 @@ export function PrivacyPolicy() {
   useEffect(() => {
     dispatch(getSettings());
   }, []);
+
   return (
     <ScreenWrapper>
       <View style={styles.container}>
