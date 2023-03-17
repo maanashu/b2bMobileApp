@@ -1,7 +1,11 @@
 import { NAVIGATION } from "@/constants";
 import { strings } from "@/localization";
 import { navigate } from "@/navigation/NavigationRef";
-import { ApiUserInventory, USER_URL } from "@/Utils/APIinventory";
+import {
+  ApiUserInventory,
+  ApiWalletInventory,
+  USER_URL,
+} from "@/Utils/APIinventory";
 import DeviceInfo from "react-native-device-info";
 import Toast from "react-native-toast-message";
 import { HttpClient } from "./HttpClient";
@@ -80,7 +84,7 @@ export class UserController {
           if (response.status_code === 200) {
             console.log("api success", response);
 
-            navigate(NAVIGATION.personalInformation);
+            navigate(NAVIGATION.register);
           } else {
             console.log("api failed", response);
           }
@@ -204,6 +208,18 @@ export class UserController {
             visibilityTime: 1500,
           });
           reject(new Error((strings.validation.error = error.msg)));
+        });
+    });
+  }
+  static async getWalletUserProfile(uuid) {
+    return new Promise((resolve, reject) => {
+      const endpoint = ApiWalletInventory.getUserByUuid + `${uuid}`;
+      HttpClient.get(endpoint)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(new Error((strings.verify.error = error.msg)));
         });
     });
   }

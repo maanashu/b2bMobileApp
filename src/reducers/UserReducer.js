@@ -92,5 +92,10 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         isStatus: payload?.status,
       };
+    case TYPES.GET_WALLET_USER_SUCCESS:
+      return {
+        ...state,
+        walletProfile: payload.getwalletuser,
+      };
   }
 };

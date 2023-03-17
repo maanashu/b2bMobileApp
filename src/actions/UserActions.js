@@ -1,46 +1,51 @@
 import { UserController } from "@/controllers";
-import { TYPES } from "@/Types/Types";
+// import { TYPES } from "@/Types/Types";
 
-// export const TYPES = {
-//   CLEAR_STORE: "CLEAR_STORE",
+export const TYPES = {
+  CLEAR_STORE: "CLEAR_STORE",
 
-//   // LOGIN: "LOGIN",
-//   // LOGIN_REQUEST: "LOGIN_REQUEST",
-//   // LOGIN_ERROR: "LOGIN_ERROR",
-//   // LOGIN_SUCCESS: "LOGIN_SUCCESS",
-//   // SAVE_PHONE: "SAVE_PHONE",
+  LOGIN: "LOGIN",
+  LOGIN_REQUEST: "LOGIN_REQUEST",
+  LOGIN_ERROR: "LOGIN_ERROR",
+  LOGIN_SUCCESS: "LOGIN_SUCCESS",
+  SAVE_PHONE: "SAVE_PHONE",
 
-//   // SEND_OTP: "SEND_OTP",
-//   // SEND_OTP_REQUEST: "SEND_OTP_REQUEST",
-//   // SEND_OTP_ERROR: "SEND_OTP_ERROR",
-//   // SEND_OTP_SUCCESS: "SEND_OTP_SUCCESS",
-//   // SAVE_OTP: "SAVE_OTP",
+  SEND_OTP: "SEND_OTP",
+  SEND_OTP_REQUEST: "SEND_OTP_REQUEST",
+  SEND_OTP_ERROR: "SEND_OTP_ERROR",
+  SEND_OTP_SUCCESS: "SEND_OTP_SUCCESS",
+  SAVE_OTP: "SAVE_OTP",
 
-//   // VERIFY_OTP: "VERIFY_OTP",
-//   // VERIFY_OTP_REQUEST: "VERIFY_OTP_REQUEST",
-//   // VERIFY_OTP_ERROR: "VERIFY_OTP_ERROR",
-//   // VERIFY_OTP_SUCCESS: "VERIFY_OTP_SUCCESS",
+  VERIFY_OTP: "VERIFY_OTP",
+  VERIFY_OTP_REQUEST: "VERIFY_OTP_REQUEST",
+  VERIFY_OTP_ERROR: "VERIFY_OTP_ERROR",
+  VERIFY_OTP_SUCCESS: "VERIFY_OTP_SUCCESS",
 
-//   // GET_USER: "GET_USER",
-//   // GET_USER_ERROR: "GET_USER_ERROR",
-//   // GET_USER_SUCCESS: "GET_USER_SUCCESS",
-//   // GET_USER_REQUEST: "GET_USER_REQUEST",
+  GET_USER: "GET_USER",
+  GET_USER_ERROR: "GET_USER_ERROR",
+  GET_USER_SUCCESS: "GET_USER_SUCCESS",
+  GET_USER_REQUEST: "GET_USER_REQUEST",
 
-//   // REGISTER: "REGISTER",
-//   // REGISTER_SUCCESS: "REGISTER_SUCCESS",
-//   // REGISTER_ERROR: "REGISTER_ERROR",
-//   // REGISTER_REQUEST: "REGISTER_REQUEST",
+  REGISTER: "REGISTER",
+  REGISTER_SUCCESS: "REGISTER_SUCCESS",
+  REGISTER_ERROR: "REGISTER_ERROR",
+  REGISTER_REQUEST: "REGISTER_REQUEST",
 
-//   // NEAR_ME_SELLERS: "NEAR_ME_SELLERS",
-//   // NEAR_ME_SELLERS_SUCCESS: "NEAR_ME_SELLERS_SUCCESS",
-//   // NEAR_ME_SELLERS_ERROR: "NEAR_ME_SELLERS_ERROR",
-//   // NEAR_ME_SELLERS_REQUEST: "NEAR_ME_SELLERS_REQUEST",
+  NEAR_ME_SELLERS: "NEAR_ME_SELLERS",
+  NEAR_ME_SELLERS_SUCCESS: "NEAR_ME_SELLERS_SUCCESS",
+  NEAR_ME_SELLERS_ERROR: "NEAR_ME_SELLERS_ERROR",
+  NEAR_ME_SELLERS_REQUEST: "NEAR_ME_SELLERS_REQUEST",
 
-//   // SETTINGS: "SETTINGS",
-//   // SETTINGS_SUCCESS: "SETTINGS_SUCCESS",
-//   // SETTINGS_ERROR: "SETTINGS_ERROR",
-//   // SETTINGS_REQUEST: "SETTINGS_REQUEST",
-// };
+  SETTINGS: "SETTINGS",
+  SETTINGS_SUCCESS: "SETTINGS_SUCCESS",
+  SETTINGS_ERROR: "SETTINGS_ERROR",
+  SETTINGS_REQUEST: "SETTINGS_REQUEST",
+
+  GET_WALLET_USER: "GET_WALLET_USER",
+  GET_WALLET_USER_REQUEST: "GET_WALLET_USER_REQUEST",
+  GET_WALLET_USER_SUCCESS: "GET_WALLET_USER_SUCCESS",
+  GET_WALLET_USER_ERROR: "GET_WALLET_USER_ERROR",
+};
 
 const loginRequest = () => ({
   type: TYPES.LOGIN_REQUEST,
@@ -160,6 +165,21 @@ const settingsSuccess = (settings) => ({
   payload: { settings },
 });
 
+const getWalletUserProfileRequest = () => ({
+  type: TYPES.GET_WALLET_USER_REQUEST,
+  payload: null,
+});
+
+const getWalletUserProfileSuccess = (getwalletuser) => ({
+  type: TYPES.GET_WALLET_USER_SUCCESS,
+  payload: { getwalletuser },
+});
+
+const getWalletUserProfileError = (error) => ({
+  type: TYPES.GET_WALLET_USER_ERROR,
+  payload: { error },
+});
+
 export const login = (value, countryCode, phoneNumber) => async (dispatch) => {
   dispatch(loginRequest());
   try {
@@ -259,5 +279,15 @@ export const getSettings = () => async (dispatch) => {
     dispatch(settingsSuccess(res));
   } catch (error) {
     dispatch(settingsError(error.message));
+  }
+};
+
+export const getWalletUserProfile = (uuid) => async (dispatch) => {
+  dispatch(getWalletUserProfileRequest());
+  try {
+    const res = await UserController.getWalletUserProfile(uuid);
+    return dispatch(getWalletUserProfileSuccess(res.payload));
+  } catch (error) {
+    dispatch(getWalletUserProfileError(error.message));
   }
 };

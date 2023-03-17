@@ -86,3 +86,4 @@ export { BrandsProducts } from "@/screens/BrandsProducts/BrandsProducts";
 export { Checkout } from "@/screens/Checkout/Checkout";
 export { PersonalInformation } from "@/screens/GetStarted/PersonalInformation/PersonalInformation";
 export { LoginMethod } from "@/screens/GetStarted/LoginMethod/LoginMethod";
+export { Register } from "@/screens/GetStarted/Register/Register";

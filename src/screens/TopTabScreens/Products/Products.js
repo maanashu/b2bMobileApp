@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import {
+  BackHandler,
   Dimensions,
   FlatList,
   Image,
@@ -39,6 +40,7 @@ import { TYPES } from "@/Types/Types";
 import { renderNoData } from "@/components/FlatlistStyling";
 import { getProduct } from "@/actions/ProductActions";
 import { getProductSelector } from "@/selectors/ProductSelectors";
+import ReactNativeBiometrics, { BiometryTypes } from "react-native-biometrics";
 import { Loader } from "@/components/Loader";
 import HomeCategorySkeleton, {
   HomeNewProductsSkeleton,
@@ -60,6 +62,82 @@ export function Products({ navigation }) {
     service_type: "product",
     main_category: true,
   };
+  const user = useSelector(getUser);
+  useEffect(() => {
+    if (user?.isStatus === true) {
+      // <Biometrics />;
+      bioMetricLogin();
+    }
+  }, []);
+
+  // Biometrics function
+
+  const rnBiometrics = new ReactNativeBiometrics({
+    allowDeviceCredentials: true,
+  });
+
+  const bioMetricLogin = () => {
+    rnBiometrics.isSensorAvailable().then((resultObject) => {
+      console.log("BIOMETRICS_RESULT--" + JSON.stringify(resultObject));
+      const { available, biometryType } = resultObject;
+
+      if (available && biometryType === BiometryTypes.TouchID) {
+        console.log("TouchID is supported");
+        checkBioMetricKeyExists();
+      } else if (available && biometryType === BiometryTypes.FaceID) {
+        console.log("FaceID is supported");
+        checkBioMetricKeyExists();
+      } else if (available && biometryType === BiometryTypes.Biometrics) {
+        console.log("Biometrics is supported");
+        checkBioMetricKeyExists();
+      } else {
+        console.log("Biometrics not supported");
+      }
+    });
+  };
+  const checkBioMetricKeyExists = () => {
+    rnBiometrics.biometricKeysExist().then((resultObject) => {
+      const { keysExist } = resultObject;
+      if (keysExist) {
+        console.log("Keys exist");
+        promptBioMetricSignin();
+      } else {
+        console.log("Keys do not exist or were deleted");
+        createKeys();
+      }
+    });
+  };
+
+  const promptBioMetricSignin = () => {
+    let epochTimeSeconds = Math.round(new Date().getTime() / 1000).toString();
+    let payload = epochTimeSeconds + "some message";
+    rnBiometrics
+      .createSignature({
+        promptMessage: "Sign in",
+        payload: payload,
+      })
+      .then((resultObject) => {
+        const { success, signature } = resultObject;
+
+        if (success) {
+          console.log(signature);
+          // dispatch(deviceLogin());
+          //  verifySignatureWithServer(signature, payload);
+        }
+      })
+      .catch((error) => console.log("erorr-->>", error));
+  };
+
+  const createKeys = () => {
+    rnBiometrics.createKeys().then((resultObject) => {
+      const { publicKey } = resultObject;
+      console.log(publicKey);
+      promptBioMetricSignin();
+      // sendPublicKeyToServer(publicKey);
+    });
+  };
+
+  // /////////////////////////////////////
 
   useEffect(() => {
     LogBox.ignoreAllLogs();
@@ -76,20 +154,12 @@ export function Products({ navigation }) {
       page: 1,
       limit: 10,
     };
-
     dispatch(getProduct(probject));
   };
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_CATEGORY], state)
   );
-
-  // const user = useSelector(getUser);
-  // const phoneDetails = user.phone;
-  // console.log(
-  //   "skvbkbfvkfbea",
-  //   phoneDetails.countryCode + phoneDetails.phoneNumber
-  // );
 
   const isLoadingProducts = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT], state)

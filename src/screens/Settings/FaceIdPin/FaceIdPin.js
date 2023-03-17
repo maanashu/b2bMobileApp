@@ -1,5 +1,5 @@
 import { Image, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styles } from "./FaceIdPin.styles";
 import { ScreenWrapper, Spacer, Switch } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
@@ -18,13 +18,15 @@ import { biometricsSet } from "@/actions/GlobalActions";
 
 export function FaceIdPin() {
   const dispatch = useDispatch();
-  const [faceId, setFaceId] = useState(false);
+  const [faceId, setFaceId] = useState(user?.isStatus);
   const [pin, setPin] = useState(false);
 
   const handleBiometrics = () => {
     setFaceId(!faceId);
-    dispatch(biometricsSet(faceId ? false : true));
+    dispatch(biometricsSet(faceId));
   };
+  const user = useSelector(getUser);
+  console.log("status: " + user?.isStatus);
 
   return (
     <ScreenWrapper>
@@ -47,7 +49,7 @@ export function FaceIdPin() {
             <Switch
               TextStyle={styles.bottomTexts}
               onPress={handleBiometrics}
-              source={faceId ? toggleOn : toggleOff}
+              source={user?.isStatus === true ? toggleOn : toggleOff}
               title={strings.faceId.faceId}
             />
             <Spacer space={SH(12)} />
@@ -62,6 +64,7 @@ export function FaceIdPin() {
               source={pin ? toggleOn : toggleOff}
               title={strings.faceId.pin}
             />
+
             <Spacer space={SH(12)} />
 
             <View style={styles.bottomLine} />

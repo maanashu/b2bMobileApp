@@ -16,7 +16,6 @@ export function Splash() {
 
   const logoutUser = () => {
     navigate(NAVIGATION.mobileNumber);
-    dispatch(logout());
   };
   return (
     <LinearGradient

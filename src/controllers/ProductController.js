@@ -87,41 +87,17 @@ export class ProductController {
           console.log("trending sellers controller success", response);
         })
         .catch((error) => {
-          Toast.show({
-            text2: error.msg,
-            position: "bottom",
-            type: "error_toast",
-            visibilityTime: 1500,
-          });
+          // Toast.show({
+          //   text2: error.msg,
+          //   position: "bottom",
+          //   type: "error_toast",
+          //   visibilityTime: 1500,
+          // });
           reject(new Error((strings.validation.error = error.msg)));
         });
     });
   }
-  // static async getSubCategory(selectedId) {
-  //   return new Promise((resolve, reject) => {
-  //     const endpoint =
-  //       PRODUCT_URL +
-  //       ApiProductInventory.getSubCategory +
-  //       `?category_id=` +
-  //       `${selectedId}`;
-  //     HttpClient.get(endpoint)
-  //       .then((response) => {
-  //         if (response === "") {
-  //           resolve([]);
-  //         }
-  //         resolve(response);
-  //       })
-  //       .catch((error) => {
-  //         Toast.show({
-  //           text2: error.msg,
-  //           position: "bottom",
-  //           type: "error_toast",
-  //           visibilityTime: 1500,
-  //         });
-  //         reject(new Error((strings.valiadtion.error = error.msg)));
-  //       });
-  //   });
-  // }
+
   // static async getBrand(selectedId) {
   //   return new Promise((resolve, reject) => {
   //     const endpoint =

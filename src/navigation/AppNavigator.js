@@ -74,6 +74,7 @@ import {
   QrCode,
   RateExperience,
   ReEnterPin,
+  Register,
   ReviewAndPayment,
   SelectCity,
   SelectCountry,
@@ -748,6 +749,11 @@ export function AppBottom() {
       <Stack.Screen
         component={LoginMethod}
         name={NAVIGATION.loginMethod}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={Register}
+        name={NAVIGATION.register}
         options={{ headerShown: false }}
       />
 

@@ -284,6 +284,7 @@ export { default as certifiedLogo } from "@/assets/icons/ic_business/certifiedLo
 export { default as error } from "@/assets/icons/ic_common/error.png";
 export { default as success } from "@/assets/icons/ic_common/success.png";
 export { default as pinPointMap } from "@/assets/icons/ic_home/pinPointMap.png";
+export { default as unchecked } from "@/assets/icons/ic_home/unchecked.png";
 export { default as fingerprintLogin } from "@/assets/icons/ic_login/fingerprintLogin.png";
 
 export const Fonts = {

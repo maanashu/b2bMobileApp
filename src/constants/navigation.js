@@ -85,4 +85,5 @@ export const NAVIGATION = {
   checkout: "Checkout",
   personalInformation: "PersonalInformation",
   loginMethod: "LoginMethod",
+  register: "Register",
 };
