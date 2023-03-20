@@ -699,6 +699,45 @@ export const en = {
     checkout: "Checkout",
     continueCheckout: "Continue to checkout",
   },
+
+  kyc: {
+    requestTitle: "Request KYC",
+    verificationMsg:
+      "Verification may take a few minutes, so make sure to refresh and check your status",
+    kycReviewStatus: "KYC Review Status",
+    refreshStatus: "Refresh Status",
+    requestMessage:
+      "We must verify that all users of the Sila platform are who they say they are. We do this by submitting end-user information for KYC review by our Identity Verification Partner. The  user will not be able to transact until the user is verified. With great power comes great responsibility ",
+    continue: "Continue",
+  },
+
+  ageVerification: {
+    headerTitle: "ID verification",
+    header: "Proof of Age",
+    header1: "ID verifications",
+    description:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution",
+    chooseIdentity: "Choose your identity type",
+    upLoadId: "Upload your ID card",
+    acceptOnly: "We accept only",
+    cardType: "ID card, passport, driving licence",
+    confirmIdentity: "Confirm your identity",
+    button: "Submit",
+    frontPhoto: "Front photo is required",
+    backPhoto: "Back photo is required",
+    chooseType: "Please select identity type",
+  },
+  supportTicket: {
+    heading: "Open new ticket",
+    subheading:
+      "Our gateway is routed directly to Telstra, with Optus and Vodafone networks service.",
+    uploadFile: "Upload your files here",
+    button: "Submit",
+    actionTitle: "Choose an option",
+    galleryOption: "Gallery",
+    cameraOption: "Camera",
+    cancelOption: "Cancel",
+  },
   // Static strings
 
   //

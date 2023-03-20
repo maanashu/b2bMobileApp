@@ -86,4 +86,6 @@ export const NAVIGATION = {
   personalInformation: "PersonalInformation",
   loginMethod: "LoginMethod",
   register: "Register",
+  checkAndRequestKYC: "CheckAndRequestKYC",
+  ageVerification: "AgeVerification",
 };

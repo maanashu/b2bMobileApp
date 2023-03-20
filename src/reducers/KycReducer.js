@@ -49,7 +49,7 @@ export const kycReducer = (state = { INITIALSTATE }, { payload, type }) => {
     case TYPES.CHECK_KYC_SUCCESS:
       return {
         ...state,
-        checkKyc: payload,
+        checkKyc: payload.checkkyc,
       };
     case TYPES.GET_DOCUMENT_TYPES_SUCCESS:
       return {

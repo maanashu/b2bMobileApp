@@ -9,6 +9,7 @@ import {
 import DeviceInfo from "react-native-device-info";
 import Toast from "react-native-toast-message";
 import { HttpClient } from "./HttpClient";
+
 export class UserController {
   static async login(value, countryCode, phoneNumber) {
     return new Promise(async (resolve, reject) => {
@@ -25,6 +26,10 @@ export class UserController {
       })
         .then((response) => {
           navigate(NAVIGATION.startOrder);
+          // navigation.reset({
+          //   index: 0,
+          //   actions: [navigation.navigate(NAVIGATION.startOrder)],
+          // });
           resolve(response);
         })
         .catch((error) => {
@@ -120,7 +125,7 @@ export class UserController {
           // console.log("response====", response);
           if (response?.status_code === 201) {
             console.log("reg controller sucess====", response);
-            navigate(NAVIGATION.splash);
+            navigate(NAVIGATION.personalInformation);
             resolve(response);
           } else {
             console.log("reg controller error====", response?.msg);

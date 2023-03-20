@@ -24,10 +24,15 @@ import { priceData } from "../Products/ProductsInquiry/FlatlistData";
 import SelectDropdown from "react-native-select-dropdown";
 import { scale } from "react-native-size-matters";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { useFocusEffect, useIsFocused } from "@react-navigation/native";
+import {
+  CommonActions,
+  StackActions,
+  useFocusEffect,
+  useIsFocused,
+} from "@react-navigation/native";
 import { useEffect } from "react";
 
-export function StartOrder(params) {
+export function StartOrder({ params, navigation }) {
   const isFocused = useIsFocused();
 
   const [selectedItem, setSelectedItem] = useState("");
@@ -289,7 +294,14 @@ export function StartOrder(params) {
         <View style={styles.headerInnerView}>
           <TouchableOpacity
             style={{ flexDirection: "row", alignItems: "center" }}
-            onPress={() => navigate(NAVIGATION.productInquiry)}
+            onPress={() =>
+              // navigation.reset({
+              //   index: 1,
+              //   routes: [{ name: NAVIGATION.productInquiry }],
+              // })
+
+              navigation.navigate(NAVIGATION.productInquiry)
+            }
           >
             <Image
               resizeMode="contain"

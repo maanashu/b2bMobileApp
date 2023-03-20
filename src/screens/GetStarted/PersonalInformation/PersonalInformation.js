@@ -33,6 +33,7 @@ import { getKyc } from "@/selectors/KycSelector";
 import { digits, emailReg } from "@/Utils/validators";
 import { createWallet } from "@/actions/WalletActions";
 import { store } from "@/store";
+import { Loader } from "@/components/Loader";
 
 export function PersonalInformation() {
   const navigation = useNavigation();
@@ -90,9 +91,6 @@ export function PersonalInformation() {
       setDate(fullDate);
     }
   };
-  // console.log(
-  //   "getstate" + JSON.stringify(store.getState()?.user?.registered?.token)
-  // );
 
   const submit = async () => {
     if (!dateformat || dateformat === new Date() || date === new Date()) {
@@ -229,7 +227,7 @@ export function PersonalInformation() {
   };
 
   const isLoading = useSelector((state) =>
-    isLoadingSelector([TYPES.PERSONALINFORMATION], state)
+    isLoadingSelector([TYPES.CREATE_WALLET_USER], state)
   );
 
   const getAddress = (details) => {
@@ -448,7 +446,7 @@ export function PersonalInformation() {
               </View>
 
               <Spacer space={SH(16)} />
-              <View>
+              {/* <View>
                 <Text style={styles.labelStyle}>
                   {strings.personalInformation.gender}
                 </Text>
@@ -540,7 +538,7 @@ export function PersonalInformation() {
                 </View>
               </View>
 
-              <Spacer space={SH(16)} />
+              <Spacer space={SH(16)} /> */}
               <View>
                 <Text style={styles.labelStyle}>
                   {strings.personalInformation.currentAddress}
@@ -644,6 +642,7 @@ export function PersonalInformation() {
             <Spacer space={SH(50)} />
           </View>
         </KeyboardAwareScrollView>
+        {/* {isLoading ? <Loader message="Loading data ..." /> : null} */}
       </View>
     </ScreenWrapper>
   );

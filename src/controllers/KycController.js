@@ -170,8 +170,11 @@ export class KycController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
+          console.log("kyc controller success", response);
         })
         .catch((error) => {
+          console.log("kyc controller error", error);
+
           // Toast.show({
           //   text2: error.msg,
           //   position: "bottom",

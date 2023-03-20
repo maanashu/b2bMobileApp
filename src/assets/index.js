@@ -286,6 +286,10 @@ export { default as success } from "@/assets/icons/ic_common/success.png";
 export { default as pinPointMap } from "@/assets/icons/ic_home/pinPointMap.png";
 export { default as unchecked } from "@/assets/icons/ic_home/unchecked.png";
 export { default as fingerprintLogin } from "@/assets/icons/ic_login/fingerprintLogin.png";
+export { default as refresh } from "@/assets/icons/ic_wallet/refresh.png";
+export { default as conIdentity } from "@/assets/icons/ic_more/conIdentity.png";
+export { default as cornerBorder } from "@/assets/icons/ic_more/cornerBorder.png";
+export { default as dummyIdCard } from "@/assets/icons/ic_more/dummyIdCard.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

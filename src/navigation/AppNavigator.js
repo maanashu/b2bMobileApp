@@ -25,6 +25,7 @@ import {
   Addresses,
   AddShippingAddress,
   AddShippingLocation,
+  AgeVerification,
   Brands,
   BrandsProduct,
   BrandsProducts,
@@ -33,6 +34,7 @@ import {
   BusinessProducts,
   BusinessProfile,
   Chatting,
+  CheckAndRequestKYC,
   Checkout,
   CompanyInfo,
   ContactUs,
@@ -98,6 +100,7 @@ import {
   Verify,
 } from "@/screens";
 import { createNativeStackNavigator } from "react-native-screens/native-stack";
+import { AuthNavigator } from "./AuthNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -711,17 +714,17 @@ export function AppBottom() {
 
       {/* Auth Navigator starts here*/}
       <Stack.Screen
-        component={Splash}
+        component={AuthNavigator}
         name={NAVIGATION.splash}
         options={{ headerShown: false }}
       />
-
+      {/* 
       <Stack.Screen
-        component={Login}
+        component={AuthNavigator}
         name={NAVIGATION.login}
         options={{ headerShown: false }}
-      />
-      <Stack.Screen
+      /> */}
+      {/* <Stack.Screen
         component={MobileNumber}
         name={NAVIGATION.mobileNumber}
         options={{ headerShown: false }}
@@ -756,6 +759,16 @@ export function AppBottom() {
         name={NAVIGATION.register}
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        component={CheckAndRequestKYC}
+        name={NAVIGATION.checkAndRequestKYC}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={AgeVerification}
+        name={NAVIGATION.ageVerification}
+        options={{ headerShown: false }}
+      /> */}
 
       {/* Auth Navigator ends here */}
     </Stack.Navigator>

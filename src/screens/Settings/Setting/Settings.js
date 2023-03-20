@@ -111,7 +111,7 @@ export function Settings() {
 
   const navigationHandler = (item) => {
     if (item.title === strings.settings.shipTo) {
-      navigate(NAVIGATION.personalInformation);
+      navigate(NAVIGATION.ageVerification);
     } else if (item.title === strings.profile.settings) {
       navigate(NAVIGATION.settings);
     } else if (item.title === strings.settings.notifications) {

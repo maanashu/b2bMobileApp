@@ -279,9 +279,11 @@ export const requestKyc = () => async (dispatch) => {
     const res = await KycController.requestKyc();
     if (res.payload === true && res.msg === "Requested for KYC") {
       dispatch(requestKycSuccess(res));
+      console.log("kyc action success", res);
     }
   } catch (error) {
     dispatch(requestKycError(error.message));
+    console.log("kyc action error", error);
   }
 };
 
@@ -290,6 +292,8 @@ export const checkKyc = () => async (dispatch) => {
   try {
     const res = await KycController.checkKyc();
     dispatch(checkKycSuccess(res));
+
+    console.log("checkKyc action success", res);
   } catch (error) {
     dispatch(checkKycError(error.message));
   }

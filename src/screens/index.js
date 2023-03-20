@@ -87,3 +87,5 @@ export { Checkout } from "@/screens/Checkout/Checkout";
 export { PersonalInformation } from "@/screens/GetStarted/PersonalInformation/PersonalInformation";
 export { LoginMethod } from "@/screens/GetStarted/LoginMethod/LoginMethod";
 export { Register } from "@/screens/GetStarted/Register/Register";
+export { CheckAndRequestKYC } from "@/screens/GetStarted/PersonalInformation/CheckRequestKYC/CheckAndRequestKYC";
+export { AgeVerification } from "@/screens/GetStarted/AgeVerification/AgeVerification";

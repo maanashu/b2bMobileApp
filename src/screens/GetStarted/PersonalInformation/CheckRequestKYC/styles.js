@@ -1,17 +1,17 @@
-import React from 'react';
-import { Dimensions, StyleSheet } from 'react-native';
-import { Fonts } from '@/assets';
-import { COLORS, SF, SH, ShadowStyles, SW } from '@/theme';
+import React from "react";
+import { Dimensions, StyleSheet } from "react-native";
+import { Fonts } from "@/assets";
+import { COLORS, SF, SH, ShadowStyles, SW } from "@/theme";
 
 export const styles = StyleSheet.create({
   headerRowView: {
-    flexDirection: 'row',
-    width: Dimensions.get('window').width,
+    flexDirection: "row",
+    width: Dimensions.get("window").width,
     ...ShadowStyles.shadow,
     backgroundColor: COLORS.white,
     height: SH(50),
-    alignSelf: 'center',
-    alignItems: 'center',
+    alignSelf: "center",
+    alignItems: "center",
   },
   requestTitleStyle: {
     color: COLORS.dark_gray,
@@ -21,16 +21,16 @@ export const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    marginTop: SH(20),
+    marginTop: SH(10),
+    padding: SW(20),
   },
   requestKycButton: {
     backgroundColor: COLORS.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'flex-end',
-    flexDirection: 'row',
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "flex-end",
+    flexDirection: "row",
     padding: SH(10),
-    right: 10,
     borderRadius: 5,
   },
   requestButtonText: {
@@ -44,25 +44,25 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.Regular,
   },
   reviewStatusContainer: {
-    flexDirection: 'row',
-    width: Dimensions.get('window').width,
+    flexDirection: "row",
+    width: Dimensions.get("window").width,
     marginTop: SH(50),
     backgroundColor: COLORS.white,
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   refreshView: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     right: 20,
     backgroundColor: COLORS.transparent,
   },
   refreshIcon: {
     width: SW(18),
     height: SW(18),
-    resizeMode: 'contain',
+    resizeMode: "contain",
     tintColor: COLORS.text,
   },
   refreshText: {
@@ -72,17 +72,17 @@ export const styles = StyleSheet.create({
     paddingLeft: 4,
   },
   statusViewStyle: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: SW(10),
   },
   continueButtonStyle: {
     width: SW(100),
     borderWidth: 1,
     // height: SH(40),
-    alignSelf: 'flex-end',
-    position: 'absolute',
+    alignSelf: "flex-end",
+    position: "absolute",
     borderWidth: 0,
     bottom: 10,
     backgroundColor: COLORS.transparent,

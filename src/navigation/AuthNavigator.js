@@ -9,6 +9,10 @@ import {
   EnterPin,
   ReEnterPin,
   PersonalInformation,
+  AgeVerification,
+  CheckAndRequestKYC,
+  Register,
+  LoginMethod,
 } from "@/screens";
 import { AppNavigator } from "./AppNavigator";
 
@@ -51,6 +55,26 @@ export function AuthNavigator() {
       <Stack.Screen
         component={PersonalInformation}
         name={NAVIGATION.personalInformation}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={LoginMethod}
+        name={NAVIGATION.loginMethod}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={Register}
+        name={NAVIGATION.register}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={CheckAndRequestKYC}
+        name={NAVIGATION.checkAndRequestKYC}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={AgeVerification}
+        name={NAVIGATION.ageVerification}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

@@ -13,6 +13,7 @@ export const ApiUserInventory = {
   nearMeSellers: "users/sellers/b2b",
   deviceLogin: "users/login/device",
   settings: "settings",
+  uploadDoc: USER_URL + "user_profiles/verification-document",
 };
 
 export const SupportInventory = {

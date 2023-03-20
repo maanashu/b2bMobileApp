@@ -1,3 +1,5 @@
+import { NAVIGATION } from "@/constants";
+import { navigate } from "@/navigation/NavigationRef";
 import { getUser } from "@/selectors/UserSelectors";
 import { ApiWalletInventory } from "@/Utils/APIinventory";
 import axios from "axios";
@@ -24,17 +26,17 @@ export class WalletController {
         dob: data.dob,
         ssn: data.ssn,
       };
-      // console.log("endpoint====", endpoint);
-      console.log("body====", body);
       HttpClient.post(endpoint, body)
         .then((response) => {
           // console.log("response====", response);
           if (response?.status_code === 201) {
             console.log("wallet controller sucess====", response);
-            // navigate(NAVIGATION.splash);
+            navigate(NAVIGATION.checkAndRequestKYC);
             resolve(response);
           } else {
             console.log("rewalletg controller error====", response?.msg);
+            navigate(NAVIGATION.checkAndRequestKYC);
+
             Toast.show({
               text2: response.msg,
               position: "bottom",
