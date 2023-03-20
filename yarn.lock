@@ -6498,6 +6498,11 @@ react-native-parsed-text@0.0.22:
   dependencies:
     prop-types "^15.7.x"
 
+react-native-plaid-link-sdk@^9.0.1:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-plaid-link-sdk/-/react-native-plaid-link-sdk-9.0.1.tgz#47bcbc5b17b16483950c0c8f65855cbfee1bf00a"
+  integrity sha512-C7YK+0EpSHEYN/2SfGBr7Szq+zwf0KxfVbNpyuHhWCXkKke3gjOmZWGNnZJuzR9JyuKM3GNokUmMH3zJZhfjTw==
+
 react-native-ratings@^8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/react-native-ratings/-/react-native-ratings-8.1.0.tgz#3fa9ad29128dc3a88e59518ba151e61c59dd0647"

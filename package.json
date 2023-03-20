@@ -54,6 +54,7 @@
     "react-native-modal-datetime-picker": "^14.0.1",
     "react-native-modal-dropdown": "^1.0.2",
     "react-native-pager-view": "^6.1.2",
+    "react-native-plaid-link-sdk": "^9.0.1",
     "react-native-ratings": "^8.1.0",
     "react-native-raw-bottom-sheet": "^2.2.0",
     "react-native-reanimated": "^2.14.1",
