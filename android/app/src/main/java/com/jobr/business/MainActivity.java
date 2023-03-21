@@ -6,6 +6,7 @@ import com.facebook.react.ReactRootView;
 import android.os.Bundle;
 import com.zoontek.rnbootsplash.RNBootSplash;
 import com.dooboolab.audiorecorderplayer.RNAudioRecorderPlayerPackage;
+import com.plaid.PlaidPackage;
 
 public class MainActivity extends ReactActivity {
 

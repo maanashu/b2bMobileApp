@@ -19,7 +19,7 @@ import {
   getBankAccounts,
   linkBankAccount,
 } from "@/actions/KycActions";
-import { Images } from "@/assets";
+import { backArrow, blueChecked } from "@/assets";
 import { COLORS, SH, SW } from "@/theme";
 import { NAVIGATION } from "@/constants";
 import { strings } from "@/localization";
@@ -29,14 +29,17 @@ import { navigate } from "@/navigation/NavigationRef";
 
 import { styles } from "./ConnectBank.styles";
 import { getKyc } from "@/selectors/KycSelector";
+import { store } from "@/store";
 
 export function ConnectBank(props) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const getData = useSelector(getUser);
   const getKycData = useSelector(getKyc);
-  var plaid = getKycData?.plaidToken;
+  var plaid = getKycData?.plaidToken ?? [];
   const param = props?.route?.params?.screen;
+
+  console.log("plaid" + JSON.stringify(getKycData?.plaidToken));
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -46,17 +49,17 @@ export function ConnectBank(props) {
     setIsLoading(true);
     if (success) {
       const res = await dispatch(linkBankAccount(success.publicToken));
-
+      console.log("checking res==>", res);
       if (
         res?.type === "LINK_BANK_ACCOUNT_SUCCESS" ||
         (res?.payload?.link?.msg === "Linked bank account!" &&
           param === "bankList")
       ) {
       } else {
-        navigation.reset({
-          index: 0,
-          routes: [{ name: NAVIGATION.bottomTab }],
-        });
+        // navigation.reset({
+        //   index: 0,
+        //   routes: [{ name: NAVIGATION.bottomTab }],
+        // });
       }
 
       if (getKycData?.linkBank?.status === "SUCCESS") {
@@ -74,7 +77,7 @@ export function ConnectBank(props) {
   }, [getKycData?.linkBank?.status === "SUCCESS"]);
 
   const ChangeButtonView = () => {
-    if (Object.keys(plaid).length !== 0) {
+    if (Object?.keys(plaid)?.length !== 0) {
       return (
         <PlaidLink
           tokenConfig={{ token: plaid }}
@@ -90,7 +93,7 @@ export function ConnectBank(props) {
           pending={isLoading}
           title={strings.kyc.continue}
           onPress={getPlaidTokenHandler}
-          style={{ marginHorizontal: SW(10) }}
+          style={{ alignSelf: "center" }}
         />
       );
     }
@@ -115,7 +118,7 @@ export function ConnectBank(props) {
   const renderHeaderItem = () => <View></View>;
 
   const footerComponent = () => {
-    if (Object.keys(plaid).length > 0) {
+    if (Object?.keys(plaid)?.length > 0) {
       return (
         <View>
           <PlaidLink
@@ -143,12 +146,13 @@ export function ConnectBank(props) {
   const emptyComponent = () => <Text>{strings.bank.noBankAccount}</Text>;
 
   const loginHandler = () => {
-    const data = {
-      pin: getData?.userProfile?.user_profiles?.security_pin,
-      phone_no: getData?.userProfile?.user_profiles?.phone_no,
-      phone_code: getData?.userProfile?.user_profiles?.phone_code,
-    };
-    dispatch(login(data));
+    // const data = {
+    //   pin: getData?.userProfile?.user_profiles?.security_pin,
+    //   phone_no: getData?.userProfile?.user_profiles?.phone_no,
+    //   phone_code: getData?.userProfile?.user_profiles?.phone_code,
+    // };
+    // dispatch(login(data));
+    navigate(NAVIGATION.splash);
   };
 
   const customHeader = () => {
@@ -161,7 +165,7 @@ export function ConnectBank(props) {
               : navigate(NAVIGATION.ageVerification)
           }
         >
-          <Image source={Images.backIcon2} style={styles.backIconStyle} />
+          <Image source={backArrow} style={styles.backIconStyle} />
         </TouchableOpacity>
         <Text style={styles.headerTextStyle}>{strings.bank.header}</Text>
       </View>
@@ -175,10 +179,10 @@ export function ConnectBank(props) {
           {customHeader()}
 
           <Spacer space={SH(20)} />
-          {getKycData?.bankAccounts.length > 0 ? (
+          {getKycData?.bankAccounts?.length > 0 ? (
             <FlatList
               renderItem={renderItem}
-              data={getKycData.bankAccounts}
+              data={getKycData?.bankAccounts}
               ListEmptyComponent={emptyComponent}
               ListFooterComponent={footerComponent}
               ListHeaderComponent={renderHeaderItem}
@@ -205,21 +209,21 @@ export function ConnectBank(props) {
         <View style={styles.innerContainer}>
           {customHeader()}
 
-          {getKycData?.bankAccounts.length > 0 ? (
+          {getKycData?.bankAccounts?.length > 0 ? (
             <FlatList
-              data={getKycData.bankAccounts}
+              data={getKycData?.bankAccounts}
               renderItem={renderItem}
               ListHeaderComponent={renderHeaderItem}
               contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
             />
           ) : (
             <View style={styles.uploadedView}>
-              <Image source={Images.blueChecked} />
+              <Image source={blueChecked} />
               <Text style={styles.uploadedText}>{strings.bank.uploaded}</Text>
             </View>
           )}
 
-          {isLoading ? (
+          {/* {isLoading ? (
             <View
               style={[styles.loader, { backgroundColor: "rgba(0,0,0,0.5)" }]}
             >
@@ -230,19 +234,21 @@ export function ConnectBank(props) {
                 color={COLORS.primary}
               />
             </View>
-          ) : null}
+          ) : null} */}
 
           <View style={{ flex: 1 }} />
 
           {ChangeButtonView()}
 
-          {getKycData?.bankAccounts.length > 0 ? (
-            <Button
-              pending={isLoading}
-              onPress={loginHandler}
-              title={strings.kyc.continue}
-              style={{ marginHorizontal: SW(10) }}
-            />
+          {getKycData?.bankAccounts?.length > 0 ? (
+            <View style={{ marginHorizontal: SW(10) }}>
+              <Button
+                pending={isLoading}
+                onPress={loginHandler}
+                title={strings.kyc.continue}
+                style={{ alignSelf: "center" }}
+              />
+            </View>
           ) : null}
         </View>
       )}

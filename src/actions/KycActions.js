@@ -343,8 +343,11 @@ export const getPlaidToken = () => async (dispatch) => {
   dispatch(getPlaidTokenRequest());
   try {
     const res = await KycController.getPlaidToken();
-    return dispatch(getPlaidTokenSuccess(res));
+    dispatch(getPlaidTokenSuccess(res));
+    console.log("plaid action success", res);
   } catch (error) {
+    console.log("plaid action error", error);
+
     dispatch(getPlaidTokenError(error.message));
   }
 };

@@ -2,6 +2,7 @@ import { TYPES } from "@/Types/Types";
 
 const INITIALSTATE = {
   registered: {},
+  registerData: [],
   phone: {},
   user: {},
   getuser: {},
@@ -50,6 +51,11 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         registered: payload.register.payload,
+      };
+    case TYPES.REGISTER_DATA:
+      return {
+        ...state,
+        registerData: payload.registerData,
       };
     case TYPES.PERSONALINFORMATION_SUCCESS:
       return {

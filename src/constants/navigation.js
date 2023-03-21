@@ -88,4 +88,5 @@ export const NAVIGATION = {
   register: "Register",
   checkAndRequestKYC: "CheckAndRequestKYC",
   ageVerification: "AgeVerification",
+  connectBank: "ConnectBank",
 };

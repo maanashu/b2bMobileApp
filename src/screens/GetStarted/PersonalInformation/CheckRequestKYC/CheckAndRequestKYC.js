@@ -24,7 +24,9 @@ export function CheckAndRequestKYC() {
   const getKycData = useSelector(getKyc);
   const kycRequest = getKycData?.requestKyc?.kyc?.payload;
   const kycStatus = getKycData?.checkKyc?.payload?.status;
-  const name = getUserData?.user?.payload?.user_profiles?.firstname;
+  const name =
+    getUserData?.user?.payload?.user_profiles?.firstname ??
+    getUserData?.registerData?.firstname;
   // console.log(
   //   "kyc request" + JSON.stringify(getKycData?.requestKyc?.kyc?.payload)
   // );

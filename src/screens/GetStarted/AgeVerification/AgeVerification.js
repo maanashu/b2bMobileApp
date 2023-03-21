@@ -35,6 +35,7 @@ import { NAVIGATION } from "@/constants";
 import ActionSheet from "react-native-actionsheet";
 import { ApiUserInventory } from "@/Utils/APIinventory";
 import { getUser as getuser } from "@/selectors/UserSelectors";
+import { Loader } from "@/components/Loader";
 
 export function AgeVerification(props) {
   const frontRef = useRef(null);
@@ -44,7 +45,9 @@ export function AgeVerification(props) {
   const getUser = useSelector(getuser);
   const getKycData = useSelector(getKyc);
   const screen = props?.route?.params?.screen;
-  const uuid = getUser?.user?.payload?.uuid;
+  const uuid = getUser?.user?.payload?.uuid ?? getUser?.registered?.uuid;
+
+  // console.log("uuid", getUser?.registered?.uuid);
   // console.log("uuid" + JSON.stringify(getUser?.user?.payload?.uuid));
 
   const [key, setKey] = useState("");
@@ -63,7 +66,7 @@ export function AgeVerification(props) {
       dispatch(getWalletUserProfile(getUser?.userProfile?.unique_uuid));
       dispatch(getDocumentTypes());
 
-      if (getKycData?.docType.length > 0) {
+      if (getKycData?.docType?.length > 0) {
         const arr = [];
         getKycData?.docType.map((item, index) => {
           arr.push({ key: index, label: item.label, value: item.name });
@@ -155,29 +158,32 @@ export function AgeVerification(props) {
         document_1: finalFrontPhoto,
         document_2: finalBackPhoto,
       };
-      if (screen === "business") {
-        const res = await dispatch(businessDocumentUpload(data, uuid));
-        if (res?.type === "BUSINESS_DOCUMENTS_UPLOAD_SUCCESS") {
-          dispatch(getWalletUserProfile(uuid));
-          // navigate(NAVIGATION.connectBank);
-          alert("connect bank");
+      // if (screen === "business") {
+      //   const res = await dispatch(businessDocumentUpload(data, uuid));
+      //   if (res?.type === "BUSINESS_DOCUMENTS_UPLOAD_SUCCESS") {
+      //     dispatch(getWalletUserProfile(uuid));
+      //     // navigate(NAVIGATION.connectBank);
+      //     alert("connect bank");
+      //   }
+      // } else {
+      const res = await dispatch(documentsUpload(data, uuid));
+      console.log("documentsUpload====", res);
+      if (res?.type === "DOCUMENTS_UPLOAD_SUCCESS") {
+        const walletres = await dispatch(getWalletUserProfile(uuid));
+        console.log("getWalletUserProfile====", walletres);
+        if (walletres?.type === "GET_WALLET_USER_SUCCESS") {
+          navigate(NAVIGATION.connectBank);
         }
-      } else {
-        const res = await dispatch(documentsUpload(data, uuid));
-        console.log("documentsUpload====", res);
-        if (res?.type === "DOCUMENTS_UPLOAD_SUCCESS") {
-          const walletres = await dispatch(getWalletUserProfile(uuid));
-          console.log("getWalletUserProfile====", walletres);
-          if (walletres?.type === "GET_WALLET_USER_SUCCESS") {
-            navigate(NAVIGATION.startOrder);
-          }
-        }
+        // }
       }
     }
   };
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.DOCUMENTS_UPLOAD], state)
+  );
+  const isLoadingWallet = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_WALLET_USER], state)
   );
 
   const openPickerFrontHandler = (index) => {
@@ -427,6 +433,8 @@ export function AgeVerification(props) {
           title={strings.supportTicket.actionTitle}
           onPress={(index) => openPickerBackHandler(index)}
         />
+
+        {isLoadingWallet ? <Loader message="Loading data ..." /> : null}
       </ScrollView>
     </ScreenWrapper>
   );

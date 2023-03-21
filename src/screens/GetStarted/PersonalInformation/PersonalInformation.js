@@ -42,9 +42,15 @@ export function PersonalInformation() {
   const getData = useSelector(userSelector);
   const getKycData = useSelector(getKyc);
   const id = getData?.user?.id || getData?.registered?.id;
-  const firstname = getData?.user?.payload?.user_profiles?.firstname;
-  const lastname = getData?.user?.payload?.user_profiles?.lastname;
-  const phone = getData?.user?.payload?.user_profiles?.phone_no;
+  const firstname =
+    getData?.user?.payload?.user_profiles?.firstname ??
+    getData?.registerData?.firstname;
+  const lastname =
+    getData?.user?.payload?.user_profiles?.lastname ??
+    getData?.registerData?.lastname;
+  const phone =
+    getData?.user?.payload?.user_profiles?.phone_no ??
+    getData?.phone?.phoneNumber;
 
   const [ssn, setSsn] = useState("");
   const [city, setCity] = useState("");
@@ -56,11 +62,11 @@ export function PersonalInformation() {
   const [country, setCountry] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [female, setFemale] = useState(false);
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(getData?.registerData?.dob);
   const [stateCode, setStateCode] = useState("");
   const [business, setBusiness] = useState(false);
   const [appartment, setAppartment] = useState("");
-  const [dateformat, setDateformat] = useState("");
+  const [dateformat, setDateformat] = useState(getData?.registerData?.dob);
   const [countryCode, setCountryCode] = useState("");
   const [individual, setIndividual] = useState(false);
 
@@ -642,7 +648,7 @@ export function PersonalInformation() {
             <Spacer space={SH(50)} />
           </View>
         </KeyboardAwareScrollView>
-        {/* {isLoading ? <Loader message="Loading data ..." /> : null} */}
+        {isLoading ? <Loader message="Loading data ..." /> : null}
       </View>
     </ScreenWrapper>
   );

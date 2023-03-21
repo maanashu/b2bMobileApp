@@ -37,6 +37,7 @@ import {
   CheckAndRequestKYC,
   Checkout,
   CompanyInfo,
+  ConnectBank,
   ContactUs,
   CookiesPolicy,
   CurrentCoupons,
@@ -714,17 +715,17 @@ export function AppBottom() {
 
       {/* Auth Navigator starts here*/}
       <Stack.Screen
-        component={AuthNavigator}
+        component={Splash}
         name={NAVIGATION.splash}
         options={{ headerShown: false }}
       />
-      {/* 
+
       <Stack.Screen
         component={AuthNavigator}
         name={NAVIGATION.login}
         options={{ headerShown: false }}
-      /> */}
-      {/* <Stack.Screen
+      />
+      <Stack.Screen
         component={MobileNumber}
         name={NAVIGATION.mobileNumber}
         options={{ headerShown: false }}
@@ -768,7 +769,12 @@ export function AppBottom() {
         component={AgeVerification}
         name={NAVIGATION.ageVerification}
         options={{ headerShown: false }}
-      /> */}
+      />
+      <Stack.Screen
+        component={ConnectBank}
+        name={NAVIGATION.connectBank}
+        options={{ headerShown: false }}
+      />
 
       {/* Auth Navigator ends here */}
     </Stack.Navigator>

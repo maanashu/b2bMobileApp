@@ -12,6 +12,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { register } from "@/actions/UserActions";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
+import { Loader } from "@/components/Loader";
 
 export function Register() {
   const dispatch = useDispatch();
@@ -36,6 +39,10 @@ export function Register() {
   const [confirmPin, setconfirmPin] = useState("");
   const [countryCode, setcountryCode] = useState(user?.phone?.countryCode);
   const [phoneNumber, setphoneNumber] = useState(user?.phone?.phoneNumber);
+
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.REGISTER], state)
+  );
 
   const onChangeDate = (selectedDate) => {
     setShow(false);
@@ -133,7 +140,7 @@ export function Register() {
 
   return (
     <ScreenWrapper>
-      <NameHeader back={backArrow} title={"Personal Information"} />
+      <NameHeader back={backArrow} title={"Register"} />
       <KeyboardAwareScrollView>
         <View style={styles.mainContainer}>
           <Text style={styles.headingBoldText}>{"Username"}</Text>
@@ -278,6 +285,7 @@ export function Register() {
             />
           </View>
         </View>
+        {isLoading ? <Loader message="Loading data ..." /> : null}
       </KeyboardAwareScrollView>
     </ScreenWrapper>
   );

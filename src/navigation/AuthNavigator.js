@@ -13,6 +13,7 @@ import {
   CheckAndRequestKYC,
   Register,
   LoginMethod,
+  ConnectBank,
 } from "@/screens";
 import { AppNavigator } from "./AppNavigator";
 
@@ -75,6 +76,11 @@ export function AuthNavigator() {
       <Stack.Screen
         component={AgeVerification}
         name={NAVIGATION.ageVerification}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={ConnectBank}
+        name={NAVIGATION.connectBank}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

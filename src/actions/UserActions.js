@@ -30,6 +30,7 @@ export const TYPES = {
   REGISTER_SUCCESS: "REGISTER_SUCCESS",
   REGISTER_ERROR: "REGISTER_ERROR",
   REGISTER_REQUEST: "REGISTER_REQUEST",
+  REGISTER_DATA: "REGISTER_DATA",
 
   NEAR_ME_SELLERS: "NEAR_ME_SELLERS",
   NEAR_ME_SELLERS_SUCCESS: "NEAR_ME_SELLERS_SUCCESS",
@@ -120,6 +121,11 @@ const registerSuccess = (register) => ({
   type: TYPES.REGISTER_SUCCESS,
   payload: { register },
 });
+const registrationData = (registerData) => ({
+  type: TYPES.REGISTER_DATA,
+  payload: { registerData },
+});
+
 const getUserRequest = () => ({
   type: TYPES.GET_USER_REQUEST,
   payload: null,
@@ -243,6 +249,7 @@ export const register = (data) => async (dispatch) => {
     const res = await UserController.register(data);
 
     dispatch(registerSuccess(res));
+    dispatch(registrationData(data));
     // dispatch(getUser(res?.payload?.id));
   } catch (error) {
     dispatch(registerError(error.message));
