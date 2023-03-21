@@ -47,11 +47,11 @@ export function CheckAndRequestKYC() {
     isLoadingSelector([TYPES.CHECK_KYC], state)
   );
 
+ 
   const onPressRefreshHandler = () => dispatch(checkKyc());
 
   const submitKyc = () => {
     navigate(NAVIGATION.ageVerification);
-    alert("ok");
   };
 
   return (
