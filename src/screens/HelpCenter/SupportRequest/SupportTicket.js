@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   Image,
@@ -35,11 +35,35 @@ import { NAVIGATION } from "@/constants";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { string } from "prop-types";
+import { useDispatch } from "react-redux";
+import { getSubjects } from "@/actions/SupportAction";
 
 export function SupportTicket() {
+  const dispatch = useDispatch();
+
+  const getData = useSelector(getSupport);
+  const getUserData = useSelector(getuser);
+  console.log("getting subjects", getData?.subject);
+  const [subjectItems, setSubjectItems] = useState([]);
+
   const dropdownData = ["abc", "def"];
+
   const [fileResponse, setFileResponse] = useState([]);
   const [isBottomViewVisible, setisBottomViewVisible] = useState(false);
+  useEffect(() => {
+    dispatch(getSubjects());
+    console.log("dispatch");
+  }, []);
+
+  const getSubjectArray = () => {
+    if (getData?.subject.length > 0) {
+      const arr = [];
+      const get = getData?.subject.map((item) => {
+        arr.push({ label: item?.name?.trim(), value: item.id });
+      });
+      setSubjectItems(arr);
+    }
+  };
 
   const handleDocumentSelection = useCallback(async () => {
     try {

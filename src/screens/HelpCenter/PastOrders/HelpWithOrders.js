@@ -42,7 +42,10 @@ export function HelpWithOrders() {
     } else if (item.title === "Report other issue") {
       alert("Report other issue");
     } else if (item.title === "Need more help") {
-      navigate(NAVIGATION.needMoreHelp, { data: item.title });
+      navigate(NAVIGATION.needMoreHelp, {
+        data: "refund",
+        name: "Need more help",
+      });
     }
   };
 

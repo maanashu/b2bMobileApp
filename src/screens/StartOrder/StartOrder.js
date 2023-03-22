@@ -31,9 +31,14 @@ import {
   useIsFocused,
 } from "@react-navigation/native";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { getUser } from "@/selectors/UserSelectors";
 
 export function StartOrder({ params, navigation }) {
   const isFocused = useIsFocused();
+
+  const user = useSelector(getUser);
+  console.log("user", user?.user?.payload?.token);
 
   const [selectedItem, setSelectedItem] = useState("");
   const [open, setOpen] = useState(false);

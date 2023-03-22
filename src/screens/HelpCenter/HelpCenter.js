@@ -80,7 +80,7 @@ export function HelpCenter() {
     } else if (item.title === strings.helpCenter.myAccount) {
       navigate(NAVIGATION.faq, { data: item.title });
     } else if (item.title === strings.helpCenter.reportIssue) {
-      navigate(NAVIGATION.needMoreHelp, { data: item.title });
+      navigate(NAVIGATION.needMoreHelp, { data: "support" });
     } else if (item.title === strings.helpCenter.faq) {
       navigate(NAVIGATION.faq, { data: item.title });
     }

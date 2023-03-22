@@ -34,6 +34,7 @@ export function Register() {
   const [username, setusername] = useState("");
   const [firstname, setfirstname] = useState("");
   const [lastname, setlastname] = useState("");
+  const [email, setEmail] = useState("");
   const [dateformat, setDateformat] = useState("");
   const [pin, setpin] = useState("");
   const [confirmPin, setconfirmPin] = useState("");
@@ -63,6 +64,7 @@ export function Register() {
     username: username,
     firstname: firstname,
     lastname: lastname,
+    email: email,
     dob: dateformat,
     pin: pin,
     confirmPin: confirmPin,
@@ -175,6 +177,19 @@ export function Register() {
             returnKeyType="done"
             onChangeText={setlastname}
             placeholder={strings.personalInformation.lastName}
+            placeholderTextColor={COLORS.secondary}
+            style={styles.textFieldStyle}
+          />
+
+          <Spacer space={SH(15)} />
+
+          <Text style={styles.headingBoldText}>{"Email"}</Text>
+
+          <TextInput
+            autoCapitalize="none"
+            returnKeyType="done"
+            onChangeText={setEmail}
+            placeholder={strings.personalInformation.email}
             placeholderTextColor={COLORS.secondary}
             style={styles.textFieldStyle}
           />

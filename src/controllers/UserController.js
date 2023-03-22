@@ -108,6 +108,7 @@ export class UserController {
         username: data.username,
         firstname: data.firstname,
         lastname: data.lastname,
+        email: data.email,
         dob: data.dob,
         security_pin: data.pin,
         confirm_security_pin: data.confirmPin,

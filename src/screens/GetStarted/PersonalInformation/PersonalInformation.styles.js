@@ -63,6 +63,7 @@ export const styles = StyleSheet.create({
     paddingVertical: verticalScale(10),
     backgroundColor: COLORS.placeholder,
     paddingHorizontal: moderateScale(10),
+    color: COLORS.darkGrey,
   },
   googlePlacesTextField: {
     height: SH(48),

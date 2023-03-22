@@ -354,7 +354,7 @@ export function PersonalInformation() {
                 autoCapitalize={"none"}
                 style={styles.textFieldStyle}
                 keyboardType={"email-address"}
-                placeholderTextColor={COLORS.secondary}
+                placeholderTextColor={COLORS.darkGrey}
                 placeholder={strings.personalInformation.email}
               />
 

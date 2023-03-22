@@ -14,6 +14,7 @@ import { SupportSelector } from "@/selectors/SupportSelectors";
 export function Faq(props) {
   const dispatch = useDispatch();
   const faqData = useSelector(SupportSelector);
+  console.log("faqs", faqData);
   const Faq = faqData?.faqs;
 
   const Body = {

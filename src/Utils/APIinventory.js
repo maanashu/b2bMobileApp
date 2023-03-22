@@ -1,8 +1,7 @@
 export const USER_URL = "https://stgapiuserservice.jobr.com/api/v1/";
-// export const SUPPORT_URL = 'https://apisupport.jobr.com/api/v1/';
 export const ORDER_URL = "https://stgdapiorder.jobr.com:8024/api/v1/";
 export const PRODUCT_URL = "https://stgapiproductmgmt.jobr.com/api/v1/";
-export const SUPPORT_URL = "https://apisupport.jobr.com/api/v1/";
+export const SUPPORT_URL = "https://stgapisupport.jobr.com/api/v1/";
 export const WALLET_URL = "https://stgbewalletmanagement.jobr.com/api/v1/";
 
 export const ApiUserInventory = {
@@ -19,6 +18,14 @@ export const ApiUserInventory = {
 export const SupportInventory = {
   faqs: "faqs",
 };
+export const ApiSupportInventory = {
+  subjectList: SUPPORT_URL + "subjects",
+  uploadSupportDoc: SUPPORT_URL + "supports/document",
+  addTicket: SUPPORT_URL + "supports",
+  supportList: SUPPORT_URL + "supports/user",
+  faqList: SUPPORT_URL + "faqs",
+};
+
 export const ApiProductInventory = {
   getCategory: `${PRODUCT_URL}categories/b2b`,
   getSubCategory: (categoryID) =>
