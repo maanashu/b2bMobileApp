@@ -75,9 +75,9 @@ export function MySupport() {
 
             <View>
               <Text style={styles.deliveredText}>
-                {item.status.name === "Unresponse"
+                {item?.status?.name === "Unresponse"
                   ? "Pending"
-                  : item.status.name}
+                  : item?.status?.name}
               </Text>
             </View>
           </View>
@@ -123,11 +123,11 @@ export function MySupport() {
                 </View>
               </View> */}
 
-            {item.support_comments.length > 0 ? (
+            {item?.support_comments?.length > 0 ? (
               <View style={styles.hr}></View>
             ) : null}
 
-            {item.support_comments.length > 0 ? (
+            {item?.support_comments?.length > 0 ? (
               <Text style={styles.pickUpText}>
                 {strings.mySupport.lastRespond}
               </Text>
@@ -137,9 +137,9 @@ export function MySupport() {
             <View style={{ display: "flex", flexDirection: "column" }}>
               <Spacer space={SH(18)} backgroundColor={COLORS.transparent} />
 
-              {item.support_comments.length > 0 ? (
+              {item?.support_comments?.length > 0 ? (
                 <FlatList
-                  data={item.support_comments}
+                  data={item?.support_comments}
                   renderItem={renderComItem}
                 />
               ) : null}
