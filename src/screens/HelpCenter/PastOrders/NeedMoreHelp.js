@@ -159,7 +159,7 @@ export function NeedMoreHelp(props) {
   // submit handler
 
   const getSubjectArray = () => {
-    if (getData?.subject.length > 0) {
+    if (getData?.subject?.length > 0) {
       const arr = [];
       const get = getData?.subject.map((item) => {
         arr.push({ label: item?.name?.trim(), value: item.id });
