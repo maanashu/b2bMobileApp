@@ -1,6 +1,6 @@
 import { NAVIGATION } from "@/constants";
 import { strings } from "@/localization";
-import { goBack } from "@/navigation/NavigationRef";
+import { goBack, navigate } from "@/navigation/NavigationRef";
 import {
   USER_URL,
   PRODUCT_URL,
@@ -103,6 +103,7 @@ export class SupportController {
     return new Promise(async (resolve, reject) => {
       const endpoint = ApiSupportInventory.addTicket;
       const body = getBody(data);
+      console.log("body", body);
       await HttpClient.post(endpoint, body)
         .then((response) => {
           console.log("checking response", response);
@@ -114,6 +115,8 @@ export class SupportController {
               data.type === "support"
                 ? navigate(NAVIGATION.supportRequest)
                 : goBack();
+              //   alert("support")
+              // : alert("refund");
             }
             Toast.show({
               text2: strings.successMessages.ticketSuccess,
@@ -142,8 +145,11 @@ export class SupportController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
+          console.log("get support list cont success", response);
         })
         .catch((error) => {
+          console.log("get support list cont error", error);
+
           reject(new Error((strings.verify.error = error.msg)));
         });
     });

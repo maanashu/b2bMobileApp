@@ -48,8 +48,6 @@ export function NeedMoreHelp(props) {
   const getData = useSelector(SupportSelector);
   const getUserData = useSelector(getUser);
 
-  const [fileResponse, setFileResponse] = useState([]);
-  const [isBottomViewVisible, setisBottomViewVisible] = useState(false);
   const [subjectModalOpen, setSubjectModelOpen] = useState(false);
   const [subjectModalValue, setSubjectModalValue] = useState(null);
   const [firstname, setfirstname] = useState(
@@ -59,6 +57,9 @@ export function NeedMoreHelp(props) {
   const [notes, setNotes] = useState("");
   const [supportImage, setSupportImage] = useState("");
   const [doc, setDoc] = useState("");
+  const token = getUserData?.user?.payload?.token;
+  console.log("token", getUserData?.user?.payload?.token);
+  console.log("token", doc);
 
   const headingName =
     props?.route?.params?.data == "support"
@@ -96,6 +97,7 @@ export function NeedMoreHelp(props) {
   };
   useEffect(() => {
     dispatch(getSubjects(SubjectBody));
+    getSubjectArray();
   }, []);
 
   // submit handler
@@ -121,6 +123,13 @@ export function NeedMoreHelp(props) {
         text2: strings.validation.enterDescription,
         visibilityTime: 1500,
       });
+    } else if (!token) {
+      Toast.show({
+        position: "bottom",
+        type: "error_toast",
+        text2: strings.validation.token,
+        visibilityTime: 1500,
+      });
     } else {
       if (request === "refund") {
         const data = {
@@ -140,7 +149,7 @@ export function NeedMoreHelp(props) {
           name: firstname,
           notes: notes,
           document_url: doc,
-          type: "support_other_issue",
+          type: "support",
         };
         dispatch(addNewTicket(data));
       }

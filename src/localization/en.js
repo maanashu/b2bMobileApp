@@ -47,6 +47,7 @@ export const en = {
     emptyEmail: "Please enter email address",
     invalidEmail: "Please enter valid email address",
     selectType: "Please select a type",
+    token: "Login to report a issue",
   },
   personalInformation: {
     email: "Enter you email address",
@@ -683,7 +684,11 @@ export const en = {
     weWillGetBack: "We ‘ll get back to you soon",
     howToGetVerified: "How to get verified?",
   },
-
+  mySupport: {
+    heading: "Subject",
+    lastRespond: "Last Respond",
+    button: "Pending",
+  },
   faq: {
     text1:
       "These terms and conditions outline the rules and regulations for the use of Company Name's Website, located at Website.com.",

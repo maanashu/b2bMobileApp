@@ -1,6 +1,13 @@
 import React from "react";
-import { View, Image, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { Spacer } from "@/components";
+import {
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  FlatList,
+} from "react-native";
+import { ScreenWrapper, Spacer } from "@/components";
 import { strings } from "@/localization";
 import { theme, SH, SW, COLORS, SF } from "@/theme";
 import { Fonts } from "@/assets";
@@ -8,68 +15,177 @@ import { userPhoto } from "@/assets";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import { NAVIGATION } from "@/constants";
 import { navigate } from "@/navigation/NavigationRef";
-
+import { useDispatch, useSelector } from "react-redux";
+import { SupportSelector } from "@/selectors/SupportSelectors";
 export function MySupport() {
-  return (
-    <View style={styles.sopportContainer}>
-      <TouchableOpacity onPress={() => navigate(NAVIGATION.supportDetails)}>
-        <View style={styles.orderCon}>
-          <Text style={styles.order}>{"#XD1256P67"}</Text>
+  const dispatch = useDispatch();
 
-          <TouchableOpacity>
-            <Text style={styles.deliveredText}>
-              {strings.helpCenter.pending}
-            </Text>
-          </TouchableOpacity>
+  const supportList = useSelector(SupportSelector);
+  console.log("support list", supportList?.support);
+  const array = supportList?.support;
+
+  const renderComItem = ({ item }) => {
+    const agentProfile = item?.user_id_details?.profile_photo;
+    const name =
+      item?.user_id_details?.firstname + " " + item?.user_id_details?.lastname;
+    const date = new Date(item?.created_at);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const getTime = date.getHours();
+    const getMin = date.getMinutes();
+    const time = getTime > 12 ? "pm" : "am";
+    const finalDateTime =
+      day +
+      " " +
+      month +
+      " " +
+      year +
+      " " +
+      " " +
+      "|" +
+      " " +
+      getTime +
+      ":" +
+      getMin +
+      time;
+    return (
+      <View style={{ flexDirection: "row" }}>
+        <Image
+          source={agentProfile ? { uri: agentProfile } : Images.userPic}
+          style={styles.manLogo}
+        />
+        <View style={{ paddingHorizontal: 7 }}>
+          <Text style={styles.deliverManText}>{name}</Text>
+          <Text style={styles.address}>{finalDateTime}</Text>
         </View>
+      </View>
+    );
+  };
 
-        <Spacer space={SH(10)} />
+  const renderItem = ({ item, index }) => {
+    const a = item?.track_number;
+    const result = a.slice(0, 8);
+    const track = result.toUpperCase();
+    return (
+      <>
+        <View style={styles.sopportContainer}>
+          <View style={styles.orderCon}>
+            <Text style={styles.order}>{"#" + track}</Text>
 
-        <View style={styles.hr}></View>
-
-        <Spacer space={SH(5)} />
-
-        <View style={styles.secondCon}>
-          <View style={styles.aboutPayment}>
-            <Text style={styles.supportText}>{strings.helpCenter.subject}</Text>
-
-            <Spacer space={SH(8)} />
-
-            <Text style={styles.paymentIssue}>
-              {strings.helpCenter.paymentIssue}
-            </Text>
-
-            <Spacer space={SH(5)} />
-
-            <Text style={styles.description}>
-              {strings.helpCenter.issueMessage}
-            </Text>
+            <View>
+              <Text style={styles.deliveredText}>
+                {item.status.name === "Unresponse"
+                  ? "Pending"
+                  : item.status.name}
+              </Text>
+            </View>
           </View>
-
-          <Spacer space={SH(5)} />
-
-          <View style={styles.hr}></View>
 
           <Spacer space={SH(10)} />
 
-          <View style={{ display: "flex", flexDirection: "column" }}>
-            <Text style={styles.pickUpText}>
-              {strings.helpCenter.lastRespond}
-            </Text>
+          <View style={styles.hr}></View>
 
-            <Spacer space={SH(8)} />
+          <Spacer space={SH(5)} />
 
-            <View style={{ display: "flex", flexDirection: "row" }}>
-              <Image source={userPhoto} style={styles.manLogo} />
-              <View style={{ paddingHorizontal: 7 }}>
-                <Text style={styles.deliverManText}>{"Satomi D."}</Text>
-                <Text style={styles.address}>{"13 Jun, 2022  |   12:25p"}</Text>
-              </View>
+          <View style={styles.secondCon}>
+            <View style={styles.aboutPayment}>
+              <Text style={styles.supportText}>
+                {strings.helpCenter.subject}
+              </Text>
+
+              <Spacer space={SH(8)} />
+
+              <Text style={styles.paymentIssue}>{item?.subject?.name}</Text>
+
+              <Spacer space={SH(5)} />
+
+              <Text style={styles.description}>{item?.notes}</Text>
+            </View>
+
+            <Spacer space={SH(5)} />
+
+            {/* <View style={{ display: "flex", flexDirection: "column" }}>
+                <Text style={styles.pickUpText}>
+                  {strings.helpCenter.lastRespond}
+                </Text>
+
+                <Spacer space={SH(8)} />
+
+                <View style={{ display: "flex", flexDirection: "row" }}>
+                  <Image source={userPhoto} style={styles.manLogo} />
+                  <View style={{ paddingHorizontal: 7 }}>
+                    <Text style={styles.deliverManText}>{"Satomi D."}</Text>
+                    <Text style={styles.address}>
+                      {"13 Jun, 2022  |   12:25p"}
+                    </Text>
+                  </View>
+                </View>
+              </View> */}
+
+            {item.support_comments.length > 0 ? (
+              <View style={styles.hr}></View>
+            ) : null}
+
+            {item.support_comments.length > 0 ? (
+              <Text style={styles.pickUpText}>
+                {strings.mySupport.lastRespond}
+              </Text>
+            ) : null}
+
+            <Spacer space={SH(5)} />
+            <View style={{ display: "flex", flexDirection: "column" }}>
+              <Spacer space={SH(18)} backgroundColor={COLORS.transparent} />
+
+              {item.support_comments.length > 0 ? (
+                <FlatList
+                  data={item.support_comments}
+                  renderItem={renderComItem}
+                />
+              ) : null}
             </View>
           </View>
         </View>
-      </TouchableOpacity>
-    </View>
+
+        <Spacer space={SH(10)} />
+      </>
+    );
+  };
+
+  const renderEmptyContainer = () => {
+    return (
+      <View
+        style={
+          array?.length > 0 ? styles.emptyListViewStyle : styles.emptyListView
+        }
+      >
+        <Text style={styles.emptyListText}>
+          {strings.successMessages.emptyList}
+        </Text>
+      </View>
+    );
+  };
+  return (
+    <ScreenWrapper>
+      <View>
+        <FlatList
+          contentContainerStyle={{
+            justifyContent: array?.length > 0 ? "flex-start" : "center",
+          }}
+          data={array}
+          extraData={array}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={renderEmptyContainer}
+          ListHeaderComponent={() => (
+            <View
+              style={{ marginTop: 10, backgroundColor: COLORS.transparent }}
+            />
+          )}
+        />
+      </View>
+    </ScreenWrapper>
   );
 }
 
@@ -212,7 +328,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.Regular,
   },
   deliveredText: {
-    backgroundColor: COLORS.orange,
+    backgroundColor: COLORS.white,
     paddingVertical: SH(3),
     paddingHorizontal: SW(10),
     borderRadius: 3,
