@@ -83,11 +83,8 @@ export const addNewTicket = (data) => async (dispatch) => {
   try {
     const res = await SupportController.addNewTicket(data);
     dispatch(getAddNewTicketSuccess(res));
-    console.log("new ticket action success", res);
     dispatch(getSupportList());
   } catch (error) {
-    console.log("new ticket action error", error);
-
     dispatch(getAddNewTicketError(error.message));
   }
 };

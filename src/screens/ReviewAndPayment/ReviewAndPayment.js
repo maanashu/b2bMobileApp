@@ -32,6 +32,7 @@ import {
 import { strings } from "@/localization";
 import { NAVIGATION } from "@/constants";
 import { ms, verticalScale, vs } from "react-native-size-matters";
+import { SwiperButton } from "@/components/SwiperButton";
 
 const data = [
   {
@@ -57,38 +58,39 @@ const data = [
 ];
 
 export function ReviewAndPayment({ navigation }) {
-  const renderItem = ({ item }) => (
-    <View style={styles.rowMainCard}>
-      <View style={styles.renderinput}>
-        <Image source={whiteJobr} resizeMode="contain" style={styles.img} />
-        <Text
-          style={[
-            styles.getName,
-            { alignSelf: "center", paddingHorizontal: 10 },
-          ]}
-        >
-          {item.name}
-        </Text>
-      </View>
+  // const renderItem = ({ item }) => (
+  //   <View style={styles.rowMainCard}>
+  //     <View style={styles.renderinput}>
+  //       <Image source={whiteJobr} resizeMode="contain" style={styles.img} />
+  //       <Text
+  //         style={[
+  //           styles.getName,
+  //           { alignSelf: "center", paddingHorizontal: 10 },
+  //         ]}
+  //       >
+  //         {item.name}
+  //       </Text>
+  //     </View>
 
-      <TouchableOpacity
-        // onPress={() => navigate(NAVIGATION.paymentMethod, { data: "wallet" })}
-        onPress={() => {
-          refRBSheet.current.close();
-          navigate(NAVIGATION.paymentMethod);
-        }}
-        style={styles.row}
-      >
-        <Text style={styles.formText}>{item.sub}</Text>
-        <Image
-          source={rightArrowBlue}
-          resizeMode="contain"
-          style={styles.mask}
-        />
-      </TouchableOpacity>
-    </View>
-  );
+  //     <TouchableOpacity
+  //       // onPress={() => navigate(NAVIGATION.paymentMethod, { data: "wallet" })}
+  //       onPress={() => {
+  //         refRBSheet.current.close();
+  //         navigate(NAVIGATION.paymentMethod);
+  //       }}
+  //       style={styles.row}
+  //     >
+  //       <Text style={styles.formText}>{item.sub}</Text>
+  //       <Image
+  //         source={rightArrowBlue}
+  //         resizeMode="contain"
+  //         style={styles.mask}
+  //       />
+  //     </TouchableOpacity>
+  //   </View>
+  // );
 
+  const renderItem = ({ item }) => <SwiperButton item={item} />;
   const refRBSheet = useRef();
 
   const route = useRoute();
@@ -445,16 +447,16 @@ export function ReviewAndPayment({ navigation }) {
             </View>
 
             <Spacer space={SH(15)} />
-            <FlatList
-              data={data}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id}
-              showsVerticalScrollIndicator={false}
-              // initialNumToRender={2}
-              // maxToRenderPerBatch={2}
-              // windowSize={1}
-              removeClippedSubviews={true}
-            />
+            <View style={{ paddingHorizontal: 20 }}>
+              <FlatList
+                windowSize={1}
+                data={data}
+                renderItem={renderItem}
+                removeClippedSubviews={true}
+                keyExtractor={(item) => item.id}
+                showsVerticalScrollIndicator={false}
+              />
+            </View>
             <Spacer space={SH(15)} />
 
             <View style={{ paddingHorizontal: ms(20), alignItems: "center" }}>

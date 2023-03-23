@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Image,
@@ -17,12 +17,17 @@ import { NAVIGATION } from "@/constants";
 import { navigate } from "@/navigation/NavigationRef";
 import { useDispatch, useSelector } from "react-redux";
 import { SupportSelector } from "@/selectors/SupportSelectors";
+import { getSupportList } from "@/actions/SupportAction";
 export function MySupport() {
   const dispatch = useDispatch();
 
   const supportList = useSelector(SupportSelector);
-  console.log("support list", supportList?.support);
+  // console.log("support list", supportList?.support);
   const array = supportList?.support;
+
+  useEffect(() => {
+    dispatch(getSupportList());
+  }, []);
 
   const renderComItem = ({ item }) => {
     const agentProfile = item?.user_id_details?.profile_photo;
@@ -73,13 +78,13 @@ export function MySupport() {
           <View style={styles.orderCon}>
             <Text style={styles.order}>{"#" + track}</Text>
 
-            <View>
+            <TouchableOpacity>
               <Text style={styles.deliveredText}>
                 {item?.status?.name === "Unresponse"
                   ? "Pending"
                   : item?.status?.name}
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
 
           <Spacer space={SH(10)} />

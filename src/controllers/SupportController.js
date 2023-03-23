@@ -145,10 +145,9 @@ export class SupportController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
-          console.log("get support list cont success", response);
         })
         .catch((error) => {
-          console.log("get support list cont error", error);
+          console.log(endpoint);
 
           reject(new Error((strings.verify.error = error.msg)));
         });
