@@ -3,40 +3,29 @@ import { View, Text, Image, TouchableOpacity, TextInput } from "react-native";
 
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
-import IonIcon from "react-native-vector-icons/Ionicons";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
-import {
-  calendar,
-  check,
-  checkBox,
-  crossBlack,
-  Images,
-  unchecked,
-} from "@/assets";
-import { COLORS, SH } from "@/theme";
+import { calendar } from "@/assets";
+import { COLORS, SH, SW } from "@/theme";
 import { TYPES } from "@/Types/Types";
 import { NAVIGATION } from "@/constants";
 import { strings } from "@/localization";
 import { GOOGLE_MAP } from "@/constants/ApiKeys";
 import { getUser as userSelector } from "@/selectors/UserSelectors";
-import { personalInformation, requestKyc } from "@/actions/KycActions";
 import { ScreenWrapper, Spacer, Button } from "@/components";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
-import { getUser, getWalletUserProfile, logout } from "@/actions/UserActions";
+import { getUser } from "@/actions/UserActions";
 import { styles } from "@/screens/GetStarted/PersonalInformation/PersonalInformation.styles";
 import { getKyc } from "@/selectors/KycSelector";
 import { digits, emailReg } from "@/Utils/validators";
 import { createWallet } from "@/actions/WalletActions";
-import { store } from "@/store";
 import { Loader } from "@/components/Loader";
+import { navigate } from "@/navigation/NavigationRef";
 
 export function PersonalInformation() {
-  const navigation = useNavigation();
   const ref = useRef(null);
   const dispatch = useDispatch();
   const getData = useSelector(userSelector);
@@ -54,25 +43,30 @@ export function PersonalInformation() {
 
   const [ssn, setSsn] = useState("");
   const [city, setCity] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(
+    getData?.registered?.email ?? getData?.user?.payload?.email
+  );
   const [state, setState] = useState("");
   const [show, setShow] = useState(false);
-  const [male, setMale] = useState(false);
   const [street, setStreet] = useState("");
   const [country, setCountry] = useState("");
   const [zipCode, setZipCode] = useState("");
-  const [female, setFemale] = useState(false);
-  const [date, setDate] = useState(getData?.registerData?.dob);
+  const [date, setDate] = useState(
+    getData?.registerData?.dob ?? getData?.user?.payload?.user_profiles?.dob
+  );
   const [stateCode, setStateCode] = useState("");
-  const [business, setBusiness] = useState(false);
   const [appartment, setAppartment] = useState("");
-  const [dateformat, setDateformat] = useState(getData?.registerData?.dob);
+  const [dateformat, setDateformat] = useState(
+    getData?.registerData?.dob ?? getData?.user?.payload?.user_profiles?.dob
+  );
   const [countryCode, setCountryCode] = useState("");
-  const [individual, setIndividual] = useState(false);
+  // const [individual, setIndividual] = useState(false);
 
   useEffect(() => {
     dispatch(getUser);
   }, []);
+  console.log("checking email", email);
+  console.log("checking dob", dateformat);
 
   const onChangeDate = (selectedDate) => {
     const currentDate = moment().format("MM/DD/YYYY");
@@ -141,21 +135,16 @@ export function PersonalInformation() {
         visibilityTime: 1500,
         text2: strings.validation.invalidEmail,
       });
-    } else if (individual === false && business === false) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.selectType,
-      });
-      // } else if (male === false && female === false) {
-      //   Toast.show({
-      //     position: "bottom",
-      //     type: "error_toast",
-      //     visibilityTime: 1500,
-      //     text2: strings.validation.selectGender,
-      //   });
-    } else if (!street) {
+    }
+    // else if (individual === false && business === false) {
+    //   Toast.show({
+    //     position: "bottom",
+    //     type: "error_toast",
+    //     visibilityTime: 1500,
+    //     text2: strings.validation.selectType,
+    //   });
+    // }
+    else if (!street) {
       Toast.show({
         position: "bottom",
         type: "error_toast",
@@ -197,7 +186,6 @@ export function PersonalInformation() {
         phone: phone,
         dob: dateformat,
         ssn: ssn,
-        // gender: male ? "male" : "female",
         address: street,
         appartment: appartment,
         city: city,
@@ -207,7 +195,7 @@ export function PersonalInformation() {
         email: email,
         countryCode: countryCode,
         stateCode: stateCode,
-        type: individual ? "individual" : "business",
+        type: "individual",
       };
       // const res = await dispatch(personalInformation(data));
       // if (res?.type === "PERSONALINFORMATION_SUCCESS") {
@@ -226,8 +214,6 @@ export function PersonalInformation() {
     setStreet("");
     setCountry("");
     setZipCode("");
-    setMale(false);
-    setFemale(false);
     setAppartment("");
     setEmail("");
   };
@@ -263,11 +249,8 @@ export function PersonalInformation() {
   };
 
   const crossHandler = () => {
-    dispatch(logout());
-    navigation.reset({
-      index: 0,
-      routes: [{ name: NAVIGATION.mobileNo }],
-    });
+    // dispatch(logout());
+    navigate(NAVIGATION.splash);
   };
 
   return (
@@ -281,7 +264,7 @@ export function PersonalInformation() {
 
           <View style={styles.goBackView}>
             <TouchableOpacity onPress={crossHandler}>
-              <Image source={crossBlack} style={styles.headerIcon} />
+              <Text style={styles.skipButton}>{strings.buttonText.skip}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -336,7 +319,7 @@ export function PersonalInformation() {
 
               <TextInput
                 maxLength={9}
-                value={ssn.trim()}
+                value={ssn?.trim()}
                 onChangeText={setSsn}
                 secureTextEntry={true}
                 returnKeyType={"done"}
@@ -348,7 +331,7 @@ export function PersonalInformation() {
               />
 
               <TextInput
-                value={email.trim()}
+                value={email}
                 returnKeyType={"done"}
                 onChangeText={setEmail}
                 autoCapitalize={"none"}
@@ -358,7 +341,7 @@ export function PersonalInformation() {
                 placeholder={strings.personalInformation.email}
               />
 
-              <Spacer space={SH(16)} />
+              {/* <Spacer space={SH(16)} />
               <View>
                 <Text style={styles.labelStyle}>
                   {strings.personalInformation.type}
@@ -449,7 +432,7 @@ export function PersonalInformation() {
                     )}
                   </View>
                 </View>
-              </View>
+              </View> */}
 
               <Spacer space={SH(16)} />
               {/* <View>
@@ -637,17 +620,19 @@ export function PersonalInformation() {
               </View>
 
               <Spacer space={SH(40)} />
-              <Button
-                onPress={submit}
-                pending={isLoading}
-                style={{ zIndex: -99 }}
-                title={strings.buttonText.next}
-              />
             </View>
 
             <Spacer space={SH(50)} />
           </View>
         </KeyboardAwareScrollView>
+        <View style={{ justifyContent: "flex-end", padding: SW(20) }}>
+          <Button
+            onPress={submit}
+            pending={isLoading}
+            style={{ zIndex: -99 }}
+            title={strings.buttonText.next}
+          />
+        </View>
         {isLoading ? <Loader message="Loading data ..." /> : null}
       </View>
     </ScreenWrapper>

@@ -73,9 +73,19 @@ export function ProductInquiry(params) {
   const bundleItems =
     ProductDetail?.productDetail?.product_detail?.bundle_products;
 
+  console.log(
+    "bundleitems: " +
+      JSON.stringify(
+        ProductDetail?.productDetail?.product_detail?.product_attribute[0]
+          ?.attributes?.attribute_values
+      )
+  );
+
   const isLoadingDetails = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
   );
+
+  // console.log("checking email", user?.user?.payload?.user_profiles?.dob);
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
@@ -172,7 +182,11 @@ export function ProductInquiry(params) {
 
   const handleSubmit = () => {
     token
-      ? navigate(NAVIGATION.startOrder, { bundleItems: bundleItems })
+      ? navigate(NAVIGATION.startOrder, {
+          bundleItems:
+            ProductDetail?.productDetail?.product_detail?.product_attribute[0]
+              ?.attributes?.attribute_values,
+        })
       : navigate(NAVIGATION.splash);
   };
   const SwiperPaginationHandler = () => {

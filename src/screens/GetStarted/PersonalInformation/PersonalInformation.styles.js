@@ -30,6 +30,9 @@ export const styles = StyleSheet.create({
     color: COLORS.text,
     fontFamily: Fonts.Regular,
   },
+  skipButton: {
+    color: COLORS.primary,
+  },
   input: {
     height: SH(48),
     borderRadius: 5,

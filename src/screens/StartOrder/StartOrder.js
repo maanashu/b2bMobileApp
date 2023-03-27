@@ -19,7 +19,7 @@ import { useState } from "react";
 import { goBack } from "@/navigation/NavigationRef";
 import { backArrow } from "@/assets";
 import { strings } from "@/localization";
-import { CountSeven } from "./Components/CountButton";
+import { Counter, CountSeven } from "./Components/CountButton";
 import { priceData } from "../Products/ProductsInquiry/FlatlistData";
 import SelectDropdown from "react-native-select-dropdown";
 import { scale } from "react-native-size-matters";
@@ -34,11 +34,13 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 
-export function StartOrder({ params, navigation }) {
+export function StartOrder(params) {
   const isFocused = useIsFocused();
 
   const user = useSelector(getUser);
-  console.log("user", user?.user?.payload?.token);
+  // console.log("user", user?.user?.payload?.token);
+  const bundle = params?.route?.params?.bundleItems;
+  // console.log("bundle", bundle);
 
   const [selectedItem, setSelectedItem] = useState("");
   const [open, setOpen] = useState(false);
@@ -161,42 +163,79 @@ export function StartOrder({ params, navigation }) {
   ];
 
   const [SelectedItems, setSelectedItems] = useState(ProductDetail);
-  // useEffect(() => {
-  //   setSerProductArray(Sizes.map((item) => ({ ...item, qty: 0 })) ?? []);
-  //   setTimeout(() => {
-  //     console.log("checking added item", SeaProductList);
-  //   }, 1000);
-  // }, []);
+  useEffect(() => {
+    // setSetBundleArray(bundle?.map((item) => ({ ...item, qty: 0 })) ?? []);
+    // setTimeout(() => {
+    //   console.log("checking added item", setBundleArray);
+    // }, 1000);
+    for (let i = 0; i < bundle?.length; i++) {
+      bundle[i].qty = 0;
+      setSetBundleArray(bundle);
+    }
+  }, []);
 
   const [productArray, setproductArray] = useState(Sizes ?? []);
   const [setProductArrat, setsetProductArrat] = useState(Sizes ?? []);
   const [ArrayToRoute, setArrayToRoute] = useState([]);
 
+  const [bundleArray, setbundleArray] = useState(bundle ?? []);
+  const [setBundleArray, setSetBundleArray] = useState(bundle ?? []);
+
   useEffect(() => {}, [isFocused]);
 
-  const cartPlusOnPress = (index, item) => {
+  // const cartPlusOnPress = (index, item) => {
+  //   try {
+  //     const array = [...productArray];
+  //     array[index].qty = array[index].qty + 1;
+  //     setsetProductArrat(array);
+  //     setArrayToRoute(array);
+  //     console.log("sending item", ArrayToRoute);
+  //     console.log(
+  //       "addition success->: " + index + "--->" + setProductArrat[index]?.qty
+  //     );
+  //   } catch (error) {
+  //     console.log("caught error on plus: " + error);
+  //   }
+  // };
+
+  // const cartMinusOnPress = (index) => {
+  //   try {
+  //     const array = [...productArray];
+  //     array[index].qty =
+  //       array[index].qty > 0 ? array[index].qty - 1 : array[index].qty;
+  //     setsetProductArrat(array);
+
+  //     console.log(
+  //       "addition success->: " + index + "-->" + productArray[index]?.qty
+  //     );
+  //   } catch (error) {
+  //     console.log("caught error on plus: " + error);
+  //   }
+  // };
+
+  const cartPlus = (index, item) => {
     try {
-      const array = [...productArray];
+      const array = [...bundleArray];
       array[index].qty = array[index].qty + 1;
-      setsetProductArrat(array);
-      setArrayToRoute(array);
-      console.log("sending item", ArrayToRoute);
+      setSetBundleArray(array);
       console.log(
-        "addition success->: " + index + "--->" + setProductArrat[index]?.qty
+        "addition success->: " + index + "--->" + setBundleArray[index]?.qty
       );
     } catch (error) {
       console.log("caught error on plus: " + error);
     }
   };
 
-  const cartMinusOnPress = (index) => {
+  const cartMinus = (index) => {
     try {
-      const array = [...productArray];
+      const array = [...bundleArray];
       array[index].qty =
         array[index].qty > 0 ? array[index].qty - 1 : array[index].qty;
-      setsetProductArrat(array);
+      setSetBundleArray(array);
 
-      console.log("addition success->: " + index + productArray[index]?.qty);
+      console.log(
+        "addition success->: " + index + "-->" + setBundleArray[index]?.qty
+      );
     } catch (error) {
       console.log("caught error on plus: " + error);
     }
@@ -251,11 +290,11 @@ export function StartOrder({ params, navigation }) {
   const renderSizes = ({ item, index }) => {
     return (
       <View style={styles.counterView}>
-        <CountSeven
-          OnPressDecrease={() => cartMinusOnPress(index, item)}
-          OnPressIncrease={() => cartPlusOnPress(index, item)}
+        <Counter
+          OnPressDecrease={() => cartMinus(index, item)}
+          OnPressIncrease={() => cartPlus(index, item)}
           text={item.qty}
-          size={item.item}
+          size={item.name}
         />
       </View>
     );
@@ -305,7 +344,7 @@ export function StartOrder({ params, navigation }) {
               //   routes: [{ name: NAVIGATION.productInquiry }],
               // })
 
-              navigation.navigate(NAVIGATION.productInquiry)
+              navigate(NAVIGATION.productInquiry)
             }
           >
             <Image
@@ -416,9 +455,9 @@ export function StartOrder({ params, navigation }) {
                 />
               </View>
               <FlatList
-                data={setProductArrat}
+                data={setBundleArray}
                 renderItem={renderSizes}
-                extraData={productArray}
+                extraData={setBundleArray}
                 keyExtractor={(item) => item.id}
               />
             </View>
