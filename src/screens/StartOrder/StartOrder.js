@@ -368,9 +368,7 @@ export function StartOrder(params) {
             <View style={styles.itemName}>
               <Text style={styles.itemNameText}>MOQ:10</Text>
             </View>
-
             <Spacer space={SH(1)} />
-
             <FlatList
               data={priceData}
               renderItem={renderBundle}
@@ -378,14 +376,11 @@ export function StartOrder(params) {
               numColumns={3}
             />
             <Spacer space={SH(16)} />
-
             <View style={styles.headingView}>
               <Text style={styles.itemColorHeading}>{"Color :"}</Text>
               <Text style={styles.itemFullName}>{"Puma White"}</Text>
             </View>
-
             <Spacer space={SH(20)} />
-
             <View>
               <FlatList
                 showsVerticalScrollIndicator={false}
@@ -396,11 +391,8 @@ export function StartOrder(params) {
                 numColumns={5}
               />
             </View>
-
             <Spacer space={SH(20)} />
-
-            {/* Counter view below */}
-
+            Counter view below
             {/* 
             {Sizes.map((item, index) => {
               return (
