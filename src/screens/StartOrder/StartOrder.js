@@ -392,7 +392,7 @@ export function StartOrder(params) {
               />
             </View>
             <Spacer space={SH(20)} />
-            Counter view below
+            {/* Counter view below */}
             {/* 
             {Sizes.map((item, index) => {
               return (
