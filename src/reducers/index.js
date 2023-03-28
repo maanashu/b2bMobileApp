@@ -8,6 +8,7 @@ import { bannerReducer } from "./BannerReducer";
 import { supportReducer } from "@/reducers/SupportReducer";
 import { kycReducer } from "@/reducers/KycReducer";
 import { walletReducer } from "@/reducers/WalletReducer";
+import { orderReducer } from "@/reducers/OrderReducer";
 
 export const rootReducer = combineReducers({
   error: errorReducer,
@@ -19,4 +20,5 @@ export const rootReducer = combineReducers({
   support: supportReducer,
   kyc: kycReducer,
   wallet: walletReducer,
+  order: orderReducer,
 });

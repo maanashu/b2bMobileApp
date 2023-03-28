@@ -18,6 +18,10 @@ export const ApiUserInventory = {
 export const SupportInventory = {
   faqs: "faqs",
 };
+
+export const ApiOrderInventory = {
+  createNewCart: "carts",
+};
 export const ApiSupportInventory = {
   subjectList: SUPPORT_URL + "subjects",
   uploadSupportDoc: SUPPORT_URL + "supports/document",
@@ -78,5 +82,3 @@ export const ApiWalletInventory = {
 // export const ApiSupportInventory = {
 
 // }
-
-export const ApiOrderInventory = {};

@@ -214,6 +214,7 @@ export const en = {
     dhl: "DHL Standard shipping",
     jobr: "JOBR Standard shipping",
     done: "Done",
+    itemsValue: "Items value",
   },
   delivery: {
     reviewAndPayment: "Review & Payment",

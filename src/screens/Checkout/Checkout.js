@@ -37,7 +37,7 @@ export function Checkout(navigation) {
 
   const [productArray, setproductArray] = useState(quantity ?? []);
   const [setProductArrat, setsetProductArrat] = useState(quantity ?? []);
-
+  console.log(quantity);
   const [storeTotal, setstoreTotal] = useState(0);
 
   const totalStore = [];
@@ -134,7 +134,7 @@ export function Checkout(navigation) {
                   Color: <Text>{item.color}</Text>
                 </Text>
                 <Text style={styles.secondaryDetailText}>
-                  Size: <Text>{item.size}</Text>
+                  Size: <Text>{item.name}</Text>
                 </Text>
 
                 <Spacer space={SH(5)} />
@@ -215,10 +215,23 @@ export function Checkout(navigation) {
           />
 
           <Spacer space={SH(25)} />
-          <Text style={{ color: "black" }}>
-            {"Subtotal:"}{" "}
-            <Text style={{ color: "black" }}> {storeTotal.toFixed(2)}</Text>
-          </Text>
+
+          <View
+            style={{
+              backgroundColor: COLORS.placeHolder,
+              padding: SW(10),
+              borderRadius: SW(5),
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text style={{ color: "black" }}>{"Subtotal"}</Text>
+            <Text style={{ color: "black" }}>
+              {" "}
+              {"$ "}
+              {storeTotal.toFixed(2)}
+            </Text>
+          </View>
 
           <Spacer space={SH(70)} />
         </ScrollView>

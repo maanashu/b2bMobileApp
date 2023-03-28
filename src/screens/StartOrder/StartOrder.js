@@ -16,20 +16,14 @@ import { Button, ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { useState } from "react";
-import { goBack } from "@/navigation/NavigationRef";
 import { backArrow } from "@/assets";
 import { strings } from "@/localization";
-import { Counter, CountSeven } from "./Components/CountButton";
+import { Counter } from "./Components/CountButton";
 import { priceData } from "../Products/ProductsInquiry/FlatlistData";
 import SelectDropdown from "react-native-select-dropdown";
 import { scale } from "react-native-size-matters";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import {
-  CommonActions,
-  StackActions,
-  useFocusEffect,
-  useIsFocused,
-} from "@react-navigation/native";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
@@ -174,15 +168,29 @@ export function StartOrder(params) {
     }
   }, []);
 
-  const [productArray, setproductArray] = useState(Sizes ?? []);
-  const [setProductArrat, setsetProductArrat] = useState(Sizes ?? []);
+  // const [productArray, setproductArray] = useState(Sizes ?? []);
+  // const [setProductArrat, setsetProductArrat] = useState(Sizes ?? []);
   const [ArrayToRoute, setArrayToRoute] = useState([]);
 
   const [bundleArray, setbundleArray] = useState(bundle ?? []);
   const [setBundleArray, setSetBundleArray] = useState(bundle ?? []);
+  const setProductArrat = [...ArrayToRoute];
+  const totalStore = [];
+  const [storeTotal, setstoreTotal] = useState(0);
 
   useEffect(() => {}, [isFocused]);
 
+  useEffect(() => {
+    try {
+      setProductArrat.reduce((sum, i) => {
+        var sepTotal = i.qty * i.price;
+        totalStore.push(sepTotal);
+      }, 0);
+      setstoreTotal(totalStore.reduce((a, b) => a + b, 0));
+    } catch (error) {
+      console.log("reduce error", error);
+    }
+  }, [setProductArrat]);
   // const cartPlusOnPress = (index, item) => {
   //   try {
   //     const array = [...productArray];
@@ -218,6 +226,7 @@ export function StartOrder(params) {
       const array = [...bundleArray];
       array[index].qty = array[index].qty + 1;
       setSetBundleArray(array);
+      setArrayToRoute(array);
       console.log(
         "addition success->: " + index + "--->" + setBundleArray[index]?.qty
       );
@@ -232,6 +241,7 @@ export function StartOrder(params) {
       array[index].qty =
         array[index].qty > 0 ? array[index].qty - 1 : array[index].qty;
       setSetBundleArray(array);
+      setArrayToRoute(array);
 
       console.log(
         "addition success->: " + index + "-->" + setBundleArray[index]?.qty
@@ -457,6 +467,13 @@ export function StartOrder(params) {
           </View>
         </ScrollView>
         <View style={styles.buttonView}>
+          <View style={styles.itemValueView}>
+            <Text style={styles.itemvalueText}>
+              {strings.startOrder.itemsValue}
+            </Text>
+            <Text style={styles.itemvalueText}>$ {storeTotal.toFixed(2)}</Text>
+          </View>
+
           <Button
             title={strings.startOrder.checkout}
             style={styles.checkoutButton}
@@ -464,7 +481,6 @@ export function StartOrder(params) {
             onPress={() => Checkout()}
           />
         </View>
-        <Spacer space={SH(20)} />
       </View>
     </ScreenWrapper>
   );

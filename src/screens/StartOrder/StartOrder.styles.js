@@ -121,7 +121,12 @@ export const styles = StyleSheet.create({
   buttonView: {
     justifyContent: "flex-end",
     paddingHorizontal: 20,
+    ...ShadowStyles.shadow,
+    backgroundColor: COLORS.white,
+    paddingTop: SH(15),
+    paddingBottom: SH(20),
   },
+
   checkoutButton: {
     backgroundColor: COLORS.activeTab,
     borderRadius: 5,
@@ -193,5 +198,15 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     alignItems: "center",
+  },
+  itemvalueText: {
+    color: COLORS.darkGrey2,
+    fontSize: SF(16),
+    fontFamily: Fonts.SemiBold,
+  },
+  itemValueView: {
+    paddingBottom: SH(15),
+    justifyContent: "space-between",
+    flexDirection: "row",
   },
 });

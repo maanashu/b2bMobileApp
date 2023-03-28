@@ -75,10 +75,7 @@ export function ProductInquiry(params) {
 
   console.log(
     "bundleitems: " +
-      JSON.stringify(
-        ProductDetail?.productDetail?.product_detail?.product_attribute[0]
-          ?.attributes?.attribute_values
-      )
+      JSON.stringify(ProductDetail?.productDetail?.product_detail)
   );
 
   const isLoadingDetails = useSelector((state) =>
