@@ -2,122 +2,137 @@ import { Fonts } from "@/assets";
 import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SH, SF, SW } from "@/theme/ScalerDimensions";
-import { StyleSheet } from "react-native";
-
+import { Dimensions, StyleSheet } from "react-native";
+import { moderateScale, scale, verticalScale } from "react-native-size-matters";
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
 export const styles = StyleSheet.create({
-  mapView: {
+  container: {
+    flex: 1,
+    alignItems: "center",
+  },
+  map: {
+    height: height / 2,
+    width: width,
+    alignSelf: "center",
+  },
+  rowCard: {
+    backgroundColor: COLORS.white,
+    borderRadius: moderateScale(5),
+    paddingHorizontal: moderateScale(12),
+    // paddingVertical: moderateScale(10),
+    // position: 'absolute',
+    // bottom: Platform.OS == 'ios' ? SH(40) : 0,
+    marginBottom: moderateScale(24),
     width: "100%",
-    height: "100%",
   },
-  sheetContainer: {
-    paddingHorizontal: SW(20),
-    paddingVertical: SH(20),
-  },
-  headingText: {
-    fontFamily: Fonts.SemiBold,
-    color: COLORS.darkGrey,
-    fontSize: SF(18),
-  },
-  rowView: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  leftView: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  rightView: {},
-  addressIcon: {
-    tintColor: COLORS.primary,
-    height: SH(20),
-    width: SW(20),
-    marginRight: SW(10),
-  },
-  addressText: {
-    fontFamily: Fonts.Regular,
-    color: COLORS.text,
-    fontSize: SF(14),
-  },
-  placeholderText: {
-    fontFamily: Fonts.Italic,
-  },
-  placeholder: {
-    borderBottomWidth: 0,
-    backgroundColor: COLORS.placeHolder,
-    paddingHorizontal: SW(15),
-    paddingVertical: SH(10),
-    borderRadius: 4,
-    fontSize: SF(16),
-  },
-  subHeadingText: {
-    fontFamily: Fonts.SemiBold,
-    color: COLORS.darkGrey,
-    fontSize: SF(16),
-  },
-  iconsStyle: {
-    ...ShadowStyles.shadow2,
-    backgroundColor: "white",
-    alignItems: "center",
-    borderRadius: SW(50),
-    marginHorizontal: SW(15),
-    padding: SH(5),
-  },
-  bottomIcons: {
-    height: SH(35),
-    width: SH(35),
-  },
-  pinLocation: {
-    position: "absolute",
-    height: SH(50),
-    width: SW(50),
-    marginTop: SH(200),
-    marginLeft: SW(180),
-  },
-  modalBackground: {
-    backgroundColor: "white",
-    paddingVertical: SH(20),
-    paddingHorizontal: SW(15),
-    borderBottomRightRadius: 10,
-    borderBottomLeftRadius: 10,
-  },
-  modalHeader: {
+  bottom: {
+    borderBottomColor: COLORS.light_border,
     borderBottomWidth: 1,
-    paddingHorizontal: SW(15),
-    borderColor: COLORS.light_border,
-    paddingVertical: SH(15),
+    width: SW(50),
+    alignSelf: "center",
+  },
+
+  row: {
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: COLORS.input_bg,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
   },
-  closeIcon: {
-    height: SH(30),
-    width: SW(30),
-    tintColor: COLORS.darkGrey,
+  subrow: {
+    flexDirection: "row",
+    width: width / 1.5,
+    minHeight: SH(50),
+    marginBottom: SH(10),
   },
-  modalHeaderText: {
-    color: COLORS.darkGrey,
-    fontFamily: Fonts.MaisonRegular,
-    fontSize: SF(18),
+  img: {
+    height: SH(26),
+    width: SW(26),
+    margin: SH(5),
   },
-  lineText: {
-    color: COLORS.text,
-    fontFamily: Fonts.SemiBold,
-    marginBottom: SH(5),
+  padding: {
+    marginHorizontal: SW(10),
   },
-  topPlaceHolders: {
-    paddingHorizontal: SW(15),
+  subName: {
+    color: COLORS.dark_gray,
+    fontFamily: Fonts.Medium,
+    fontSize: scale(12),
+  },
+  textField: {
+    color: COLORS.black,
     fontSize: SF(14),
-    backgroundColor: COLORS.placeHolder,
+    fontFamily: Fonts.Italic,
+    marginHorizontal: SW(12),
+    backgroundColor: COLORS.placeholder,
     borderBottomWidth: 0,
-    borderRadius: 4,
-    paddingVertical: SH(10),
+    paddingHorizontal: SW(10),
+    height: SH(55),
+    borderRadius: SW(5),
   },
-  nameView: {
+  cardName: {
+    color: COLORS.dark_gray,
+    fontFamily: Fonts.Bold,
+    fontSize: scale(14),
+    padding: 3,
+  },
+  label: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+  },
+  bluehomeImg: {
+    backgroundColor: COLORS.primary,
+    borderRadius: 50,
+    padding: 10,
+    ...ShadowStyles.shadow,
+  },
+  homeImg: {
+    backgroundColor: COLORS.white,
+    borderRadius: 50,
+    padding: 10,
+    ...ShadowStyles.shadow,
+  },
+  labelName: {
+    color: COLORS.dark_gray,
+    fontFamily: Fonts.MaisonRegular,
+    fontSize: scale(10),
+    alignSelf: "center",
+    marginVertical: 4,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
+    backgroundColor: "rgba(0,0,0,0.25)",
+  },
+  modalFilter: {
+    position: "absolute",
+    width: "90%",
+    backgroundColor: COLORS.white,
+    borderRadius: moderateScale(20),
+    ...ShadowStyles.shadow,
+  },
+  formContent: {
+    borderTopLeftRadius: moderateScale(20),
+    borderTopRightRadius: moderateScale(20),
+    backgroundColor: COLORS.inputBorder,
+    padding: verticalScale(16),
     flexDirection: "row",
     justifyContent: "space-between",
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.light_border,
+  },
+  fieldHeading: {
+    fontSize: scale(18),
+    fontFamily: Fonts.MaisonMonoBold,
+    color: COLORS.black,
+    alignSelf: "center",
+  },
+  loginText: {
+    fontFamily: Fonts.SemiBold,
+    fontSize: scale(12),
+    color: COLORS.text,
+    marginHorizontal: moderateScale(14),
+  },
+  submit: {
+    marginHorizontal: moderateScale(14),
   },
 });

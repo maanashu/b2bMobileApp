@@ -229,4 +229,55 @@ export class UserController {
         });
     });
   }
+
+  static async userLocation(data) {
+    return new Promise(async (resolve, reject) => {
+      const endpoint = USER_URL + ApiUserInventory.userAddress;
+      const body = {
+        place_id: data.place_id,
+        custom_address: data.custom_address,
+        address_type: data.address_type,
+        city: data.city,
+        district: data.district,
+        country: data.country,
+        postal_code: data.postalCode,
+        formatted_address: data.formatted_address,
+        latitude: data.latitude,
+        longitude: data.longitude,
+      };
+      HttpClient.post(endpoint, body)
+        .then((response) => {
+          resolve(response);
+          navigate(NAVIGATION.addresses);
+        })
+        .catch((error) => {
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 2000,
+          });
+          reject(new Error(error.msg));
+        });
+    });
+  }
+
+  static async getUserLocation() {
+    return new Promise((resolve, reject) => {
+      const endpoint = USER_URL + ApiUserInventory.getUserLocations;
+      HttpClient.get(endpoint)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
+          reject(new Error((strings.validation.error = error.msg)));
+        });
+    });
+  }
 }

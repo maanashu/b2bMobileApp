@@ -46,6 +46,16 @@ export const TYPES = {
   GET_WALLET_USER_REQUEST: "GET_WALLET_USER_REQUEST",
   GET_WALLET_USER_SUCCESS: "GET_WALLET_USER_SUCCESS",
   GET_WALLET_USER_ERROR: "GET_WALLET_USER_ERROR",
+
+  USER_LOCATION: "USER_LOCATION",
+  USER_LOCATION_REQUEST: "USER_LOCATION_REQUEST",
+  USER_LOCATION_SUCCESS: "USER_LOCATION_SUCCESS",
+  USER_LOCATION_ERROR: "USER_LOCATION_ERROR",
+
+  GET_USER_LOCATION: "GET_USER_LOCATION",
+  GET_USER_LOCATION_REQUEST: "GET_USER_LOCATION_REQUEST",
+  GET_USER_LOCATION_SUCCESS: "GET_USER_LOCATION_SUCCESS",
+  GET_USER_LOCATION_ERROR: "GET_USER_LOCATION_ERROR",
 };
 
 const loginRequest = () => ({
@@ -185,6 +195,34 @@ const getWalletUserProfileError = (error) => ({
   type: TYPES.GET_WALLET_USER_ERROR,
   payload: { error },
 });
+const userLocationRequest = () => ({
+  type: TYPES.USER_LOCATION_REQUEST,
+  payload: null,
+});
+
+const userLocationSuccess = (userLocation) => ({
+  type: TYPES.USER_LOCATION_SUCCESS,
+  payload: { userLocation },
+});
+
+const userLocationError = (error) => ({
+  type: TYPES.USER_LOCATION_ERROR,
+  payload: { error },
+});
+const getUserLocationRequest = () => ({
+  type: TYPES.GET_USER_LOCATION_REQUEST,
+  payload: null,
+});
+
+const getUserLocationSucess = (getLocation) => ({
+  type: TYPES.GET_USER_LOCATION_SUCCESS,
+  payload: { getLocation },
+});
+
+const getUserLocationError = (error) => ({
+  type: TYPES.GET_USER_LOCATION_ERROR,
+  payload: { error },
+});
 
 export const login = (value, countryCode, phoneNumber) => async (dispatch) => {
   dispatch(loginRequest());
@@ -296,5 +334,26 @@ export const getWalletUserProfile = (uuid) => async (dispatch) => {
     return dispatch(getWalletUserProfileSuccess(res.payload));
   } catch (error) {
     dispatch(getWalletUserProfileError(error.message));
+  }
+};
+
+export const addUserLocation = (data) => async (dispatch) => {
+  dispatch(userLocationRequest());
+  try {
+    const res = await UserController.userLocation(data);
+
+    dispatch(userLocationSuccess(res));
+  } catch (error) {
+    dispatch(userLocationError(error.message));
+  }
+};
+
+export const getUserLocations = () => async (dispatch) => {
+  dispatch(getUserLocationRequest());
+  try {
+    const res = await UserController.getUserLocation();
+    dispatch(getUserLocationSucess(res));
+  } catch (error) {
+    dispatch(getUserLocationError(error.message));
   }
 };

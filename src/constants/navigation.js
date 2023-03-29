@@ -89,4 +89,5 @@ export const NAVIGATION = {
   checkAndRequestKYC: "CheckAndRequestKYC",
   ageVerification: "AgeVerification",
   connectBank: "ConnectBank",
+  searchPlaces: "SearchPlaces",
 };

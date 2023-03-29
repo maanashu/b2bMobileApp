@@ -90,3 +90,4 @@ export { Register } from "@/screens/GetStarted/Register/Register";
 export { CheckAndRequestKYC } from "@/screens/GetStarted/PersonalInformation/CheckRequestKYC/CheckAndRequestKYC";
 export { AgeVerification } from "@/screens/GetStarted/AgeVerification/AgeVerification";
 export { ConnectBank } from "@/screens/Payment/ConnectBank/ConnectBank";
+export { SearchPlaces } from "@/screens/SearchPlaces/SearchPlaces";

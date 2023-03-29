@@ -165,6 +165,13 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
   },
+  subtotalBackground: {
+    backgroundColor: COLORS.placeHolder,
+    padding: SW(10),
+    borderRadius: SW(5),
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
   missingAddressButton: {
     backgroundColor: COLORS.primary,
     height: SH(60),

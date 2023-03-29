@@ -216,18 +216,9 @@ export function Checkout(navigation) {
 
           <Spacer space={SH(25)} />
 
-          <View
-            style={{
-              backgroundColor: COLORS.placeHolder,
-              padding: SW(10),
-              borderRadius: SW(5),
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
+          <View style={styles.subtotalBackground}>
             <Text style={{ color: "black" }}>{"Subtotal"}</Text>
             <Text style={{ color: "black" }}>
-              {" "}
               {"$ "}
               {storeTotal.toFixed(2)}
             </Text>

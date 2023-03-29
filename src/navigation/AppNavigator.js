@@ -79,6 +79,7 @@ import {
   ReEnterPin,
   Register,
   ReviewAndPayment,
+  SearchPlaces,
   SelectCity,
   SelectCountry,
   SelectedPreferance,
@@ -613,6 +614,11 @@ export function AppBottom() {
       <Stack.Screen
         component={RateExperience}
         name={NAVIGATION.rateExperience}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={SearchPlaces}
+        name={NAVIGATION.searchPlaces}
         options={{ headerShown: false }}
       />
 

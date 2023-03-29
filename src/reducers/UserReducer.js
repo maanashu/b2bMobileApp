@@ -24,6 +24,8 @@ const INITIALSTATE = {
   nearMeSellers: [],
   settings: [],
   isStatus: false,
+  userLocation: {},
+  getLocation: [],
 };
 
 export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -102,6 +104,16 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         walletProfile: payload.getwalletuser,
+      };
+    case TYPES.USER_LOCATION_SUCCESS:
+      return {
+        ...state,
+        userLocation: payload.userLocation,
+      };
+    case TYPES.GET_USER_LOCATION_SUCCESS:
+      return {
+        ...state,
+        getLocation: payload.getLocation.payload.data,
       };
   }
 };
