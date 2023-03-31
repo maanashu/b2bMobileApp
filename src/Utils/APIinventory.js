@@ -15,6 +15,7 @@ export const ApiUserInventory = {
   uploadDoc: USER_URL + "user_profiles/verification-document",
   userAddress: "user_locations/",
   getUserLocations: "user_locations/user",
+  changeCurrentAddress: "user_locations/",
 };
 
 export const SupportInventory = {

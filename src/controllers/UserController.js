@@ -25,7 +25,7 @@ export class UserController {
         headers: { "device-id": uniqueId },
       })
         .then((response) => {
-          navigate(NAVIGATION.startOrder);
+          navigate(NAVIGATION.productInquiry);
           // navigation.reset({
           //   index: 0,
           //   actions: [navigation.navigate(NAVIGATION.startOrder)],
@@ -63,7 +63,7 @@ export class UserController {
         .then((response) => {
           if (response?.payload?.is_phone_exits) {
             console.log("User already Registered", response);
-            navigate(NAVIGATION.loginMethod, { route: "registered" });
+            navigate(NAVIGATION.enterPin, { route: "registered" });
           } else {
             console.log("New User", response.payload.id);
             navigate(NAVIGATION.verify, { id: response.payload.id });
@@ -88,6 +88,7 @@ export class UserController {
         .then((response) => {
           if (response.status_code === 200) {
             console.log("api success", response);
+            resolve(response);
 
             navigate(NAVIGATION.register);
           } else {
@@ -162,7 +163,7 @@ export class UserController {
       HttpClient.post(endpoint, body)
         .then((response) => {
           resolve(response);
-          navigate(NAVIGATION.startOrder);
+          navigate(NAVIGATION.productInquiry);
         })
         .catch((error) => {
           console.log("controller error", error);
@@ -270,13 +271,49 @@ export class UserController {
           resolve(response);
         })
         .catch((error) => {
+          if (error.msg == "jwt malformed") {
+          } else
+            Toast.show({
+              text2: error.msg,
+              position: "bottom",
+              type: "error_toast",
+              visibilityTime: 1500,
+            });
+          reject(new Error((strings.validation.error = error.msg)));
+        });
+    });
+  }
+
+  static async patchCurrentAddress(id) {
+    return new Promise((resolve, reject) => {
+      const endpoint = `${ApiUserInventory.changeCurrentAddress}${id}`;
+      const body = {
+        place_id: data.place_id,
+        custom_address: data.custom_address,
+        address_type: data.address_type,
+        city: data.city,
+        district: data.district,
+        country: data.country,
+        postal_code: data.postalCode,
+        formatted_address: data.formatted_address,
+        latitude: data.latitude,
+        longitude: data.longitude,
+      };
+      HttpClient.patch(endpoint, body)
+        .then((response) => {
+          resolve(response);
+          console.log("change add controller success", response);
+        })
+        .catch((error) => {
+          console.log("change add controller error", error);
+
           Toast.show({
             text2: error.msg,
             position: "bottom",
             type: "error_toast",
-            visibilityTime: 1500,
+            visibilityTime: 2000,
           });
-          reject(new Error((strings.validation.error = error.msg)));
+          reject(new Error((strings.verify.error = error.msg)));
         });
     });
   }

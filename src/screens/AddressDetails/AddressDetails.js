@@ -21,32 +21,40 @@ import { Button, ScreenWrapper, Spacer, TextField } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
 import { strings } from "@/localization";
 import Geolocation from "@react-native-community/geolocation";
-import { addUserLocation } from "@/actions/UserActions";
+import { addUserLocation, saveUserAddress } from "@/actions/UserActions";
 import { COLORS } from "@/theme";
 import { goBack, navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import Modal from "react-native-modal";
 import { getAddressFromCoordinates } from "@/Utils/AddressMethods";
 import { NormalAlert } from "@/Utils/GlobalMethods";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MapView, {
   AnimatedRegion,
   Marker,
   PROVIDER_GOOGLE,
 } from "react-native-maps";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Loader } from "@/components/Loader";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
+import { useIsFocused } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 export function AddressDetails(props) {
   const mapRef = useRef();
 
   const dispatch = useDispatch();
-  const [longitude, setLongitude] = useState(76.5875);
-  const [latitude, setLatitude] = useState(30.8685);
+  const [longitude, setLongitude] = useState(
+    props?.route?.params?.data?.longitude || 76.5875
+  );
+  const [latitude, setLatitude] = useState(
+    props?.route?.params?.data?.latitude || 30.8685
+  );
   const [coordinate, setCoordinate] = useState(
     new AnimatedRegion({
-      latitude: 30.8685,
-      longitude: 76.5875,
+      latitude: props?.route?.params?.data?.latitude || 30.8685,
+      longitude: props?.route?.params?.data?.longitude || 76.5875,
       latitudeDelta: LATITUDE_DELTA,
       longitudeDelta: LONGITUDE_DELTA,
     })
@@ -57,7 +65,9 @@ export function AddressDetails(props) {
   const [placeId, setPlaceId] = useState("");
   const [add1, setAdd1] = useState("");
   const [add2, setAdd2] = useState("");
-  const [formattedAddress, setFormattedAddress] = useState("");
+  const [formattedAddress, setFormattedAddress] = useState(
+    props.route.params?.data?.formatted_address ?? ""
+  );
   const [district, setDistrict] = useState("");
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
@@ -74,6 +84,15 @@ export function AddressDetails(props) {
   const DEFAULT_PADDING = { top: 40, right: 40, bottom: 40, left: 40 };
   const locationMarkerRef = useRef(null);
 
+  // console.log(
+  //   "chechking lat-->" + JSON.stringify(props?.route?.params?.data?.latitude)
+  // );
+
+  const isFocused = useIsFocused();
+
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.USER_LOCATION], state)
+  );
   useEffect(() => {
     // refRBSheet.current.open();
     setTimeout(() => {
@@ -102,7 +121,10 @@ export function AddressDetails(props) {
         coordinate.timing(newCoordinate).start();
       }
 
-      getAddress(info.coords.latitude, info.coords.longitude);
+      getAddress(
+        props?.route?.params?.data?.latitude || info.coords.latitude,
+        props?.route?.params?.data?.longitude || info.coords.longitude
+      );
     });
   }, []);
 
@@ -137,46 +159,84 @@ export function AddressDetails(props) {
       }
 
       getAddress(lat, lng);
+    } else if (props?.route?.params?.data) {
+      const latlong = {
+        lng: props?.route?.params?.data?.longitude,
+        lat: props?.route?.params?.data?.latitude,
+      };
+      const { lng, lat } = latlong;
+      setLongitude(lng);
+      setLatitude(lat);
+
+      const newCoordinate = {
+        latitude: lat,
+        longitude: lng,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+      };
+
+      if (Platform.OS === "android") {
+        if (locationMarkerRef.current) {
+          locationMarkerRef.current.animateMarkerToCoordinate(
+            newCoordinate,
+            1500
+          );
+        }
+      } else {
+        coordinate.timing(newCoordinate).start();
+      }
+      setCountry(props?.route?.params?.data?.country);
+      setCity(props?.route?.params?.data?.city);
     }
-  }, [props.route.params?.deliveryLocation]);
+  }, [
+    props.route.params?.deliveryLocation || props.route.params?.data,
+    isFocused,
+  ]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     console.log("ceeety-->", city);
+  //   }, 3000);
+  // }, []);
 
   const getAddress = (latitude, longitude) => {
     getAddressFromCoordinates(latitude, longitude)
       .then((data) => {
         setPlaceId(data.place_id);
         setFormattedAddress(data?.formatted_address);
+        if (props.route.params?.deliveryLocation) {
+          for (var i = 0; i < data.address_components?.length; i++) {
+            if (data.address_components[i].types[0] == "locality") {
+              setCity(data?.address_components?.[i]?.long_name);
+              setDistrict(data?.address_components?.[i]?.long_name);
+            }
 
-        for (var i = 0; i < data.address_components?.length; i++) {
-          if (data.address_components[i].types[0] == "locality") {
-            setCity(data?.address_components?.[i]?.long_name);
-            setDistrict(data?.address_components?.[i]?.long_name);
-          }
+            if (data.address_components[i].types[0] == "country") {
+              setCountry(data?.address_components?.[i]?.long_name);
+            }
 
-          if (data.address_components[i].types[0] == "country") {
-            setCountry(data?.address_components?.[i]?.long_name);
-          }
+            if (
+              data.address_components[i].types[0] ==
+              "administrative_area_level_1"
+            ) {
+              setState(data?.address_components?.[i]?.long_name);
+            }
 
-          if (
-            data.address_components[i].types[0] == "administrative_area_level_1"
-          ) {
-            setState(data?.address_components?.[i]?.long_name);
-          }
+            if (data.address_components[i].types[0] == "postal_code") {
+              setZipCode(data?.address_components?.[i]?.long_name);
+            }
+            if (
+              data.address_components[i].types[1] == "sublocality" &&
+              data.address_components[i].types[2] === "sublocality_level_3"
+            ) {
+              setAdd1(data?.address_components?.[i]?.long_name);
+            }
 
-          if (data.address_components[i].types[0] == "postal_code") {
-            setZipCode(data?.address_components?.[i]?.long_name);
-          }
-          if (
-            data.address_components[i].types[1] == "sublocality" &&
-            data.address_components[i].types[2] === "sublocality_level_3"
-          ) {
-            setAdd1(data?.address_components?.[i]?.long_name);
-          }
-
-          if (
-            data.address_components[i].types[1] == "sublocality" &&
-            data.address_components[i].types[2] === "sublocality_level_1"
-          ) {
-            setAdd2(data?.address_components?.[i]?.long_name);
+            if (
+              data.address_components[i].types[1] == "sublocality" &&
+              data.address_components[i].types[2] === "sublocality_level_1"
+            ) {
+              setAdd2(data?.address_components?.[i]?.long_name);
+            }
           }
         }
       })
@@ -202,19 +262,32 @@ export function AddressDetails(props) {
       });
       return;
     }
+    // const body = {
+    //   place_id: placeId,
+    //   custom_address: apart + " " + floor + " " + add1,
+    //   address_type: addressType,
+    //   city: city,
+    //   district: district,
+    //   country: country,
+    //   postalCode: zipCode,
+    //   formatted_address: formattedAddress,
+    //   longitude: longitude,
+    //   latitude: latitude,
+    // };
     const body = {
       place_id: placeId,
       custom_address: apart + " " + floor + " " + add1,
       address_type: addressType,
-      city: city,
       district: district,
       country: country,
-      postalCode: zipCode,
       formatted_address: formattedAddress,
       longitude: longitude,
       latitude: latitude,
     };
-    dispatch(addUserLocation(body));
+
+    // dispatch(addUserLocation(body));
+    dispatch(saveUserAddress(body));
+    navigate(NAVIGATION.addShippingAddress);
     // navigate(NAVIGATION.addressList);
   };
 
@@ -521,6 +594,7 @@ export function AddressDetails(props) {
         }}
         onPress={() => goBack()}
       />
+      {isLoading ? <Loader message="Loading data ..." /> : null}
     </ScreenWrapper>
   );
 }

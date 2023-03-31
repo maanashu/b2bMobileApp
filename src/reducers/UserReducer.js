@@ -26,6 +26,7 @@ const INITIALSTATE = {
   isStatus: false,
   userLocation: {},
   getLocation: [],
+  savedAddress: {},
 };
 
 export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -114,6 +115,11 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         getLocation: payload.getLocation.payload.data,
+      };
+    case TYPES.SAVE_ADDRESS_SUCCESS:
+      return {
+        ...state,
+        savedAddress: payload.savedAddress,
       };
   }
 };

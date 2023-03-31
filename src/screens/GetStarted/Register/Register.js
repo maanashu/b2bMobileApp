@@ -1,6 +1,19 @@
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
-import React, { useState } from "react";
-import { Button, NameHeader, ScreenWrapper, Spacer } from "@/components";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  BackHandler,
+} from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  Button,
+  Header,
+  NameHeader,
+  ScreenWrapper,
+  Spacer,
+} from "@/components";
 import { styles } from "./Register.styles";
 import { backArrow, calendar } from "@/assets";
 import { strings } from "@/localization";
@@ -59,6 +72,14 @@ export function Register() {
     setDateformat(newDateFormat);
     setDate(fullDate);
   };
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => true
+    );
+    return () => backHandler.remove();
+  }, []);
 
   const data = {
     username: username,
@@ -142,7 +163,8 @@ export function Register() {
 
   return (
     <ScreenWrapper>
-      <NameHeader back={backArrow} title={"Register"} />
+      <NameHeader title={"Register"} />
+
       <KeyboardAwareScrollView>
         <View style={styles.mainContainer}>
           <Text style={styles.headingBoldText}>{"Username"}</Text>

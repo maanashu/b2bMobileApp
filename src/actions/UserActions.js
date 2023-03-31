@@ -56,6 +56,11 @@ export const TYPES = {
   GET_USER_LOCATION_REQUEST: "GET_USER_LOCATION_REQUEST",
   GET_USER_LOCATION_SUCCESS: "GET_USER_LOCATION_SUCCESS",
   GET_USER_LOCATION_ERROR: "GET_USER_LOCATION_ERROR",
+
+  SAVE_ADDRESS: "SAVE_ADDRESS",
+  SAVE_ADDRESS_REQUEST: "SAVE_ADDRESS_REQUEST",
+  SAVE_ADDRESS_SUCCESS: "SAVE_ADDRESS_SUCCESS",
+  SAVE_ADDRESS_ERROR: "SAVE_ADDRESS_ERROR",
 };
 
 const loginRequest = () => ({
@@ -204,6 +209,10 @@ const userLocationSuccess = (userLocation) => ({
   type: TYPES.USER_LOCATION_SUCCESS,
   payload: { userLocation },
 });
+export const saveUserAddress = (savedAddress) => ({
+  type: TYPES.SAVE_ADDRESS_SUCCESS,
+  payload: { savedAddress },
+});
 
 const userLocationError = (error) => ({
   type: TYPES.USER_LOCATION_ERROR,
@@ -273,7 +282,6 @@ export const verifyOtp = (id, value) => async (dispatch) => {
     dispatch(saveOtp(value));
     const res = await UserController.verifyOtp(id, value);
     dispatch(verifyOtpSuccess(res));
-    console.log("dispatching resp--->", res);
   } catch (error) {
     dispatch(verifyOtpError(error.message));
 

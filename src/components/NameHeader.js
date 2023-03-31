@@ -21,8 +21,8 @@ export function NameHeader({ title, back }) {
             source={back}
             style={{ height: 25, width: 25 }}
           />
-          <Text style={styles.headerText}>{title}</Text>
         </TouchableOpacity>
+        <Text style={styles.headerText}>{title}</Text>
       </View>
     </View>
   );
@@ -47,8 +47,7 @@ export const styles = StyleSheet.create({
   headerInnerView: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
-    alignItems: "center",
+    marginRight: SW(10),
   },
   headerText: {
     fontFamily: Fonts.SemiBold,

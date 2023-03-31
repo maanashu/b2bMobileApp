@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./Addresses.styles";
-import { home, pencil, plusGray, work } from "@/assets";
+import { home, pencil, work } from "@/assets";
 import { Button, ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { navigate } from "@/navigation/NavigationRef";
@@ -12,20 +12,39 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserLocations } from "@/actions/UserActions";
 import { getUser } from "@/selectors/UserSelectors";
 import { useIsFocused } from "@react-navigation/native";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
+import { Loader } from "@/components/Loader";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
 
 export function Addresses() {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
+  const locations = useSelector(getUser);
+  // console.log("loc--->", locations?.getLocation);
 
   useEffect(() => {
     dispatch(getUserLocations());
   }, [isFocused]);
 
-  const locations = useSelector(getUser);
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_USER_LOCATION], state)
+  );
 
-  // console.log("locations: " + JSON.stringify(locations?.getLocation));
+  const navigationHandler = () => {
+    if (locations?.user?.payload?.token) {
+      navigate(NAVIGATION.addressDetails);
+    } else {
+      Toast.show({
+        text2: "Login to add address",
+        position: "bottom",
+        type: "error_toast",
+        visibilityTime: 1500,
+      });
+    }
+  };
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item, index }) => (
     <View style={styles.container}>
       <View style={[styles.item]}>
         <View style={styles.innerView}>
@@ -37,7 +56,7 @@ export function Addresses() {
           <View>
             <Text style={styles.placeText}>{item.address_type}</Text>
 
-            <View style={{ width: "90%", marginLeft: SW(7) }}>
+            <View style={{ width: "85%", marginLeft: SW(7) }}>
               <Text>
                 {item.formatted_address + ","}
                 <Text> {item.postal_code}</Text>
@@ -46,7 +65,15 @@ export function Addresses() {
           </View>
         </View>
 
-        <TouchableOpacity>
+        <TouchableOpacity
+          style={{ flex: 1, alignItems: "flex-end" }}
+          onPress={() =>
+            navigate(NAVIGATION.addressDetails, {
+              type: "update",
+              data: locations?.getLocation[index],
+            })
+          }
+        >
           <Image
             source={pencil}
             resizeMode="contain"
@@ -81,12 +108,14 @@ export function Addresses() {
             "5" +
             ")"
           }
-          onPress={() => navigate(NAVIGATION.addressDetails)}
+          onPress={navigationHandler}
           disabled={locations?.getLocation?.length === 5 && true}
         />
       </View>
 
       <Spacer space={SH(20)} />
+
+      {/* {isLoading ? <Loader message="Loading data ..." /> : null} */}
     </ScreenWrapper>
   );
 }
