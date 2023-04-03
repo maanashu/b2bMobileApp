@@ -241,7 +241,10 @@ export class UserController {
         city: data.city,
         district: data.district,
         country: data.country,
-        postal_code: data.postalCode,
+        state: data.state,
+        // address_line_1: data.address_line_1,
+        // address_line_2: data.address_line_2,
+        postal_code: data.postal_code,
         formatted_address: data.formatted_address,
         latitude: data.latitude,
         longitude: data.longitude,
@@ -252,6 +255,8 @@ export class UserController {
           navigate(NAVIGATION.addresses);
         })
         .catch((error) => {
+          if (error.msg == "jwt malformed") {
+          }
           Toast.show({
             text2: error.msg,
             position: "bottom",
@@ -284,9 +289,10 @@ export class UserController {
     });
   }
 
-  static async patchCurrentAddress(id) {
+  static async patchCurrentAddress(id, data) {
+    // console.log("data-->", data);
     return new Promise((resolve, reject) => {
-      const endpoint = `${ApiUserInventory.changeCurrentAddress}${id}`;
+      const endpoint = `${USER_URL}${ApiUserInventory.changeCurrentAddress}${id}`;
       const body = {
         place_id: data.place_id,
         custom_address: data.custom_address,
@@ -294,19 +300,18 @@ export class UserController {
         city: data.city,
         district: data.district,
         country: data.country,
-        postal_code: data.postalCode,
+        state: data.state,
+        postal_code: data.postal_code,
         formatted_address: data.formatted_address,
         latitude: data.latitude,
         longitude: data.longitude,
       };
-      HttpClient.patch(endpoint, body)
+      HttpClient.put(endpoint, body)
         .then((response) => {
           resolve(response);
-          console.log("change add controller success", response);
+          navigate(NAVIGATION.addresses);
         })
         .catch((error) => {
-          console.log("change add controller error", error);
-
           Toast.show({
             text2: error.msg,
             position: "bottom",

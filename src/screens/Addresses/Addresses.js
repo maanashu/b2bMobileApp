@@ -58,8 +58,8 @@ export function Addresses() {
 
             <View style={{ width: "85%", marginLeft: SW(7) }}>
               <Text>
-                {item.formatted_address + ","}
-                <Text> {item.postal_code}</Text>
+                {item.custom_address}
+                {/* <Text> {item.postal_code}</Text> */}
               </Text>
             </View>
           </View>
@@ -71,6 +71,7 @@ export function Addresses() {
             navigate(NAVIGATION.addressDetails, {
               type: "update",
               data: locations?.getLocation[index],
+              id: locations?.getLocation[index]?.id,
             })
           }
         >

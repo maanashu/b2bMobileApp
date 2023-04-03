@@ -23,7 +23,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { digits } from "@/Utils/validators";
-export function AddShippingAddress({ route }) {
+import { addUserLocation, updateUserLocation } from "@/actions/UserActions";
+export function AddShippingAddress(props) {
   const [flag, setFlag] = useState("US");
   const [countryCode, setCountryCode] = useState("+1");
   const [countryName, setCountryName] = useState("United States of America");
@@ -34,11 +35,33 @@ export function AddShippingAddress({ route }) {
   const [add2, setAdd2] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [city, setCity] = useState("");
-  console.log("city: " + city);
-  const dispacth = useDispatch();
+  // console.log("city: " + props?.route?.params?.update);
+  const dispatch = useDispatch();
 
   const saved = useSelector(getUser);
-  console.log("saved--->" + JSON.stringify(saved?.savedAddress));
+  // console.log("saved--->" + JSON.stringify(saved?.getLocation[0]));
+
+  const body = {
+    place_id: saved?.savedAddress?.place_id,
+    custom_address:
+      saved?.savedAddress?.custom_address +
+      ", " +
+      city +
+      ", " +
+      saved?.savedAddress?.state +
+      " " +
+      zipCode,
+    address_type: saved?.savedAddress?.address_type,
+    district: saved?.savedAddress?.district,
+    country: saved?.savedAddress?.country,
+    formatted_address: saved?.savedAddress?.formatted_address,
+    longitude: saved?.savedAddress?.longitude,
+    latitude: saved?.savedAddress?.latitude,
+    state: saved?.savedAddress?.state,
+    // address_line_1: add1,
+    // address_line_2: add2,
+    postal_code: zipCode,
+  };
 
   const submit = () => {
     if (mobileNumber && mobileNumber.length < 10) {
@@ -104,8 +127,10 @@ export function AddShippingAddress({ route }) {
         visibilityTime: 1500,
         text2: strings.validation.selectCity,
       });
+    } else if (props?.route?.params?.update) {
+      dispatch(updateUserLocation(props?.route?.params?.id, body));
     } else {
-      alert("ok");
+      dispatch(addUserLocation(body));
     }
   };
 

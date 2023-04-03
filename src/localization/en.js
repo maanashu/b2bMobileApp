@@ -70,7 +70,7 @@ export const en = {
     state: "State",
     zip: "Zip Code",
     country: "Country",
-    header: "Register",
+    header: "Information for kyc",
     title: "Personal Information",
     labelDob: "Date of birthday (month / day / year)",
   },

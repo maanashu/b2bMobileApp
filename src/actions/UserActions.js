@@ -57,6 +57,11 @@ export const TYPES = {
   GET_USER_LOCATION_SUCCESS: "GET_USER_LOCATION_SUCCESS",
   GET_USER_LOCATION_ERROR: "GET_USER_LOCATION_ERROR",
 
+  UPDATE_USER_LOCATION: "UPDATE_USER_LOCATION",
+  UPDATE_USER_LOCATION_REQUEST: "UPDATE_USER_LOCATION_REQUEST",
+  UPDATE_USER_LOCATION_SUCCESS: "UPDATE_USER_LOCATION_SUCCESS",
+  UPDATE_USER_LOCATION_ERROR: "UPDATE_USER_LOCATION_ERROR",
+
   SAVE_ADDRESS: "SAVE_ADDRESS",
   SAVE_ADDRESS_REQUEST: "SAVE_ADDRESS_REQUEST",
   SAVE_ADDRESS_SUCCESS: "SAVE_ADDRESS_SUCCESS",
@@ -209,15 +214,32 @@ const userLocationSuccess = (userLocation) => ({
   type: TYPES.USER_LOCATION_SUCCESS,
   payload: { userLocation },
 });
-export const saveUserAddress = (savedAddress) => ({
-  type: TYPES.SAVE_ADDRESS_SUCCESS,
-  payload: { savedAddress },
-});
 
 const userLocationError = (error) => ({
   type: TYPES.USER_LOCATION_ERROR,
   payload: { error },
 });
+
+const updateLocationRequest = () => ({
+  type: TYPES.UPDATE_USER_LOCATION_REQUEST,
+  payload: null,
+});
+
+const updateLocationSuccess = (updateLocation) => ({
+  type: TYPES.UPDATE_USER_LOCATION_SUCCESS,
+  payload: { updateLocation },
+});
+
+const updateLocationError = (error) => ({
+  type: TYPES.UPDATE_USER_LOCATION_ERROR,
+  payload: { error },
+});
+
+export const saveUserAddress = (savedAddress) => ({
+  type: TYPES.SAVE_ADDRESS_SUCCESS,
+  payload: { savedAddress },
+});
+
 const getUserLocationRequest = () => ({
   type: TYPES.GET_USER_LOCATION_REQUEST,
   payload: null,
@@ -353,6 +375,18 @@ export const addUserLocation = (data) => async (dispatch) => {
     dispatch(userLocationSuccess(res));
   } catch (error) {
     dispatch(userLocationError(error.message));
+  }
+};
+export const updateUserLocation = (id, data) => async (dispatch) => {
+  // console.log("action body-->", data);
+
+  dispatch(updateLocationRequest());
+  try {
+    const res = await UserController.patchCurrentAddress(id, data);
+    dispatch(updateLocationSuccess(res));
+  } catch (error) {
+    console.log("action error-->", error);
+    dispatch(updateLocationError(error.message));
   }
 };
 

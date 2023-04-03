@@ -28,6 +28,7 @@ import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
+import { emailReg } from "@/Utils/validators";
 
 export function Register() {
   const dispatch = useDispatch();
@@ -120,6 +121,22 @@ export function Register() {
         visibilityTime: 1500,
       });
       return;
+    } else if (!email) {
+      Toast.show({
+        position: "bottom",
+        type: "error_toast",
+        visibilityTime: 1500,
+        text2: strings.validation.emptyEmail,
+      });
+      return;
+    } else if (email && emailReg.test(email) === false) {
+      Toast.show({
+        position: "bottom",
+        type: "error_toast",
+        visibilityTime: 1500,
+        text2: strings.validation.invalidEmail,
+      });
+      return;
     }
     // if (!ValidateUserName(username)) return;
     // if (!ValidateName(firstname)) return;
@@ -164,7 +181,6 @@ export function Register() {
   return (
     <ScreenWrapper>
       <NameHeader title={"Register"} />
-
       <KeyboardAwareScrollView>
         <View style={styles.mainContainer}>
           <Text style={styles.headingBoldText}>{"Username"}</Text>

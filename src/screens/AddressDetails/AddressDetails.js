@@ -68,9 +68,11 @@ export function AddressDetails(props) {
   const [formattedAddress, setFormattedAddress] = useState(
     props.route.params?.data?.formatted_address ?? ""
   );
-  const [district, setDistrict] = useState("");
+  const [district, setDistrict] = useState(
+    props.route.params?.data?.district ?? ""
+  );
   const [country, setCountry] = useState("");
-  const [state, setState] = useState("");
+  const [state, setState] = useState(props.route.params?.data?.state ?? "");
   const [zipCode, setZipCode] = useState("");
   const [city, setCity] = useState("");
   const [note, setNot] = useState("");
@@ -85,7 +87,7 @@ export function AddressDetails(props) {
   const locationMarkerRef = useRef(null);
 
   // console.log(
-  //   "chechking lat-->" + JSON.stringify(props?.route?.params?.data?.latitude)
+  //   "chechking lat-->" + JSON.stringify(props.route.params?.data?.state)
   // );
 
   const isFocused = useIsFocused();
@@ -218,7 +220,7 @@ export function AddressDetails(props) {
               data.address_components[i].types[0] ==
               "administrative_area_level_1"
             ) {
-              setState(data?.address_components?.[i]?.long_name);
+              setState(data?.address_components?.[i]?.short_name);
             }
 
             if (data.address_components[i].types[0] == "postal_code") {
@@ -283,14 +285,23 @@ export function AddressDetails(props) {
       formatted_address: formattedAddress,
       longitude: longitude,
       latitude: latitude,
+      state: state,
     };
-
+    if (props?.route?.params?.data) {
+      dispatch(saveUserAddress(body));
+      navigate(NAVIGATION.addShippingAddress, {
+        update: "patch",
+        id: props?.route?.params?.id,
+      });
+    } else {
+      dispatch(saveUserAddress(body));
+      navigate(NAVIGATION.addShippingAddress);
+    }
     // dispatch(addUserLocation(body));
-    dispatch(saveUserAddress(body));
-    navigate(NAVIGATION.addShippingAddress);
+
     // navigate(NAVIGATION.addressList);
   };
-
+  // console.log("state: " + state);
   return (
     <ScreenWrapper containerPropStyle={{ paddingHorizontal: 0 }}>
       <KeyboardAwareScrollView
