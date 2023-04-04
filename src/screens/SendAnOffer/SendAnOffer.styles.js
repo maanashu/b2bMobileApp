@@ -86,6 +86,8 @@ export const styles = StyleSheet.create({
     backgroundColor: "white",
     width: "100%",
     borderRadius: 6,
+    borderWidth: 1,
+    borderColor: COLORS.light_border,
   },
   dollarPrice: {
     fontFamily: Fonts.SemiBold,
@@ -118,6 +120,8 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 0,
     backgroundColor: "transparent",
     width: SW(270),
+    paddingLeft: SW(10),
+    fontSize: SW(12),
   },
   calendarIcon: {
     tintColor: COLORS.light_grey,

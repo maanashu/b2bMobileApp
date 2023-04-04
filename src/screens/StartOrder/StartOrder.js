@@ -346,8 +346,13 @@ export function StartOrder(params) {
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <View style={styles.header}>
         <View style={styles.headerInnerView}>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Text style={styles.headerText}>
+              {strings.startOrder.startOrder}
+            </Text>
+          </View>
+
           <TouchableOpacity
-            style={{ flexDirection: "row", alignItems: "center" }}
             onPress={() =>
               // navigation.reset({
               //   index: 1,
@@ -357,17 +362,6 @@ export function StartOrder(params) {
               navigate(NAVIGATION.productInquiry)
             }
           >
-            <Image
-              resizeMode="contain"
-              source={backArrow}
-              style={{ height: 30, width: 30 }}
-            />
-            <Text style={styles.headerText}>
-              {strings.startOrder.startOrder}
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity>
             <Image source={cross} style={styles.crossIcon} />
           </TouchableOpacity>
         </View>

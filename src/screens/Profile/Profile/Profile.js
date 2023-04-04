@@ -127,7 +127,7 @@ export function Profile() {
   const user = useSelector(getUser);
 
   // console.log("token check-->", user?.user?.payload?.token);
-  const token = user?.user?.payload?.token;
+  const token = user?.user?.payload?.token ?? user?.registered?.token;
 
   const logoutUser = () => {
     dispatch(logout());

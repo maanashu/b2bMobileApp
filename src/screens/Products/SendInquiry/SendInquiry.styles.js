@@ -208,6 +208,7 @@ export const styles = StyleSheet.create({
     height: SH(52),
     marginVertical: 0,
     borderBottomWidth: 0,
+    paddingHorizontal: SW(10),
   },
   productQuantityText: {
     color: COLORS.black,
@@ -293,5 +294,12 @@ export const styles = StyleSheet.create({
   },
   buttonStyle: {
     height: SH(45),
+  },
+  inputLimitText: {
+    paddingHorizontal: SW(10),
+    paddingBottom: SH(5),
+    fontFamily: Fonts.Regular,
+    color: COLORS.darkGrey,
+    alignSelf: "flex-end",
   },
 });

@@ -47,4 +47,16 @@ export const styles = StyleSheet.create({
   buttonStyle: {
     height: SH(50),
   },
+  dropDownStyle: {
+    width: SW(310),
+    alignSelf: "center",
+    borderRadius: SW(5),
+  },
+  buttonTextStyle: {
+    flex: 1,
+    alignSelf: "center",
+    color: COLORS.darkGrey,
+    fontSize: SF(14),
+    fontFamily: Fonts.Italic,
+  },
 });

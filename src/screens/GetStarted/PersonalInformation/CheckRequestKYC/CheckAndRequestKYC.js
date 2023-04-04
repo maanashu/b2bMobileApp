@@ -17,6 +17,7 @@ import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { checkKyc, requestKyc } from "@/actions/KycActions";
 import { getKyc } from "@/selectors/KycSelector";
+import { useState } from "react";
 
 export function CheckAndRequestKYC() {
   const dispatch = useDispatch();
@@ -30,14 +31,17 @@ export function CheckAndRequestKYC() {
   // console.log(
   //   "kyc request" + JSON.stringify(getKycData?.requestKyc?.kyc?.payload)
   // );
-
+  const [requestedKyc, setRequestedKyc] = useState(false);
   const customHeader = () => (
     <View style={styles.headerRowView}>
       <Text style={styles.requestTitleStyle}>{strings.kyc.requestTitle}</Text>
     </View>
   );
 
-  const onPressHandler = () => dispatch(requestKyc());
+  const onPressHandler = () => {
+    dispatch(requestKyc());
+    setRequestedKyc(true);
+  };
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.REQUEST_KYC], state)
@@ -47,7 +51,6 @@ export function CheckAndRequestKYC() {
     isLoadingSelector([TYPES.CHECK_KYC], state)
   );
 
- 
   const onPressRefreshHandler = () => dispatch(checkKyc());
 
   const submitKyc = () => {
@@ -75,6 +78,7 @@ export function CheckAndRequestKYC() {
         </View>
 
         <Spacer space={SH(20)} />
+
         {kycRequest ? (
           <Text style={styles.verificationMsgStyle}>
             {strings?.kyc?.verificationMsg}

@@ -36,11 +36,17 @@ export function SendInquiry() {
     { label: "5-50", value: "5-50" },
     { label: "50-100", value: "50-100" },
   ]);
-
+  const [textLength, setTextLength] = useState();
   // const savePicture = () => {
   //   pictures.push();
   //   console.log("images stored in array-->", pictures);
   // };
+
+  const checkLimit = (limit) => {
+    var Value = limit?.length.toString();
+    setTextLength(Value);
+    // console.log("limittttttttttttttttttttttttt", textLength);
+  };
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -74,6 +80,7 @@ export function SendInquiry() {
   const CheckBox = () => {
     setagree(!agree);
   };
+
   // useEffect(() => {
   //   savePicture();
   // }, [productImage]);
@@ -99,7 +106,7 @@ export function SendInquiry() {
             source={backArrow}
             style={{ height: 30, width: 30 }}
           />
-          <Text style={styles.headerText}> Send Inquiry</Text>
+          <Text style={styles.headerText}> {"Send Inquiry"}</Text>
         </TouchableOpacity>
       </View>
 
@@ -112,7 +119,7 @@ export function SendInquiry() {
 
         <View style={styles.yewiView}>
           <View style={styles.topView}>
-            <Text style={styles.agreeText}>About Company</Text>
+            <Text style={styles.agreeText}>{"About Company"}</Text>
             <View style={styles.topButtonView}>
               <TouchableOpacity style={styles.topButtonLeft}>
                 <Text style={styles.leftButtonText}>
@@ -176,14 +183,26 @@ export function SendInquiry() {
 
           <Spacer space={SH(20)} />
 
-          <TextField
-            maxLength={1500}
-            multiline={true}
-            editable={true}
-            scrollEnabled={true}
-            style={styles.input}
-          />
-
+          <View
+            style={{
+              height: SH(310),
+              backgroundColor: COLORS.placeholder,
+              flex: 1,
+            }}
+          >
+            <TextField
+              maxLength={1500}
+              multiline={true}
+              editable={true}
+              scrollEnabled={true}
+              style={styles.input}
+              onChangeText={(limit) => checkLimit(limit)}
+            />
+            <Text style={styles.inputLimitText}>
+              {textLength}
+              {"/ 500"}
+            </Text>
+          </View>
           <Spacer space={SH(5)} />
 
           {productImage ? (

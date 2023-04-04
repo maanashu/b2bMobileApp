@@ -152,7 +152,7 @@ export function ConnectBank(props) {
     //   phone_code: getData?.userProfile?.user_profiles?.phone_code,
     // };
     // dispatch(login(data));
-    navigate(NAVIGATION.splash);
+    navigate(NAVIGATION.productInquiry);
   };
 
   const customHeader = () => {
@@ -223,7 +223,7 @@ export function ConnectBank(props) {
             </View>
           )}
 
-          {/* {isLoading ? (
+          {isLoading ? (
             <View
               style={[styles.loader, { backgroundColor: "rgba(0,0,0,0.5)" }]}
             >
@@ -234,7 +234,7 @@ export function ConnectBank(props) {
                 color={COLORS.primary}
               />
             </View>
-          ) : null} */}
+          ) : null}
 
           <View style={{ flex: 1 }} />
 

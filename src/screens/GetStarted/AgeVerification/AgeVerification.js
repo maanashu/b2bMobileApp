@@ -75,6 +75,9 @@ export function AgeVerification(props) {
       }
     }
   }, [open]);
+  useEffect(() => {
+    dispatch(getDocumentTypes());
+  }, []);
 
   const uploadFrontDocument = async (image) => {
     const formData = new FormData();

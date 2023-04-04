@@ -308,12 +308,12 @@ export class KycController {
           resolve(response);
         })
         .catch((error) => {
-          // Toast.show({
-          //   text2: error.msg,
-          //   position: "bottom",
-          //   type: "error_toast",
-          //   visibilityTime: 1500,
-          // });
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
           reject(new Error((strings.verify.error = error.msg)));
         });
     });

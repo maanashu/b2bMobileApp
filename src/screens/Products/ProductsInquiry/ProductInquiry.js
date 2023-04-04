@@ -63,7 +63,7 @@ export function ProductInquiry(params) {
   const [favourite, setFavourite] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector(getUser);
-  const token = user?.user?.payload?.token;
+  const token = user?.user?.payload?.token ?? user?.registered?.token;
 
   const colorChange = () => {
     setFavourite(!favourite);
@@ -72,7 +72,6 @@ export function ProductInquiry(params) {
   const ProductDetail = useSelector(getProductSelector);
   const bundleItems =
     ProductDetail?.productDetail?.product_detail?.bundle_products;
-
   // console.log(
   //   "bundleitems: " +
   //     JSON.stringify(ProductDetail?.productDetail?.product_detail)
@@ -240,7 +239,9 @@ export function ProductInquiry(params) {
               <Text style={{ color: COLORS.white }}>
                 {ProductDetail?.productDetail?.product_rating?.rating}
               </Text>
-              <Text style={styles.productSubHeading}>{"(500+ ratings)"}</Text>
+              <Text style={[styles.productSubHeading, { color: "white" }]}>
+                {"(500+ ratings)"}
+              </Text>
             </View>
             <Spacer space={SH(40)} />
             <Text style={styles.productHeading}>
@@ -262,8 +263,7 @@ export function ProductInquiry(params) {
               />
             )}
           </View>
-
-          <Spacer space={SH(20)} />
+          <Spacer space={SH(10)} />
 
           <View style={styles.mainView}>
             <View style={styles.queryIcons}>
@@ -500,7 +500,7 @@ export function ProductInquiry(params) {
                 <Text style={styles.simpleText}>{"/5.0"}</Text>
               </Text>
               <View style={{ paddingHorizontal: SW(10) }}>
-                <Text style={styles.reviewText}>{"Very Satisfied<"}</Text>
+                <Text style={styles.reviewText}>{"Very Satisfied"}</Text>
 
                 <Text style={{ fontFamily: Fonts.Regular }}>
                   {"21 Reviews"}

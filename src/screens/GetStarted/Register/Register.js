@@ -42,14 +42,15 @@ export function Register() {
   const defyear = new Date().getFullYear();
 
   const [show, setShow] = useState(false);
-  const [date, setDate] = useState(
-    defyear + " - " + selectedDefMonth + " - " + selectedDefDay
-  );
+  // const [date, setDate] = useState(
+  //   defyear + " - " + selectedDefMonth + " - " + selectedDefDay
+  // );
+  const [dateformat, setDateformat] = useState("");
+  const [date, setDate] = useState("");
   const [username, setusername] = useState("");
   const [firstname, setfirstname] = useState("");
   const [lastname, setlastname] = useState("");
   const [email, setEmail] = useState("");
-  const [dateformat, setDateformat] = useState("");
   const [pin, setpin] = useState("");
   const [confirmPin, setconfirmPin] = useState("");
   const [countryCode, setcountryCode] = useState(user?.phone?.countryCode);

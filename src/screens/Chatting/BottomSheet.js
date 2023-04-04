@@ -538,9 +538,9 @@ export function Translation({ onClosePress }) {
             width: SW(120),
           }}
         />
-
-        <TouchableOpacity
-          style={{}}
+        <View style={{ backgroundColor: "red" }}></View>
+        {/* <TouchableOpacity
+          style={{ flex: 1, backgroundColor: "red" }}
           onPress={() => setTranslationText(!translationText)}
         >
           <Image
@@ -548,7 +548,7 @@ export function Translation({ onClosePress }) {
             style={{ height: ms(20), width: ms(20) }}
             source={translationText ? toggleOn : toggleOff}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <Spacer space={SH(20)} />
     </View>

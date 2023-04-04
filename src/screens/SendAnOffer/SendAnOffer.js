@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FlatList,
   Image,
@@ -20,6 +20,8 @@ import { backArrow, calendar, marlboroPic } from "@/assets";
 import { styles } from "./SendAnOffer.styles";
 import { strings } from "@/localization";
 import { COLORS } from "@/theme";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import moment from "moment";
 
 export function SendAnOffer() {
   const countries = ["Egypt", "Canada", "Australia", "Ireland"];
@@ -45,6 +47,24 @@ export function SendAnOffer() {
       selectedProduct: strings.STATIC.makeAnOffer.tobacco,
     },
   ];
+  const [show, setShow] = useState();
+  const [dateformat, setDateformat] = useState("");
+  const [date, setDate] = useState("");
+
+  const onChangeDate = (selectedDate) => {
+    setShow(false);
+    const month = selectedDate.getMonth() + 1;
+    const selectedMonth = month < 10 ? "0" + month : month;
+    const day = selectedDate.getDate();
+    const selectedDay = day < 10 ? "0" + day : day;
+    console.log("date console", selectedDay);
+
+    const year = selectedDate.getFullYear();
+    const fullDate = year + " / " + selectedMonth + " / " + selectedDay;
+    const newDateFormat = year + " /" + selectedMonth + " /" + selectedDay;
+    setDateformat(newDateFormat);
+    setDate(fullDate);
+  };
 
   const renderProductDetails = ({ item, index }) => (
     <View>
@@ -221,8 +241,10 @@ export function SendAnOffer() {
               placeholder={strings.sendAnOffer.datePlaceholder}
               textStyle={{ paddingHorizontal: 20 }}
               keyboardType={"numeric"}
+              value={date}
+              defaultValue={date}
             />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => setShow(true)}>
               <Image source={calendar} style={styles.calendarIcon} />
             </TouchableOpacity>
           </View>
@@ -232,6 +254,16 @@ export function SendAnOffer() {
 
         <Button title={strings.buttonText.send} style={styles.buttonStyle} />
 
+        <DateTimePickerModal
+          isVisible={show}
+          mode="date"
+          maximumDate={
+            new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+          }
+          minimumDate={new Date()}
+          onConfirm={onChangeDate}
+          onCancel={() => setShow(false)}
+        />
         <Spacer space={SH(20)} />
       </ScrollView>
     </ScreenWrapper>

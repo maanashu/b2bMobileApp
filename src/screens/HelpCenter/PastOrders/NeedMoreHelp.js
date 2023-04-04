@@ -57,8 +57,9 @@ export function NeedMoreHelp(props) {
   const [notes, setNotes] = useState("");
   const [supportImage, setSupportImage] = useState("");
   const [doc, setDoc] = useState("");
-  const token = getUserData?.user?.payload?.token;
-  console.log("token", getUserData?.user?.payload?.token);
+  const token =
+    getUserData?.user?.payload?.token ?? getUserData?.registered?.token;
+  console.log("token", token);
   console.log("token", doc);
 
   const headingName =

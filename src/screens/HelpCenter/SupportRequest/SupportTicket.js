@@ -56,7 +56,8 @@ export function SupportTicket() {
   const [notes, setNotes] = useState("");
   const [supportImage, setSupportImage] = useState("");
   const [doc, setDoc] = useState("");
-  const token = getUserData?.user?.payload?.token;
+  const token =
+    getUserData?.user?.payload?.token ?? getUserData?.registered?.token;
   // console.log("token", getUserData?.user?.payload?.token);
 
   const [subjectItems, setSubjectItems] = useState([]);

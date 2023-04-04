@@ -57,7 +57,7 @@ export const en = {
     enterPin: "Set your pin",
     reEnterPin: "Re-enter your pin",
     ssn: "SSN",
-    placeholder: "mm / dd / yyyy",
+    placeholder: "YYYY / MM / DD",
     gender: "Gender",
     type: "Type",
     male: "Male",
@@ -208,7 +208,7 @@ export const en = {
   startOrder: {
     checkout: "Checkout",
     delivery: "Delivery",
-    startOrder: "Start Order",
+    startOrder: "Variations",
     fedEx: "Fedex Express shipping",
     ups: "UPS Priority shipping",
     dhl: "DHL Standard shipping",
@@ -534,7 +534,7 @@ export const en = {
     carton: "Carton",
     offerValidity: "Offer Validity",
     selectDate: "Select Date",
-    datePlaceholder: "dd/ mm/ yyyy",
+    datePlaceholder: "YYYY / MM / DD",
   },
   notifications: {
     allowNoti: "Allow Notification",

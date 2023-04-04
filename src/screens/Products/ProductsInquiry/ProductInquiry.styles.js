@@ -84,7 +84,8 @@ export const styles = StyleSheet.create({
   productSubHeading: {
     fontFamily: Fonts.Regular,
     fontSize: ms(11),
-    color: COLORS.white,
+    color: COLORS.darkGrey,
+    marginTop: SH(2),
   },
   chatText: {
     fontFamily: Fonts.SemiBold,

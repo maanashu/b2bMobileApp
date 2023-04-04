@@ -22,7 +22,7 @@ export function Addresses() {
   const isFocused = useIsFocused();
   const locations = useSelector(getUser);
   // console.log("loc--->", locations?.getLocation);
-
+  const token = locations?.registered?.token ?? locations?.user?.payload?.token;
   useEffect(() => {
     dispatch(getUserLocations());
   }, [isFocused]);
@@ -32,7 +32,7 @@ export function Addresses() {
   );
 
   const navigationHandler = () => {
-    if (locations?.user?.payload?.token) {
+    if (token) {
       navigate(NAVIGATION.addressDetails);
     } else {
       Toast.show({
@@ -116,7 +116,7 @@ export function Addresses() {
 
       <Spacer space={SH(20)} />
 
-      {/* {isLoading ? <Loader message="Loading data ..." /> : null} */}
+      {isLoading ? <Loader message="Loading data ..." /> : null}
     </ScreenWrapper>
   );
 }

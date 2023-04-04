@@ -44,7 +44,7 @@ export function PersonalInformation() {
   const [ssn, setSsn] = useState("");
   const [city, setCity] = useState("");
   const [email, setEmail] = useState(
-    getData?.registered?.email ?? getData?.user?.payload?.email
+    getData?.registerData?.email ?? getData?.user?.payload?.email
   );
   const [state, setState] = useState("");
   const [show, setShow] = useState(false);
@@ -65,8 +65,8 @@ export function PersonalInformation() {
   useEffect(() => {
     dispatch(getUser);
   }, []);
-  console.log("checking email", email);
-  console.log("checking dob", dateformat);
+  // console.log("checking email", getData?.registerData?.email);
+  // console.log("checking dob", phone);
 
   const onChangeDate = (selectedDate) => {
     const currentDate = moment().format("MM/DD/YYYY");

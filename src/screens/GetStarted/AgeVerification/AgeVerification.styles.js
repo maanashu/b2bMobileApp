@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.SemiBold,
   },
   flexRowContainer: {
-    zIndex: 999,
+    // zIndex: 999,
     flexDirection: "row",
   },
   uploadIdCon: {

@@ -71,13 +71,7 @@ export function MakeAnOffer() {
 
           <SelectDropdown
             defaultButtonText="Select Category"
-            buttonTextStyle={{
-              flex: 1,
-              alignSelf: "center",
-              color: COLORS.darkGrey,
-              fontSize: SF(14),
-              fontFamily: Fonts.Italic,
-            }}
+            buttonTextStyle={styles.buttonTextStyle}
             renderDropdownIcon={() => (
               <Icon
                 name={"sort-down"}
@@ -87,7 +81,7 @@ export function MakeAnOffer() {
               />
             )}
             data={countries}
-            buttonStyle={{ width: SW(310), alignSelf: "center" }}
+            buttonStyle={styles.dropDownStyle}
             onSelect={(selectedItem, index) => {
               console.log(selectedItem, index);
             }}
@@ -108,13 +102,7 @@ export function MakeAnOffer() {
 
           <SelectDropdown
             defaultButtonText="Select Sub Category"
-            buttonTextStyle={{
-              flex: 1,
-              alignSelf: "center",
-              color: COLORS.darkGrey,
-              fontSize: SF(14),
-              fontFamily: Fonts.Italic,
-            }}
+            buttonTextStyle={styles.buttonTextStyle}
             renderDropdownIcon={() => (
               <Icon
                 name={"sort-down"}
@@ -124,7 +112,7 @@ export function MakeAnOffer() {
               />
             )}
             data={countries}
-            buttonStyle={{ width: SW(310), alignSelf: "center" }}
+            buttonStyle={styles.dropDownStyle}
             onSelect={(selectedItem, index) => {
               console.log(selectedItem, index);
             }}
@@ -145,13 +133,7 @@ export function MakeAnOffer() {
 
           <SelectDropdown
             defaultButtonText="Select Product"
-            buttonTextStyle={{
-              flex: 1,
-              alignSelf: "center",
-              color: COLORS.darkGrey,
-              fontSize: SF(14),
-              fontFamily: Fonts.Italic,
-            }}
+            buttonTextStyle={styles.buttonTextStyle}
             renderDropdownIcon={() => (
               <Icon
                 name={"sort-down"}
@@ -161,7 +143,7 @@ export function MakeAnOffer() {
               />
             )}
             data={countries}
-            buttonStyle={{ width: SW(310), alignSelf: "center" }}
+            buttonStyle={styles.dropDownStyle}
             onSelect={(selectedItem, index) => {
               console.log(selectedItem, index);
             }}
@@ -182,13 +164,7 @@ export function MakeAnOffer() {
 
           <SelectDropdown
             defaultButtonText="Select Brand"
-            buttonTextStyle={{
-              flex: 1,
-              alignSelf: "center",
-              color: COLORS.darkGrey,
-              fontSize: SF(14),
-              fontFamily: Fonts.Italic,
-            }}
+            buttonTextStyle={styles.buttonTextStyle}
             renderDropdownIcon={() => (
               <Icon
                 name={"sort-down"}
@@ -198,7 +174,7 @@ export function MakeAnOffer() {
               />
             )}
             data={countries}
-            buttonStyle={{ width: SW(310), alignSelf: "center" }}
+            buttonStyle={styles.dropDownStyle}
             onSelect={(selectedItem, index) => {
               console.log(selectedItem, index);
             }}

@@ -17,15 +17,15 @@ const toastConfig = {
     <BaseToast
       {...rest}
       style={{
-        borderLeftColor: COLORS.green,
+        borderLeftColor: "green",
         zIndex: 999,
-        borderLeftColor: COLORS.green,
+        borderLeftColor: "green",
       }}
       contentContainerstyle={{ paddingHorizontal: SW(15) }}
       leadingIcon={success}
       text2Style={{
         fontSize: SF(14),
-        color: COLORS.green,
+        color: "green",
         fontFamily: Fonts.SemiBold,
       }}
       text1={text1}
@@ -46,13 +46,13 @@ const toastConfig = {
       style={{
         borderLeftColor: COLORS.pinklight,
         zIndex: 999,
-        borderLeftColor: COLORS.black,
+        borderLeftColor: "red",
       }}
       contentContainerstyle={{ paddingHorizontal: SW(15) }}
       leadingIcon={error}
       text2Style={{
         fontSize: SF(14),
-        color: COLORS.black,
+        color: "red",
         fontFamily: Fonts.SemiBold,
       }}
       text1={text1}
