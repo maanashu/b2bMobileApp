@@ -121,7 +121,13 @@ export function Chatting({ navigation }) {
 
   const renderSend = (props) => {
     return (
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <TouchableOpacity>
           <Image
             source={attachPic}
@@ -138,7 +144,7 @@ export function Chatting({ navigation }) {
           />
         </TouchableOpacity>
 
-        <Send {...props} containerStyle={{ marginTop: SH(12) }}>
+        <Send {...props} containerStyle={{ justifyContent: "center" }}>
           <Image
             source={messageSend}
             resizeMode="stretch"

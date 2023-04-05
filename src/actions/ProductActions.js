@@ -60,6 +60,33 @@ const getTrendingSellersError = (error) => ({
   type: TYPES.GET_TRENDING_SELLERS_ERROR,
   payload: { error },
 });
+
+const getCouponsRequest = () => ({
+  type: TYPES.GET_COUPONS_REQUEST,
+  payload: null,
+});
+const getCouponsSuccess = (coupons) => ({
+  type: TYPES.GET_COUPONS_SUCCESS,
+  payload: { coupons },
+});
+const getCouponsError = (error) => ({
+  type: TYPES.GET_COUPONS_ERROR,
+  payload: { error },
+});
+
+const addCouponRequest = () => ({
+  type: TYPES.ADD_COUPONS_REQUEST,
+  payload: null,
+});
+const addCouponSuccess = (addCoupons) => ({
+  type: TYPES.ADD_COUPONS_SUCCESS,
+  payload: { addCoupons },
+});
+const addCouponError = (error) => ({
+  type: TYPES.ADD_COUPONS_ERROR,
+  payload: { error },
+});
+
 export const getProduct = (data) => async (dispatch) => {
   dispatch(getProductRequest());
   try {
@@ -109,6 +136,27 @@ export const getTrendingSellers = () => async (dispatch) => {
     dispatch(getTrendingSellersSuccess(res));
   } catch (error) {
     dispatch(getTrendingSellersError(error.message));
+  }
+};
+export const getCoupons = (data) => async (dispatch) => {
+  dispatch(getCouponsRequest());
+  try {
+    const res = await ProductController.getCoupons(data);
+
+    dispatch(getCouponsSuccess(res));
+  } catch (error) {
+    dispatch(getCouponsError(error.message));
+  }
+};
+
+export const addCoupon = (data) => async (dispatch) => {
+  dispatch(addCouponRequest());
+  try {
+    const res = await ProductController.addCoupon(data);
+
+    dispatch(addCouponSuccess(res));
+  } catch (error) {
+    dispatch(addCouponError(error.message));
   }
 };
 

@@ -6,6 +6,10 @@ import { SH } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { ms } from "react-native-size-matters";
 import { strings } from "@/localization";
+import { useSelector } from "react-redux";
+import { getProductSelector } from "@/selectors/ProductSelectors";
+import moment from "moment";
+import { Fonts } from "@/assets";
 
 export function PastCoupons() {
   const Coupons = [
@@ -14,24 +18,26 @@ export function PastCoupons() {
       couponName: strings.coupons.welcomeCoupon,
       currency: "USD $",
       amount: "2.00",
-      couponCode: "jbvrgcu01",
+      code: "jbvrgcu01",
       discountCurrency: "USD $",
-      discountAmount: "30",
+      discount_amount: "30",
       minMax: "minimum",
       valid: strings.coupons.valid,
-      date: " Jan 14, 2023",
+      end_time: " Jan 14, 2023",
+      minimum_order_amount: "50",
     },
     {
       id: 2,
       couponName: strings.coupons.welcomeCoupon,
       currency: "USD $",
-      amount: "2.00",
+      discount_amount: "2.00",
       couponCode: "jbvrgcu01",
       discountCurrency: "USD $",
       discountAmount: "30",
       minMax: "minimum",
       valid: strings.coupons.valid,
-      date: " Jan 14, 2023",
+      end_time: " Jan 12, 2023",
+      minimum_order_amount: "50",
     },
     {
       id: 3,
@@ -43,62 +49,68 @@ export function PastCoupons() {
       discountAmount: "30",
       minMax: "minimum",
       valid: strings.coupons.valid,
-      date: " Jan 14, 2023",
+      end_time: " Jun 14, 2023",
     },
   ];
 
-  const CouponData = ({ item, index }) => (
-    <View>
-      <TouchableOpacity style={styles.couponView}>
-        <View style={styles.upperView}>
-          <Text style={styles.upperText}>{item.couponName}</Text>
+  const coupon = useSelector(getProductSelector);
+  // console.log("coupons->", coupon?.coupons);
 
-          <Text style={styles.upperText}>
-            {item.currency}
-            <Text style={styles.upperText}>{item.amount}</Text>
-          </Text>
-        </View>
+  const CouponData = ({ item, index }) => {
+    const formattedDate = moment(item.end_time).format("MMM DD, yyyy");
+    const isOldDate = moment(item.end_time).isBefore();
+    return (
+      <>
+        {isOldDate && (
+          <View>
+            <TouchableOpacity style={styles.couponView}>
+              <View style={styles.paddingView}>
+                <View style={styles.upperView}>
+                  <Text style={styles.upperText}>{item.code}</Text>
 
-        <Text style={styles.smallText}>{item.couponCode}</Text>
-        <Spacer space={SH(20)} />
+                  <Text style={styles.upperText}>
+                    {"USD $ "}
+                    {item.discount_amount}
+                  </Text>
+                </View>
 
-        <View style={styles.upperView}>
-          <Text style={styles.mediumText}>
-            {item.discountCurrency}
-            <Text style={styles.mediumText}>{item.discountAmount} </Text>
-            <Text style={styles.smallText}>{item.minMax}</Text>
-          </Text>
+                {/* <Text style={styles.smallText}>{item.code}</Text> */}
+                <Spacer space={SH(20)} />
 
-          <Text style={styles.smallText}>
-            {item.valid}
-            <Text style={styles.mediumText}>{item.date}</Text>
-          </Text>
-        </View>
-        <Spacer space={SH(15)} />
+                <View style={styles.upperView}>
+                  <Text
+                    style={[styles.smallText, { fontFamily: Fonts.SemiBold }]}
+                  >
+                    {"USD $ "}
+                    {item.minimum_order_amount}
+                    <Text style={styles.smallText}>{" minimum"}</Text>
+                  </Text>
 
-        <View
-          style={{
-            borderBottomWidth: 1,
-            borderStyle: "dashed",
-          }}
-        ></View>
+                  <Text style={styles.smallText}>
+                    {"Valid until  "}
+                    <Text style={styles.mediumText}>{formattedDate}</Text>
+                  </Text>
+                </View>
+              </View>
+              <Spacer space={SH(15)} />
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View style={styles.dashedLine}></View>
 
-        <Spacer space={SH(15)} />
+                <View style={styles.cutOutView}></View>
+              </View>
 
-        <View style={styles.upperView}>
-          <View
-            style={{ backgroundColor: COLORS.light_yellow, borderRadius: 8 }}
-          >
-            <Text style={{ paddingVertical: ms(3), paddingHorizontal: ms(10) }}>
-              Cigar
-            </Text>
+              <Spacer space={SH(5)} />
+
+              <View style={styles.bottomView}>
+                <Text style={styles.tcText}>{strings.coupons.tc}</Text>
+              </View>
+            </TouchableOpacity>
+            <Spacer space={SH(20)} />
           </View>
-          <Text>{strings.coupons.tc}</Text>
-        </View>
-      </TouchableOpacity>
-      <Spacer space={SH(20)} />
-    </View>
-  );
+        )}
+      </>
+    );
+  };
 
   const checkCoupon = () => {};
   return (
@@ -107,8 +119,9 @@ export function PastCoupons() {
 
       <View style={styles.mainContainer}>
         <FlatList
-          data={Coupons}
+          data={coupon?.coupons}
           renderItem={CouponData}
+          extradata={coupon?.coupons}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
         />

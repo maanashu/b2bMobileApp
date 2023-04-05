@@ -300,6 +300,6 @@ export const styles = StyleSheet.create({
     paddingBottom: SH(5),
     fontFamily: Fonts.Regular,
     color: COLORS.darkGrey,
-    alignSelf: "flex-end",
+    alignSelf: "flex-end ",
   },
 });

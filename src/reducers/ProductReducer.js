@@ -4,6 +4,8 @@ const INITIALSTATE = {
   productDetail: [],
   trendingSellers: [],
   trendingList: [],
+  coupons: [],
+  addCoupons: {},
 };
 export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
   switch (type) {
@@ -33,6 +35,16 @@ export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         trendingSellers: payload.trendingSellers.payload.sellers,
+      };
+    case TYPES.GET_COUPONS_SUCCESS:
+      return {
+        ...state,
+        coupons: payload.coupons.payload.data,
+      };
+    case TYPES.ADD_COUPONS_SUCCESS:
+      return {
+        ...state,
+        addCoupons: payload.addCoupons.payload,
       };
 
     default:

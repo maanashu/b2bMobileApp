@@ -100,15 +100,15 @@ export const styles = StyleSheet.create({
     height: SW(32),
     width: SW(32),
     marginRight: SW(10),
-    marginBottom: SH(14),
+    // marginBottom: SH(14),
   },
   inputToolbarStyle: {
     borderWidth: 1,
     borderRadius: SW(22),
     borderTopWidth: 1,
     borderTopColor: "black",
-    height: SH(55),
-    justifyContent: "center",
+    //height: SH(55),
+    // justifyContent: "center",
   },
   renderOptionsView: {
     justifyContent: "space-between",

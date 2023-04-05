@@ -98,6 +98,45 @@ export class ProductController {
     });
   }
 
+  static async getCoupons(data) {
+    return new Promise((resolve, reject) => {
+      const params = new URLSearchParams(data).toString();
+      const endpoint = `${ApiProductInventory.getCoupons}?${params}`;
+
+      HttpClient.get(endpoint)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          // Toast.show({
+          //   text2: error.msg,
+          //   position: "bottom",
+          //   type: "error_toast",
+          //   visibilityTime: 1500,
+          // });
+          reject(error);
+        });
+    });
+  }
+
+  static async addCoupon(data) {
+    return new Promise((resolve, reject) => {
+      const endpoint = PRODUCT_URL + ApiProductInventory.verifyCoupon;
+
+      const body = {
+        code: data.code,
+      };
+      HttpClient.post(endpoint, body)
+        .then((response) => {
+          console.log("controller success", response);
+          resolve(response);
+        })
+        .catch((error) => {
+          console.log("controller error", error);
+        });
+    });
+  }
+
   // static async getBrand(selectedId) {
   //   return new Promise((resolve, reject) => {
   //     const endpoint =

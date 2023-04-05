@@ -19,10 +19,10 @@ export const styles = StyleSheet.create({
   },
   couponView: {
     backgroundColor: COLORS.placeHolder,
-    paddingHorizontal: SW(10),
     paddingBottom: SH(10),
     borderRadius: ms(10),
     paddingTop: SH(20),
+    opacity: 0.4,
   },
   upperView: {
     flexDirection: "row",
@@ -42,5 +42,29 @@ export const styles = StyleSheet.create({
   mediumText: {
     fontFamily: Fonts.SemiBold,
     color: COLORS.darkGrey2,
+  },
+  tcText: {
+    color: COLORS.primary,
+    textAlign: "right",
+    fontFamily: Fonts.SemiBold,
+  },
+  paddingView: {
+    paddingHorizontal: SW(15),
+  },
+  bottomView: {
+    paddingHorizontal: SW(15),
+  },
+  dashedLine: {
+    borderBottomWidth: 1,
+    borderStyle: "dashed",
+    flex: 1,
+    marginLeft: SW(15),
+  },
+  cutOutView: {
+    backgroundColor: COLORS.white,
+    width: SW(20),
+    height: SW(20),
+    borderRadius: SW(10),
+    left: SW(10),
   },
 });

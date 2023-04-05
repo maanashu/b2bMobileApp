@@ -44,6 +44,8 @@ export const ApiProductInventory = {
   getBanners: "banners/b2b?service_id=2&page=1&limit=10",
   getProductDetail: (productId) => `products/b2b/${productId}`,
   getTrendingSellers: "users/sellers/b2b?page=1&limit=10&need_trending=true",
+  getCoupons: `${PRODUCT_URL}coupons`,
+  verifyCoupon: "coupons/verify",
 };
 
 export const ApiWalletInventory = {

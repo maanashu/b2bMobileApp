@@ -2,11 +2,14 @@ import { Text, View, TouchableOpacity, FlatList } from "react-native";
 import React from "react";
 import { styles } from "./CurrentCoupons.styles";
 import { ScreenWrapper, Spacer } from "@/components";
-import { SH } from "@/theme/ScalerDimensions";
+import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { ms } from "react-native-size-matters";
 import { strings } from "@/localization";
-
+import { useSelector } from "react-redux";
+import { getProductSelector } from "@/selectors/ProductSelectors";
+import { Fonts } from "@/assets";
+import moment from "moment";
 export function CurrentCoupons() {
   const Coupons = [
     {
@@ -47,66 +50,65 @@ export function CurrentCoupons() {
     },
   ];
 
-  const CouponData = ({ item, index }) => (
-    <View>
-      <TouchableOpacity style={styles.couponView}>
-        <View style={styles.upperView}>
-          <Text style={styles.upperText}>{item.couponName}</Text>
+  const coupon = useSelector(getProductSelector);
+  // console.log("coupons->", coupon?.coupons);
+  const CouponData = ({ item, index }) => {
+    const formattedDate = moment(item.end_time).format("MMM DD, yyyy");
+    return (
+      <View>
+        <TouchableOpacity style={styles.couponView}>
+          <View style={styles.paddingView}>
+            <View style={styles.upperView}>
+              <Text style={styles.upperText}>{item.code}</Text>
 
-          <Text style={styles.upperText}>
-            {item.currency}
-            <Text style={styles.upperText}>{item.amount}</Text>
-          </Text>
-        </View>
+              <Text style={styles.upperText}>
+                {"USD $ "}
+                {item.discount_amount}
+              </Text>
+            </View>
 
-        <Text style={styles.smallText}>{item.couponCode}</Text>
-        <Spacer space={SH(20)} />
+            {/* <Text style={styles.smallText}>{item.code}</Text> */}
+            <Spacer space={SH(20)} />
 
-        <View style={styles.upperView}>
-          <Text style={styles.mediumText}>
-            {item.discountCurrency}
-            <Text style={styles.mediumText}>{item.discountAmount} </Text>
-            <Text style={styles.smallText}>{item.minMax}</Text>
-          </Text>
+            <View style={styles.upperView}>
+              <Text style={[styles.smallText, { fontFamily: Fonts.SemiBold }]}>
+                {"USD $ "}
+                {item.minimum_order_amount}
+                <Text style={styles.smallText}>{" minimum"}</Text>
+              </Text>
 
-          <Text style={styles.smallText}>
-            {item.valid}
-            <Text style={styles.mediumText}>{item.date}</Text>
-          </Text>
-        </View>
-        <Spacer space={SH(15)} />
-
-        <View
-          style={{
-            borderBottomWidth: 1,
-            borderStyle: "dashed",
-          }}
-        ></View>
-
-        <Spacer space={SH(15)} />
-
-        <View style={styles.upperView}>
-          <View
-            style={{ backgroundColor: COLORS.light_yellow, borderRadius: 8 }}
-          >
-            <Text style={{ paddingVertical: ms(3), paddingHorizontal: ms(10) }}>
-              Cigar
-            </Text>
+              <Text style={styles.smallText}>
+                {"Valid until  "}
+                <Text style={styles.mediumText}>{formattedDate}</Text>
+              </Text>
+            </View>
           </View>
-          <Text>{strings.coupons.tc}</Text>
-        </View>
-      </TouchableOpacity>
-      <Spacer space={SH(20)} />
-    </View>
-  );
+          <Spacer space={SH(15)} />
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <View style={styles.dashedLine}></View>
+
+            <View style={styles.cutOutView}></View>
+          </View>
+
+          <Spacer space={SH(5)} />
+
+          <View style={styles.bottomView}>
+            <Text style={styles.tcText}>{strings.coupons.tc}</Text>
+          </View>
+        </TouchableOpacity>
+        <Spacer space={SH(20)} />
+      </View>
+    );
+  };
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <Spacer space={SH(10)} />
 
       <View style={styles.mainContainer}>
         <FlatList
-          data={Coupons}
+          data={coupon?.coupons}
           renderItem={CouponData}
+          extradata={coupon?.coupons}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
         />

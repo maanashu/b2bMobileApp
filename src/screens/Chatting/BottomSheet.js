@@ -517,30 +517,36 @@ export function Translation({ onClosePress }) {
         style={{ borderBottomWidth: 1, borderColor: COLORS.termsBorder }}
       ></View>
 
-      <View style={styles.outgoingMessageview}>
-        <Text style={styles.translationText}>English(US)</Text>
-        <Icon
-          name={"arrow-right"}
-          color="black"
-          size={scale(10)}
-          style={{ marginLeft: SW(43), marginRight: SW(15) }}
-        />
-        <DropDownPicker
-          open={open2}
-          value={value2}
-          items={items2}
-          setOpen={setOpen2}
-          setValue={setValue2}
-          setItems={setItems2}
-          placeholder="Spanish"
-          style={{
-            borderWidth: 0,
-            width: SW(120),
-          }}
-        />
-        <View style={{ backgroundColor: "red" }}></View>
-        {/* <TouchableOpacity
-          style={{ flex: 1, backgroundColor: "red" }}
+      <View
+        style={{ flexDirection: "row", width: "45%", alignItems: "center" }}
+      >
+        <View style={styles.outgoingMessageview}>
+          <Text style={styles.translationText}>English(US)</Text>
+          <Icon
+            name={"arrow-right"}
+            color="black"
+            size={scale(10)}
+            style={{ marginLeft: SW(43), marginRight: SW(15) }}
+          />
+          <DropDownPicker
+            open={open2}
+            value={value2}
+            items={items2}
+            setOpen={setOpen2}
+            setValue={setValue2}
+            setItems={setItems2}
+            placeholder="Spanish"
+            style={{
+              borderWidth: 0,
+              width: SW(120),
+            }}
+          />
+          {/* <View
+          style={{ backgroundColor: "red", flex: 1, height: 50, width: 50 }}
+        ></View> */}
+        </View>
+        <TouchableOpacity
+          style={{ flex: 1, width: "20%", marginTop: SH(10) }}
           onPress={() => setTranslationText(!translationText)}
         >
           <Image
@@ -548,8 +554,9 @@ export function Translation({ onClosePress }) {
             style={{ height: ms(20), width: ms(20) }}
             source={translationText ? toggleOn : toggleOff}
           />
-        </TouchableOpacity> */}
+        </TouchableOpacity>
       </View>
+
       <Spacer space={SH(20)} />
     </View>
   );
