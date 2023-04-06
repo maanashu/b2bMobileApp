@@ -619,6 +619,7 @@ export const en = {
     header: "Addresses",
   },
   myPurchase: {
+    myPurchase: "My Purchase",
     orderDetails: "Order Details",
     pending: "Pending",
     toBeConfirmed: "To be Confirmed",

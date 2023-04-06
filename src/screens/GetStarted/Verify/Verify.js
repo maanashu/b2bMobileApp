@@ -3,8 +3,8 @@ import { View, Image, Text, TouchableOpacity } from "react-native";
 import { Button, Spacer, ScreenWrapper } from "@/components";
 import { strings } from "@/localization";
 import { styles } from "@/screens/GetStarted/Verify/Verify.styles";
-import { SH, TextStyles, COLORS } from "@/theme";
-import { Fonts, verify, verifyImage } from "@/assets";
+import { SH } from "@/theme";
+import { Fonts, verifyImage } from "@/assets";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
   CodeField,
@@ -12,13 +12,11 @@ import {
   useClearByFocusCell,
   Cursor,
 } from "react-native-confirmation-code-field";
-import { navigate } from "@/navigation/NavigationRef";
-import { NAVIGATION } from "@/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
-import { verifyOtp } from "@/actions/UserActions";
+import { sendOtp, verifyOtp } from "@/actions/UserActions";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { Loader } from "@/components/Loader";
 
@@ -36,7 +34,9 @@ export function Verify(params) {
     value,
     setValue,
   });
-
+  const [mobileNumber, setmobileNumber] = useState(user?.phoneNumber);
+  const [countryCode, setcountryCode] = useState(user?.countryCode);
+  console.log("mobile->", JSON.stringify(user?.phone));
   const submit = () => {
     if (!value) {
       Toast.show({
@@ -59,6 +59,9 @@ export function Verify(params) {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.VERIFY_OTP], state)
   );
+  const resendOtp = () => {
+    dispatch(sendOtp(mobileNumber, countryCode));
+  };
 
   return (
     <ScreenWrapper>
@@ -108,7 +111,7 @@ export function Verify(params) {
           <Text style={styles.enterOtpCode}>
             {strings.auth.dontReceiveCode}
           </Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={resendOtp}>
             <Text style={[styles.enterOtpCode, styles.resend]}>
               {strings.auth.resend}
             </Text>

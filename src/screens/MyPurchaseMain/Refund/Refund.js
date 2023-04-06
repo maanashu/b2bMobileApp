@@ -29,5 +29,9 @@ import {
 } from "@/assets";
 
 export function Refund() {
-  return <ScreenWrapper></ScreenWrapper>;
+  return (
+    <ScreenWrapper>
+      <Spacer space={SH(20)} />
+    </ScreenWrapper>
+  );
 }

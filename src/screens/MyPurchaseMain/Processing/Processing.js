@@ -1,7 +1,7 @@
 import React from "react";
 import { View, FlatList } from "react-native";
-import { PurchaseView, ScreenWrapper } from "@/components";
-import { SW } from "@/theme";
+import { PurchaseView, ScreenWrapper, Spacer } from "@/components";
+import { SH, SW } from "@/theme";
 import { womenShoes, yewiLogo } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
@@ -39,6 +39,8 @@ export function Processing() {
 
   return (
     <ScreenWrapper>
+      <Spacer space={SH(20)} />
+
       <View
         style={{
           paddingHorizontal: SW(20),

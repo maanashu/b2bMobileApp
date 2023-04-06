@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, View, Image, ScrollView } from "react-native";
 import { NameHeader, ScreenWrapper, Spacer } from "@/components";
 import { strings } from "@/localization";
@@ -6,8 +6,19 @@ import { styles } from "./QrCode.styles";
 import { SH } from "@/theme";
 import { backArrow, bigQr, shareFull, download } from "@/assets";
 import { ButtonIcon } from "@/components/ButtonIcon";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "@/selectors/UserSelectors";
+import { getWalletUserProfile } from "@/actions/UserActions";
 
 export function QrCode() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getWalletUserProfile());
+  }, []);
+
+  const qr = useSelector(getUser);
+  console.log("qr===>", qr?.walletProfile);
   return (
     <ScreenWrapper style={styles.container}>
       <NameHeader title={strings.userInformation.back} back={backArrow} />
@@ -18,7 +29,7 @@ export function QrCode() {
 
         <View style={styles.imageBackground}>
           <Image
-            source={bigQr}
+            source={{ uri: qr?.walletProfile?.qr_code }}
             resizeMode="contain"
             style={{ height: 250, width: 250 }}
           />
@@ -32,11 +43,19 @@ export function QrCode() {
 
         <Spacer space={SH(50)} />
 
-        <ButtonIcon title={strings.qrCode.share} icon={shareFull} />
+        <ButtonIcon
+          title={strings.qrCode.share}
+          icon={shareFull}
+          style={styles.buttonStyle}
+        />
 
-        <Spacer space={SH(30)} />
+        <Spacer space={SH(25)} />
 
-        <ButtonIcon title={strings.qrCode.share} icon={download} />
+        <ButtonIcon
+          title={strings.qrCode.download}
+          style={styles.buttonStyle}
+          icon={download}
+        />
       </ScrollView>
     </ScreenWrapper>
   );

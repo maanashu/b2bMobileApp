@@ -72,7 +72,7 @@ export class UserController {
           resolve(response);
         })
         .catch((error) => {
-          console.log("catching error", error);
+          reject(new Error((strings.verify.error = error.msg)));
         });
     });
   }
@@ -97,7 +97,7 @@ export class UserController {
           resolve(response);
         })
         .catch((error) => {
-          console.log("catching error", error);
+          reject(new Error((strings.verify.error = error.msg)));
         });
     });
   }
@@ -126,11 +126,9 @@ export class UserController {
         .then((response) => {
           // console.log("response====", response);
           if (response?.status_code === 201) {
-            console.log("reg controller sucess====", response);
             navigate(NAVIGATION.personalInformation);
             resolve(response);
           } else {
-            console.log("reg controller error====", response?.msg);
             Toast.show({
               text2: response.msg,
               position: "bottom",
@@ -141,7 +139,6 @@ export class UserController {
           return;
         })
         .catch((error) => {
-          console.log("reg error====", error);
           Toast.show({
             text2: error.msg,
             position: "bottom",
@@ -223,9 +220,12 @@ export class UserController {
       const endpoint = ApiWalletInventory.getUserByUuid + `${uuid}`;
       HttpClient.get(endpoint)
         .then((response) => {
+          console.log("qr code controller success", response);
           resolve(response);
         })
         .catch((error) => {
+          console.log("qr code controller success", error);
+
           reject(new Error((strings.verify.error = error.msg)));
         });
     });

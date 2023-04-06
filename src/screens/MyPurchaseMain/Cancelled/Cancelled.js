@@ -29,5 +29,9 @@ import {
   wareHouseLogo,
 } from "@/assets";
 export function Cancelled() {
-  return <ScreenWrapper></ScreenWrapper>;
+  return (
+    <ScreenWrapper>
+      <Spacer space={SH(20)} />
+    </ScreenWrapper>
+  );
 }

@@ -100,7 +100,7 @@ export const styles = StyleSheet.create({
   },
   textView: {
     backgroundColor: COLORS.placeholder,
-    borderRadius: ms(10),
+    borderRadius: ms(5),
     flex: 1,
     height: vs(45),
     justifyContent: "center",
@@ -111,5 +111,8 @@ export const styles = StyleSheet.create({
     fontSize: ms(14),
 
     textAlign: "center",
+  },
+  buttonStyle: {
+    height: SH(52),
   },
 });

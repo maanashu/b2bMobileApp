@@ -131,7 +131,7 @@ export function TrackOrder({ route }) {
 
   const renderCurrentStatus = ({ item, index }) => (
     <>
-      <View style={{ flexDirection: "row", marginBottom: SW(5) }}>
+      <View style={{ flexDirection: "row", marginBottom: SH(42) }}>
         <View style={{ alignItems: "center", justifyContent: "flex-end" }}>
           <Image
             source={roundCheck}

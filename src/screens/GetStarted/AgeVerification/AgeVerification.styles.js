@@ -16,6 +16,14 @@ export const styles = StyleSheet.create({
     color: COLORS.text,
     fontFamily: Fonts.Regular,
   },
+  loader: {
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignSelf: "center",
+    position: "absolute",
+  },
   bodyContainer: {
     height: windowHeight * 0.92,
     padding: SW(20),

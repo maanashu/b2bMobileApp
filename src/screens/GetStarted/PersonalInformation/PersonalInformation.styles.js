@@ -30,6 +30,14 @@ export const styles = StyleSheet.create({
     color: COLORS.text,
     fontFamily: Fonts.Regular,
   },
+  loader: {
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignSelf: "center",
+    position: "absolute",
+  },
   skipButton: {
     color: COLORS.primary,
   },

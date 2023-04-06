@@ -28,6 +28,8 @@ const INITIALSTATE = {
   getLocation: [],
   savedAddress: {},
   updateLocation: {},
+  sendOtp: {},
+  VerifyOTP: {},
 };
 
 export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -44,7 +46,12 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
     case TYPES.SAVE_PHONE:
       return {
         ...state,
-        phone: payload,
+        phone: payload.phone,
+      };
+    case TYPES.SEND_OTP_SUCCESS:
+      return {
+        ...state,
+        sendOtp: payload.otp,
       };
     case TYPES.SAVE_OTP:
       return {
@@ -60,6 +67,11 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         registerData: payload.registerData,
+      };
+    case TYPES.VERIFY_OTP_SUCCESS:
+      return {
+        ...state,
+        VerifyOTP: payload.verify,
       };
     case TYPES.PERSONALINFORMATION_SUCCESS:
       return {

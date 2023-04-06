@@ -167,11 +167,19 @@ export function Profile() {
         style={styles.profileOptions}
       >
         <View style={styles.innerRowView}>
-          <Image
-            source={item.icon}
-            style={styles.iconStyle}
-            resizeMode="stretch"
-          />
+          {index == 4 ? (
+            <Image
+              source={item.icon}
+              style={[styles.iconStyle, { height: ms(17), width: ms(17) }]}
+              resizeMode="stretch"
+            />
+          ) : (
+            <Image
+              source={item.icon}
+              style={styles.iconStyle}
+              resizeMode="stretch"
+            />
+          )}
           <View style={{ paddingLeft: ms(10) }}>
             <Text style={styles.titleText}>{item.title}</Text>
           </View>

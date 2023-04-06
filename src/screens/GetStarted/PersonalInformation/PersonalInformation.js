@@ -38,13 +38,13 @@ export function PersonalInformation() {
     getData?.user?.payload?.user_profiles?.lastname ??
     getData?.registerData?.lastname;
   const phone =
-    getData?.user?.payload?.user_profiles?.phone_no ??
+    getData?.user?.payload?.user_profiles?.phone_no ||
     getData?.phone?.phoneNumber;
 
   const [ssn, setSsn] = useState("");
   const [city, setCity] = useState("");
   const [email, setEmail] = useState(
-    getData?.registerData?.email ?? getData?.user?.payload?.email
+    getData?.registerData?.email || getData?.user?.payload?.email
   );
   const [state, setState] = useState("");
   const [show, setShow] = useState(false);
@@ -52,12 +52,13 @@ export function PersonalInformation() {
   const [country, setCountry] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [date, setDate] = useState(
-    getData?.registerData?.dob ?? getData?.user?.payload?.user_profiles?.dob
+    getData?.registerData?.dob || getData?.user?.payload?.user_profiles?.dob
   );
+  console.log("email", getData?.registerData?.dob);
   const [stateCode, setStateCode] = useState("");
   const [appartment, setAppartment] = useState("");
   const [dateformat, setDateformat] = useState(
-    getData?.registerData?.dob ?? getData?.user?.payload?.user_profiles?.dob
+    getData?.registerData?.dob || getData?.user?.payload?.user_profiles?.dob
   );
   const [countryCode, setCountryCode] = useState("");
   // const [individual, setIndividual] = useState(false);
@@ -69,7 +70,7 @@ export function PersonalInformation() {
   // console.log("checking dob", phone);
 
   const onChangeDate = (selectedDate) => {
-    const currentDate = moment().format("MM/DD/YYYY");
+    const currentDate = moment().format("MM-DD-YYYY");
     const selected = moment(selectedDate).format("MM/DD/YYYY");
     if (currentDate === selected) {
       setShow(false);
@@ -85,7 +86,7 @@ export function PersonalInformation() {
       const day = selectedDate.getDate();
       const selectedDay = day < 10 ? "0" + day : day;
       const year = selectedDate.getFullYear();
-      const fullDate = selectedMonth + " / " + selectedDay + " / " + year;
+      const fullDate = selectedMonth + " - " + selectedDay + " - " + year;
       const newDateFormat = year + "-" + selectedMonth + "-" + selectedDay;
       setDateformat(newDateFormat);
       setDate(fullDate);
@@ -184,7 +185,9 @@ export function PersonalInformation() {
         first_name: firstname,
         last_name: lastname,
         phone: phone,
-        dob: dateformat,
+        dob:
+          getData?.registerData?.dob ||
+          getData?.user?.payload?.user_profiles?.dob,
         ssn: ssn,
         address: street,
         appartment: appartment,
@@ -192,7 +195,9 @@ export function PersonalInformation() {
         state: state,
         zip: zipCode,
         country: country,
-        email: email,
+        email:
+          getData?.registerData?.email ||
+          getData?.user?.payload?.user_profiles?.email,
         countryCode: countryCode,
         stateCode: stateCode,
         type: "individual",
@@ -295,8 +300,10 @@ export function PersonalInformation() {
                 <Image source={calendar} style={styles.calendarImage} />
 
                 <TextInput
-                  value={date}
-                  editable={false}
+                  value={
+                    getData?.registerData?.dob ||
+                    getData?.user?.payload?.user_profiles?.dob
+                  }
                   returnKeyType={"done"}
                   pointerEvents={"none"}
                   autoCapitalize={"none"}
@@ -331,7 +338,10 @@ export function PersonalInformation() {
               />
 
               <TextInput
-                value={email}
+                value={
+                  getData?.registerData?.email ||
+                  getData?.user?.payload?.user_profiles?.email
+                }
                 returnKeyType={"done"}
                 onChangeText={setEmail}
                 autoCapitalize={"none"}

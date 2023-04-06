@@ -94,7 +94,7 @@ const sendOtpRequest = () => ({
 
 const savePhone = (phone) => ({
   type: TYPES.SAVE_PHONE,
-  payload: phone,
+  payload: { phone },
 });
 
 const sendOtpError = (error) => ({
@@ -305,7 +305,7 @@ export const verifyOtp = (id, value) => async (dispatch) => {
     const res = await UserController.verifyOtp(id, value);
     dispatch(verifyOtpSuccess(res));
   } catch (error) {
-    dispatch(verifyOtpError(error.message));
+    dispatch(verifyOtpError(error));
 
     console.log("dispatching error--->", error);
   }
