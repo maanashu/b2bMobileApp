@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.zoontek.rnbootsplash.RNBootSplash;
 import com.dooboolab.audiorecorderplayer.RNAudioRecorderPlayerPackage;
 import com.plaid.PlaidPackage;
+import com.rnfs.RNFSPackage;
 
 public class MainActivity extends ReactActivity {
 
@@ -17,6 +18,7 @@ public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
     return "B2B";
+ 
   }
 
   /**

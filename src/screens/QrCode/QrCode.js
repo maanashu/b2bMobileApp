@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, Image, ScrollView } from "react-native";
 import { NameHeader, ScreenWrapper, Spacer } from "@/components";
 import { strings } from "@/localization";
@@ -9,6 +9,7 @@ import { ButtonIcon } from "@/components/ButtonIcon";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { getWalletUserProfile } from "@/actions/UserActions";
+import RNFS from "react-native-fs";
 
 export function QrCode() {
   const dispatch = useDispatch();
@@ -18,7 +19,58 @@ export function QrCode() {
   }, []);
 
   const qr = useSelector(getUser);
-  console.log("qr===>", qr?.walletProfile);
+  // console.log("qr===>", qr?.walletProfile);
+
+  const [downloadProgress, setDownloadProgress] = useState(0);
+  const image = qr?.walletProfile?.qr_code;
+  const fileName = "image.png";
+  const downloadDest = `${RNFS.DocumentDirectoryPath}/${fileName}`;
+
+  // const handleDownloadPress = async () => {
+  //   try {
+  //     const options = {
+  //       fromUrl: image,
+  //       toFile: downloadDest,
+  //       background: true,
+  //       begin: (res) => {
+  //         console.log("Download has begun");
+  //       },
+  //       progress: (res) => {
+  //         const progress = Math.floor(
+  //           (res.bytesWritten / res.contentLength) * 100
+  //         );
+  //         console.log("Download progress", progress);
+  //         setDownloadProgress(progress);
+  //       },
+  //     };
+  //     const result = await RNFS.downloadFile(options).promise;
+  //     console.log("Download complete", result);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
+  const downloadFile = () => {
+    const timestamp = Date.now();
+    const downloadDest = `${RNFS.DownloadDirectoryPath}/B2B_${timestamp}.jpg`;
+    // const downloadDest = `${RNFS.DownloadDirectoryPath}/${
+    //   (Math.random() * 1000) | 0
+    // }.jpg`;
+    const downloadUrl = qr?.walletProfile?.qr_code;
+
+    RNFS.downloadFile({
+      fromUrl: downloadUrl,
+      toFile: downloadDest,
+    })
+      .promise.then((res) => {
+        console.log("Image downloaded successfully!");
+        console.log("File saved to: ", res);
+      })
+      .catch((err) => {
+        console.log("Error while downloading image.");
+        console.log(err);
+      });
+  };
   return (
     <ScreenWrapper style={styles.container}>
       <NameHeader title={strings.userInformation.back} back={backArrow} />
@@ -55,6 +107,7 @@ export function QrCode() {
           title={strings.qrCode.download}
           style={styles.buttonStyle}
           icon={download}
+          onPress={downloadFile}
         />
       </ScrollView>
     </ScreenWrapper>
