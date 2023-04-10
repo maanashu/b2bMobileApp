@@ -39,6 +39,7 @@ import {
 import { ms } from "react-native-size-matters";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
+import { getWallet } from "@/selectors/WalletSelector";
 
 const Data = [
   {
@@ -125,10 +126,9 @@ export function Profile() {
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const user = useSelector(getUser);
-
-  // console.log("token check-->", user?.user?.payload?.token);
-  const token = user?.user?.payload?.token ?? user?.registered?.token;
-
+  const walletData = useSelector(getWallet);
+  const token = user?.user?.payload?.token;
+  console.log("token check-->", walletData?.INITIALSTATE?.walletData);
   const logoutUser = () => {
     dispatch(logout());
   };
@@ -159,7 +159,6 @@ export function Profile() {
       navigate(NAVIGATION.helpCenter);
     }
   };
-
   const ProfileData = ({ item, index }) => (
     <View>
       <TouchableOpacity
@@ -237,7 +236,9 @@ export function Profile() {
           <View style={styles.userInnerView}>
             <View style={styles.usernameRowView}>
               <Text style={styles.usernameText}>
-                {strings.profile.username}
+                {`${user?.user?.payload?.user_profiles?.firstname}${" "}${
+                  user?.user?.payload?.user_profiles?.lastname
+                }`}
               </Text>
 
               <TouchableOpacity>
@@ -250,17 +251,17 @@ export function Profile() {
             </View>
 
             <View style={styles.mapIconView}>
-              <Image
+              {/* <Image
                 source={pinPoint}
                 resizeMode="stretch"
                 style={{ height: ms(20), width: ms(20) }}
               />
-              <Text style={styles.addressText}>{strings.profile.address}</Text>
+              <Text style={styles.addressText}>{strings.profile.address}</Text> */}
             </View>
 
-            <Text style={styles.manufacturerText}>
+            {/* <Text style={styles.manufacturerText}>
               {strings.profile.manufacturer}
-            </Text>
+            </Text> */}
           </View>
         </TouchableOpacity>
 

@@ -7,6 +7,7 @@ const INITIALSTATE = {
   paymentMethods: [],
   receivers: [],
   walletData: {},
+  walletInfo: {},
 };
 
 export const walletReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -41,6 +42,7 @@ export const walletReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         walletData: payload.walletData,
       };
+
     default:
       return state;
   }

@@ -144,7 +144,6 @@ export function ConnectBank(props) {
   };
 
   const emptyComponent = () => <Text>{strings.bank.noBankAccount}</Text>;
-
   const loginHandler = () => {
     // const data = {
     //   pin: getData?.userProfile?.user_profiles?.security_pin,
@@ -152,7 +151,14 @@ export function ConnectBank(props) {
     //   phone_code: getData?.userProfile?.user_profiles?.phone_code,
     // };
     // dispatch(login(data));
-    navigate(NAVIGATION.productInquiry);
+    // navigate(NAVIGATION.productInquiry);
+    dispatch(
+      login(
+        getData?.registerData?.pin,
+        getData?.phone?.countryCode,
+        getData?.phone?.phoneNumber
+      )
+    );
   };
 
   const customHeader = () => {

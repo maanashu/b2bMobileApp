@@ -231,6 +231,7 @@ export function Register() {
             placeholder={strings.personalInformation.email}
             placeholderTextColor={COLORS.secondary}
             style={styles.textFieldStyle}
+            keyboardType="email-address"
           />
 
           <Spacer space={SH(15)} />

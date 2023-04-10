@@ -63,7 +63,7 @@ export function ProductInquiry(params) {
   const [favourite, setFavourite] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector(getUser);
-  const token = user?.user?.payload?.token ?? user?.registered?.token;
+  const token = user?.user?.payload?.token;
 
   const colorChange = () => {
     setFavourite(!favourite);

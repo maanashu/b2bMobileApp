@@ -17,7 +17,7 @@ import { GOOGLE_MAP } from "@/constants/ApiKeys";
 import { getUser as userSelector } from "@/selectors/UserSelectors";
 import { ScreenWrapper, Spacer, Button } from "@/components";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
-import { getUser } from "@/actions/UserActions";
+import { getUser, login } from "@/actions/UserActions";
 import { styles } from "@/screens/GetStarted/PersonalInformation/PersonalInformation.styles";
 import { getKyc } from "@/selectors/KycSelector";
 import { digits, emailReg } from "@/Utils/validators";
@@ -43,29 +43,39 @@ export function PersonalInformation() {
 
   const [ssn, setSsn] = useState("");
   const [city, setCity] = useState("");
-  const [email, setEmail] = useState(
-    getData?.registerData?.email || getData?.user?.payload?.email
-  );
+  const [email, setEmail] = useState(getData?.registerData?.email);
   const [state, setState] = useState("");
   const [show, setShow] = useState(false);
   const [street, setStreet] = useState("");
   const [country, setCountry] = useState("");
   const [zipCode, setZipCode] = useState("");
-  const [date, setDate] = useState(
-    getData?.registerData?.dob || getData?.user?.payload?.user_profiles?.dob
-  );
-  console.log("email", getData?.registerData?.dob);
+  const [date, setDate] = useState(getData?.registerData?.dob);
   const [stateCode, setStateCode] = useState("");
   const [appartment, setAppartment] = useState("");
-  const [dateformat, setDateformat] = useState(
-    getData?.registerData?.dob || getData?.user?.payload?.user_profiles?.dob
-  );
+  const [dateformat, setDateformat] = useState(getData?.registerData?.dob);
   const [countryCode, setCountryCode] = useState("");
   // const [individual, setIndividual] = useState(false);
+  // console.log("country code-->", getData?.phone?.countryCode);
+  // console.log("phone number-->", getData?.phone?.phoneNumber);
+  console.log("email-->", getData?.registerData?.email);
 
   useEffect(() => {
     dispatch(getUser);
+    setDateformat(getData?.registerData?.dob);
+    setEmail(getData?.registerData?.email);
   }, []);
+
+  const crossHandler = () => {
+    // dispatch(logout());
+    dispatch(
+      login(
+        getData?.registerData?.pin,
+        getData?.phone?.countryCode,
+        getData?.phone?.phoneNumber
+      )
+    );
+  };
+
   // console.log("checking email", getData?.registerData?.email);
   // console.log("checking dob", phone);
 
@@ -94,7 +104,7 @@ export function PersonalInformation() {
   };
 
   const submit = async () => {
-    if (!dateformat || dateformat === new Date() || date === new Date()) {
+    if (!dateformat) {
       Toast.show({
         position: "bottom",
         type: "error_toast",
@@ -185,9 +195,7 @@ export function PersonalInformation() {
         first_name: firstname,
         last_name: lastname,
         phone: phone,
-        dob:
-          getData?.registerData?.dob ||
-          getData?.user?.payload?.user_profiles?.dob,
+        dob: getData?.registerData?.dob,
         ssn: ssn,
         address: street,
         appartment: appartment,
@@ -195,19 +203,12 @@ export function PersonalInformation() {
         state: state,
         zip: zipCode,
         country: country,
-        email:
-          getData?.registerData?.email ||
-          getData?.user?.payload?.user_profiles?.email,
+        email: getData?.registerData?.email,
         countryCode: countryCode,
         stateCode: stateCode,
         type: "individual",
       };
-      // const res = await dispatch(personalInformation(data));
-      // if (res?.type === "PERSONALINFORMATION_SUCCESS") {
-      //   dispatch(getWalletUserProfile());
-      // }
       dispatch(createWallet(data));
-      // console.log("body check->", data.country);
     }
   };
 
@@ -253,11 +254,6 @@ export function PersonalInformation() {
     }
   };
 
-  const crossHandler = () => {
-    // dispatch(logout());
-    navigate(NAVIGATION.splash);
-  };
-
   return (
     <ScreenWrapper>
       <View style={styles.container}>
@@ -300,10 +296,7 @@ export function PersonalInformation() {
                 <Image source={calendar} style={styles.calendarImage} />
 
                 <TextInput
-                  value={
-                    getData?.registerData?.dob ||
-                    getData?.user?.payload?.user_profiles?.dob
-                  }
+                  value={dateformat}
                   returnKeyType={"done"}
                   pointerEvents={"none"}
                   autoCapitalize={"none"}
@@ -313,6 +306,7 @@ export function PersonalInformation() {
                     styles.textInputStyles,
                     { color: date ? COLORS.black : COLORS.secondary },
                   ]}
+                  onChange={(text) => onChangeDate(text)}
                 />
               </TouchableOpacity>
 
@@ -338,10 +332,7 @@ export function PersonalInformation() {
               />
 
               <TextInput
-                value={
-                  getData?.registerData?.email ||
-                  getData?.user?.payload?.user_profiles?.email
-                }
+                value={email}
                 returnKeyType={"done"}
                 onChangeText={setEmail}
                 autoCapitalize={"none"}
