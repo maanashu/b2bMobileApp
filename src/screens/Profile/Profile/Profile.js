@@ -224,6 +224,8 @@ export function Profile() {
         style={styles.mainContainer}
         showsVerticalScrollIndicator={false}
       >
+        {token &&
+        <>
         <TouchableOpacity
           onPress={() => navigate(NAVIGATION.userInformation)}
           style={styles.userView}
@@ -264,8 +266,9 @@ export function Profile() {
             </Text> */}
           </View>
         </TouchableOpacity>
-
         <Spacer space={SH(20)} />
+        </>
+}
 
         <FlatList
           data={Data}
