@@ -90,4 +90,5 @@ export const NAVIGATION = {
   ageVerification: "AgeVerification",
   connectBank: "ConnectBank",
   searchPlaces: "SearchPlaces",
+  biometricsScreen: "BiometricsScreen",
 };

@@ -91,3 +91,4 @@ export { CheckAndRequestKYC } from "@/screens/GetStarted/PersonalInformation/Che
 export { AgeVerification } from "@/screens/GetStarted/AgeVerification/AgeVerification";
 export { ConnectBank } from "@/screens/Payment/ConnectBank/ConnectBank";
 export { SearchPlaces } from "@/screens/SearchPlaces/SearchPlaces";
+export { BiometricsScreen } from "@/screens/BiometricsScreen/BiometricsScreen";

@@ -145,13 +145,6 @@ export function ConnectBank(props) {
 
   const emptyComponent = () => <Text>{strings.bank.noBankAccount}</Text>;
   const loginHandler = () => {
-    // const data = {
-    //   pin: getData?.userProfile?.user_profiles?.security_pin,
-    //   phone_no: getData?.userProfile?.user_profiles?.phone_no,
-    //   phone_code: getData?.userProfile?.user_profiles?.phone_code,
-    // };
-    // dispatch(login(data));
-    // navigate(NAVIGATION.productInquiry);
     dispatch(
       login(
         getData?.registerData?.pin,

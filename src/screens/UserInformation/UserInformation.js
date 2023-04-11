@@ -8,13 +8,23 @@ import {
   FlatList,
   ScrollView,
 } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/actions/UserActions";
 import { Button, ScreenWrapper, Spacer } from "@/components";
 import { strings } from "@/localization";
 import { styles } from "./UserInformation.styles";
 import { SH } from "@/theme";
-import { backArrow, camera, qrCode, forward, close } from "@/assets";
+import {
+  backArrow,
+  camera,
+  qrCode,
+  forward,
+  close,
+  userIcon,
+  email,
+  call,
+  calendar,
+} from "@/assets";
 import { ms, vs } from "react-native-size-matters";
 import { goBack, navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
@@ -22,8 +32,10 @@ import Modal from "react-native-modal";
 import { useState } from "react";
 import ImageCropPicker from "react-native-image-crop-picker";
 import { personalInfo, CompanyInfo } from "./Components.js/FlatlistData";
+import { getUser } from "@/selectors/UserSelectors";
 
 export function UserInformation() {
+  const user = useSelector(getUser);
   const [isModalVisible, setModalVisible] = useState(false);
   const [userImage, setUserImage] = useState();
 
@@ -113,6 +125,8 @@ export function UserInformation() {
     </View>
   );
 
+  // console.log("user---->", user?.user?.payload?.user_profiles?.firstname);
+
   return (
     <ScreenWrapper style={styles.container}>
       <View style={styles.header}>
@@ -176,12 +190,101 @@ export function UserInformation() {
 
           <Spacer space={SH(30)} />
           <View style={{ paddingHorizontal: ms(20) }}>
-            <FlatList
-              data={personalInfo}
-              renderItem={ProfileData}
-              keyExtractor={(item) => item.id}
-              showsVerticalScrollIndicator={false}
-            />
+            {/* Name */}
+            <View style={styles.profileOptions}>
+              <Text style={styles.headingText}>{"Name"}</Text>
+              <View style={styles.mainRowView}>
+                <Image
+                  source={userIcon}
+                  style={styles.iconStyle}
+                  resizeMode="contain"
+                />
+                <Text style={styles.titleText}>
+                  {` ${user?.user?.payload?.user_profiles?.firstname}${" "}${
+                    user?.user?.payload?.user_profiles?.lastname
+                  }`}
+                </Text>
+              </View>
+
+              <Spacer space={SH(18)} />
+            </View>
+            <Spacer space={SH(5)} />
+
+            {/* Email */}
+            <View style={styles.profileOptions}>
+              <Text style={styles.headingText}>{"Email address"}</Text>
+              <View style={styles.mainRowView}>
+                <Image
+                  source={email}
+                  style={styles.iconStyle}
+                  resizeMode="contain"
+                />
+                <Text style={styles.titleText}>
+                  {user?.user?.payload?.email}
+                </Text>
+              </View>
+
+              <Spacer space={SH(18)} />
+            </View>
+            <Spacer space={SH(5)} />
+
+            {/* phone number */}
+            <View style={styles.profileOptions}>
+              <Text style={styles.headingText}>{"Phone number"}</Text>
+              <View style={styles.mainRowView}>
+                <Image
+                  source={call}
+                  style={styles.iconStyle}
+                  resizeMode="contain"
+                />
+                <Text style={styles.titleText}>
+                  {`${user?.user?.payload?.user_profiles?.phone_code} ${user?.user?.payload?.user_profiles?.phone_no}`}
+                </Text>
+              </View>
+
+              <Spacer space={SH(18)} />
+            </View>
+            <Spacer space={SH(5)} />
+
+            {/* ssn */}
+            {user?.user?.payload?.user_profiles?.ssn_number !== null && (
+              <>
+                <View style={styles.profileOptions}>
+                  <Text style={styles.headingText}>{"SSN"}</Text>
+                  <View style={styles.mainRowView}>
+                    <Image
+                      source={calendar}
+                      style={styles.iconStyle}
+                      resizeMode="contain"
+                    />
+                    <Text style={styles.titleText}>
+                      {`  ${user?.user?.payload?.user_profiles?.phone_code} ${user?.user?.payload?.user_profiles?.phone_no}`}
+                    </Text>
+                  </View>
+
+                  <Spacer space={SH(18)} />
+                </View>
+                <Spacer space={SH(5)} />
+              </>
+            )}
+
+            {/* Date of Birth*/}
+            <View style={styles.profileOptions}>
+              <Text style={styles.headingText}>{"Date of Birth"}</Text>
+              <View style={styles.mainRowView}>
+                <Image
+                  source={calendar}
+                  style={styles.iconStyle}
+                  resizeMode="contain"
+                />
+                <Text style={styles.titleText}>
+                  {user?.user?.payload?.user_profiles?.dob}
+                </Text>
+              </View>
+
+              <Spacer space={SH(18)} />
+            </View>
+            <Spacer space={SH(5)} />
           </View>
         </View>
 

@@ -15,16 +15,21 @@ import { NameHeader } from "@/components";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { biometricsSet } from "@/actions/GlobalActions";
+import { useIsFocused } from "@react-navigation/native";
 
 export function FaceIdPin() {
+  const isFocused = useIsFocused();
   const dispatch = useDispatch();
-  const [faceId, setFaceId] = useState(user?.isStatus);
   const [pin, setPin] = useState(false);
 
   const handleBiometrics = () => {
-    setFaceId(!faceId);
-    dispatch(biometricsSet(faceId));
+    if (user?.isStatus) {
+      dispatch(biometricsSet(false));
+    } else {
+      dispatch(biometricsSet(true));
+    }
   };
+
   const user = useSelector(getUser);
   console.log("status: " + user?.isStatus);
 

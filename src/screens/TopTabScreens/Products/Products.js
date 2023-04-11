@@ -62,82 +62,83 @@ export function Products({ navigation }) {
     service_type: "product",
     main_category: true,
   };
-  const user = useSelector(getUser);
-  useEffect(() => {
-    if (user?.isStatus === true) {
-      // <Biometrics />;
-      bioMetricLogin();
-    }
-  }, []);
+  // const user = useSelector(getUser);
+  // useEffect(() => {
+  //   if (user?.isStatus === true) {
+  //     // <Biometrics />;
+  //     bioMetricLogin();
+  //   }
+  // }, []);
+  // console.log("user--->", user?.isStatus);
 
-  // Biometrics function
+  // // Biometrics function
 
-  const rnBiometrics = new ReactNativeBiometrics({
-    allowDeviceCredentials: true,
-  });
+  // const rnBiometrics = new ReactNativeBiometrics({
+  //   allowDeviceCredentials: true,
+  // });
 
-  const bioMetricLogin = () => {
-    rnBiometrics.isSensorAvailable().then((resultObject) => {
-      console.log("BIOMETRICS_RESULT--" + JSON.stringify(resultObject));
-      const { available, biometryType } = resultObject;
+  // const bioMetricLogin = () => {
+  //   rnBiometrics.isSensorAvailable().then((resultObject) => {
+  //     console.log("BIOMETRICS_RESULT--" + JSON.stringify(resultObject));
+  //     const { available, biometryType } = resultObject;
 
-      if (available && biometryType === BiometryTypes.TouchID) {
-        console.log("TouchID is supported");
-        checkBioMetricKeyExists();
-      } else if (available && biometryType === BiometryTypes.FaceID) {
-        console.log("FaceID is supported");
-        checkBioMetricKeyExists();
-      } else if (available && biometryType === BiometryTypes.Biometrics) {
-        console.log("Biometrics is supported");
-        checkBioMetricKeyExists();
-      } else {
-        console.log("Biometrics not supported");
-      }
-    });
-  };
-  const checkBioMetricKeyExists = () => {
-    rnBiometrics.biometricKeysExist().then((resultObject) => {
-      const { keysExist } = resultObject;
-      if (keysExist) {
-        console.log("Keys exist");
-        promptBioMetricSignin();
-      } else {
-        console.log("Keys do not exist or were deleted");
-        createKeys();
-      }
-    });
-  };
+  //     if (available && biometryType === BiometryTypes.TouchID) {
+  //       console.log("TouchID is supported");
+  //       checkBioMetricKeyExists();
+  //     } else if (available && biometryType === BiometryTypes.FaceID) {
+  //       console.log("FaceID is supported");
+  //       checkBioMetricKeyExists();
+  //     } else if (available && biometryType === BiometryTypes.Biometrics) {
+  //       console.log("Biometrics is supported");
+  //       checkBioMetricKeyExists();
+  //     } else {
+  //       console.log("Biometrics not supported");
+  //     }
+  //   });
+  // };
+  // const checkBioMetricKeyExists = () => {
+  //   rnBiometrics.biometricKeysExist().then((resultObject) => {
+  //     const { keysExist } = resultObject;
+  //     if (keysExist) {
+  //       console.log("Keys exist");
+  //       promptBioMetricSignin();
+  //     } else {
+  //       console.log("Keys do not exist or were deleted");
+  //       createKeys();
+  //     }
+  //   });
+  // };
 
-  const promptBioMetricSignin = () => {
-    let epochTimeSeconds = Math.round(new Date().getTime() / 1000).toString();
-    let payload = epochTimeSeconds + "some message";
-    rnBiometrics
-      .createSignature({
-        promptMessage: "Sign in",
-        payload: payload,
-      })
-      .then((resultObject) => {
-        const { success, signature } = resultObject;
+  // const promptBioMetricSignin = () => {
+  //   let epochTimeSeconds = Math.round(new Date().getTime() / 1000).toString();
+  //   let payload = epochTimeSeconds + "some message";
+  //   rnBiometrics
+  //     .createSignature({
+  //       promptMessage: "Sign in",
+  //       payload: payload,
+  //     })
+  //     .then((resultObject) => {
+  //       const { success, signature } = resultObject;
 
-        if (success) {
-          console.log(signature);
-          // dispatch(deviceLogin());
-          //  verifySignatureWithServer(signature, payload);
-        }
-      })
-      .catch((error) => console.log("erorr-->>", error));
-  };
+  //       if (success) {
+  //         console.log(signature);
+  //         // dispatch(deviceLogin());
+  //         //  verifySignatureWithServer(signature, payload);
+  //       }
+  //     })
+  //     .catch((error) => console.log("erorr-->>", error));
+  // };
 
-  const createKeys = () => {
-    rnBiometrics.createKeys().then((resultObject) => {
-      const { publicKey } = resultObject;
-      console.log(publicKey);
-      promptBioMetricSignin();
-      // sendPublicKeyToServer(publicKey);
-    });
-  };
+  // const createKeys = () => {
+  //   rnBiometrics.createKeys().then((resultObject) => {
+  //     const { publicKey } = resultObject;
+  //     console.log(publicKey);
+  //     promptBioMetricSignin();
+  //     // sendPublicKeyToServer(publicKey);
+  //   });
+  // };
 
-  // /////////////////////////////////////
+  // // /////////////////////////////////////
 
   useEffect(() => {
     LogBox.ignoreAllLogs();

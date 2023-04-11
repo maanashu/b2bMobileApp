@@ -224,51 +224,51 @@ export function Profile() {
         style={styles.mainContainer}
         showsVerticalScrollIndicator={false}
       >
-        {token &&
-        <>
-        <TouchableOpacity
-          onPress={() => navigate(NAVIGATION.userInformation)}
-          style={styles.userView}
-        >
-          <Image
-            source={profileLogo}
-            resizeMode="stretch"
-            style={{ height: ms(50), width: ms(50) }}
-          />
-          <View style={styles.userInnerView}>
-            <View style={styles.usernameRowView}>
-              <Text style={styles.usernameText}>
-                {`${user?.user?.payload?.user_profiles?.firstname}${" "}${
-                  user?.user?.payload?.user_profiles?.lastname
-                }`}
-              </Text>
+        {token && (
+          <>
+            <TouchableOpacity
+              onPress={() => navigate(NAVIGATION.userInformation)}
+              style={styles.userView}
+            >
+              <Image
+                source={profileLogo}
+                resizeMode="stretch"
+                style={{ height: ms(50), width: ms(50) }}
+              />
+              <View style={styles.userInnerView}>
+                <View style={styles.usernameRowView}>
+                  <Text style={styles.usernameText}>
+                    {`${user?.user?.payload?.user_profiles?.firstname}${" "}${
+                      user?.user?.payload?.user_profiles?.lastname
+                    }`}
+                  </Text>
 
-              <TouchableOpacity>
-                <Image
-                  source={forward}
-                  style={styles.forwardIcon}
-                  resizeMode="stretch"
-                />
-              </TouchableOpacity>
-            </View>
+                  <TouchableOpacity>
+                    <Image
+                      source={forward}
+                      style={styles.forwardIcon}
+                      resizeMode="stretch"
+                    />
+                  </TouchableOpacity>
+                </View>
 
-            <View style={styles.mapIconView}>
-              {/* <Image
+                <View style={styles.mapIconView}>
+                  {/* <Image
                 source={pinPoint}
                 resizeMode="stretch"
                 style={{ height: ms(20), width: ms(20) }}
               />
               <Text style={styles.addressText}>{strings.profile.address}</Text> */}
-            </View>
+                </View>
 
-            {/* <Text style={styles.manufacturerText}>
+                {/* <Text style={styles.manufacturerText}>
               {strings.profile.manufacturer}
             </Text> */}
-          </View>
-        </TouchableOpacity>
-        <Spacer space={SH(20)} />
-        </>
-}
+              </View>
+            </TouchableOpacity>
+            <Spacer space={SH(20)} />
+          </>
+        )}
 
         <FlatList
           data={Data}

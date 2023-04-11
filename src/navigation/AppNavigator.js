@@ -1,9 +1,10 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   getFocusedRouteNameFromRoute,
+  useIsFocused,
   useTheme,
 } from "@react-navigation/native";
-import React from "react";
+import React, { useEffect } from "react";
 import { NAVIGATION } from "@/constants";
 import {
   bottomchat,
@@ -26,6 +27,7 @@ import {
   AddShippingAddress,
   AddShippingLocation,
   AgeVerification,
+  BiometricsScreen,
   Brands,
   BrandsProduct,
   BrandsProducts,
@@ -52,7 +54,6 @@ import {
   Home,
   Inquiries,
   JbrWallet,
-  Login,
   LoginMethod,
   MakeAnOffer,
   Manufacturers,
@@ -103,6 +104,8 @@ import {
 } from "@/screens";
 import { createNativeStackNavigator } from "react-native-screens/native-stack";
 import { AuthNavigator } from "./AuthNavigator";
+import { useSelector } from "react-redux";
+import { getUser } from "@/selectors/UserSelectors";
 
 const Tab = createBottomTabNavigator();
 
@@ -110,72 +113,6 @@ const Stack = createNativeStackNavigator();
 
 export function AppNavigator() {
   const { colors } = useTheme();
-
-  // return (
-  //   <Tab.Navigator
-  //     screenOptions={({ route }) => ({
-  //       tabBarStyle: ((route) => {
-  //         const routeName = getFocusedRouteNameFromRoute(route) ?? "";
-  //         if (routeName === NAVIGATION.chatting) {
-  //           return { display: "none" };
-  //         }
-  //         return { borderTopWidth: 0 };
-  //       })(route),
-  //     })}
-  //     tabBarOptions={{
-  //       activeTintColor: COLORS.black,
-  //       inactiveTintColor: COLORS.light_grey,
-  //     }}
-  //   >
-  //     <Tab.Screen
-  //       name={NAVIGATION.home}
-  //       component={HomeNavigator}
-  //       options={{
-  //         headerShown: false,
-  //         tabBarLabel: "Home",
-  //         tabBarIcon: ({ color, size }) => (
-  //           <Image
-  //             color={color}
-  //             source={bottomHome}
-  //             style={{ height: SH(26), width: SW(26) }}
-  //           />
-  //         ),
-  //       }}
-  //     />
-  //     <Tab.Screen
-  //       name={NAVIGATION.productInquiry}
-  //       component={ProductNavigator}
-  //       options={{
-  //         headerShown: false,
-  //         tabBarLabel: "Products",
-  //         tabBarIcon: ({ color, size }) => (
-  //           <Image
-  //             resizeMode="contain"
-  //             color={color}
-  //             source={bottomProducts}
-  //             style={{ height: SH(24), width: SW(24) }}
-  //           />
-  //         ),
-  //       }}
-  //     />
-  //     <Tab.Screen
-  //       name={NAVIGATION.profile}
-  //       component={ProfileNavigator}
-  //       options={{
-  //         headerShown: false,
-  //         tabBarLabel: "My Jobr",
-  //         tabBarIcon: ({ color, size }) => (
-  //           <Image
-  //             resizeMode="contain"
-  //             color={color}
-  //             source={ProfileUser}
-  //             style={{ height: SH(22), width: SW(22) }}
-  //           />
-  //         ),
-  //       }}
-  //     />
-  //   </Tab.Navigator>
-  // );
 
   return (
     <Tab.Navigator
@@ -355,8 +292,16 @@ export function AppNavigator() {
   );
 }
 export function AppBottom() {
+  const isFocused = useIsFocused();
+  const user = useSelector(getUser);
+
+  useEffect(() => {}, [isFocused]);
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      initialRouteName={
+        user?.isStatus === true ? NAVIGATION.biometricsScreen : NAVIGATION.home
+      }
+    >
       <Stack.Screen
         name={NAVIGATION.home}
         component={AppNavigator}
@@ -367,6 +312,13 @@ export function AppBottom() {
       <Stack.Screen
         name={NAVIGATION.subCategories}
         component={SubCategories}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name={NAVIGATION.biometricsScreen}
+        component={BiometricsScreen}
         options={{
           headerShown: false,
         }}
