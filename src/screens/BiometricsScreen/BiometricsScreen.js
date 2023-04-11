@@ -6,6 +6,7 @@ import {
   BackHandler,
   Image,
   LogBox,
+  AppState,
 } from "react-native";
 import { ScreenWrapper } from "@/components";
 import { COLORS } from "@/theme/Colors";
@@ -142,6 +143,28 @@ export function BiometricsScreen() {
       // sendPublicKeyToServer(publicKey);
     });
   };
+  //
+
+  // const [appState, setAppState] = useState(AppState.currentState);
+
+  // const handleAppStateChange = (nextAppState) => {
+  //   if (appState.match(/inactive|background/) && nextAppState === "active") {
+  //     // This block of code will execute when the app is reopened
+  //     // Call your function here
+  //   }
+  //   bioMetricLogin();
+  //   setAppState(nextAppState);
+  // };
+
+  // useEffect(() => {
+  //   const subscription = AppState.addEventListener(
+  //     "change",
+  //     handleAppStateChange
+  //   );
+  //   return () => {
+  //     subscription.remove();
+  //   };
+  // }, []);
 
   // /////////////////////////////////////
 

@@ -20,58 +20,13 @@ import ReactNativeBiometrics, {
 
 export function Home() {
   const layout = useWindowDimensions();
-  const [showScreen, setShowScreen] = useState();
 
-  const user = useSelector(getUser);
-  // useEffect(() => {
-  //   if (user?.isStatus === true) {
-  //     // <Biometrics />;
-  //     bioMetricLogin();
-  //   }
-  // }, []);
-
-  console.log("user--->", user?.isStatus);
-  // Biometrics function
-
-  const rnBiometrics = new ReactNativeBiometrics({
-    allowDeviceCredentials: true,
-  });
-
-  const bioMetricLogin = () => {
-    rnBiometrics.isSensorAvailable().then((resultObject) => {
-      console.log("BIOMETRICS_RESULT--" + JSON.stringify(resultObject));
-      const { available, biometryType } = resultObject;
-
-      if (available && biometryType === BiometryTypes.TouchID) {
-        console.log("TouchID is supported");
-        checkBioMetricKeyExists();
-      } else if (available && biometryType === BiometryTypes.FaceID) {
-        console.log("FaceID is supported");
-        checkBioMetricKeyExists();
-      } else if (available && biometryType === BiometryTypes.Biometrics) {
-        console.log("Biometrics is supported");
-        checkBioMetricKeyExists();
-      } else {
-        console.log("Biometrics not supported");
-      }
-    });
-  };
-  const checkBioMetricKeyExists = () => {
-    rnBiometrics.biometricKeysExist().then((resultObject) => {
-      const { keysExist } = resultObject;
-      if (keysExist) {
-        console.log("Keys exist");
-        promptBioMetricSignin();
-      } else {
-        console.log("Keys do not exist or were deleted");
-        createKeys();
-      }
-    });
-  };
   // useEffect(() => {
   //   const backAction = () => {
-  //     return true;
+  //     // Exit the app if the user is on the home screen
+  //     BackHandler.exitApp();
   //   };
+
   //   const backHandler = BackHandler.addEventListener(
   //     "hardwareBackPress",
   //     backAction
@@ -79,60 +34,20 @@ export function Home() {
 
   //   return () => backHandler.remove();
   // }, []);
-  // const promptBioMetricSignin = () => {
-  //   let epochTimeSeconds = Math.round(new Date().getTime() / 1000).toString();
-  //   let payload = epochTimeSeconds + "some message";
-  //   rnBiometrics
-  //     .createSignature({
-  //       promptMessage: "Sign in",
-  //       payload: payload,
-  //     })
-  //     .then((resultObject) => {
-  //       const { success, signature } = resultObject;
-
-  //       if (success) {
-  //         console.log(signature);
-  //         console.log("set true");
-  //         setShowScreen(true);
-  //         // dispatch(deviceLogin());
-  //         //  verifySignatureWithServer(signature, payload);
-  //       }
-  //     })
-  //     .catch((error) => console.log("erorr-->>", error));
-  // };
-
-  const promptBioMetricSignin = () => {
-    rnBiometrics
-      .simplePrompt({
-        promptMessage: "Please enter device PIN",
-        fallbackOnPasscode: true,
-        onPartialSuccess: (enteredPin) => {
-          console.log("Entering PIN: ", enteredPin);
-        },
-      })
-      .then((resultObject) => {
-        const { success, error } = resultObject;
-        if (success) {
-          console.log("Device unlocked with PIN");
-          setShowScreen(true);
-          // Do something after successful PIN entry
-        } else {
-          console.log("PIN entry failed: " + error);
-          // Handle failed PIN entry
-        }
-      });
-  };
-  const createKeys = () => {
-    rnBiometrics.createKeys().then((resultObject) => {
-      const { publicKey } = resultObject;
-      console.log(publicKey);
-      promptBioMetricSignin();
-      // sendPublicKeyToServer(publicKey);
-    });
-  };
 
   // /////////////////////////////////////
 
+  useEffect(() => {
+    const backAction = () => {
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
   const [routes] = React.useState([
     { key: "products", title: "Products" },
     { key: "business", title: "Services" },
