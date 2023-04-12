@@ -17,7 +17,6 @@ export function BiometricsScreen() {
   const user = useSelector(getUser);
   useEffect(() => {
     if (user?.isStatus === true) {
-      // <Biometrics />;
       bioMetricLogin();
     }
   }, []);
@@ -26,6 +25,7 @@ export function BiometricsScreen() {
   }, []);
 
   console.log("user--->", user?.isStatus);
+
   // Biometrics function
 
   const rnBiometrics = new ReactNativeBiometrics({
@@ -108,9 +108,10 @@ export function BiometricsScreen() {
       .then((resultObject) => {
         const { success, error } = resultObject;
         if (success) {
-          console.log("Device unlocked with PIN");
+          console.log("Device unlocked with PIN", success);
           setShowScreen(true);
           navigate(NAVIGATION.home);
+
           // Do something after successful PIN entry
         } else {
           console.log("PIN entry failed: " + error);
