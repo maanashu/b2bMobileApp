@@ -1,5 +1,5 @@
 #import "AppDelegate.h"
-
+#import <Firebase.h>
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -33,7 +33,7 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
+[FIRApp configure];
   [GMSServices provideAPIKey:@"AIzaSyBbytCk92gm3MK3Mrs_374RDKf4bz0X1ck"]; // add this line using the api key obtained from Google Console
 
  
