@@ -1,30 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {
-  Text,
-  View,
-  useWindowDimensions,
-  BackHandler,
-  Image,
-  LogBox,
-  AppState,
-} from "react-native";
+import { View, useWindowDimensions, Image, LogBox } from "react-native";
 import { ScreenWrapper } from "@/components";
-import { COLORS } from "@/theme/Colors";
-import { SF, SH, SW } from "@/theme/ScalerDimensions";
-import { TabView, SceneMap, TabBar } from "react-native-tab-view";
-import { Business, NearMe, Products } from "@/screens";
-import { styles } from "./BiometricsScreen.styles";
-import { Fonts, jobr, jobrRound } from "@/assets";
+import { jobrRound } from "@/assets";
 const Tab = createMaterialTopTabNavigator();
-import { HomeHeader } from "@/components/HomeHeader";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { NAVIGATION } from "@/constants";
 import { getUser } from "@/selectors/UserSelectors";
 import { useSelector } from "react-redux";
-import ReactNativeBiometrics, {
-  Biometrics,
-  BiometryTypes,
-} from "react-native-biometrics";
+import ReactNativeBiometrics, { BiometryTypes } from "react-native-biometrics";
 import { navigate } from "@/navigation/NavigationRef";
 
 export function BiometricsScreen() {

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Text, View, useWindowDimensions, BackHandler } from "react-native";
 import { ScreenWrapper } from "@/components";
 import { COLORS } from "@/theme/Colors";
-import { SF, SH, SW } from "@/theme/ScalerDimensions";
-import { TabView, SceneMap, TabBar } from "react-native-tab-view";
+import { SF, SW } from "@/theme/ScalerDimensions";
+import { TabBar } from "react-native-tab-view";
 import { Business, NearMe, Products } from "@/screens";
 import { styles } from "./Home.styles";
 import { Fonts } from "@/assets";
@@ -11,12 +11,6 @@ const Tab = createMaterialTopTabNavigator();
 import { HomeHeader } from "@/components/HomeHeader";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { NAVIGATION } from "@/constants";
-import { getUser } from "@/selectors/UserSelectors";
-import { useSelector } from "react-redux";
-import ReactNativeBiometrics, {
-  Biometrics,
-  BiometryTypes,
-} from "react-native-biometrics";
 
 export function Home() {
   const layout = useWindowDimensions();
@@ -36,18 +30,6 @@ export function Home() {
   // }, []);
 
   // /////////////////////////////////////
-
-  useEffect(() => {
-    const backAction = () => {
-      return true;
-    };
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
-
-    return () => backHandler.remove();
-  }, []);
   const [routes] = React.useState([
     { key: "products", title: "Products" },
     { key: "business", title: "Services" },

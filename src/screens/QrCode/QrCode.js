@@ -47,7 +47,6 @@ export function QrCode() {
         console.log(err);
       });
   };
-
   const downloadFileProgress = (data) => {
     setInProgress(true);
     console.log("inprogress", inProgress);
@@ -68,7 +67,6 @@ export function QrCode() {
   //   };
   //   createChannel();
   // }, []);
-
   const handleNotificationPress = async () => {
     await notifee.displayNotification({
       title: "Qr code saved",
@@ -97,7 +95,6 @@ export function QrCode() {
       },
     });
   };
-
   const handleShare = async () => {
     try {
       const shareOptions = {
@@ -111,7 +108,6 @@ export function QrCode() {
       console.log(error.message);
     }
   };
-
   return (
     <ScreenWrapper style={styles.container}>
       <NameHeader title={strings.userInformation.back} back={backArrow} />

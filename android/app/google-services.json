@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1055478872932",
+    "project_id": "jobr-b2b",
+    "storage_bucket": "jobr-b2b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1055478872932:android:18e990b8576dba78099871",
+        "android_client_info": {
+          "package_name": "com.jobr.business"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1055478872932-bdjppn0k6nqtjsjvvqan1ho1fkjrs2vo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgXG5b0upoZ6CpM32fYwdLLpxfMyix904"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1055478872932-bdjppn0k6nqtjsjvvqan1ho1fkjrs2vo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
