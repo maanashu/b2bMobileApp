@@ -34,10 +34,11 @@ export class ProductController {
     });
   }
 
-  static async getProductDetail(productId) {
+  static async getProductDetail(productId, seller_id) {
     return new Promise((resolve, reject) => {
       const endpoint =
-        PRODUCT_URL + ApiProductInventory.getProductDetail(productId);
+        PRODUCT_URL +
+        ApiProductInventory.getProductDetails(productId, seller_id);
       HttpClient.get(endpoint)
 
         .then((response) => {

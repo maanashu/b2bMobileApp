@@ -147,13 +147,15 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
   },
   logoYewi: {
-    height: SH(36),
+    height: SW(36),
     width: SW(36),
+    borderRadius: SW(18),
   },
   yewiHeadingText: {
     color: COLORS.black,
     fontSize: SF(14),
     fontFamily: Fonts.SemiBold,
+    marginBottom: SH(2),
   },
   certified: {
     height: SH(16),
@@ -167,6 +169,7 @@ export const styles = StyleSheet.create({
   yewiSmallText: {
     fontSize: SF(10),
     fontFamily: Fonts.Regular,
+    alignSelf: "flex-start",
   },
   yewistar: {
     height: SH(10),

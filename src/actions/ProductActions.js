@@ -101,10 +101,10 @@ export const getProduct = (data) => async (dispatch) => {
   }
 };
 
-export const getProductDetail = (selectedId) => async (dispatch) => {
+export const getProductDetail = (productId, seller_id) => async (dispatch) => {
   dispatch(getProductDetailRequest());
   try {
-    const res = await ProductController.getProductDetail(selectedId);
+    const res = await ProductController.getProductDetail(productId, seller_id);
     dispatch(getProductDetailSuccess(res));
   } catch (error) {
     dispatch(getProductDetailError(error.message));

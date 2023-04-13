@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, useWindowDimensions, Image, LogBox } from "react-native";
+import {
+  View,
+  useWindowDimensions,
+  Image,
+  LogBox,
+  BackHandler,
+  AppState,
+} from "react-native";
 import { ScreenWrapper } from "@/components";
 import { jobrRound } from "@/assets";
 const Tab = createMaterialTopTabNavigator();
@@ -20,6 +27,23 @@ export function BiometricsScreen() {
       bioMetricLogin();
     }
   }, []);
+  const [appState, setAppState] = useState(AppState.currentState);
+
+  useEffect(() => {
+    const handleAppStateChange = (nextAppState) => {
+      if (appState.match(/inactive|background/) && nextAppState === "active") {
+        // Run your function here based on the app state
+        bioMetricLogin();
+      }
+      setAppState(nextAppState);
+    };
+
+    AppState.addEventListener("change", handleAppStateChange);
+
+    return () => {
+      AppState.removeEventListener("change", handleAppStateChange);
+    };
+  }, [appState]);
   useEffect(() => {
     LogBox.ignoreAllLogs();
   }, []);
@@ -27,11 +51,9 @@ export function BiometricsScreen() {
   console.log("user--->", user?.isStatus);
 
   // Biometrics function
-
   const rnBiometrics = new ReactNativeBiometrics({
     allowDeviceCredentials: true,
   });
-
   const bioMetricLogin = () => {
     rnBiometrics.isSensorAvailable().then((resultObject) => {
       console.log("BIOMETRICS_RESULT--" + JSON.stringify(resultObject));
@@ -106,13 +128,20 @@ export function BiometricsScreen() {
         },
       })
       .then((resultObject) => {
-        const { success, error } = resultObject;
+        const { success, error, message } = resultObject;
         if (success) {
           console.log("Device unlocked with PIN", success);
           setShowScreen(true);
           navigate(NAVIGATION.home);
 
           // Do something after successful PIN entry
+        } else if (resultObject?.error === "User cancellation") {
+          // console.log("User cancelled the biometric prompt");
+          // console.log("result: ", resultObject);
+          console.log("cacneled");
+          BackHandler.exitApp();
+
+          // Handle cancelled biometric prompt
         } else {
           console.log("PIN entry failed: " + error);
           // Handle failed PIN entry

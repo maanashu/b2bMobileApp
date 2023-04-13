@@ -30,6 +30,7 @@ export function NewProducts() {
 
   const ProductsData = useSelector(getProductSelector);
   const Products = ProductsData?.product;
+  // console.log("response: " + JSON.stringify(ProductsData?.productDetail));
 
   const newValue = { name: "All" };
   splicedArray.unshift(newValue);
@@ -144,7 +145,12 @@ export function NewProducts() {
   const listDetail = ({ item, index }) => (
     <>
       <TouchableOpacity
-        onPress={() => navigate(NAVIGATION.productInquiry, { itemId: item.id })}
+        onPress={() =>
+          navigate(NAVIGATION.productInquiry, {
+            itemId: item.id,
+            seller_id: item?.supplies[0]?.seller_id,
+          })
+        }
         style={[
           styles.ShoesStyle,
           {

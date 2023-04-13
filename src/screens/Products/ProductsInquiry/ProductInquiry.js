@@ -59,7 +59,6 @@ import { Loader } from "@/components/Loader";
 
 export function ProductInquiry(params) {
   const [routedData, setroutedData] = useState(ProductDetail?.productDetail);
-
   const [favourite, setFavourite] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector(getUser);
@@ -68,21 +67,16 @@ export function ProductInquiry(params) {
   const colorChange = () => {
     setFavourite(!favourite);
   };
-
+  const sellerDetails =
+    ProductDetail?.productDetail?.product_detail?.supplies[0];
   const ProductDetail = useSelector(getProductSelector);
   const bundleItems =
     ProductDetail?.productDetail?.product_detail?.bundle_products;
-  // console.log(
-  //   "bundleitems: " +
-  //     JSON.stringify(ProductDetail?.productDetail?.product_detail)
-  // );
-
+  console.log("bundleitems: " + JSON.stringify(ProductDetail?.productDetail));
   const isLoadingDetails = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
   );
-
   // console.log("checking email", user?.user?.payload?.user_profiles?.dob);
-
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
   );
@@ -92,8 +86,18 @@ export function ProductInquiry(params) {
   // useEffect(() => {
   //   dispatch(getProductDetail(1));
   // }, []);
+  const getProductBody = {
+    id: params?.route?.params?.itemId,
+    seller_id: params?.route?.params?.seller_id,
+  };
+  // console.log("seller_id: " + params?.route?.params?.seller_id);
   useEffect(() => {
-    dispatch(getProductDetail(params?.route?.params?.itemId));
+    dispatch(
+      getProductDetail(
+        params?.route?.params?.itemId,
+        params?.route?.params?.seller_id
+      )
+    );
     dispatch(getTrendingProducts(object));
   }, []);
 
@@ -114,7 +118,6 @@ export function ProductInquiry(params) {
       </View>
     </TouchableOpacity>
   );
-
   const SecondItem = ({ item }) => (
     <TouchableOpacity style={styles.itemS}>
       <View style={styles.upperButtons}>
@@ -123,7 +126,6 @@ export function ProductInquiry(params) {
       </View>
     </TouchableOpacity>
   );
-
   const ProductDetails = ({ item }) => (
     <View>
       <View style={styles.productDetail}>
@@ -175,7 +177,6 @@ export function ProductInquiry(params) {
       </>
     );
   };
-
   const handleSubmit = () => {
     token
       ? navigate(NAVIGATION.startOrder, {
@@ -192,7 +193,6 @@ export function ProductInquiry(params) {
       return CustomPaginationWithoutText();
     }
   };
-
   return (
     <ScreenWrapper>
       <Header back={backArrow} bell={bellGrey} bag={bagGrey} />
@@ -369,7 +369,23 @@ export function ProductInquiry(params) {
               </View>
               <Spacer space={SH(10)} />
 
-              <CompanyDetailView />
+              <CompanyDetailView
+                title={
+                  ProductDetail?.productDetail?.product_detail?.supplies[0]
+                    ?.seller_details?.user_profiles?.organization_name
+                }
+                profilePhoto={
+                  ProductDetail?.productDetail?.product_detail?.supplies[0]
+                    ?.seller_details?.user_profiles?.profile_photo
+                }
+                locationText={
+                  ProductDetail?.productDetail?.product_detail?.supplies[0]
+                    ?.seller_details?.user_locations[0]?.city +
+                  ", " +
+                  ProductDetail?.productDetail?.product_detail?.supplies[0]
+                    ?.seller_details?.user_locations[0]?.country
+                }
+              />
 
               <Spacer space={SH(20)} />
 
@@ -644,7 +660,7 @@ export function ProductInquiry(params) {
           </View>
         </View>
       </ScrollView>
-      {isLoadingDetails ? <Loader /> : null}
+      {/* {isLoadingDetails ? <Loader /> : null} */}
     </ScreenWrapper>
   );
 }

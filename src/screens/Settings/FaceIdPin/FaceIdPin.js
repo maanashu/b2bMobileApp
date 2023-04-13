@@ -16,6 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { biometricsSet } from "@/actions/GlobalActions";
 import { useIsFocused } from "@react-navigation/native";
+import ReactNativeBiometrics, { BiometryTypes } from "react-native-biometrics";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 export function FaceIdPin() {
   const isFocused = useIsFocused();
@@ -26,10 +28,37 @@ export function FaceIdPin() {
     if (user?.isStatus) {
       dispatch(biometricsSet(false));
     } else {
-      dispatch(biometricsSet(true));
+      // dispatch(biometricsSet(true));
+      bioMetricLogin();
     }
   };
+  const rnBiometrics = new ReactNativeBiometrics({
+    allowDeviceCredentials: true,
+  });
+  const bioMetricLogin = () => {
+    rnBiometrics.isSensorAvailable().then((resultObject) => {
+      console.log("BIOMETRICS_RESULT--" + JSON.stringify(resultObject));
+      const { available, biometryType } = resultObject;
 
+      if (available && biometryType === BiometryTypes.TouchID) {
+        console.log("TouchID is supported");
+        dispatch(biometricsSet(true));
+      } else if (available && biometryType === BiometryTypes.FaceID) {
+        console.log("FaceID is supported");
+        dispatch(biometricsSet(true));
+      } else if (available && biometryType === BiometryTypes.Biometrics) {
+        console.log("Biometrics is supported");
+        dispatch(biometricsSet(true));
+      } else {
+        Toast.show({
+          text2: strings.biometric.setupBiometric,
+          position: "bottom",
+          type: "error_toast",
+          visibilityTime: 1500,
+        });
+      }
+    });
+  };
   const user = useSelector(getUser);
   console.log("status: " + user?.isStatus);
 

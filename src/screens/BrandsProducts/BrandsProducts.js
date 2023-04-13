@@ -33,7 +33,7 @@ export function BrandsProducts(params) {
   const brandsData = useSelector(getCategorySelector);
   const productsData = useSelector(getProductSelector);
 
-  // console.log("product details", productsData?.product);
+  // console.log("product details", JSON.stringify(productsData?.product));
 
   useEffect(() => {
     dispatch(getBrands(params?.route?.params?.categoryId));
@@ -100,9 +100,12 @@ export function BrandsProducts(params) {
   }
 
   const navigationHandler = (item) => {
-    // if (item === item) {
-    navigate(NAVIGATION.productInquiry, { itemId: item.id });
-    // }
+    if (item === item) {
+      navigate(NAVIGATION.productInquiry, {
+        itemId: item.id,
+        seller_id: item?.supplies[0]?.seller_id,
+      });
+    }
   };
 
   const renderBrands = ({ item, index }) => (

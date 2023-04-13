@@ -853,6 +853,9 @@ export const en = {
     addBankAccount: "+ Add Bank Account",
     noBankAccount: "No Bank accounts found",
   },
+  biometric: {
+    setupBiometric: "Set up device biometrics to use this feature",
+  },
   // Static strings
 
   //
