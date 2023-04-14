@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   useWindowDimensions,
@@ -16,32 +16,29 @@ import { getUser } from "@/selectors/UserSelectors";
 import { useSelector } from "react-redux";
 import ReactNativeBiometrics, { BiometryTypes } from "react-native-biometrics";
 import { navigate } from "@/navigation/NavigationRef";
+import { CommonActions, useRoute } from "@react-navigation/native";
 
-export function BiometricsScreen() {
+export function BiometricsScreen({ navigation }) {
+  const route = useRoute();
+  console.log("Screen name:", route.name);
   const layout = useWindowDimensions();
   const [showScreen, setShowScreen] = useState();
 
   const user = useSelector(getUser);
   useEffect(() => {
-    if (user?.isStatus === true) {
+    if (user?.isStatus === true && route.name === "BiometricsScreen") {
       bioMetricLogin();
     }
   }, []);
   const [appState, setAppState] = useState(AppState.currentState);
-  const [prevAppState, setPrevAppState] = useState(AppState.currentState);
 
   useEffect(() => {
     const handleAppStateChange = (nextAppState) => {
-      if (prevAppState !== nextAppState) {
-        if (
-          appState.match(/inactive|background/) &&
-          nextAppState === "active"
-        ) {
-          // Run your function here based on the app state
-        }
-        setPrevAppState(appState);
-        setAppState(nextAppState);
+      if (appState.match(/inactive|background/) && nextAppState === "active") {
+        // Run your function here based on the app state
+        bioMetricLogin();
       }
+      setAppState(nextAppState);
     };
 
     AppState.addEventListener("change", handleAppStateChange);
@@ -49,7 +46,7 @@ export function BiometricsScreen() {
     return () => {
       AppState.removeEventListener("change", handleAppStateChange);
     };
-  }, [appState, prevAppState]);
+  }, [appState]);
   useEffect(() => {
     LogBox.ignoreAllLogs();
   }, []);
@@ -138,7 +135,13 @@ export function BiometricsScreen() {
         if (success) {
           console.log("Device unlocked with PIN", success);
           setShowScreen(true);
-          navigate(NAVIGATION.home);
+          // navigate(NAVIGATION.home);
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 1,
+              routes: [{ name: NAVIGATION.home }],
+            })
+          );
 
           // Do something after successful PIN entry
         } else if (resultObject?.error === "User cancellation") {
