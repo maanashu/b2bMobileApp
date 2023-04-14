@@ -28,14 +28,20 @@ export function BiometricsScreen() {
     }
   }, []);
   const [appState, setAppState] = useState(AppState.currentState);
+  const [prevAppState, setPrevAppState] = useState(AppState.currentState);
 
   useEffect(() => {
     const handleAppStateChange = (nextAppState) => {
-      if (appState.match(/inactive|background/) && nextAppState === "active") {
-        // Run your function here based on the app state
-        bioMetricLogin();
+      if (prevAppState !== nextAppState) {
+        if (
+          appState.match(/inactive|background/) &&
+          nextAppState === "active"
+        ) {
+          // Run your function here based on the app state
+        }
+        setPrevAppState(appState);
+        setAppState(nextAppState);
       }
-      setAppState(nextAppState);
     };
 
     AppState.addEventListener("change", handleAppStateChange);
@@ -43,7 +49,7 @@ export function BiometricsScreen() {
     return () => {
       AppState.removeEventListener("change", handleAppStateChange);
     };
-  }, [appState]);
+  }, [appState, prevAppState]);
   useEffect(() => {
     LogBox.ignoreAllLogs();
   }, []);
