@@ -8,13 +8,13 @@ import { goBack } from "@/navigation/NavigationRef";
 import { Fonts, coinStack } from "@/assets";
 import { ShadowStyles } from "@/theme";
 
-export function NameHeaderCoins({ title, back, amount }) {
+export function NameHeaderCoins({ title, back, amount, onPress }) {
   return (
     <View style={styles.header}>
       <View style={styles.headerInnerView}>
         <TouchableOpacity
           style={{ flexDirection: "row", alignItems: "center" }}
-          onPress={() => goBack()}
+          onPress={onPress}
         >
           <Image
             resizeMode="contain"

@@ -66,6 +66,7 @@ export function ProductInquiry(params) {
   const token = user?.user?.payload?.token;
   const kyc = useSelector(getKyc);
   const kycCheck = kyc?.checkkyc;
+  console.log("checking kyc", user?.user?.payload?.wallet_step);
 
   const colorChange = () => {
     setFavourite(!favourite);
@@ -75,11 +76,10 @@ export function ProductInquiry(params) {
   const ProductDetail = useSelector(getProductSelector);
   const bundleItems =
     ProductDetail?.productDetail?.product_detail?.bundle_products;
-  console.log("bundleitems: " + JSON.stringify(ProductDetail?.productDetail));
+  // console.log("bundleitems: " + JSON.stringify(ProductDetail?.productDetail));
   const isLoadingDetails = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
   );
-  // console.log("checking email", user?.user?.payload?.user_profiles?.dob);
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
   );
@@ -188,7 +188,7 @@ export function ProductInquiry(params) {
             ?.attributes?.attribute_values,
       });
 
-      if (!kycCheck) {
+      if (user?.user?.payload?.wallet_step !== 5) {
         navigate(NAVIGATION.personalInformation, {
           route: "kyc",
         });

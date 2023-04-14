@@ -86,47 +86,50 @@ export function CheckAndRequestKYC() {
         ) : null}
 
         <Spacer space={SH(20)} />
-        <View style={styles.reviewStatusContainer}>
-          <Text style={styles.requestTitleStyle}>
-            {strings?.kyc?.kycReviewStatus}
-          </Text>
-
-          {isCheckLoading ? (
-            <TouchableOpacity
-              onPress={onPressRefreshHandler}
-              style={styles.refreshView}
-            >
-              <Spinner
-                visible={isCheckLoading}
-                color={COLORS.primary}
-                size="large"
-              />
-              <Image source={refresh} style={styles.refreshIcon} />
-              <Text style={styles.refreshText}>
-                {strings?.kyc?.refreshStatus}
+        {requestedKyc === true && (
+          <>
+            <View style={styles.reviewStatusContainer}>
+              <Text style={styles.requestTitleStyle}>
+                {strings?.kyc?.kycReviewStatus}
               </Text>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity
-              onPress={onPressRefreshHandler}
-              style={styles.refreshView}
-            >
-              <Image source={refresh} style={styles.refreshIcon} />
-              <Text style={styles.refreshText}>
-                {strings?.kyc?.refreshStatus}
+
+              {isCheckLoading ? (
+                <TouchableOpacity
+                  onPress={onPressRefreshHandler}
+                  style={styles.refreshView}
+                >
+                  <Spinner
+                    visible={isCheckLoading}
+                    color={COLORS.primary}
+                    size="large"
+                  />
+                  <Image source={refresh} style={styles.refreshIcon} />
+                  <Text style={styles.refreshText}>
+                    {strings?.kyc?.refreshStatus}
+                  </Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={onPressRefreshHandler}
+                  style={styles.refreshView}
+                >
+                  <Image source={refresh} style={styles.refreshIcon} />
+                  <Text style={styles.refreshText}>
+                    {strings?.kyc?.refreshStatus}
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
+
+            <Spacer space={SH(20)} />
+            <View style={styles.statusViewStyle}>
+              <Text style={styles.verificationMsgStyle}>{name}</Text>
+              <Text style={styles.verificationMsgStyle}>
+                {kycStatus !== undefined ? "Status:  " + kycStatus : "Status"}
               </Text>
-            </TouchableOpacity>
-          )}
-        </View>
-
-        <Spacer space={SH(20)} />
-        <View style={styles.statusViewStyle}>
-          <Text style={styles.verificationMsgStyle}>{name}</Text>
-          <Text style={styles.verificationMsgStyle}>
-            {kycStatus !== undefined ? "Status:  " + kycStatus : "Status"}
-          </Text>
-        </View>
-
+            </View>
+          </>
+        )}
         <View style={{ flex: 1 }} />
 
         {kycStatus === "passed" ? (

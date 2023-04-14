@@ -157,19 +157,15 @@ export function Products({ navigation }) {
     };
     dispatch(getProduct(probject));
   };
-
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_CATEGORY], state)
   );
-
   const isLoadingProducts = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT], state)
   );
-
   const LoadingData = () => {
     <>{isLoading ? <Loader message="Loading data ..." /> : null}</>;
   };
-
   function dynamicHeight(_index) {
     if (_index % 2 == 0) {
       return SH(275);

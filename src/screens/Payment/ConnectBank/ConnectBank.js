@@ -30,6 +30,7 @@ import { navigate } from "@/navigation/NavigationRef";
 import { styles } from "./ConnectBank.styles";
 import { getKyc } from "@/selectors/KycSelector";
 import { store } from "@/store";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 export function ConnectBank(props) {
   const dispatch = useDispatch();
@@ -81,7 +82,14 @@ export function ConnectBank(props) {
       return (
         <PlaidLink
           tokenConfig={{ token: plaid }}
-          onExit={(exit) => alert("Unable to add bank account")}
+          onExit={(exit) =>
+            Toast.show({
+              text2: "Adding bank Cancelled",
+              position: "bottom",
+              type: "error_toast",
+              visibilityTime: 2000,
+            })
+          }
           onSuccess={(success) => onPressHandler(success)}
         >
           <Text style={styles.submit}>{strings.card.addBank}</Text>

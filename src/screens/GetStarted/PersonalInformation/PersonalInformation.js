@@ -68,8 +68,10 @@ export function PersonalInformation(params) {
 
   useEffect(() => {
     dispatch(getUser);
-    setDateformat(getData?.registerData?.dob);
-    setEmail(getData?.registerData?.email);
+    setTimeout(() => {
+      setDateformat(getData?.registerData?.dob);
+      setEmail(getData?.registerData?.email);
+    }, 2000);
   }, []);
   const handleBackButton = () => {
     if (params?.route?.params?.route === "kyc") {
@@ -215,7 +217,7 @@ export function PersonalInformation(params) {
         first_name: firstname,
         last_name: lastname,
         phone: phone,
-        dob: getData?.registerData?.dob,
+        dob: dateformat,
         ssn: ssn,
         address: street,
         appartment: appartment,
@@ -223,7 +225,7 @@ export function PersonalInformation(params) {
         state: state,
         zip: zipCode,
         country: country,
-        email: getData?.registerData?.email,
+        email: email,
         countryCode: countryCode,
         stateCode: stateCode,
         type: "individual",
@@ -246,6 +248,9 @@ export function PersonalInformation(params) {
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.CREATE_WALLET_USER], state)
+  );
+  const isLoginLoader = useSelector((state) =>
+    isLoadingSelector([TYPES.LOGIN], state)
   );
 
   const getAddress = (details) => {
@@ -655,6 +660,7 @@ export function PersonalInformation(params) {
           />
         </View>
         {isLoading ? <Loader message="Loading data ..." /> : null}
+        {isLoginLoader ? <Loader message="Loading data ..." /> : null}
       </View>
     </ScreenWrapper>
   );

@@ -1,4 +1,5 @@
 import { NAVIGATION } from "@/constants";
+import { strings } from "@/localization";
 import { navigate } from "@/navigation/NavigationRef";
 import { getUser } from "@/selectors/UserSelectors";
 import { ApiWalletInventory } from "@/Utils/APIinventory";
@@ -47,6 +48,8 @@ export class WalletController {
           return;
         })
         .catch((error) => {
+          reject(new Error((strings.verify.error = error)));
+
           console.log("reg error====", error);
           Toast.show({
             text2: error.msg,
@@ -54,7 +57,6 @@ export class WalletController {
             type: "error_toast",
             visibilityTime: 1500,
           });
-          reject(new Error((strings.verify.error = error.msg)));
         });
     });
   }

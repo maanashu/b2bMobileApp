@@ -291,6 +291,7 @@ export { default as conIdentity } from "@/assets/icons/ic_more/conIdentity.png";
 export { default as cornerBorder } from "@/assets/icons/ic_more/cornerBorder.png";
 export { default as dummyIdCard } from "@/assets/icons/ic_more/dummyIdCard.png";
 export { default as blueChecked } from "@/assets/icons/ic_verification/blueChecked.png";
+export { default as rightArrowThin } from "@/assets/icons/ic_Products/rightArrowThin.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

@@ -33,7 +33,6 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    alignItems: "center",
   },
   crossIcon: {
     height: SH(20),
@@ -169,6 +168,10 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.placeHolder,
     padding: SW(10),
     borderRadius: SW(5),
+    paddingVertical: SH(15),
+    paddingHorizontal: SW(15),
+  },
+  subtotalView: {
     flexDirection: "row",
     justifyContent: "space-between",
   },
@@ -301,5 +304,37 @@ export const styles = StyleSheet.create({
     marginBottom: SH(1),
     height: "100%",
     width: SW(30),
+  },
+  applyCouponBackground: {
+    backgroundColor: COLORS.placeHolder,
+    flex: 1,
+    paddingVertical: SH(20),
+    paddingHorizontal: SW(15),
+    borderRadius: SW(5),
+  },
+  rightArrowStyle: {
+    tintColor: "black",
+    height: SW(15),
+    width: SW(15),
+  },
+  ApplyCouponHeading: {
+    fontFamily: Fonts.SemiBold,
+    color: COLORS.darkGrey,
+    fontSize: SF(15),
+  },
+  ApplyCouponHeadingText: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.darkGrey,
+    fontSize: SF(12),
+  },
+  totalText: {
+    color: "black",
+    fontFamily: Fonts.SemiBold,
+    fontSize: SF(15),
+  },
+  feeText: {
+    color: COLORS.darkGrey2,
+    fontFamily: Fonts.Regular,
+    fontSize: SF(15),
   },
 });

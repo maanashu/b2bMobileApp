@@ -20,6 +20,8 @@ import {
   puma4,
   puma5,
   forwardArrowWhite,
+  rightArrowBlue,
+  rightArrowThin,
 } from "@/assets";
 import { strings } from "@/localization";
 import { HeaderCoin } from "../Profile/Wallet/Components/HeaderCoin";
@@ -33,11 +35,11 @@ export function Checkout(navigation) {
 
   const route = useRoute();
   const quantity = route?.params?.data;
-  console.log("checking shoe size", quantity);
+  // console.log("checking shoe size", quantity);
 
   const [productArray, setproductArray] = useState(quantity ?? []);
   const [setProductArrat, setsetProductArrat] = useState(quantity ?? []);
-  console.log(quantity);
+  // console.log(quantity);
   const [storeTotal, setstoreTotal] = useState(0);
 
   const totalStore = [];
@@ -58,9 +60,9 @@ export function Checkout(navigation) {
       const array = [...productArray];
       array[index].qty = array[index].qty + 1;
       setsetProductArrat(array);
-      console.log(
-        "addition success->: " + index + "--->" + setProductArrat[index]?.qty
-      );
+      // console.log(
+      //   "addition success->: " + index + "--->" + setProductArrat[index]?.qty
+      // );
     } catch (error) {
       console.log("caught error on plus: " + error);
     }
@@ -72,13 +74,11 @@ export function Checkout(navigation) {
         array[index].qty > 0 ? array[index].qty - 1 : array[index].qty;
       setsetProductArrat(array);
 
-      console.log("addition success->: " + index + productArray[index]?.qty);
+      // console.log("addition success->: " + index + productArray[index]?.qty);
     } catch (error) {
       console.log("caught error on plus: " + error);
     }
   };
-
-  const [counter, setcounter] = useState(0);
 
   const { deliveryService } = route?.params || {};
   const Details = [
@@ -115,6 +115,9 @@ export function Checkout(navigation) {
       price: "$6.56",
     },
   ];
+  const applyCouponHandler = () => {
+    navigate(NAVIGATION.addCoupon, { params: "checkout" });
+  };
 
   const renderItem = ({ item, index }) => {
     return (
@@ -216,14 +219,94 @@ export function Checkout(navigation) {
 
           <Spacer space={SH(25)} />
 
-          <View style={styles.subtotalBackground}>
-            <Text style={{ color: "black" }}>{"Subtotal"}</Text>
-            <Text style={{ color: "black" }}>
-              {"$ "}
-              {storeTotal.toFixed(2)}
-            </Text>
-          </View>
+          <TouchableOpacity
+            style={styles.applyCouponBackground}
+            onPress={applyCouponHandler}
+          >
+            <View style={styles.headerInnerView}>
+              <Text style={styles.ApplyCouponHeading}>
+                {"Apply coupon here"}
+              </Text>
+              <Image
+                source={rightArrowThin}
+                resizeMode="contain"
+                style={styles.rightArrowStyle}
+              />
+            </View>
 
+            <Spacer space={SH(2)} />
+
+            <Text style={styles.ApplyCouponHeadingText}>
+              {"Add your coupon here"}
+            </Text>
+          </TouchableOpacity>
+
+          <Spacer space={SH(25)} />
+
+          <View style={styles.subtotalBackground}>
+            <View style={styles.subtotalView}>
+              <Text style={styles.feeText}>{"Subtotal"}</Text>
+              <Text style={styles.feeText}>
+                {"$ "}
+                {storeTotal.toFixed(2)}
+              </Text>
+            </View>
+            <Spacer space={SH(10)} />
+
+            <View style={styles.borderLine}></View>
+
+            <Spacer space={SH(10)} />
+
+            <View style={styles.subtotalView}>
+              <Text style={styles.feeText}>{"Coupon"}</Text>
+              <Text style={styles.feeText}>
+                {"$ "}
+                {storeTotal.toFixed(2)}
+              </Text>
+            </View>
+
+            <Spacer space={SH(10)} />
+
+            <View style={styles.borderLine}></View>
+
+            <Spacer space={SH(10)} />
+
+            <View style={styles.subtotalView}>
+              <Text style={styles.feeText}>{"Taxes & Other fees "}</Text>
+              <Text style={styles.feeText}>
+                {"$ "}
+                {storeTotal.toFixed(2)}
+              </Text>
+            </View>
+
+            <Spacer space={SH(10)} />
+
+            <View style={styles.borderLine}></View>
+
+            <Spacer space={SH(10)} />
+
+            <View style={styles.subtotalView}>
+              <Text style={styles.feeText}>{"Subtotal"}</Text>
+              <Text style={styles.feeText}>
+                {"$ "}
+                {storeTotal.toFixed(2)}
+              </Text>
+            </View>
+
+            <Spacer space={SH(10)} />
+
+            <View style={styles.borderLine}></View>
+
+            <Spacer space={SH(10)} />
+
+            <View style={styles.subtotalView}>
+              <Text style={styles.totalText}>{"Total"}</Text>
+              <Text style={styles.totalText}>
+                {"$ "}
+                {storeTotal.toFixed(2)}
+              </Text>
+            </View>
+          </View>
           <Spacer space={SH(70)} />
         </ScrollView>
 

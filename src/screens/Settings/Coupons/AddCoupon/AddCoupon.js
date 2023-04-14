@@ -16,8 +16,10 @@ import { CurrentCoupons, PastCoupons } from "@/screens";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { useDispatch } from "react-redux";
 import { addCoupon, getCoupons } from "@/actions/ProductActions";
+import { goBack, navigate } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
 
-export function AddCoupon() {
+export function AddCoupon(params) {
   const layout = useWindowDimensions();
   const dispatch = useDispatch();
   const [index, setIndex] = React.useState(0);
@@ -86,12 +88,19 @@ export function AddCoupon() {
   const addingCoupons = () => {
     dispatch(addCoupon(data));
   };
+  const backHandler = () => {
+    // params?.route?.params === "checkout"
+    //   ? navigate(NAVIGATION.checkout)
+    //   : navigate(NAVIGATION.profile);
+    goBack();
+  };
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <NameHeaderCoins
         title={strings.coupons.coupons}
         back={backArrow}
         amount={"0"}
+        onPress={backHandler}
       />
 
       <View style={styles.mainContainer}>
