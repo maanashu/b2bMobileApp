@@ -6,6 +6,7 @@ import {
   LogBox,
   BackHandler,
   AppState,
+  Platform,
 } from "react-native";
 import { ScreenWrapper } from "@/components";
 import { jobrRound } from "@/assets";
@@ -33,19 +34,21 @@ export function BiometricsScreen({ navigation }) {
   const [appState, setAppState] = useState(AppState.currentState);
 
   useEffect(() => {
+    if (Platform.OS===""){
     const handleAppStateChange = (nextAppState) => {
-      if (appState.match(/inactive|background/) && nextAppState === "active") {
+      if (appState.match(/inactive|background/) && nextAppState === "active"&& route.name === "BiometricsScreen") {
         // Run your function here based on the app state
         bioMetricLogin();
       }
       setAppState(nextAppState);
-    };
-
-    AppState.addEventListener("change", handleAppStateChange);
+      AppState.addEventListener("change", handleAppStateChange);
 
     return () => {
       AppState.removeEventListener("change", handleAppStateChange);
     };
+    }}
+
+    
   }, [appState]);
 
   useEffect(() => {
