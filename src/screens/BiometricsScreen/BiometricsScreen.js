@@ -6,7 +6,6 @@ import {
   LogBox,
   BackHandler,
   AppState,
-  Platform,
 } from "react-native";
 import { ScreenWrapper } from "@/components";
 import { jobrRound } from "@/assets";
@@ -34,9 +33,7 @@ export function BiometricsScreen() {
     const handleAppStateChange = (nextAppState) => {
       if (appState.match(/inactive|background/) && nextAppState === "active") {
         // Run your function here based on the app state
-        {
-          Platform.OS !== "ios" && bioMetricLogin();
-        }
+        bioMetricLogin();
       }
       setAppState(nextAppState);
     };
