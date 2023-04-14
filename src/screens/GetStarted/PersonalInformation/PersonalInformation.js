@@ -1,5 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, Text, Image, TouchableOpacity, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  TextInput,
+  BackHandler,
+} from "react-native";
 
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,7 +32,7 @@ import { createWallet } from "@/actions/WalletActions";
 import { Loader } from "@/components/Loader";
 import { navigate } from "@/navigation/NavigationRef";
 
-export function PersonalInformation() {
+export function PersonalInformation(params) {
   const ref = useRef(null);
   const dispatch = useDispatch();
   const getData = useSelector(userSelector);
@@ -63,6 +70,19 @@ export function PersonalInformation() {
     dispatch(getUser);
     setDateformat(getData?.registerData?.dob);
     setEmail(getData?.registerData?.email);
+  }, []);
+  const handleBackButton = () => {
+    if (params?.route?.params?.route === "kyc") {
+      navigate(NAVIGATION.productInquiry);
+    }
+    return true;
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
+
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
   }, []);
 
   const crossHandler = () => {

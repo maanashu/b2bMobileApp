@@ -56,6 +56,7 @@ import { COLORS } from "@/theme";
 import FastImage from "react-native-fast-image";
 import { renderNoData } from "@/components/FlatlistStyling";
 import { Loader } from "@/components/Loader";
+import { getKyc } from "@/selectors/KycSelector";
 
 export function ProductInquiry(params) {
   const [routedData, setroutedData] = useState(ProductDetail?.productDetail);
@@ -63,6 +64,8 @@ export function ProductInquiry(params) {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
   const token = user?.user?.payload?.token;
+  const kyc = useSelector(getKyc);
+  const kycCheck = kyc?.checkkyc;
 
   const colorChange = () => {
     setFavourite(!favourite);
@@ -178,13 +181,21 @@ export function ProductInquiry(params) {
     );
   };
   const handleSubmit = () => {
-    token
-      ? navigate(NAVIGATION.startOrder, {
-          bundleItems:
-            ProductDetail?.productDetail?.product_detail?.product_attribute[0]
-              ?.attributes?.attribute_values,
-        })
-      : navigate(NAVIGATION.splash);
+    if (token) {
+      navigate(NAVIGATION.startOrder, {
+        bundleItems:
+          ProductDetail?.productDetail?.product_detail?.product_attribute[0]
+            ?.attributes?.attribute_values,
+      });
+
+      if (!kycCheck) {
+        navigate(NAVIGATION.personalInformation, {
+          route: "kyc",
+        });
+      }
+    } else {
+      navigate(NAVIGATION.splash);
+    }
   };
   const SwiperPaginationHandler = () => {
     if (ProductDetail?.productDetail?.product_detail?.image === null) {

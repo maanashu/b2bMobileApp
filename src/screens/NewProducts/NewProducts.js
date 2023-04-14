@@ -27,13 +27,38 @@ export function NewProducts() {
   const categoryData = useSelector(getCategorySelector);
   const categoryArray = categoryData?.categoryList?.data;
   const splicedArray = categoryArray?.slice(0, 7);
+  const [mergedDataa, setMergedData] = useState();
 
   const ProductsData = useSelector(getProductSelector);
   const Products = ProductsData?.product;
-  // console.log("response: " + JSON.stringify(ProductsData?.productDetail));
-
   const newValue = { name: "All" };
   splicedArray.unshift(newValue);
+  // console.log(
+  //   "response: " +
+  //     JSON.stringify(
+  //       ProductsData?.productDetail?.product_detail?.product_attribute
+  //     )
+  // );
+  //function to merge dynamic arrays
+
+  // const mergeArrays = (arrays) => {
+  //   return [].concat.apply([], arrays);
+  // };
+
+  // let myMappedData =
+  //   ProductsData?.productDetail?.product_detail?.product_attribute.map(
+  //     (data) => {
+  //       return data?.attributes?.attribute_values;
+  //     }
+  //   );
+  // let myLetVariable = myMappedData;
+  // useEffect(() => {
+  //   const mergedArray = mergeArrays(myLetVariable);
+  //   setMergedData(mergedArray);
+  // }, []);
+  // console.log("item merged-->" + JSON.stringify(mergedDataa));
+
+  // console.log("myLetVariable: ", myLetVariable);
 
   useEffect(() => {
     const Object = {

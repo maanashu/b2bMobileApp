@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Image,
@@ -42,6 +42,36 @@ export function Inquiries() {
       time: "10:39 am",
     },
   ];
+  const ChatDuta = [
+    {
+      id: 1,
+      pic: userPhoto,
+      businessName: "Carrols Restaurant Group",
+      userName: "Daniel W. Gay",
+      position: "Sales Manager",
+      message:
+        "The obvious strategy of a tag line is to make your The obvious strategy of a tag line is to make your",
+      time: "10:39 am",
+    },
+    {
+      id: 2,
+      pic: userPhoto,
+      businessName: "Carrols Restaurant Group",
+      userName: "Daniel W. Gay",
+      position: "Sales Manager",
+      message:
+        "The obvious strategy of a tag line is to make your The obvious strategy of a tag line is to make your",
+      time: "10:39 am",
+    },
+  ];
+  // const mergeArrays = (arrays) => {
+  //   return [].concat.apply([], arrays);
+  // };
+  // let dataArray = [ChatData, ChatDuta];
+  // useEffect(() => {
+  //   const mergedArray = mergeArrays(dataArray);
+  //   console.log("item" + JSON.stringify(mergedArray));
+  // }, []);
 
   const Item = ({ item }) => (
     <>

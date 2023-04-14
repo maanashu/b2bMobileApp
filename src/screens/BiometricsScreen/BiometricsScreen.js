@@ -47,6 +47,7 @@ export function BiometricsScreen({ navigation }) {
       AppState.removeEventListener("change", handleAppStateChange);
     };
   }, [appState]);
+
   useEffect(() => {
     LogBox.ignoreAllLogs();
   }, []);
