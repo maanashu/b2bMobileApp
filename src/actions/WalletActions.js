@@ -243,10 +243,10 @@ export const checkBankBalance = (data) => async (dispatch) => {
   }
 };
 
-export const redeemMoney = (data) => async (dispatch) => {
+export const redeemMoney = (amount, account) => async (dispatch) => {
   dispatch(redeemMoneyRequest());
   try {
-    const res = await WalletController.redeemMoney(data);
+    const res = await WalletController.redeemMoney(amount, account);
     dispatch(getWalletBalance());
     dispatch(getTransactions());
     return dispatch(redeemMoneySuccess(res));

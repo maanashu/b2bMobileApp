@@ -376,6 +376,11 @@ export const styles = StyleSheet.create({
     paddingLeft: SW(10),
     backgroundColor: COLORS.textInputBackground,
   },
+  rowView: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
   checkboxImage: {
     width: SW(20),
     height: SW(20),
@@ -400,5 +405,74 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     alignSelf: "center",
     bottom: SH(40),
+  },
+  addBalanceView: {
+    paddingHorizontal: SW(20),
+    paddingVertical: SH(10),
+  },
+  addBalanceText: {
+    color: COLORS.primary,
+    fontFamily: Fonts.SemiBold,
+    fontSize: SF(15),
+  },
+  modalContainerStyle: {
+    flex: 1,
+    backgroundColor: COLORS.white,
+    paddingHorizontal: SW(20),
+    paddingVertical: SH(15),
+    marginTop: SH(100),
+    marginBottom: SH(100),
+    // position: "absolute",
+    // height: 500,
+    // width: "100%",
+  },
+  crossView: {
+    alignSelf: "flex-end",
+  },
+  cross: {
+    fontSize: SF(20),
+    color: COLORS.darkGrey,
+  },
+  enterAmountText: {
+    alignSelf: "center",
+    color: COLORS.darkGrey,
+    fontSize: SF(16),
+  },
+  amountInput: {
+    borderBottomWidth: 0,
+    backgroundColor: COLORS.placeHolder,
+    width: SW(150),
+    alignSelf: "center",
+    paddingHorizontal: SW(20),
+    paddingVertical: SW(10),
+    height: SH(50),
+    borderRadius: SW(5),
+  },
+  bankAccountsView: {
+    borderWidth: 1,
+    borderRadius: SW(5),
+    paddingHorizontal: SW(15),
+    paddingVertical: SH(10),
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  bankDetailsText: {
+    color: COLORS.darkGrey,
+    fontSize: SF(15),
+    fontFamily: Fonts.Regular,
+  },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  checkIconstyle: {
+    height: SW(20),
+    width: SW(20),
+  },
+  modalButtonView: {
+    flex: 1,
+    justifyContent: "flex-end",
+    paddingBottom: SH(20),
   },
 });

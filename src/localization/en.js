@@ -48,6 +48,8 @@ export const en = {
     invalidEmail: "Please enter valid email address",
     selectType: "Please select a type",
     token: "Login to report a issue",
+    enterAmount: "Please enter valid amount",
+    selectBank: "Please select a bank account",
   },
   personalInformation: {
     email: "Enter you email address",

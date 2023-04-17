@@ -109,25 +109,30 @@ export class WalletController {
     });
   }
 
-  static async redeemMoney(data) {
+  static async redeemMoney(amount, account) {
     return new Promise((resolve, reject) => {
       const endpoint = ApiWalletInventory.redeemMoney;
       const body = {
-        amount: data.amount,
-        account_name: data.account_name,
+        amount: amount,
+        account_name: account,
       };
       HttpClient.post(endpoint, body)
         .then((response) => {
-          if (
-            response.msg ===
-            "Transaction has officially settled, a process that takes about two business days to complete."
-          ) {
-            alert(response.msg);
-          }
+          Toast.show({
+            text2: response.msg,
+            position: "bottom",
+            type: "success_toast",
+            visibilityTime: 2000,
+          });
           resolve(response);
         })
         .catch((error) => {
-          alert(error.msg);
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 2000,
+          });
           reject(new Error(error.msg));
         });
     });
@@ -206,8 +211,10 @@ export class WalletController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
+          // console.log("wallet bal controller resp", response);
         })
         .catch((error) => {
+          // console.log("wallet bal controller error", error);
           reject(new Error(error.msg));
         });
     });

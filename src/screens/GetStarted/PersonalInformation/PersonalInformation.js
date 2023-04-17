@@ -31,8 +31,10 @@ import { digits, emailReg } from "@/Utils/validators";
 import { createWallet } from "@/actions/WalletActions";
 import { Loader } from "@/components/Loader";
 import { navigate } from "@/navigation/NavigationRef";
+import { useIsFocused } from "@react-navigation/native";
 
 export function PersonalInformation(params) {
+  const isFocused = useIsFocused();
   const ref = useRef(null);
   const dispatch = useDispatch();
   const getData = useSelector(userSelector);
@@ -65,6 +67,8 @@ export function PersonalInformation(params) {
   // console.log("country code-->", getData?.phone?.countryCode);
   // console.log("phone number-->", getData?.phone?.phoneNumber);
   console.log("email-->", getData?.registerData?.email);
+
+  useEffect(() => {}, [isFocused]);
 
   useEffect(() => {
     dispatch(getUser);

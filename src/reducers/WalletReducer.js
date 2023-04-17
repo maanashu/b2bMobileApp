@@ -8,6 +8,8 @@ const INITIALSTATE = {
   receivers: [],
   walletData: {},
   walletInfo: {},
+  balance: {},
+  redeem: {},
 };
 
 export const walletReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -41,6 +43,16 @@ export const walletReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         walletData: payload.walletData,
+      };
+    case TYPES.ADD_BALANCE_SUCCESS:
+      return {
+        ...state,
+        balance: payload.balance,
+      };
+    case TYPES.REDEEM_MONEY_SUCCESS:
+      return {
+        ...state,
+        redeem: payload.redeem,
       };
 
     default:
