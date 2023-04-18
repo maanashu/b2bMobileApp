@@ -25,6 +25,7 @@ import {
   forward,
   location,
   orderDetails,
+  yewiLogo,
 } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
@@ -140,7 +141,11 @@ export function MyOrders({ route }) {
           </View>
 
           <Spacer space={SH(15)} />
-          <CompanyDetailView />
+          <CompanyDetailView
+            title={"Yiwu Leqi E-Commerce Firm"}
+            profilePhoto={yewiLogo}
+            locationText={"Miami, USA"}
+          />
         </View>
 
         <Spacer space={SH(20)} />

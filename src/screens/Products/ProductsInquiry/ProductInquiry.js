@@ -385,10 +385,10 @@ export function ProductInquiry(params) {
                   ProductDetail?.productDetail?.product_detail?.supplies[0]
                     ?.seller_details?.user_profiles?.organization_name
                 }
-                profilePhoto={
-                  ProductDetail?.productDetail?.product_detail?.supplies[0]
-                    ?.seller_details?.user_profiles?.profile_photo
-                }
+                profilePhoto={{
+                  uri: ProductDetail?.productDetail?.product_detail?.supplies[0]
+                    ?.seller_details?.user_profiles?.profile_photo,
+                }}
                 locationText={
                   ProductDetail?.productDetail?.product_detail?.supplies[0]
                     ?.seller_details?.user_locations[0]?.city +

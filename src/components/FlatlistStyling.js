@@ -15,7 +15,7 @@ import { styles } from "@/screens/TopTabScreens/Business/Business.style";
 import { CompanyDetailView } from "./CompanyDetailView";
 import { Spacer } from "./Spacer";
 import FastImage from "react-native-fast-image";
-import { Fonts, headphones } from "@/assets";
+import { Fonts, headphones, yewiLogo } from "@/assets";
 import { strings } from "@/localization";
 
 const width = Dimensions.get("window").width * 0.8;
@@ -85,7 +85,11 @@ export const renderCompanies = ({ item }) => {
             marginRight: SW(1),
           }}
         >
-          <CompanyDetailView />
+          <CompanyDetailView
+            title={"Yiwu Leqi E-Commerce Firm"}
+            profilePhoto={yewiLogo}
+            locationText={"Miami, USA"}
+          />
 
           {/* <View
             style={{

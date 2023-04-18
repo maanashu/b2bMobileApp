@@ -7,7 +7,7 @@ import { clock, location, star, yewiCertified, yewiLogo } from "@/assets";
 export function CompanyDetailView({ title, profilePhoto, locationText }) {
   return (
     <View style={styles.yewiInnerView}>
-      <Image source={{ uri: profilePhoto }} style={styles.logoYewi} />
+      <Image source={profilePhoto} style={styles.logoYewi} />
       <View style={{ paddingHorizontal: SW(10) }}>
         <Text style={styles.yewiHeadingText}>{title}</Text>
         <View style={styles.yewiSmallView}>

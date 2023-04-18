@@ -4,6 +4,7 @@ import { Spacer, CompanyDetailView } from "@/components";
 import { strings } from "@/localization";
 import { styles } from "../Manufacturers.styles.";
 import { SH } from "@/theme";
+import { yewiLogo } from "@/assets";
 
 export function CompanyView({ about }) {
   const CompanyData = [
@@ -52,7 +53,11 @@ export function CompanyView({ about }) {
       </View>
       <Spacer space={SH(10)} />
 
-      <CompanyDetailView />
+      <CompanyDetailView
+        title={"Yiwu Leqi E-Commerce Firm"}
+        profilePhoto={yewiLogo}
+        locationText={"Miami, USA"}
+      />
 
       <Spacer space={SH(20)} />
 

@@ -16,6 +16,7 @@ import { backArrow, Fonts } from "@/assets";
 import { strings } from "@/localization";
 import { COLORS, SF, SH, SW } from "@/theme";
 import { Completed } from "../Completed/Completed";
+import { goBack } from "@/navigation/NavigationRef";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -90,6 +91,7 @@ export function MyPurchase() {
         <NameHeaderCoins
           back={backArrow}
           title={strings.myPurchase.myPurchase}
+          onPress={() => goBack()}
         />
         <Spacer space={SH(20)} />
         <Search

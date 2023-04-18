@@ -20,6 +20,7 @@ import {
   checkBox,
   selectedCheckBox,
   backArrow,
+  yewiLogo,
 } from "@/assets";
 import { ShadowStyles } from "@/theme";
 
@@ -137,7 +138,11 @@ export function SendInquiry() {
           </View>
 
           <Spacer space={SH(10)} />
-          <CompanyDetailView />
+          <CompanyDetailView
+            title={"Yiwu Leqi E-Commerce Firm"}
+            profilePhoto={yewiLogo}
+            locationText={"Miami, USA"}
+          />
           <Spacer space={SH(10)} />
           <Image
             resizeMode="stretch"

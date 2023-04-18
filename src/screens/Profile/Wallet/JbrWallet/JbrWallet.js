@@ -368,6 +368,7 @@ export function JbrWallet() {
             </View>
           </View>
         </Modal>
+
         <Modal
           isVisible={redeemBalanceModal}
           backdropOpacity={0.5}

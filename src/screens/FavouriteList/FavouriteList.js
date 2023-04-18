@@ -54,7 +54,7 @@ export function FavouriteList() {
         <Spacer space={SH(20)} />
       </ScrollView>
 
-      <View>
+      {/* <View>
         <FlatList
           windowSize={1}
           data={coinPlans}
@@ -63,7 +63,7 @@ export function FavouriteList() {
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
         />
-      </View>
+      </View> */}
     </ScreenWrapper>
   );
 }

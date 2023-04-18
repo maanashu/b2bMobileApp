@@ -21,7 +21,7 @@ import {
 import { COLORS } from "@/theme/Colors";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { navigate } from "@/navigation/NavigationRef";
-import { forward, threeDots } from "@/assets";
+import { forward, threeDots, yewiLogo } from "@/assets";
 
 import { LastData, fourthData } from "./Components/FlatlisitData";
 import { ms } from "react-native-size-matters";
@@ -438,7 +438,11 @@ export function Products({ navigation }) {
         <Spacer space={SH(15)} />
 
         <View style={styles.yewiView}>
-          <CompanyDetailView />
+          <CompanyDetailView
+            title={"Yiwu Leqi E-Commerce Firm"}
+            profilePhoto={yewiLogo}
+            locationText={"Miami, USA"}
+          />
 
           <Spacer space={SH(20)} />
 

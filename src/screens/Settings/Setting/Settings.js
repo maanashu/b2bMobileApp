@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { styles } from "./Settings.styles";
 import { NameHeaderCoins, ScreenWrapper, Spacer } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
-import { navigate } from "@/navigation/NavigationRef";
+import { goBack, navigate } from "@/navigation/NavigationRef";
 import { ms } from "react-native-size-matters";
 import {
   backArrow,
@@ -154,6 +154,7 @@ export function Settings() {
         title={strings.profile.settings}
         back={backArrow}
         amount={"0"}
+        onPress={() => goBack()}
       />
 
       <View style={styles.mainView}>

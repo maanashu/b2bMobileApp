@@ -38,6 +38,7 @@ import {
   addLocation,
   toggleOn,
   toggleOff,
+  yewiLogo,
 } from "@/assets";
 import { strings } from "@/localization";
 import { ButtonIcon } from "@/components/ButtonIcon";
@@ -186,7 +187,11 @@ export function VideoCall({ onClosePress }) {
 
       {!isVisible && (
         <View style={{ alignItems: "center" }}>
-          <CompanyDetailView />
+          <CompanyDetailView
+            title={"Yiwu Leqi E-Commerce Firm"}
+            profilePhoto={yewiLogo}
+            locationText={"Miami, USA"}
+          />
 
           <Spacer space={SH(40)} />
 

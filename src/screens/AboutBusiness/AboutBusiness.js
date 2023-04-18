@@ -155,7 +155,11 @@ export function AboutBusiness() {
         >
           <Spacer space={SH(20)} />
           <View style={styles.yewiView}>
-            <CompanyDetailView />
+            <CompanyDetailView
+              title={"Yiwu Leqi E-Commerce Firm"}
+              profilePhoto={yewiLogo}
+              locationText={"Miami, USA"}
+            />
 
             <Spacer space={SH(15)} />
 
