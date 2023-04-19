@@ -15,11 +15,12 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
-import { calendar } from "@/assets";
+import { calendar, unchecked } from "@/assets";
 import { COLORS, SH, SW } from "@/theme";
 import { TYPES } from "@/Types/Types";
 import { NAVIGATION } from "@/constants";
 import { strings } from "@/localization";
+import IonIcon from "react-native-vector-icons/Ionicons";
 import { GOOGLE_MAP } from "@/constants/ApiKeys";
 import { getUser as userSelector } from "@/selectors/UserSelectors";
 import { ScreenWrapper, Spacer, Button } from "@/components";
@@ -63,10 +64,11 @@ export function PersonalInformation(params) {
   const [appartment, setAppartment] = useState("");
   const [dateformat, setDateformat] = useState(getData?.registerData?.dob);
   const [countryCode, setCountryCode] = useState("");
-  // const [individual, setIndividual] = useState(false);
+  const [individual, setIndividual] = useState(false);
+  const [business, setBusiness] = useState(false);
   // console.log("country code-->", getData?.phone?.countryCode);
   // console.log("phone number-->", getData?.phone?.phoneNumber);
-  console.log("email-->", getData?.registerData?.email);
+  // console.log("email-->", getData?.registerData?.email);
 
   useEffect(() => {}, [isFocused]);
 
@@ -76,7 +78,7 @@ export function PersonalInformation(params) {
       setDateformat(getData?.registerData?.dob);
       setEmail(getData?.registerData?.email);
     }, 2000);
-  }, []);
+  }, [isFocused]);
   const handleBackButton = () => {
     if (params?.route?.params?.route === "kyc") {
       navigate(NAVIGATION.productInquiry);
@@ -172,16 +174,14 @@ export function PersonalInformation(params) {
         visibilityTime: 1500,
         text2: strings.validation.invalidEmail,
       });
-    }
-    // else if (individual === false && business === false) {
-    //   Toast.show({
-    //     position: "bottom",
-    //     type: "error_toast",
-    //     visibilityTime: 1500,
-    //     text2: strings.validation.selectType,
-    //   });
-    // }
-    else if (!street) {
+    } else if (individual === false && business === false) {
+      Toast.show({
+        position: "bottom",
+        type: "error_toast",
+        visibilityTime: 1500,
+        text2: strings.validation.selectType,
+      });
+    } else if (!street) {
       Toast.show({
         position: "bottom",
         type: "error_toast",
@@ -232,7 +232,7 @@ export function PersonalInformation(params) {
         email: email,
         countryCode: countryCode,
         stateCode: stateCode,
-        type: "individual",
+        type: individual ? "individual" : "business",
       };
       dispatch(createWallet(data));
     }
@@ -371,7 +371,7 @@ export function PersonalInformation(params) {
                 placeholder={strings.personalInformation.email}
               />
 
-              {/* <Spacer space={SH(16)} />
+              <Spacer space={SH(16)} />
               <View>
                 <Text style={styles.labelStyle}>
                   {strings.personalInformation.type}
@@ -462,7 +462,7 @@ export function PersonalInformation(params) {
                     )}
                   </View>
                 </View>
-              </View> */}
+              </View>
 
               <Spacer space={SH(16)} />
               {/* <View>

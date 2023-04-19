@@ -79,7 +79,7 @@ export const ApiWalletInventory = {
   getGraph: WALLET_URL + "transactions/user/statistics",
   businessTypes: WALLET_URL + "wallets/business-types",
   naicsCode: WALLET_URL + "wallets/naics-categories",
-  businessRegistration: WALLET_URL + "wallets/business/register",
+  businessRegistrationURL: WALLET_URL + "wallets/business/register",
   requestBusinessKyc: WALLET_URL + "wallets/business/request-kyc",
   checkBusinessKyc: WALLET_URL + "wallets/business/check-kyc",
   businessDocs: WALLET_URL + "wallets/business/upload-documents",

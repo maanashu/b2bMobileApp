@@ -91,4 +91,5 @@ export const NAVIGATION = {
   connectBank: "ConnectBank",
   searchPlaces: "SearchPlaces",
   biometricsScreen: "BiometricsScreen",
+  businessRegistration: "BusinessRegistration",
 };

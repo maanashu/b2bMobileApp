@@ -12,6 +12,8 @@ const INITIALSTATE = {
   plaidToken: {},
   linkBank: {},
   bankAccounts: [],
+  business: {},
+  doc: {},
 };
 
 export const kycReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -34,17 +36,17 @@ export const kycReducer = (state = { INITIALSTATE }, { payload, type }) => {
     case TYPES.REQUEST_BUSINESS_SUCCESS:
       return {
         ...state,
-        requestBusinessKyc: payload,
+        requestBusinessKyc: payload.kyc,
       };
     case TYPES.CHECK_BUSINESS_SUCCESS:
       return {
         ...state,
-        checkBusinessKyc: payload,
+        checkBusinessKyc: payload.checkkyc,
       };
     case TYPES.REQUEST_KYC_SUCCESS:
       return {
         ...state,
-        requestKyc: payload,
+        requestKyc: payload.kyc,
       };
     case TYPES.CHECK_KYC_SUCCESS:
       return {
@@ -70,6 +72,16 @@ export const kycReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         bankAccounts: payload.accnt.payload,
+      };
+    case TYPES.BUSINESS_REGISTRATION_SUCCESS:
+      return {
+        ...state,
+        business: payload.business,
+      };
+    case TYPES.DOCUMENTS_UPLOAD_SUCCESS:
+      return {
+        ...state,
+        doc: payload.doc,
       };
     case TYPES.CLEAR_STORE:
       return INITIALSTATE;

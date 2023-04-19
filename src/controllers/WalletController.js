@@ -30,12 +30,13 @@ export class WalletController {
       HttpClient.post(endpoint, body)
         .then((response) => {
           // console.log("response====", response);
-          if (response?.status_code === 201) {
-            console.log("wallet controller sucess====", response);
+          resolve(response);
+
+          if (response?.msg === "wallet created successfully") {
+            // console.log("wallet controller sucess====", response);
             navigate(NAVIGATION.checkAndRequestKYC);
-            resolve(response);
           } else {
-            console.log("rewalletg controller error====", response?.msg);
+            // console.log("rewalletg controller error====", response?.msg);
             navigate(NAVIGATION.checkAndRequestKYC);
 
             Toast.show({

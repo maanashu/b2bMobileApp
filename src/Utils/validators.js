@@ -7,3 +7,5 @@ export const mobileReg = /^\+[1-9]{1}[0-9]{3,14}$/;
 export const characterReg = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
 export const digits = /^[0-9]+$/;
 export const cardExpiryDate = /^(?:0?[1-9]|1[0-2]) *\/ *[1-9][0-9]$/;
+export const websiteUrl =
+  /^((http(s?)?):\/\/)?([wW]{3}\.)?[a-zA-Z0-9\-.]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/g;

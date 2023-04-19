@@ -36,6 +36,7 @@ import ActionSheet from "react-native-actionsheet";
 import { ApiUserInventory } from "@/Utils/APIinventory";
 import { getUser as getuser } from "@/selectors/UserSelectors";
 import { Loader } from "@/components/Loader";
+import { getWallet } from "@/selectors/WalletSelector";
 
 export function AgeVerification(props) {
   const frontRef = useRef(null);
@@ -78,6 +79,9 @@ export function AgeVerification(props) {
   useEffect(() => {
     dispatch(getDocumentTypes());
   }, []);
+
+  const walletData = useSelector(getWallet);
+  console.log("walletData", walletData?.walletData?.payload?.type);
 
   const uploadFrontDocument = async (image) => {
     const formData = new FormData();
@@ -169,15 +173,27 @@ export function AgeVerification(props) {
       //     alert("connect bank");
       //   }
       // } else {
-      const res = await dispatch(documentsUpload(data, uuid));
-      console.log("documentsUpload====", res);
-      if (res?.type === "DOCUMENTS_UPLOAD_SUCCESS") {
-        const walletres = await dispatch(getWalletUserProfile(uuid));
-        console.log("getWalletUserProfile====", walletres);
-        if (walletres?.type === "GET_WALLET_USER_SUCCESS") {
+      if (screen === "business") {
+        const res = await dispatch(businessDocumentUpload(data, uuid));
+        if (res?.type === TYPES.BUSINESS_DOCUMENTS_UPLOAD_SUCCESS) {
+          dispatch(getWalletUserProfile(uuid));
           navigate(NAVIGATION.connectBank);
         }
-        // }
+      } else {
+        const res = await dispatch(documentsUpload(data, uuid));
+        console.log("documentsUpload====", res);
+        if (res?.type === "DOCUMENTS_UPLOAD_SUCCESS") {
+          const walletres = await dispatch(getWalletUserProfile(uuid));
+          console.log("getWalletUserProfile====", walletres);
+          if (walletres?.type === "GET_WALLET_USER_SUCCESS") {
+            if (walletData?.walletData?.payload?.type === "business") {
+              navigate(NAVIGATION.businessRegistration);
+            } else {
+              navigate(NAVIGATION.connectBank);
+            }
+          }
+          // }
+        }
       }
     }
   };

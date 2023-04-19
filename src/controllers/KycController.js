@@ -102,40 +102,29 @@ export class KycController {
   }
 
   static async businessRegistration(data) {
-    const endpoint = ApiWalletInventory.businessRegistration;
-    const body = {
-      address_type: data.address_type,
-      address: data.address,
-      city: data.city,
-      state: data.business_registration_state,
-      zip: data.zip,
-      country: data.country,
-      phone: data.phone,
-      email: data.email,
-      dob: data.dob,
-      entity_name: data.entity_name,
-      business_type: data.business_type,
-      business_type_uuid: data.business_type_uuid,
-      business_website: data.business_website,
-      naics_code: "722",
-      business_registration_state: data.business_registration_state,
-      doing_business_as: data.doing_business_as,
-      employer_identification_number: data.employer_identification_number,
-    };
-    await HttpClient.post(endpoint, body)
-      .then((response) => {
-        if (response?.msg === "business registered successfully") {
-          navigate(NAVIGATION.checkReqKyc, { screen: "business" });
-        }
-      })
-      .catch((error) => {
-        // Toast.show({
-        //   text2: error.payload,
-        //   position: "bottom",
-        //   type: "error_toast",
-        //   visibilityTime: 2000,
-        // });
-      });
+    return new Promise((resolve, reject) => {
+      const endpoint = ApiWalletInventory.businessRegistrationURL;
+      const finalData = { ...data, naics_code: "722" };
+      HttpClient.post(endpoint, finalData)
+        .then((response) => {
+          // alert(JSON.stringify(response));
+          resolve(response);
+          if (response?.msg === "business registered successfully") {
+            navigate(NAVIGATION.checkAndRequestKYC, { screen: "business" });
+          }
+        })
+        .catch((error) => {
+          // console.log("check body", JSON.stringify(body));
+          // console.log("check end", JSON.stringify(endpoint));
+          console.log("controller error: " + error);
+          // Toast.show({
+          //   text2: error.payload,
+          //   position: "bottom",
+          //   type: "error_toast",
+          //   visibilityTime: 2000,
+          // });
+        });
+    });
   }
 
   static async requestBusinessKyc() {
@@ -144,8 +133,11 @@ export class KycController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
+          console.log("controller success", response);
         })
         .catch((error) => {
+          console.log("controller error", error);
+
           reject(new Error((strings.verify.error = error.msg)));
         });
     });

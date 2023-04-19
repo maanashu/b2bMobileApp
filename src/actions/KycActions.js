@@ -255,6 +255,7 @@ export const requestBusinessKyc = () => async (dispatch) => {
   dispatch(requestBusinessRequest());
   try {
     const res = await KycController.requestBusinessKyc();
+    console.log("action response: " + res);
     if (res.payload === true && res.msg === "Requested for KYC") {
       dispatch(requestBusinessSuccess(res));
     }

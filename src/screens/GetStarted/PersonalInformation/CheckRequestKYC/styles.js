@@ -77,6 +77,11 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: SW(10),
   },
+  textStyle: {
+    fontSize: SF(16),
+    fontFamily: Fonts.SemiBold,
+    color: COLORS.white,
+  },
   continueButtonStyle: {
     width: SW(100),
     borderWidth: 1,
@@ -91,5 +96,13 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.SemiBold,
     fontSize: SF(12),
     color: COLORS.primary,
+  },
+  loader: {
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignSelf: "center",
+    position: "absolute",
   },
 });

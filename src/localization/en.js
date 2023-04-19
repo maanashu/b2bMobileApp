@@ -50,6 +50,14 @@ export const en = {
     token: "Login to report a issue",
     enterAmount: "Please enter valid amount",
     selectBank: "Please select a bank account",
+    emptyBusinessName: "Please enter a business name",
+    invalidCardNumber: "Please enter valid card number",
+    emptyCardHolderName: "Please enter card holder name",
+    invalidBusinessName: "Please enter a valid business name",
+    invalidCardHolderName: "Please enter valid card holder name",
+    emptyEmployerNo: "Please enter Employer Identification Number",
+    invalidBusinessWebsite: "Please enter a valid business website",
+    invalidEmployerNo: "Please enter valid Employer Identification Number",
   },
   personalInformation: {
     email: "Enter you email address",
@@ -734,7 +742,11 @@ export const en = {
   },
 
   kyc: {
+    reviewStatus: "KYB Review Status",
     requestTitle: "Request KYC",
+    requestKyb: "Request KYB",
+    pending: "Status:  Pending",
+    status: "Status:  ",
     verificationMsg:
       "Verification may take a few minutes, so make sure to refresh and check your status",
     kycReviewStatus: "KYC Review Status",
@@ -857,6 +869,15 @@ export const en = {
   },
   biometric: {
     setupBiometric: "Set up device biometrics to use this feature",
+  },
+  businessReg: {
+    businessName: "Business Name",
+    naicsType: "Select Naics Code",
+    header: "Business Registration",
+    doingBusiness: "Doing Business as",
+    businessWebsite: "Business Website",
+    businessType: "Select Business Type",
+    employerIDNumber: "Employer Identification Number",
   },
   // Static strings
 

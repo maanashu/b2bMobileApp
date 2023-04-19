@@ -196,6 +196,7 @@ export function ProductInquiry(params) {
     } else {
       navigate(NAVIGATION.splash);
     }
+    // navigate(NAVIGATION.businessRegistration, { screen: "business" });
   };
   const SwiperPaginationHandler = () => {
     if (ProductDetail?.productDetail?.product_detail?.image === null) {
@@ -215,7 +216,7 @@ export function ProductInquiry(params) {
             <TouchableOpacity onPress={colorChange}>
               <Image
                 source={fav}
-                resizeMode="stretch"
+                resizeMode="contain"
                 style={[
                   styles.favIcon,
                   { tintColor: favourite == true ? "red" : "black" },
@@ -671,7 +672,7 @@ export function ProductInquiry(params) {
           </View>
         </View>
       </ScrollView>
-      {/* {isLoadingDetails ? <Loader /> : null} */}
+      {isLoadingDetails ? <Loader /> : null}
     </ScreenWrapper>
   );
 }

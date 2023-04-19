@@ -35,6 +35,7 @@ import {
   BusinessHome,
   BusinessProducts,
   BusinessProfile,
+  BusinessRegistration,
   Chatting,
   CheckAndRequestKYC,
   Checkout,
@@ -731,6 +732,11 @@ export function AppBottom() {
       <Stack.Screen
         component={ConnectBank}
         name={NAVIGATION.connectBank}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={BusinessRegistration}
+        name={NAVIGATION.businessRegistration}
         options={{ headerShown: false }}
       />
 
