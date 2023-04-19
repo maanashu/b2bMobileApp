@@ -62,14 +62,23 @@ export function JbrWallet() {
     dispatch(getWalletBalance());
     dispatch(getBankAccounts());
   }, []);
+  const dollarToCents = (dollarValue) => {
+    const centsValue = dollarValue * 100;
+    return centsValue;
+  };
+  const valueInCents = dollarToCents(amount);
+  const valueInDollars = Math.floor(valueInCents);
+  // console.log("---->" + valueInDollars);
 
   const onEnterAmount = (data) => {
-    setamount(data);
+    const regex = /^\d*\.?\d{0,2}$/;
+    if (regex.test(data)) {
+      setamount(data);
+    }
     if (accounts?.bankAccounts?.length === 1) {
       setSelectedAccount(accounts?.bankAccounts[0]);
     }
   };
-
   const renderItem = ({ item }) => (
     <View style={styles.tranHisCon}>
       <View style={{ display: "flex", flexDirection: "row" }}>
@@ -89,7 +98,6 @@ export function JbrWallet() {
       <Text style={styles.balanceText}>{item.balance}</Text>
     </View>
   );
-
   const renderBankAccounts = ({ item }) => {
     return (
       <>
@@ -130,7 +138,6 @@ export function JbrWallet() {
       </>
     );
   };
-
   const addMoneyHandler = () => {
     if (amount == undefined) {
       Toast.show({
@@ -154,11 +161,14 @@ export function JbrWallet() {
         visibilityTime: 2000,
       });
     } else {
-      dispatch(addWalletBalanceApi(amount, selectedAccount?.account_name));
+      dispatch(
+        addWalletBalanceApi(valueInDollars, selectedAccount?.account_name)
+      );
       setIsAddBalanceModal(false);
     }
   };
   const redeemMoneyHandler = () => {
+    1;
     if (amount == undefined) {
       Toast.show({
         position: "bottom",
@@ -181,11 +191,10 @@ export function JbrWallet() {
         visibilityTime: 2000,
       });
     } else {
-      dispatch(redeemMoney(amount, selectedAccount?.account_name));
+      dispatch(redeemMoney(valueInDollars, selectedAccount?.account_name));
       setRedeemBalanceModal(false);
     }
   };
-
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <>
@@ -211,7 +220,9 @@ export function JbrWallet() {
                   </Text>
                   <Text style={styles.balance}>
                     {strings.jbrWallet.JBR}{" "}
-                    {wallet?.getWalletBalance?.sila_balance.toFixed(2)}
+                    {Math.floor(
+                      wallet?.getWalletBalance?.sila_balance / 100
+                    ).toFixed(2)}
                   </Text>
                 </View>
               </View>
@@ -350,6 +361,7 @@ export function JbrWallet() {
               onChangeText={(text) => {
                 onEnterAmount(text);
               }}
+              keyboardType="numeric"
               value={amount}
             />
 
