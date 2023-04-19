@@ -121,7 +121,7 @@ export function FaceIdPin() {
 
           <Spacer space={SH(10)} />
 
-          <View style={styles.pinButton}>
+          {/* <View style={styles.pinButton}>
             <Switch
               TextStyle={styles.bottomTexts}
               resizeMode="contain"
@@ -129,7 +129,7 @@ export function FaceIdPin() {
               source={rightArrowBlue}
               title={strings.faceId.setupFaceId}
             />
-          </View>
+          </View> */}
 
           <Spacer space={SH(15)} />
         </View>
