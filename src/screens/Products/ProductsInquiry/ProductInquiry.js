@@ -66,7 +66,7 @@ export function ProductInquiry(params) {
   const token = user?.user?.payload?.token;
   const kyc = useSelector(getKyc);
   const kycCheck = kyc?.checkkyc;
-  console.log("checking kyc", user?.user?.payload?.wallet_step);
+  // console.log("checking kyc", user?.user?.payload?.wallet_step);
 
   const colorChange = () => {
     setFavourite(!favourite);
@@ -86,21 +86,19 @@ export function ProductInquiry(params) {
   const object = {
     service_type: "product",
   };
-  // useEffect(() => {
-  //   dispatch(getProductDetail(1));
-  // }, []);
+
   const getProductBody = {
     id: params?.route?.params?.itemId,
     seller_id: params?.route?.params?.seller_id,
   };
   // console.log("seller_id: " + params?.route?.params?.seller_id);
+  const data = {
+    app_name: "b2b",
+    delivery_options: "3",
+    seller_id: params?.route?.params?.seller_id,
+  };
   useEffect(() => {
-    dispatch(
-      getProductDetail(
-        params?.route?.params?.itemId,
-        params?.route?.params?.seller_id
-      )
-    );
+    dispatch(getProductDetail(params?.route?.params?.itemId, data));
     dispatch(getTrendingProducts(object));
   }, []);
 
@@ -651,7 +649,7 @@ export function ProductInquiry(params) {
               data={
                 ProductDetail?.productDetail?.product_detail?.product_attribute
               }
-              ListEmptyComponent={renderNoData}
+              // ListEmptyComponent={renderNoData}
               renderItem={ProductDetails}
               keyExtractor={(item) => item.id}
             />

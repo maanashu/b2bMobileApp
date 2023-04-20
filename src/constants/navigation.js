@@ -92,4 +92,5 @@ export const NAVIGATION = {
   searchPlaces: "SearchPlaces",
   biometricsScreen: "BiometricsScreen",
   businessRegistration: "BusinessRegistration",
+  noWalletScreen: "NoWalletScreen",
 };

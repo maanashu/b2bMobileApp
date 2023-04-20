@@ -38,13 +38,15 @@ export function BrandsProducts(params) {
   useEffect(() => {
     dispatch(getBrands(params?.route?.params?.categoryId));
   }, []);
-
+  console.log("brands details", JSON.stringify(brandsData?.brandsList[0]?.id));
   useEffect(() => {
     setSelectedId(brandsData?.brandsList[0]?.id);
     const productobject = {
       page: 1,
       limit: 10,
       brand_id: brandsData?.brandsList[0]?.id,
+      app_name: "b2b",
+      delivery_options: "3",
     };
     dispatch(getProduct(productobject));
   }, [brandsData]);

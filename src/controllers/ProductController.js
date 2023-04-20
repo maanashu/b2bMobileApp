@@ -34,11 +34,12 @@ export class ProductController {
     });
   }
 
-  static async getProductDetail(productId, seller_id) {
+  static async getProductDetail(productId, data) {
     return new Promise((resolve, reject) => {
-      const endpoint =
-        PRODUCT_URL +
-        ApiProductInventory.getProductDetails(productId, seller_id);
+      const params = new URLSearchParams(data).toString();
+      const endpoint = `${ApiProductInventory.getProductDetails(
+        productId
+      )}?${params}`;
       HttpClient.get(endpoint)
 
         .then((response) => {

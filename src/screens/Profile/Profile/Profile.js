@@ -128,7 +128,7 @@ export function Profile() {
   const user = useSelector(getUser);
   const walletData = useSelector(getWallet);
   const token = user?.user?.payload?.token;
-  // console.log("token check-->", walletData?.INITIALSTATE?.walletData);
+  console.log("token check-->", JSON.stringify(user?.user));
   const logoutUser = () => {
     dispatch(logout());
   };
@@ -142,7 +142,11 @@ export function Profile() {
     } else if (item.title === strings.profile.myCoupons) {
       navigate(NAVIGATION.addCoupon);
     } else if (item.title === strings.profile.jbrWallet) {
-      navigate(NAVIGATION.jbrWallet);
+      if (!user?.user?.payload?.token) {
+        navigate(NAVIGATION.noWalletScreen);
+      } else {
+        navigate(NAVIGATION.jbrWallet);
+      }
     } else if (item.title === strings.profile.businessCard) {
       navigate(NAVIGATION.businessCards);
     } else if (item.title === strings.profile.searchingPreference) {

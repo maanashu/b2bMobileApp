@@ -68,6 +68,7 @@ import {
   NeedMoreHelp,
   NewProducts,
   NotificationSetting,
+  NoWalletScreen,
   Orders,
   PastCoupons,
   PastOrders,
@@ -737,6 +738,11 @@ export function AppBottom() {
       <Stack.Screen
         component={BusinessRegistration}
         name={NAVIGATION.businessRegistration}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={NoWalletScreen}
+        name={NAVIGATION.noWalletScreen}
         options={{ headerShown: false }}
       />
 

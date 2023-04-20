@@ -93,3 +93,4 @@ export { ConnectBank } from "@/screens/Payment/ConnectBank/ConnectBank";
 export { SearchPlaces } from "@/screens/SearchPlaces/SearchPlaces";
 export { BiometricsScreen } from "@/screens/BiometricsScreen/BiometricsScreen";
 export { BusinessRegistration } from "@/screens/GetStarted/BusinessRegistration/BusinessRegistration";
+export { NoWalletScreen } from "@/screens/Profile/Wallet/JbrWallet/NoWalletScreen";

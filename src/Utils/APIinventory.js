@@ -1,8 +1,15 @@
-export const USER_URL = "https://stgapiuserservice.jobr.com/api/v1/";
-export const ORDER_URL = "https://stgdapiorder.jobr.com:8024/api/v1/";
-export const PRODUCT_URL = "https://stgapiproductmgmt.jobr.com/api/v1/";
-export const SUPPORT_URL = "https://stgapisupport.jobr.com/api/v1/";
-export const WALLET_URL = "https://stgbewalletmanagement.jobr.com/api/v1/";
+// export const USER_URL = "https://stgapiuserservice.jobr.com/api/v1/";
+// export const ORDER_URL = "https://stgdapiorder.jobr.com:8024/api/v1/";
+// export const PRODUCT_URL = "https://stgapiproductmgmt.jobr.com/api/v1/";
+// export const SUPPORT_URL = "https://stgapisupport.jobr.com/api/v1/";
+// export const WALLET_URL = "https://stgbewalletmanagement.jobr.com/api/v1/";
+
+export const USER_URL = "https://apiuserservice.jobr.com/api/v1/";
+export const ORDER_URL = "https://apiorder.jobr.com:8004/api/v1/";
+export const PRODUCT_URL = "https://apiproductmgmt.jobr.com/api/v1/";
+export const SUPPORT_URL = "https://apisupport.jobr.com/api/v1/";
+export const WALLET_URL = "https://apiwallet.jobr.com/api/v1/";
+export const INVENTORY_URL = "https://apinventory.jobr.com/api/v1/";
 
 export const ApiUserInventory = {
   sendOtp: "user_phones/",
@@ -42,8 +49,7 @@ export const ApiProductInventory = {
   getProduct: `${PRODUCT_URL}products/b2b`,
   getTrendingProducts: `${PRODUCT_URL}products/b2b/trending`,
   getBanners: "banners/b2b?service_id=2&page=1&limit=10",
-  getProductDetails: (productId, seller_id) =>
-    `products/b2b/${productId}?seller_id=${seller_id}`,
+  getProductDetails: (productId) => `${PRODUCT_URL}products/b2b/${productId}`,
   getTrendingSellers: "users/sellers/b2b?page=1&limit=10&need_trending=true",
   getCoupons: `${PRODUCT_URL}coupons`,
   verifyCoupon: "coupons/verify",

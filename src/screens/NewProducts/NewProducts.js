@@ -72,6 +72,8 @@ export function NewProducts() {
 
   const getAllProducts = () => {
     const probject = {
+      app_name: "b2b",
+      delivery_options: "3",
       page: 1,
       limit: 10,
     };
@@ -170,11 +172,13 @@ export function NewProducts() {
   const listDetail = ({ item, index }) => (
     <>
       <TouchableOpacity
-        onPress={() =>
-          navigate(NAVIGATION.productInquiry, {
-            itemId: item.id,
-            seller_id: item?.supplies[0]?.seller_id,
-          })
+        onPress={
+          () =>
+            navigate(NAVIGATION.productInquiry, {
+              itemId: item.id,
+              seller_id: item?.supplies[0]?.seller_id,
+            })
+          // console.log("item uid: " + item?.supplies[0]?.seller_id)
         }
         style={[
           styles.ShoesStyle,
