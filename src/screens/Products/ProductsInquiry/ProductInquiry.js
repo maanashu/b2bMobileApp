@@ -59,39 +59,28 @@ import { Loader } from "@/components/Loader";
 import { getKyc } from "@/selectors/KycSelector";
 
 export function ProductInquiry(params) {
-  const [routedData, setroutedData] = useState(ProductDetail?.productDetail);
   const [favourite, setFavourite] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector(getUser);
   const token = user?.user?.payload?.token;
   const kyc = useSelector(getKyc);
-  const kycCheck = kyc?.checkkyc;
-  // console.log("checking kyc", user?.user?.payload?.wallet_step);
-
+  // console.log("checking kyc", user?.user?.payload?.user_profiles?.wallet_steps);
   const colorChange = () => {
     setFavourite(!favourite);
   };
-  const sellerDetails =
-    ProductDetail?.productDetail?.product_detail?.supplies[0];
+
   const ProductDetail = useSelector(getProductSelector);
-  const bundleItems =
-    ProductDetail?.productDetail?.product_detail?.bundle_products;
-  // console.log("bundleitems: " + JSON.stringify(ProductDetail?.productDetail));
+
+  // console.log(
+  //   "bundleitems: " +
+  //     JSON.stringify(ProductDetail?.productDetail?.product_detail?.supplies)
+  // );
   const isLoadingDetails = useSelector((state) =>
-    isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
-  );
-  const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
   );
   const object = {
     service_type: "product",
   };
-
-  const getProductBody = {
-    id: params?.route?.params?.itemId,
-    seller_id: params?.route?.params?.seller_id,
-  };
-  // console.log("seller_id: " + params?.route?.params?.seller_id);
   const data = {
     app_name: "b2b",
     delivery_options: "3",
@@ -180,15 +169,13 @@ export function ProductInquiry(params) {
   };
   const handleSubmit = () => {
     if (token) {
-      navigate(NAVIGATION.startOrder, {
-        bundleItems:
-          ProductDetail?.productDetail?.product_detail?.product_attribute[0]
-            ?.attributes?.attribute_values,
-      });
-
-      if (user?.user?.payload?.wallet_step !== 5) {
+      if (user?.user?.payload?.user_profiles?.wallet_steps !== 5) {
         navigate(NAVIGATION.personalInformation, {
           route: "kyc",
+        });
+      } else {
+        navigate(NAVIGATION.startOrder, {
+          attributes: ProductDetail?.productDetail?.product_detail?.supplies,
         });
       }
     } else {

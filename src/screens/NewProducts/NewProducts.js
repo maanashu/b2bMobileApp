@@ -63,7 +63,7 @@ export function NewProducts() {
   useEffect(() => {
     const Object = {
       page: 1,
-      limit: 10,
+      limit: 20,
     };
     dispatch(getCategory(Object));
     getAllProducts();
@@ -75,7 +75,7 @@ export function NewProducts() {
       app_name: "b2b",
       delivery_options: "3",
       page: 1,
-      limit: 10,
+      limit: 30,
     };
     dispatch(getProduct(probject));
   };
@@ -87,8 +87,10 @@ export function NewProducts() {
   const getProductsList = (item) => {
     setSelectedId(item.id);
     const probject = {
+      app_name: "b2b",
+      delivery_options: "3",
       page: 1,
-      limit: 10,
+      limit: 30,
       category_ids: item.id,
     };
     dispatch(getProduct(probject));
@@ -279,7 +281,7 @@ export function NewProducts() {
           ListEmptyComponent={renderNoData}
           numColumns={2}
         />
-        {isLoadingProducts ? <Loader /> : null}
+        {isLoadingProducts ? <Loader message="Loading data ..." /> : null}
       </View>
     </ScreenWrapper>
   );

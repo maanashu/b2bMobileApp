@@ -16,7 +16,6 @@ import { Button, ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { useState } from "react";
-import { backArrow } from "@/assets";
 import { strings } from "@/localization";
 import { Counter } from "./Components/CountButton";
 import { priceData } from "../Products/ProductsInquiry/FlatlistData";
@@ -32,24 +31,13 @@ export function StartOrder(params) {
   const isFocused = useIsFocused();
 
   const user = useSelector(getUser);
-  // console.log("user", user?.user?.payload?.token);
-  const bundle = params?.route?.params?.bundleItems;
-  // console.log("bundle", bundle);
+  const bundle = params?.route?.params?.attributes;
+  // console.log("bundle--", JSON.stringify(bundle));
 
   const [selectedItem, setSelectedItem] = useState("");
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    { label: "USA", value: "USA" },
-    { label: "EUR", value: "EUR" },
-    { label: "U.K", value: "U.K" },
-  ]);
+
   const SizeData = ["USA", "UK"];
 
-  const setCountry = () => {
-    setValue(items[0].value);
-    setItems(items[0].value);
-  };
   const ProductDetail = [
     {
       id: 1,
@@ -70,89 +58,6 @@ export function StartOrder(params) {
     {
       id: 5,
       image: puma5,
-    },
-  ];
-
-  const Sizes = [
-    {
-      id: 1,
-      item: 6,
-      qty: 0,
-      image: puma1,
-      size: "US 6",
-      price: "6.56",
-      itemName: "PUMA Men's Tazon 6 Wide Sneaker",
-      color: "Puma White",
-    },
-    {
-      id: 2,
-      item: 7,
-      qty: 0,
-      image: puma2,
-      size: "US 7",
-      color: "Puma White",
-      price: "6.56",
-      itemName: "PUMA Men's Tazon 6 Wide Sneaker",
-    },
-    {
-      id: 3,
-      item: 7.5,
-      qty: 0,
-      image: puma1,
-      size: "US 7.5",
-      color: "Puma White",
-      price: "6.56",
-      itemName: "PUMA Men's Tazon 6 Wide Sneaker",
-    },
-    {
-      id: 4,
-      item: 8,
-      qty: 0,
-      image: puma4,
-      size: "US 8",
-      itemName: "PUMA Men's Tazon 6 Wide Sneaker",
-      color: "Puma White",
-      price: "6.56",
-    },
-    {
-      id: 5,
-      item: 8.5,
-      qty: 0,
-      image: puma5,
-      size: "US 8.5",
-      itemName: "PUMA Men's Tazon 6 Wide Sneaker",
-      color: "Puma White",
-      price: "6.56",
-    },
-    {
-      id: 6,
-      item: 9,
-      qty: 0,
-      image: null,
-      itemName: "PUMA Men's Tazon 6 Wide Sneaker",
-      size: "US 9",
-      color: "Puma White",
-      price: "6.56",
-    },
-    {
-      id: 7,
-      item: 9.5,
-      qty: 0,
-      image: null,
-      size: "US 9.5",
-      itemName: "PUMA Men's Tazon 6 Wide Sneaker",
-      color: "Puma White",
-      price: "6.56",
-    },
-    {
-      id: 8,
-      item: 10,
-      qty: 0,
-      image: null,
-      size: "US 10",
-      itemName: "PUMA Men's Tazon 6 Wide Sneaker",
-      color: "Puma White",
-      price: "6.56",
     },
   ];
 
@@ -182,7 +87,7 @@ export function StartOrder(params) {
 
   useEffect(() => {
     try {
-      setProductArrat.reduce((sum, i) => {
+      setProductArrat?.reduce((sum, i) => {
         var sepTotal = i.qty * i.price;
         totalStore.push(sepTotal);
       }, 0);

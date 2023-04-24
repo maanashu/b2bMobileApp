@@ -32,7 +32,7 @@ import { simpleCheck } from "@/assets";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Loader } from "@/components/Loader";
 
 export function JbrWallet() {
   const dispatch = useDispatch();
@@ -50,7 +50,9 @@ export function JbrWallet() {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.ADD_BALANCE], state)
   );
-
+  const walletLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_WALLET_BALANCE], state)
+  );
   const onRefresh = () => {
     setRefreshing(true);
     dispatch(getWalletBalance());
@@ -69,7 +71,6 @@ export function JbrWallet() {
   const valueInCents = dollarToCents(amount);
   const valueInDollars = Math.floor(valueInCents);
   // console.log("---->" + valueInDollars);
-
   const onEnterAmount = (data) => {
     const regex = /^\d*\.?\d{0,2}$/;
     if (regex.test(data)) {
@@ -333,6 +334,7 @@ export function JbrWallet() {
             />
           </View>
         </ScrollView>
+        {walletLoading ? <Loader message="Loading data..." /> : null}
 
         <Modal
           isVisible={isAddBalanceModal}

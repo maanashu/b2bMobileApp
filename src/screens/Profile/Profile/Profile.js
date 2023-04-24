@@ -128,7 +128,7 @@ export function Profile() {
   const user = useSelector(getUser);
   const walletData = useSelector(getWallet);
   const token = user?.user?.payload?.token;
-  console.log("token check-->", JSON.stringify(user?.user));
+  // console.log("token check-->", JSON.stringify(user?.user));
   const logoutUser = () => {
     dispatch(logout());
   };
