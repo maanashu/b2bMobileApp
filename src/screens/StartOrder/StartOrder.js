@@ -26,42 +26,77 @@ import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
+import tinycolor from "tinycolor2";
+import { color } from "react-native-reanimated";
 
 export function StartOrder(params) {
   const isFocused = useIsFocused();
 
   const user = useSelector(getUser);
-  const bundle = params?.route?.params?.attributes;
-  // console.log("bundle--", JSON.stringify(bundle));
+  // const bundle = params?.route?.params?.attributes;
+  const bundle = [
+    {
+      id: 92,
+      seller_id: "b169ed4d-be27-44eb-9a08-74f997bc6a2f",
+      rest_quantity: 100,
+      delivery_options: "3,1,4",
+      supply_prices: [
+        {
+          id: 277,
+          app_name: "b2b",
+          price_type: "quantity_base",
+          selling_price: 20.5,
+          min_qty: 10,
+          max_qty: 11,
+          margin_percentage: 10,
+        },
+        {
+          id: 278,
+          app_name: "b2b",
+          price_type: "quantity_base",
+          selling_price: 20.5,
+          min_qty: 20,
+          max_qty: 30,
+          margin_percentage: 10,
+        },
+      ],
+      seller_details: null,
+      attributes: [
+        {
+          id: "3",
+          name: "Size",
+          values: [
+            { id: "3", name: "X" },
+            { id: "4", name: "L" },
+          ],
+        },
+        {
+          id: "6",
+          name: "Color",
+          values: [
+            { id: "9", name: "#808080" },
+            { id: "2", name: "#ffc0cb" },
+            { id: "10", name: "#FFA500" },
+            { id: "11", name: "#FF0000" },
+          ],
+        },
+        // {
+        //   id: "12",
+        //   name: "Material",
+        //   values: [
+        //     { id: "43", name: "Cotton" },
+        //     { id: "10", name: "Polyster" },
+        //   ],
+        // },
+      ],
+    },
+  ];
+  console.log("bundle--", JSON.stringify(bundle));
 
   const [selectedItem, setSelectedItem] = useState("");
 
   const SizeData = ["USA", "UK"];
 
-  const ProductDetail = [
-    {
-      id: 1,
-      image: puma1,
-    },
-    {
-      id: 2,
-      image: puma2,
-    },
-    {
-      id: 3,
-      image: puma1,
-    },
-    {
-      id: 4,
-      image: puma4,
-    },
-    {
-      id: 5,
-      image: puma5,
-    },
-  ];
-
-  const [SelectedItems, setSelectedItems] = useState(ProductDetail);
   useEffect(() => {
     // setSetBundleArray(bundle?.map((item) => ({ ...item, qty: 0 })) ?? []);
     // setTimeout(() => {
@@ -82,6 +117,9 @@ export function StartOrder(params) {
   const setProductArrat = [...ArrayToRoute];
   const totalStore = [];
   const [storeTotal, setstoreTotal] = useState(0);
+  const [colors, setColors] = useState(colorValues);
+  const [selectColor, setSelectColor] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
 
   useEffect(() => {}, [isFocused]);
 
@@ -96,35 +134,6 @@ export function StartOrder(params) {
       console.log("reduce error", error);
     }
   }, [setProductArrat]);
-  // const cartPlusOnPress = (index, item) => {
-  //   try {
-  //     const array = [...productArray];
-  //     array[index].qty = array[index].qty + 1;
-  //     setsetProductArrat(array);
-  //     setArrayToRoute(array);
-  //     console.log("sending item", ArrayToRoute);
-  //     console.log(
-  //       "addition success->: " + index + "--->" + setProductArrat[index]?.qty
-  //     );
-  //   } catch (error) {
-  //     console.log("caught error on plus: " + error);
-  //   }
-  // };
-
-  // const cartMinusOnPress = (index) => {
-  //   try {
-  //     const array = [...productArray];
-  //     array[index].qty =
-  //       array[index].qty > 0 ? array[index].qty - 1 : array[index].qty;
-  //     setsetProductArrat(array);
-
-  //     console.log(
-  //       "addition success->: " + index + "-->" + productArray[index]?.qty
-  //     );
-  //   } catch (error) {
-  //     console.log("caught error on plus: " + error);
-  //   }
-  // };
 
   const cartPlus = (index, item) => {
     try {
@@ -155,18 +164,6 @@ export function StartOrder(params) {
       console.log("caught error on plus: " + error);
     }
   };
-
-  // const SelectItem = (item) => {
-  //   const newItem = SelectedItems.map((val) => {
-  //     if (val.id === item.id) {
-  //       return { ...val, selected: !val.selected };
-  //     } else {
-  //       return val;
-  //     }
-  //   });
-
-  //   setSelectedItems(newItem);
-  // };
 
   const SelectItem = (item) => {
     setSelectedItem(item.id);
@@ -247,6 +244,57 @@ export function StartOrder(params) {
         BackHandler.removeEventListener("hardwareBackPress", onBackPress);
     }, [])
   );
+
+  const names = bundle?.map((item, i) => {
+    return item?.attributes?.map((data) => {
+      // console.log("item---", data.name);
+    });
+  });
+  const attributes = bundle[0]?.attributes;
+  const colorValues = attributes?.find(
+    (attr) => attr?.name === "Color"
+  )?.values;
+  const sizeValues = attributes?.find((attr) => attr?.name === "Size")?.values;
+  const sizes = sizeValues?.map((item) => item?.name).join(", ");
+
+  const lastIndex = attributes?.length - 1;
+
+  console.log("last  index-->", lastIndex);
+  // console.log("size-->", sizeValues);
+  const getColorName = (colorCode) => {
+    const color = tinycolor(colorCode);
+    let colorName = color.toName();
+    colorName = colorName.charAt(0).toUpperCase() + colorName.slice(1);
+    setColors(colorName);
+    return colorName;
+  };
+  const renderColors = ({ item }) => {
+    return (
+      <>
+        <TouchableOpacity
+          style={[
+            styles.colorBackground,
+            {
+              backgroundColor: item.name,
+              borderWidth: item.name === selectColor ? 2 : null,
+              borderColor: item.name === selectColor ? COLORS.primary : null,
+            },
+          ]}
+          onPress={() => {
+            getColorName(item.name);
+            setSelectColor(item.name);
+          }}
+        >
+          <View style={styles.outLine}></View>
+        </TouchableOpacity>
+        <Spacer horizontal space={SW(15)} />
+      </>
+    );
+  };
+  const selectSize = (item) => {
+    setSelectedSize(item.id);
+  };
+
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <View style={styles.header}>
@@ -263,7 +311,6 @@ export function StartOrder(params) {
               //   index: 1,
               //   routes: [{ name: NAVIGATION.productInquiry }],
               // })
-
               navigate(NAVIGATION.productInquiry)
             }
           >
@@ -275,7 +322,7 @@ export function StartOrder(params) {
         <ScrollView style={{ flex: 1 }}>
           <View style={styles.mainView}>
             <View style={styles.itemName}>
-              <Text style={styles.itemNameText}>MOQ:10</Text>
+              <Text style={styles.itemNameText}>{"MOQ:10"}</Text>
             </View>
             <Spacer space={SH(1)} />
             <FlatList
@@ -285,41 +332,33 @@ export function StartOrder(params) {
               numColumns={3}
             />
             <Spacer space={SH(16)} />
-            <View style={styles.headingView}>
-              <Text style={styles.itemColorHeading}>{"Color :"}</Text>
-              <Text style={styles.itemFullName}>{"Puma White"}</Text>
-            </View>
-            <Spacer space={SH(20)} />
+            {colorValues && (
+              <View style={styles.headingView}>
+                <Text style={styles.boldTextHeading}>{"Color :"}</Text>
+
+                <Text style={styles.itemColor}> {colors}</Text>
+              </View>
+            )}
+            <Spacer space={SH(10)} />
             <View>
               <FlatList
                 showsVerticalScrollIndicator={false}
-                data={SelectedItems}
-                renderItem={renderItem}
+                data={colorValues}
+                renderItem={renderColors}
                 keyExtractor={(item) => item.id}
-                // extraData={product}
-                numColumns={5}
+                horizontal
+                extraData={colorValues}
               />
             </View>
-            <Spacer space={SH(20)} />
-            {/* Counter view below */}
-            {/* 
-            {Sizes.map((item, index) => {
-              return (
-                <View style={styles.counterView}>
-                  <CountSeven
-                    OnPressDecrease={() => cartMinusOnPress(item, index)}
-                    OnPressIncrease={() => cartPlusOnPress(index)}
-                    text={array[index]?.qty}
-                    size={item.item}
-                  />
-                </View>
-              );
-            })} */}
-            <View style={{ flex: 1 }}>
-              <View style={styles.rowAlign}>
-                <Text style={styles.boldTextHeading}>{"Size :"}</Text>
 
-                <SelectDropdown
+            <Spacer space={SH(20)} />
+
+            <View style={{ flex: 1 }}>
+              {sizeValues && (
+                <View style={styles.rowAlign}>
+                  <Text style={styles.boldTextHeading}>{"Size :"}</Text>
+
+                  {/* <SelectDropdown
                   defaultValue={SizeData[0]}
                   buttonTextStyle={{
                     flex: 1,
@@ -353,8 +392,47 @@ export function StartOrder(params) {
                   rowTextForSelection={(item, index) => {
                     return item;
                   }}
-                />
-              </View>
+                /> */}
+
+                  {sizeValues?.map((item, index) => {
+                    return (
+                      <>
+                        <Spacer horizontal space={SW(10)} />
+                        <TouchableOpacity
+                          key={item.id}
+                          onPress={() => selectSize(item)}
+                          style={[
+                            styles.sizeBackground,
+                            {
+                              borderColor:
+                                item.id === selectedSize
+                                  ? COLORS.primary
+                                  : COLORS.darkGrey,
+                            },
+                          ]}
+                        >
+                          <Text
+                            style={[
+                              styles.sizeText,
+                              {
+                                color:
+                                  item.id === selectedSize
+                                    ? COLORS.primary
+                                    : COLORS.darkGrey,
+                              },
+                            ]}
+                          >
+                            {" " + item.name}
+                            {/* {index !== sizeValues.length - 1 && ", "} */}
+                          </Text>
+                        </TouchableOpacity>
+                        <Spacer horizontal space={SW(5)} />
+                      </>
+                    );
+                  })}
+                </View>
+              )}
+
               <FlatList
                 data={setBundleArray}
                 renderItem={renderSizes}
@@ -362,6 +440,7 @@ export function StartOrder(params) {
                 keyExtractor={(item) => item.id}
               />
             </View>
+
             <Spacer space={SH(20)} />
           </View>
         </ScrollView>

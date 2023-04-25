@@ -71,10 +71,10 @@ export function ProductInquiry(params) {
 
   const ProductDetail = useSelector(getProductSelector);
 
-  // console.log(
-  //   "bundleitems: " +
-  //     JSON.stringify(ProductDetail?.productDetail?.product_detail?.supplies)
-  // );
+  console.log(
+    "bundleitems: " +
+      JSON.stringify(ProductDetail?.productDetail?.product_detail)
+  );
   const isLoadingDetails = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
   );

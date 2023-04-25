@@ -52,6 +52,10 @@ export const styles = StyleSheet.create({
     color: COLORS.black,
     fontSize: SF(18),
   },
+  itemColor: {
+    fontSize: SF(16),
+    color: COLORS.darkGrey,
+  },
   itemFullName: {
     color: COLORS.black,
     fontSize: SF(14),
@@ -138,7 +142,7 @@ export const styles = StyleSheet.create({
   },
   boldTextHeading: {
     fontFamily: Fonts.Bold,
-    fontSize: SF(16),
+    fontSize: SF(18),
     color: COLORS.darkGrey,
   },
   RegularTextHeading: {
@@ -208,5 +212,27 @@ export const styles = StyleSheet.create({
     paddingBottom: SH(15),
     justifyContent: "space-between",
     flexDirection: "row",
+  },
+  colorBackground: {
+    height: SW(40),
+    width: SW(40),
+    borderRadius: SW(20),
+    flex: 1,
+  },
+  outLine: {
+    flex: 1,
+    borderColor: COLORS.white,
+    borderWidth: SW(2),
+    borderRadius: SW(20),
+  },
+  sizeBackground: {
+    paddingHorizontal: SW(8),
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: SH(2),
+  },
+  sizeText: {
+    fontSize: SF(18),
+    marginLeft: SW(-5),
   },
 });
