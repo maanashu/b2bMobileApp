@@ -144,6 +144,7 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.Bold,
     fontSize: SF(18),
     color: COLORS.darkGrey,
+    marginBottom: SH(8),
   },
   RegularTextHeading: {
     fontFamily: Fonts.Regular,
@@ -226,13 +227,32 @@ export const styles = StyleSheet.create({
     borderRadius: SW(20),
   },
   sizeBackground: {
-    paddingHorizontal: SW(8),
+    paddingHorizontal: SW(1),
     alignItems: "center",
     justifyContent: "center",
     borderWidth: SH(2),
+    height: SH(30),
   },
   sizeText: {
     fontSize: SF(18),
-    marginLeft: SW(-5),
+    fontFamily: Fonts.Regular,
+    marginLeft: SW(6),
+  },
+  materialBackground: {
+    paddingHorizontal: SW(1),
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: SH(2),
+    height: SH(30),
+  },
+  materialText: {
+    fontSize: SF(18),
+    paddingHorizontal: SW(3),
+    fontFamily: Fonts.Regular,
+  },
+  attributeView: {
+    flexDirection: "row",
+    height: 30,
+    borderRadius: 15,
   },
 });

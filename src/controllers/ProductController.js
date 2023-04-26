@@ -139,6 +139,28 @@ export class ProductController {
     });
   }
 
+  static async getVariantId(data) {
+    return new Promise((resolve, reject) => {
+      const params = new URLSearchParams(data).toString();
+      const endpoint = `${ApiProductInventory.getSupplyVariant}?${params}`;
+
+      HttpClient.get(endpoint)
+        .then((response) => {
+          resolve(response);
+          console.log("controller success", response);
+        })
+        .catch((error) => {
+          console.log("controller error", error);
+          // Toast.show({
+          //   text2: error.msg,
+          //   position: "bottom",
+          //   type: "error_toast",
+          //   visibilityTime: 1500,
+          // });
+          reject(error);
+        });
+    });
+  }
   // static async getBrand(selectedId) {
   //   return new Promise((resolve, reject) => {
   //     const endpoint =

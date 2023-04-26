@@ -46,6 +46,7 @@ export function Login() {
           placeholder={strings.login.username}
           value={username}
         />
+
         <TextField
           secureTextEntry
           accessibilityHint={strings.login.passwordHint}

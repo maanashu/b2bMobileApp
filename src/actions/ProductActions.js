@@ -87,6 +87,19 @@ const addCouponError = (error) => ({
   payload: { error },
 });
 
+const supplyVariantRequest = () => ({
+  type: TYPES.SUPPLY_VARIANT_REQUEST,
+  payload: null,
+});
+const supplyVariantSuccess = (variantId) => ({
+  type: TYPES.SUPPLY_VARIANT_SUCCESS,
+  payload: { variantId },
+});
+const supplyVariantError = (error) => ({
+  type: TYPES.SUPPLY_VARIANT_ERROR,
+  payload: { error },
+});
+
 export const getProduct = (data) => async (dispatch) => {
   dispatch(getProductRequest());
   try {
@@ -157,6 +170,17 @@ export const addCoupon = (data) => async (dispatch) => {
     dispatch(addCouponSuccess(res));
   } catch (error) {
     dispatch(addCouponError(error.message));
+  }
+};
+
+export const getSupplyVariantId = (data) => async (dispatch) => {
+  dispatch(supplyVariantRequest());
+  try {
+    const res = await ProductController.getVariantId(data);
+
+    dispatch(supplyVariantSuccess(res));
+  } catch (error) {
+    dispatch(supplyVariantError(error.message));
   }
 };
 
