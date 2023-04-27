@@ -20,10 +20,14 @@ import { strings } from "@/localization";
 import { Counter } from "./Components/CountButton";
 import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import tinycolor from "tinycolor2";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
+import { getSupplyVariantId } from "@/actions/ProductActions";
+import { createCartAction } from "@/actions/OrderAction";
+import { orderSelector } from "@/selectors/OrderSelector";
+import { getProductSelector } from "@/selectors/ProductSelectors";
 
 const DATA = [
   {
@@ -84,10 +88,13 @@ const DATA = [
 ];
 
 export function StartOrder(params) {
-  const isFocused = useIsFocused();
-
-  const user = useSelector(getUser);
   const bundle = params?.route?.params?.attributes;
+  const isFocused = useIsFocused();
+  const dispatch = useDispatch();
+  const getVariantId = useSelector(getProductSelector);
+  const user = useSelector(getUser);
+
+  // console.log(getVariantId?.variantId?.attribute_variant_id);
 
   const [selectedItem, setSelectedItem] = useState("");
   const [ArrayToRoute, setArrayToRoute] = useState([]);
@@ -104,27 +111,52 @@ export function StartOrder(params) {
   const [selectMaterial, setSelectMaterial] = useState();
   const [selectedItems, setSelectedItems] = useState([]);
   const [firstSupplyPrice, setFirstSupplyPrice] = useState(
-    bundle[0].supply_prices[0]
+    bundle[0]?.supply_prices[0]
   );
   const arr = bundle[0].supply_prices[0];
   const [quantity, setQuantity] = useState(arr);
+  const [string, setString] = useState();
   useEffect(() => {}, [isFocused]);
-  console.log("quantity--->", quantity);
 
   const SizeData = ["USA", "UK"];
+  const withoutVariantObject = {
+    seller_id: bundle[0]?.seller_id,
+    supply_id: bundle[0]?.id,
+    supply_price_id: quantity?.id,
+    product_id: params?.route?.params?.product_id,
+    service_id: params?.route?.params?.service_id,
+    qty: quantity?.qty,
+  };
+
+  const variantObject = {
+    seller_id: bundle[0]?.seller_id,
+    supply_id: bundle[0]?.id,
+    supply_price_id: quantity?.id,
+    supply_variant_id: getVariantId?.variantId?.attribute_variant_id,
+    product_id: params?.route?.params?.product_id,
+    service_id: params?.route?.params?.service_id,
+    qty: quantity?.qty,
+  };
+  const chechVariantObject = {
+    attribute_value_ids: string,
+    supply_id: bundle[0]?.id,
+  };
+  useEffect(() => {
+    setString(selectedItems.join(","));
+  }, [selectedItems]);
+
   useEffect(() => {
     // setSetBundleArray(bundle?.map((item) => ({ ...item, qty: 0 })) ?? []);
-    for (let i = 0; i < bundle.length; i++) {
-      let supplyPrices = bundle[i].supply_prices;
-      for (let j = 0; j < supplyPrices.length; j++) {
+    for (let i = 0; i < bundle?.length; i++) {
+      let supplyPrices = bundle[i]?.supply_prices;
+      for (let j = 0; j < supplyPrices?.length; j++) {
         supplyPrices[j].qty = 0;
       }
       setSetBundleArray(bundle);
     }
   }, []);
-
   useEffect(() => {
-    const newTotalPrice = quantity.qty * quantity.selling_price;
+    const newTotalPrice = quantity?.qty * quantity?.selling_price;
     setstoreTotal(newTotalPrice);
   }, [quantity]);
   const renderBundle = ({ item }) => (
@@ -155,9 +187,13 @@ export function StartOrder(params) {
     </TouchableOpacity>
   );
   const Checkout = () => {
-    navigate(NAVIGATION.checkout, { data: ArrayToRoute });
+    // navigate(NAVIGATION.checkout, { data: ArrayToRoute });
+    if (bundle[0]?.attributes?.length == 0) {
+      dispatch(createCartAction(withoutVariantObject));
+    } else {
+      dispatch(createCartAction(variantObject));
+    }
   };
-
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
@@ -177,7 +213,7 @@ export function StartOrder(params) {
     return colorName;
   };
   const checkLastIndex = (index) => {
-    if (DATA[0]?.attributes?.length - 1 === index) {
+    if (bundle[0]?.attributes?.length - 1 === index) {
       if (!selectedSize && !selectColor) {
         Toast.show({
           position: "bottom",
@@ -186,37 +222,14 @@ export function StartOrder(params) {
           visibilityTime: 2000,
         });
       } else {
-        alert("hit api");
+        // alert("hit api");
+
+        dispatch(getSupplyVariantId(string, bundle[0]?.id));
       }
     } else {
-      alert("not ok");
     }
   };
-  const string = selectedItems.join(",");
-  // return (
-  //   <View style={{ backgroundColor: "teal", flex: 1 }}>
-  // {DATA[0].attributes.map((item, index) => (
-  //   <TouchableOpacity
-  //     onPress={() => {
-  //       if (index === DATA[0].attributes.length - 1) {
-  //         alert("send data to server");
-  //       } else {
-  //         alert("dont send anything");
-  //       }
-  //     }}
-  //   >
-  //     <Text>{item.name + " " + index}</Text>
-  //     <View style={{ flexDirection: "row", height: 30, borderRadius: 15 }}>
-  //       {item.values.map((value, index) => (
-  //         <Text style={{ color: item.name === "Size" ? "red" : "yellow" }}>
-  //           {value.name + "  "}
-  //         </Text>
-  //       ))}
-  //     </View>
-  //   </TouchableOpacity>
-  // ))}
-  //   </View>
-  // );
+
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <View style={styles.header}>
@@ -249,7 +262,7 @@ export function StartOrder(params) {
             />
             <Spacer space={SH(16)} />
 
-            {DATA[0]?.attributes?.map((item, i) => (
+            {bundle[0]?.attributes?.map((item, i) => (
               <>
                 <View style={{ marginBottom: SH(20) }}>
                   <Text style={styles.boldTextHeading}>{item.name + ":"}</Text>
@@ -375,14 +388,31 @@ export function StartOrder(params) {
                 }
               }}
               OnPressIncrease={() => {
-                const newQty = quantity.qty + 1;
-                setQuantity({
-                  ...quantity,
-                  qty: newQty,
-                });
+                if (quantity.price_type === "quantity_base") {
+                  if (quantity.qty === quantity.max_qty) {
+                    Toast.show({
+                      text2: "Max quantity reached",
+                      position: "bottom",
+                      type: "error_toast",
+                      visibilityTime: 1500,
+                    });
+                  } else {
+                    const newQty = quantity.qty + 1;
+                    setQuantity({
+                      ...quantity,
+                      qty: newQty,
+                    });
+                  }
+                } else {
+                  const newQty = quantity.qty + 1;
+                  setQuantity({
+                    ...quantity,
+                    qty: newQty,
+                  });
+                }
               }}
               text={quantity.qty}
-              size={selectedSizeName}
+              size={"Quantity :"}
             />
 
             <Spacer space={SH(20)} />

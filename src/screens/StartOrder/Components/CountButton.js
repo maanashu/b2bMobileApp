@@ -8,7 +8,7 @@ export function Counter({ OnPressIncrease, size, OnPressDecrease, text }) {
   return (
     <>
       <View style={styles.innerCounterView}>
-        <View style={{ width: "50%" }}>
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
           <Text style={styles.shoeNumber}>{size}</Text>
         </View>
         <View style={styles.counterButtonView}>

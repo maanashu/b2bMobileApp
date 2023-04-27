@@ -53,7 +53,8 @@ export const ApiProductInventory = {
   getTrendingSellers: "users/sellers/b2b?page=1&limit=10&need_trending=true",
   getCoupons: `${PRODUCT_URL}coupons`,
   verifyCoupon: "coupons/verify",
-  getSupplyVariant: "supply_variants/by-attribute-value-ids",
+  getSupplyVariant: (values, id) =>
+    `supply_variants/by-attribute-value-ids?attribute_value_ids=${values}&supply_id=${id}`,
 };
 
 export const ApiWalletInventory = {

@@ -17,11 +17,13 @@ const createCartSuccess = (createCart) => ({
 });
 
 export const createCartAction = (data) => async (dispatch) => {
+  console.log("checkdata", data);
   dispatch(createCartRequest());
   try {
     const res = await OrderController.createCartController(data);
     dispatch(createCartSuccess(res));
   } catch (error) {
+    console.log("action error", error);
     dispatch(createCartError(error.message));
   }
 };

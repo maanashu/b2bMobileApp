@@ -6,7 +6,7 @@ const INITIALSTATE = {
   trendingList: [],
   coupons: [],
   addCoupons: {},
-  varaintId: {},
+  variantId: {},
 };
 export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
   switch (type) {
@@ -50,7 +50,7 @@ export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
     case TYPES.SUPPLY_VARIANT_SUCCESS:
       return {
         ...state,
-        varaintId: payload.varaintId,
+        variantId: payload.variantId.payload,
       };
 
     default:

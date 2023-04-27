@@ -173,13 +173,13 @@ export const addCoupon = (data) => async (dispatch) => {
   }
 };
 
-export const getSupplyVariantId = (data) => async (dispatch) => {
+export const getSupplyVariantId = (values, id) => async (dispatch) => {
   dispatch(supplyVariantRequest());
   try {
-    const res = await ProductController.getVariantId(data);
-
+    const res = await ProductController.getVariantId(values, id);
     dispatch(supplyVariantSuccess(res));
   } catch (error) {
+    console.log("Action error: " + JSON.stringify(error));
     dispatch(supplyVariantError(error.message));
   }
 };

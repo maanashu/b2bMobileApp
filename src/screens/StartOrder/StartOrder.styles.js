@@ -120,6 +120,7 @@ export const styles = StyleSheet.create({
   shoeNumber: {
     color: COLORS.black,
     fontSize: SF(16),
+    fontFamily: Fonts.SemiBold,
   },
 
   buttonView: {
@@ -152,7 +153,7 @@ export const styles = StyleSheet.create({
     color: COLORS.darkGrey,
   },
   innerCounterView: {
-    paddingLeft: SW(40),
+    paddingHorizontal: SW(15),
     flexDirection: "row",
     justifyContent: "space-between",
     flex: 1,

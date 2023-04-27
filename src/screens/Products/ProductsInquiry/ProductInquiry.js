@@ -176,6 +176,8 @@ export function ProductInquiry(params) {
       } else {
         navigate(NAVIGATION.startOrder, {
           attributes: ProductDetail?.productDetail?.product_detail?.supplies,
+          product_id: ProductDetail?.productDetail?.product_detail?.id,
+          service_id: ProductDetail?.productDetail?.product_detail?.service_id,
         });
       }
     } else {

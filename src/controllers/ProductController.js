@@ -139,24 +139,24 @@ export class ProductController {
     });
   }
 
-  static async getVariantId(data) {
+  static async getVariantId(values, id) {
+    console.log("cheking daata", values, id);
     return new Promise((resolve, reject) => {
-      const params = new URLSearchParams(data).toString();
-      const endpoint = `${ApiProductInventory.getSupplyVariant}?${params}`;
+      const endpoint =
+        PRODUCT_URL + ApiProductInventory.getSupplyVariant(values, id);
 
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
-          console.log("controller success", response);
+          console.log("sucess", response);
         })
         .catch((error) => {
-          console.log("controller error", error);
-          // Toast.show({
-          //   text2: error.msg,
-          //   position: "bottom",
-          //   type: "error_toast",
-          //   visibilityTime: 1500,
-          // });
+          Toast.show({
+            text2: "No combination found",
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
           reject(error);
         });
     });
