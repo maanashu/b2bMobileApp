@@ -18,7 +18,6 @@ import { COLORS } from "@/theme/Colors";
 import { useState } from "react";
 import { strings } from "@/localization";
 import { Counter } from "./Components/CountButton";
-import { priceData } from "../Products/ProductsInquiry/FlatlistData";
 import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -104,9 +103,6 @@ export function StartOrder(params) {
   const [selectedSizeName, setSelectedSizeName] = useState();
   const [selectMaterial, setSelectMaterial] = useState();
   const [selectedItems, setSelectedItems] = useState([]);
-  const [pricingData, setPricingData] = useState(
-    setBundleArray[0].supply_prices
-  );
   const [firstSupplyPrice, setFirstSupplyPrice] = useState(
     bundle[0].supply_prices[0]
   );
@@ -115,7 +111,6 @@ export function StartOrder(params) {
   useEffect(() => {}, [isFocused]);
   console.log("quantity--->", quantity);
 
-  // console.log("first ob-->", firstSupplyPrice);
   const SizeData = ["USA", "UK"];
   useEffect(() => {
     // setSetBundleArray(bundle?.map((item) => ({ ...item, qty: 0 })) ?? []);
@@ -126,97 +121,12 @@ export function StartOrder(params) {
       }
       setSetBundleArray(bundle);
     }
-    // console.log("qty--->", JSON.stringify(setBundleArray));
   }, []);
-  // const [productArray, setproductArray] = useState(Sizes ?? []);
-  // const [setProductArrat, setsetProductArrat] = useState(Sizes ?? []);
+
   useEffect(() => {
-    try {
-      setProductArrat[0]?.supply_prices?.reduce((sum, i) => {
-        var sepTotal = i.qty * i.selling_price;
-        totalStore.push(sepTotal);
-      }, 0);
-      setstoreTotal(totalStore.reduce((a, b) => a + b, 0));
-    } catch (error) {
-      console.log("reduce error", error);
-    }
-  }, [setProductArrat]);
-
-  const cartPlus = (index, item) => {
-    try {
-      const array = [...bundleArray];
-      array[index].qty = array[index].qty + 1;
-      setSetBundleArray(array);
-      setArrayToRoute(array);
-      console.log(
-        "addition success->: " + index + "--->" + setBundleArray[index]?.qty
-      );
-    } catch (error) {
-      console.log("caught error on plus: " + error);
-    }
-  };
-  const cartMinus = (index) => {
-    try {
-      const array = [...bundleArray];
-      array[index].qty =
-        array[index].qty > 0 ? array[index].qty - 1 : array[index].qty;
-      setSetBundleArray(array);
-      setArrayToRoute(array);
-
-      console.log(
-        "addition success->: " + index + "-->" + setBundleArray[index]?.qty
-      );
-    } catch (error) {
-      console.log("caught error on plus: " + error);
-    }
-  };
-  const SelectItem = (item) => {
-    setSelectedItem(item.id);
-  };
-
-  const renderItem = ({ item, onPress }) => (
-    <>
-      <TouchableOpacity
-        style={[
-          styles.item,
-          {
-            borderWidth: item.id == selectedItem ? 1 : 0,
-            padding: SH(2),
-            borderColor:
-              item.id == selectedItem ? COLORS.primary : COLORS.light_border,
-          },
-        ]}
-        onPress={() => SelectItem(item)}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-          }}
-        >
-          <Image
-            resizeMode="contain"
-            source={item.image}
-            style={styles.shoes}
-          />
-        </View>
-      </TouchableOpacity>
-      <Spacer horizontal space={SH(5)} />
-    </>
-  );
-
-  const renderSizes = ({ item, index }) => {
-    return (
-      <View style={styles.counterView}>
-        <Counter
-          OnPressDecrease={() => cartMinus(index, item)}
-          OnPressIncrease={() => cartPlus(index, item)}
-          text={item.qty}
-          size={selectedSizeName}
-        />
-      </View>
-    );
-  };
-
+    const newTotalPrice = quantity.qty * quantity.selling_price;
+    setstoreTotal(newTotalPrice);
+  }, [quantity]);
   const renderBundle = ({ item }) => (
     <TouchableOpacity
       style={[
@@ -235,7 +145,6 @@ export function StartOrder(params) {
           {"USD"} <Text>{item.selling_price}</Text>
         </Text>
         <Text style={styles.smallText}>
-          {/* {item.qty} */}
           <Text>
             {item.min_qty}
             {" - "}
@@ -260,24 +169,6 @@ export function StartOrder(params) {
         BackHandler.removeEventListener("hardwareBackPress", onBackPress);
     }, [])
   );
-
-  // const names = bundle?.map((item, i) => {
-  //   return item?.attributes?.map((data) => {
-  //     // console.log("item---", data.name);
-  //   });
-  // });
-  // const attributes = bundle[0]?.attributes;
-  // const lastIndex = attributes?.length - 1;
-
-  // const colorValues = attributes?.find(
-  //   (attr) => attr?.name === "Color"
-  // )?.values;
-  // const colorIndex = attributes.findIndex((attr) => attr?.name === "Color");
-
-  // const sizeValues = attributes?.find((attr) => attr?.name === "Size")?.values;
-  // const sizeIndex = attributes.findIndex((attr) => attr?.name === "Size");
-  // console.log("last  index-->", sizeIndex);
-  // console.log("size-->", sizeValues);
   const getColorName = (colorCode) => {
     const color = tinycolor(colorCode);
     let colorName = color.toName();
@@ -285,7 +176,6 @@ export function StartOrder(params) {
     setColors(colorName);
     return colorName;
   };
-
   const checkLastIndex = (index) => {
     if (DATA[0]?.attributes?.length - 1 === index) {
       if (!selectedSize && !selectColor) {
@@ -302,9 +192,7 @@ export function StartOrder(params) {
       alert("not ok");
     }
   };
-  // console.log("index----", selectedItems);
   const string = selectedItems.join(",");
-  // console.log("string----", string);
   // return (
   //   <View style={{ backgroundColor: "teal", flex: 1 }}>
   // {DATA[0].attributes.map((item, index) => (
@@ -329,7 +217,6 @@ export function StartOrder(params) {
   // ))}
   //   </View>
   // );
-
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <View style={styles.header}>
@@ -340,15 +227,7 @@ export function StartOrder(params) {
             </Text>
           </View>
 
-          <TouchableOpacity
-            onPress={() =>
-              // navigation.reset({
-              //   index: 1,
-              //   routes: [{ name: NAVIGATION.productInquiry }],
-              // })
-              navigate(NAVIGATION.productInquiry)
-            }
-          >
+          <TouchableOpacity onPress={() => navigate(NAVIGATION.productInquiry)}>
             <Image source={cross} style={styles.crossIcon} />
           </TouchableOpacity>
         </View>
@@ -359,7 +238,9 @@ export function StartOrder(params) {
             <View style={styles.itemName}>
               <Text style={styles.itemNameText}>{"MOQ:10"}</Text>
             </View>
+
             <Spacer space={SH(1)} />
+
             <FlatList
               data={bundle[0]?.supply_prices}
               renderItem={renderBundle}
@@ -367,37 +248,10 @@ export function StartOrder(params) {
               numColumns={3}
             />
             <Spacer space={SH(16)} />
-            {/* {colorValues && (
-              <View style={styles.headingView}>
-                <Text style={styles.boldTextHeading}>{"Color :"}</Text>
-
-                <Text style={styles.itemColor}> {colors}</Text>
-              </View>
-            )}
-            <Spacer space={SH(10)} />
-            <View>
-              <FlatList
-                showsVerticalScrollIndicator={false}
-                data={colorValues}
-                renderItem={renderColors}
-                keyExtractor={(item) => item.id}
-                horizontal
-                extraData={colorValues}
-              />
-            </View> */}
 
             {DATA[0]?.attributes?.map((item, i) => (
               <>
-                <View
-                  style={{ marginBottom: SH(20) }}
-                  // onPress={() => {
-                  //   if (i === DATA[0].attributes.length - 1) {
-                  //     alert("send data to server");
-                  //   } else {
-                  //     alert("dont send anything");
-                  //   }
-                  // }}
-                >
+                <View style={{ marginBottom: SH(20) }}>
                   <Text style={styles.boldTextHeading}>{item.name + ":"}</Text>
 
                   <View style={styles.attributeView}>
@@ -503,15 +357,6 @@ export function StartOrder(params) {
                         ))}
                       </View>
                     )}
-                    {/* {item.values.map((value, index) => (
-                      <Text
-                        style={{
-                          color: item.name === "Size" ? "red" : "green",
-                        }}
-                      >
-                        {value.name + "  "}
-                      </Text>
-                    ))} */}
                   </View>
                 </View>
               </>
@@ -519,63 +364,10 @@ export function StartOrder(params) {
 
             <Spacer space={SH(20)} />
 
-            {/* <View style={{ flex: 1 }}>
-              {sizeValues && (
-                <View style={styles.rowAlign}>
-                  <Text style={styles.boldTextHeading}>{"Size :"}</Text>
-
-                  {sizeValues?.map((item, index) => {
-                    return (
-                      <>
-                        <Spacer horizontal space={SW(10)} />
-                        <TouchableOpacity
-                          key={item.id}
-                          onPress={() => selectSize(item)}
-                          style={[
-                            styles.sizeBackground,
-                            {
-                              borderColor:
-                                item.id === selectedSize
-                                  ? COLORS.primary
-                                  : COLORS.darkGrey,
-                            },
-                          ]}
-                        >
-                          <Text
-                            style={[
-                              styles.sizeText,
-                              {
-                                color:
-                                  item.id === selectedSize
-                                    ? COLORS.primary
-                                    : COLORS.darkGrey,
-                              },
-                            ]}
-                          >
-                            {" " + item.name}
-                            {index !== sizeValues.length - 1 && ", "}
-                          </Text>
-                        </TouchableOpacity>
-                        <Spacer horizontal space={SW(5)} />
-                      </>
-                    );
-                  })}
-                </View>
-              )}
-
-            </View> */}
-
-            {/* <FlatList
-              data={pricingData}
-              renderItem={renderSizes}
-              extraData={setBundleArray[0]?.supply_prices}
-              keyExtractor={(item) => item.id}
-            /> */}
             <Counter
               OnPressDecrease={() => {
                 if (quantity.qty > 0) {
                   const newQty = quantity.qty - 1;
-                  // update the state with the new qty value
                   setQuantity({
                     ...quantity,
                     qty: newQty,
@@ -584,7 +376,6 @@ export function StartOrder(params) {
               }}
               OnPressIncrease={() => {
                 const newQty = quantity.qty + 1;
-                // update the state with the new qty value
                 setQuantity({
                   ...quantity,
                   qty: newQty,

@@ -34,21 +34,24 @@ export function BiometricsScreen({ navigation }) {
   const [appState, setAppState] = useState(AppState.currentState);
 
   useEffect(() => {
-    if (Platform.OS===""){
-    const handleAppStateChange = (nextAppState) => {
-      if (appState.match(/inactive|background/) && nextAppState === "active"&& route.name === "BiometricsScreen") {
-        // Run your function here based on the app state
-        bioMetricLogin();
-      }
-      setAppState(nextAppState);
-      AppState.addEventListener("change", handleAppStateChange);
+    if (Platform.OS === "") {
+      const handleAppStateChange = (nextAppState) => {
+        if (
+          appState.match(/inactive|background/) &&
+          nextAppState === "active" &&
+          route.name === "BiometricsScreen"
+        ) {
+          // Run your function here based on the app state
+          bioMetricLogin();
+        }
+        setAppState(nextAppState);
+        AppState.addEventListener("change", handleAppStateChange);
 
-    return () => {
-      AppState.removeEventListener("change", handleAppStateChange);
-    };
-    }}
-
-    
+        return () => {
+          AppState.removeEventListener("change", handleAppStateChange);
+        };
+      };
+    }
   }, [appState]);
 
   useEffect(() => {
@@ -92,38 +95,6 @@ export function BiometricsScreen({ navigation }) {
       }
     });
   };
-  // useEffect(() => {
-  //   const backAction = () => {
-  //     return true;
-  //   };
-  //   const backHandler = BackHandler.addEventListener(
-  //     "hardwareBackPress",
-  //     backAction
-  //   );
-
-  //   return () => backHandler.remove();
-  // }, []);
-  // const promptBioMetricSignin = () => {
-  //   let epochTimeSeconds = Math.round(new Date().getTime() / 1000).toString();
-  //   let payload = epochTimeSeconds + "some message";
-  //   rnBiometrics
-  //     .createSignature({
-  //       promptMessage: "Sign in",
-  //       payload: payload,
-  //     })
-  //     .then((resultObject) => {
-  //       const { success, signature } = resultObject;
-
-  //       if (success) {
-  //         console.log(signature);
-  //         console.log("set true");
-  //         setShowScreen(true);
-  //         // dispatch(deviceLogin());
-  //         //  verifySignatureWithServer(signature, payload);
-  //       }
-  //     })
-  //     .catch((error) => console.log("erorr-->>", error));
-  // };
 
   const promptBioMetricSignin = () => {
     rnBiometrics
@@ -139,7 +110,6 @@ export function BiometricsScreen({ navigation }) {
         if (success) {
           console.log("Device unlocked with PIN", success);
           setShowScreen(true);
-          // navigate(NAVIGATION.home);
           navigation.dispatch(
             CommonActions.reset({
               index: 1,
