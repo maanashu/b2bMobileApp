@@ -34,7 +34,7 @@ export function BiometricsScreen({ navigation }) {
   const [appState, setAppState] = useState(AppState.currentState);
 
   useEffect(() => {
-    if (Platform.OS === "") {
+    if (Platform.OS === "android") {
       const handleAppStateChange = (nextAppState) => {
         if (
           appState.match(/inactive|background/) &&
