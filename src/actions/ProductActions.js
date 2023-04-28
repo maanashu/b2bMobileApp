@@ -99,6 +99,10 @@ const supplyVariantError = (error) => ({
   type: TYPES.SUPPLY_VARIANT_ERROR,
   payload: { error },
 });
+const supplyVariantReset = () => ({
+  type: TYPES.SUPPLY_VARIANT_RESET,
+  payload: null,
+});
 
 export const getProduct = (data) => async (dispatch) => {
   dispatch(getProductRequest());
@@ -179,8 +183,11 @@ export const getSupplyVariantId = (values, id) => async (dispatch) => {
     const res = await ProductController.getVariantId(values, id);
     dispatch(supplyVariantSuccess(res));
   } catch (error) {
-    console.log("Action error: " + JSON.stringify(error));
-    dispatch(supplyVariantError(error.message));
+    if (error.statusCode === 204) {
+      dispatch(supplyVariantReset());
+    } else {
+      dispatch(supplyVariantError(error.message));
+    }
   }
 };
 

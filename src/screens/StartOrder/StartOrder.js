@@ -137,6 +137,7 @@ export function StartOrder(params) {
     service_id: params?.route?.params?.service_id,
     qty: quantity?.qty,
   };
+  // console.log("cheking variant-->", user?.user?.payload?.token);
   const chechVariantObject = {
     attribute_value_ids: string,
     supply_id: bundle[0]?.id,
@@ -222,8 +223,6 @@ export function StartOrder(params) {
           visibilityTime: 2000,
         });
       } else {
-        // alert("hit api");
-
         dispatch(getSupplyVariantId(string, bundle[0]?.id));
       }
     } else {

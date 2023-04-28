@@ -52,6 +52,11 @@ export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         variantId: payload.variantId.payload,
       };
+    case TYPES.SUPPLY_VARIANT_RESET:
+      return {
+        ...state,
+        variantId: [],
+      };
 
     default:
       return state;

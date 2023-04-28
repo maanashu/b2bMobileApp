@@ -11,9 +11,12 @@ const Tab = createMaterialTopTabNavigator();
 import { HomeHeader } from "@/components/HomeHeader";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { NAVIGATION } from "@/constants";
+import { useSelector } from "react-redux";
+import { getUser } from "@/selectors/UserSelectors";
 
 export function Home() {
   const layout = useWindowDimensions();
+  const user = useSelector(getUser);
 
   // useEffect(() => {
   //   const backAction = () => {
@@ -97,7 +100,9 @@ export function Home() {
         >
           <Tab.Screen name={NAVIGATION.products} component={Products} />
           <Tab.Screen name={"Services"} component={Business} />
-          <Tab.Screen name={NAVIGATION.nearMe} component={NearMe} />
+          {user?.user?.payload?.token && (
+            <Tab.Screen name={NAVIGATION.nearMe} component={NearMe} />
+          )}
         </Tab.Navigator>
       </View>
     </ScreenWrapper>

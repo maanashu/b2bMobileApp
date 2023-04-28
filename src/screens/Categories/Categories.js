@@ -40,34 +40,6 @@ export function Categories() {
     setSelect(newItem);
   };
 
-  const DATA = [
-    {
-      id: "1",
-      title: " Apparel ",
-      image: Apparel,
-    },
-    {
-      id: "2",
-      title: " Tobacco ",
-      image: Tobacco,
-    },
-    {
-      id: "3",
-      title: " Food ",
-      image: Food,
-    },
-    {
-      id: "4",
-      title: " Electronices ",
-      image: Electronices,
-    },
-    {
-      id: "5",
-      title: " Sports ",
-      image: Sports,
-    },
-  ];
-
   const renderItem = ({ item, index, backgroundColor, textColor }) => (
     <TouchableOpacity
       onPress={() => SelectCategory(item)}
