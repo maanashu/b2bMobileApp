@@ -29,13 +29,26 @@ import { useState } from "react";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCart } from "@/actions/OrderAction";
+import { orderSelector } from "@/selectors/OrderSelector";
+import { getUser } from "@/selectors/UserSelectors";
 
 export function Checkout(navigation) {
   const refRBSheet = useRef();
+  const dispatch = useDispatch();
+  const cartList = useSelector(orderSelector);
+  const user = useSelector(getUser);
+
+  useEffect(() => {
+    dispatch(getCart());
+  }, []);
 
   const route = useRoute();
   const quantity = route?.params?.data;
-  // console.log("checking shoe size", quantity);
+
+  console.log("checking shoe size", cartList?.getCart);
+  console.log("checking shoe size", user?.user?.payload?.token);
 
   const [productArray, setproductArray] = useState(quantity ?? []);
   const [setProductArrat, setsetProductArrat] = useState(quantity ?? []);
@@ -125,7 +138,7 @@ export function Checkout(navigation) {
         {item.qty > 0 ? (
           <View style={styles.productView}>
             <Image
-              source={item.image}
+              source={{ uri: item?.cart_products[0]?.product_details?.image }}
               resizeMode="cover"
               style={styles.productImageStyle}
             />
@@ -212,7 +225,7 @@ export function Checkout(navigation) {
 
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={route?.params?.data}
+            data={cartList?.getCart}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
           />

@@ -292,6 +292,12 @@ export { default as cornerBorder } from "@/assets/icons/ic_more/cornerBorder.png
 export { default as dummyIdCard } from "@/assets/icons/ic_more/dummyIdCard.png";
 export { default as blueChecked } from "@/assets/icons/ic_verification/blueChecked.png";
 export { default as rightArrowThin } from "@/assets/icons/ic_Products/rightArrowThin.png";
+export { default as static1 } from "@/assets/icons/ic_static/static1.png";
+export { default as static2 } from "@/assets/icons/ic_static/static2.png";
+export { default as static3 } from "@/assets/icons/ic_static/static3.png";
+export { default as static4 } from "@/assets/icons/ic_static/static4.png";
+export { default as static5 } from "@/assets/icons/ic_static/static5.png";
+export { default as static6 } from "@/assets/icons/ic_static/static6.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

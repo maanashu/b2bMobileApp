@@ -31,6 +31,7 @@ export const SupportInventory = {
 
 export const ApiOrderInventory = {
   createNewCart: "carts",
+  getCart: "carts/user",
 };
 export const ApiSupportInventory = {
   subjectList: SUPPORT_URL + "subjects",

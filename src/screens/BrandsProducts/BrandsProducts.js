@@ -33,7 +33,7 @@ export function BrandsProducts(params) {
   const brandsData = useSelector(getCategorySelector);
   const productsData = useSelector(getProductSelector);
 
-  // console.log("product details", JSON.stringify(productsData?.product));
+  // console.log("product details", params?.route?.params?.categoryId);
 
   useEffect(() => {
     dispatch(getBrands(params?.route?.params?.categoryId));

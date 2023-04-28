@@ -1,7 +1,11 @@
 import { NAVIGATION } from "@/constants";
 import { navigate } from "@/navigation/NavigationRef";
 import { getUser } from "@/selectors/UserSelectors";
-import { ApiOrderInventory, ORDER_URL } from "@/Utils/APIinventory";
+import {
+  ApiOrderInventory,
+  ORDER_URL,
+  PRODUCT_URL,
+} from "@/Utils/APIinventory";
 import axios from "axios";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { HttpClient } from "./HttpClient";
@@ -38,6 +42,7 @@ export class OrderController {
         .then((response) => {
           resolve(response);
           console.log("cart controller success====", body);
+          navigate(NAVIGATION.checkout);
         })
         .catch((error) => {
           console.log("cart controller error====", error);
@@ -50,6 +55,31 @@ export class OrderController {
             visibilityTime: 1500,
           });
           reject(new Error((strings.verify.error = error.msg)));
+        });
+    });
+  }
+
+  static async getCart() {
+    return new Promise((resolve, reject) => {
+      const endpoint = ORDER_URL + ApiOrderInventory.getCart;
+      HttpClient.get(endpoint)
+        .then((response) => {
+          resolve(response);
+          console.log("get cart sucess", response);
+        })
+        .catch((error) => {
+          console.log("get cart error", error);
+
+          reject(error);
+
+          // Toast.show({
+          //   text2: error.msg,
+          //   position: "bottom",
+          //   type: "error_toast",
+          //   visibilityTime: 1500,
+          // });
+
+          // reject(new Error((strings.validation.error = error.msg)));
         });
     });
   }

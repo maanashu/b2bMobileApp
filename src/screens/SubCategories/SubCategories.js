@@ -4,7 +4,16 @@ import { styles } from "./SubCategories.styles";
 import { Header, ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { backArrow, Fonts } from "@/assets";
+import {
+  backArrow,
+  Fonts,
+  static1,
+  static2,
+  static3,
+  static4,
+  static5,
+  static6,
+} from "@/assets";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
 import { getBrands, getSubCategory } from "@/actions/CategoryActions";
@@ -21,12 +30,14 @@ import { Loader } from "@/components/Loader";
 export function SubCategories(params) {
   const listRef = useRef();
   const modalRef = useRef();
+  const dispatch = useDispatch();
 
   const routeId = params?.route?.params?.idItem;
   const getIndex = params?.route?.params?.index;
 
   const [selectedId, setSelectedId] = useState(params?.route?.params?.idItem);
   const [serviceModalisVisible, setserviceModalisVisible] = useState(false);
+
   const subcategoryObject = {
     page: 1,
     limit: 10,
@@ -35,7 +46,7 @@ export function SubCategories(params) {
       params?.route?.params?.serviceType == "product" ? "product" : "service",
     main_category: true,
   };
-  const dispatch = useDispatch();
+
   const categoryData = useSelector(getCategorySelector);
 
   const SUBCATEGORIES = useSelector(getCategorySelector);
@@ -130,25 +141,48 @@ export function SubCategories(params) {
   const renderSubcategoryItem = ({ item, index }) => (
     <TouchableOpacity
       style={styles.rowCard}
-      onPress={() =>
-        navigate(NAVIGATION.brandsProducts, { categoryId: item.id })
+      onPress={
+        () => navigate(NAVIGATION.brandsProducts, { categoryId: item.id })
+        // console.log("item id", item.id)
       }
     >
-      <View style={styles.row}>
-        {item.image ? (
-          <Image
-            source={{ uri: item.image }}
-            resizeMode="cover"
-            style={[styles.img, { borderRadius: 20 }]}
-          />
-        ) : (
-          <View style={styles.emptyImg} />
-        )}
-        <Text style={[styles.subName, { paddingHorizontal: 10 }]}>
-          {item.name}
-        </Text>
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <View style={styles.row}>
+          {item.image ? (
+            <Image
+              source={{ uri: item.image }}
+              resizeMode="cover"
+              style={[styles.img, { borderRadius: 35 }]}
+            />
+          ) : (
+            <View style={styles.emptyImg} />
+          )}
+        </View>
+        <View style={{ flex: 1, alignItems: "flex-start" }}>
+          <Text style={[styles.subName, { paddingHorizontal: 10 }]}>
+            {item.name}
+          </Text>
+          <Text style={styles.brandsName}>{"21 Brands"}</Text>
+          <Spacer space={SH(1)} />
+          <Text style={styles.brandsName}>{"55 Products"}</Text>
+        </View>
       </View>
-      <Ionicons name="chevron-forward" size={20} color="black" />
+      <Spacer space={SH(10)} />
+      <View
+        style={{
+          flexDirection: "row",
+          flex: 1,
+          justifyContent: "space-between",
+        }}
+      >
+        <Image style={styles.staticStyle} source={static1} />
+        <Image style={styles.staticStyle} source={static2} />
+        <Image style={styles.staticStyle} source={static3} />
+        <Image style={styles.staticStyle} source={static4} />
+        <Image style={styles.staticStyle} source={static5} />
+        <Image style={styles.staticStyle} source={static6} />
+      </View>
+      {/* <Ionicons name="chevron-forward" size={20} color="black" /> */}
     </TouchableOpacity>
   );
 
@@ -167,7 +201,6 @@ export function SubCategories(params) {
         back={backArrow}
         // onFilterPress={toggleModal}
       />
-
       <View style={styles.upperView}>
         <Spacer space={SH(10)} />
 
@@ -198,6 +231,7 @@ export function SubCategories(params) {
           renderItem={renderSubcategoryItem}
           ListEmptyComponent={renderNoData}
           keyExtractor={(item) => item.id}
+          extraData={SUBCATEGORIES?.subCategoryList?.data}
           // renderScrollComponent={loadMoreFunction}
           // onEndReached={loadMoreFunction}
           // onEndReachedThreshold={0}
