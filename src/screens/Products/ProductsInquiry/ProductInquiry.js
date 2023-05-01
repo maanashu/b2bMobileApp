@@ -185,6 +185,7 @@ export function ProductInquiry(params) {
     }
     // navigate(NAVIGATION.businessRegistration, { screen: "business" });
   };
+  console.log("token-->", user?.user?.payload?.token);
   const SwiperPaginationHandler = () => {
     if (ProductDetail?.productDetail?.product_detail?.image === null) {
       return null;

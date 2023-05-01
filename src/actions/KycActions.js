@@ -369,10 +369,14 @@ export const getBankAccounts = (key) => async (dispatch) => {
     const res = await KycController.getBankAccounts();
     if (key === "bankList") {
       dispatch(getBankAccountsSuccess(res));
+      console.log("action sucess");
     } else {
+      console.log("action 1");
       dispatch(getBankAccountsSuccess(res));
     }
   } catch (error) {
+    console.log("action error");
+
     dispatch(getBankAccountsError(error.message));
   }
 };

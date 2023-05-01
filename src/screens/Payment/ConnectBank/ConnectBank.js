@@ -56,7 +56,9 @@ export function ConnectBank(props) {
         (res?.payload?.link?.msg === "Linked bank account!" &&
           param === "bankList")
       ) {
+        setIsLoading(false);
       } else {
+        setIsLoading(false);
         // navigation.reset({
         //   index: 0,
         //   routes: [{ name: NAVIGATION.bottomTab }],
@@ -70,6 +72,10 @@ export function ConnectBank(props) {
     }
   };
 
+  useEffect(() => {
+    dispatch(getBankAccounts());
+    setIsLoading(false);
+  }, []);
   useEffect(() => {
     if (getKycData?.linkBank?.status === "SUCCESS") {
       dispatch(getBankAccounts());

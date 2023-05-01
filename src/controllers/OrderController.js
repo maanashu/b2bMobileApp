@@ -41,7 +41,7 @@ export class OrderController {
       HttpClient.post(endpoint, body)
         .then((response) => {
           resolve(response);
-          console.log("cart controller success====", body);
+          console.log("cart controller success====", response);
           navigate(NAVIGATION.checkout);
         })
         .catch((error) => {
@@ -65,10 +65,10 @@ export class OrderController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
-          console.log("get cart sucess", response);
+          // console.log("get cart sucess", response);
         })
         .catch((error) => {
-          console.log("get cart error", error);
+          console.log("get cart controller error", error);
 
           reject(error);
 

@@ -256,12 +256,11 @@ export const styles = StyleSheet.create({
   },
   productNameText: {
     fontFamily: Fonts.SemiBold,
-    fontSize: SF(11.5),
+    fontSize: SF(15),
     color: COLORS.darkGrey,
   },
   crossView: {
     alignItems: "flex-end",
-    justifyContent: "space-between",
   },
   counterView: {
     flexDirection: "row",
@@ -336,5 +335,11 @@ export const styles = StyleSheet.create({
     color: COLORS.darkGrey2,
     fontFamily: Fonts.Regular,
     fontSize: SF(15),
+  },
+  rowView: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });

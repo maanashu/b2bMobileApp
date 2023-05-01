@@ -22,6 +22,7 @@ import {
   forwardArrowWhite,
   rightArrowBlue,
   rightArrowThin,
+  shoesBusiness,
 } from "@/assets";
 import { strings } from "@/localization";
 import { HeaderCoin } from "../Profile/Wallet/Components/HeaderCoin";
@@ -46,9 +47,10 @@ export function Checkout(navigation) {
 
   const route = useRoute();
   const quantity = route?.params?.data;
+  let arr = [cartList?.getCart];
 
-  console.log("checking shoe size", cartList?.getCart);
-  console.log("checking shoe size", user?.user?.payload?.token);
+  console.log("checking shoe size", JSON.stringify(arr[0]));
+  // console.log("checking shoe size", user?.user?.payload?.token);
 
   const [productArray, setproductArray] = useState(quantity ?? []);
   const [setProductArrat, setsetProductArrat] = useState(quantity ?? []);
@@ -134,58 +136,112 @@ export function Checkout(navigation) {
 
   const renderItem = ({ item, index }) => {
     return (
+      // <>
+      //   <View style={styles.productView}>
+      //     {/* {item?.cart_products.map((val, i) => (
+      //       <>
+      //         <View>
+      //           <Text style={{ color: "black", fontSize: 50 }}>
+      //             {val.created_at}
+      //           </Text>
+      //         </View>
+      //       </>
+      //     ))} */}
+      //     {item?.cart_products.map((val, i) => (
+      //     <Image
+      //       source={{uri:val?.product_details?.image}}
+      //       resizeMode="cover"
+      //       style={styles.productImageStyle}
+      //     />
+      //     ))}
+
+      //     <View style={styles.productsInnerView}>
+      //       <View>
+      //         <Text style={styles.productNameText}>{item.itemName}</Text>
+      //         <Text style={styles.secondaryDetailText}>
+      //           Color: <Text>{item.color}</Text>
+      //         </Text>
+      //         <Text style={styles.secondaryDetailText}>
+      //           Size: <Text>{item.name}</Text>
+      //         </Text>
+
+      //         <Spacer space={SH(5)} />
+
+      //         {/* counter */}
+
+      //         <View style={styles.counterButtonView}>
+      //           <TouchableOpacity
+      //             onPress={() => cartMinusOnPress(index)}
+      //             style={styles.decrementView}
+      //           >
+      //             <Text style={styles.decrementButton}>-</Text>
+      //           </TouchableOpacity>
+      //           <Text style={styles.selectedNumber}>{item.qty}</Text>
+      //           <TouchableOpacity
+      //             onPress={() => cartPlusOnPress(index)}
+      //             style={styles.incrementView}
+      //           >
+      //             <Text style={styles.incrementButton}>+</Text>
+      //           </TouchableOpacity>
+      //         </View>
+
+      //         {/* counter */}
+      //       </View>
+      //       <View style={styles.crossView}>
+      //         <Image
+      //           source={cross}
+      //           resizeMode="contain"
+      //           style={styles.crossIcon}
+      //         />
+      //         <Text style={styles.secondaryText}>{item.price}</Text>
+      //       </View>
+      //     </View>
+      //   </View>
+      // </>
       <>
-        {item.qty > 0 ? (
-          <View style={styles.productView}>
-            <Image
-              source={{ uri: item?.cart_products[0]?.product_details?.image }}
-              resizeMode="cover"
-              style={styles.productImageStyle}
-            />
-
-            <View style={styles.productsInnerView}>
+        {item?.cart_products?.map((data, ind) => (
+          <>
+            <View style={styles.productView}>
               <View>
-                <Text style={styles.productNameText}>{item.itemName}</Text>
-                <Text style={styles.secondaryDetailText}>
-                  Color: <Text>{item.color}</Text>
-                </Text>
-                <Text style={styles.secondaryDetailText}>
-                  Size: <Text>{item.name}</Text>
-                </Text>
+                <Image
+                  source={{ uri: data?.product_details?.image }}
+                  style={styles.productImageStyle}
+                />
+              </View>
+              <Spacer horizontal space={SH(8)} />
 
-                <Spacer space={SH(5)} />
+              <View style={{ flex: 1 }}>
+                <View style={styles.rowView}>
+                  <Text style={styles.productNameText}>
+                    {data.product_details?.name}
+                  </Text>
 
-                {/* counter */}
-
-                <View style={styles.counterButtonView}>
-                  <TouchableOpacity
-                    onPress={() => cartMinusOnPress(index)}
-                    style={styles.decrementView}
-                  >
-                    <Text style={styles.decrementButton}>-</Text>
-                  </TouchableOpacity>
-                  <Text style={styles.selectedNumber}>{item.qty}</Text>
-                  <TouchableOpacity
-                    onPress={() => cartPlusOnPress(index)}
-                    style={styles.incrementView}
-                  >
-                    <Text style={styles.incrementButton}>+</Text>
+                  <TouchableOpacity>
+                    <Image source={cross} style={styles.crossIcon} />
                   </TouchableOpacity>
                 </View>
-
-                {/* counter */}
-              </View>
-              <View style={styles.crossView}>
-                <Image
-                  source={cross}
-                  resizeMode="contain"
-                  style={styles.crossIcon}
-                />
-                <Text style={styles.secondaryText}>{item.price}</Text>
+                <View
+                  style={{
+                    borderWidth: 1,
+                    height: SH(23),
+                    width: SW(70),
+                    borderRadius: SW(5),
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    paddingHorizontal: SW(10),
+                  }}
+                >
+                  <Text>-</Text>
+                  <Text>{data?.qty}</Text>
+                  <Text>+</Text>
+                </View>
               </View>
             </View>
-          </View>
-        ) : null}
+
+            <Spacer space={SH(10)} />
+          </>
+        ))}
       </>
     );
   };
@@ -222,16 +278,14 @@ export function Checkout(navigation) {
             </View>
           </View>
           <Spacer space={SH(20)} />
-
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={cartList?.getCart}
+            data={arr}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
           />
 
           <Spacer space={SH(25)} />
-
           <TouchableOpacity
             style={styles.applyCouponBackground}
             onPress={applyCouponHandler}
@@ -253,9 +307,7 @@ export function Checkout(navigation) {
               {"Add your coupon here"}
             </Text>
           </TouchableOpacity>
-
           <Spacer space={SH(25)} />
-
           <View style={styles.subtotalBackground}>
             <View style={styles.subtotalView}>
               <Text style={styles.feeText}>{"Subtotal"}</Text>

@@ -298,6 +298,7 @@ export { default as static3 } from "@/assets/icons/ic_static/static3.png";
 export { default as static4 } from "@/assets/icons/ic_static/static4.png";
 export { default as static5 } from "@/assets/icons/ic_static/static5.png";
 export { default as static6 } from "@/assets/icons/ic_static/static6.png";
+export { default as alarmClock } from "@/assets/icons/ic_wallet/alarmClock.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",
