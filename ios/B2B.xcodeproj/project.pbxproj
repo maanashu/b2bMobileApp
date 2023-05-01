@@ -570,7 +570,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.b2b;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.jobr.b2b;
 				PRODUCT_NAME = B2B;
 				SWIFT_OBJC_BRIDGING_HEADER = "B2B-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -599,7 +599,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.b2b;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.jobr.b2b;
 				PRODUCT_NAME = B2B;
 				SWIFT_OBJC_BRIDGING_HEADER = "B2B-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
