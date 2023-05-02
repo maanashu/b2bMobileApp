@@ -99,7 +99,12 @@ export function ProductInquiry(params) {
         </Text>
         <Text style={styles.smallText}>
           {item.qty}
-          <Text>{" Pieces"}</Text>
+          <Text>
+            {" Pieces  "}
+            <Text>
+              {item.min_qty} - {item.max_qty}
+            </Text>
+          </Text>
         </Text>
       </View>
     </TouchableOpacity>
