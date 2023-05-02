@@ -20,17 +20,20 @@ import { renderNoData } from "@/components/FlatlistStyling";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
+import { getUser } from "@/selectors/UserSelectors";
 export function NewProducts() {
   const [selectedId, setSelectedId] = useState(0);
 
   const dispatch = useDispatch();
   const categoryData = useSelector(getCategorySelector);
+  const user = useSelector(getUser);
   const categoryArray = categoryData?.categoryList?.data;
   const splicedArray = categoryArray?.slice(0, 7);
   const [mergedDataa, setMergedData] = useState();
 
   const ProductsData = useSelector(getProductSelector);
   const Products = ProductsData?.product;
+  console.log("products: " + JSON.stringify(Products));
   const newValue = { name: "All" };
   splicedArray.unshift(newValue);
   // console.log(
@@ -215,11 +218,12 @@ export function NewProducts() {
         <Text style={styles.productsQuantity}>{`MOQ:10`}</Text>
 
         <Spacer space={SH(1)} />
-
-        <Text style={styles.priceText}>
-          {"$"} {item.price}/
-          {/* <Text style={styles.categoryText}> {item.product_type.name}</Text> */}
-        </Text>
+        {user?.user?.payload?.token && (
+          <Text style={styles.priceText}>
+            {"$"} {item.price}
+            {/* <Text style={styles.categoryText}> {item.product_type.name}</Text> */}
+          </Text>
+        )}
       </TouchableOpacity>
     </>
   );

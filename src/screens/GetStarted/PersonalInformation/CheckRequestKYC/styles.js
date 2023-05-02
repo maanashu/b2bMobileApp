@@ -19,6 +19,10 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.SemiBold,
     paddingLeft: SW(15),
   },
+  containerStyle: {
+    flex: 1.5,
+    justifyContent: "center",
+  },
   container: {
     flex: 1,
     marginTop: SH(10),
@@ -96,6 +100,39 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.SemiBold,
     fontSize: SF(12),
     color: COLORS.primary,
+  },
+  headingTextStyle: {
+    fontSize: SF(24),
+    color: COLORS.black,
+    textAlign: "center",
+    fontFamily: Fonts.MaisonRegular,
+  },
+  descriptionTextStyle: {
+    fontSize: SF(16),
+    color: COLORS.black,
+    textAlign: "center",
+    paddingHorizontal: SW(32),
+    fontFamily: Fonts.Regular,
+  },
+  verificationImageStyle: {
+    width: SW(212),
+    height: SH(182),
+    resizeMode: "contain",
+    alignSelf: "center",
+  },
+  messageTextStyle: {
+    fontSize: SF(12),
+    color: COLORS.dark_gray,
+    paddingHorizontal: SW(32),
+    fontFamily: Fonts.Regular,
+    textAlign: "center",
+  },
+  notifyText: {
+    fontSize: SF(16),
+    color: COLORS.primary,
+    paddingHorizontal: SW(32),
+    fontFamily: Fonts.SemiBold,
+    textAlign: "center",
   },
   loader: {
     top: 0,

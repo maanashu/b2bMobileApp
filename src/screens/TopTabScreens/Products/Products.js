@@ -77,6 +77,8 @@ export function Products({ navigation }) {
     const probject = {
       page: 1,
       limit: 10,
+      app_name: "b2b",
+      delivery_options: "3",
     };
     dispatch(getProduct(probject));
   };

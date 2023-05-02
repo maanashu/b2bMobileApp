@@ -208,6 +208,7 @@ export function Checkout(navigation) {
                   style={styles.productImageStyle}
                 />
               </View>
+
               <Spacer horizontal space={SH(8)} />
 
               <View style={{ flex: 1 }}>
@@ -220,6 +221,7 @@ export function Checkout(navigation) {
                     <Image source={cross} style={styles.crossIcon} />
                   </TouchableOpacity>
                 </View>
+
                 <View
                   style={{
                     borderWidth: 1,
@@ -282,7 +284,7 @@ export function Checkout(navigation) {
             showsVerticalScrollIndicator={false}
             data={arr}
             renderItem={renderItem}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item?.id}
           />
 
           <Spacer space={SH(25)} />

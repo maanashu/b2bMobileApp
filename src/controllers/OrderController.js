@@ -69,17 +69,37 @@ export class OrderController {
         })
         .catch((error) => {
           console.log("get cart controller error", error);
-
           reject(error);
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
 
-          // Toast.show({
-          //   text2: error.msg,
-          //   position: "bottom",
-          //   type: "error_toast",
-          //   visibilityTime: 1500,
-          // });
+          reject(new Error((strings.validation.error = error.msg)));
+        });
+    });
+  }
+  static async getShippingServices() {
+    return new Promise((resolve, reject) => {
+      const endpoint = ORDER_URL + ApiOrderInventory.getShippingServices;
+      HttpClient.get(endpoint)
+        .then((response) => {
+          resolve(response);
+          console.log("get cart sucess", response);
+        })
+        .catch((error) => {
+          console.log("get cart controller error", error);
+          reject(error);
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
 
-          // reject(new Error((strings.validation.error = error.msg)));
+          reject(new Error((strings.validation.error = error.msg)));
         });
     });
   }

@@ -186,6 +186,7 @@ export class KycController {
           resolve(response);
         })
         .catch((error) => {
+          console.log("controoler error", error);
           reject(new Error((strings.verify.error = error.msg)));
         });
     });

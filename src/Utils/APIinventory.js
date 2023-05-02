@@ -23,6 +23,7 @@ export const ApiUserInventory = {
   userAddress: "user_locations/",
   getUserLocations: "user_locations/user",
   changeCurrentAddress: "user_locations/",
+  sendEmailOtp: "users/send-otp",
 };
 
 export const SupportInventory = {
@@ -32,6 +33,7 @@ export const SupportInventory = {
 export const ApiOrderInventory = {
   createNewCart: "carts",
   getCart: "carts/user",
+  getShippingServices: "shipping_service",
 };
 export const ApiSupportInventory = {
   subjectList: SUPPORT_URL + "subjects",

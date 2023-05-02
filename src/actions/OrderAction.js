@@ -35,6 +35,25 @@ const getCartReset = () => ({
   payload: null,
 });
 
+const getShippingServicesRequest = () => ({
+  type: TYPES.GET_SHIPPING_SERVICES_REQUEST,
+  payload: null,
+});
+
+const getShippingServicesError = (error) => ({
+  type: TYPES.GET_SHIPPING_SERVICES_ERROR,
+  payload: { error },
+});
+
+const getShippingServicesSuccess = (shippingServices) => ({
+  type: TYPES.GET_SHIPPING_SERVICES_SUCCESS,
+  payload: { shippingServices },
+});
+const getShippingServicesReset = () => ({
+  type: TYPES.GET_SHIPPING_SERVICES_RESET,
+  payload: null,
+});
+
 export const createCartAction = (data) => async (dispatch) => {
   console.log("checkdata", data);
   dispatch(createCartRequest());
@@ -57,6 +76,19 @@ export const getCart = () => async (dispatch) => {
       dispatch(getCartReset());
     } else {
       dispatch(getCartError(error.message));
+    }
+  }
+};
+export const getShippingServices = () => async (dispatch) => {
+  dispatch(getShippingServicesRequest());
+  try {
+    const res = await OrderController.getShippingServices();
+    dispatch(getShippingServicesSuccess(res));
+  } catch (error) {
+    if (error?.statusCode === 204) {
+      dispatch(getShippingServicesReset());
+    } else {
+      dispatch(getShippingServicesError(error.message));
     }
   }
 };

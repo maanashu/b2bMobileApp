@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     margin: 2,
-    borderRadius: 5,
+    borderRadius: SW(4),
     borderWidth: 0.5,
   },
   itemS: {

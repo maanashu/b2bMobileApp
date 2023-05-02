@@ -293,9 +293,12 @@ export const checkKyc = () => async (dispatch) => {
   try {
     const res = await KycController.checkKyc();
     dispatch(checkKycSuccess(res));
+    console.log("actionsuccess");
 
     console.log("checkKyc action success", res);
   } catch (error) {
+    console.log("ACTION ERROR", error);
+
     dispatch(checkKycError(error.message));
   }
 };

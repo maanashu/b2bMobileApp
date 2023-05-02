@@ -1,34 +1,19 @@
-import React from "react";
-import {
-  View,
-  Image,
-  Text,
-  TouchableOpacity,
-  ActivityIndicator,
-} from "react-native";
+import React, { useEffect } from "react";
+import { View, Image, Text } from "react-native";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { TYPES } from "@/Types/Types";
 import { strings } from "@/localization";
-import { getUser, getuser } from "@/selectors/UserSelectors";
+import { getUser } from "@/selectors/UserSelectors";
 import { Button, ScreenWrapper, Spacer } from "@/components";
-import { isLoadingSelector } from "@/selectors/StatusSelectors";
 
 import { styles } from "@/screens/GetStarted/PersonalInformation/CheckRequestKYC/styles";
-import { COLORS, SH } from "@/theme";
-import { Fonts, refresh } from "@/assets";
-import Spinner from "react-native-loading-spinner-overlay/lib";
+import { SH, SW } from "@/theme";
+import { alarmClock } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
-import {
-  checkBusinessKyc,
-  checkKyc,
-  requestBusinessKyc,
-  requestKyc,
-} from "@/actions/KycActions";
+import { checkKyc, requestKyc } from "@/actions/KycActions";
 import { getKyc } from "@/selectors/KycSelector";
-import { useState } from "react";
 
 export function CheckAndRequestKYC(params) {
   const dispatch = useDispatch();
@@ -38,64 +23,83 @@ export function CheckAndRequestKYC(params) {
   const getKycData = useSelector(getKyc);
   const kycRequest = getKycData?.requestKyc?.payload;
   const kycStatus = getKycData?.checkKyc?.payload?.status;
-  const name =
-    getUserData?.user?.payload?.user_profiles?.firstname ??
-    getUserData?.registerData?.firstname;
-  const businessRequest = getKycData?.requestBusinessKyc?.payload;
-  const kycBusinessStatus = getKycData?.checkBusinessKyc?.payload?.status;
-  // console.log(
-  //   "kyc request" + JSON.stringify(getKycData?.requestKyc?.kyc?.payload)
-  // );
-  const [requestedKyc, setRequestedKyc] = useState(false);
-  const customHeader = () => (
-    <View style={styles.headerRowView}>
-      <Text style={styles.requestTitleStyle}>
-        {" "}
-        {screen === "business" ? "Request KYB " : strings.kyc.requestTitle}
-      </Text>
-    </View>
-  );
 
-  const onPressHandler = () => {
+  useEffect(() => {
     dispatch(requestKyc());
-    setRequestedKyc(true);
-  };
+  }, []);
 
-  const isLoading = useSelector((state) =>
-    isLoadingSelector([TYPES.REQUEST_KYC], state)
-  );
-
-  const isCheckLoading = useSelector((state) =>
-    isLoadingSelector([TYPES.CHECK_KYC], state)
-  );
-  const [isBusinessLoading, setIsBusinessLoading] = useState(false);
-  ``;
-
-  const onPressRefreshHandler = () => dispatch(checkKyc());
-
-  const submitKyc = () => {
-    navigate(NAVIGATION.ageVerification, { screen: screen });
-  };
-  const onPressBusinessHandler = async () => {
-    setIsBusinessLoading(true);
-    const res = await dispatch(requestBusinessKyc());
-    if (res?.type === TYPES.REQUEST_BUSINESS_SUCCESS) {
-      setIsBusinessLoading(false);
+  useEffect(() => {
+    let interval;
+    if (kycStatus !== "passed") {
+      interval = setInterval(() => {
+        dispatch(checkKyc());
+        console.log("htting", kycStatus);
+      }, 5000);
+    } else {
+      clearInterval(interval);
     }
-    setIsBusinessLoading(false);
-  };
-  const onPressBusinessRefreshHandler = async () => {
-    setIsBusinessLoading(true);
-    const res = await dispatch(checkBusinessKyc());
-    if (res?.type === TYPES.CHECK_BUSINESS_SUCCESS) {
-      setIsBusinessLoading(false);
+    return () => clearInterval(interval);
+  }, [kycStatus !== "passed"]);
+
+  useEffect(() => {
+    if (kycStatus === "passed") {
+      navigate(NAVIGATION.ageVerification);
     }
-    setIsBusinessLoading(false);
-  };
+  }, [kycStatus]);
+  // const name =
+  //   getUserData?.user?.payload?.user_profiles?.firstname ??
+  //   getUserData?.registerData?.firstname;
+  // const businessRequest = getKycData?.requestBusinessKyc?.payload;
+  // const kycBusinessStatus = getKycData?.checkBusinessKyc?.payload?.status;
+  // // console.log(
+  // //   "kyc request" + JSON.stringify(getKycData?.requestKyc?.kyc?.payload)
+  // // );
+  // const [requestedKyc, setRequestedKyc] = useState(false);
+  // const customHeader = () => (
+  //   <View style={styles.headerRowView}>
+  //     <Text style={styles.requestTitleStyle}>
+  //       {" "}
+  //       {screen === "business" ? "Request KYB " : strings.kyc.requestTitle}
+  //     </Text>
+  //   </View>
+  // );
+  // const onPressHandler = () => {
+  //   dispatch(requestKyc());
+  //   setRequestedKyc(true);
+  // };
+  // const isLoading = useSelector((state) =>
+  //   isLoadingSelector([TYPES.REQUEST_KYC], state)
+  // );
+  // const isCheckLoading = useSelector((state) =>
+  //   isLoadingSelector([TYPES.CHECK_KYC], state)
+  // );
+  // const [isBusinessLoading, setIsBusinessLoading] = useState(false);
+  // ``;
+  // const onPressRefreshHandler = () => dispatch(checkKyc());
+
+  // const submitKyc = () => {
+  //   navigate(NAVIGATION.ageVerification, { screen: screen });
+  // };
+  // const onPressBusinessHandler = async () => {
+  //   setIsBusinessLoading(true);
+  //   const res = await dispatch(requestBusinessKyc());
+  //   if (res?.type === TYPES.REQUEST_BUSINESS_SUCCESS) {
+  //     setIsBusinessLoading(false);
+  //   }
+  //   setIsBusinessLoading(false);
+  // };
+  // const onPressBusinessRefreshHandler = async () => {
+  //   setIsBusinessLoading(true);
+  //   const res = await dispatch(checkBusinessKyc());
+  //   if (res?.type === TYPES.CHECK_BUSINESS_SUCCESS) {
+  //     setIsBusinessLoading(false);
+  //   }
+  //   setIsBusinessLoading(false);
+  // };
 
   return (
     <ScreenWrapper>
-      {customHeader()}
+      {/* {customHeader()}
 
       <Spacer space={SH(1)} backgroundColor={COLORS.transparent} />
       {screen === "business" ? (
@@ -274,7 +278,40 @@ export function CheckAndRequestKYC(params) {
             style={styles.loader}
           />
         </View>
-      ) : null}
+      ) : null} */}
+
+      <View style={styles.containerStyle}>
+        <Spacer space={SH(80)} />
+        <Text style={styles.headingTextStyle}>{strings.kyc.heading}</Text>
+
+        <Spacer space={SH(20)} />
+
+        <Text style={styles.descriptionTextStyle}>
+          {strings.kyc.description}
+        </Text>
+
+        <Spacer space={SH(60)} />
+        <Image source={alarmClock} style={styles.verificationImageStyle} />
+
+        <Spacer space={SH(60)} />
+        <Text style={styles.messageTextStyle}>
+          {strings.kyc.requestMessage}
+        </Text>
+
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "flex-end",
+            paddingHorizontal: SW(20),
+            paddingVertical: SH(30),
+          }}
+        >
+          <Text style={styles.notifyText}>{strings.kyc.notify}</Text>
+          <Spacer space={SH(25)} />
+
+          <Button title={"Close"} />
+        </View>
+      </View>
     </ScreenWrapper>
   );
 }

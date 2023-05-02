@@ -15,8 +15,15 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
-import { calendar, unchecked } from "@/assets";
-import { COLORS, SH, SW } from "@/theme";
+import {
+  Fonts,
+  calendar,
+  cross,
+  email_chat,
+  email_verification,
+  unchecked,
+} from "@/assets";
+import { COLORS, SF, SH, SW, ShadowStyles } from "@/theme";
 import { TYPES } from "@/Types/Types";
 import { NAVIGATION } from "@/constants";
 import { strings } from "@/localization";
@@ -33,10 +40,12 @@ import { createWallet } from "@/actions/WalletActions";
 import { Loader } from "@/components/Loader";
 import { navigate } from "@/navigation/NavigationRef";
 import { useIsFocused } from "@react-navigation/native";
+import RBSheet from "react-native-raw-bottom-sheet";
 
 export function PersonalInformation(params) {
   const isFocused = useIsFocused();
   const ref = useRef(null);
+  const refRBSheet = useRef();
   const dispatch = useDispatch();
   const getData = useSelector(userSelector);
   const getKycData = useSelector(getKyc);
@@ -235,6 +244,7 @@ export function PersonalInformation(params) {
         type: individual ? "individual" : "business",
       };
       dispatch(createWallet(data));
+      // refRBSheet.current.open();
     }
   };
 
@@ -665,6 +675,80 @@ export function PersonalInformation(params) {
         </View>
         {isLoading ? <Loader message="Loading data ..." /> : null}
         {isLoginLoader ? <Loader message="Loading data ..." /> : null}
+
+        <RBSheet
+          ref={refRBSheet}
+          customStyles={{
+            wrapper: {
+              // backgroundColor: "transparent",
+              opacity: 1,
+            },
+            container: {
+              borderTopLeftRadius: SW(15),
+              borderTopRightRadius: SW(15),
+              ...ShadowStyles.shadow4,
+            },
+          }}
+        >
+          <>
+            <View style={styles.bottomSheetHeader}>
+              <Text style={styles.emailVerText}>
+                {strings.personalInformation.emailVerification}
+              </Text>
+              <TouchableOpacity onPress={() => refRBSheet.current.close()}>
+                <Image
+                  source={cross}
+                  resizeMode="contain"
+                  style={styles.crossIcon}
+                />
+              </TouchableOpacity>
+            </View>
+
+            <Spacer space={SH(20)} />
+
+            <Text style={styles.emailAddressHeading}>
+              {strings.personalInformation.emailAddress}
+            </Text>
+            <Spacer space={SH(35)} />
+            <View style={{ paddingHorizontal: SW(25) }}>
+              <View
+                style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
+              >
+                <View
+                  style={{
+                    flex: 1,
+                    borderWidth: SW(1),
+                    borderRadius: SW(5),
+                    borderColor: COLORS.termsBorder,
+                    height: SH(55),
+                    paddingHorizontal: SW(10),
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <Image
+                    source={email_verification}
+                    resizeMode="contain"
+                    style={{
+                      height: SW(20),
+                      width: SW(20),
+                      alignSelf: "center",
+                    }}
+                  />
+                  <Spacer horizontal space={SW(10)} />
+                  <TextInput
+                    placeholder="Email address"
+                    value={email}
+                    style={{ fontSize: SF(15), fontFamily: Fonts.Regular }}
+                  />
+                </View>
+              </View>
+            </View>
+            <View style={styles.bottomSheetButtonView}>
+              <Button title={"Verify"} />
+            </View>
+          </>
+        </RBSheet>
       </View>
     </ScreenWrapper>
   );

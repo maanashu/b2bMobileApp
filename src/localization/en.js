@@ -83,6 +83,8 @@ export const en = {
     header: "Information for kyc",
     title: "Personal Information",
     labelDob: "Date of birthday (month / day / year)",
+    emailVerification: "Email verification",
+    emailAddress: "Email Address",
   },
   buttonText: {
     next: "Next",
@@ -754,6 +756,10 @@ export const en = {
     requestMessage:
       "We must verify that all users of the Sila platform are who they say they are. We do this by submitting end-user information for KYC review by our Identity Verification Partner. The  user will not be able to transact until the user is verified. With great power comes great responsibility ",
     continue: "Continue",
+    heading: "Verification in Progress",
+    description:
+      "Once (KYC)checks are complete we’ll let you know via notification. This usually takes few minutes ",
+    notify: "Sit Back ! We’ll notify you",
   },
 
   ageVerification: {

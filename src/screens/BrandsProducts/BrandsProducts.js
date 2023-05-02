@@ -24,6 +24,7 @@ import { renderNoData } from "@/components/FlatlistStyling";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
+import { getUser } from "@/selectors/UserSelectors";
 
 export function BrandsProducts(params) {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ export function BrandsProducts(params) {
 
   const brandsData = useSelector(getCategorySelector);
   const productsData = useSelector(getProductSelector);
+  const user = useSelector(getUser);
 
   // console.log("product details", params?.route?.params?.categoryId);
 
@@ -180,11 +182,12 @@ export function BrandsProducts(params) {
         <Spacer space={SH(5)} />
         <Text style={styles.productsQuantity}>{`MOQ:10`}</Text>
         <Spacer space={SH(1)} />
-
-        <Text style={styles.priceText}>
-          {/* {item.price}/ */}
-          {/* <Text style={styles.categoryText}> {item.product_type.name}</Text> */}
-        </Text>
+        {user?.user?.payload?.token && (
+          <Text style={styles.priceText}>
+            {item.price}
+            {/* <Text style={styles.categoryText}> {item.product_type.name}</Text> */}
+          </Text>
+        )}
       </TouchableOpacity>
     </>
   );

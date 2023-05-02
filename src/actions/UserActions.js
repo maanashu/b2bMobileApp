@@ -21,6 +21,11 @@ export const TYPES = {
   VERIFY_OTP_ERROR: "VERIFY_OTP_ERROR",
   VERIFY_OTP_SUCCESS: "VERIFY_OTP_SUCCESS",
 
+  EMAIL_VERIFY_OTP: "EMAIL_VERIFY_OTP",
+  EMAIL_VERIFY_OTP_REQUEST: "EMAIL_VERIFY_OTP_REQUEST",
+  EMAIL_VERIFY_OTP_ERROR: "EMAIL_VERIFY_OTP_ERROR",
+  EMAIL_VERIFY_OTP_SUCCESS: "EMAIL_VERIFY_OTP_SUCCESS",
+
   GET_USER: "GET_USER",
   GET_USER_ERROR: "GET_USER_ERROR",
   GET_USER_SUCCESS: "GET_USER_SUCCESS",
@@ -125,6 +130,21 @@ const verifyOtpError = (error) => ({
 const verifyOtpSuccess = (verify) => ({
   type: TYPES.VERIFY_OTP_SUCCESS,
   payload: { verify },
+});
+
+const emailOtpRequest = () => ({
+  type: TYPES.EMAIL_VERIFY_OTP_REQUEST,
+  payload: null,
+});
+
+const emailOtpError = (error) => ({
+  type: TYPES.EMAIL_VERIFY_OTP_ERROR,
+  payload: { error },
+});
+
+const emailOtpSuccess = (verifyEmail) => ({
+  type: TYPES.EMAIL_VERIFY_OTP_SUCCESS,
+  payload: { verifyEmail },
 });
 
 const registerRequest = () => ({
@@ -307,6 +327,16 @@ export const verifyOtp = (id, value) => async (dispatch) => {
   } catch (error) {
     dispatch(verifyOtpError(error));
 
+    console.log("dispatching error--->", error);
+  }
+};
+export const sendEmailOtp = (id, value) => async (dispatch) => {
+  dispatch(emailOtpRequest());
+  try {
+    const res = await UserController.sendEmailOtp(id, value);
+    dispatch(emailOtpSuccess(res));
+  } catch (error) {
+    dispatch(emailOtpError(error));
     console.log("dispatching error--->", error);
   }
 };

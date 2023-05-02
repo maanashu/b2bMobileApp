@@ -26,6 +26,7 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Loader } from "@/components/Loader";
+import { getProduct } from "@/actions/ProductActions";
 
 export function SubCategories(params) {
   const listRef = useRef();
@@ -46,17 +47,22 @@ export function SubCategories(params) {
       params?.route?.params?.serviceType == "product" ? "product" : "service",
     main_category: true,
   };
-
   const categoryData = useSelector(getCategorySelector);
-
   const SUBCATEGORIES = useSelector(getCategorySelector);
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_SUB_CATEGORY], state)
   );
-
+  // const productObject = {
+  //   page: 1,
+  //   limit: 10,
+  //   // categoryId: SUBCATEGORIES?.subCategoryList?.data[0]?.id,
+  //   app_name: "b2b",
+  //   delivery_options: "3",
+  // };
   useEffect(() => {
     dispatch(getBrands(1));
+    // dispatch(getProduct(productObject));
   }, []);
 
   useEffect(() => {

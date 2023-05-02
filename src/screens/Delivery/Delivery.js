@@ -1,5 +1,5 @@
 import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { styles } from "./Delivery.styles";
 import { Button, ScreenWrapper, Spacer } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
@@ -9,9 +9,16 @@ import { goBack, navigate } from "@/navigation/NavigationRef";
 import { backArrow, jobr, dhl, ups, coins, fedEx } from "@/assets";
 import { strings } from "@/localization";
 import { NAVIGATION } from "@/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { getShippingServices } from "@/actions/OrderAction";
+import { orderSelector } from "@/selectors/OrderSelector";
 
 export function Delivery() {
+  const dispatch = useDispatch();
+  const services = useSelector(orderSelector);
   const [selectedId, setSelectedId] = useState("");
+
+  console.log("services", JSON.stringify(services?.shippingServices));
 
   const selectDelivery = () => {
     if (selectedId) {
@@ -24,6 +31,9 @@ export function Delivery() {
       Alert.alert("Please select a delivery service");
     }
   };
+  useEffect(() => {
+    dispatch(getShippingServices());
+  }, []);
 
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>

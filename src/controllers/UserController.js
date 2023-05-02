@@ -76,6 +76,48 @@ export class UserController {
         });
     });
   }
+
+  static async sendEmailOtp(email) {
+    return new Promise((resolve, reject) => {
+      const endpoint = USER_URL + ApiUserInventory.sendEmailOtp;
+
+      const body = {
+        type: "email",
+        email: email,
+      };
+
+      HttpClient.post(endpoint, body)
+        .then((response) => {
+          resolve(response);
+          if (response?.payload?.is_phone_exits) {
+            console.log("User already Registered", response);
+            Toast.show({
+              text2: "Email already registered",
+              position: "bottom",
+              type: "error_toast",
+              visibilityTime: 1500,
+            });
+          } else {
+            console.log("New User", response.payload.id);
+            Toast.show({
+              text2: "Email verified",
+              position: "bottom",
+              type: "success_toast",
+              visibilityTime: 1500,
+            });
+          }
+        })
+        .catch((error) => {
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
+          reject(new Error((strings.verify.error = error.msg)));
+        });
+    });
+  }
   static async verifyOtp(id, value, key) {
     return new Promise((resolve, reject) => {
       const endpoint = USER_URL + ApiUserInventory.verifyPhone;

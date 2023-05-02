@@ -30,6 +30,7 @@ const INITIALSTATE = {
   updateLocation: {},
   sendOtp: {},
   VerifyOTP: {},
+  verifyEmail: {},
 };
 
 export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -95,6 +96,11 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         getuser: payload.getuser,
+      };
+    case TYPES.EMAIL_VERIFY_OTP_SUCCESS:
+      return {
+        ...state,
+        verifyEmail: payload.verifyEmail,
       };
 
     case TYPES.NEAR_ME_SELLERS_SUCCESS:

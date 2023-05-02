@@ -11,7 +11,7 @@ import {
 
 import PlaidLink from "react-native-plaid-link-sdk";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 import { login } from "@/actions/UserActions";
 import {
@@ -31,38 +31,60 @@ import { styles } from "./ConnectBank.styles";
 import { getKyc } from "@/selectors/KycSelector";
 import { store } from "@/store";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
+import { TYPES } from "@/Types/Types";
 
 export function ConnectBank(props) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
   const getData = useSelector(getUser);
   const getKycData = useSelector(getKyc);
   var plaid = getKycData?.plaidToken ?? [];
   const param = props?.route?.params?.screen;
 
-  console.log("plaid" + JSON.stringify(getKycData?.plaidToken));
+  // console.log("plaid" + JSON.stringify(getKycData?.plaidToken));
 
   const [isLoading, setIsLoading] = useState(false);
 
   const getPlaidTokenHandler = () => dispatch(getPlaidToken());
 
+  // const onPressHandler = async (success) => {
+  //   setIsLoading(true);
+  //   if (success) {
+  //     const res = await dispatch(linkBankAccount(success.publicToken));
+  //     console.log("checking res==>", res);
+  //     if (
+  //       res?.type === "LINK_BANK_ACCOUNT_SUCCESS" ||
+  //       (res?.payload?.link?.msg === "Linked bank account!" &&
+  //         param === "bankList")
+  //     ) {
+  //     } else {
+  //       // navigation.reset({
+  //       //   index: 0,
+  //       //   routes: [{ name: NAVIGATION.bottomTab }],
+  //       // });
+  //     }
+
+  //     if (getKycData?.linkBank?.status === "SUCCESS") {
+  //       dispatch(getBankAccounts(param));
+  //       setIsLoading(false);
+  //     }
+  //   }
+  // };
   const onPressHandler = async (success) => {
     setIsLoading(true);
     if (success) {
       const res = await dispatch(linkBankAccount(success.publicToken));
-      console.log("checking res==>", res);
       if (
         res?.type === "LINK_BANK_ACCOUNT_SUCCESS" ||
         (res?.payload?.link?.msg === "Linked bank account!" &&
           param === "bankList")
       ) {
+        dispatch(getBankAccounts());
         setIsLoading(false);
       } else {
+        dispatch(getBankAccounts());
         setIsLoading(false);
-        // navigation.reset({
-        //   index: 0,
-        //   routes: [{ name: NAVIGATION.bottomTab }],
-        // });
       }
 
       if (getKycData?.linkBank?.status === "SUCCESS") {
@@ -71,11 +93,12 @@ export function ConnectBank(props) {
       }
     }
   };
-
+  // console.log("checking" + JSON.stringify(getKycData?.linkBank));
   useEffect(() => {
     dispatch(getBankAccounts());
     setIsLoading(false);
-  }, []);
+  }, [isFocused]);
+
   useEffect(() => {
     if (getKycData?.linkBank?.status === "SUCCESS") {
       dispatch(getBankAccounts());

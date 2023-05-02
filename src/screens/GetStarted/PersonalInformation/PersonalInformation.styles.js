@@ -203,4 +203,33 @@ export const styles = StyleSheet.create({
   predefinedStyles: {
     color: COLORS.light_blue,
   },
+  crossIcon: {
+    height: SW(25),
+    width: SW(25),
+    tintColor: COLORS.darkGrey,
+  },
+  emailVerText: {
+    fontFamily: Fonts.SemiBold,
+    fontSize: SF(15),
+    color: COLORS.darkGrey,
+  },
+  bottomSheetHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: SH(20),
+    paddingHorizontal: SW(20),
+    justifyContent: "space-between",
+  },
+  emailAddressHeading: {
+    fontFamily: Fonts.Regular,
+    fontSize: SF(15),
+    color: COLORS.darkGrey,
+    paddingHorizontal: SW(25),
+  },
+  bottomSheetButtonView: {
+    justifyContent: "flex-end",
+    flex: 1,
+    paddingHorizontal: SW(20),
+    paddingVertical: SH(20),
+  },
 });

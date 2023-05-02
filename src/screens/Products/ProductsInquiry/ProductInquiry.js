@@ -71,10 +71,10 @@ export function ProductInquiry(params) {
 
   const ProductDetail = useSelector(getProductSelector);
 
-  // console.log(
-  //   "bundleitems: " +
-  //     JSON.stringify(ProductDetail?.productDetail?.product_detail)
-  // );
+  console.log(
+    "bundleitems: " +
+      JSON.stringify(ProductDetail?.productDetail?.product_detail)
+  );
   const isLoadingDetails = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
   );
@@ -95,11 +95,7 @@ export function ProductInquiry(params) {
     <TouchableOpacity style={[styles.item, { marginTop: SH(30) }]}>
       <View style={styles.upperButtons}>
         <Text style={styles.primaryColorText}>
-          {"USD"}{" "}
-          <Text>
-            {"$ "}
-            {token ? item.price : "$$"}
-          </Text>
+          {"USD"} <Text>{token ? item.selling_price : "$$"}</Text>
         </Text>
         <Text style={styles.smallText}>
           {item.qty}
@@ -251,11 +247,12 @@ export function ProductInquiry(params) {
               {ProductDetail?.productDetail?.product_detail?.description}
             </Text>
 
-            {ProductDetail?.productDetail?.product_detail?.bundle_products
-              ?.length !== 0 && (
+            {ProductDetail?.productDetail?.product_detail?.supplies[0]
+              ?.supply_prices?.length > 1 && (
               <FlatList
                 data={
-                  ProductDetail?.productDetail?.product_detail?.bundle_products
+                  ProductDetail?.productDetail?.product_detail?.supplies[0]
+                    ?.supply_prices
                 }
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
