@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, Image, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  ScrollView,
+  PermissionsAndroid,
+} from "react-native";
 import { NameHeader, ScreenWrapper, Spacer } from "@/components";
 import { strings } from "@/localization";
 import { styles } from "./QrCode.styles";
@@ -16,18 +22,51 @@ import Share from "react-native-share";
 export function QrCode() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getWalletUserProfile());
-  }, []);
-
   const qr = useSelector(getUser);
+  const uuid = qr?.user?.payload?.uuid;
+  // console.log("qrcode", qr?.user?.payload?.uuid);
   const [imageUri, setImageUri] = useState("");
   const timestamp = Date.now();
   const downloadUrl = qr?.walletProfile?.qr_code;
   const downloadDest = `${RNFS.DownloadDirectoryPath}/B2B_${timestamp}.jpg`;
   const [inProgress, setInProgress] = useState(false);
 
+  useEffect(() => {
+    dispatch(getWalletUserProfile(uuid));
+  }, []);
+
+  useEffect(() => {
+    const createChannel = async () => {
+      await notifee.createChannel({
+        id: "downloads",
+        name: "Download Channel",
+      });
+    };
+    createChannel();
+  }, []);
+
   const downloadFile = async () => {
+    // if (Platform.OS === "android") {
+    //   const granted = await PermissionsAndroid.request(
+    //     PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+    //     {
+    //       title: "App Write Storage Permission",
+    //       message: "App needs access to write storage",
+    //     }
+    //   );
+    //   if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+    //     console.log("Write Storage permission granted");
+    //   } else {
+    //     console.log("Write Storage permission denied");
+    //   }
+    // } else if (Platform.OS === "ios" || Platform.OS === "macos") {
+    //   const result = await request("write.external-storage");
+    //   if (result === "granted") {
+    //     console.log("Write Storage permission granted");
+    //   } else {
+    //     console.log("Write Storage permission denied");
+    //   }
+    // }
     RNFS.downloadFile({
       fromUrl: downloadUrl,
       toFile: downloadDest,
@@ -58,15 +97,7 @@ export function QrCode() {
       setInProgress(true);
     }
   };
-  // useEffect(() => {
-  //   const createChannel = async () => {
-  //     await notifee.createChannel({
-  //       id: "downloads",
-  //       name: "Download Channel",
-  //     });
-  //   };
-  //   createChannel();
-  // }, []);
+
   const handleNotificationPress = async () => {
     await notifee.displayNotification({
       title: "Qr code saved",

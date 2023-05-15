@@ -33,9 +33,9 @@ export function NewProducts() {
 
   const ProductsData = useSelector(getProductSelector);
   const Products = ProductsData?.product;
-  console.log("products: " + JSON.stringify(Products));
+  // console.log("products: " + JSON.stringify(Products));
   const newValue = { name: "All" };
-  splicedArray.unshift(newValue);
+  splicedArray?.unshift(newValue);
   // console.log(
   //   "response: " +
   //     JSON.stringify(

@@ -262,7 +262,7 @@ export class UserController {
       const endpoint = ApiWalletInventory.getUserByUuid + `${uuid}`;
       HttpClient.get(endpoint)
         .then((response) => {
-          console.log("qr code controller success", response);
+          // console.log("qr code controller success", response);
           resolve(response);
         })
         .catch((error) => {
