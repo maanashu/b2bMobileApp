@@ -136,7 +136,7 @@ export function Profile() {
     if (item.title === strings.profile.myPurchase) {
       navigate(NAVIGATION.myPurchase);
     } else if (item.title === strings.profile.settings) {
-      navigate(NAVIGATION.personalInformation);
+      navigate(NAVIGATION.settings);
     } else if (item.title === strings.profile.myCatalogs) {
       navigate(NAVIGATION.myCatalogue);
     } else if (item.title === strings.profile.myCoupons) {
