@@ -37,9 +37,10 @@ export const styles = StyleSheet.create({
   },
   topNotiView: {
     backgroundColor: COLORS.placeHolder,
-    paddingHorizontal: SW(20),
+    marginHorizontal: SW(20),
     paddingVertical: SH(20),
-    borderRadius: 10,
+    height: SH(60),
+    paddingHorizontal: SW(15),
   },
   bottomLine: {
     borderBottomWidth: SH(0.5),

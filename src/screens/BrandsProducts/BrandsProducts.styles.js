@@ -93,6 +93,9 @@ export const styles = StyleSheet.create({
   rowView: {
     flexDirection: "row",
     alignItems: "center",
+    paddingHorizontal: SW(8),
+    paddingVertical: SH(5),
+    borderRadius: SW(20),
   },
 
   servicesText: {

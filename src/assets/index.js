@@ -300,6 +300,7 @@ export { default as static5 } from "@/assets/icons/ic_static/static5.png";
 export { default as static6 } from "@/assets/icons/ic_static/static6.png";
 export { default as alarmClock } from "@/assets/icons/ic_wallet/alarmClock.png";
 export { default as email_verification } from "@/assets/icons/ic_verification/email_verification.png";
+export { default as notiToggle } from "@/assets/icons/ic_settings/notiToggle.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

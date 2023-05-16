@@ -27,14 +27,24 @@ export function NewProducts() {
   const dispatch = useDispatch();
   const categoryData = useSelector(getCategorySelector);
   const user = useSelector(getUser);
-  const categoryArray = categoryData?.categoryList?.data;
+  const categoryArray = categoryData?.categoryList?.categoryResponse;
   const splicedArray = categoryArray?.slice(0, 7);
-  const [mergedDataa, setMergedData] = useState();
 
   const ProductsData = useSelector(getProductSelector);
   const Products = ProductsData?.product;
-  // console.log("products: " + JSON.stringify(Products));
-  const newValue = { name: "All" };
+  // const newData = [
+  //   {
+  //     categoryData: {
+  //       name: "All",
+  //     },
+  //   },
+  //   ...splicedArray,
+  // ];
+  const newValue = {
+    categoryData: {
+      name: "All",
+    },
+  };
   splicedArray?.unshift(newValue);
   // console.log(
   //   "response: " +
@@ -88,13 +98,13 @@ export function NewProducts() {
   );
 
   const getProductsList = (item) => {
-    setSelectedId(item.id);
+    setSelectedId(item?.categoryData?.id);
     const probject = {
       app_name: "b2b",
       delivery_options: "3",
       page: 1,
       limit: 30,
-      category_ids: item.id,
+      category_ids: item?.categoryData.id,
     };
     dispatch(getProduct(probject));
   };
@@ -117,24 +127,34 @@ export function NewProducts() {
       >
         <View
           style={{
-            borderWidth: item.id === selectedId ? 1 : null,
+            borderWidth: item?.categoryData?.id === selectedId ? 1 : null,
             padding: SW(5),
             borderRadius: SW(20),
             borderColor:
-              item.id === selectedId ? COLORS.primary : COLORS.light_grey,
+              item?.categoryData?.id === selectedId
+                ? COLORS.primary
+                : COLORS.light_grey,
 
             backgroundColor:
-              item.id === selectedId ? COLORS.white : COLORS.input_bg,
+              item?.categoryData?.id === selectedId
+                ? COLORS.white
+                : COLORS.input_bg,
           }}
         >
           <Text
             style={{
               marginHorizontal: SW(1),
-              fontFamily: item.id === selectedId ? Fonts.Bold : Fonts.Regular,
-              color: item.id === selectedId ? COLORS.primary : COLORS.text,
+              fontFamily:
+                item?.categoryData?.id === selectedId
+                  ? Fonts.Bold
+                  : Fonts.Regular,
+              color:
+                item?.categoryData?.id === selectedId
+                  ? COLORS.primary
+                  : COLORS.text,
             }}
           >
-            {item.name}
+            {item?.categoryData?.name}
           </Text>
         </View>
       </TouchableOpacity>

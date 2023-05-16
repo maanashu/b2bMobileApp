@@ -201,6 +201,7 @@ export function JbrWallet() {
       <>
         <Header back={backArrow} title={strings.profile.jbrWallet} />
         <ScrollView
+          showsVerticalScrollIndicator={false}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }

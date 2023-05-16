@@ -60,9 +60,12 @@ export class CategoryController {
     });
   }
 
-  static async getBrands(categoryid) {
+  static async getBrands(categoryid, param) {
+    const params = new URLSearchParams(param).toString();
     return new Promise((resolve, reject) => {
-      const endpoint = PRODUCT_URL + ApiProductInventory.getBrands(categoryid);
+      const endpoint = `${
+        PRODUCT_URL + ApiProductInventory.getBrands(categoryid)
+      }?${params}`;
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);

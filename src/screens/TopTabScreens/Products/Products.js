@@ -56,11 +56,16 @@ export function Products({ navigation }) {
   const Products = ProductsData?.product;
   const [selectedId, setSelectedId] = useState("");
 
+  // console.log(
+  //   "checking category",
+  //   JSON.stringify(categoryData?.categoryList?.categoryResponse)
+  // );
   const categoryObject = {
     page: 1,
     limit: 10,
     service_type: "product",
     main_category: true,
+    app_name: "b2b",
   };
 
   useEffect(() => {
@@ -137,7 +142,9 @@ export function Products({ navigation }) {
             onPress={() =>
               navigate(NAVIGATION.subCategories, {
                 serviceType: "product",
-                idItem: categoryData?.categoryList?.data[0]?.id,
+                idItem:
+                  categoryData?.categoryList?.categoryResponse[0]?.categoryData
+                    ?.id,
               })
             }
           >
@@ -159,16 +166,19 @@ export function Products({ navigation }) {
             onPress={() => {
               setSelectedId(item.name);
               navigate(NAVIGATION.subCategories, {
-                idItem: item.id,
+                idItem: item.categoryData?.id,
                 index: index,
                 serviceType: "product",
               });
             }}
           >
-            <FastImage source={{ uri: item.image }} style={styles.roundIcons} />
+            <FastImage
+              source={{ uri: item.categoryData?.image }}
+              style={styles.roundIcons}
+            />
 
             <Text numberOfLines={1} style={styles.title}>
-              {item.name}
+              {item?.categoryData?.name}
             </Text>
           </TouchableOpacity>
         )}
@@ -271,10 +281,14 @@ export function Products({ navigation }) {
           ) : (
             <FlatList
               columnWrapperStyle={{ justifyContent: "space-between" }}
-              data={categoryData?.categoryList?.data?.slice(0, 8) ?? []}
+              data={
+                categoryData?.categoryList?.categoryResponse?.slice(0, 8) ?? []
+              }
               renderItem={renderCategoryItem}
               keyExtractor={(item) => item.id}
-              extraData={categoryData?.categoryList?.data?.slice(0, 8) ?? []}
+              extraData={
+                categoryData?.categoryList?.categoryResponse?.slice(0, 8) ?? []
+              }
               numColumns={4}
               ListEmptyComponent={LoadingData}
             />

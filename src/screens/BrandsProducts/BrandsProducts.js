@@ -35,18 +35,20 @@ export function BrandsProducts(params) {
   const productsData = useSelector(getProductSelector);
   const user = useSelector(getUser);
 
-  // console.log("product details", params?.route?.params?.categoryId);
-
+  const brandBody = {
+    page: 1,
+    limit: 10,
+  };
   useEffect(() => {
-    dispatch(getBrands(params?.route?.params?.categoryId));
+    dispatch(getBrands(params?.route?.params?.categoryId, brandBody));
   }, []);
-  console.log("brands details", JSON.stringify(brandsData?.brandsList[0]?.id));
+  // console.log("brands details", JSON.stringify(brandsData?.brandsList));
   useEffect(() => {
-    setSelectedId(brandsData?.brandsList[0]?.id);
+    setSelectedId(brandsData?.brandsList?.[0]?.id);
     const productobject = {
       page: 1,
       limit: 10,
-      brand_id: brandsData?.brandsList[0]?.id,
+      brand_id: brandsData?.brandsList?.[0]?.id,
       app_name: "b2b",
       delivery_options: "3",
     };
@@ -120,7 +122,17 @@ export function BrandsProducts(params) {
           getProducts(item);
         }}
       >
-        <View style={styles.rowView}>
+        <View
+          style={[
+            styles.rowView,
+            {
+              borderWidth: item.id === selectedId ? 1 : 0,
+              borderColor: COLORS.primary,
+              backgroundColor:
+                item.id === selectedId ? COLORS.white : COLORS.input_bg,
+            },
+          ]}
+        >
           <FastImage
             source={{ uri: item.image }}
             resizeMode="cover"
@@ -137,13 +149,13 @@ export function BrandsProducts(params) {
           </Text>
         </View>
         <Spacer space={SH(5)} />
-        <View
+        {/* <View
           style={{
             borderBottomWidth: item.id === selectedId ? 1 : null,
             borderColor: item.id === selectedId && COLORS.primary,
             width: "100%",
           }}
-        ></View>
+        ></View> */}
       </TouchableOpacity>
     </>
   );
