@@ -4,13 +4,15 @@ import { styles } from "../ProductInquiry.styles";
 import { goBack } from "@/navigation/NavigationRef";
 import { backArrow, bellGrey, bagGrey } from "@/assets";
 
-export function Header({ back, bell, bag }) {
+export function Header({ back, bell, bag, onPress }) {
   return (
     <View style={styles.header}>
       <View style={styles.headerInnerView}>
         <TouchableOpacity
           style={{ flexDirection: "row", alignItems: "center" }}
-          onPress={() => goBack()}
+          onPress={() => {
+            goBack();
+          }}
         >
           <Image
             resizeMode="contain"

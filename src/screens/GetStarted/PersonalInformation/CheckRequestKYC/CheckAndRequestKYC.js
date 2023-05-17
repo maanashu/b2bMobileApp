@@ -308,8 +308,6 @@ export function CheckAndRequestKYC(params) {
         >
           <Text style={styles.notifyText}>{strings.kyc.notify}</Text>
           <Spacer space={SH(25)} />
-
-          <Button title={"Close"} />
         </View>
       </View>
     </ScreenWrapper>

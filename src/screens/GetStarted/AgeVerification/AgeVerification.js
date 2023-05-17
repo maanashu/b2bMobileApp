@@ -98,6 +98,7 @@ export function AgeVerification(props) {
       headers: {
         "Content-Type": "multipart/form-data",
         Accept: "application/json",
+        "app-name": "b2b",
       },
     })
       .then((resp) => {
@@ -125,9 +126,11 @@ export function AgeVerification(props) {
       headers: {
         "Content-Type": "multipart/form-data",
         Accept: "application/json",
+        "app-name": "b2b",
       },
     })
       .then((resp) => {
+        clg("resp", resp);
         if (resp?.data?.status_code === 200) {
           setFinalBackPhoto(resp.data.payload.profile_photo);
           setConfromCard(resp.data.payload.profile_photo);
@@ -231,6 +234,7 @@ export function AgeVerification(props) {
     }).then((image) => {
       uploadFrontDocument(image);
       setCardImage(image.path);
+      console.log("image path");
     });
   };
 
@@ -241,6 +245,7 @@ export function AgeVerification(props) {
       cropping: true,
     }).then((image) => {
       uploadFrontDocument(image);
+      console.log("image path");
       setCardImage(image.path);
     });
   };
@@ -452,8 +457,6 @@ export function AgeVerification(props) {
           title={strings.supportTicket.actionTitle}
           onPress={(index) => openPickerBackHandler(index)}
         />
-
-        {isLoadingWallet ? <Loader message="Loading data ..." /> : null}
       </ScrollView>
     </ScreenWrapper>
   );

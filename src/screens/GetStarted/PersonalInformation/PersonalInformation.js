@@ -230,7 +230,7 @@ export function PersonalInformation(params) {
         first_name: firstname,
         last_name: lastname,
         phone: phone,
-        dob: dateformat,
+        dob: getData?.registerData?.dob || dateformat,
         ssn: ssn,
         address: street,
         appartment: appartment,
@@ -238,7 +238,7 @@ export function PersonalInformation(params) {
         state: state,
         zip: zipCode,
         country: country,
-        email: email,
+        email: email || getData?.registerData?.email,
         countryCode: countryCode,
         stateCode: stateCode,
         type: individual ? "individual" : "business",
@@ -335,7 +335,7 @@ export function PersonalInformation(params) {
                 <Image source={calendar} style={styles.calendarImage} />
 
                 <TextInput
-                  value={dateformat}
+                  value={getData?.registerData?.dob}
                   returnKeyType={"done"}
                   pointerEvents={"none"}
                   autoCapitalize={"none"}
@@ -371,7 +371,7 @@ export function PersonalInformation(params) {
               />
 
               <TextInput
-                value={email}
+                value={getData?.registerData?.email}
                 returnKeyType={"done"}
                 onChangeText={setEmail}
                 autoCapitalize={"none"}

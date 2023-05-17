@@ -114,7 +114,7 @@ export function MobileNumber(props) {
             style={styles.textInputContainer}
             placeholder={strings.auth.mobilePlaceholder}
             placeholderTextColor={"#A7A7A7"}
-            maxLength={15}
+            maxLength={10}
           />
         </View>
 

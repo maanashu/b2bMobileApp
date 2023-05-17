@@ -38,9 +38,10 @@ export function BrandsProducts(params) {
   const brandBody = {
     page: 1,
     limit: 10,
+    category_id: params?.route?.params?.categoryId,
   };
   useEffect(() => {
-    dispatch(getBrands(params?.route?.params?.categoryId, brandBody));
+    dispatch(getBrands(brandBody));
   }, []);
   // console.log("brands details", JSON.stringify(brandsData?.brandsList));
   useEffect(() => {

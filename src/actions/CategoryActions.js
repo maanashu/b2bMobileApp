@@ -96,10 +96,10 @@ export const getSubCategory = (data) => async (dispatch) => {
   }
 };
 
-export const getBrands = (categoryid, param) => async (dispatch) => {
+export const getBrands = (param) => async (dispatch) => {
   dispatch(getBrandsRequest());
   try {
-    const res = await CategoryController.getBrands(categoryid, param);
+    const res = await CategoryController.getBrands(param);
     dispatch(getBrandsSuccess(res));
   } catch (error) {
     if (error?.statusCode === 204) {

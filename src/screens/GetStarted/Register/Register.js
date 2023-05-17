@@ -176,6 +176,7 @@ export function Register() {
       return;
     } else {
       dispatch(register(data));
+      // console.log(JSON.stringify(data));
     }
   };
 

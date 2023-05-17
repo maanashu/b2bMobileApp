@@ -1,8 +1,8 @@
-import { TYPES } from "@/Types/Types";
+import { TYPES } from "@/actions/UserActions";
 
 const INITIALSTATE = {
   registered: {},
-  registerData: [],
+  registerData: {},
   phone: {},
   user: {},
   getuser: {},
@@ -64,7 +64,7 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         registered: payload.register.payload,
       };
-    case TYPES.REGISTER_DATA:
+    case TYPES.REGISTER_DATA_SUCCESS:
       return {
         ...state,
         registerData: payload.registerData,
