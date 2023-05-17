@@ -140,7 +140,7 @@ export function Products({ navigation }) {
           <TouchableOpacity
             style={styles.item}
             onPress={() =>
-              navigate(NAVIGATION.splash, {
+              navigate(NAVIGATION.subCategories, {
                 serviceType: "product",
                 idItem:
                   categoryData?.categoryList?.categoryResponse[0]?.categoryData

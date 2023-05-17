@@ -18,7 +18,7 @@
 		5299ACD7EABC4923B4AD4571 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 181C32F4A81D4C84A3B2C9ED /* Montserrat-Medium.ttf */; };
 		676FFA70C770497695813439 /* Maison Mono Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A034199DA2EF44AB876C8EC7 /* Maison Mono Regular.ttf */; };
 		70100D425415498F9AF07F4C /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F86FA69C1A048E0A306D9AE /* Montserrat-SemiBold.ttf */; };
-		A27EE85C29E69CC1009D7BF5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A27EE85B29E69CC1009D7BF5 /* GoogleService-Info.plist */; };
+		A26A693F2A13B0B40013081B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A26A693E2A13B0B30013081B /* GoogleService-Info.plist */; };
 		A2ECD5D1294C823A00B2680B /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2ECD5D0294C823A00B2680B /* BootSplash.storyboard */; };
 		A2FAFB762979720600D7C88F /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FAFB752979720600D7C88F /* File.swift */; };
 		BF31AC6369869E46BE01957B /* libPods-B2B.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C747C793A8CB81A3C6382316 /* libPods-B2B.a */; };
@@ -60,7 +60,7 @@
 		8A55D612A43E4D5B9CE19F02 /* Montserrat-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Italic.ttf"; path = "../src/assets/fonts/Montserrat-Italic.ttf"; sourceTree = "<group>"; };
 		95C3E8AD175B4F99B93D3D7D /* Montserrat-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-MediumItalic.ttf"; path = "../src/assets/fonts/Montserrat-MediumItalic.ttf"; sourceTree = "<group>"; };
 		A034199DA2EF44AB876C8EC7 /* Maison Mono Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Maison Mono Regular.ttf"; path = "../src/assets/fonts/Maison Mono Regular.ttf"; sourceTree = "<group>"; };
-		A27EE85B29E69CC1009D7BF5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A26A693E2A13B0B30013081B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A2ECD5D0294C823A00B2680B /* BootSplash.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BootSplash.storyboard; sourceTree = "<group>"; };
 		A2FAFB742979720600D7C88F /* B2B-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "B2B-Bridging-Header.h"; sourceTree = "<group>"; };
 		A2FAFB752979720600D7C88F /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -110,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				A26A693E2A13B0B30013081B /* GoogleService-Info.plist */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -141,7 +142,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				A27EE85B29E69CC1009D7BF5 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* B2B */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* B2BTests */,
@@ -291,7 +291,7 @@
 				F1B6DD0B6B6D41ECB619F016 /* MaisonMonoTRIAL-Bold.otf in Resources */,
 				676FFA70C770497695813439 /* Maison Mono Regular.ttf in Resources */,
 				4DE38BD080054C46BD5F3B62 /* Maison Neue Bold.ttf in Resources */,
-				A27EE85C29E69CC1009D7BF5 /* GoogleService-Info.plist in Resources */,
+				A26A693F2A13B0B40013081B /* GoogleService-Info.plist in Resources */,
 				D0A9F57435E74936BDDDEEE2 /* Montserrat-Bold.ttf in Resources */,
 				D2F5D17E221C487F895940D1 /* Montserrat-Italic.ttf in Resources */,
 				5299ACD7EABC4923B4AD4571 /* Montserrat-Medium.ttf in Resources */,
@@ -555,8 +555,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 79N5QTA3B5;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = AX5AQQF424;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = B2B/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -569,8 +569,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.jobr.b2b;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jobrllc.jobrb2b;
 				PRODUCT_NAME = B2B;
 				SWIFT_OBJC_BRIDGING_HEADER = "B2B-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -585,8 +584,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 79N5QTA3B5;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = AX5AQQF424;
 				INFOPLIST_FILE = B2B/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -598,8 +597,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.jobr.b2b;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jobrllc.jobrb2b;
 				PRODUCT_NAME = B2B;
 				SWIFT_OBJC_BRIDGING_HEADER = "B2B-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

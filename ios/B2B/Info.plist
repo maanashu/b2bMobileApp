@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -40,7 +40,7 @@
 	<key>NSFaceIDUsageDescription</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Used to get current location</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>NSPhotoLibraryUsageDescription</key>

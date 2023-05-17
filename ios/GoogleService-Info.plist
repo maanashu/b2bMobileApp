@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>318453714270-hjrumisvs4aqb73g0mnfj4jbmtbpempb.apps.googleusercontent.com</string>
+	<string>318453714270-4925n30a5r3ja5hi2ch3l7difnjd67nt.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.318453714270-hjrumisvs4aqb73g0mnfj4jbmtbpempb</string>
+	<string>com.googleusercontent.apps.318453714270-4925n30a5r3ja5hi2ch3l7difnjd67nt</string>
 	<key>API_KEY</key>
 	<string>AIzaSyCYnhW_2kHbvmlwOrfa7MNc2dO0a0Yowaw</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>org.reactjs.native.example.B2B</string>
+	<string>com.jobrllc.jobrb2b</string>
 	<key>PROJECT_ID</key>
 	<string>jobrapp</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:318453714270:ios:6f65639fa0a478b1cb13cf</string>
+	<string>1:318453714270:ios:a88b563483edd142cb13cf</string>
 </dict>
 </plist>
