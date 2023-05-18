@@ -61,18 +61,28 @@ export function Register() {
   );
 
   const onChangeDate = (selectedDate) => {
+    const currentDate = moment().format('MM/DD/YYYY');
+    const selected = moment(selectedDate).format('MM/DD/YYYY');
+    if (currentDate === selected) {
+      setShow(false);
+      const fullDate = new Date(moment(selectedDate).subtract(21, 'years'));
+      const changedDate = moment(fullDate).format('MM / DD / YYYY');
+      const newDateFormat = moment(fullDate).format('YYYY-MM-DD');
+      setDateformat(newDateFormat);
+      setDate(changedDate)
+    }
+    else{
     setShow(false);
     const month = selectedDate.getMonth() + 1;
     const selectedMonth = month < 10 ? "0" + month : month;
     const day = selectedDate.getDate();
     const selectedDay = day < 10 ? "0" + day : day;
-    console.log("date console", selectedDay);
-
     const year = selectedDate.getFullYear();
     const fullDate = year + "-" + selectedMonth + "-" + selectedDay;
     const newDateFormat = year + "-" + selectedMonth + "-" + selectedDay;
     setDateformat(newDateFormat);
     setDate(fullDate);
+  }
   };
 
   useEffect(() => {
