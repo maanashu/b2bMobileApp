@@ -273,7 +273,7 @@ export function AgeVerification(props) {
 
   return (
     <ScreenWrapper>
-      <Header title={strings.ageVerification.headerTitle} />
+      <Header title={strings.ageVerification.headerTitle} enableBackButton/>
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <Spacer space={SH(20)} />

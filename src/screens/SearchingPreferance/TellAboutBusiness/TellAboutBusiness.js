@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import {
   FlatList,
-  Image,
-  Platform,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
 import { styles } from "./TellAboutBusiness.styles";
-import { mainLogo, backStripe, backArrow } from "@/assets";
+import { backArrow } from "@/assets";
 import {
   Button,
-  Header,
   NameHeader,
   ScreenWrapper,
   Spacer,

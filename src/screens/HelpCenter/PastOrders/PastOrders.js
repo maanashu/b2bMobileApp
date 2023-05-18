@@ -1,20 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, {  } from "react";
 import {
   View,
   Text,
-  Image,
   TouchableOpacity,
   FlatList,
-  ScrollView,
-  TextInput,
 } from "react-native";
-import { Spacer, ScreenWrapper, Header } from "@/components";
-import { strings } from "@/localization";
+import { Spacer, ScreenWrapper } from "@/components";
 import { styles } from "./PastOrders.styles";
 import { SH, COLORS, SF } from "@/theme";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { backArrow, Fonts } from "@/assets";
 import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
 

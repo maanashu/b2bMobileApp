@@ -15,7 +15,7 @@ export function SearchPlaces(props) {
   const googlePlacesRef = useRef();
   return (
     <ScreenWrapper>
-      <Header title={"Delivery Location"} backRequired rightIconRequired />
+      <Header title={"Delivery Location"} rightIconRequired enableBackButton />
       <Spacer space={SH(20)} />
       <View style={{ paddingHorizontal: SW(20) }}>
         <GooglePlacesAutocomplete

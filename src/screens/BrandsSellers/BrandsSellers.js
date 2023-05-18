@@ -208,7 +208,7 @@ export function BrandsSellers(params) {
 
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <Header title={"Products"} back={backArrow} />
+      <Header title={"Products"} back={backArrow} enableBackButton />
 
       <View style={styles.upperView}>
         <Spacer space={SH(10)} />

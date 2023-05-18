@@ -199,7 +199,7 @@ export function JbrWallet() {
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <>
-        <Header back={backArrow} title={strings.profile.jbrWallet} />
+        <Header back={backArrow} title={strings.profile.jbrWallet}  />
         <ScrollView
           showsVerticalScrollIndicator={false}
           refreshControl={

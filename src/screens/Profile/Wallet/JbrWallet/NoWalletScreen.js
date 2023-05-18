@@ -21,7 +21,7 @@ export function NoWalletScreen() {
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <>
-        <Header back={backArrow} title={strings.profile.jbrWallet} />
+        <Header back={backArrow} title={strings.profile.jbrWallet}  />
 
         {!user?.user?.payload?.token ? (
           <View

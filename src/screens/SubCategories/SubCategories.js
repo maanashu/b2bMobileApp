@@ -192,6 +192,7 @@ export function SubCategories(params) {
       <Header
         title={"Categories"}
         back={backArrow}
+        enableBackButton
         // onFilterPress={toggleModal}
       />
       <View style={styles.upperView}>

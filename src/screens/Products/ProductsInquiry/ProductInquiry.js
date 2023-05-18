@@ -196,7 +196,7 @@ export function ProductInquiry(params) {
   };
   return (
     <ScreenWrapper>
-      <Header back={backArrow} bell={bellGrey} bag={bagGrey} />
+      <Header back={backArrow} bell={bellGrey} bag={bagGrey}   />
       <Spacer space={SH(10)} />
 
       <ScrollView showsVerticalScrollIndicator={false} style={{}}>

@@ -250,7 +250,7 @@ export function NewProducts() {
 
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <Header title={strings.newProducts.newProducts} back={backArrow} />
+      <Header title={strings.newProducts.newProducts} back={backArrow} enableBackButton />
 
       <View style={styles.upperView}>
         <SubHeader

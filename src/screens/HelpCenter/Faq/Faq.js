@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { View, Text, Image, TouchableOpacity, FlatList } from "react-native";
-import { Spacer, ScreenWrapper, Header } from "@/components";
+import { Spacer, ScreenWrapper } from "@/components";
 import { styles } from "./Faq.styles";
 import { SH } from "@/theme";
 import { navigate } from "@/navigation/NavigationRef";

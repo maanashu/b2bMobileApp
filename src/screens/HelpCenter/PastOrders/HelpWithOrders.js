@@ -1,11 +1,11 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity, FlatList } from "react-native";
-import { Spacer, ScreenWrapper, Header } from "@/components";
+import { Spacer, ScreenWrapper } from "@/components";
 import { styles } from "./PastOrders.styles";
 import { SH } from "@/theme";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
-import { mask, forward } from "@/assets";
+import { forward } from "@/assets";
 import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
 
 const helpTypeData = [
