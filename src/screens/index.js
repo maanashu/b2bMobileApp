@@ -82,7 +82,7 @@ export { SupportDetails } from "@/screens/HelpCenter/SupportDetails/SupportDetai
 export { SubCategories } from "@/screens/SubCategories/SubCategories";
 export { Messages } from "@/screens/Messages/Messages";
 export { Orders } from "@/screens/Orders/Orders";
-export { BrandsProducts } from "@/screens/BrandsProducts/BrandsProducts";
+export { BrandsSellers } from "@/screens/BrandsSellers/BrandsSellers";
 export { Checkout } from "@/screens/Checkout/Checkout";
 export { PersonalInformation } from "@/screens/GetStarted/PersonalInformation/PersonalInformation";
 export { LoginMethod } from "@/screens/GetStarted/LoginMethod/LoginMethod";
@@ -94,3 +94,4 @@ export { SearchPlaces } from "@/screens/SearchPlaces/SearchPlaces";
 export { BiometricsScreen } from "@/screens/BiometricsScreen/BiometricsScreen";
 export { BusinessRegistration } from "@/screens/GetStarted/BusinessRegistration/BusinessRegistration";
 export { NoWalletScreen } from "@/screens/Profile/Wallet/JbrWallet/NoWalletScreen";
+export { BusinessKyc } from "@/screens/GetStarted/PersonalInformation/BusinessKyc/BusinessKyc";

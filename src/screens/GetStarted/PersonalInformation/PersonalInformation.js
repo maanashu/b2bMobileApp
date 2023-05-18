@@ -19,7 +19,6 @@ import {
   Fonts,
   calendar,
   cross,
-  email_chat,
   email_verification,
   unchecked,
 } from "@/assets";
@@ -79,7 +78,11 @@ export function PersonalInformation(params) {
   // console.log("phone number-->", getData?.phone?.phoneNumber);
   // console.log("email-->", getData?.registerData?.email);
 
-  useEffect(() => {}, [isFocused]);
+  useEffect(() => {
+    setDateformat();
+    setEmail(getData?.registerData?.email);
+    setDateformat(getData?.registerData?.dob);
+  }, [isFocused]);
 
   useEffect(() => {
     dispatch(getUser);
@@ -128,11 +131,11 @@ export function PersonalInformation(params) {
       setDate(changedDate);
     } else {
       setShow(false);
-      const month = selectedDate.getMonth() + 1;
+      const month = selectedDate?.getMonth() + 1;
       const selectedMonth = month < 10 ? "0" + month : month;
-      const day = selectedDate.getDate();
+      const day = selectedDate?.getDate();
       const selectedDay = day < 10 ? "0" + day : day;
-      const year = selectedDate.getFullYear();
+      const year = selectedDate?.getFullYear();
       const fullDate = selectedMonth + " - " + selectedDay + " - " + year;
       const newDateFormat = year + "-" + selectedMonth + "-" + selectedDay;
       setDateformat(newDateFormat);
@@ -335,7 +338,7 @@ export function PersonalInformation(params) {
                 <Image source={calendar} style={styles.calendarImage} />
 
                 <TextInput
-                  value={getData?.registerData?.dob}
+                  value={dateformat}
                   returnKeyType={"done"}
                   pointerEvents={"none"}
                   autoCapitalize={"none"}
@@ -346,6 +349,7 @@ export function PersonalInformation(params) {
                     { color: date ? COLORS.black : COLORS.secondary },
                   ]}
                   onChange={(text) => onChangeDate(text)}
+                  editable={false}
                 />
               </TouchableOpacity>
 
@@ -371,7 +375,7 @@ export function PersonalInformation(params) {
               />
 
               <TextInput
-                value={getData?.registerData?.email}
+                value={email}
                 returnKeyType={"done"}
                 onChangeText={setEmail}
                 autoCapitalize={"none"}

@@ -30,9 +30,10 @@ import {
   BiometricsScreen,
   Brands,
   BrandsProduct,
-  BrandsProducts,
+  BrandsSellers,
   BusinessCards,
   BusinessHome,
+  BusinessKyc,
   BusinessProducts,
   BusinessProfile,
   BusinessRegistration,
@@ -667,8 +668,8 @@ export function AppBottom() {
       />
 
       <Stack.Screen
-        component={BrandsProducts}
-        name={NAVIGATION.brandsProducts}
+        component={BrandsSellers}
+        name={NAVIGATION.brandsSellers}
         options={{ headerShown: false }}
       />
       {/* Home navigator ends here */}
@@ -723,6 +724,11 @@ export function AppBottom() {
       <Stack.Screen
         component={CheckAndRequestKYC}
         name={NAVIGATION.checkAndRequestKYC}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={BusinessKyc}
+        name={NAVIGATION.businessKyc}
         options={{ headerShown: false }}
       />
       <Stack.Screen

@@ -17,41 +17,61 @@ import { backArrow, filter, Fonts, search, boxStar } from "@/assets";
 import { strings } from "@/localization";
 import { Button, Spacer } from "@/components";
 import { ShadowStyles } from "@/theme";
+import { useNavigation } from "@react-navigation/native";
 
-export function Header({ title, back, onFilterPress }) {
+export function Header({
+  title,
+  back,
+  onFilterPress,
+  isFilterIconRequired,
+  enableBackButton,
+  isSearcgIconRequired,
+}) {
+  const navigation = useNavigation();
+  const goBack = () => {
+    if (enableBackButton) {
+      // Handle back button functionality
+      navigation.goBack();
+    }
+  };
   return (
     <View style={styles.header}>
       <View style={styles.headerInnerView}>
-        <TouchableOpacity
-          style={{ flexDirection: "row", alignItems: "center" }}
-          onPress={() => goBack()}
-        >
-          <Image
-            resizeMode="contain"
-            source={back}
-            style={{ height: 30, width: 30 }}
-          />
-          <Text style={styles.headerText}>{title}</Text>
-        </TouchableOpacity>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => goBack()}>
             <Image
               resizeMode="contain"
-              source={search}
-              style={styles.searchIcon}
+              source={back}
+              style={{ height: 30, width: 30 }}
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.headerIconView}
-            onPress={onFilterPress}
-          >
-            <Image
-              resizeMode="contain"
-              source={filter}
-              style={styles.filterIcon}
-            />
-            <Text style={styles.filterText}>{strings.newProducts.filter}</Text>
-          </TouchableOpacity>
+          <Text style={styles.headerText}>{title}</Text>
+        </View>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          {isSearcgIconRequired && (
+            <TouchableOpacity>
+              <Image
+                resizeMode="contain"
+                source={search}
+                style={styles.searchIcon}
+              />
+            </TouchableOpacity>
+          )}
+          {isFilterIconRequired && (
+            <TouchableOpacity
+              style={styles.headerIconView}
+              onPress={onFilterPress}
+            >
+              <Image
+                resizeMode="contain"
+                source={filter}
+                style={styles.filterIcon}
+              />
+              <Text style={styles.filterText}>
+                {strings.newProducts.filter}
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </View>

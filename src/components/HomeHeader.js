@@ -13,7 +13,7 @@ export function HomeHeader({}) {
           resizeMode="contain"
         />
         <TouchableOpacity style={styles.rowView}>
-          <Text style={styles.locationText}>Miami,Florida,USA</Text>
+          <Text style={styles.locationText}>Miami, Florida, USA</Text>
           <Image
             source={dropdownIcon}
             style={styles.downIcon}

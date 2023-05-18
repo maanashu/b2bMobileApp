@@ -20,7 +20,7 @@ import {
   getDocumentTypes,
   businessDocumentUpload,
 } from "@/actions/KycActions";
-import { conIdentity, cornerBorder, dummyIdCard } from "@/assets";
+import { backArrow, conIdentity, cornerBorder, dummyIdCard } from "@/assets";
 import { SH, COLORS } from "@/theme";
 import { TYPES } from "@/Types/Types";
 import { strings } from "@/localization";
@@ -130,7 +130,6 @@ export function AgeVerification(props) {
       },
     })
       .then((resp) => {
-        clg("resp", resp);
         if (resp?.data?.status_code === 200) {
           setFinalBackPhoto(resp.data.payload.profile_photo);
           setConfromCard(resp.data.payload.profile_photo);
@@ -274,7 +273,7 @@ export function AgeVerification(props) {
 
   return (
     <ScreenWrapper>
-      <Header title={strings.ageVerification.headerTitle} backRequired />
+      <Header title={strings.ageVerification.headerTitle} />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <Spacer space={SH(20)} />

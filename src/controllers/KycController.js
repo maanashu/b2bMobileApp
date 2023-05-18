@@ -45,13 +45,10 @@ export class KycController {
         .then((response) => {
           if (response?.msg === "wallet created successfully") {
             // navigate(NAVIGATION.checkReqKyc, { screen: "personal" });
-            console.log("controller success");
           }
           resolve(response);
         })
         .catch((error) => {
-          console.log("endpoint: " + endpoint);
-          console.log("controller error");
           // Toast.show({
           //   text2: error.payload,
           //   position: "bottom",

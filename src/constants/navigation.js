@@ -81,7 +81,7 @@ export const NAVIGATION = {
   subCategories: "SubCategories",
   messages: "Messages",
   orders: "Orders",
-  brandsProducts: "BrandsProducts",
+  brandsSellers: "BrandsSellers",
   checkout: "Checkout",
   personalInformation: "PersonalInformation",
   loginMethod: "LoginMethod",
@@ -93,4 +93,5 @@ export const NAVIGATION = {
   biometricsScreen: "BiometricsScreen",
   businessRegistration: "BusinessRegistration",
   noWalletScreen: "NoWalletScreen",
+  businessKyc: "BusinessKyc",
 };

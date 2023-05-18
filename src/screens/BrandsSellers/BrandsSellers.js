@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
-import { styles } from "./BrandsProducts.styles";
+import { styles } from "./BrandsSellers.styles";
 import { Header, ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
@@ -25,8 +25,9 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
 import { getUser } from "@/selectors/UserSelectors";
+import { getSellers } from "@/actions/UserActions";
 
-export function BrandsProducts(params) {
+export function BrandsSellers(params) {
   const dispatch = useDispatch();
   const routeId = params?.route?.params?.categoryId;
   const [selectedId, setSelectedId] = useState([0]);
@@ -44,26 +45,26 @@ export function BrandsProducts(params) {
     dispatch(getBrands(brandBody));
   }, []);
   // console.log("brands details", JSON.stringify(brandsData?.brandsList));
+
   useEffect(() => {
     setSelectedId(brandsData?.brandsList?.[0]?.id);
-    const productobject = {
+    const sellersObject = {
       page: 1,
       limit: 10,
       brand_id: brandsData?.brandsList?.[0]?.id,
-      app_name: "b2b",
-      delivery_options: "3",
     };
-    dispatch(getProduct(productobject));
+
+    dispatch(getSellers(sellersObject));
   }, [brandsData]);
 
   const getProducts = (item) => {
     setSelectedId(item.id);
-    const productobject = {
+    const sellersObject = {
       page: 1,
       limit: 10,
       brand_id: item.id,
     };
-    dispatch(getProduct(productobject));
+    dispatch(getSellers(sellersObject));
   };
 
   const isLoadingBrands = useSelector((state) =>

@@ -66,6 +66,11 @@ export const TYPES = {
   GET_USER_LOCATION_SUCCESS: "GET_USER_LOCATION_SUCCESS",
   GET_USER_LOCATION_ERROR: "GET_USER_LOCATION_ERROR",
 
+  GET_SELLERS: "GET_SELLERS",
+  GET_SELLERS_REQUEST: "GET_SELLERS_REQUEST",
+  GET_SELLERS_SUCCESS: "GET_SELLERS_SUCCESS",
+  GET_SELLERS_ERROR: "GET_SELLERS_ERROR",
+
   UPDATE_USER_LOCATION: "UPDATE_USER_LOCATION",
   UPDATE_USER_LOCATION_REQUEST: "UPDATE_USER_LOCATION_REQUEST",
   UPDATE_USER_LOCATION_SUCCESS: "UPDATE_USER_LOCATION_SUCCESS",
@@ -298,6 +303,21 @@ const getUserLocationError = (error) => ({
   payload: { error },
 });
 
+const getSellersRequest = () => ({
+  type: TYPES.GET_SELLERS_REQUEST,
+  payload: null,
+});
+
+const getSellersSucess = (getSellersList) => ({
+  type: TYPES.GET_SELLERS_SUCCESS,
+  payload: { getSellersList },
+});
+
+const getSellersError = (error) => ({
+  type: TYPES.GET_SELLERS_ERROR,
+  payload: { error },
+});
+
 export const login = (value, countryCode, phoneNumber) => async (dispatch) => {
   dispatch(loginRequest());
   try {
@@ -450,5 +470,15 @@ export const getUserLocations = () => async (dispatch) => {
     dispatch(getUserLocationSucess(res));
   } catch (error) {
     dispatch(getUserLocationError(error.message));
+  }
+};
+
+export const getSellers = (data) => async (dispatch) => {
+  dispatch(getSellersRequest());
+  try {
+    const res = await UserController.getSellers(data);
+    dispatch(getSellersSucess(res));
+  } catch (error) {
+    dispatch(getSellersError(error.message));
   }
 };

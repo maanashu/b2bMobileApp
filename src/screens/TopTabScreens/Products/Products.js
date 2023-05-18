@@ -65,7 +65,6 @@ export function Products({ navigation }) {
     limit: 10,
     service_type: "product",
     main_category: true,
-    app_name: "b2b",
   };
 
   useEffect(() => {
@@ -133,18 +132,18 @@ export function Products({ navigation }) {
     }
   }
 
-  const renderCategoryItem = ({ item, index }) => {
+  const renderCategoryItem = ({ item, index, data }) => {
+    const itemCount = categoryData?.categoryList?.data.length;
     return (
       <>
-        {index == 7 ? (
+        {(itemCount < 8 && index === itemCount - 1) ||
+        (itemCount >= 8 && index === 7) ? (
           <TouchableOpacity
             style={styles.item}
             onPress={() =>
               navigate(NAVIGATION.subCategories, {
                 serviceType: "product",
-                idItem:
-                  categoryData?.categoryList?.categoryResponse[0]?.categoryData
-                    ?.id,
+                idItem: categoryData?.categoryList?.data[0]?.id,
               })
             }
           >
@@ -166,19 +165,19 @@ export function Products({ navigation }) {
             onPress={() => {
               setSelectedId(item.name);
               navigate(NAVIGATION.subCategories, {
-                idItem: item.categoryData?.id,
+                idItem: item?.id,
                 index: index,
                 serviceType: "product",
               });
             }}
           >
             <FastImage
-              source={{ uri: item.categoryData?.image }}
+              source={{ uri: item?.image }}
               style={styles.roundIcons}
             />
 
             <Text numberOfLines={1} style={styles.title}>
-              {item?.categoryData?.name}
+              {item?.name}
             </Text>
           </TouchableOpacity>
         )}
@@ -281,14 +280,10 @@ export function Products({ navigation }) {
           ) : (
             <FlatList
               columnWrapperStyle={{ justifyContent: "space-between" }}
-              data={
-                categoryData?.categoryList?.categoryResponse?.slice(0, 8) ?? []
-              }
+              data={categoryData?.categoryList?.data?.slice(0, 8) ?? []}
               renderItem={renderCategoryItem}
               keyExtractor={(item) => item.id}
-              extraData={
-                categoryData?.categoryList?.categoryResponse?.slice(0, 8) ?? []
-              }
+              extraData={categoryData?.categoryList?.data?.slice(0, 8) ?? []}
               numColumns={4}
               ListEmptyComponent={LoadingData}
             />

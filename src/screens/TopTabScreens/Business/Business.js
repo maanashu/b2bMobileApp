@@ -117,9 +117,7 @@ export function Business() {
             style={styles.item}
             onPress={() =>
               navigate(NAVIGATION.subCategories, {
-                idItem:
-                  categoryData?.categoryList?.categoryResponse?.[0]
-                    ?.categoryData?.id,
+                idItem: categoryData?.serviceCategoryList?.data?.[0]?.id,
                 serviceType: "service",
               })
             }
@@ -141,19 +139,19 @@ export function Business() {
             onPress={() => {
               // setSelectedId(item.name);
               navigate(NAVIGATION.subCategories, {
-                idItem: item?.categoryData?.id,
+                idItem: item?.id,
                 index: index,
                 serviceType: "service",
               });
             }}
           >
             <FastImage
-              source={{ uri: item?.categoryData?.image }}
+              source={{ uri: item?.image }}
               style={styles.roundIcons}
             />
 
             <Text numberOfLines={1} style={styles.title}>
-              {item?.categoryData?.name}
+              {item?.name}
             </Text>
           </TouchableOpacity>
         )}
@@ -330,12 +328,7 @@ export function Business() {
           ) : (
             <FlatList
               columnWrapperStyle={{ justifyContent: "space-between" }}
-              data={
-                categoryData?.serviceCategoryList?.categoryResponse?.slice(
-                  0,
-                  8
-                ) ?? []
-              }
+              data={categoryData?.serviceCategoryList?.data?.slice(0, 8) ?? []}
               renderItem={renderCategoryItem}
               keyExtractor={(item) => item.id}
               extraData={

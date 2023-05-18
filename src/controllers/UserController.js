@@ -129,12 +129,10 @@ export class UserController {
       HttpClient.post(endpoint, body)
         .then((response) => {
           if (response.status_code === 200) {
-            console.log("api success", response);
             resolve(response);
 
             navigate(NAVIGATION.register);
           } else {
-            console.log("api failed", response);
           }
           resolve(response);
         })
@@ -262,12 +260,9 @@ export class UserController {
       const endpoint = ApiWalletInventory.getUserByUuid + `${uuid}`;
       HttpClient.get(endpoint)
         .then((response) => {
-          // console.log("qr code controller success", response);
           resolve(response);
         })
         .catch((error) => {
-          console.log("qr code controller success", error);
-
           reject(new Error((strings.verify.error = error.msg)));
         });
     });
@@ -326,6 +321,27 @@ export class UserController {
               type: "error_toast",
               visibilityTime: 1500,
             });
+          reject(new Error((strings.validation.error = error.msg)));
+        });
+    });
+  }
+  static async getSellers(data) {
+    return new Promise((resolve, reject) => {
+      const params = new URLSearchParams(data).toString();
+      const endpoint = `${USER_URL + ApiUserInventory.getSellers}?${params}`;
+      HttpClient.get(endpoint)
+        .then((response) => {
+          resolve(response);
+          console.log("sellerSuccess", response);
+        })
+        .catch((error) => {
+          console.log("sellerError", error);
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
           reject(new Error((strings.validation.error = error.msg)));
         });
     });

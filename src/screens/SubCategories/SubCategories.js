@@ -39,13 +39,13 @@ export function SubCategories(params) {
   const [selectedId, setSelectedId] = useState(params?.route?.params?.idItem);
   const [serviceModalisVisible, setserviceModalisVisible] = useState(false);
 
+  console.log("cheking subcategories", SUBCATEGORIES?.subCategoryList);
   const subcategoryObject = {
     page: 1,
     limit: 10,
     category_id: routeId,
     service_type:
       params?.route?.params?.serviceType == "product" ? "product" : "service",
-    main_category: true,
     app_name: "b2b",
   };
   const categoryData = useSelector(getCategorySelector);
@@ -54,38 +54,25 @@ export function SubCategories(params) {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_SUB_CATEGORY], state)
   );
-  // const productObject = {
-  //   page: 1,
-  //   limit: 10,
-  //   // categoryId: SUBCATEGORIES?.subCategoryList?.data[0]?.id,
-  //   app_name: "b2b",
-  //   delivery_options: "3",
-  // };
   useEffect(() => {
     dispatch(getBrands(1));
-    // dispatch(getProduct(productObject));
-  }, []);
-
-  useEffect(() => {
     onScrollToSelectItem(getIndex);
   }, []);
 
   useEffect(() => {
     dispatch(getSubCategory(subcategoryObject));
-
     setSelectedId(
       params?.route?.params?.idItem ||
-        categoryData?.categoryList.categoryResponse?.[0]?.categoryData?.id ||
-        categoryData?.serviceCategoryList.categoryResponse?.[0]?.categoryData
-          ?.id
+        categoryData?.categoryList.data?.[0]?.id ||
+        categoryData?.serviceCategoryList.data?.[0]?.id
     );
   }, []);
 
   const getSubCategoryList = (item) => {
-    setSelectedId(item.categoryData?.id);
+    setSelectedId(item?.id);
     let categoryObject = {
       ...subcategoryObject,
-      category_id: item.categoryData?.id,
+      category_id: item?.id,
     };
 
     dispatch(getSubCategory(categoryObject));
@@ -107,23 +94,19 @@ export function SubCategories(params) {
       >
         <View
           style={{
-            borderWidth: item?.categoryData?.id === selectedId ? 1 : null,
+            borderWidth: item?.id === selectedId ? 1 : null,
             padding: SW(5),
             borderRadius: SW(30),
             borderColor:
-              item?.categoryData?.id === selectedId
-                ? COLORS.primary
-                : COLORS.light_grey,
+              item?.id === selectedId ? COLORS.primary : COLORS.light_grey,
 
             backgroundColor:
-              item?.categoryData?.id === selectedId
-                ? COLORS.white
-                : COLORS.input_bg,
+              item?.id === selectedId ? COLORS.white : COLORS.input_bg,
           }}
         >
           <View style={styles.rowView}>
             <FastImage
-              source={{ uri: item?.categoryData?.image }}
+              source={{ uri: item?.image }}
               resizeMode="cover"
               style={styles.categoryImages}
             />
@@ -131,24 +114,14 @@ export function SubCategories(params) {
               style={{
                 marginHorizontal: SW(2),
                 fontFamily: item.id === selectedId ? Fonts.Bold : Fonts.Regular,
-                color:
-                  item?.categoryData?.id === selectedId
-                    ? COLORS.primary
-                    : COLORS.text,
+                color: item?.id === selectedId ? COLORS.primary : COLORS.text,
               }}
             >
-              {item?.categoryData?.name}
+              {item?.name}
             </Text>
           </View>
         </View>
         <Spacer space={SH(5)} />
-        <View
-          style={{
-            borderBottomWidth: item.id === selectedId ? 1 : null,
-            borderColor: item.id === selectedId && COLORS.primary,
-            width: "100%",
-          }}
-        ></View>
       </TouchableOpacity>
     </>
   );
@@ -158,17 +131,17 @@ export function SubCategories(params) {
       style={styles.rowCard}
       onPress={
         () =>
-          navigate(NAVIGATION.brandsProducts, {
-            categoryId: item.categoryData?.id,
+          navigate(NAVIGATION.brandsSellers, {
+            categoryId: item?.id,
           })
         // console.log("item id", item.id)
       }
     >
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <View style={styles.row}>
-          {item?.categoryData?.image ? (
+          {item?.image ? (
             <Image
-              source={{ uri: item?.categoryData?.image }}
+              source={{ uri: item?.image }}
               resizeMode="cover"
               style={[styles.img, { borderRadius: 35 }]}
             />
@@ -178,16 +151,16 @@ export function SubCategories(params) {
         </View>
         <View style={{ flex: 1, alignItems: "flex-start" }}>
           <Text style={[styles.subName, { paddingHorizontal: 10 }]}>
-            {item?.categoryData?.name}
+            {item?.name}
           </Text>
           <Text style={styles.brandsName}>
-            {item?.brandCount}
-            {item?.brandCount === 1 ? " Brand" : " Brands"}
+            {item?.brands_count}
+            {item?.brands_count === 1 ? " Brand" : " Brands"}
           </Text>
           <Spacer space={SH(1)} />
           <Text style={styles.brandsName}>
-            {item?.productCount}
-            {item?.productCount === 1 ? " Product" : " Products"}
+            {item?.products_count}
+            {item?.products_count === 1 ? " Product" : " Products"}
           </Text>
         </View>
       </View>
@@ -229,8 +202,8 @@ export function SubCategories(params) {
           horizontal
           data={
             params?.route?.params?.serviceType === "product"
-              ? categoryData?.categoryList?.categoryResponse
-              : categoryData?.serviceCategoryList?.categoryResponse
+              ? categoryData?.categoryList?.data
+              : categoryData?.serviceCategoryList?.data
           }
           renderItem={renderCategory}
           keyExtractor={(item) => item.id}
@@ -247,11 +220,11 @@ export function SubCategories(params) {
       <View style={{ paddingHorizontal: SW(5), flex: 1, marginTop: SH(20) }}>
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={SUBCATEGORIES?.subCategoryList?.categoryResponse}
+          data={SUBCATEGORIES?.subCategoryList?.data}
           renderItem={renderSubcategoryItem}
           ListEmptyComponent={renderNoData}
           keyExtractor={(item) => item.id}
-          extraData={SUBCATEGORIES?.subCategoryList?.categoryResponse}
+          extraData={SUBCATEGORIES?.subCategoryList?.data}
           // renderScrollComponent={loadMoreFunction}
           // onEndReached={loadMoreFunction}
           // onEndReachedThreshold={0}

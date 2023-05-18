@@ -12,29 +12,27 @@ import { SH, SW } from "@/theme";
 import { alarmClock } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
-import { checkKyc, requestKyc } from "@/actions/KycActions";
+import { checkBusinessKyc, requestBusinessKyc } from "@/actions/KycActions";
 import { getKyc } from "@/selectors/KycSelector";
-import { useNavigation } from "@react-navigation/native";
 
-export function CheckAndRequestKYC(params) {
-  const navigation = useNavigation();
+export function BusinessKyc(params) {
   const dispatch = useDispatch();
   const screen = params?.route?.params?.screen;
 
   const getUserData = useSelector(getUser);
   const getKycData = useSelector(getKyc);
   const kycRequest = getKycData?.requestKyc?.payload;
-  const kycStatus = getKycData?.checkKyc?.payload?.status;
+  const kycStatus = getKycData?.checkBusinessKyc?.payload?.status;
 
   useEffect(() => {
-    dispatch(requestKyc());
+    dispatch(requestBusinessKyc());
   }, []);
 
   useEffect(() => {
     let interval;
     if (kycStatus !== "passed") {
       interval = setInterval(() => {
-        dispatch(checkKyc());
+        dispatch(checkBusinessKyc());
         console.log("htting", kycStatus);
       }, 5000);
     } else {
@@ -45,10 +43,7 @@ export function CheckAndRequestKYC(params) {
 
   useEffect(() => {
     if (kycStatus === "passed") {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: NAVIGATION.ageVerification }],
-      });
+      navigate(NAVIGATION.ageVerification);
     }
   }, [kycStatus]);
   // const name =

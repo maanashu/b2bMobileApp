@@ -65,7 +65,6 @@ export const getCategory = (data) => async (dispatch) => {
   dispatch(getCategoryRequest());
   try {
     const res = await CategoryController.getCategory(data);
-    console.log("success", res);
     dispatch(getCategorySuccess(res));
   } catch (error) {
     dispatch(getCategoryError(error.message));

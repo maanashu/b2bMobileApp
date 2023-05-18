@@ -64,7 +64,6 @@ export class ProductController {
 
       HttpClient.get(endpoint)
         .then((response) => {
-          console.log("controller success", response);
           resolve(response);
         })
         .catch((error) => {
@@ -86,7 +85,6 @@ export class ProductController {
 
         .then((response) => {
           resolve(response);
-          console.log("trending sellers controller success", response);
         })
         .catch((error) => {
           // Toast.show({
