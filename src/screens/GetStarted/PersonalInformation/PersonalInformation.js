@@ -79,10 +79,9 @@ export function PersonalInformation(params) {
   // console.log("email-->", getData?.registerData?.email);
 
   useEffect(() => {
-    setDateformat();
     setEmail(getData?.registerData?.email);
     setDateformat(getData?.registerData?.dob);
-  }, [isFocused]);
+  }, [isFocused, getData]);
 
   useEffect(() => {
     dispatch(getUser);

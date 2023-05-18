@@ -39,7 +39,6 @@ export function SubCategories(params) {
   const [selectedId, setSelectedId] = useState(params?.route?.params?.idItem);
   const [serviceModalisVisible, setserviceModalisVisible] = useState(false);
 
-  console.log("cheking subcategories", SUBCATEGORIES?.subCategoryList);
   const subcategoryObject = {
     page: 1,
     limit: 10,

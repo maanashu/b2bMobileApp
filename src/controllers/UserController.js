@@ -332,10 +332,8 @@ export class UserController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
-          console.log("sellerSuccess", response);
         })
         .catch((error) => {
-          console.log("sellerError", error);
           Toast.show({
             text2: error.msg,
             position: "bottom",

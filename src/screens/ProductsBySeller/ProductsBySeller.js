@@ -7,9 +7,9 @@ import {
   ActivityIndicator,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
-import { styles } from "./BrandsSellers.styles";
+import { styles } from "./ProductsBySeller.styles";
 import { Header, ScreenWrapper, Spacer } from "@/components";
-import { SF, SH, SW } from "@/theme/ScalerDimensions";
+import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { backArrow, Fonts } from "@/assets";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,15 +26,15 @@ import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
 import { getUser } from "@/selectors/UserSelectors";
 import { getSellers } from "@/actions/UserActions";
-import { ShadowStyles } from "@/theme";
 
-export function BrandsSellers(params) {
+export function ProductsBySeller(params) {
   const dispatch = useDispatch();
   const routeId = params?.route?.params?.categoryId;
   const [selectedId, setSelectedId] = useState([0]);
 
   const brandsData = useSelector(getCategorySelector);
   const user = useSelector(getUser);
+
   const brandBody = {
     page: 1,
     limit: 10,
@@ -43,6 +43,7 @@ export function BrandsSellers(params) {
   useEffect(() => {
     dispatch(getBrands(brandBody));
   }, []);
+  // console.log("brands details", JSON.stringify(brandsData?.brandsList));
 
   useEffect(() => {
     setSelectedId(brandsData?.brandsList?.[0]?.id);
@@ -55,7 +56,7 @@ export function BrandsSellers(params) {
     dispatch(getSellers(sellersObject));
   }, [brandsData]);
 
-  const sellersGet = (item) => {
+  const getProducts = (item) => {
     setSelectedId(item.id);
     const sellersObject = {
       page: 1,
@@ -72,20 +73,55 @@ export function BrandsSellers(params) {
     isLoadingSelector([TYPES.GET_PRODUCT], state)
   );
 
-  // const navigationHandler = (item) => {
-  //   if (item === item) {
-  //     navigate(NAVIGATION.productInquiry, {
-  //       itemId: item.id,
-  //       seller_id: item?.supplies[0]?.seller_id,
-  //     });
-  //   }
-  // };
+  function dynamicHeight(_index) {
+    if (_index % 2 == 0) {
+      return SH(250);
+    } else if (_index % 2 !== 0) {
+      return SH(245);
+    } else {
+      return SH(230);
+    }
+  }
+  function dynamicImageHeight(_index) {
+    if (_index % 2 == 0) {
+      return SH(150);
+    } else if (_index % 2 !== 0) {
+      return SH(135);
+    } else {
+      return 100;
+    }
+  }
+  function dynamicMarginTop(_index) {
+    if (_index % 2 !== 0) {
+      return 0;
+    } else {
+      return SH(20);
+    }
+  }
+  function dynamicMarginBottom(_index) {
+    if (_index % 2 == 0) {
+      return SH(10);
+    } else {
+      return SH(10);
+    }
+  }
+
+  const navigationHandler = (item) => {
+    if (item === item) {
+      navigate(NAVIGATION.productInquiry, {
+        itemId: item.id,
+        seller_id: item?.supplies[0]?.seller_id,
+      });
+    }
+  };
 
   const renderBrands = ({ item, index }) => (
     <>
       <TouchableOpacity
         style={styles.categoryTouchableView}
-        onPress={() => sellersGet(item)}
+        onPress={() => {
+          getProducts(item);
+        }}
       >
         <View
           style={[
@@ -124,48 +160,54 @@ export function BrandsSellers(params) {
       </TouchableOpacity>
     </>
   );
-
-  const renderSellers = ({ item, index }) => (
+  const listDetail = ({ item, index }) => (
     <>
       <TouchableOpacity
-        style={{
-          backgroundColor: COLORS.white,
-          flex: 1,
-          paddingHorizontal: SW(15),
-          marginHorizontal: SW(20),
-          borderRadius: SW(10),
-          paddingVertical: SH(20),
-          ...ShadowStyles.shadow2,
-        }}
+        // onPress={() => navigate(NAVIGATION.productInquiry, { data: item })}
+        onPress={() => navigationHandler(item)}
+        style={[
+          styles.ShoesStyle,
+          {
+            height: dynamicHeight(index),
+            marginTop: dynamicMarginTop(index),
+            marginBottom: dynamicMarginBottom(index),
+          },
+        ]}
       >
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Image
-            source={{ uri: item?.user_profiles?.profile_photo }}
-            resizeMode="contain"
-            style={{ height: SH(100), width: SW(90), borderRadius: SW(10) }}
+        <Spacer space={SH(10)} />
+        <View style={{ alignItems: "center" }}>
+          <FastImage
+            source={{ uri: item.image }}
+            resizeMode="cover"
+            style={{
+              width: SW(153),
+              height: dynamicImageHeight(index),
+              borderRadius: SW(10),
+            }}
           />
-          <Spacer horizontal space={SW(15)} />
-          <View>
-            <Text
-              style={{
-                color: COLORS.darkGrey,
-                fontFamily: Fonts.Bold,
-                fontSize: SF(18),
-              }}
-            >
-              {item?.user_profiles?.organization_name}
-            </Text>
-            <Text></Text>
-            <Text></Text>
-          </View>
         </View>
+        <Spacer space={SH(5)} />
+
+        <Text numberOfLines={2} style={styles.productsTitle}>
+          {item.name}
+          <Text style={styles.productSubTitle}> {item.description}</Text>
+        </Text>
+        <Spacer space={SH(5)} />
+        <Text style={styles.productsQuantity}>{`MOQ:10`}</Text>
+        <Spacer space={SH(1)} />
+        {user?.user?.payload?.token && (
+          <Text style={styles.priceText}>
+            {item.price}
+            {/* <Text style={styles.categoryText}> {item.product_type.name}</Text> */}
+          </Text>
+        )}
       </TouchableOpacity>
-      <Spacer space={SH(15)} />
     </>
   );
+
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <Header title={"Sellers"} back={backArrow} enableBackButton />
+      <Header title={"Products"} back={backArrow} enableBackButton />
 
       <View style={styles.upperView}>
         <Spacer space={SH(10)} />
@@ -185,16 +227,21 @@ export function BrandsSellers(params) {
         )}
       </View>
 
-      <Spacer space={SH(10)} />
-
-      <View style={{ flex: 1 }}>
-        <FlatList
-          data={user?.getSellersList ?? []}
-          extraData={user?.getSellersList}
-          renderItem={renderSellers}
-          keyExtractor={(item) => item.id}
-        />
-      </View>
+      {/* <View style={{ paddingHorizontal: SW(20), flex: 1, marginTop: SH(20) }}>
+        {isLoadingProducts ? (
+          <ActivityIndicator size="large" color={COLORS.primary} />
+        ) : (
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={productsData?.product?.data ?? []}
+            extraData={productsArray}
+            renderItem={listDetail}
+            ListEmptyComponent={renderNoData}
+            keyExtractor={(item) => item.id}
+            numColumns={2}
+          />
+        )}
+      </View> */}
     </ScreenWrapper>
   );
 }
