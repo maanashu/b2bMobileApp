@@ -237,6 +237,7 @@ export const en = {
     jobr: "JOBR Standard shipping",
   },
   AddShippingAddress: {
+    currentAddress: "Current Address",
     addShippingAddress: "Shippping Address",
     save: "Save",
     firstName: "First Name",

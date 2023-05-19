@@ -2,8 +2,14 @@ import React from "react";
 import { Text, TouchableOpacity, View, Image } from "react-native";
 import { styles } from "@/screens/Home/Home.styles";
 import { bagGrey, coinStack, dropdownIcon, location } from "@/assets";
+import { useSelector } from "react-redux";
+import { getUser } from "@/selectors/UserSelectors";
+import { navigate } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
 
-export function HomeHeader({}) {
+export function HomeHeader({ onPress, userLocation }) {
+  const user = useSelector(getUser);
+
   return (
     <View style={styles.headerStyle}>
       <View style={styles.locationView}>
@@ -12,8 +18,8 @@ export function HomeHeader({}) {
           style={styles.locationIcon}
           resizeMode="contain"
         />
-        <TouchableOpacity style={styles.rowView}>
-          <Text style={styles.locationText}>Miami, Florida, USA</Text>
+        <TouchableOpacity style={styles.rowView} onPress={onPress}>
+          <Text style={styles.locationText}>{userLocation}</Text>
           <Image
             source={dropdownIcon}
             style={styles.downIcon}

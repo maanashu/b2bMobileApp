@@ -80,6 +80,7 @@ import {
   Profile,
   QrCode,
   RateExperience,
+  RecomendedWholesalers,
   ReEnterPin,
   Register,
   ReviewAndPayment,
@@ -670,6 +671,11 @@ export function AppBottom() {
       <Stack.Screen
         component={BrandsSellers}
         name={NAVIGATION.brandsSellers}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={RecomendedWholesalers}
+        name={NAVIGATION.recomendedWholesalers}
         options={{ headerShown: false }}
       />
       {/* Home navigator ends here */}

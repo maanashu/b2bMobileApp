@@ -13,26 +13,12 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { NAVIGATION } from "@/constants";
 import { useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
+import { navigate } from "@/navigation/NavigationRef";
 
 export function Home() {
   const layout = useWindowDimensions();
   const user = useSelector(getUser);
 
-  // useEffect(() => {
-  //   const backAction = () => {
-  //     // Exit the app if the user is on the home screen
-  //     BackHandler.exitApp();
-  //   };
-
-  //   const backHandler = BackHandler.addEventListener(
-  //     "hardwareBackPress",
-  //     backAction
-  //   );
-
-  //   return () => backHandler.remove();
-  // }, []);
-
-  // /////////////////////////////////////
   const [routes] = React.useState([
     { key: "products", title: "Products" },
     { key: "business", title: "Services" },
@@ -92,7 +78,14 @@ export function Home() {
 
   return (
     <ScreenWrapper>
-      <HomeHeader />
+      <HomeHeader
+        userLocation={user?.getLocation || "Add your location"}
+        onPress={() =>
+          !user?.user?.payload?.token
+            ? navigate(NAVIGATION.splash)
+            : navigate(NAVIGATION.addShippingAddress)
+        }
+      />
       <View style={{ flex: 1 }}>
         <Tab.Navigator
           tabBar={(props) => renderTabBar(props)}

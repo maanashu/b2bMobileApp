@@ -301,6 +301,9 @@ export { default as static6 } from "@/assets/icons/ic_static/static6.png";
 export { default as alarmClock } from "@/assets/icons/ic_wallet/alarmClock.png";
 export { default as email_verification } from "@/assets/icons/ic_verification/email_verification.png";
 export { default as notiToggle } from "@/assets/icons/ic_settings/notiToggle.png";
+export { default as circleStar } from "@/assets/icons/ic_business/circleStar.png";
+export { default as clockTiming } from "@/assets/icons/ic_business/clockTiming.png";
+export { default as deliveryParcel } from "@/assets/icons/ic_business/deliveryParcel.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

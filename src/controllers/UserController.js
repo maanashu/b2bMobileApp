@@ -25,7 +25,7 @@ export class UserController {
         headers: { "device-id": uniqueId },
       })
         .then((response) => {
-          navigate(NAVIGATION.productInquiry);
+          navigate(NAVIGATION.home);
           // navigation.reset({
           //   index: 0,
           //   actions: [navigation.navigate(NAVIGATION.startOrder)],
@@ -292,6 +292,7 @@ export class UserController {
           navigate(NAVIGATION.addresses);
         })
         .catch((error) => {
+          console.log("errorAddress", error);
           if (error.msg == "jwt malformed") {
           }
           Toast.show({

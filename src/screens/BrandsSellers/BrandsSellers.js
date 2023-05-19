@@ -27,6 +27,7 @@ import { Loader } from "@/components/Loader";
 import { getUser } from "@/selectors/UserSelectors";
 import { getSellers } from "@/actions/UserActions";
 import { ShadowStyles } from "@/theme";
+import { TYPES as TYPE } from "@/actions/UserActions";
 
 export function BrandsSellers(params) {
   const dispatch = useDispatch();
@@ -69,7 +70,7 @@ export function BrandsSellers(params) {
     isLoadingSelector([TYPES.GET_BRANDS], state)
   );
   const isLoadingProducts = useSelector((state) =>
-    isLoadingSelector([TYPES.GET_PRODUCT], state)
+    isLoadingSelector([TYPE.GET_SELLERS], state)
   );
 
   // const navigationHandler = (item) => {
@@ -188,12 +189,16 @@ export function BrandsSellers(params) {
       <Spacer space={SH(10)} />
 
       <View style={{ flex: 1 }}>
-        <FlatList
-          data={user?.getSellersList ?? []}
-          extraData={user?.getSellersList}
-          renderItem={renderSellers}
-          keyExtractor={(item) => item.id}
-        />
+        {isLoadingProducts ? (
+          <Loader message="Loading data ..." />
+        ) : (
+          <FlatList
+            data={user?.getSellersList ?? []}
+            extraData={user?.getSellersList}
+            renderItem={renderSellers}
+            keyExtractor={(item) => item.id}
+          />
+        )}
       </View>
     </ScreenWrapper>
   );

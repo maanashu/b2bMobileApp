@@ -159,6 +159,28 @@ export class ProductController {
         });
     });
   }
+  static async getCategoriesWithProducts(data) {
+    return new Promise((resolve, reject) => {
+      const params = new URLSearchParams(data).toString();
+      const endpoint = `${
+        PRODUCT_URL + ApiProductInventory.getCategoriesWithFewProducts
+      }?${params}`;
+      HttpClient.get(endpoint)
+        .then((response) => {
+          resolve(response);
+          console.log("catWithProductResp", response);
+        })
+        .catch((error) => {
+          Toast.show({
+            text2: "No product found",
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
+          reject(error);
+        });
+    });
+  }
   // static async getBrand(selectedId) {
   //   return new Promise((resolve, reject) => {
   //     const endpoint =

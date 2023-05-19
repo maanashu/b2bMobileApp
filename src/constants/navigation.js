@@ -94,4 +94,5 @@ export const NAVIGATION = {
   businessRegistration: "BusinessRegistration",
   noWalletScreen: "NoWalletScreen",
   businessKyc: "BusinessKyc",
+  recomendedWholesalers: "RecomendedWholesalers",
 };

@@ -7,6 +7,7 @@ const INITIALSTATE = {
   coupons: [],
   addCoupons: {},
   variantId: {},
+  categoryWithProducts: [],
 };
 export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
   switch (type) {
@@ -24,7 +25,7 @@ export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
     case TYPES.GET_TRENDING_PRODUCTS_SUCCESS:
       return {
         ...state,
-        trendingList: payload.trendingList,
+        trendingList: payload.trendingList.data,
       };
     case TYPES.GET_TRENDING_PRODUCTS_RESET:
       return {
@@ -56,6 +57,16 @@ export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         variantId: [],
+      };
+    case TYPES.CATEGORY_WITH_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        categoryWithProducts: payload.categoryWithProducts.payload,
+      };
+    case TYPES.CATEGORY_WITH_PRODUCT_RESET:
+      return {
+        ...state,
+        categoryWithProducts: [],
       };
 
     default:

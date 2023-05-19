@@ -4,7 +4,13 @@ import { styles } from "@/screens/Products/ProductsInquiry/ProductInquiry.styles
 import { SW } from "@/theme/ScalerDimensions";
 import { clock, location, star, yewiCertified, yewiLogo } from "@/assets";
 
-export function CompanyDetailView({ title, profilePhoto, locationText }) {
+export function CompanyDetailView({
+  title,
+  profilePhoto,
+  locationText,
+  country,
+  rating,
+}) {
   return (
     <View style={styles.yewiInnerView}>
       <Image source={profilePhoto} style={styles.logoYewi} />
@@ -22,9 +28,13 @@ export function CompanyDetailView({ title, profilePhoto, locationText }) {
               resizeMode="contain"
               style={styles.yewiIcons}
             />
-            <Text style={styles.yewiSmallText}> {locationText}</Text>
+            <Text style={styles.yewiSmallText}>
+              {" "}
+              {locationText}
+              <Text>{country}</Text>
+            </Text>
             <Image source={star} resizeMode="contain" style={styles.yewistar} />
-            <Text style={styles.yewiSmallText}> 4.5</Text>
+            <Text style={styles.yewiSmallText}> {rating}</Text>
             <Image
               source={clock}
               resizeMode="contain"

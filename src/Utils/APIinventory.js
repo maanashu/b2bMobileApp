@@ -58,6 +58,7 @@ export const ApiProductInventory = {
   verifyCoupon: "coupons/verify",
   getSupplyVariant: (values, id) =>
     `supply_variants/by-attribute-value-ids?attribute_value_ids=${values}&supply_id=${id}`,
+  getCategoriesWithFewProducts: `categories/b2b/with-few-products`,
 };
 
 export const ApiWalletInventory = {

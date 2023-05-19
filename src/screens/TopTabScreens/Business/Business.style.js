@@ -175,6 +175,7 @@ export const styles = StyleSheet.create({
     paddingVertical: SH(8),
     paddingHorizontal: SW(6),
     borderRadius: SW(8),
+    width: SW(98),
   },
   productsTitle: {
     fontFamily: Fonts.SemiBold,

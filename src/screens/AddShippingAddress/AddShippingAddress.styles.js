@@ -3,7 +3,7 @@ import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet, Dimensions } from "react-native";
-import { moderateScale, s } from "react-native-size-matters";
+import { moderateScale, s, scale } from "react-native-size-matters";
 const windowWidth = Dimensions.get("window").width;
 
 export const styles = StyleSheet.create({
@@ -103,5 +103,31 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     flex: 1,
     paddingLeft: SW(35),
+  },
+  placesContainerStyle: {
+    borderWidth: 0,
+    borderRadius: 5,
+    backgroundColor: COLORS.placeholder,
+  },
+  textInputContainerStyle: {
+    borderTopWidth: 0,
+    borderBottomWidth: 0,
+    backgroundColor: "rgba(0,0,0,0)",
+  },
+  googlePlacesTextField: {
+    height: SH(48),
+    borderRadius: 5,
+    fontSize: scale(12),
+    fontFamily: Fonts.Italic,
+    borderColor: COLORS.transparent,
+    backgroundColor: COLORS.placeholder,
+  },
+  predefinedStyles: {
+    color: COLORS.light_blue,
+  },
+  crossIcon: {
+    height: SW(25),
+    width: SW(25),
+    tintColor: COLORS.darkGrey,
   },
 });

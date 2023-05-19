@@ -22,6 +22,7 @@ import {
   boots,
   threeDots,
   Fonts,
+  certifiedLogo,
 } from "@/assets";
 import { NAVIGATION } from "@/constants";
 import { Search } from "@/components/Search";
@@ -34,7 +35,6 @@ import {
   CategoryManufacturers,
   CategoryManufacturersProducts,
   companies,
-  topCategoryManufacturer,
 } from "@/constants/flatlistData";
 import { renderCompanies } from "@/components/FlatlistStyling";
 import { COLORS } from "@/theme";
@@ -42,6 +42,8 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
 import HomeCategorySkeleton from "@/components/SkeletonContent";
+import { getCategoriesWithProducts } from "@/actions/ProductActions";
+import { getProductSelector } from "@/selectors/ProductSelectors";
 
 export function Business() {
   const dispatch = useDispatch();
@@ -49,16 +51,47 @@ export function Business() {
   const [manufacturersCategoryId, setmanufacturersCategoryId] = useState(1);
 
   const categoryData = useSelector(getCategorySelector);
+  const ProductsData = useSelector(getProductSelector);
+
   const categoryObject = {
     page: 1,
     limit: 10,
     service_type: "service",
     main_category: true,
   };
+  const cats = categoryData?.serviceCategoryList?.data?.slice(0, 7);
+  const allButton = {
+    brands_count: 0,
+    category_uuid: null,
+    created_at: null,
+    deleted_at: null,
+    description: "All Categories",
+    id: -1,
+    image: null,
+    name: "All",
+    parent_id: null,
+    products_count: 0,
+    service: null,
+    service_id: null,
+    slug: "all",
+    updated_at: null,
+  };
+  const insertIndex = Math.min(7, cats?.length);
+  const updatedData = [...(cats || [])];
+  updatedData.splice(insertIndex, 0, allButton);
 
   useEffect(() => {
     dispatch(getServiceCategory(categoryObject));
+    setmanufacturersCategoryId(
+      categoryData?.serviceCategoryList?.data?.[0]?.id
+    );
+    dispatch(
+      getCategoriesWithProducts({
+        category_ids: categoryData?.serviceCategoryList?.data?.[0]?.id,
+      })
+    );
   }, []);
+  // console.log("seviceCategory-->", ProductsData?.categoryWithProducts);
 
   const categoryHandler = (item) => {
     setmanufacturersCategoryId(item.id);
@@ -110,51 +143,41 @@ export function Business() {
   ];
 
   const renderCategoryItem = ({ item, index }) => {
+    const itemCount = categoryData?.serviceCategoryList?.data.length;
     return (
       <>
-        {index == 7 ? (
-          <TouchableOpacity
-            style={styles.item}
-            onPress={() =>
-              navigate(NAVIGATION.subCategories, {
-                idItem: categoryData?.serviceCategoryList?.data?.[0]?.id,
-                serviceType: "service",
-              })
+        <TouchableOpacity
+          style={styles.item}
+          onPress={
+            () => {
+              item.name === "All"
+                ? navigate(NAVIGATION.subCategories, {
+                    idItem: categoryData?.serviceCategoryList?.data?.[0]?.id,
+                    serviceType: "service",
+                  })
+                : navigate(NAVIGATION.subCategories, {
+                    idItem: item?.id,
+                    index: index,
+                    serviceType: "service",
+                  });
             }
-          >
-            <View style={styles.allButton}>
-              <Image
-                source={threeDots}
-                resizeMode="contain"
-                style={styles.allIcon}
-              />
-            </View>
-            <Text numberOfLines={1} style={styles.title}>
-              {"All"}
-            </Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            style={styles.item}
-            onPress={() => {
-              // setSelectedId(item.name);
-              navigate(NAVIGATION.subCategories, {
-                idItem: item?.id,
-                index: index,
-                serviceType: "service",
-              });
-            }}
-          >
+            // setSelectedId(item.name);
+          }
+        >
+          {item?.image && (
             <FastImage
               source={{ uri: item?.image }}
               style={styles.roundIcons}
             />
+          )}
+          {!item?.image && (
+            <FastImage source={threeDots} style={styles.roundIcons} />
+          )}
 
-            <Text numberOfLines={1} style={styles.title}>
-              {item?.name}
-            </Text>
-          </TouchableOpacity>
-        )}
+          <Text numberOfLines={1} style={styles.title}>
+            {item?.name}
+          </Text>
+        </TouchableOpacity>
       </>
     );
   };
@@ -208,7 +231,7 @@ export function Business() {
                   : COLORS.text,
             }}
           >
-            {item.title}
+            {item.name}
           </Text>
         </View>
         <Spacer space={SH(5)} />
@@ -230,7 +253,7 @@ export function Business() {
           <View style={styles.rowView}>
             <View style={styles.logoBackGround}>
               <Image
-                source={item.logo}
+                source={{ uri: item?.image }}
                 resizeMode="contain"
                 style={styles.productLogosIcon}
               />
@@ -243,7 +266,7 @@ export function Business() {
               ]}
             >
               <View>
-                <Text style={styles.productCategoriesText}>{item.title}</Text>
+                <Text style={styles.productCategoriesText}>{item?.name}</Text>
                 <Text style={styles.categoryManufacturersText}>
                   {item.manufacturersCount}
                 </Text>
@@ -265,7 +288,7 @@ export function Business() {
 
           <Spacer space={SH(10)} />
           <FlatList
-            data={CategoryManufacturersProducts}
+            data={item?.products ?? []}
             renderItem={renderMAnufacturersProducts}
             numColumns={3}
             keyExtractor={(item) => item.id}
@@ -278,30 +301,30 @@ export function Business() {
   };
   const renderMAnufacturersProducts = ({ item, index }) => (
     <>
-      <View style={{ flex: 1, alignItems: "center" }}>
+      <View style={{ flex: 1, alignItems: "flex-start" }}>
         <View style={styles.backgroundViewImage}>
           <Image
-            source={item.image}
+            source={{ uri: item?.image }}
             resizeMode="cover"
             style={styles.manufacturersProductImages}
           />
           <Spacer space={SH(5)} />
 
           <Text numberOfLines={1} style={styles.productsTitle}>
-            {item.title}
+            {item?.name}
           </Text>
 
           <Spacer space={SH(4)} />
 
           <Image
-            source={item.certified}
+            source={certifiedLogo}
             resizeMode="contain"
             style={styles.certifeidLogo}
           />
 
           <Spacer space={SH(3)} />
 
-          <Text style={styles.regularText}>{item.orderQauntity}</Text>
+          {/* <Text style={styles.regularText}>{item.orderQauntity}</Text> */}
         </View>
       </View>
     </>
@@ -328,12 +351,10 @@ export function Business() {
           ) : (
             <FlatList
               columnWrapperStyle={{ justifyContent: "space-between" }}
-              data={categoryData?.serviceCategoryList?.data?.slice(0, 8) ?? []}
+              data={updatedData ?? []}
               renderItem={renderCategoryItem}
               keyExtractor={(item) => item.id}
-              extraData={
-                categoryData?.serviceCategoryList?.data?.slice(0, 8) ?? []
-              }
+              extraData={updatedData ?? []}
               numColumns={4}
             />
           )}
@@ -453,7 +474,7 @@ export function Business() {
 
         <View style={styles.upperView}>
           <FlatList
-            data={topCategoryManufacturer}
+            data={categoryData?.serviceCategoryList?.data}
             renderItem={renderHorizontalData}
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -463,7 +484,8 @@ export function Business() {
         {/* top-category Manufacturers starts below */}
 
         <FlatList
-          data={CategoryManufacturers}
+          data={ProductsData?.categoryWithProducts ?? []}
+          extraData={ProductsData?.categoryWithProducts ?? []}
           renderItem={rendercategoryManufacturers}
         />
 

@@ -38,7 +38,7 @@ import FastImage from "react-native-fast-image";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { renderNoData } from "@/components/FlatlistStyling";
-import { getProduct } from "@/actions/ProductActions";
+import { getProduct, getTrendingProducts } from "@/actions/ProductActions";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import ReactNativeBiometrics, { BiometryTypes } from "react-native-biometrics";
 import { Loader } from "@/components/Loader";
@@ -46,19 +46,24 @@ import HomeCategorySkeleton, {
   HomeNewProductsSkeleton,
 } from "@/components/SkeletonContent";
 import { getUser } from "@/selectors/UserSelectors";
+import { getSellers } from "@/actions/UserActions";
+import { useIsFocused } from "@react-navigation/native";
 
 export function Products({ navigation }) {
   const listRef = useRef();
   const dispatch = useDispatch();
+  const user = useSelector(getUser);
   const categoryData = useSelector(getCategorySelector);
   const BannerData = useSelector(getBannerSelector);
   const ProductsData = useSelector(getProductSelector);
-  const Products = ProductsData?.product;
   const [selectedId, setSelectedId] = useState("");
+
+  // console.log("yaahhoo->", wholesaleres);
+  const isFocused = useIsFocused();
 
   // console.log(
   //   "checking category",
-  //   JSON.stringify(categoryData?.categoryList?.categoryResponse)
+  //   JSON.stringify(user?.getSellersList?.slice(0, 1))
   // );
   const categoryObject = {
     page: 1,
@@ -69,20 +74,27 @@ export function Products({ navigation }) {
 
   useEffect(() => {
     LogBox.ignoreAllLogs();
-  }, []);
+  }, [isFocused]);
 
   useEffect(() => {
     dispatch(getCategory(categoryObject));
     dispatch(getBanners());
     getAllProducts();
+    const sellersObject = {
+      page: 1,
+      limit: 10,
+      need_trending: "true",
+    };
+    dispatch(getSellers(sellersObject));
+    dispatch(getTrendingProducts({ app_name: "b2b", limit: 4 }));
   }, []);
-
   const getAllProducts = () => {
     const probject = {
       page: 1,
       limit: 10,
       app_name: "b2b",
       delivery_options: "3",
+      need_trending: "true",
     };
     dispatch(getProduct(probject));
   };
@@ -141,7 +153,7 @@ export function Products({ navigation }) {
           <TouchableOpacity
             style={styles.item}
             onPress={() =>
-              navigate(NAVIGATION.splash, {
+              navigate(NAVIGATION.subCategories, {
                 serviceType: "product",
                 idItem: categoryData?.categoryList?.data[0]?.id,
               })
@@ -200,13 +212,13 @@ export function Products({ navigation }) {
   );
 
   const thirdItem = ({ item, onPress }) => (
-    <TouchableOpacity style={styles.item}>
-      <Image source={item.image} style={styles.thirdView} />
+    <View style={styles.item}>
+      <FastImage source={{ uri: item?.image }} style={styles.thirdView} />
 
       <Spacer space={SH(10)} />
-      <Text style={styles.yiwuPriceText}>{item.price}</Text>
-      <Text style={styles.yiwuItemTitleText}>{item.title}</Text>
-    </TouchableOpacity>
+      {/* <Text style={styles.yiwuPriceText}>{item.price}</Text>
+      <Text style={styles.yiwuItemTitleText}>{item.title}</Text> */}
+    </View>
   );
 
   const listDetail = ({ item, index }) => (
@@ -223,26 +235,32 @@ export function Products({ navigation }) {
       <Spacer space={SH(10)} />
       <View style={{ alignItems: "center" }}>
         <Image
-          source={item.image}
+          source={{ uri: item?.image }}
           resizeMode="contain"
           style={{
-            width: ms(150),
+            width: ms(140),
             height: dynamicImageHeight(index),
+            borderRadius: SW(5),
           }}
         />
       </View>
       <Text style={styles.productsTitle}>
-        {item.title}
-        <Text style={styles.productSubTitle}> {item.subTitle}</Text>
+        {item?.name}
+        <Text style={styles.productSubTitle}> {item?.description}</Text>
       </Text>
       <Spacer space={SH(2)} />
-      <Text style={styles.productsQuantity}>{item.pieces}</Text>
+      {/* <Text style={styles.productsQuantity}>{item?.pieces}</Text> */}
       <Spacer space={SH(5)} />
 
-      <Text style={styles.priceText}>
-        {item.price}
-        <Text style={styles.categoryText}>{item.category}</Text>
-      </Text>
+      {user?.user?.payload?.token && (
+        <>
+          <Text style={styles.priceText}>
+            {" "}
+            {"$ "}
+            {item?.price}
+          </Text>
+        </>
+      )}
     </TouchableOpacity>
   );
 
@@ -349,6 +367,7 @@ export function Products({ navigation }) {
                 renderItem={secondItem}
                 keyExtractor={(item) => item?.id}
                 ListEmptyComponent={renderNoData}
+                extraData={ProductsData?.product?.data}
                 numColumns={3}
               />
             </TouchableOpacity>
@@ -364,7 +383,10 @@ export function Products({ navigation }) {
             {strings.products.recomendedWholesalers}
           </Text>
 
-          <TouchableOpacity style={{ paddingRight: SW(20) }}>
+          <TouchableOpacity
+            style={{ paddingRight: SW(20) }}
+            onPress={() => navigate(NAVIGATION.recomendedWholesalers)}
+          >
             <View style={{ flexDirection: "row" }}>
               <Text style={styles.smallText}>{strings.products.seeAll} </Text>
               <Image source={forward} style={styles.forwardIcon} />
@@ -376,15 +398,21 @@ export function Products({ navigation }) {
 
         <View style={styles.yewiView}>
           <CompanyDetailView
-            title={"Yiwu Leqi E-Commerce Firm"}
-            profilePhoto={yewiLogo}
-            locationText={"Miami, USA"}
+            title={user?.getSellersList?.[0]?.user_profiles?.organization_name}
+            profilePhoto={{
+              uri: user?.getSellersList?.[0]?.user_profiles?.profile_photo,
+            }}
+            locationText={`${
+              user?.getSellersList?.[0]?.user_locations?.[0]?.state
+            } ${", "}`}
+            country={user?.getSellersList?.[0]?.user_locations?.[0]?.country}
+            rating={user?.getSellersList?.[0]?.sellerRating?.rating}
           />
 
           <Spacer space={SH(20)} />
 
           <FlatList
-            data={fourthData}
+            data={user?.getSellersList?.[0]?.user_images}
             renderItem={thirdItem}
             keyExtractor={(item) => item.id}
             ListEmptyComponent={renderNoData}
@@ -396,7 +424,8 @@ export function Products({ navigation }) {
 
         <View style={styles.bottomListView}>
           <FlatList
-            data={LastData}
+            data={ProductsData?.trendingList ?? []}
+            extraData={ProductsData?.trendingList ?? []}
             renderItem={listDetail}
             keyExtractor={(item) => item.id}
             ListEmptyComponent={renderNoData}

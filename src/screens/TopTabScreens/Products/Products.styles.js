@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
     padding: SH(2),
     marginBottom: SH(8),
     justifyContent: "space-between",
-    marginVertical: 8,
+    marginVertical: SH(8),
     flex: 1 / 4,
   },
   itemS: {
@@ -83,12 +83,12 @@ export const styles = StyleSheet.create({
   },
   yewiView: {
     borderRadius: 10,
-    paddingVertical: SH(10),
+    paddingTop: SH(15),
+    paddingBottom: SH(5),
     marginHorizontal: SW(20),
     backgroundColor: COLORS.white,
     ...ShadowStyles.shadow2,
     flex: 1,
-    height: SH(210),
     paddingHorizontal: SW(10),
   },
   yewiInnerView: {
@@ -145,6 +145,7 @@ export const styles = StyleSheet.create({
     fontSize: ms(12),
     color: COLORS.darkGrey,
     paddingHorizontal: ms(12),
+    marginTop: SH(4),
   },
   productSubTitle: {
     fontFamily: Fonts.Regular,

@@ -104,6 +104,23 @@ const supplyVariantReset = () => ({
   payload: null,
 });
 
+const catWithProductRequest = () => ({
+  type: TYPES.CATEGORY_WITH_PRODUCT_REQUEST,
+  payload: null,
+});
+const catWithProductSuccess = (categoryWithProducts) => ({
+  type: TYPES.CATEGORY_WITH_PRODUCT_SUCCESS,
+  payload: { categoryWithProducts },
+});
+const catWithProductError = (error) => ({
+  type: TYPES.CATEGORY_WITH_PRODUCT_ERROR,
+  payload: { error },
+});
+const catWithProductReset = () => ({
+  type: TYPES.CATEGORY_WITH_PRODUCT_RESET,
+  payload: null,
+});
+
 export const getProduct = (data) => async (dispatch) => {
   dispatch(getProductRequest());
   try {
@@ -133,7 +150,6 @@ export const getTrendingProducts = (data) => async (dispatch) => {
 
   try {
     const res = await ProductController.getTrendingProducts(data);
-    console.log(console.log("action success", JSON.stringify(res)));
     dispatch(getTrendingProductsSuccess(res.payload));
   } catch (error) {
     if (error.statusCode === 204) {
@@ -187,6 +203,20 @@ export const getSupplyVariantId = (values, id) => async (dispatch) => {
       dispatch(supplyVariantReset());
     } else {
       dispatch(supplyVariantError(error.message));
+    }
+  }
+};
+
+export const getCategoriesWithProducts = (data) => async (dispatch) => {
+  dispatch(catWithProductRequest());
+  try {
+    const res = await ProductController.getCategoriesWithProducts(data);
+    dispatch(catWithProductSuccess(res));
+  } catch (error) {
+    if (error.statusCode === 204) {
+      dispatch(catWithProductReset());
+    } else {
+      dispatch(catWithProductError(error.message));
     }
   }
 };
