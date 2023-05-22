@@ -75,7 +75,6 @@ export function Home() {
       />
     );
   };
-  console.log("clg" + JSON.stringify(user?.getLocation));
   return (
     <ScreenWrapper>
       <HomeHeader
