@@ -75,15 +75,17 @@ export function Home() {
       />
     );
   };
-
+  console.log("clg" + JSON.stringify(user?.getLocation));
   return (
     <ScreenWrapper>
       <HomeHeader
-        userLocation={user?.getLocation || "Add your location"}
+        userLocation={
+          user?.getLocation?.[0]?.state + ", " + user?.getLocation?.[0]?.country
+        }
         onPress={() =>
           !user?.user?.payload?.token
             ? navigate(NAVIGATION.splash)
-            : navigate(NAVIGATION.addShippingAddress)
+            : navigate(NAVIGATION.addresses)
         }
       />
       <View style={{ flex: 1 }}>

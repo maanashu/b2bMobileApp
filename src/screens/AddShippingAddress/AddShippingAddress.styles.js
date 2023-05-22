@@ -104,30 +104,4 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: SW(35),
   },
-  placesContainerStyle: {
-    borderWidth: 0,
-    borderRadius: 5,
-    backgroundColor: COLORS.placeholder,
-  },
-  textInputContainerStyle: {
-    borderTopWidth: 0,
-    borderBottomWidth: 0,
-    backgroundColor: "rgba(0,0,0,0)",
-  },
-  googlePlacesTextField: {
-    height: SH(48),
-    borderRadius: 5,
-    fontSize: scale(12),
-    fontFamily: Fonts.Italic,
-    borderColor: COLORS.transparent,
-    backgroundColor: COLORS.placeholder,
-  },
-  predefinedStyles: {
-    color: COLORS.light_blue,
-  },
-  crossIcon: {
-    height: SW(25),
-    width: SW(25),
-    tintColor: COLORS.darkGrey,
-  },
 });

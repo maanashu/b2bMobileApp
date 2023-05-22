@@ -9,23 +9,21 @@ import { NAVIGATION } from "@/constants/navigation";
 import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
 import { strings } from "@/localization";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserLocations } from "@/actions/UserActions";
+import { TYPES, getUserLocations } from "@/actions/UserActions";
 import { getUser } from "@/selectors/UserSelectors";
 import { useIsFocused } from "@react-navigation/native";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { Loader } from "@/components/Loader";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
-import { TYPES } from "@/Types/Types";
 
 export function Addresses() {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
   const locations = useSelector(getUser);
-  // console.log("loc--->", locations?.getLocation);
   const token = locations?.registered?.token ?? locations?.user?.payload?.token;
   useEffect(() => {
     dispatch(getUserLocations());
-  }, [isFocused]);
+  }, []);
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_USER_LOCATION], state)
@@ -104,7 +102,7 @@ export function Addresses() {
           title={
             strings.buttonText.addNewAddressNo +
             "(" +
-            locations?.getLocation?.length +
+            (locations?.getLocation?.length || 0) +
             "/" +
             "5" +
             ")"

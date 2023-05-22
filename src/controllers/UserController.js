@@ -293,8 +293,6 @@ export class UserController {
         })
         .catch((error) => {
           console.log("errorAddress", error);
-          if (error.msg == "jwt malformed") {
-          }
           Toast.show({
             text2: error.msg,
             position: "bottom",
@@ -308,13 +306,20 @@ export class UserController {
 
   static async getUserLocation() {
     return new Promise((resolve, reject) => {
-      const endpoint = USER_URL + ApiUserInventory.getUserLocations;
+      const endpoint = USER_URL + ApiUserInventory.getUserLocationsEP;
       HttpClient.get(endpoint)
         .then((response) => {
-          resolve(response);
+          resolve(response.payload);
         })
         .catch((error) => {
-          if (error.msg == "jwt malformed") {
+          console.log("controller error", error);
+          if (error.statusCode === 204) {
+            Toast.show({
+              text2: "You don't have any saved addresses",
+              position: "bottom",
+              type: "error_toast",
+              visibilityTime: 1500,
+            });
           } else
             Toast.show({
               text2: error.msg,
@@ -322,7 +327,7 @@ export class UserController {
               type: "error_toast",
               visibilityTime: 1500,
             });
-          reject(new Error((strings.validation.error = error.msg)));
+          reject(error);
         });
     });
   }

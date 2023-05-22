@@ -139,7 +139,7 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
     case TYPES.GET_USER_LOCATION_SUCCESS:
       return {
         ...state,
-        getLocation: payload.getLocation.payload.data,
+        getLocation: payload.getLocation.data,
       };
     case TYPES.SAVE_ADDRESS_SUCCESS:
       return {

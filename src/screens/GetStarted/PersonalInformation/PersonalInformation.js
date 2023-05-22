@@ -81,7 +81,7 @@ export function PersonalInformation(params) {
   useEffect(() => {
     setEmail(getData?.registerData?.email);
     setDateformat(getData?.registerData?.dob);
-  }, [ getData]);
+  }, [getData]);
 
   useEffect(() => {
     dispatch(getUser);

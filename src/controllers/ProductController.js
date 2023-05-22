@@ -168,7 +168,6 @@ export class ProductController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
-          console.log("catWithProductResp", response);
         })
         .catch((error) => {
           Toast.show({

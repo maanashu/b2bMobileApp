@@ -21,7 +21,7 @@ export const ApiUserInventory = {
   settings: "settings",
   uploadDoc: USER_URL + "user_profiles/verification-document",
   userAddress: "user_locations/",
-  getUserLocations: "user_locations/user",
+  getUserLocationsEP: "user_locations/user",
   changeCurrentAddress: "user_locations/",
   sendEmailOtp: "users/send-otp",
   getSellers: "users/sellers/b2b",

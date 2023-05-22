@@ -188,6 +188,14 @@ export function AddShippingAddress(props) {
 
       <ScrollView style={styles.scrollView}>
         <Spacer space={SH(10)} />
+        {/* <TextField style={styles.countryInput} /> */}
+
+        {/* <TextField
+          style={styles.countryInput}
+          value={countryName}
+          onChangeText={(newText) => setCountryName(newText)}
+        />
+        <Spacer space={SH(15)} /> */}
 
         <View style={[styles.textInputView]}>
           <View style={styles.countryInnerView}>
@@ -255,89 +263,56 @@ export function AddShippingAddress(props) {
             />
           </View>
         </View>
+
         <Spacer space={SH(15)} />
 
         <Text style={styles.headingText}>
-          {strings.AddShippingAddress.currentAddress}
+          {strings.AddShippingAddress.address1}
         </Text>
-        <View>
-          <GooglePlacesAutocomplete
-            ref={ref}
-            fetchDetails
-            autoFocus={false}
-            listViewDisplayed={true}
-            returnKeyType={"search"}
-            placeholder={"Street Address"}
-            enablePoweredByContainer={false}
-            query={{
-              language: "en",
-              type: "address",
-              components: "country:us",
-              key: GOOGLE_MAP.API_KEYS,
-            }}
-            onPress={(data, details) => {
-              setCity("");
-              setState("");
-              setZipCode("");
-              setCountry("");
-              setAppartment("");
-              getAddress(details.address_components);
-              setStreet(data.structured_formatting.main_text);
-            }}
-            styles={{
-              container: styles.placesContainerStyle,
-              textInput: styles.googlePlacesTextField,
-              textInputContainer: styles.textInputContainerStyle,
-              predefinedPlacesDescription: styles.predefinedStyles,
-            }}
-          />
-          <Spacer space={SH(15)} />
+        <TextField
+          onChangeText={(newText) => setAdd1(newText)}
+          style={styles.countryInput}
+          placeholder={strings.AddShippingAddress.streets}
+          placeholderTextColor={COLORS.secondary}
+        />
 
-          <Text style={styles.headingText}>{"Appartment"}</Text>
-          <TextField
-            value={appartment}
-            onChangeText={(newText) => setAppartment(newText)}
-            style={styles.countryInput}
-            placeholder={strings.AddShippingAddress.streets}
-            placeholderTextColor={COLORS.secondary}
-          />
+        <Spacer space={SH(15)} />
 
-          <Spacer space={SH(15)} />
+        <Text style={styles.headingText}>
+          {" "}
+          {strings.AddShippingAddress.address2}
+        </Text>
+        <TextField
+          style={styles.countryInput}
+          placeholder={strings.AddShippingAddress.apartment}
+          placeholderTextColor={COLORS.secondary}
+          onChangeText={(newText) => setAdd2(newText)}
+        />
+        <Spacer space={SH(15)} />
 
-          <Text style={styles.headingText}> {"City"}</Text>
-          <TextField
-            value={city}
-            style={styles.countryInput}
-            placeholder={strings.AddShippingAddress.apartment}
-            placeholderTextColor={COLORS.secondary}
-            onChangeText={(newText) => setCity(newText)}
-          />
-          <Spacer space={SH(15)} />
+        <View style={styles.nameView}>
+          <View style={{ width: "48%" }}>
+            <Text style={styles.headingText}>
+              {strings.AddShippingAddress.zipcode}
+            </Text>
+            <TextField
+              style={styles.nameInput}
+              keyboardType="numeric"
+              placeholder={"Enter your zip code"}
+              onChangeText={(newText) => setZipCode(newText)}
+            />
+          </View>
 
-          <View style={styles.nameView}>
-            <View style={{ width: "48%" }}>
-              <Text style={styles.headingText}>
-                {strings.AddShippingAddress.zipcode}
-              </Text>
-              <TextField
-                style={styles.nameInput}
-                keyboardType="numeric"
-                placeholder={"Enter your zip code"}
-                onChangeText={(newText) => setZipCode(newText)}
-              />
-            </View>
-
-            <View style={{ width: "48%" }}>
-              <Text style={styles.headingText}>
-                {" "}
-                {strings.AddShippingAddress.city}
-              </Text>
-              <TextField
-                style={styles.nameInput}
-                placeholder={"Enter your city"}
-                onChangeText={(newText) => setCity(newText)}
-              />
-            </View>
+          <View style={{ width: "48%" }}>
+            <Text style={styles.headingText}>
+              {" "}
+              {strings.AddShippingAddress.city}
+            </Text>
+            <TextField
+              style={styles.nameInput}
+              placeholder={"Enter your city"}
+              onChangeText={(newText) => setCity(newText)}
+            />
           </View>
         </View>
       </ScrollView>

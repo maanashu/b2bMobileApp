@@ -61,10 +61,6 @@ export function Products({ navigation }) {
   // console.log("yaahhoo->", wholesaleres);
   const isFocused = useIsFocused();
 
-  // console.log(
-  //   "checking category",
-  //   JSON.stringify(user?.getSellersList?.slice(0, 1))
-  // );
   const categoryObject = {
     page: 1,
     limit: 10,
@@ -109,9 +105,9 @@ export function Products({ navigation }) {
   };
   function dynamicHeight(_index) {
     if (_index % 2 == 0) {
-      return SH(275);
-    } else if (_index % 2 !== 0) {
       return SH(255);
+    } else if (_index % 2 !== 0) {
+      return SH(235);
     } else {
       return SH(230);
     }
@@ -409,7 +405,7 @@ export function Products({ navigation }) {
             rating={user?.getSellersList?.[0]?.sellerRating?.rating}
           />
 
-          <Spacer space={SH(20)} />
+          <Spacer space={SH(10)} />
 
           <FlatList
             data={user?.getSellersList?.[0]?.user_images}

@@ -11,7 +11,13 @@ import { styles } from "./BrandsSellers.styles";
 import { Header, ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { backArrow, Fonts } from "@/assets";
+import {
+  backArrow,
+  circleStar,
+  clockTiming,
+  deliveryParcel,
+  Fonts,
+} from "@/assets";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
 import { getBrands } from "@/actions/CategoryActions";
@@ -143,7 +149,7 @@ export function BrandsSellers(params) {
           <Image
             source={{ uri: item?.user_profiles?.profile_photo }}
             resizeMode="contain"
-            style={{ height: SH(100), width: SW(90), borderRadius: SW(10) }}
+            style={styles.mainImageStyle}
           />
           <Spacer horizontal space={SW(15)} />
           <View>
@@ -152,12 +158,43 @@ export function BrandsSellers(params) {
                 color: COLORS.darkGrey,
                 fontFamily: Fonts.Bold,
                 fontSize: SF(18),
+                left: SW(3),
               }}
             >
               {item?.user_profiles?.organization_name}
             </Text>
-            <Text></Text>
-            <Text></Text>
+            <View style={styles.rowAlign}>
+              <Image
+                source={circleStar}
+                resizeMode="contain"
+                style={styles.iconStyle}
+              />
+              <Text style={styles.secondaryText}>
+                {item?.sellerRating?.rating}
+              </Text>
+            </View>
+            <View style={styles.rowAlign}>
+              <Image
+                source={clockTiming}
+                resizeMode="contain"
+                style={styles.iconStyle}
+              />
+              <Text style={styles.secondaryText}>
+                {item?.distance?.time}
+                {" min"}
+              </Text>
+            </View>
+            <View style={styles.rowAlign}>
+              <Image
+                source={deliveryParcel}
+                resizeMode="contain"
+                style={styles.iconStyle}
+              />
+              <Text style={styles.secondaryText}>
+                {item?.deliveryFee}
+                {" Delivery fee"}
+              </Text>
+            </View>
           </View>
         </View>
       </TouchableOpacity>

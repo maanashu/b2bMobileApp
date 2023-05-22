@@ -141,4 +141,23 @@ export const styles = StyleSheet.create({
     fontSize: SF(16),
     paddingLeft: SW(12),
   },
+  iconStyle: {
+    height: SH(18),
+    width: SW(18),
+    marginRight: SW(5),
+  },
+  rowAlign: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: SH(2),
+  },
+  secondaryText: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.text,
+  },
+  mainImageStyle: {
+    height: SH(110),
+    width: SW(90),
+    borderRadius: SW(10),
+  },
 });

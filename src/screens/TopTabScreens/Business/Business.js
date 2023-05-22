@@ -44,9 +44,11 @@ import { Loader } from "@/components/Loader";
 import HomeCategorySkeleton from "@/components/SkeletonContent";
 import { getCategoriesWithProducts } from "@/actions/ProductActions";
 import { getProductSelector } from "@/selectors/ProductSelectors";
+import { useIsFocused } from "@react-navigation/native";
 
 export function Business() {
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
 
   const [manufacturersCategoryId, setmanufacturersCategoryId] = useState(1);
 
@@ -90,7 +92,7 @@ export function Business() {
         category_ids: categoryData?.serviceCategoryList?.data?.[0]?.id,
       })
     );
-  }, []);
+  }, [isFocused]);
   // console.log("seviceCategory-->", ProductsData?.categoryWithProducts);
 
   const categoryHandler = (item) => {

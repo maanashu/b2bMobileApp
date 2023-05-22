@@ -47,7 +47,7 @@ export function EnterPin(params) {
           <TouchableOpacity onPress={() => goBack()}>
             <Image source={backArrow} style={styles.backArrow} />
           </TouchableOpacity>
-          <Text style={styles.setPin}>{strings.auth.setPin}</Text>
+          <Text style={styles.setPin}>{strings.auth.enterPin}</Text>
         </View>
         <Text style={styles.cancel}>{strings.auth.cancel}</Text>
       </View>
