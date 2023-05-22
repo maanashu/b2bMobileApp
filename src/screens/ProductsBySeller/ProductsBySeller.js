@@ -1,74 +1,45 @@
-import {
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-  Image,
-  ActivityIndicator,
-} from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import { Text, View, FlatList, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
 import { styles } from "./ProductsBySeller.styles";
 import { Header, ScreenWrapper, Spacer } from "@/components";
-import { SH, SW } from "@/theme/ScalerDimensions";
+import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { backArrow, Fonts } from "@/assets";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
-import { getBrands } from "@/actions/CategoryActions";
 import FastImage from "react-native-fast-image";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { getProduct } from "@/actions/ProductActions";
 import { getProductSelector } from "@/selectors/ProductSelectors";
-import { renderNoData } from "@/components/FlatlistStyling";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
-import { Loader } from "@/components/Loader";
 import { getUser } from "@/selectors/UserSelectors";
-import { getSellers } from "@/actions/UserActions";
 
 export function ProductsBySeller(params) {
   const dispatch = useDispatch();
-  const routeId = params?.route?.params?.categoryId;
+  const routeId = params?.route?.params?.sellerId;
   const [selectedId, setSelectedId] = useState([0]);
 
   const brandsData = useSelector(getCategorySelector);
+  const productsData = useSelector(getProductSelector);
   const user = useSelector(getUser);
 
-  const brandBody = {
-    page: 1,
-    limit: 10,
-    category_id: params?.route?.params?.categoryId,
-  };
+  // console.log("brands details", JSON.stringify(productsData));
+
   useEffect(() => {
-    dispatch(getBrands(brandBody));
+    const productObject = {
+      page: 1,
+      limit: 10,
+      delivery_options: 3,
+      app_name: "b2b",
+      seller_id: params?.route?.params?.sellerId,
+      service_type: "product",
+    };
+
+    dispatch(getProduct(productObject));
   }, []);
-  // console.log("brands details", JSON.stringify(brandsData?.brandsList));
 
-  useEffect(() => {
-    setSelectedId(brandsData?.brandsList?.[0]?.id);
-    const sellersObject = {
-      page: 1,
-      limit: 10,
-      brand_id: brandsData?.brandsList?.[0]?.id,
-    };
-
-    dispatch(getSellers(sellersObject));
-  }, [brandsData]);
-
-  const getProducts = (item) => {
-    setSelectedId(item.id);
-    const sellersObject = {
-      page: 1,
-      limit: 10,
-      brand_id: item.id,
-    };
-    dispatch(getSellers(sellersObject));
-  };
-
-  const isLoadingBrands = useSelector((state) =>
-    isLoadingSelector([TYPES.GET_BRANDS], state)
-  );
   const isLoadingProducts = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT], state)
   );
@@ -115,51 +86,6 @@ export function ProductsBySeller(params) {
     }
   };
 
-  const renderBrands = ({ item, index }) => (
-    <>
-      <TouchableOpacity
-        style={styles.categoryTouchableView}
-        onPress={() => {
-          getProducts(item);
-        }}
-      >
-        <View
-          style={[
-            styles.rowView,
-            {
-              borderWidth: item.id === selectedId ? 1 : 0,
-              borderColor: COLORS.primary,
-              backgroundColor:
-                item.id === selectedId ? COLORS.white : COLORS.input_bg,
-            },
-          ]}
-        >
-          <FastImage
-            source={{ uri: item.image }}
-            resizeMode="cover"
-            style={styles.categoryImages}
-          />
-          <Text
-            style={{
-              marginHorizontal: SW(2),
-              fontFamily: item.id === selectedId ? Fonts.Bold : Fonts.Regular,
-              color: item.id === selectedId ? COLORS.primary : COLORS.text,
-            }}
-          >
-            {item.name}
-          </Text>
-        </View>
-        <Spacer space={SH(5)} />
-        {/* <View
-          style={{
-            borderBottomWidth: item.id === selectedId ? 1 : null,
-            borderColor: item.id === selectedId && COLORS.primary,
-            width: "100%",
-          }}
-        ></View> */}
-      </TouchableOpacity>
-    </>
-  );
   const listDetail = ({ item, index }) => (
     <>
       <TouchableOpacity
@@ -204,44 +130,41 @@ export function ProductsBySeller(params) {
       </TouchableOpacity>
     </>
   );
+  const renderNoData = ({ item }) => (
+    <>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Text
+          style={{
+            color: COLORS.primary,
+            fontFamily: Fonts.Regular,
+            fontSize: SF(16),
+          }}
+        >
+          {"No product found"}
+        </Text>
+      </View>
+    </>
+  );
 
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <Header title={"Products"} back={backArrow} enableBackButton />
 
-      <View style={styles.upperView}>
-        <Spacer space={SH(10)} />
-
-        {isLoadingBrands ? (
+      <View style={{ paddingHorizontal: SW(20), flex: 1, marginTop: SH(20) }}>
+        {/* {isLoadingProducts ? (
           <ActivityIndicator size="large" color={COLORS.primary} />
-        ) : (
-          <FlatList
-            showsHorizontalScrollIndicator={false}
-            horizontal
-            data={brandsData?.brandsList ?? []}
-            renderItem={renderBrands}
-            ListEmptyComponent={renderNoData}
-            keyExtractor={(item) => item.id}
-            // extraData={selectedId}
-          />
-        )}
+        ) : ( */}
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={productsData?.product?.data ?? []}
+          extraData={productsData?.product?.data}
+          renderItem={listDetail}
+          ListEmptyComponent={renderNoData}
+          keyExtractor={(item) => item.id}
+          numColumns={2}
+        />
+        {/* )} */}
       </View>
-
-      {/* <View style={{ paddingHorizontal: SW(20), flex: 1, marginTop: SH(20) }}>
-        {isLoadingProducts ? (
-          <ActivityIndicator size="large" color={COLORS.primary} />
-        ) : (
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={productsData?.product?.data ?? []}
-            extraData={productsArray}
-            renderItem={listDetail}
-            ListEmptyComponent={renderNoData}
-            keyExtractor={(item) => item.id}
-            numColumns={2}
-          />
-        )}
-      </View> */}
     </ScreenWrapper>
   );
 }

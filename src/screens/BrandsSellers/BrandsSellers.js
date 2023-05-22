@@ -144,6 +144,9 @@ export function BrandsSellers(params) {
           paddingVertical: SH(20),
           ...ShadowStyles.shadow2,
         }}
+        onPress={() =>
+          navigate(NAVIGATION.productsBySeller, { sellerId: item?.unique_uuid })
+        }
       >
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Image

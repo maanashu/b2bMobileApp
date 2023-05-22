@@ -96,3 +96,4 @@ export { BusinessRegistration } from "@/screens/GetStarted/BusinessRegistration/
 export { NoWalletScreen } from "@/screens/Profile/Wallet/JbrWallet/NoWalletScreen";
 export { BusinessKyc } from "@/screens/GetStarted/PersonalInformation/BusinessKyc/BusinessKyc";
 export { RecomendedWholesalers } from "@/screens/RecomendedWholesalers/RecomendedWholesalers";
+export { ProductsBySeller } from "@/screens/ProductsBySeller/ProductsBySeller";

@@ -77,6 +77,7 @@ import {
   PersonalInformation,
   PrivacyPolicy,
   ProductInquiry,
+  ProductsBySeller,
   Profile,
   QrCode,
   RateExperience,
@@ -676,6 +677,11 @@ export function AppBottom() {
       <Stack.Screen
         component={RecomendedWholesalers}
         name={NAVIGATION.recomendedWholesalers}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={ProductsBySeller}
+        name={NAVIGATION.productsBySeller}
         options={{ headerShown: false }}
       />
       {/* Home navigator ends here */}
