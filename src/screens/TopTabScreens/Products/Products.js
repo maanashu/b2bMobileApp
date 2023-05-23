@@ -100,42 +100,6 @@ export function Products({ navigation }) {
   const LoadingData = () => {
     <>{isLoading ? <Loader message="Loading data ..." /> : null}</>;
   };
-  function dynamicHeight(_index) {
-    if (_index % 2 == 0) {
-      return SH(275);
-    } else if (_index % 2 !== 0) {
-      return SH(255);
-    } else {
-      return SH(230);
-    }
-  }
-  function dynamicImageHeight(_index) {
-    if (_index % 2 == 0) {
-      return SH(170);
-    } else if (_index % 2 !== 0) {
-      return SH(150);
-    } else {
-      return SH(100);
-    }
-  }
-  function dynamicMarginTop(_index) {
-    if (_index === 1) {
-      return;
-    } else if (_index % 2 !== 0) {
-      return SH(-30);
-    } else {
-      return SH(10);
-    }
-  }
-  function dynamicMarginBottom(_index) {
-    if (_index % 2 == 0) {
-      return SH(30);
-    } else if (_index % 2 !== 0) {
-      return SH(10);
-    } else {
-      return SH(37);
-    }
-  }
 
   const renderCategoryItem = ({ item, index, data }) => {
     const itemCount = categoryData?.categoryList?.data.length;
