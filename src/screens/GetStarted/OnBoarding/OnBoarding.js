@@ -59,7 +59,6 @@ export function OnBoarding() {
       />
     );
   };
-  // console.log("state----->", selectedId);
 
   return (
     <View style={styles.container}>

@@ -21,7 +21,6 @@ import { CommonActions, useRoute } from "@react-navigation/native";
 
 export function BiometricsScreen({ navigation }) {
   const route = useRoute();
-  console.log("Screen name:", route.name);
   const layout = useWindowDimensions();
   const [showScreen, setShowScreen] = useState();
 
@@ -57,8 +56,6 @@ export function BiometricsScreen({ navigation }) {
   useEffect(() => {
     LogBox.ignoreAllLogs();
   }, []);
-
-  console.log("user--->", user?.isStatus);
 
   // Biometrics function
   const rnBiometrics = new ReactNativeBiometrics({
@@ -134,7 +131,6 @@ export function BiometricsScreen({ navigation }) {
   const createKeys = () => {
     rnBiometrics.createKeys().then((resultObject) => {
       const { publicKey } = resultObject;
-      console.log(publicKey);
       promptBioMetricSignin();
       // sendPublicKeyToServer(publicKey);
     });

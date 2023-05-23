@@ -74,9 +74,6 @@ export function PersonalInformation(params) {
   const [countryCode, setCountryCode] = useState("");
   const [individual, setIndividual] = useState(false);
   const [business, setBusiness] = useState(false);
-  // console.log("country code-->", getData?.phone?.countryCode);
-  // console.log("phone number-->", getData?.phone?.phoneNumber);
-  // console.log("email-->", getData?.registerData?.email);
 
   useEffect(() => {
     setEmail(getData?.registerData?.email);
@@ -114,9 +111,6 @@ export function PersonalInformation(params) {
       )
     );
   };
-
-  // console.log("checking email", getData?.registerData?.email);
-  // console.log("checking dob", phone);
 
   const onChangeDate = (selectedDate) => {
     const currentDate = moment().format("MM-DD-YYYY");
@@ -592,7 +586,6 @@ export function PersonalInformation(params) {
                     key: GOOGLE_MAP.API_KEYS,
                   }}
                   onPress={(data, details) => {
-                    // console.log("details: " + JSON.stringify(details));
                     setCity("");
                     setState("");
                     setZipCode("");

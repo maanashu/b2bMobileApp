@@ -47,7 +47,6 @@ export class CategoryController {
           resolve(response);
         })
         .catch((error) => {
-          console.log(`Check error :${error}`);
           reject(error);
           // Toast.show({
           //   text2: error.msg,

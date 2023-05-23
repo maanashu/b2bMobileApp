@@ -14,7 +14,6 @@ import { SupportSelector } from "@/selectors/SupportSelectors";
 export function Faq(props) {
   const dispatch = useDispatch();
   const faqData = useSelector(SupportSelector);
-  console.log("faqs", faqData);
   const Faq = faqData?.faqs;
 
   const Body = {
@@ -29,12 +28,9 @@ export function Faq(props) {
     navigate(NAVIGATION.faqVerified, {
       data: item,
     });
-    // console.log("item-->", JSON.stringify(item));
   };
 
   const renderdataItem = ({ item, index }) => {
-    // console.log("checking item", item[index]);
-
     return (
       <TouchableOpacity
         style={styles.flexRow}

@@ -197,13 +197,11 @@ export function NewProducts() {
   const listDetail = ({ item, index }) => (
     <>
       <TouchableOpacity
-        onPress={
-          () =>
-            navigate(NAVIGATION.productInquiry, {
-              itemId: item.id,
-              seller_id: item?.supplies[0]?.seller_id,
-            })
-          // console.log("item uid: " + item?.supplies[0]?.seller_id)
+        onPress={() =>
+          navigate(NAVIGATION.productInquiry, {
+            itemId: item.id,
+            seller_id: item?.supplies[0]?.seller_id,
+          })
         }
         style={[
           styles.ShoesStyle,
@@ -250,7 +248,11 @@ export function NewProducts() {
 
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <Header title={strings.newProducts.newProducts} back={backArrow} enableBackButton />
+      <Header
+        title={strings.newProducts.newProducts}
+        back={backArrow}
+        enableBackButton
+      />
 
       <View style={styles.upperView}>
         <SubHeader

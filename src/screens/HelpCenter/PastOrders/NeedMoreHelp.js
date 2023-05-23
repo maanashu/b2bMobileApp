@@ -59,8 +59,6 @@ export function NeedMoreHelp(props) {
   const [doc, setDoc] = useState("");
   const token =
     getUserData?.user?.payload?.token ?? getUserData?.registered?.token;
-  console.log("token", token);
-  console.log("token", doc);
 
   const headingName =
     props?.route?.params?.data == "support"
@@ -84,11 +82,9 @@ export function NeedMoreHelp(props) {
   //       allowMultiSelection: true,
   //     });
 
-  //     console.log("doc picker resp", response);
   //     setFileResponse(response);
   //     setisBottomViewVisible(false);
   //   } catch (err) {
-  //     console.log(err);
   //   }
   // }, []);
 
@@ -219,7 +215,6 @@ export function NeedMoreHelp(props) {
       .then((resp) => {
         if (resp?.status === 200) {
           // doc = resp.data.payload.document;
-          // console.log("success", resp.data.payload.document);
           setDoc(resp.data.payload.document);
         }
       })

@@ -24,7 +24,6 @@ export function AddCoupon(params) {
   const dispatch = useDispatch();
   const [index, setIndex] = React.useState(0);
   const [couponAdd, setcouponAdd] = useState();
-  console.log(couponAdd);
 
   const [routes] = React.useState([
     { key: "Current", title: "Current" },

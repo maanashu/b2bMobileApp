@@ -35,7 +35,6 @@ export function CheckAndRequestKYC(params) {
     if (kycStatus !== "passed") {
       interval = setInterval(() => {
         dispatch(checkKyc());
-        console.log("htting", kycStatus);
       }, 5000);
     } else {
       clearInterval(interval);
@@ -56,9 +55,7 @@ export function CheckAndRequestKYC(params) {
   //   getUserData?.registerData?.firstname;
   // const businessRequest = getKycData?.requestBusinessKyc?.payload;
   // const kycBusinessStatus = getKycData?.checkBusinessKyc?.payload?.status;
-  // // console.log(
-  // //   "kyc request" + JSON.stringify(getKycData?.requestKyc?.kyc?.payload)
-  // // );
+
   // const [requestedKyc, setRequestedKyc] = useState(false);
   // const customHeader = () => (
   //   <View style={styles.headerRowView}>

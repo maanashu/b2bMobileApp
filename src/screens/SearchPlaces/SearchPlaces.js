@@ -36,10 +36,6 @@ export function SearchPlaces(props) {
               });
             }
           }}
-          // onPress={(data, details) => {
-          //   console.log("lat" + details?.geometry?.location?.lat);
-          //   console.log("long" + details?.geometry?.location?.lng);
-          // }}
           query={{
             key: GOOGLE_MAP.API_KEYS,
             language: "en",

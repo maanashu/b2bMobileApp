@@ -75,7 +75,6 @@ export function Biometrics() {
   const createKeys = () => {
     rnBiometrics.createKeys().then((resultObject) => {
       const { publicKey } = resultObject;
-      console.log(publicKey);
       promptBioMetricSignin();
       // sendPublicKeyToServer(publicKey);
     });

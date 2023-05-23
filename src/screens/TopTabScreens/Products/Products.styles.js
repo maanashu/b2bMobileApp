@@ -3,7 +3,7 @@ import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { Dimensions, StyleSheet } from "react-native";
-import { ms, vs } from "react-native-size-matters";
+import { ms, s, vs } from "react-native-size-matters";
 
 export const styles = StyleSheet.create({
   container: {
@@ -135,7 +135,7 @@ export const styles = StyleSheet.create({
   ShoesStyle: {
     width: 180,
     ...ShadowStyles.shadow2,
-    borderRadius: 5,
+    borderRadius: s(5),
     backgroundColor: COLORS.white,
     margin: 2,
     flex: 1,

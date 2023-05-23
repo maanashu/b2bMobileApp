@@ -42,11 +42,9 @@ export function AddShippingAddress(props) {
   const [appartment, setAppartment] = useState("");
   const [stateCode, setStateCode] = useState("");
   const [street, setStreet] = useState("");
-  // console.log("city: " + props?.route?.params?.update);
   const dispatch = useDispatch();
   const ref = useRef();
   const saved = useSelector(getUser);
-  // console.log("saved--->" + JSON.stringify(saved?.getLocation[0]));
 
   const body = {
     place_id: saved?.savedAddress?.place_id,
@@ -70,7 +68,6 @@ export function AddShippingAddress(props) {
     postal_code: zipCode,
   };
   const getAddress = (details) => {
-    console.log("details: " + JSON.stringify(details));
     for (var i = 0; i < details.length; i++) {
       if (details[i].types[0] == "country") {
         setCountry(details?.[i]?.short_name);

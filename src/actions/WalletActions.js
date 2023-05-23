@@ -215,14 +215,11 @@ export const addWalletBalanceApi = (amount, account) => async (dispatch) => {
   dispatch(addWalletBalanceApiRequest());
   try {
     const res = await WalletController.addWalletBalanceApi(amount, account);
-    console.log("successe", res);
 
     dispatch(getWalletBalance());
     dispatch(getTransactions());
     return dispatch(addWalletBalanceApiSuccess(res));
   } catch (error) {
-    console.log("error", error);
-
     dispatch(addWalletBalanceApiError(error.message));
   }
 };

@@ -84,7 +84,6 @@ export function BusinessRegistration() {
     dispatch(getBusinessType());
     dispatch(getNaicsCode());
 
-    console.log("user", getUserData?.user?.payload?.token);
     if (getKycData?.businessType?.length > 0) {
       const arr = [];
       getKycData?.businessType?.map((item, index) => {

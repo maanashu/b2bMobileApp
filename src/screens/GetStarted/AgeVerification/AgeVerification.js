@@ -48,9 +48,6 @@ export function AgeVerification(props) {
   const screen = props?.route?.params?.screen;
   const uuid = getUser?.user?.payload?.uuid ?? getUser?.registered?.uuid;
 
-  // console.log("uuid", getUser?.registered?.uuid);
-  // console.log("uuid" + JSON.stringify(getUser?.user?.payload?.uuid));
-
   const [key, setKey] = useState("");
   const [open, setOpen] = useState(false);
   const [cardImage, setCardImage] = useState("");
@@ -81,7 +78,6 @@ export function AgeVerification(props) {
   }, []);
 
   const walletData = useSelector(getWallet);
-  console.log("walletData", walletData?.walletData?.payload?.type);
 
   const uploadFrontDocument = async (image) => {
     const formData = new FormData();
@@ -183,10 +179,8 @@ export function AgeVerification(props) {
         }
       } else {
         const res = await dispatch(documentsUpload(data, uuid));
-        console.log("documentsUpload====", res);
         if (res?.type === "DOCUMENTS_UPLOAD_SUCCESS") {
           const walletres = await dispatch(getWalletUserProfile(uuid));
-          console.log("getWalletUserProfile====", walletres);
           if (walletres?.type === "GET_WALLET_USER_SUCCESS") {
             if (walletData?.walletData?.payload?.type === "business") {
               navigate(NAVIGATION.businessRegistration);
@@ -233,7 +227,6 @@ export function AgeVerification(props) {
     }).then((image) => {
       uploadFrontDocument(image);
       setCardImage(image.path);
-      console.log("image path");
     });
   };
 
@@ -244,7 +237,6 @@ export function AgeVerification(props) {
       cropping: true,
     }).then((image) => {
       uploadFrontDocument(image);
-      console.log("image path");
       setCardImage(image.path);
     });
   };
@@ -273,7 +265,7 @@ export function AgeVerification(props) {
 
   return (
     <ScreenWrapper>
-      <Header title={strings.ageVerification.headerTitle} enableBackButton/>
+      <Header title={strings.ageVerification.headerTitle} enableBackButton />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <Spacer space={SH(20)} />

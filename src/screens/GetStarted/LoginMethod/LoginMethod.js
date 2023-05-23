@@ -42,10 +42,8 @@ export function LoginMethod(props) {
     rnBiometrics.biometricKeysExist().then((resultObject) => {
       const { keysExist } = resultObject;
       if (keysExist) {
-        console.log("Keys exist");
         promptBioMetricSignin();
       } else {
-        console.log("Keys do not exist or were deleted");
         createKeys();
       }
     });
@@ -65,7 +63,6 @@ export function LoginMethod(props) {
         const { success, signature } = resultObject;
 
         if (success) {
-          console.log(signature);
           dispatch(deviceLogin());
           //  verifySignatureWithServer(signature, payload);
         }
@@ -76,7 +73,6 @@ export function LoginMethod(props) {
   const createKeys = () => {
     rnBiometrics.createKeys().then((resultObject) => {
       const { publicKey } = resultObject;
-      console.log(publicKey);
       promptBioMetricSignin();
       // sendPublicKeyToServer(publicKey);
     });

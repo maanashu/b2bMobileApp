@@ -369,8 +369,6 @@ export const verifyOtp = (id, value) => async (dispatch) => {
     dispatch(verifyOtpSuccess(res));
   } catch (error) {
     dispatch(verifyOtpError(error));
-
-    console.log("dispatching error--->", error);
   }
 };
 export const sendEmailOtp = (id, value) => async (dispatch) => {
@@ -380,7 +378,6 @@ export const sendEmailOtp = (id, value) => async (dispatch) => {
     dispatch(emailOtpSuccess(res));
   } catch (error) {
     dispatch(emailOtpError(error));
-    console.log("dispatching error--->", error);
   }
 };
 
@@ -403,9 +400,7 @@ export const deviceLogin = () => async (dispatch) => {
     const res = await UserController.deviceLogin();
     dispatch(loginSuccess(res));
     dispatch(getUser(res?.payload?.id));
-    console.log("action success-->", res);
   } catch (error) {
-    console.log("action error-->", error);
     dispatch(loginError(error.message));
   }
 };
@@ -451,14 +446,11 @@ export const addUserLocation = (data) => async (dispatch) => {
   }
 };
 export const updateUserLocation = (id, data) => async (dispatch) => {
-  // console.log("action body-->", data);
-
   dispatch(updateLocationRequest());
   try {
     const res = await UserController.patchCurrentAddress(id, data);
     dispatch(updateLocationSuccess(res));
   } catch (error) {
-    console.log("action error-->", error);
     dispatch(updateLocationError(error.message));
   }
 };

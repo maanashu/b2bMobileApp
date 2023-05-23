@@ -53,10 +53,6 @@ export function AddCategories() {
   ];
   const [select, setSelect] = useState(DATA);
 
-  // setTimeout(() => {
-  //   console.log("selected Data---->", select);
-  // }, 1000);
-
   const SelectCategory = (item) => {
     const newItem = select.map((val) => {
       if (val.id === item.id) {

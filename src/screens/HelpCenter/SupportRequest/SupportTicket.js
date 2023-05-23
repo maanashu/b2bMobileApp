@@ -58,7 +58,6 @@ export function SupportTicket() {
   const [doc, setDoc] = useState("");
   const token =
     getUserData?.user?.payload?.token ?? getUserData?.registered?.token;
-  // console.log("token", getUserData?.user?.payload?.token);
 
   const [subjectItems, setSubjectItems] = useState([]);
 
@@ -176,7 +175,6 @@ export function SupportTicket() {
       .then((resp) => {
         if (resp?.status === 200) {
           // doc = resp.data.payload.document;
-          // console.log("success", resp.data.payload.document);
           setDoc(resp.data.payload.document);
         }
       })

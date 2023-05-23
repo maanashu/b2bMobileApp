@@ -280,11 +280,9 @@ export const requestKyc = () => async (dispatch) => {
     const res = await KycController.requestKyc();
     if (res.payload === true && res.msg === "Requested for KYC") {
       dispatch(requestKycSuccess(res));
-      console.log("kyc action success", res);
     }
   } catch (error) {
     dispatch(requestKycError(error.message));
-    console.log("kyc action error", error);
   }
 };
 
@@ -293,12 +291,7 @@ export const checkKyc = () => async (dispatch) => {
   try {
     const res = await KycController.checkKyc();
     dispatch(checkKycSuccess(res));
-    console.log("actionsuccess");
-
-    console.log("checkKyc action success", res);
   } catch (error) {
-    console.log("ACTION ERROR", error);
-
     dispatch(checkKycError(error.message));
   }
 };
@@ -348,10 +341,7 @@ export const getPlaidToken = () => async (dispatch) => {
   try {
     const res = await KycController.getPlaidToken();
     dispatch(getPlaidTokenSuccess(res));
-    console.log("plaid action success", res);
   } catch (error) {
-    console.log("plaid action error", error);
-
     dispatch(getPlaidTokenError(error.message));
   }
 };
@@ -372,14 +362,10 @@ export const getBankAccounts = (key) => async (dispatch) => {
     const res = await KycController.getBankAccounts();
     if (key === "bankList") {
       dispatch(getBankAccountsSuccess(res));
-      console.log("action sucess");
     } else {
-      console.log("action 1");
       dispatch(getBankAccountsSuccess(res));
     }
   } catch (error) {
-    console.log("action error");
-
     dispatch(getBankAccountsError(error.message));
   }
 };

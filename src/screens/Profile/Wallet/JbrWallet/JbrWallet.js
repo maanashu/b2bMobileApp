@@ -45,7 +45,6 @@ export function JbrWallet() {
   const [selectedAccount, setSelectedAccount] = useState("");
   const [amount, setamount] = useState("");
   const [refreshing, setRefreshing] = useState(false);
-  // console.log("redeem->" + wallet?.redeem);
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.ADD_BALANCE], state)
@@ -70,7 +69,6 @@ export function JbrWallet() {
   };
   const valueInCents = dollarToCents(amount);
   const valueInDollars = Math.floor(valueInCents);
-  // console.log("---->" + valueInDollars);
   const onEnterAmount = (data) => {
     const regex = /^\d*\.?\d{0,2}$/;
     if (regex.test(data)) {
@@ -199,7 +197,7 @@ export function JbrWallet() {
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <>
-        <Header back={backArrow} title={strings.profile.jbrWallet}  />
+        <Header back={backArrow} title={strings.profile.jbrWallet} />
         <ScrollView
           showsVerticalScrollIndicator={false}
           refreshControl={

@@ -94,8 +94,6 @@ export function StartOrder(params) {
   const getVariantId = useSelector(getProductSelector);
   const user = useSelector(getUser);
 
-  // console.log(getVariantId?.variantId?.attribute_variant_id);
-
   const [selectedItem, setSelectedItem] = useState("");
   const [ArrayToRoute, setArrayToRoute] = useState([]);
 
@@ -137,7 +135,6 @@ export function StartOrder(params) {
     service_id: params?.route?.params?.service_id,
     qty: quantity?.qty,
   };
-  // console.log("cheking variant-->", user?.user?.payload?.token);
   const chechVariantObject = {
     attribute_value_ids: string,
     supply_id: bundle[0]?.id,

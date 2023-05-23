@@ -10,10 +10,7 @@ import { AirbnbRating, Rating } from "react-native-ratings";
 
 export function MyCatalogue() {
   const [rating, setRating] = useState("");
-  console.log("Rating is: " + rating);
-  const ratingCompleted = (rating) => {
-    console.log("Rating is: " + rating);
-  };
+  const ratingCompleted = (rating) => {};
   return (
     <ScreenWrapper>
       <NameHeader title={strings.profile.myCatalogs} back={backArrow} />

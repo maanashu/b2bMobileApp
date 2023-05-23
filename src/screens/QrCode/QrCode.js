@@ -24,7 +24,6 @@ export function QrCode() {
 
   const qr = useSelector(getUser);
   const uuid = qr?.user?.payload?.uuid;
-  // console.log("qrcode", qr?.user?.payload?.uuid);
   const [imageUri, setImageUri] = useState("");
   const timestamp = Date.now();
   const downloadUrl = qr?.walletProfile?.qr_code;
@@ -46,27 +45,6 @@ export function QrCode() {
   }, []);
 
   const downloadFile = async () => {
-    // if (Platform.OS === "android") {
-    //   const granted = await PermissionsAndroid.request(
-    //     PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-    //     {
-    //       title: "App Write Storage Permission",
-    //       message: "App needs access to write storage",
-    //     }
-    //   );
-    //   if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-    //     console.log("Write Storage permission granted");
-    //   } else {
-    //     console.log("Write Storage permission denied");
-    //   }
-    // } else if (Platform.OS === "ios" || Platform.OS === "macos") {
-    //   const result = await request("write.external-storage");
-    //   if (result === "granted") {
-    //     console.log("Write Storage permission granted");
-    //   } else {
-    //     console.log("Write Storage permission denied");
-    //   }
-    // }
     RNFS.downloadFile({
       fromUrl: downloadUrl,
       toFile: downloadDest,

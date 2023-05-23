@@ -106,7 +106,6 @@ export class SupportController {
       console.log("body", body);
       await HttpClient.post(endpoint, body)
         .then((response) => {
-          console.log("checking response", response);
           if (
             response.msg === "support created successfully" ||
             response.status === 201

@@ -50,11 +50,9 @@ export function Checkout(navigation) {
   let arr = [cartList?.getCart];
 
   console.log("checking shoe size", JSON.stringify(arr[0]));
-  // console.log("checking shoe size", user?.user?.payload?.token);
 
   const [productArray, setproductArray] = useState(quantity ?? []);
   const [setProductArrat, setsetProductArrat] = useState(quantity ?? []);
-  // console.log(quantity);
   const [storeTotal, setstoreTotal] = useState(0);
 
   const totalStore = [];
@@ -65,9 +63,7 @@ export function Checkout(navigation) {
         totalStore.push(sepTotal);
       }, 0);
       setstoreTotal(totalStore.reduce((a, b) => a + b, 0));
-    } catch (error) {
-      console.log("reduce error", error);
-    }
+    } catch (error) {}
   }, [setProductArrat]);
 
   const cartPlusOnPress = (index, item) => {
@@ -75,12 +71,7 @@ export function Checkout(navigation) {
       const array = [...productArray];
       array[index].qty = array[index].qty + 1;
       setsetProductArrat(array);
-      // console.log(
-      //   "addition success->: " + index + "--->" + setProductArrat[index]?.qty
-      // );
-    } catch (error) {
-      console.log("caught error on plus: " + error);
-    }
+    } catch (error) {}
   };
   const cartMinusOnPress = (index) => {
     try {
@@ -88,11 +79,7 @@ export function Checkout(navigation) {
       array[index].qty =
         array[index].qty > 0 ? array[index].qty - 1 : array[index].qty;
       setsetProductArrat(array);
-
-      // console.log("addition success->: " + index + productArray[index]?.qty);
-    } catch (error) {
-      console.log("caught error on plus: " + error);
-    }
+    } catch (error) {}
   };
 
   const { deliveryService } = route?.params || {};

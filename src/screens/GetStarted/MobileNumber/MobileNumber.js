@@ -38,7 +38,6 @@ export function MobileNumber(props) {
 
   const submit = () => {
     if (phoneNumber && phoneNumber.length >= 10 && digits.test(phoneNumber)) {
-      console.log("flag------", flag);
       dispatch(sendOtp(phoneNumber, countryCode, param, flag));
     } else if (phoneNumber && phoneNumber.length < 10) {
       Toast.show({

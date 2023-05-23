@@ -111,9 +111,6 @@ export class KycController {
           }
         })
         .catch((error) => {
-          // console.log("check body", JSON.stringify(body));
-          // console.log("check end", JSON.stringify(endpoint));
-          console.log("controller error: " + error);
           // Toast.show({
           //   text2: error.payload,
           //   position: "bottom",

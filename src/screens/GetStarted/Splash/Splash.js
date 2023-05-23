@@ -19,7 +19,6 @@ export function Splash() {
     navigate(NAVIGATION.mobileNumber);
   };
   const user = useSelector(getUser);
-  // console.log("token-->" + user?.registered?.token);
   return (
     <LinearGradient
       style={styles.container}

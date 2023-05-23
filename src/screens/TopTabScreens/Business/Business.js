@@ -93,7 +93,6 @@ export function Business() {
       })
     );
   }, [isFocused]);
-  // console.log("seviceCategory-->", ProductsData?.categoryWithProducts);
 
   const categoryHandler = (item) => {
     setmanufacturersCategoryId(item.id);

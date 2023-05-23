@@ -75,12 +75,13 @@ export function Home() {
       />
     );
   };
+  const userLocation = user?.getLocation
+    ? `${user?.getLocation?.[0]?.state}, ${user?.getLocation?.[0]?.country}`
+    : "Add Address";
   return (
     <ScreenWrapper>
       <HomeHeader
-        userLocation={
-          user?.getLocation?.[0]?.state + ", " + user?.getLocation?.[0]?.country
-        }
+        userLocation={userLocation}
         onPress={() =>
           !user?.user?.payload?.token
             ? navigate(NAVIGATION.splash)

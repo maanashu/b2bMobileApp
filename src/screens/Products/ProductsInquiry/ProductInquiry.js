@@ -64,17 +64,10 @@ export function ProductInquiry(params) {
   const user = useSelector(getUser);
   const token = user?.user?.payload?.token;
   const kyc = useSelector(getKyc);
-  // console.log("checking kyc", user?.user?.payload?.user_profiles?.wallet_steps);
   const colorChange = () => {
     setFavourite(!favourite);
   };
-
   const ProductDetail = useSelector(getProductSelector);
-
-  // console.log(
-  //   "bundleitems: " +
-  //     JSON.stringify(ProductDetail?.productDetail?.product_detail)
-  // );
   const isLoadingDetails = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
   );
@@ -186,7 +179,6 @@ export function ProductInquiry(params) {
     }
     // navigate(NAVIGATION.businessRegistration, { screen: "business" });
   };
-  console.log("token-->", user?.user?.payload?.token);
   const SwiperPaginationHandler = () => {
     if (ProductDetail?.productDetail?.product_detail?.image === null) {
       return null;

@@ -21,9 +21,8 @@ import {
 import { COLORS } from "@/theme/Colors";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { navigate } from "@/navigation/NavigationRef";
-import { forward, threeDots, yewiLogo } from "@/assets";
+import { forward, threeDots } from "@/assets";
 
-import { LastData, fourthData } from "./Components/FlatlisitData";
 import { ms } from "react-native-size-matters";
 import { NAVIGATION } from "@/constants";
 import { Search } from "@/components/Search";
@@ -40,7 +39,6 @@ import { TYPES } from "@/Types/Types";
 import { renderNoData } from "@/components/FlatlistStyling";
 import { getProduct, getTrendingProducts } from "@/actions/ProductActions";
 import { getProductSelector } from "@/selectors/ProductSelectors";
-import ReactNativeBiometrics, { BiometryTypes } from "react-native-biometrics";
 import { Loader } from "@/components/Loader";
 import HomeCategorySkeleton, {
   HomeNewProductsSkeleton,
@@ -58,7 +56,6 @@ export function Products({ navigation }) {
   const ProductsData = useSelector(getProductSelector);
   const [selectedId, setSelectedId] = useState("");
 
-  // console.log("yaahhoo->", wholesaleres);
   const isFocused = useIsFocused();
 
   const categoryObject = {
@@ -105,9 +102,9 @@ export function Products({ navigation }) {
   };
   function dynamicHeight(_index) {
     if (_index % 2 == 0) {
-      return SH(255);
+      return SH(275);
     } else if (_index % 2 !== 0) {
-      return SH(235);
+      return SH(255);
     } else {
       return SH(230);
     }
@@ -132,9 +129,9 @@ export function Products({ navigation }) {
   }
   function dynamicMarginBottom(_index) {
     if (_index % 2 == 0) {
-      return 10;
+      return SH(30);
     } else if (_index % 2 !== 0) {
-      return SH(-70);
+      return SH(10);
     } else {
       return SH(37);
     }
@@ -218,46 +215,51 @@ export function Products({ navigation }) {
   );
 
   const listDetail = ({ item, index }) => (
-    <TouchableOpacity
-      style={[
-        styles.ShoesStyle,
-        {
-          height: dynamicHeight(index),
-          marginTop: dynamicMarginTop(index),
-          marginBottom: dynamicMarginBottom(index),
-        },
-      ]}
-    >
-      <Spacer space={SH(10)} />
-      <View style={{ alignItems: "center" }}>
-        <Image
-          source={{ uri: item?.image }}
-          resizeMode="contain"
-          style={{
-            width: ms(140),
-            height: dynamicImageHeight(index),
-            borderRadius: SW(5),
-          }}
-        />
-      </View>
-      <Text style={styles.productsTitle}>
-        {item?.name}
-        <Text style={styles.productSubTitle}> {item?.description}</Text>
-      </Text>
-      <Spacer space={SH(2)} />
-      {/* <Text style={styles.productsQuantity}>{item?.pieces}</Text> */}
-      <Spacer space={SH(5)} />
+    <>
+      <TouchableOpacity
+        style={[
+          styles.ShoesStyle,
+          {
+            paddingVertical: index % 2 === 0 ? SH(10) : SH(10),
+            marginTop: index === 1 ? SH(50) : index === 0 ? SH(50) : SH(10),
+            bottom: index % 2 === 0 ? SH(10) : SH(50),
+          },
+        ]}
+      >
+        <Spacer space={SH(10)} />
+        <View style={{ alignItems: "center" }}>
+          <Image
+            source={{ uri: item?.image }}
+            resizeMode="contain"
+            style={{
+              width: ms(140),
+              // height: dynamicImageHeight(index),
+              height: SH(150),
+              borderRadius: SW(5),
+            }}
+          />
+        </View>
+        <View style={{ flexDirection: "row" }}></View>
+        <Text style={styles.productsTitle} numberOfLines={2}>
+          {item?.name}
+          <Text style={styles.productSubTitle}> {item?.description}</Text>
+        </Text>
+        <Spacer space={SH(2)} />
+        {/* <Text style={styles.productsQuantity}>{item?.pieces}</Text> */}
+        <Spacer space={SH(5)} />
 
-      {user?.user?.payload?.token && (
-        <>
-          <Text style={styles.priceText}>
-            {" "}
-            {"$ "}
-            {item?.price}
-          </Text>
-        </>
-      )}
-    </TouchableOpacity>
+        {user?.user?.payload?.token && (
+          <>
+            <Text style={styles.priceText}>
+              {" "}
+              {"$ "}
+              {item?.price}
+            </Text>
+          </>
+        )}
+      </TouchableOpacity>
+      <Spacer space={index % 2 == 0 ? SH(10) : SH(20)} />
+    </>
   );
 
   const renderRecentItem = ({ item, index }) => (
@@ -429,7 +431,6 @@ export function Products({ navigation }) {
           />
         </View>
         {/* {isLoading ? <Loader message="Loading data ..." /> : null} */}
-        <Spacer space={SH(30)} />
       </ScrollView>
     </ScreenWrapper>
   );

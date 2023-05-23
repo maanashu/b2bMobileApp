@@ -51,7 +51,6 @@ export function CurrentCoupons() {
   ];
 
   const coupon = useSelector(getProductSelector);
-  // console.log("coupons->", coupon?.coupons);
   const CouponData = ({ item, index }) => {
     const formattedDate = moment(item.end_time).format("MMM DD, yyyy");
     return (

@@ -60,7 +60,6 @@ export function FaceIdPin() {
     });
   };
   const user = useSelector(getUser);
-  console.log("status: " + user?.isStatus);
 
   return (
     <ScreenWrapper>

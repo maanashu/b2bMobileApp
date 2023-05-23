@@ -26,7 +26,6 @@ import { ShadowStyles } from "@/theme";
 
 export function SendInquiry() {
   let pictures = [];
-  // console.log("stored pictures", pictures);
 
   const [isModalVisible, setModalVisible] = useState(false);
   const [productImage, setProductImage] = useState();
@@ -38,15 +37,10 @@ export function SendInquiry() {
     { label: "50-100", value: "50-100" },
   ]);
   const [textLength, setTextLength] = useState();
-  // const savePicture = () => {
-  //   pictures.push();
-  //   console.log("images stored in array-->", pictures);
-  // };
 
   const checkLimit = (limit) => {
     var Value = limit?.length.toString();
     setTextLength(Value);
-    // console.log("limittttttttttttttttttttttttt", textLength);
   };
   const toggleModal = () => {
     setModalVisible(!isModalVisible);

@@ -128,12 +128,10 @@ export function SubCategories(params) {
   const renderSubcategoryItem = ({ item, index }) => (
     <TouchableOpacity
       style={styles.rowCard}
-      onPress={
-        () =>
-          navigate(NAVIGATION.brandsSellers, {
-            categoryId: item?.id,
-          })
-        // console.log("item id", item.id)
+      onPress={() =>
+        navigate(NAVIGATION.brandsSellers, {
+          categoryId: item?.id,
+        })
       }
     >
       <View style={{ flexDirection: "row", alignItems: "center" }}>

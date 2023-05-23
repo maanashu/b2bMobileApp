@@ -153,7 +153,6 @@ export const getTrendingProducts = (data) => async (dispatch) => {
     dispatch(getTrendingProductsSuccess(res.payload));
   } catch (error) {
     if (error.statusCode === 204) {
-      console.log("no content in trending products action");
       dispatch(getTrendingProductsReset());
     } else {
       dispatch(getTrendingProductsError(error.message));

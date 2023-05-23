@@ -125,8 +125,6 @@ export function UserInformation() {
     </View>
   );
 
-  // console.log("user---->", user?.user?.payload?.user_profiles?.firstname);
-
   return (
     <ScreenWrapper style={styles.container}>
       <View style={styles.header}>

@@ -57,7 +57,6 @@ export function SendAnOffer() {
     const selectedMonth = month < 10 ? "0" + month : month;
     const day = selectedDate.getDate();
     const selectedDay = day < 10 ? "0" + day : day;
-    console.log("date console", selectedDay);
 
     const year = selectedDate.getFullYear();
     const fullDate = year + " / " + selectedMonth + " / " + selectedDay;

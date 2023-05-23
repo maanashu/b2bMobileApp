@@ -86,10 +86,6 @@ export function AddressDetails(props) {
   const DEFAULT_PADDING = { top: 40, right: 40, bottom: 40, left: 40 };
   const locationMarkerRef = useRef(null);
 
-  // console.log(
-  //   "chechking lat-->" + JSON.stringify(props.route.params?.data?.state)
-  // );
-
   const isFocused = useIsFocused();
 
   const isLoading = useSelector((state) =>
@@ -196,7 +192,6 @@ export function AddressDetails(props) {
   ]);
   // useEffect(() => {
   //   setTimeout(() => {
-  //     console.log("ceeety-->", city);
   //   }, 3000);
   // }, []);
 
@@ -301,7 +296,6 @@ export function AddressDetails(props) {
 
     // navigate(NAVIGATION.addressList);
   };
-  // console.log("state: " + state);
   return (
     <ScreenWrapper containerPropStyle={{ paddingHorizontal: 0 }}>
       <KeyboardAwareScrollView

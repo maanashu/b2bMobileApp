@@ -29,14 +29,10 @@ export class WalletController {
       };
       HttpClient.post(endpoint, body)
         .then((response) => {
-          // console.log("response====", response);
           resolve(response);
-
           if (response?.msg === "wallet created successfully") {
-            // console.log("wallet controller sucess====", response);
             navigate(NAVIGATION.checkAndRequestKYC);
           } else {
-            // console.log("rewalletg controller error====", response?.msg);
             navigate(NAVIGATION.checkAndRequestKYC);
 
             Toast.show({
@@ -51,7 +47,6 @@ export class WalletController {
         .catch((error) => {
           reject(new Error((strings.verify.error = error)));
 
-          console.log("reg error====", error);
           Toast.show({
             text2: error.msg,
             position: "bottom",
@@ -80,8 +75,6 @@ export class WalletController {
           resolve(response);
         })
         .catch((error) => {
-          console.log("error", error);
-
           Toast.show({
             text2: error.msg,
             position: "bottom",
@@ -214,10 +207,8 @@ export class WalletController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
-          // console.log("wallet bal controller resp", response);
         })
         .catch((error) => {
-          // console.log("wallet bal controller error", error);
           reject(new Error(error.msg));
         });
     });

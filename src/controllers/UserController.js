@@ -62,10 +62,8 @@ export class UserController {
       HttpClient.post(endpoint, body)
         .then((response) => {
           if (response?.payload?.is_phone_exits) {
-            console.log("User already Registered", response);
             navigate(NAVIGATION.enterPin, { route: "registered" });
           } else {
-            console.log("New User", response.payload.id);
             navigate(NAVIGATION.verify, { id: response.payload.id });
           }
 
@@ -90,7 +88,6 @@ export class UserController {
         .then((response) => {
           resolve(response);
           if (response?.payload?.is_phone_exits) {
-            console.log("User already Registered", response);
             Toast.show({
               text2: "Email already registered",
               position: "bottom",
@@ -98,7 +95,6 @@ export class UserController {
               visibilityTime: 1500,
             });
           } else {
-            console.log("New User", response.payload.id);
             Toast.show({
               text2: "Email verified",
               position: "bottom",
@@ -156,15 +152,12 @@ export class UserController {
         phone_code: data.code,
         phone_no: data.phone,
       };
-      // console.log("endpoint====", endpoint);
-      // console.log("body====", body);
-      // const uniqueId = await DeviceInfo.getUniqueId();
+
       const uniqueId = await DeviceInfo.getUniqueId();
       HttpClient.post(endpoint, body, {
         headers: { "device-id": uniqueId },
       })
         .then((response) => {
-          // console.log("response====", response);
           if (response?.status_code === 201) {
             navigate(NAVIGATION.personalInformation);
             resolve(response);
@@ -203,8 +196,6 @@ export class UserController {
           navigate(NAVIGATION.productInquiry);
         })
         .catch((error) => {
-          console.log("controller error", error);
-
           Toast.show({
             text2: error.msg,
             position: "bottom",
@@ -292,7 +283,6 @@ export class UserController {
           navigate(NAVIGATION.addresses);
         })
         .catch((error) => {
-          console.log("errorAddress", error);
           Toast.show({
             text2: error.msg,
             position: "bottom",
@@ -312,7 +302,6 @@ export class UserController {
           resolve(response.payload);
         })
         .catch((error) => {
-          console.log("controller error", error);
           if (error.statusCode === 204) {
             Toast.show({
               text2: "You don't have any saved addresses",
@@ -352,7 +341,6 @@ export class UserController {
   }
 
   static async patchCurrentAddress(id, data) {
-    // console.log("data-->", data);
     return new Promise((resolve, reject) => {
       const endpoint = `${USER_URL}${ApiUserInventory.changeCurrentAddress}${id}`;
       const body = {

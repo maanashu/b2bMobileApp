@@ -15,6 +15,7 @@ import { getProductSelector } from "@/selectors/ProductSelectors";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { getUser } from "@/selectors/UserSelectors";
+import { Loader } from "@/components/Loader";
 
 export function ProductsBySeller(params) {
   const dispatch = useDispatch();
@@ -24,8 +25,6 @@ export function ProductsBySeller(params) {
   const brandsData = useSelector(getCategorySelector);
   const productsData = useSelector(getProductSelector);
   const user = useSelector(getUser);
-
-  // console.log("brands details", JSON.stringify(productsData));
 
   useEffect(() => {
     const productObject = {
@@ -151,9 +150,6 @@ export function ProductsBySeller(params) {
       <Header title={"Products"} back={backArrow} enableBackButton />
 
       <View style={{ paddingHorizontal: SW(20), flex: 1, marginTop: SH(20) }}>
-        {/* {isLoadingProducts ? (
-          <ActivityIndicator size="large" color={COLORS.primary} />
-        ) : ( */}
         <FlatList
           showsVerticalScrollIndicator={false}
           data={productsData?.product?.data ?? []}
@@ -163,8 +159,8 @@ export function ProductsBySeller(params) {
           keyExtractor={(item) => item.id}
           numColumns={2}
         />
-        {/* )} */}
       </View>
+      {isLoadingProducts ? <Loader message="Loading data ..." /> : null}
     </ScreenWrapper>
   );
 }
