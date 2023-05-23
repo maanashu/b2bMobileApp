@@ -158,11 +158,12 @@ export const styles = StyleSheet.create({
     ...ShadowStyles.shadow,
   },
   sendInquiryButton: {
+    flex: 1,
     backgroundColor: COLORS.sky,
     height: vs(34),
     width: ms(110),
     borderRadius: ms(3),
-    marginLeft: ms(5),
+    marginLeft: SW(15),
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

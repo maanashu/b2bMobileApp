@@ -327,6 +327,7 @@ export class UserController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
+          console.log("manufac resp", JSON.stringify(response));
         })
         .catch((error) => {
           Toast.show({

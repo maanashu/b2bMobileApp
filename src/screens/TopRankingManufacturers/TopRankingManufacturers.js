@@ -1,62 +1,88 @@
 import {
-  Image,
-  Text,
-  TouchableOpacity,
   View,
   ScrollView,
   FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
 } from "react-native";
 import React from "react";
 import { styles } from "./TopRankingManufacturers.style";
-import { ScreenWrapper, Spacer, SubHeader } from "@/components";
+import {
+  Button,
+  CompanyDetailView,
+  ScreenWrapper,
+  Spacer,
+  SubHeader,
+} from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { navigate } from "@/navigation/NavigationRef";
-import {
-  sendInquiry,
-  boxStar,
-  yiwuJean1,
-  yiwuJean3,
-  yiwuJean2,
-  yewiLogo,
-  yewiCertified,
-  location,
-  star,
-  clock,
-  backArrow,
-} from "@/assets";
+import { backArrow, messageSend, sendInquiry, yewiLogo } from "@/assets";
 import { strings } from "@/localization";
-import { NAVIGATION } from "@/constants";
-import { ms, vs } from "react-native-size-matters";
 import { Header } from "@/components/Header";
+import { useSelector } from "react-redux";
+import { getUser } from "@/selectors/UserSelectors";
+import { ShadowStyles } from "@/theme";
 
 export function TopRankingManufacturers() {
-  const Data = [
-    {
-      id: 1,
-      image: yiwuJean1,
-    },
-    {
-      id: 2,
-      image: yiwuJean2,
-    },
-    {
-      id: 3,
-      image: yiwuJean3,
-    },
-  ];
-
-  const renderItem = ({ item }) => (
-    <View style={styles.rowMainCard}>
-      <Image
-        source={item.image}
+  const user = useSelector(getUser);
+  const image = [yewiLogo, yewiLogo, yewiLogo];
+  const renderManufacturers = ({ item }) => (
+    <>
+      <TouchableOpacity
         style={{
-          height: vs(60),
-          width: ms(90),
-          borderRadius: 10,
+          paddingVertical: SH(15),
+          borderRadius: SW(10),
+          ...ShadowStyles.shadow2,
         }}
-      />
-    </View>
+      >
+        <CompanyDetailView
+          profilePhoto={user?.user_profiles?.banner_image}
+          title={item?.user_profiles?.organization_name}
+          locationText={item?.user_profiles?.overview?.[0]?.country}
+          rating={item?.sellerRating?.rating}
+        />
+        <Spacer space={SW(8)} />
+        <FlatList
+          data={item?.user_profiles?.manufacturer_images ?? []}
+          extraData={item?.user_profiles?.manufacturer_images}
+          numColumns={3}
+          renderItem={renderImages}
+        />
+
+        <Spacer space={SW(8)} />
+
+        <TouchableOpacity style={styles.sendInquiryButton}>
+          <Image
+            source={sendInquiry}
+            resizeMode="contain"
+            style={styles.sendInquiryIcon}
+          />
+          <Text style={styles.sendInquiryText}>
+            {strings.productInquiry.sendInquiry}
+          </Text>
+        </TouchableOpacity>
+      </TouchableOpacity>
+      <Spacer space={SH(15)} />
+    </>
+  );
+  const renderImages = ({ item }) => (
+    <>
+      <View
+        style={{
+          paddingHorizontal: SW(15),
+          justifyContent: "space-between",
+          flex: 1,
+          paddingBottom: SH(5),
+        }}
+      >
+        <Image
+          source={{ uri: item }}
+          style={{ height: SH(65), width: SW(80), borderRadius: SW(5) }}
+          resizeMode="cover"
+        />
+      </View>
+    </>
   );
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
@@ -78,184 +104,12 @@ export function TopRankingManufacturers() {
 
         <Spacer space={SH(20)} />
 
-        <View style={{ paddingHorizontal: ms(20) }}>
-          <View style={styles.yewiView}>
-            <TouchableOpacity
-              style={styles.yewiInnerView}
-              onPress={() => navigate(NAVIGATION.aboutBusiness)}
-            >
-              <Image
-                source={yewiLogo}
-                resizeMode="contain"
-                style={styles.logoYewi}
-              />
-              <View style={{ paddingHorizontal: SW(10) }}>
-                <Text style={styles.yewiHeadingText}>
-                  Yiwu Leqi E-Commerce Firm
-                </Text>
-                <View style={styles.yewiSmallView}>
-                  <Image
-                    source={yewiCertified}
-                    resizeMode="contain"
-                    style={styles.certified}
-                  />
-                  <View style={styles.yewiDirection}>
-                    <Image source={location} style={styles.yewiIcons} />
-                    <Text style={styles.yewiSmallText}> Miami, USA</Text>
-                    <Image
-                      source={star}
-                      resizeMode="contain"
-                      style={styles.yewistar}
-                    />
-                    <Text style={styles.yewiSmallText}> 4.5</Text>
-                    <Image
-                      source={clock}
-                      resizeMode="contain"
-                      style={styles.yewiClock}
-                    />
-                    <Text style={styles.yewiSmallText}> Since 2022</Text>
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-
-            <Spacer space={SH(20)} />
-
-            <FlatList
-              data={Data}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id}
-              //   extraData={product}
-              numColumns={3}
-            />
-
-            <TouchableOpacity style={styles.sendInquiryButton}>
-              <Image source={sendInquiry} style={styles.sendInquiryIcon} />
-              <Text style={styles.sendInquiryText}>
-                {strings.productInquiry.sendInquiry}
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          <Spacer space={SH(20)} />
-
-          <View style={styles.yewiView}>
-            <TouchableOpacity
-              style={styles.yewiInnerView}
-              onPress={() => navigate(NAVIGATION.aboutBusiness)}
-            >
-              <Image
-                source={yewiLogo}
-                resizeMode="contain"
-                style={styles.logoYewi}
-              />
-              <View style={{ paddingHorizontal: SW(10) }}>
-                <Text style={styles.yewiHeadingText}>
-                  Yiwu Leqi E-Commerce Firm
-                </Text>
-                <View style={styles.yewiSmallView}>
-                  <Image
-                    source={yewiCertified}
-                    resizeMode="contain"
-                    style={styles.certified}
-                  />
-                  <View style={styles.yewiDirection}>
-                    <Image source={location} style={styles.yewiIcons} />
-                    <Text style={styles.yewiSmallText}> Miami, USA</Text>
-                    <Image
-                      source={star}
-                      resizeMode="contain"
-                      style={styles.yewistar}
-                    />
-                    <Text style={styles.yewiSmallText}> 4.5</Text>
-                    <Image
-                      source={clock}
-                      resizeMode="contain"
-                      style={styles.yewiClock}
-                    />
-                    <Text style={styles.yewiSmallText}> Since 2022</Text>
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-
-            <Spacer space={SH(20)} />
-
-            <FlatList
-              data={Data}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id}
-              //   extraData={product}
-              numColumns={3}
-            />
-
-            <TouchableOpacity style={styles.sendInquiryButton}>
-              <Image source={sendInquiry} style={styles.sendInquiryIcon} />
-              <Text style={styles.sendInquiryText}>
-                {strings.productInquiry.sendInquiry}
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-          <Spacer space={SH(20)} />
-
-          <View style={styles.yewiView}>
-            <TouchableOpacity
-              style={styles.yewiInnerView}
-              onPress={() => navigate(NAVIGATION.aboutBusiness)}
-            >
-              <Image
-                source={yewiLogo}
-                resizeMode="contain"
-                style={styles.logoYewi}
-              />
-              <View style={{ paddingHorizontal: SW(10) }}>
-                <Text style={styles.yewiHeadingText}>
-                  Yiwu Leqi E-Commerce Firm
-                </Text>
-                <View style={styles.yewiSmallView}>
-                  <Image
-                    source={yewiCertified}
-                    resizeMode="contain"
-                    style={styles.certified}
-                  />
-                  <View style={styles.yewiDirection}>
-                    <Image source={location} style={styles.yewiIcons} />
-                    <Text style={styles.yewiSmallText}> Miami, USA</Text>
-                    <Image
-                      source={star}
-                      resizeMode="contain"
-                      style={styles.yewistar}
-                    />
-                    <Text style={styles.yewiSmallText}> 4.5</Text>
-                    <Image
-                      source={clock}
-                      resizeMode="contain"
-                      style={styles.yewiClock}
-                    />
-                    <Text style={styles.yewiSmallText}> Since 2022</Text>
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-
-            <Spacer space={SH(20)} />
-
-            <FlatList
-              data={Data}
-              renderItem={renderItem}
-              keyExtractor={(item) => item.id}
-              //   extraData={product}
-              numColumns={3}
-            />
-
-            <TouchableOpacity style={styles.sendInquiryButton}>
-              <Image source={sendInquiry} style={styles.sendInquiryIcon} />
-              <Text style={styles.sendInquiryText}>
-                {strings.productInquiry.sendInquiry}
-              </Text>
-            </TouchableOpacity>
-          </View>
+        <View style={{ paddingHorizontal: SW(20) }}>
+          <FlatList
+            data={user?.getManufacturersList ?? []}
+            extraData={user?.getManufacturersList ?? []}
+            renderItem={renderManufacturers}
+          />
         </View>
       </ScrollView>
 

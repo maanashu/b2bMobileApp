@@ -52,9 +52,13 @@ const renderImages = ({ item }) => (
       }}
     >
       <Image
-        source={item}
+        source={{ uri: item }}
         resizeMode="contain"
-        style={{ height: SW(65), width: SW(65), marginHorizontal: 2 }}
+        style={{
+          height: SW(64),
+          width: SW(64),
+          marginHorizontal: 2,
+        }}
       />
       <Text
         style={{
@@ -63,9 +67,10 @@ const renderImages = ({ item }) => (
           fontFamily: Fonts.Regular,
         }}
       >
-        MOQ 10
+        {"MOQ 10"}
       </Text>
     </View>
+    <Spacer horizontal />
   </>
 );
 
@@ -86,43 +91,13 @@ export const renderCompanies = ({ item }) => {
           }}
         >
           <CompanyDetailView
-            title={"Yiwu Leqi E-Commerce Firm"}
-            profilePhoto={yewiLogo}
-            locationText={"Miami, USA"}
+            title={item?.user_profiles?.organization_name}
+            profilePhoto={item?.user_profiles?.banner_image}
+            locationText={item?.user_profiles?.overview?.[0]?.country}
           />
-
-          {/* <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              width: widthImage,
-            }}
-          >
-            <Image
-              source={item?.image1}
-              resizeMode="contain"
-              style={{ height: SW(65), width: SW(65) }}
-            />
-            <Image
-              source={item?.image2}
-              resizeMode="contain"
-              style={{ height: SW(65), width: SW(65) }}
-            />
-            <Image
-              source={item?.image3}
-              resizeMode="contain"
-              style={{ height: SW(65), width: SW(65) }}
-            />
-            <Image
-              source={item?.image4}
-              resizeMode="contain"
-              style={{ height: SW(65), width: SW(65) }}
-            />
-          </View> */}
-          <View style={{ alignItems: "center" }}>
+          <View style={{ alignItems: "flex-start", marginTop: SH(5) }}>
             <FlatList
-              data={imagesArray}
+              data={item?.user_profiles?.manufacturer_images}
               renderItem={renderImages}
               numColumns={4}
               showsHorizontalScrollIndicator={false}

@@ -71,6 +71,11 @@ export const TYPES = {
   GET_SELLERS_SUCCESS: "GET_SELLERS_SUCCESS",
   GET_SELLERS_ERROR: "GET_SELLERS_ERROR",
 
+  GET_MANUFACTURERS: "GET_MANUFACTURERS",
+  GET_MANUFACTURERS_REQUEST: "GET_MANUFACTURERS_REQUEST",
+  GET_MANUFACTURERS_SUCCESS: "GET_MANUFACTURERS_SUCCESS",
+  GET_MANUFACTURERS_ERROR: "GET_MANUFACTURERS_ERROR",
+
   UPDATE_USER_LOCATION: "UPDATE_USER_LOCATION",
   UPDATE_USER_LOCATION_REQUEST: "UPDATE_USER_LOCATION_REQUEST",
   UPDATE_USER_LOCATION_SUCCESS: "UPDATE_USER_LOCATION_SUCCESS",
@@ -318,6 +323,21 @@ const getSellersError = (error) => ({
   payload: { error },
 });
 
+const getManufacturersRequest = () => ({
+  type: TYPES.GET_MANUFACTURERS_REQUEST,
+  payload: null,
+});
+
+const getManufacturersSucess = (getManufacturersList) => ({
+  type: TYPES.GET_MANUFACTURERS_SUCCESS,
+  payload: { getManufacturersList },
+});
+
+const getManufacturersError = (error) => ({
+  type: TYPES.GET_MANUFACTURERS_ERROR,
+  payload: { error },
+});
+
 export const login = (value, countryCode, phoneNumber) => async (dispatch) => {
   dispatch(loginRequest());
   try {
@@ -472,5 +492,15 @@ export const getSellers = (data) => async (dispatch) => {
     dispatch(getSellersSucess(res));
   } catch (error) {
     dispatch(getSellersError(error.message));
+  }
+};
+
+export const getManufacturers = (data) => async (dispatch) => {
+  dispatch(getManufacturersRequest());
+  try {
+    const res = await UserController.getSellers(data);
+    dispatch(getManufacturersSucess(res));
+  } catch (error) {
+    dispatch(getManufacturersError(error.message));
   }
 };

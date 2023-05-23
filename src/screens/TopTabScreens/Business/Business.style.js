@@ -151,7 +151,6 @@ export const styles = StyleSheet.create({
     borderRadius: SW(15),
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 1,
   },
   productCategoriesText: {
     color: COLORS.black,

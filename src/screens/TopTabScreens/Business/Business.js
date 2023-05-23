@@ -45,6 +45,8 @@ import HomeCategorySkeleton from "@/components/SkeletonContent";
 import { getCategoriesWithProducts } from "@/actions/ProductActions";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import { useIsFocused } from "@react-navigation/native";
+import { getManufacturers } from "@/actions/UserActions";
+import { getUser } from "@/selectors/UserSelectors";
 
 export function Business() {
   const dispatch = useDispatch();
@@ -52,6 +54,7 @@ export function Business() {
 
   const [manufacturersCategoryId, setmanufacturersCategoryId] = useState(1);
 
+  const user = useSelector(getUser);
   const categoryData = useSelector(getCategorySelector);
   const ProductsData = useSelector(getProductSelector);
 
@@ -92,6 +95,7 @@ export function Business() {
         category_ids: categoryData?.serviceCategoryList?.data?.[0]?.id,
       })
     );
+    dispatch(getManufacturers({ page: 1, limit: 10, is_manufacture: "true" }));
   }, [isFocused]);
 
   const categoryHandler = (item) => {
@@ -268,9 +272,9 @@ export function Business() {
             >
               <View>
                 <Text style={styles.productCategoriesText}>{item?.name}</Text>
-                <Text style={styles.categoryManufacturersText}>
+                {/* <Text style={styles.categoryManufacturersText}>
                   {item.manufacturersCount}
-                </Text>
+                </Text> */}
               </View>
 
               <TouchableOpacity style={[styles.rowView, {}]}>
@@ -454,7 +458,7 @@ export function Business() {
         >
           <View style={styles.marginRightStyle}>
             <FlatList
-              data={companies}
+              data={user?.getManufacturersList ?? []}
               renderItem={renderCompanies}
               horizontal
               showsHorizontalScrollIndicator={false}
