@@ -158,7 +158,8 @@ export function ConnectBank(props) {
   const loginHandler = () => {
     dispatch(
       login(
-        getData?.registerData?.pin,
+        getData?.registerData?.pin ||
+          getData?.user?.payload?.user_profiles?.security_pin,
         getData?.phone?.countryCode,
         getData?.phone?.phoneNumber
       )

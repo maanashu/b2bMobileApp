@@ -33,6 +33,8 @@ export class UserController {
           resolve(response);
         })
         .catch((error) => {
+          console.log("error in login ", JSON.stringify(error));
+
           Toast.show({
             text2: error.msg,
             position: "bottom",
@@ -327,15 +329,20 @@ export class UserController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
-          console.log("manufac resp", JSON.stringify(response));
         })
         .catch((error) => {
-          Toast.show({
-            text2: error.msg,
-            position: "bottom",
-            type: "error_toast",
-            visibilityTime: 1500,
-          });
+          reject(new Error((strings.validation.error = error.msg)));
+        });
+    });
+  }
+  static async getUserProfile(userUuid) {
+    return new Promise((resolve, reject) => {
+      const endpoint = USER_URL + ApiUserInventory.getUserProfile(userUuid);
+      HttpClient.get(endpoint)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
           reject(new Error((strings.validation.error = error.msg)));
         });
     });

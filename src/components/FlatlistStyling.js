@@ -53,7 +53,7 @@ const renderImages = ({ item }) => (
     >
       <Image
         source={{ uri: item }}
-        resizeMode="contain"
+        resizeMode="cover"
         style={{
           height: SW(64),
           width: SW(64),

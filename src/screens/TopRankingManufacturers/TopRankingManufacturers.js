@@ -23,6 +23,8 @@ import { Header } from "@/components/Header";
 import { useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { ShadowStyles } from "@/theme";
+import { navigate } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
 
 export function TopRankingManufacturers() {
   const user = useSelector(getUser);
@@ -35,6 +37,7 @@ export function TopRankingManufacturers() {
           borderRadius: SW(10),
           ...ShadowStyles.shadow2,
         }}
+        onPress={() => navigate(NAVIGATION.aboutBusiness)}
       >
         <CompanyDetailView
           profilePhoto={user?.user_profiles?.banner_image}
@@ -72,7 +75,7 @@ export function TopRankingManufacturers() {
         style={{
           paddingHorizontal: SW(15),
           justifyContent: "space-between",
-          flex: 1,
+          flex: 1 / 3,
           paddingBottom: SH(5),
         }}
       >

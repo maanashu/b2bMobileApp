@@ -57,7 +57,6 @@ export function Products({ navigation }) {
   const [selectedId, setSelectedId] = useState("");
 
   const isFocused = useIsFocused();
-
   const categoryObject = {
     page: 1,
     limit: 10,
@@ -79,7 +78,7 @@ export function Products({ navigation }) {
       need_trending: "true",
     };
     dispatch(getSellers(sellersObject));
-    dispatch(getTrendingProducts({ app_name: "b2b", limit: 4 }));
+    dispatch(getTrendingProducts({ app_name: "b2b", limit: 4, page: 1 }));
   }, []);
   const getAllProducts = () => {
     const probject = {
@@ -217,7 +216,7 @@ export function Products({ navigation }) {
             <Text style={styles.priceText}>
               {" "}
               {"$ "}
-              {item?.price}
+              {item?.price} /{strings?.business?.carton}
             </Text>
           </>
         )}

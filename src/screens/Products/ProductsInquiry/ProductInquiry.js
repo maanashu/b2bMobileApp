@@ -57,6 +57,7 @@ import FastImage from "react-native-fast-image";
 import { renderNoData } from "@/components/FlatlistStyling";
 import { Loader } from "@/components/Loader";
 import { getKyc } from "@/selectors/KycSelector";
+import { getUserProfile } from "@/actions/UserActions";
 
 export function ProductInquiry(params) {
   const [favourite, setFavourite] = useState(false);
@@ -71,6 +72,8 @@ export function ProductInquiry(params) {
   const isLoadingDetails = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
   );
+  console.log("walletSteps", JSON.stringify(user?.user?.payload?.uuid));
+
   const object = {
     service_type: "product",
   };
@@ -82,6 +85,7 @@ export function ProductInquiry(params) {
   useEffect(() => {
     dispatch(getProductDetail(params?.route?.params?.itemId, data));
     dispatch(getTrendingProducts(object));
+    dispatch(getUserProfile(user?.user?.payload?.uuid));
   }, []);
 
   const renderItem = ({ item }) => (
@@ -161,23 +165,67 @@ export function ProductInquiry(params) {
       </>
     );
   };
+  // const handleSubmit = () => {
+  //   if (token) {
+  //     if (
+  //       user?.user?.payload?.user_profiles?.wallet_steps === 0 &&
+  //       user?.user?.payload?.user_profiles?.wallet_steps === undefined &&
+  //       user?.user?.payload?.user_profiles?.wallet_steps === null
+  //     ) {
+  //       navigate(NAVIGATION.personalInformation, {
+  //         route: "kyc",
+  //       });
+  //     } else if (user?.user?.payload?.user_profiles?.wallet_steps === 1) {
+  //       navigate(NAVIGATION.checkAndRequestKYC);
+  //     } else if (user?.user?.payload?.user_profiles?.wallet_steps === 2) {
+  //       navigate(NAVIGATION.ageVerification);
+  //     } else if (user?.user?.payload?.user_profiles?.wallet_steps === 5) {
+  //       navigate(NAVIGATION.startOrder, {
+  //         attributes: ProductDetail?.productDetail?.product_detail?.supplies,
+  //         product_id: ProductDetail?.productDetail?.product_detail?.id,
+  //         service_id: ProductDetail?.productDetail?.product_detail?.service_id,
+  //       });
+  //     }
+  //   } else {
+  //     navigate(NAVIGATION.splash);
+  //   }
+  // };
+
   const handleSubmit = () => {
-    if (token) {
-      if (user?.user?.payload?.user_profiles?.wallet_steps !== 5) {
-        navigate(NAVIGATION.personalInformation, {
-          route: "kyc",
-        });
-      } else {
-        navigate(NAVIGATION.startOrder, {
-          attributes: ProductDetail?.productDetail?.product_detail?.supplies,
-          product_id: ProductDetail?.productDetail?.product_detail?.id,
-          service_id: ProductDetail?.productDetail?.product_detail?.service_id,
-        });
-      }
-    } else {
-      navigate(NAVIGATION.splash);
+    switch (true) {
+      case !!token:
+        switch (user?.user?.payload?.user_profiles?.wallet_steps) {
+          case 0:
+          case undefined:
+          case null:
+            navigate(NAVIGATION.personalInformation, {
+              route: "kyc",
+            });
+            break;
+          case 1:
+            navigate(NAVIGATION.checkAndRequestKYC);
+            break;
+          case 2:
+            navigate(NAVIGATION.ageVerification);
+            break;
+          case 4:
+            navigate(NAVIGATION.connectBank);
+            break;
+          default:
+            navigate(NAVIGATION.startOrder, {
+              attributes:
+                ProductDetail?.productDetail?.product_detail?.supplies,
+              product_id: ProductDetail?.productDetail?.product_detail?.id,
+              service_id:
+                ProductDetail?.productDetail?.product_detail?.service_id,
+            });
+            break;
+        }
+        break;
+      default:
+        navigate(NAVIGATION.splash);
+        break;
     }
-    // navigate(NAVIGATION.businessRegistration, { screen: "business" });
   };
   const SwiperPaginationHandler = () => {
     if (ProductDetail?.productDetail?.product_detail?.image === null) {

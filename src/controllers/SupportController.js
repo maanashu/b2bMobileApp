@@ -103,7 +103,6 @@ export class SupportController {
     return new Promise(async (resolve, reject) => {
       const endpoint = ApiSupportInventory.addTicket;
       const body = getBody(data);
-      console.log("body", body);
       await HttpClient.post(endpoint, body)
         .then((response) => {
           if (
@@ -146,8 +145,6 @@ export class SupportController {
           resolve(response);
         })
         .catch((error) => {
-          console.log(endpoint);
-
           reject(new Error((strings.verify.error = error.msg)));
         });
     });

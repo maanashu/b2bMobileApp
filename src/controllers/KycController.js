@@ -180,7 +180,6 @@ export class KycController {
           resolve(response);
         })
         .catch((error) => {
-          console.log("controoler error", error);
           reject(new Error((strings.verify.error = error.msg)));
         });
     });
@@ -247,11 +246,8 @@ export class KycController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
-          console.log("plaid controller success", response);
         })
         .catch((error) => {
-          console.log("plaid controller error", error);
-
           // Toast.show({
           //   text2: error.msg,
           //   position: "bottom",

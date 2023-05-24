@@ -32,6 +32,7 @@ const INITIALSTATE = {
   VerifyOTP: {},
   verifyEmail: {},
   getSellersList: [],
+  getUserProfile: {},
 };
 
 export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -155,6 +156,11 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         getManufacturersList: payload.getManufacturersList.payload.sellers.data,
+      };
+    case TYPES.GET_USER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        getUserProfile: payload.getUserProfile.payload,
       };
   }
 };

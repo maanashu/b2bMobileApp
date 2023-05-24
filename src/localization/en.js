@@ -320,6 +320,7 @@ export const en = {
     searchInStore: "Search in this store",
     filter: "Filter",
     searchHere: "Search here",
+    carton: "Carton",
   },
   topRankingManufacturers: {
     topManufacturers: "Top Manufacturers",

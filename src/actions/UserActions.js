@@ -76,6 +76,11 @@ export const TYPES = {
   GET_MANUFACTURERS_SUCCESS: "GET_MANUFACTURERS_SUCCESS",
   GET_MANUFACTURERS_ERROR: "GET_MANUFACTURERS_ERROR",
 
+  GET_USER_PROFILE: "GET_USER_PROFILE",
+  GET_USER_PROFILE_REQUEST: "GET_USER_PROFILE_REQUEST",
+  GET_USER_PROFILE_SUCCESS: "GET_USER_PROFILE_SUCCESS",
+  GET_USER_PROFILE_ERROR: "GET_USER_PROFILE_ERROR",
+
   UPDATE_USER_LOCATION: "UPDATE_USER_LOCATION",
   UPDATE_USER_LOCATION_REQUEST: "UPDATE_USER_LOCATION_REQUEST",
   UPDATE_USER_LOCATION_SUCCESS: "UPDATE_USER_LOCATION_SUCCESS",
@@ -338,6 +343,21 @@ const getManufacturersError = (error) => ({
   payload: { error },
 });
 
+const getUserProfileRequest = () => ({
+  type: TYPES.GET_USER_PROFILE_REQUEST,
+  payload: null,
+});
+
+const getUserProfileSucess = (getUserProfile) => ({
+  type: TYPES.GET_USER_PROFILE_SUCCESS,
+  payload: { getUserProfile },
+});
+
+const getUserProfileError = (error) => ({
+  type: TYPES.GET_USER_PROFILE_ERROR,
+  payload: { error },
+});
+
 export const login = (value, countryCode, phoneNumber) => async (dispatch) => {
   dispatch(loginRequest());
   try {
@@ -502,5 +522,15 @@ export const getManufacturers = (data) => async (dispatch) => {
     dispatch(getManufacturersSucess(res));
   } catch (error) {
     dispatch(getManufacturersError(error.message));
+  }
+};
+
+export const getUserProfile = (data) => async (dispatch) => {
+  dispatch(getUserProfileRequest());
+  try {
+    const res = await UserController.getUserProfile(data);
+    dispatch(getUserProfileSucess(res));
+  } catch (error) {
+    dispatch(getUserProfileError(error.message));
   }
 };
