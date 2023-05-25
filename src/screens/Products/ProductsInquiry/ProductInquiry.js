@@ -72,7 +72,7 @@ export function ProductInquiry(params) {
   const isLoadingDetails = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
   );
-  console.log("walletSteps", JSON.stringify(user?.user?.payload?.uuid));
+  console.log("productDetail", JSON.stringify(ProductDetail?.productDetail));
 
   const object = {
     service_type: "product",
@@ -194,7 +194,7 @@ export function ProductInquiry(params) {
   const handleSubmit = () => {
     switch (true) {
       case !!token:
-        switch (user?.user?.payload?.user_profiles?.wallet_steps) {
+        switch (user?.getUserProfile?.user_profiles?.wallet_steps) {
           case 0:
           case undefined:
           case null:
@@ -211,7 +211,7 @@ export function ProductInquiry(params) {
           case 4:
             navigate(NAVIGATION.connectBank);
             break;
-          default:
+          case 5:
             navigate(NAVIGATION.startOrder, {
               attributes:
                 ProductDetail?.productDetail?.product_detail?.supplies,

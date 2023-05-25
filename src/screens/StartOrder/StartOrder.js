@@ -109,17 +109,17 @@ export function StartOrder(params) {
   const [selectMaterial, setSelectMaterial] = useState();
   const [selectedItems, setSelectedItems] = useState([]);
   const [firstSupplyPrice, setFirstSupplyPrice] = useState(
-    bundle[0]?.supply_prices[0]
+    bundle?.[0]?.supply_prices?.[0]
   );
-  const arr = bundle[0].supply_prices[0];
+  const arr = bundle?.[0].supply_prices[0];
   const [quantity, setQuantity] = useState(arr);
   const [string, setString] = useState();
   useEffect(() => {}, [isFocused]);
 
   const SizeData = ["USA", "UK"];
   const withoutVariantObject = {
-    seller_id: bundle[0]?.seller_id,
-    supply_id: bundle[0]?.id,
+    seller_id: bundle?.[0]?.seller_id,
+    supply_id: bundle?.[0]?.id,
     supply_price_id: quantity?.id,
     product_id: params?.route?.params?.product_id,
     service_id: params?.route?.params?.service_id,
@@ -127,8 +127,8 @@ export function StartOrder(params) {
   };
 
   const variantObject = {
-    seller_id: bundle[0]?.seller_id,
-    supply_id: bundle[0]?.id,
+    seller_id: bundle?.[0]?.seller_id,
+    supply_id: bundle?.[0]?.id,
     supply_price_id: quantity?.id,
     supply_variant_id: getVariantId?.variantId?.attribute_variant_id,
     product_id: params?.route?.params?.product_id,
@@ -137,7 +137,7 @@ export function StartOrder(params) {
   };
   const chechVariantObject = {
     attribute_value_ids: string,
-    supply_id: bundle[0]?.id,
+    supply_id: bundle?.[0]?.id,
   };
   useEffect(() => {
     setString(selectedItems.join(","));
@@ -186,7 +186,7 @@ export function StartOrder(params) {
   );
   const Checkout = () => {
     // navigate(NAVIGATION.checkout, { data: ArrayToRoute });
-    if (bundle[0]?.attributes?.length == 0) {
+    if (bundle?.[0]?.attributes?.length == 0) {
       dispatch(createCartAction(withoutVariantObject));
     } else {
       dispatch(createCartAction(variantObject));
@@ -211,7 +211,7 @@ export function StartOrder(params) {
     return colorName;
   };
   const checkLastIndex = (index) => {
-    if (bundle[0]?.attributes?.length - 1 === index) {
+    if (bundle?.[0]?.attributes?.length - 1 === index) {
       if (!selectedSize && !selectColor) {
         Toast.show({
           position: "bottom",
@@ -220,7 +220,7 @@ export function StartOrder(params) {
           visibilityTime: 2000,
         });
       } else {
-        dispatch(getSupplyVariantId(string, bundle[0]?.id));
+        dispatch(getSupplyVariantId(string, bundle?.[0]?.id));
       }
     } else {
     }
@@ -251,14 +251,14 @@ export function StartOrder(params) {
             <Spacer space={SH(1)} />
 
             <FlatList
-              data={bundle[0]?.supply_prices}
+              data={bundle?.[0]?.supply_prices}
               renderItem={renderBundle}
               keyExtractor={(item) => item.id}
               numColumns={3}
             />
             <Spacer space={SH(16)} />
 
-            {bundle[0]?.attributes?.map((item, i) => (
+            {bundle?.[0]?.attributes?.map((item, i) => (
               <>
                 <View style={{ marginBottom: SH(20) }}>
                   <Text style={styles.boldTextHeading}>{item.name + ":"}</Text>
@@ -375,8 +375,8 @@ export function StartOrder(params) {
 
             <Counter
               OnPressDecrease={() => {
-                if (quantity.qty > 0) {
-                  const newQty = quantity.qty - 1;
+                if (quantity?.qty > 0) {
+                  const newQty = quantity?.qty - 1;
                   setQuantity({
                     ...quantity,
                     qty: newQty,
@@ -384,8 +384,8 @@ export function StartOrder(params) {
                 }
               }}
               OnPressIncrease={() => {
-                if (quantity.price_type === "quantity_base") {
-                  if (quantity.qty === quantity.max_qty) {
+                if (quantity?.price_type === "quantity_base") {
+                  if (quantity?.qty === quantity?.max_qty) {
                     Toast.show({
                       text2: "Max quantity reached",
                       position: "bottom",
@@ -393,21 +393,21 @@ export function StartOrder(params) {
                       visibilityTime: 1500,
                     });
                   } else {
-                    const newQty = quantity.qty + 1;
+                    const newQty = quantity?.qty + 1;
                     setQuantity({
                       ...quantity,
                       qty: newQty,
                     });
                   }
                 } else {
-                  const newQty = quantity.qty + 1;
+                  const newQty = quantity?.qty + 1;
                   setQuantity({
                     ...quantity,
                     qty: newQty,
                   });
                 }
               }}
-              text={quantity.qty}
+              text={quantity?.qty}
               size={"Quantity :"}
             />
 

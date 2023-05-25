@@ -137,7 +137,7 @@ export function SubCategories(params) {
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <View style={styles.row}>
           {item?.image ? (
-            <Image
+            <FastImage
               source={{ uri: item?.image }}
               resizeMode="cover"
               style={[styles.img, { borderRadius: 35 }]}

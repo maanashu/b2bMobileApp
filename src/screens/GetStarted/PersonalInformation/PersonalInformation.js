@@ -105,7 +105,8 @@ export function PersonalInformation(params) {
     // dispatch(logout());
     dispatch(
       login(
-        getData?.registerData?.pin,
+        getData?.registerData?.pin ||
+          getData?.user?.payload?.user_profiles?.security_pin,
         getData?.phone?.countryCode,
         getData?.phone?.phoneNumber
       )

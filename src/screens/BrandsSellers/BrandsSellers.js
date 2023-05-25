@@ -149,7 +149,7 @@ export function BrandsSellers(params) {
         }
       >
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Image
+          <FastImage
             source={{ uri: item?.user_profiles?.profile_photo }}
             resizeMode="contain"
             style={styles.mainImageStyle}
