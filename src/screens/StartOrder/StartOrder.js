@@ -28,6 +28,8 @@ import { getSupplyVariantId } from "@/actions/ProductActions";
 import { createCartAction } from "@/actions/OrderAction";
 import { orderSelector } from "@/selectors/OrderSelector";
 import { getProductSelector } from "@/selectors/ProductSelectors";
+import { successSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
 
 const DATA = [
   {
@@ -93,6 +95,7 @@ export function StartOrder(params) {
   const dispatch = useDispatch();
   const getVariantId = useSelector(getProductSelector);
   const user = useSelector(getUser);
+  // console.log("token", user?.user?.payload?.token);
 
   const [selectedItem, setSelectedItem] = useState("");
   const [ArrayToRoute, setArrayToRoute] = useState([]);
@@ -184,12 +187,13 @@ export function StartOrder(params) {
       </View>
     </TouchableOpacity>
   );
+
   const Checkout = () => {
     // navigate(NAVIGATION.checkout, { data: ArrayToRoute });
     if (bundle?.[0]?.attributes?.length == 0) {
-      dispatch(createCartAction(withoutVariantObject));
+      dispatch(createCartAction(withoutVariantObject, ArrayToRoute));
     } else {
-      dispatch(createCartAction(variantObject));
+      dispatch(createCartAction(variantObject, ArrayToRoute));
     }
   };
   useFocusEffect(

@@ -34,6 +34,8 @@ export const SupportInventory = {
 
 export const ApiOrderInventory = {
   createNewCart: "carts",
+  removeOneProduct: (cartId, cartProductId) =>
+    `carts/${cartId}/${cartProductId}`,
   getCart: "carts/user",
   getShippingServices: "shipping_service",
 };

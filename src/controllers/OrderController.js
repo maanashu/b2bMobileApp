@@ -12,7 +12,7 @@ import { HttpClient } from "./HttpClient";
 import { strings } from "@/localization";
 
 export class OrderController {
-  static async createCartController(data) {
+  static async createCartController(data, ArrayToRoute) {
     return new Promise(async (resolve, reject) => {
       const endpoint = ORDER_URL + ApiOrderInventory.createNewCart;
       const body = data.supply_variant_id
@@ -42,7 +42,7 @@ export class OrderController {
         .then((response) => {
           resolve(response);
           console.log("cart controller success====", response);
-          navigate(NAVIGATION.checkout);
+          navigate(NAVIGATION.checkout, { data: ArrayToRoute });
         })
         .catch((error) => {
           console.log("cart controller error====", error);
@@ -91,6 +91,33 @@ export class OrderController {
         })
         .catch((error) => {
           console.log("get cart controller error", error);
+          reject(error);
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
+
+          reject(new Error((strings.validation.error = error.msg)));
+        });
+    });
+  }
+  static async removeOneProductfromCart(cartId, cartProductId) {
+    return new Promise((resolve, reject) => {
+      const endpoint =
+        ORDER_URL + ApiOrderInventory.removeOneProduct(cartId, cartProductId);
+      HttpClient.delete(endpoint)
+        .then((response) => {
+          resolve(response);
+          Toast.show({
+            text2: response.msg,
+            position: "bottom",
+            type: "success_toast",
+            visibilityTime: 1500,
+          });
+        })
+        .catch((error) => {
           reject(error);
           Toast.show({
             text2: error.msg,

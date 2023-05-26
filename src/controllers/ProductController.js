@@ -146,7 +146,12 @@ export class ProductController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
-          console.log("sucess", response);
+          Toast.show({
+            text2: "Combination found",
+            position: "bottom",
+            type: "success_toast",
+            visibilityTime: 1500,
+          });
         })
         .catch((error) => {
           Toast.show({

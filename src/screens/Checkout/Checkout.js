@@ -20,9 +20,7 @@ import {
   puma4,
   puma5,
   forwardArrowWhite,
-  rightArrowBlue,
   rightArrowThin,
-  shoesBusiness,
 } from "@/assets";
 import { strings } from "@/localization";
 import { HeaderCoin } from "../Profile/Wallet/Components/HeaderCoin";
@@ -31,9 +29,11 @@ import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCart } from "@/actions/OrderAction";
+import { getCart, removeOneProductfromCart } from "@/actions/OrderAction";
 import { orderSelector } from "@/selectors/OrderSelector";
 import { getUser } from "@/selectors/UserSelectors";
+import { successSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
 
 export function Checkout(navigation) {
   const refRBSheet = useRef();
@@ -49,7 +49,7 @@ export function Checkout(navigation) {
   const quantity = route?.params?.data;
   let arr = [cartList?.getCart];
 
-  console.log("checking shoe size", JSON.stringify(arr[0]));
+  // console.log("checking shoe size", JSON.stringify(quantity));
 
   const [productArray, setproductArray] = useState(quantity ?? []);
   const [setProductArrat, setsetProductArrat] = useState(quantity ?? []);
@@ -119,6 +119,10 @@ export function Checkout(navigation) {
   ];
   const applyCouponHandler = () => {
     navigate(NAVIGATION.addCoupon, { params: "checkout" });
+  };
+
+  const removeProduct = (cartId, cartProductId) => {
+    dispatch(removeOneProductfromCart(cartId, cartProductId));
   };
 
   const renderItem = ({ item, index }) => {
@@ -204,7 +208,9 @@ export function Checkout(navigation) {
                     {data.product_details?.name}
                   </Text>
 
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => removeProduct(item?.id, data?.id)}
+                  >
                     <Image source={cross} style={styles.crossIcon} />
                   </TouchableOpacity>
                 </View>
@@ -272,6 +278,7 @@ export function Checkout(navigation) {
             data={arr}
             renderItem={renderItem}
             keyExtractor={(item) => item?.id}
+            extraData={arr}
           />
 
           <Spacer space={SH(25)} />

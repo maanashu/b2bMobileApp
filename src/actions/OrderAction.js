@@ -54,11 +54,25 @@ const getShippingServicesReset = () => ({
   payload: null,
 });
 
-export const createCartAction = (data) => async (dispatch) => {
+const removeOneProductfromCartRequest = (error) => ({
+  type: TYPES.GET_SHIPPING_SERVICES_ERROR,
+  payload: { error },
+});
+
+const removeOneProductfromCartSuccess = (removeProductFromCart) => ({
+  type: TYPES.REMOVE_PRODUCT_FROM_CART_SUCCESS,
+  payload: { removeProductFromCart },
+});
+const removeOneProductfromCartError = () => ({
+  type: TYPES.GET_SHIPPING_SERVICES_RESET,
+  payload: null,
+});
+
+export const createCartAction = (data, ArrayToRoute) => async (dispatch) => {
   console.log("checkdata", data);
   dispatch(createCartRequest());
   try {
-    const res = await OrderController.createCartController(data);
+    const res = await OrderController.createCartController(data, ArrayToRoute);
     dispatch(createCartSuccess(res));
   } catch (error) {
     console.log("action error", error);
@@ -92,3 +106,17 @@ export const getShippingServices = () => async (dispatch) => {
     }
   }
 };
+export const removeOneProductfromCart =
+  (cartId, cartProductId) => async (dispatch) => {
+    dispatch(removeOneProductfromCartRequest());
+    try {
+      const res = await OrderController.removeOneProductfromCart(
+        cartId,
+        cartProductId
+      );
+      dispatch(removeOneProductfromCartSuccess(res));
+      dispatch(getCart());
+    } catch (error) {
+      dispatch(removeOneProductfromCartError(error.message));
+    }
+  };
