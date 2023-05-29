@@ -26,68 +26,10 @@ import tinycolor from "tinycolor2";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { getSupplyVariantId } from "@/actions/ProductActions";
 import { createCartAction } from "@/actions/OrderAction";
-import { orderSelector } from "@/selectors/OrderSelector";
 import { getProductSelector } from "@/selectors/ProductSelectors";
-import { successSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
-
-const DATA = [
-  {
-    id: 92,
-    seller_id: "b169ed4d-be27-44eb-9a08-74f997bc6a2f",
-    rest_quantity: 100,
-    delivery_options: "3,1,4",
-    supply_prices: [
-      {
-        id: 277,
-        app_name: "b2b",
-        price_type: "quantity_base",
-        selling_price: 20.5,
-        min_qty: 10,
-        max_qty: 11,
-        margin_percentage: 10,
-      },
-      {
-        id: 278,
-        app_name: "b2b",
-        price_type: "quantity_base",
-        selling_price: 20.5,
-        min_qty: 20,
-        max_qty: 30,
-        margin_percentage: 10,
-      },
-    ],
-    seller_details: null,
-    attributes: [
-      {
-        id: "3",
-        name: "Size",
-        values: [
-          { id: "3", name: "X" },
-          { id: "4", name: "L" },
-        ],
-      },
-      {
-        id: "6",
-        name: "Color",
-        values: [
-          { id: "9", name: "#808080" },
-          { id: "2", name: "#ffc0cb" },
-          { id: "10", name: "#FFA500" },
-          { id: "11", name: "#FF0000" },
-        ],
-      },
-      {
-        id: "7",
-        name: "Material",
-        values: [
-          { id: "9", name: "Cotton" },
-          { id: "2", name: "Polyster" },
-        ],
-      },
-    ],
-  },
-];
+import { Loader } from "@/components/Loader";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
 
 export function StartOrder(params) {
   const bundle = params?.route?.params?.attributes;
@@ -189,7 +131,6 @@ export function StartOrder(params) {
   );
 
   const Checkout = () => {
-    // navigate(NAVIGATION.checkout, { data: ArrayToRoute });
     if (bundle?.[0]?.attributes?.length == 0) {
       dispatch(createCartAction(withoutVariantObject, ArrayToRoute));
     } else {
@@ -229,6 +170,10 @@ export function StartOrder(params) {
     } else {
     }
   };
+
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.CREATE_CART], state)
+  );
 
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
@@ -434,6 +379,7 @@ export function StartOrder(params) {
           />
         </View>
       </View>
+      {isLoading && <Loader />}
     </ScreenWrapper>
   );
 }

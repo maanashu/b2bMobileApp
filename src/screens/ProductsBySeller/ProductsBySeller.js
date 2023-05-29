@@ -30,7 +30,7 @@ export function ProductsBySeller(params) {
     const productObject = {
       page: 1,
       limit: 10,
-      delivery_options: 3,
+      delivery_options: 4,
       app_name: "b2b",
       seller_id: params?.route?.params?.sellerId,
       service_type: "product",

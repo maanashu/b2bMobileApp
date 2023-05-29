@@ -24,7 +24,7 @@ export class OrderController {
             service_id: data.service_id,
             supply_variant_id: data.supply_variant_id,
             qty: data.qty,
-            delivery_option: "3",
+            delivery_option: "4",
             app_name: "b2b",
           }
         : {
@@ -34,7 +34,7 @@ export class OrderController {
             product_id: data.product_id,
             service_id: data.service_id,
             qty: data.qty,
-            delivery_option: "3",
+            delivery_option: "4",
             app_name: "b2b",
           };
 
@@ -70,14 +70,6 @@ export class OrderController {
         .catch((error) => {
           console.log("get cart controller error", error);
           reject(error);
-          Toast.show({
-            text2: error.msg,
-            position: "bottom",
-            type: "error_toast",
-            visibilityTime: 1500,
-          });
-
-          reject(new Error((strings.validation.error = error.msg)));
         });
     });
   }

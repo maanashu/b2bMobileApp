@@ -86,7 +86,7 @@ export function NewProducts() {
   const getAllProducts = () => {
     const probject = {
       app_name: "b2b",
-      delivery_options: "3",
+      delivery_options: "4",
       page: 1,
       limit: 30,
     };
@@ -101,7 +101,7 @@ export function NewProducts() {
     setSelectedId(item?.categoryData?.id);
     const probject = {
       app_name: "b2b",
-      delivery_options: "3",
+      delivery_options: "4",
       page: 1,
       limit: 30,
       category_ids: item?.categoryData.id,

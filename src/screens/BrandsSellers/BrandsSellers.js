@@ -6,7 +6,7 @@ import {
   Image,
   ActivityIndicator,
 } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styles } from "./BrandsSellers.styles";
 import { Header, ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
@@ -24,8 +24,6 @@ import { getBrands } from "@/actions/CategoryActions";
 import FastImage from "react-native-fast-image";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
-import { getProduct } from "@/actions/ProductActions";
-import { getProductSelector } from "@/selectors/ProductSelectors";
 import { renderNoData } from "@/components/FlatlistStyling";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";

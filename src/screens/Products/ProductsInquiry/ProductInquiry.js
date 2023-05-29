@@ -58,6 +58,8 @@ import { renderNoData } from "@/components/FlatlistStyling";
 import { Loader } from "@/components/Loader";
 import { getKyc } from "@/selectors/KycSelector";
 import { getUserProfile } from "@/actions/UserActions";
+import { previousScreen } from "@/actions/GlobalActions";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 export function ProductInquiry(params) {
   const [favourite, setFavourite] = useState(false);
@@ -72,20 +74,20 @@ export function ProductInquiry(params) {
   const isLoadingDetails = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
   );
-  console.log("productDetail", JSON.stringify(ProductDetail?.productDetail));
+  // console.log("productDetail", JSON.stringify(ProductDetail?.productDetail));
 
   const object = {
     service_type: "product",
   };
   const data = {
     app_name: "b2b",
-    delivery_options: "3",
+    delivery_options: "4",
     seller_id: params?.route?.params?.seller_id,
   };
   useEffect(() => {
+    dispatch(getUserProfile(user?.user?.payload?.uuid));
     dispatch(getProductDetail(params?.route?.params?.itemId, data));
     dispatch(getTrendingProducts(object));
-    dispatch(getUserProfile(user?.user?.payload?.uuid));
   }, []);
 
   const renderItem = ({ item }) => (
@@ -159,38 +161,12 @@ export function ProductInquiry(params) {
           <FastImage
             source={item?.image == undefined ? image10 : { uri: item?.image }}
             style={styles.storeImg}
-            resizeMode="cover"
+            resizeMode="contain"
           />
         </View>
       </>
     );
   };
-  // const handleSubmit = () => {
-  //   if (token) {
-  //     if (
-  //       user?.user?.payload?.user_profiles?.wallet_steps === 0 &&
-  //       user?.user?.payload?.user_profiles?.wallet_steps === undefined &&
-  //       user?.user?.payload?.user_profiles?.wallet_steps === null
-  //     ) {
-  //       navigate(NAVIGATION.personalInformation, {
-  //         route: "kyc",
-  //       });
-  //     } else if (user?.user?.payload?.user_profiles?.wallet_steps === 1) {
-  //       navigate(NAVIGATION.checkAndRequestKYC);
-  //     } else if (user?.user?.payload?.user_profiles?.wallet_steps === 2) {
-  //       navigate(NAVIGATION.ageVerification);
-  //     } else if (user?.user?.payload?.user_profiles?.wallet_steps === 5) {
-  //       navigate(NAVIGATION.startOrder, {
-  //         attributes: ProductDetail?.productDetail?.product_detail?.supplies,
-  //         product_id: ProductDetail?.productDetail?.product_detail?.id,
-  //         service_id: ProductDetail?.productDetail?.product_detail?.service_id,
-  //       });
-  //     }
-  //   } else {
-  //     navigate(NAVIGATION.splash);
-  //   }
-  // };
-
   const handleSubmit = () => {
     switch (true) {
       case !!token:
@@ -201,14 +177,18 @@ export function ProductInquiry(params) {
             navigate(NAVIGATION.personalInformation, {
               route: "kyc",
             });
+            dispatch(previousScreen(NAVIGATION.productInquiry));
             break;
           case 1:
+            dispatch(previousScreen(NAVIGATION.productInquiry));
             navigate(NAVIGATION.checkAndRequestKYC);
             break;
           case 2:
+            dispatch(previousScreen(NAVIGATION.productInquiry));
             navigate(NAVIGATION.ageVerification);
             break;
           case 4:
+            dispatch(previousScreen(NAVIGATION.productInquiry));
             navigate(NAVIGATION.connectBank);
             break;
           case 5:
@@ -223,6 +203,7 @@ export function ProductInquiry(params) {
         }
         break;
       default:
+        dispatch(previousScreen(NAVIGATION.productInquiry));
         navigate(NAVIGATION.splash);
         break;
     }

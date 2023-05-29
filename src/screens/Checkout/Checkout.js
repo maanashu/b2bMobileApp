@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   ScrollView,
@@ -14,11 +15,7 @@ import { COLORS } from "@/theme/Colors";
 import { useRoute } from "@react-navigation/native";
 import {
   deliveryTruck,
-  puma2,
-  puma1,
   cross,
-  puma4,
-  puma5,
   forwardArrowWhite,
   rightArrowThin,
 } from "@/assets";
@@ -32,22 +29,32 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCart, removeOneProductfromCart } from "@/actions/OrderAction";
 import { orderSelector } from "@/selectors/OrderSelector";
 import { getUser } from "@/selectors/UserSelectors";
-import { successSelector } from "@/selectors/StatusSelectors";
+import {
+  isLoadingSelector,
+  successSelector,
+} from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
+import { Loader } from "@/components/Loader";
 
 export function Checkout(navigation) {
   const refRBSheet = useRef();
   const dispatch = useDispatch();
   const cartList = useSelector(orderSelector);
   const user = useSelector(getUser);
+  // console.log("user", user?.user?.payload?.token);
+  const route = useRoute();
+  const quantity = route?.params?.data;
+  let arr = [cartList?.getCart];
 
   useEffect(() => {
     dispatch(getCart());
   }, []);
 
-  const route = useRoute();
-  const quantity = route?.params?.data;
-  let arr = [cartList?.getCart];
+  const backNavigationHandler = () => {
+    if (Object.keys(cartList?.getCart)?.length === 0) {
+      alert("noke");
+    }
+  };
 
   // console.log("checking shoe size", JSON.stringify(quantity));
 
@@ -66,129 +73,21 @@ export function Checkout(navigation) {
     } catch (error) {}
   }, [setProductArrat]);
 
-  const cartPlusOnPress = (index, item) => {
-    try {
-      const array = [...productArray];
-      array[index].qty = array[index].qty + 1;
-      setsetProductArrat(array);
-    } catch (error) {}
-  };
-  const cartMinusOnPress = (index) => {
-    try {
-      const array = [...productArray];
-      array[index].qty =
-        array[index].qty > 0 ? array[index].qty - 1 : array[index].qty;
-      setsetProductArrat(array);
-    } catch (error) {}
-  };
-
-  const { deliveryService } = route?.params || {};
-  const Details = [
-    {
-      id: 1,
-      itemName: "PUMA Men's Tazon 6 Wide Sneaker",
-      color: "Puma White",
-      image: puma4,
-      size: "US 7.5",
-      price: "$6.56",
-    },
-    {
-      id: 2,
-      itemName: "PUMA Men's Tazon 6 Wide Sneaker",
-      color: "Puma White",
-      image: puma5,
-      size: "US 7.5",
-      price: "$6.56",
-    },
-    {
-      id: 3,
-      itemName: "PUMA Men's Tazon 6 Wide Sneaker",
-      color: "Puma White",
-      size: "US 7.5",
-      image: puma1,
-      price: "$6.56",
-    },
-    {
-      id: 4,
-      itemName: "PUMA Men's Tazon 6 Wide Sneaker",
-      color: "Puma White",
-      image: puma2,
-      size: "US 7.5",
-      price: "$6.56",
-    },
-  ];
   const applyCouponHandler = () => {
     navigate(NAVIGATION.addCoupon, { params: "checkout" });
   };
 
   const removeProduct = (cartId, cartProductId) => {
+    dispatch(getCart());
     dispatch(removeOneProductfromCart(cartId, cartProductId));
   };
 
+  const isLoading = useSelector((state) =>
+    successSelector([TYPES.REMOVE_PRODUCT_FROM_CART], state)
+  );
+
   const renderItem = ({ item, index }) => {
     return (
-      // <>
-      //   <View style={styles.productView}>
-      //     {/* {item?.cart_products.map((val, i) => (
-      //       <>
-      //         <View>
-      //           <Text style={{ color: "black", fontSize: 50 }}>
-      //             {val.created_at}
-      //           </Text>
-      //         </View>
-      //       </>
-      //     ))} */}
-      //     {item?.cart_products.map((val, i) => (
-      //     <Image
-      //       source={{uri:val?.product_details?.image}}
-      //       resizeMode="cover"
-      //       style={styles.productImageStyle}
-      //     />
-      //     ))}
-
-      //     <View style={styles.productsInnerView}>
-      //       <View>
-      //         <Text style={styles.productNameText}>{item.itemName}</Text>
-      //         <Text style={styles.secondaryDetailText}>
-      //           Color: <Text>{item.color}</Text>
-      //         </Text>
-      //         <Text style={styles.secondaryDetailText}>
-      //           Size: <Text>{item.name}</Text>
-      //         </Text>
-
-      //         <Spacer space={SH(5)} />
-
-      //         {/* counter */}
-
-      //         <View style={styles.counterButtonView}>
-      //           <TouchableOpacity
-      //             onPress={() => cartMinusOnPress(index)}
-      //             style={styles.decrementView}
-      //           >
-      //             <Text style={styles.decrementButton}>-</Text>
-      //           </TouchableOpacity>
-      //           <Text style={styles.selectedNumber}>{item.qty}</Text>
-      //           <TouchableOpacity
-      //             onPress={() => cartPlusOnPress(index)}
-      //             style={styles.incrementView}
-      //           >
-      //             <Text style={styles.incrementButton}>+</Text>
-      //           </TouchableOpacity>
-      //         </View>
-
-      //         {/* counter */}
-      //       </View>
-      //       <View style={styles.crossView}>
-      //         <Image
-      //           source={cross}
-      //           resizeMode="contain"
-      //           style={styles.crossIcon}
-      //         />
-      //         <Text style={styles.secondaryText}>{item.price}</Text>
-      //       </View>
-      //     </View>
-      //   </View>
-      // </>
       <>
         {item?.cart_products?.map((data, ind) => (
           <>
@@ -273,6 +172,8 @@ export function Checkout(navigation) {
             </View>
           </View>
           <Spacer space={SH(20)} />
+          {/* ////////////////////// */}
+
           <FlatList
             showsVerticalScrollIndicator={false}
             data={arr}
@@ -393,6 +294,7 @@ export function Checkout(navigation) {
 
         <Spacer space={SH(15)} />
       </View>
+      {/* {isLoading ? <Loader /> : null} */}
     </ScreenWrapper>
   );
 }

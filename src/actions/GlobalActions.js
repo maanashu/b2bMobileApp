@@ -13,3 +13,8 @@ export const biometricsSet = (status) => ({
   type: TYPE.BIOMETRIC_SUCCESS,
   payload: { status },
 });
+
+export const previousScreen = (screenName) => ({
+  type: TYPE.PREVIOUS_SCREEN_SUCCESS,
+  payload: { screenName },
+});

@@ -33,6 +33,7 @@ const INITIALSTATE = {
   verifyEmail: {},
   getSellersList: [],
   getUserProfile: {},
+  screenName: {},
 };
 
 export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -122,15 +123,21 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         isStatus: payload?.status,
       };
+
+    case TYPES.PREVIOUS_SCREEN_SUCCESS:
+      return {
+        ...state,
+        screenName: payload?.screenName,
+      };
     case TYPES.GET_WALLET_USER_SUCCESS:
       return {
         ...state,
-        walletProfile: payload.getwalletuser,
+        walletProfile: payload?.getwalletuser,
       };
     case TYPES.USER_LOCATION_SUCCESS:
       return {
         ...state,
-        userLocation: payload.userLocation,
+        userLocation: payload?.userLocation,
       };
     case TYPES.UPDATE_USER_LOCATION_SUCCESS:
       return {

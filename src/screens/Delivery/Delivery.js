@@ -1,4 +1,11 @@
-import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useEffect } from "react";
 import { styles } from "./Delivery.styles";
 import { Button, ScreenWrapper, Spacer } from "@/components";
@@ -12,6 +19,8 @@ import { NAVIGATION } from "@/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { getShippingServices } from "@/actions/OrderAction";
 import { orderSelector } from "@/selectors/OrderSelector";
+import FastImage from "react-native-fast-image";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 export function Delivery() {
   const dispatch = useDispatch();
@@ -28,12 +37,61 @@ export function Delivery() {
         });
       }
     } else {
-      Alert.alert("Please select a delivery service");
+      Toast.show({
+        text2: "Please select a Shipping Service",
+        position: "bottom",
+        type: "error_toast",
+        visibilityTime: 1500,
+      });
     }
   };
   useEffect(() => {
     dispatch(getShippingServices());
   }, []);
+  const renderDeliveryServices = ({ item }) => (
+    <>
+      <View style={styles.fedexView}>
+        <View style={styles.fedEXDeliveryView}>
+          <TouchableOpacity
+            style={styles.deliveryViewInnerView}
+            onPress={() => setSelectedId(item.id)}
+          >
+            <View style={styles.deliveryViewInnerView}>
+              <FastImage
+                resizeMode="contain"
+                source={{ uri: item?.image }}
+                style={styles.fedExIcon}
+              />
+              <Text style={styles.deliveryText}>{item?.title}</Text>
+            </View>
+
+            <View
+              style={{
+                borderWidth: 1,
+                height: 20,
+                width: 20,
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 10,
+                borderColor: selectedId == item?.id ? "#275AFF" : "grey",
+              }}
+            >
+              <View
+                style={{
+                  ...styles.innerDot,
+                  backgroundColor: selectedId == item?.id ? "#275AFF" : "white",
+                }}
+              ></View>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.priceText}>$8.00</Text>
+        <Spacer space={SH(5)} />
+      </View>
+
+      <View style={{ borderBottomWidth: 1, borderColor: COLORS.grey }}></View>
+    </>
+  );
 
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
@@ -62,7 +120,7 @@ export function Delivery() {
 
       <Spacer space={SH(10)} />
 
-      <View style={styles.mainContainer}>
+      {/* <View style={styles.mainContainer}>
         <Spacer space={SH(5)} />
 
         <View style={styles.fedexView}>
@@ -253,6 +311,13 @@ export function Delivery() {
         </View>
 
         <View style={{ borderBottomWidth: 1, borderColor: COLORS.grey }}></View>
+      </View> */}
+      <View style={styles.mainContainer}>
+        <FlatList
+          data={services?.shippingServices}
+          extraData={services?.shippingServices}
+          renderItem={renderDeliveryServices}
+        />
       </View>
 
       <View style={styles.buttonView}>

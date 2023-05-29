@@ -28,7 +28,9 @@ export function HomeHeader({ onPress, userLocation }) {
         </TouchableOpacity>
       </View>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <Image source={bagGrey} style={styles.bagIcon} resizeMode="contain" />
+        <TouchableOpacity onPress={() => navigate(NAVIGATION.checkout)}>
+          <Image source={bagGrey} style={styles.bagIcon} resizeMode="contain" />
+        </TouchableOpacity>
 
         <View style={styles.coinView}>
           <Text style={styles.balanceText}>0</Text>

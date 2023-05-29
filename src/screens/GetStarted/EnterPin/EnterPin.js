@@ -38,7 +38,14 @@ export function EnterPin(params) {
   );
 
   const navigationHandler = () => {
-    dispatch(login(value, user?.phone?.countryCode, user?.phone?.phoneNumber));
+    dispatch(
+      login(
+        value,
+        user?.phone?.countryCode,
+        user?.phone?.phoneNumber,
+        user?.screenName
+      )
+    );
   };
   return (
     <ScreenWrapper>

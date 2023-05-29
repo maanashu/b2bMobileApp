@@ -29,6 +29,11 @@ export const orderReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         removeProductFromCart: payload.removeProductFromCart,
       };
+    case TYPES.GET_CART_RESET:
+      return {
+        ...state,
+        getCart: {},
+      };
     default:
       return state;
   }

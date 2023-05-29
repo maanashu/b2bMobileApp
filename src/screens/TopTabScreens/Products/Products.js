@@ -85,7 +85,7 @@ export function Products({ navigation }) {
       page: 1,
       limit: 10,
       app_name: "b2b",
-      delivery_options: "3",
+      delivery_options: "4",
       need_trending: "true",
     };
     dispatch(getProduct(probject));

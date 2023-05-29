@@ -11,14 +11,15 @@ const Tab = createMaterialTopTabNavigator();
 import { HomeHeader } from "@/components/HomeHeader";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { NAVIGATION } from "@/constants";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { navigate } from "@/navigation/NavigationRef";
+import { previousScreen } from "@/actions/GlobalActions";
 
 export function Home() {
   const layout = useWindowDimensions();
   const user = useSelector(getUser);
-
+  const dispatch = useDispatch();
   const [routes] = React.useState([
     { key: "products", title: "Products" },
     { key: "business", title: "Services" },
@@ -78,13 +79,17 @@ export function Home() {
   const userLocation = user?.getLocation
     ? `${user?.getLocation?.[0]?.state}, ${user?.getLocation?.[0]?.country}`
     : "Add Address";
+  const loginFunction = () => {
+    dispatch(previousScreen(NAVIGATION.home));
+    navigate(NAVIGATION.splash);
+  };
   return (
     <ScreenWrapper>
       <HomeHeader
         userLocation={userLocation}
         onPress={() =>
           !user?.user?.payload?.token
-            ? navigate(NAVIGATION.splash)
+            ? loginFunction()
             : navigate(NAVIGATION.addresses)
         }
       />

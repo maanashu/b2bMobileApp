@@ -85,7 +85,7 @@ export const getCart = () => async (dispatch) => {
     const res = await OrderController.getCart();
     dispatch(getCartSuccess(res));
   } catch (error) {
-    console.log("action error: " + error.message);
+    console.log("action error: " + JSON.stringify(error));
     if (error?.statusCode === 204) {
       dispatch(getCartReset());
     } else {

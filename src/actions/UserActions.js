@@ -36,6 +36,11 @@ export const TYPES = {
   REGISTER_ERROR: "REGISTER_ERROR",
   REGISTER_REQUEST: "REGISTER_REQUEST",
 
+  PREVIOUS_SCREEN: "PREVIOUS_SCREEN",
+  PREVIOUS_SCREEN_SUCCESS: "PREVIOUS_SCREEN_SUCCESS",
+  PREVIOUS_SCREEN_ERROR: "PREVIOUS_SCREEN_ERROR",
+  PREVIOUS_SCREEN_REQUEST: "PREVIOUS_SCREEN_REQUEST",
+
   REGISTER_DATA: "REGISTER_DATA",
   REGISTER_DATA_REQUEST: "REGISTER_DATA_REQUEST",
   REGISTER_DATA_SUCCESS: "REGISTER_DATA_SUCCESS",
@@ -358,15 +363,22 @@ const getUserProfileError = (error) => ({
   payload: { error },
 });
 
-export const login = (value, countryCode, phoneNumber) => async (dispatch) => {
-  dispatch(loginRequest());
-  try {
-    const user = await UserController.login(value, countryCode, phoneNumber);
-    dispatch(loginSuccess(user));
-  } catch (error) {
-    dispatch(loginError(error.message));
-  }
-};
+export const login =
+  (value, countryCode, phoneNumber, screenName) => async (dispatch) => {
+    dispatch(loginRequest());
+    try {
+      const user = await UserController.login(
+        value,
+        countryCode,
+        phoneNumber,
+        screenName
+      );
+      dispatch(loginSuccess(user));
+      dispatch(getUserProfile(user?.payload?.uuid));
+    } catch (error) {
+      dispatch(loginError(error.message));
+    }
+  };
 
 export const logout = () => async (dispatch) => {
   try {

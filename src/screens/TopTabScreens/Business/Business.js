@@ -23,6 +23,7 @@ import {
   threeDots,
   Fonts,
   certifiedLogo,
+  Tobacco,
 } from "@/assets";
 import { NAVIGATION } from "@/constants";
 import { Search } from "@/components/Search";
@@ -175,7 +176,10 @@ export function Business() {
               style={styles.roundIcons}
             />
           )}
-          {!item?.image && (
+          {!item?.image && item.name !== "All" && (
+            <FastImage source={Tobacco} style={styles.roundIcons} />
+          )}
+          {!item?.image && item.name === "All" && (
             <FastImage source={threeDots} style={styles.roundIcons} />
           )}
 

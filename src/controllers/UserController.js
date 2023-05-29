@@ -11,7 +11,7 @@ import Toast from "react-native-toast-message";
 import { HttpClient } from "./HttpClient";
 
 export class UserController {
-  static async login(value, countryCode, phoneNumber) {
+  static async login(value, countryCode, phoneNumber, screenName) {
     return new Promise(async (resolve, reject) => {
       const endpoint = USER_URL + ApiUserInventory.login;
       const body = {
@@ -25,7 +25,12 @@ export class UserController {
         headers: { "device-id": uniqueId },
       })
         .then((response) => {
-          navigate(NAVIGATION.home);
+          if (screenName) {
+            navigate(screenName);
+          } else {
+            navigate(NAVIGATION.home);
+          }
+          // navigate(NAVIGATION.home);
           // navigation.reset({
           //   index: 0,
           //   actions: [navigation.navigate(NAVIGATION.startOrder)],
