@@ -139,6 +139,7 @@ export function Checkout(navigation) {
       </>
     );
   };
+
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <HeaderCoin title={strings.checkout.checkout} />
