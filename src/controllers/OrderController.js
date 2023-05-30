@@ -65,7 +65,6 @@ export class OrderController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
-          // console.log("get cart sucess", response);
         })
         .catch((error) => {
           console.log("get cart controller error", error);
@@ -79,7 +78,6 @@ export class OrderController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
-          console.log("get cart sucess", response);
         })
         .catch((error) => {
           console.log("get cart controller error", error);

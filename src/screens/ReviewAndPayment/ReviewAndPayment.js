@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useRef } from "react";
 import { styles } from "./ReviewAndPayment.styles";
-import { Button, ScreenWrapper, Spacer } from "@/components";
+import { ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { useRoute } from "@react-navigation/native";
@@ -25,13 +25,11 @@ import {
   orderDetails,
   Fonts,
   forwardArrowWhite,
-  whiteJobr,
-  rightArrowBlue,
   referralCorner,
 } from "@/assets";
 import { strings } from "@/localization";
 import { NAVIGATION } from "@/constants";
-import { ms, verticalScale, vs } from "react-native-size-matters";
+import { ms, vs } from "react-native-size-matters";
 import { SwiperButton } from "@/components/SwiperButton";
 
 const data = [
@@ -96,7 +94,6 @@ export function ReviewAndPayment({ navigation }) {
   const route = useRoute();
 
   const { countryname } = route.params || {};
-  const { deliveryService } = route.params || {};
   // const [address, setAddress] = useState(countryname);
   const Details = [
     {
@@ -184,7 +181,9 @@ export function ReviewAndPayment({ navigation }) {
               <Text style={styles.deliveryTime}>
                 {strings.reviewAndPayment.deliveryTime}
               </Text>
-              <Text style={styles.deliveryName}>{deliveryService}</Text>
+              <Text style={styles.deliveryName}>
+                {route?.params?.deliveryService}
+              </Text>
               <Text style={styles.estimatedDelivery}>
                 {strings.reviewAndPayment.estimatedDelivery}{" "}
                 <Text style={styles.deliveryDays}>
@@ -199,7 +198,7 @@ export function ReviewAndPayment({ navigation }) {
 
         {countryname == undefined ? (
           <TouchableOpacity
-            onPress={() => navigate(NAVIGATION.addShippingAddress)}
+            onPress={() => navigate(NAVIGATION.addressDetails)}
             style={styles.addressView}
           >
             <View>

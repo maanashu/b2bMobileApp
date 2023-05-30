@@ -290,6 +290,7 @@ export class UserController {
           navigate(NAVIGATION.addresses);
         })
         .catch((error) => {
+          console.log("error: " + JSON.stringify(error));
           Toast.show({
             text2: error.msg,
             position: "bottom",

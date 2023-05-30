@@ -36,15 +36,18 @@ import {
 import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
 
-export function Checkout(navigation) {
-  const refRBSheet = useRef();
+export function Checkout() {
   const dispatch = useDispatch();
   const cartList = useSelector(orderSelector);
   const user = useSelector(getUser);
-  // console.log("user", user?.user?.payload?.token);
   const route = useRoute();
-  const quantity = route?.params?.data;
   let arr = [cartList?.getCart];
+  const [storeTotal, setstoreTotal] = useState(0);
+  const [setProductArray, setsetProductArrat] = useState(
+    route?.params?.data ?? []
+  );
+  const totalStore = [];
+  // console.log("array=", JSON.stringify(arr));
 
   useEffect(() => {
     dispatch(getCart());
@@ -55,23 +58,18 @@ export function Checkout(navigation) {
       alert("noke");
     }
   };
-
-  // console.log("checking shoe size", JSON.stringify(quantity));
-
-  const [productArray, setproductArray] = useState(quantity ?? []);
-  const [setProductArrat, setsetProductArrat] = useState(quantity ?? []);
-  const [storeTotal, setstoreTotal] = useState(0);
-
-  const totalStore = [];
   useEffect(() => {
     try {
-      setProductArrat.reduce((sum, i) => {
-        var sepTotal = i.qty * i.price;
-        totalStore.push(sepTotal);
-      }, 0);
-      setstoreTotal(totalStore.reduce((a, b) => a + b, 0));
+      // setProductArray.reduce((sum, i) => {
+      //   var sepTotal = i.qty * i.selling_price;
+      //   totalStore.push(sepTotal);
+      // }, 0);
+      // setstoreTotal(totalStore.reduce((a, b) => a + b, 0));
+      const calculatedResult =
+        setProductArray?.qty * setProductArray?.selling_price;
+      setstoreTotal(calculatedResult);
     } catch (error) {}
-  }, [setProductArrat]);
+  }, [setProductArray]);
 
   const applyCouponHandler = () => {
     navigate(NAVIGATION.addCoupon, { params: "checkout" });
@@ -85,11 +83,28 @@ export function Checkout(navigation) {
   const isLoading = useSelector((state) =>
     successSelector([TYPES.REMOVE_PRODUCT_FROM_CART], state)
   );
+  const updateQuantity = (cartId, productId, operation) => {
+    const updatedArr = [...arr];
 
-  const renderItem = ({ item, index }) => {
-    return (
-      <>
-        {item?.cart_products?.map((data, ind) => (
+    const cartItem = updatedArr
+      .find((item) => item.id === cartId)
+      ?.cart_products.find((product) => product.id === productId);
+
+    if (cartItem) {
+      if (operation === "+") {
+        cartItem.qty += 1;
+      } else if (operation === "-") {
+        cartItem.qty -= 1;
+      }
+
+      console.log("Updated Cart Item:", cartItem);
+    }
+  };
+
+  const renderItem = ({ item, index }) => (
+    <>
+      {item?.cart_products?.map((data, ind) => {
+        return (
           <>
             <View style={styles.productView}>
               <View>
@@ -114,31 +129,33 @@ export function Checkout(navigation) {
                   </TouchableOpacity>
                 </View>
 
-                <View
-                  style={{
-                    borderWidth: 1,
-                    height: SH(23),
-                    width: SW(70),
-                    borderRadius: SW(5),
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    paddingHorizontal: SW(10),
-                  }}
-                >
-                  <Text>-</Text>
+                <View style={styles.boxStyling}>
+                  <TouchableOpacity>
+                    <Text
+                      onPress={() => updateQuantity(item?.id, data?.id, "-")}
+                    >
+                      -
+                    </Text>
+                  </TouchableOpacity>
+
                   <Text>{data?.qty}</Text>
-                  <Text>+</Text>
+                  <TouchableOpacity>
+                    <Text
+                      onPress={() => updateQuantity(item?.id, data?.id, "+")}
+                    >
+                      +
+                    </Text>
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>
 
             <Spacer space={SH(10)} />
           </>
-        ))}
-      </>
-    );
-  };
+        );
+      })}
+    </>
+  );
 
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
@@ -148,7 +165,7 @@ export function Checkout(navigation) {
 
       <View style={styles.mainContainer} showsVerticalScrollIndicator={false}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.deliveryView}>
+          {/* <View style={styles.deliveryView}>
             <View style={styles.deliveryViewDirection}>
               <View>
                 <Image
@@ -171,7 +188,7 @@ export function Checkout(navigation) {
                 </Text>
               </View>
             </View>
-          </View>
+          </View> */}
           <Spacer space={SH(20)} />
           {/* ////////////////////// */}
 
@@ -224,7 +241,7 @@ export function Checkout(navigation) {
               <Text style={styles.feeText}>{"Coupon"}</Text>
               <Text style={styles.feeText}>
                 {"$ "}
-                {storeTotal.toFixed(2)}
+                {"0.00"}
               </Text>
             </View>
 
@@ -238,21 +255,7 @@ export function Checkout(navigation) {
               <Text style={styles.feeText}>{"Taxes & Other fees "}</Text>
               <Text style={styles.feeText}>
                 {"$ "}
-                {storeTotal.toFixed(2)}
-              </Text>
-            </View>
-
-            <Spacer space={SH(10)} />
-
-            <View style={styles.borderLine}></View>
-
-            <Spacer space={SH(10)} />
-
-            <View style={styles.subtotalView}>
-              <Text style={styles.feeText}>{"Subtotal"}</Text>
-              <Text style={styles.feeText}>
-                {"$ "}
-                {storeTotal.toFixed(2)}
+                {"0.00"}
               </Text>
             </View>
 

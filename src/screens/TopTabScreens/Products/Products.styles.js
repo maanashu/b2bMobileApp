@@ -138,7 +138,7 @@ export const styles = StyleSheet.create({
     borderRadius: s(5),
     backgroundColor: COLORS.white,
     margin: 2,
-    flex: 1,
+    flex: 1 / 2,
   },
   productsTitle: {
     fontFamily: Fonts.SemiBold,

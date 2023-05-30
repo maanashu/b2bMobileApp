@@ -342,4 +342,14 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
+  boxStyling: {
+    borderWidth: 1,
+    height: SH(23),
+    width: SW(70),
+    borderRadius: SW(5),
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: SW(10),
+  },
 });

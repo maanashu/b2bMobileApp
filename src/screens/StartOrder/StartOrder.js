@@ -56,10 +56,11 @@ export function StartOrder(params) {
   const [firstSupplyPrice, setFirstSupplyPrice] = useState(
     bundle?.[0]?.supply_prices?.[0]
   );
-  const arr = bundle?.[0].supply_prices[0];
+  const arr = bundle?.[0].supply_prices?.[0];
   const [quantity, setQuantity] = useState(arr);
   const [string, setString] = useState();
   useEffect(() => {}, [isFocused]);
+  console.log("check kro jra", JSON.stringify(quantity));
 
   const SizeData = ["USA", "UK"];
   const withoutVariantObject = {
@@ -132,9 +133,9 @@ export function StartOrder(params) {
 
   const Checkout = () => {
     if (bundle?.[0]?.attributes?.length == 0) {
-      dispatch(createCartAction(withoutVariantObject, ArrayToRoute));
+      dispatch(createCartAction(withoutVariantObject, quantity));
     } else {
-      dispatch(createCartAction(variantObject, ArrayToRoute));
+      dispatch(createCartAction(variantObject, quantity));
     }
   };
   useFocusEffect(

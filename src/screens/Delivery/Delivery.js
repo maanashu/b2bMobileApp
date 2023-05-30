@@ -21,19 +21,22 @@ import { getShippingServices } from "@/actions/OrderAction";
 import { orderSelector } from "@/selectors/OrderSelector";
 import FastImage from "react-native-fast-image";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
+import { Loader } from "@/components/Loader";
 
 export function Delivery() {
   const dispatch = useDispatch();
   const services = useSelector(orderSelector);
   const [selectedId, setSelectedId] = useState("");
-
-  console.log("services", JSON.stringify(services?.shippingServices));
+  const [selectedName, setSelectedName] = useState("");
 
   const selectDelivery = () => {
     if (selectedId) {
       {
         navigate(NAVIGATION.reviewAndPayment, {
-          deliveryService: selectedId,
+          deliveryService: selectedName,
+          deliveryId: selectedId,
         });
       }
     } else {
@@ -54,7 +57,10 @@ export function Delivery() {
         <View style={styles.fedEXDeliveryView}>
           <TouchableOpacity
             style={styles.deliveryViewInnerView}
-            onPress={() => setSelectedId(item.id)}
+            onPress={() => {
+              setSelectedId(item.id);
+              setSelectedName(item.title);
+            }}
           >
             <View style={styles.deliveryViewInnerView}>
               <FastImage
@@ -92,7 +98,9 @@ export function Delivery() {
       <View style={{ borderBottomWidth: 1, borderColor: COLORS.grey }}></View>
     </>
   );
-
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_SHIPPING_SERVICES], state)
+  );
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <View style={styles.header}>
@@ -328,6 +336,7 @@ export function Delivery() {
           textStyle={styles.buttonTextStyle}
         />
       </View>
+      {isLoading && <Loader message="Loading data ..." />}
     </ScreenWrapper>
   );
 }
