@@ -3,10 +3,12 @@ import React, { useState } from "react";
 import { styles } from "./NotificationSetting.styles";
 import { ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
-import { backArrow, notiToggle, toggleOff, toggleOn } from "@/assets";
+import { backArrow, notiToggle, toggleOff } from "@/assets";
 import { strings } from "@/localization";
 import { NameHeader } from "@/components";
 import { Switch } from "@/components";
+import { useDispatch } from "react-redux";
+import { updateUserSettings } from "@/actions/UserActions";
 
 export function NotificationSetting() {
   const [allowNoti, setallowNoti] = useState(true);
@@ -17,31 +19,74 @@ export function NotificationSetting() {
   const [feeds, setFeeds] = useState(true);
   const [rqf, setRqf] = useState(true);
 
+  const dispatch = useDispatch();
+
   const data = [
     {
       id: 1,
       name: "Allow Notification",
       status: allowNoti,
       setter: setallowNoti,
+      value: "notification_status",
     },
     {
       id: 2,
       name: "Allow Notification popup",
       status: allowPopup,
       setter: setallowPopup,
+      value: "push_notification_status",
     },
-    { id: 3, name: "Chat Messages", status: messages, setter: setMessages },
-    { id: 4, name: "Promotions", status: promotions, setter: setPromotions },
-    { id: 5, name: "Orders", status: orders, setter: setOrders },
-    { id: 6, name: "Feed", status: feeds, setter: setFeeds },
-    { id: 7, name: "RQF", status: rqf, setter: setRqf },
+    {
+      id: 3,
+      name: "Chat Messages",
+      status: messages,
+      setter: setMessages,
+      value: "chat_notification_status",
+    },
+    {
+      id: 4,
+      name: "Promotions",
+      status: promotions,
+      setter: setPromotions,
+      value: "promotion_notification_status",
+    },
+    {
+      id: 5,
+      name: "Orders",
+      status: orders,
+      setter: setOrders,
+      value: "order_notification_status",
+    },
+    {
+      id: 6,
+      name: "Feed",
+      status: feeds,
+      setter: setFeeds,
+      value: "feeds_notification_status",
+    },
+    {
+      id: 7,
+      name: "RQF",
+      status: rqf,
+      setter: setRqf,
+      value: "rqf_notification_status",
+    },
   ];
 
   const toggleSwitch = (index) => {
-    const newData = [...data];
-    newData[index].setter(!newData[index].status);
-    data[index] = newData[index];
+    const item = data[index];
+    item.setter(!item.status);
+    const updatedItem = { ...item, status: !item.status };
+    updateSettings(updatedItem.value, updatedItem.status);
   };
+  const updateSettings = (value, status) => {
+    const body = {
+      app_name: "b2b",
+      [value]: status,
+    };
+    dispatch(updateUserSettings(body));
+  };
+
   const renderNotifications = ({ item, index }) => {
     return (
       <>

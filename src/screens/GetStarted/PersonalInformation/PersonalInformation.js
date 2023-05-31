@@ -74,6 +74,8 @@ export function PersonalInformation(params) {
   const [countryCode, setCountryCode] = useState("");
   const [individual, setIndividual] = useState(false);
   const [business, setBusiness] = useState(false);
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
 
   useEffect(() => {
     setEmail(getData?.registerData?.email);
@@ -239,6 +241,8 @@ export function PersonalInformation(params) {
         countryCode: countryCode,
         stateCode: stateCode,
         type: individual ? "individual" : "business",
+        latitude: latitude,
+        longitude: longitude
       };
       dispatch(createWallet(data));
       // refRBSheet.current.open();
@@ -587,6 +591,10 @@ export function PersonalInformation(params) {
                     key: GOOGLE_MAP.API_KEYS,
                   }}
                   onPress={(data, details) => {
+                    console.log(
+                      "================================data, deatils",
+                      details
+                    );
                     setCity("");
                     setState("");
                     setZipCode("");
@@ -594,6 +602,8 @@ export function PersonalInformation(params) {
                     setAppartment("");
                     getAddress(details.address_components);
                     setStreet(data.structured_formatting.main_text);
+                    setLatitude(details.geometry.location.lat)
+                    setLongitude(details.geometry.location.lng)
                   }}
                   styles={{
                     container: styles.placesContainerStyle,
