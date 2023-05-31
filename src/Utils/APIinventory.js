@@ -26,6 +26,7 @@ export const ApiUserInventory = {
   sendEmailOtp: "users/send-otp",
   getSellers: "users/sellers/b2b",
   getUserProfile: (userUuid) => `users/uuid/${userUuid}`,
+  getUserSetting: "user_settings",
 };
 
 export const SupportInventory = {

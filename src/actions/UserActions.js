@@ -114,6 +114,11 @@ export const TYPES = {
   EDIT_PROFILE_REQUEST: "EDIT_PROFILE_REQUEST",
   EDIT_PROFILE_SUCCESS: "EDIT_PROFILE_SUCCESS",
   EDIT_PROFILE_ERROR: "EDIT_PROFILE_ERROR",
+
+  GET_USER_SETTINGS: "GET_USER_SETTINGS",
+  GET_USER_SETTINGS_REQUEST: "GET_USER_SETTINGS_REQUEST",
+  GET_USER_SETTINGS_SUCCESS: "GET_USER_SETTINGS_SUCCESS",
+  GET_USER_SETTINGS_ERROR: "GET_USER_SETTINGS_ERROR",
 };
 
 const loginRequest = () => ({
@@ -363,6 +368,21 @@ const getUserProfileError = (error) => ({
   payload: { error },
 });
 
+const getUserSettingsRequest = () => ({
+  type: TYPES.GET_USER_SETTINGS_REQUEST,
+  payload: null,
+});
+
+const getUserSettingsSucess = (getUserSettings) => ({
+  type: TYPES.GET_USER_SETTINGS_SUCCESS,
+  payload: { getUserSettings },
+});
+
+const getUserSettingsError = (error) => ({
+  type: TYPES.GET_USER_SETTINGS_ERROR,
+  payload: { error },
+});
+
 export const login =
   (value, countryCode, phoneNumber, screenName) => async (dispatch) => {
     dispatch(loginRequest());
@@ -503,7 +523,12 @@ export const updateUserLocation = (id, data) => async (dispatch) => {
   try {
     const res = await UserController.patchCurrentAddress(id, data);
     dispatch(updateLocationSuccess(res));
-    dispatch(getUserLocations());
+    dispatch(getUserLocations()); // Toast.show({
+    //   text2: error.msg,
+    //   position: "bottom",
+    //   type: "error_toast",
+    //   visibilityTime: 1500,
+    // });
   } catch (error) {
     dispatch(updateLocationError(error.message));
   }
@@ -546,5 +571,15 @@ export const getUserProfile = (data) => async (dispatch) => {
     dispatch(getUserProfileSucess(res));
   } catch (error) {
     dispatch(getUserProfileError(error.message));
+  }
+};
+
+export const getUserSettings = (data) => async (dispatch) => {
+  dispatch(getUserSettingsRequest());
+  try {
+    const res = await UserController.patchSettings(data);
+    dispatch(getUserSettingsSucess(res));
+  } catch (error) {
+    dispatch(getUserSettingsError(error.message));
   }
 };

@@ -386,4 +386,25 @@ export class UserController {
         });
     });
   }
+
+  static async patchSettings(data) {
+    return new Promise((resolve, reject) => {
+      const endpoint = USER_URL + ApiUserInventory.getUserSetting;
+
+      HttpClient.patch(endpoint, data)
+        .then((response) => {
+          resolve(response);
+          // navigate(NAVIGATION.settings);
+        })
+        .catch((error) => {
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 2000,
+          });
+          reject(new Error((strings.verify.error = error.msg)));
+        });
+    });
+  }
 }
