@@ -44,10 +44,10 @@ export function Checkout() {
   let arr = [cartList?.getCart];
   const [storeTotal, setstoreTotal] = useState(0);
   const [setProductArray, setsetProductArrat] = useState(
-    route?.params?.data ?? []
+    cartList?.getCart ?? []
   );
   const totalStore = [];
-  // console.log("array=", JSON.stringify(arr));
+  console.log("array=", JSON.stringify(cartList?.getCart?.amout?.total_amount));
 
   useEffect(() => {
     dispatch(getCart());
@@ -222,13 +222,15 @@ export function Checkout() {
               {"Add your coupon here"}
             </Text>
           </TouchableOpacity>
+
           <Spacer space={SH(25)} />
+
           <View style={styles.subtotalBackground}>
             <View style={styles.subtotalView}>
               <Text style={styles.feeText}>{"Subtotal"}</Text>
               <Text style={styles.feeText}>
                 {"$ "}
-                {storeTotal.toFixed(2)}
+                {cartList?.getCart?.amout?.total_amount?.toFixed(2)}
               </Text>
             </View>
             <Spacer space={SH(10)} />
@@ -269,10 +271,11 @@ export function Checkout() {
               <Text style={styles.totalText}>{"Total"}</Text>
               <Text style={styles.totalText}>
                 {"$ "}
-                {storeTotal.toFixed(2)}
+                {cartList?.getCart?.amout?.total_amount?.toFixed(2)}
               </Text>
             </View>
           </View>
+
           <Spacer space={SH(70)} />
         </ScrollView>
 
