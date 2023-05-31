@@ -48,9 +48,12 @@ export function AddressDetails(props) {
   const [longitude, setLongitude] = useState(
     props?.route?.params?.data?.longitude || 76.5875
   );
+
   const [latitude, setLatitude] = useState(
     props?.route?.params?.data?.latitude || 30.8685
   );
+  console.log("first latitude", latitude, "+", longitude);
+
   const [coordinate, setCoordinate] = useState(
     new AnimatedRegion({
       latitude: props?.route?.params?.data?.latitude || 30.8685,

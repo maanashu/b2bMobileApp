@@ -48,6 +48,7 @@ export function BrandsSellers(params) {
   useEffect(() => {
     dispatch(getBrands(brandBody));
   }, []);
+  // console.log("user: " + JSON.stringify(user?.user?.payload));
 
   useEffect(() => {
     setSelectedId(brandsData?.brandsList?.[0]?.id);

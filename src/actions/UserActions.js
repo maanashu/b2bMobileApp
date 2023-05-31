@@ -493,6 +493,7 @@ export const addUserLocation = (data) => async (dispatch) => {
     const res = await UserController.userLocation(data);
 
     dispatch(userLocationSuccess(res));
+    dispatch(getUserLocations());
   } catch (error) {
     dispatch(userLocationError(error.message));
   }
@@ -502,6 +503,7 @@ export const updateUserLocation = (id, data) => async (dispatch) => {
   try {
     const res = await UserController.patchCurrentAddress(id, data);
     dispatch(updateLocationSuccess(res));
+    dispatch(getUserLocations());
   } catch (error) {
     dispatch(updateLocationError(error.message));
   }
