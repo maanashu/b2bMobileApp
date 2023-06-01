@@ -68,19 +68,11 @@ export function Business() {
   const cats = categoryData?.serviceCategoryList?.data?.slice(0, 7);
   const allButton = {
     brands_count: 0,
-    category_uuid: null,
-    created_at: null,
-    deleted_at: null,
     description: "All Categories",
     id: -1,
     image: null,
     name: "All",
-    parent_id: null,
-    products_count: 0,
-    service: null,
-    service_id: null,
     slug: "all",
-    updated_at: null,
   };
   const insertIndex = Math.min(7, cats?.length);
   const updatedData = [...(cats || [])];

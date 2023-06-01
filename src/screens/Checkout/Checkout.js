@@ -35,6 +35,7 @@ import {
 } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
+import { createCartAction } from "@/actions/OrderAction";
 
 export function Checkout() {
   const dispatch = useDispatch();
@@ -96,8 +97,16 @@ export function Checkout() {
       } else if (operation === "-") {
         cartItem.qty -= 1;
       }
-
-      console.log("Updated Cart Item:", cartItem);
+      const withoutVariantObject = {
+        seller_id: cartItem?.product_details?.supply?.seller_id,
+        supply_id: cartItem?.supply_id,
+        supply_price_id: cartItem?.supply_price_id,
+        product_id: cartItem?.product_id,
+        service_id: cartItem?.service_id,
+        qty: cartItem?.qty,
+      };
+      // console.log("Updated Cart Item:", JSON.stringify(withoutVariantObject));
+      dispatch(createCartAction(withoutVariantObject));
     }
   };
 

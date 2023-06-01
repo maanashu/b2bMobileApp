@@ -74,8 +74,8 @@ export const createCartAction = (data, ArrayToRoute) => async (dispatch) => {
   try {
     const res = await OrderController.createCartController(data, ArrayToRoute);
     dispatch(createCartSuccess(res));
+    dispatch(getCart());
   } catch (error) {
-    console.log("action error", error);
     dispatch(createCartError(error.message));
   }
 };
@@ -85,7 +85,6 @@ export const getCart = () => async (dispatch) => {
     const res = await OrderController.getCart();
     dispatch(getCartSuccess(res));
   } catch (error) {
-    console.log("action error: " + JSON.stringify(error));
     if (error?.statusCode === 204) {
       dispatch(getCartReset());
     } else {

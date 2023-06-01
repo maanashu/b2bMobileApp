@@ -43,6 +43,7 @@ export class OrderController {
           resolve(response);
           console.log("cart controller success====", response);
           navigate(NAVIGATION.checkout, { data: ArrayToRoute });
+          console.log("body====", body);
         })
         .catch((error) => {
           console.log("cart controller error====", error);
