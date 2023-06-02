@@ -262,7 +262,7 @@ export const styles = StyleSheet.create({
   },
   missingAddressButton: {
     backgroundColor: COLORS.secondary,
-    height: SH(60),
+    height: SH(75),
     borderRadius: 5,
   },
   missingAddressButtonView: {

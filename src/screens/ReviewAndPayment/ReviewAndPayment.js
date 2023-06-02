@@ -435,7 +435,7 @@ export function ReviewAndPayment(props) {
 
         <Spacer space={SH(20)} />
 
-        {/* {countryname == undefined ? (
+        {!user?.savedAddress ? (
           <View style={styles.bottomButtonView}>
             <TouchableOpacity
               disabled={true}
@@ -459,31 +459,31 @@ export function ReviewAndPayment(props) {
               </View>
             </TouchableOpacity>
           </View>
-        ) : ( */}
-        <View style={styles.bottomButtonView}>
-          <TouchableOpacity
-            style={styles.missingAddressButton}
-            onPress={placeOrder}
-          >
-            <View style={styles.missingAddressButtonView}>
-              <Text style={styles.placeOrderText}>
-                Place order
-                <Text style={{ fontFamily: Fonts.Regular, fontSize: SF(12) }}>
-                  {" "}
-                  (Payment)
+        ) : (
+          <View style={styles.bottomButtonView}>
+            <TouchableOpacity
+              style={styles.missingAddressButton}
+              onPress={placeOrder}
+            >
+              <View style={styles.missingAddressButtonView}>
+                <Text style={styles.placeOrderText}>
+                  Place order
+                  <Text style={{ fontFamily: Fonts.Regular, fontSize: SF(12) }}>
+                    {" "}
+                    (Payment)
+                  </Text>
                 </Text>
-              </Text>
-              <View style={styles.box}>
-                <Image
-                  resizeMode="stretch"
-                  source={forwardArrowWhite}
-                  style={{ height: 15, width: SW(25) }}
-                />
+                <View style={styles.box}>
+                  <Image
+                    resizeMode="stretch"
+                    source={forwardArrowWhite}
+                    style={{ height: 15, width: SW(25) }}
+                  />
+                </View>
               </View>
-            </View>
-          </TouchableOpacity>
-        </View>
-        {/* )} */}
+            </TouchableOpacity>
+          </View>
+        )}
 
         <RBSheet
           ref={refRBSheet}
