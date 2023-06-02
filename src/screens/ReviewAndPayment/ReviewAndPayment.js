@@ -34,6 +34,9 @@ import { strings } from "@/localization";
 import { NAVIGATION } from "@/constants";
 import { ms, vs } from "react-native-size-matters";
 import { SwiperButton } from "@/components/SwiperButton";
+import { useDispatch } from "react-redux";
+import { createOrder } from "@/actions/OrderAction";
+import { orderSelector } from "@/selectors/OrderSelector";
 import { useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
@@ -62,7 +65,11 @@ const data = [
   },
 ];
 
-export function ReviewAndPayment({ navigation }) {
+export function ReviewAndPayment(props) {
+  const getCartId = useSelector(orderSelector);
+
+  console.log("============item", JSON.stringify(getCartId));
+
   // const renderItem = ({ item }) => (
   //   <View style={styles.rowMainCard}>
   //     <View style={styles.renderinput}>
@@ -97,6 +104,14 @@ export function ReviewAndPayment({ navigation }) {
 
   const renderItem = ({ item }) => <SwiperButton item={item} />;
   const refRBSheet = useRef();
+  const dispatch = useDispatch();
+
+  const placeOrder = () => {
+    const data = {
+      Cart_id: getCartId?.getCart?.id,
+    };
+    dispatch(createOrder(data));
+  };
   const { width, height } = Dimensions.get("window");
   const route = useRoute();
   const user = useSelector(getUser);
@@ -420,7 +435,7 @@ export function ReviewAndPayment({ navigation }) {
 
         <Spacer space={SH(20)} />
 
-        {countryname == undefined ? (
+        {/* {countryname == undefined ? (
           <View style={styles.bottomButtonView}>
             <TouchableOpacity
               disabled={true}
@@ -444,28 +459,31 @@ export function ReviewAndPayment({ navigation }) {
               </View>
             </TouchableOpacity>
           </View>
-        ) : (
-          <View style={styles.bottomButtonView}>
-            <TouchableOpacity style={styles.missingAddressButton}>
-              <View style={styles.missingAddressButtonView}>
-                <Text style={styles.placeOrderText}>
-                  Place order
-                  <Text style={{ fontFamily: Fonts.Regular, fontSize: SF(12) }}>
-                    {" "}
-                    (Payment)
-                  </Text>
+        ) : ( */}
+        <View style={styles.bottomButtonView}>
+          <TouchableOpacity
+            style={styles.missingAddressButton}
+            onPress={placeOrder}
+          >
+            <View style={styles.missingAddressButtonView}>
+              <Text style={styles.placeOrderText}>
+                Place order
+                <Text style={{ fontFamily: Fonts.Regular, fontSize: SF(12) }}>
+                  {" "}
+                  (Payment)
                 </Text>
-                <View style={styles.box}>
-                  <Image
-                    resizeMode="stretch"
-                    source={forwardArrowWhite}
-                    style={{ height: 15, width: SW(25) }}
-                  />
-                </View>
+              </Text>
+              <View style={styles.box}>
+                <Image
+                  resizeMode="stretch"
+                  source={forwardArrowWhite}
+                  style={{ height: 15, width: SW(25) }}
+                />
               </View>
-            </TouchableOpacity>
-          </View>
-        )}
+            </View>
+          </TouchableOpacity>
+        </View>
+        {/* )} */}
 
         <RBSheet
           ref={refRBSheet}
