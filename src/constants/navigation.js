@@ -96,4 +96,5 @@ export const NAVIGATION = {
   businessKyc: "BusinessKyc",
   recomendedWholesalers: "RecomendedWholesalers",
   productsBySeller: "ProductsBySeller",
+  selectAddress: "SelectAddress",
 };

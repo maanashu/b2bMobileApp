@@ -86,6 +86,7 @@ import {
   Register,
   ReviewAndPayment,
   SearchPlaces,
+  SelectAddress,
   SelectCity,
   SelectCountry,
   SelectedPreferance,
@@ -761,6 +762,11 @@ export function AppBottom() {
       <Stack.Screen
         component={NoWalletScreen}
         name={NAVIGATION.noWalletScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={SelectAddress}
+        name={NAVIGATION.selectAddress}
         options={{ headerShown: false }}
       />
 

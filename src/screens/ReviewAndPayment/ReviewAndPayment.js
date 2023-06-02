@@ -26,11 +26,18 @@ import {
   Fonts,
   forwardArrowWhite,
   referralCorner,
+  location,
+  locationNear,
+  pencil,
 } from "@/assets";
 import { strings } from "@/localization";
 import { NAVIGATION } from "@/constants";
 import { ms, vs } from "react-native-size-matters";
 import { SwiperButton } from "@/components/SwiperButton";
+import { useSelector } from "react-redux";
+import { getUser } from "@/selectors/UserSelectors";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import { Dimensions } from "react-native";
 
 const data = [
   {
@@ -90,11 +97,16 @@ export function ReviewAndPayment({ navigation }) {
 
   const renderItem = ({ item }) => <SwiperButton item={item} />;
   const refRBSheet = useRef();
-
+  const { width, height } = Dimensions.get("window");
   const route = useRoute();
-
+  const user = useSelector(getUser);
+  const mapRef = useRef();
+  const ASPECT_RATIO = width / height;
+  const LATITUDE_DELTA = 0.005;
+  const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
   const { countryname } = route.params || {};
   // const [address, setAddress] = useState(countryname);
+  console.log("addresses", user?.savedAddress);
   const Details = [
     {
       id: "1",
@@ -196,9 +208,9 @@ export function ReviewAndPayment({ navigation }) {
         </View>
         <Spacer space={SH(15)} />
 
-        {countryname == undefined ? (
+        {!user?.savedAddress ? (
           <TouchableOpacity
-            onPress={() => navigate(NAVIGATION.addressDetails)}
+            onPress={() => navigate(NAVIGATION.selectAddress)}
             style={styles.addressView}
           >
             <View>
@@ -217,7 +229,84 @@ export function ReviewAndPayment({ navigation }) {
           </TouchableOpacity>
         ) : (
           <View style={styles.addressView}>
-            <Text>{countryname}</Text>
+            <View style={styles.row}>
+              <View style={styles.rowView}>
+                <Image
+                  source={location}
+                  resizeMode="contain"
+                  style={styles.locationIcon}
+                />
+                <Spacer horizontal space={SW(5)} />
+                <Text style={styles.shippingAddressTitle}>
+                  {"Shipping Address"}
+                </Text>
+              </View>
+              <TouchableOpacity
+                onPress={() => navigate(NAVIGATION.selectAddress)}
+              >
+                <Image
+                  source={pencil}
+                  resizeMode="contain"
+                  style={styles.locationIcon}
+                />
+              </TouchableOpacity>
+            </View>
+
+            <Spacer space={SH(10)} />
+
+            <View pointerEvents="none" style={styles.rowView}>
+              <MapView
+                ref={mapRef}
+                provider={PROVIDER_GOOGLE}
+                showsCompass
+                showsMyLocationButton
+                // initialRegion={{
+                //   latitude: latitude,
+                //   longitude: longitude,
+                //   latitudeDelta: 0.00722,
+                //   longitudeDelta: 0.00721,
+                // }}
+                region={{
+                  latitude: user?.savedAddress?.latitude,
+                  longitude: user?.savedAddress?.longitude,
+                  latitudeDelta: LATITUDE_DELTA,
+                  longitudeDelta: LONGITUDE_DELTA,
+                }}
+                style={styles.map}
+              >
+                <Marker
+                  coordinate={{
+                    latitude: user?.savedAddress?.latitude,
+                    longitude: user?.savedAddress?.longitude,
+                  }}
+                />
+              </MapView>
+
+              <View style={{ marginLeft: SW(10) }}>
+                <Text style={styles.shippingAddressTitle}>
+                  {user?.savedAddress?.country}
+                </Text>
+
+                <Spacer space={SH(8)} />
+
+                <Text style={styles.addressText}>
+                  {user?.savedAddress?.apartment || "Apartment"}
+                  <Text>
+                    {` ${user?.savedAddress?.address_line_1 || "West Street"} `}
+                  </Text>
+                </Text>
+
+                <Spacer space={SH(3)} />
+
+                <Text style={styles.addressText}>
+                  {`${user?.savedAddress?.city || "City"}, `}
+                  <Text>
+                    {user?.savedAddress?.state}
+                    <Text>{" " + user?.savedAddress?.postal_code}</Text>
+                  </Text>
+                </Text>
+              </View>
+            </View>
           </View>
         )}
 

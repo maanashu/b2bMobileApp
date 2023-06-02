@@ -97,6 +97,7 @@ export const en = {
     addNewAddress: "Add new address",
     skip: "Skip",
     submit: "Submit",
+    selectAddress: "Select Address",
   },
 
   verify: {

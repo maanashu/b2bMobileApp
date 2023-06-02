@@ -10,7 +10,7 @@ import {
 import React, { useRef } from "react";
 import { styles } from "./Checkout.styles";
 import { ScreenWrapper, Spacer } from "@/components";
-import { SH, SW } from "@/theme/ScalerDimensions";
+import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { useRoute } from "@react-navigation/native";
 import {
@@ -18,6 +18,7 @@ import {
   cross,
   forwardArrowWhite,
   rightArrowThin,
+  Fonts,
 } from "@/assets";
 import { strings } from "@/localization";
 import { HeaderCoin } from "../Profile/Wallet/Components/HeaderCoin";
@@ -48,7 +49,9 @@ export function Checkout() {
     cartList?.getCart ?? []
   );
   const totalStore = [];
-  console.log("array=", JSON.stringify(cartList?.getCart?.amout?.total_amount));
+  console.log(
+    "amount" + JSON.stringify(cartList?.getCart?.amout?.total_amount)
+  );
 
   useEffect(() => {
     dispatch(getCart());
@@ -83,6 +86,9 @@ export function Checkout() {
 
   const isLoading = useSelector((state) =>
     successSelector([TYPES.REMOVE_PRODUCT_FROM_CART], state)
+  );
+  const isAddToCartLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_CART], state)
   );
   const updateQuantity = (cartId, productId, operation) => {
     const updatedArr = [...arr];
@@ -139,17 +145,28 @@ export function Checkout() {
                 </View>
 
                 <View style={styles.boxStyling}>
-                  <TouchableOpacity>
+                  <TouchableOpacity style={{ justifyContent: "center" }}>
                     <Text
+                      style={{ fontFamily: Fonts.Bold, fontSize: SF(20) }}
                       onPress={() => updateQuantity(item?.id, data?.id, "-")}
                     >
                       -
                     </Text>
                   </TouchableOpacity>
+                  {isAddToCartLoading ? (
+                    <ActivityIndicator size="small" color={COLORS.primary} />
+                  ) : (
+                    <Text style={{ fontFamily: Fonts.Bold, fontSize: SF(15) }}>
+                      {data?.qty}
+                    </Text>
+                  )}
 
-                  <Text>{data?.qty}</Text>
+                  {/* <Text style={{ fontFamily: Fonts.Bold, fontSize: SF(15) }}>
+                    {data?.qty}
+                  </Text> */}
                   <TouchableOpacity>
                     <Text
+                      style={{ fontFamily: Fonts.Bold, fontSize: SF(20) }}
                       onPress={() => updateQuantity(item?.id, data?.id, "+")}
                     >
                       +

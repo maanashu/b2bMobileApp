@@ -55,7 +55,7 @@ export class OrderController {
             type: "error_toast",
             visibilityTime: 1500,
           });
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }

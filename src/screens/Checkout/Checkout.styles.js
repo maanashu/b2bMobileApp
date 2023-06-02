@@ -344,8 +344,8 @@ export const styles = StyleSheet.create({
   },
   boxStyling: {
     borderWidth: 1,
-    height: SH(23),
-    width: SW(70),
+    height: SH(30),
+    width: SW(85),
     borderRadius: SW(5),
     flexDirection: "row",
     alignItems: "center",

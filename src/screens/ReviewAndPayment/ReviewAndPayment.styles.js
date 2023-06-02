@@ -2,7 +2,7 @@ import { Fonts } from "@/assets";
 import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import {
   moderateScale,
   ms,
@@ -10,6 +10,9 @@ import {
   verticalScale,
   vs,
 } from "react-native-size-matters";
+import { Colors } from "react-native/Libraries/NewAppScreen";
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
 
 export const styles = StyleSheet.create({
   container: {
@@ -147,13 +150,13 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   addressView: {
-    backgroundColor: COLORS.inputBorder,
-    height: SH(60),
+    backgroundColor: COLORS.white,
     borderRadius: 10,
-    flexDirection: "row",
-    alignItems: "center",
     justifyContent: "center",
     marginHorizontal: 1,
+    ...ShadowStyles.shadow,
+    paddingVertical: SH(10),
+    paddingHorizontal: SW(10),
   },
   addIcon: {
     height: SH(25),
@@ -335,6 +338,10 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  rowView: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
 
   img: {
     height: SH(24),
@@ -461,5 +468,26 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.SemiBold,
     fontSize: ms(14),
     color: COLORS.white,
+  },
+  locationIcon: {
+    tintColor: COLORS.primary,
+    height: SH(30),
+    width: SW(20),
+  },
+  map: {
+    height: SH(75),
+    width: SW(120),
+    alignSelf: "center",
+    justifyContent: "center",
+  },
+  shippingAddressTitle: {
+    fontSize: SF(15),
+    color: COLORS.darkGrey,
+    fontFamily: Fonts.SemiBold,
+  },
+  addressText: {
+    fontSize: SF(13),
+    fontFamily: Fonts.Regular,
+    color: COLORS.darkGrey2,
   },
 });

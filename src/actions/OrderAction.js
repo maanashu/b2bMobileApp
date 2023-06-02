@@ -68,17 +68,6 @@ const removeOneProductfromCartError = () => ({
   payload: null,
 });
 
-export const createCartAction = (data, ArrayToRoute) => async (dispatch) => {
-  console.log("checkdata", data);
-  dispatch(createCartRequest());
-  try {
-    const res = await OrderController.createCartController(data, ArrayToRoute);
-    dispatch(createCartSuccess(res));
-    dispatch(getCart());
-  } catch (error) {
-    dispatch(createCartError(error.message));
-  }
-};
 export const getCart = () => async (dispatch) => {
   dispatch(getCartRequest());
   try {
@@ -90,6 +79,16 @@ export const getCart = () => async (dispatch) => {
     } else {
       dispatch(getCartError(error.message));
     }
+  }
+};
+export const createCartAction = (data, ArrayToRoute) => async (dispatch) => {
+  dispatch(createCartRequest());
+  try {
+    const res = await OrderController.createCartController(data, ArrayToRoute);
+    dispatch(createCartSuccess(res));
+    dispatch(getCart());
+  } catch (error) {
+    dispatch(createCartError(error.message));
   }
 };
 export const getShippingServices = () => async (dispatch) => {
