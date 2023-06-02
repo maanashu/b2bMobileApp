@@ -125,9 +125,18 @@ export class OrderController {
   static async createOrderController(data) {
     return new Promise(async (resolve, reject) => {
       const endpoint = ORDER_URL + ApiOrderInventory.createOrder;
-      console.log("===========================data", data);
       const body = {
         cart_id: data.Cart_id,
+        address_id: data.Address_id,
+        address: data.Address,
+        city: data.City,
+        state: data.State,
+        zip: data.Zip_Code,
+        country: data.Country,
+        delivery_option: data.delivery_option,
+        shipping_service_id: data.shipping_service_id,
+        mode_of_payment: data.mode_of_payment,
+        coordinates: data.Coordinates,
       };
 
       HttpClient.post(endpoint, body)
