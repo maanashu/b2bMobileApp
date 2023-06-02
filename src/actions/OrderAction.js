@@ -133,8 +133,6 @@ export const removeOneProductfromCart =
   };
 
 export const createOrder = (data) => async (dispatch) => {
-  console.log("=========================res", data);
-
   dispatch(createOrderRequest());
   try {
     const res = await OrderController.createOrderController(data);

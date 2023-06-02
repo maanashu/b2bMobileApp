@@ -105,16 +105,32 @@ export function ReviewAndPayment(props) {
   const renderItem = ({ item }) => <SwiperButton item={item} />;
   const refRBSheet = useRef();
   const dispatch = useDispatch();
+  const user = useSelector(getUser);
 
   const placeOrder = () => {
     const data = {
       Cart_id: getCartId?.getCart?.id,
+      Address_id: 1,
+      Address_type:
+        user?.user?.payload?.user_profiles?.current_address?.address_type,
+      Address:
+        user?.user?.payload?.user_profiles?.current_address?.street_address,
+      City: user?.user?.payload?.user_profiles?.current_address?.city,
+      State: user?.user?.payload?.user_profiles?.current_address?.state,
+      Zip_Code: user?.user?.payload?.user_profiles?.current_address?.zipcode,
+      Country: user?.user?.payload?.user_profiles?.current_address?.country,
+      Coordinates: [
+        user?.user?.payload?.user_profiles?.current_address?.latitude,
+        user?.user?.payload?.user_profiles?.current_address?.longitude,
+      ],
+      delivery_option: "4",
+      shipping_service_id: route?.params?.deliveryId,
+      mode_of_payment: "jbr",
     };
     dispatch(createOrder(data));
   };
   const { width, height } = Dimensions.get("window");
   const route = useRoute();
-  const user = useSelector(getUser);
   const mapRef = useRef();
   const ASPECT_RATIO = width / height;
   const LATITUDE_DELTA = 0.005;

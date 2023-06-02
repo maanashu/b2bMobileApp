@@ -60,7 +60,7 @@ export function StartOrder(params) {
   const [quantity, setQuantity] = useState(arr);
   const [string, setString] = useState();
   useEffect(() => {}, [isFocused]);
-  console.log("check kro jra", JSON.stringify(quantity));
+  // console.log("check kro jra", JSON.stringify(quantity));
 
   const SizeData = ["USA", "UK"];
   const withoutVariantObject = {
