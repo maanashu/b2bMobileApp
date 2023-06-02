@@ -5,6 +5,7 @@ const INITIALSTATE = {
   getCart: {},
   shippingServices: [],
   removeProductFromCart: {},
+  createOrder: {}
 };
 
 export const orderReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -34,6 +35,11 @@ export const orderReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         getCart: {},
       };
+      case TYPES.CREATE_ORDER_SUCCESS:
+        return {
+          ...state,
+          createOrder: payload.createOrder,
+        };
     default:
       return state;
   }

@@ -121,4 +121,33 @@ export class OrderController {
         });
     });
   }
+
+  static async createOrderController(data) {
+    return new Promise(async (resolve, reject) => {
+      const endpoint = ORDER_URL + ApiOrderInventory.createOrder;
+      console.log("===========================data", data);
+      const body = {
+        cart_id: data.Cart_id,
+      };
+
+      HttpClient.post(endpoint, body)
+        .then((response) => {
+          resolve(response);
+          console.log("cart controller success====", response);
+          // navigate(NAVIGATION.checkout, { data: ArrayToRoute });
+        })
+        .catch((error) => {
+          console.log("cart controller error====", error);
+          console.log("body====", body);
+
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
+          reject(new Error((strings.verify.error = error.msg)));
+        });
+    });
+  }
 }
