@@ -126,7 +126,7 @@ export function Profile() {
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const user = useSelector(getUser);
-  const walletData = useSelector(getWallet);
+  const wallet = useSelector(getWallet);
   const token = user?.user?.payload?.token;
   const logoutUser = () => {
     dispatch(logout());
@@ -211,8 +211,15 @@ export function Profile() {
                 style={styles.searchIcon}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.headerIconView}>
-              <Text style={styles.filterText}>0</Text>
+            <TouchableOpacity
+              style={styles.headerIconView}
+              onPress={() => navigate(NAVIGATION.jbrWallet)}
+            >
+              <Text style={styles.filterText}>
+                {Math.floor(
+                  wallet?.getWalletBalance?.sila_balance / 100 || 0
+                ).toFixed()}
+              </Text>
               <Image
                 resizeMode="contain"
                 source={coinStack}

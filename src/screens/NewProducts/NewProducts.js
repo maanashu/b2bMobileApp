@@ -72,7 +72,17 @@ export function NewProducts() {
   // console.log("item merged-->" + JSON.stringify(mergedDataa));
 
   // console.log("myLetVariable: ", myLetVariable);
-
+  const getAllProducts = () => {
+    const probject = {
+      app_name: "b2b",
+      delivery_options: "4",
+      page: 1,
+      limit: 30,
+      need_trending: "true",
+      service_type: "product",
+    };
+    dispatch(getProduct(probject));
+  };
   useEffect(() => {
     const Object = {
       page: 1,
@@ -82,16 +92,6 @@ export function NewProducts() {
     getAllProducts();
     setSelectedId(splicedArray?.[0]?.id);
   }, []);
-
-  const getAllProducts = () => {
-    const probject = {
-      app_name: "b2b",
-      delivery_options: "4",
-      page: 1,
-      limit: 30,
-    };
-    dispatch(getProduct(probject));
-  };
 
   const isLoadingProducts = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT], state)
@@ -105,6 +105,7 @@ export function NewProducts() {
       page: 1,
       limit: 30,
       category_ids: item?.categoryData.id,
+      need_trending: true,
     };
     dispatch(getProduct(probject));
   };
@@ -284,7 +285,6 @@ export function NewProducts() {
               All categories
             </Text>
           </TouchableOpacity> */}
-
           <FlatList
             showsHorizontalScrollIndicator={false}
             horizontal
@@ -306,6 +306,7 @@ export function NewProducts() {
           keyExtractor={(item) => item.id}
           ListEmptyComponent={renderNoData}
           numColumns={2}
+          // onEndReached={() => alert("ok")}
         />
         {isLoadingProducts ? <Loader message="Loading data ..." /> : null}
       </View>

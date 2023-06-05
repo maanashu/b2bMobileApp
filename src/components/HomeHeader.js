@@ -47,7 +47,10 @@ export function HomeHeader({ onPress, userLocation }) {
           </TouchableOpacity>
         )}
 
-        <View style={styles.coinView}>
+        <TouchableOpacity
+          style={styles.coinView}
+          onPress={() => navigate(NAVIGATION.jbrWallet)}
+        >
           <Text style={styles.balanceText}>
             {Math.floor(
               wallet?.getWalletBalance?.sila_balance / 100 || 0
@@ -58,7 +61,7 @@ export function HomeHeader({ onPress, userLocation }) {
             style={styles.coinIcon}
             resizeMode="contain"
           />
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );

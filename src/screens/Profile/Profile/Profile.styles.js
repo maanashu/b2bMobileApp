@@ -1,5 +1,5 @@
 import { Fonts } from "@/assets";
-import { COLORS, SH, ShadowStyles, SW } from "@/theme";
+import { COLORS, SF, SH, ShadowStyles, SW } from "@/theme";
 import { StyleSheet } from "react-native";
 import { ms, s, verticalScale, vs } from "react-native-size-matters";
 
@@ -45,6 +45,7 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.SemiBold,
     color: COLORS.white,
     marginRight: SW(1),
+    fontSize: SF(14),
   },
   headerIconView: {
     height: SH(29),
