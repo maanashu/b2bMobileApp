@@ -1,12 +1,6 @@
 import { NAVIGATION } from "@/constants";
 import { navigate } from "@/navigation/NavigationRef";
-import { getUser } from "@/selectors/UserSelectors";
-import {
-  ApiOrderInventory,
-  ORDER_URL,
-  PRODUCT_URL,
-} from "@/Utils/APIinventory";
-import axios from "axios";
+import { ApiOrderInventory, ORDER_URL } from "@/Utils/APIinventory";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { HttpClient } from "./HttpClient";
 import { strings } from "@/localization";
@@ -41,14 +35,9 @@ export class OrderController {
       HttpClient.post(endpoint, body)
         .then((response) => {
           resolve(response);
-          console.log("cart controller success====", response);
           navigate(NAVIGATION.checkout, { data: ArrayToRoute });
-          console.log("body====", body);
         })
         .catch((error) => {
-          console.log("cart controller error====", error);
-          console.log("body====", body);
-
           Toast.show({
             text2: error.msg,
             position: "bottom",
@@ -68,7 +57,6 @@ export class OrderController {
           resolve(response);
         })
         .catch((error) => {
-          console.log("get cart controller error", error);
           reject(error);
         });
     });
@@ -81,7 +69,6 @@ export class OrderController {
           resolve(response);
         })
         .catch((error) => {
-          console.log("get cart controller error", error);
           reject(error);
           Toast.show({
             text2: error.msg,
@@ -122,6 +109,21 @@ export class OrderController {
     });
   }
 
+  static async emptyCart() {
+    return new Promise((resolve, reject) => {
+      const endpoint = ORDER_URL + ApiOrderInventory.emptyCart;
+      HttpClient.delete(endpoint)
+        .then((response) => {
+          resolve(response);
+          console.log("cart empty success");
+        })
+        .catch((error) => {
+          reject(error);
+          reject(new Error((strings.validation.error = error.msg)));
+        });
+    });
+  }
+
   static async createOrderController(data) {
     return new Promise(async (resolve, reject) => {
       const endpoint = ORDER_URL + ApiOrderInventory.createOrder;
@@ -142,13 +144,15 @@ export class OrderController {
       HttpClient.post(endpoint, body)
         .then((response) => {
           resolve(response);
-          console.log("cart controller success====", response);
+          Toast.show({
+            text2: response.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
           // navigate(NAVIGATION.checkout, { data: ArrayToRoute });
         })
         .catch((error) => {
-          console.log("cart controller error====", error);
-          console.log("body====", body);
-
           Toast.show({
             text2: error.msg,
             position: "bottom",

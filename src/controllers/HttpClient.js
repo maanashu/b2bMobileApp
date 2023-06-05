@@ -2,6 +2,8 @@ import axios from "axios";
 import { Config } from "react-native-config";
 import { strings } from "@/localization";
 import { store } from "@/store";
+import { Alert } from "react-native";
+import { logout } from "@/actions/UserActions";
 
 const client = axios.create({
   baseURL: Config.API_BASE_URL,
@@ -29,6 +31,16 @@ client.interceptors.response.use(
       : response.data,
   (error) => {
     if (error.response) {
+      if (error.response.data.msg === "invalid_token") {
+        // Show an alert in React Native
+        Alert.alert("Invalid Token", "Please login again.", [
+          {
+            text: "Ok",
+            onPress: () => store.dispatch(logout()),
+            style: "Ok",
+          },
+        ]);
+      }
       return Promise.reject(error.response.data);
     } else if (error.request) {
       return Promise.reject({ error: strings.common.connectionError });

@@ -226,8 +226,8 @@ export function PersonalInformation(params) {
       });
     } else {
       const data = {
-        first_name: firstname,
-        last_name: lastname,
+        first_name: firstname.trim(),
+        last_name: lastname.trim(),
         phone: phone,
         dob: getData?.registerData?.dob || dateformat,
         ssn: ssn,
@@ -242,7 +242,7 @@ export function PersonalInformation(params) {
         stateCode: stateCode,
         type: individual ? "individual" : "business",
         latitude: latitude,
-        longitude: longitude
+        longitude: longitude,
       };
       dispatch(createWallet(data));
       // refRBSheet.current.open();
@@ -602,8 +602,8 @@ export function PersonalInformation(params) {
                     setAppartment("");
                     getAddress(details.address_components);
                     setStreet(data.structured_formatting.main_text);
-                    setLatitude(details.geometry.location.lat)
-                    setLongitude(details.geometry.location.lng)
+                    setLatitude(details.geometry.location.lat);
+                    setLongitude(details.geometry.location.lng);
                   }}
                   styles={{
                     container: styles.placesContainerStyle,

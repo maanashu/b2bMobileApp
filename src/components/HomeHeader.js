@@ -6,10 +6,14 @@ import { useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
+import { orderSelector } from "@/selectors/OrderSelector";
+import { SF, SH, SW } from "@/theme";
+import { getWallet } from "@/selectors/WalletSelector";
 
 export function HomeHeader({ onPress, userLocation }) {
   const user = useSelector(getUser);
-
+  const cart = useSelector(orderSelector)?.getCart;
+  const wallet = useSelector(getWallet);
   return (
     <View style={styles.headerStyle}>
       <View style={styles.locationView}>
@@ -28,12 +32,27 @@ export function HomeHeader({ onPress, userLocation }) {
         </TouchableOpacity>
       </View>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <TouchableOpacity onPress={() => navigate(NAVIGATION.checkout)}>
-          <Image source={bagGrey} style={styles.bagIcon} resizeMode="contain" />
-        </TouchableOpacity>
+        {cart?.cart_products?.length > 0 && (
+          <TouchableOpacity onPress={() => navigate(NAVIGATION.checkout)}>
+            <Image
+              source={bagGrey}
+              style={styles.bagIcon}
+              resizeMode="contain"
+            />
+            <View style={styles.cartCountView}>
+              <Text style={{ color: "white", fontSize: SF(10) }}>
+                {cart?.cart_products?.length}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        )}
 
         <View style={styles.coinView}>
-          <Text style={styles.balanceText}>0</Text>
+          <Text style={styles.balanceText}>
+            {Math.floor(
+              wallet?.getWalletBalance?.sila_balance / 100 || 0
+            ).toFixed()}
+          </Text>
           <Image
             source={coinStack}
             style={styles.coinIcon}

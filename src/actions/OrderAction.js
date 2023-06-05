@@ -81,6 +81,19 @@ const createOrderError = (error) => ({
   payload: { error },
 });
 
+const emptyCartRequest = () => ({
+  type: TYPES.EMPTY_CART_REQUEST,
+  payload: null,
+});
+const emptyCartSuccess = (emptyCart) => ({
+  type: TYPES.EMPTY_CART_SUCCESS,
+  payload: { emptyCart },
+});
+const emptyCartError = (error) => ({
+  type: TYPES.EMPTY_CART_ERROR,
+  payload: { error },
+});
+
 export const getCart = () => async (dispatch) => {
   dispatch(getCartRequest());
   try {
@@ -131,13 +144,22 @@ export const removeOneProductfromCart =
       dispatch(removeOneProductfromCartError(error.message));
     }
   };
+export const emptyCart = () => async (dispatch) => {
+  dispatch(emptyCartRequest());
+  try {
+    const res = await OrderController.emptyCart();
+    dispatch(emptyCartSuccess(res));
+  } catch (error) {
+    dispatch(emptyCartError(error.message));
+  }
+};
 
 export const createOrder = (data) => async (dispatch) => {
   dispatch(createOrderRequest());
   try {
     const res = await OrderController.createOrderController(data);
-    console.log("=========================res", res);
     dispatch(createOrdertSuccess(res));
+    dispatch(emptyCart());
   } catch (error) {
     dispatch(createOrderError(error.message));
   }

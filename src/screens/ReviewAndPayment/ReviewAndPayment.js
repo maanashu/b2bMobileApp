@@ -41,6 +41,7 @@ import { useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { Dimensions } from "react-native";
+import { getWallet } from "@/selectors/WalletSelector";
 
 const data = [
   {
@@ -67,8 +68,6 @@ const data = [
 
 export function ReviewAndPayment(props) {
   const getCartId = useSelector(orderSelector);
-
-  console.log("============item", JSON.stringify(getCartId));
 
   // const renderItem = ({ item }) => (
   //   <View style={styles.rowMainCard}>
@@ -106,6 +105,7 @@ export function ReviewAndPayment(props) {
   const refRBSheet = useRef();
   const dispatch = useDispatch();
   const user = useSelector(getUser);
+  const wallet = useSelector(getWallet);
 
   const placeOrder = () => {
     const data = {
@@ -355,7 +355,7 @@ export function ReviewAndPayment(props) {
               </Text>
             </View>
 
-            <TouchableOpacity onPress={() => refRBSheet.current.open()}>
+            <TouchableOpacity onPress={() => navigate(NAVIGATION.jbrWallet)}>
               <Image
                 resizeMode="contain"
                 source={addSquare}
@@ -375,7 +375,12 @@ export function ReviewAndPayment(props) {
             </View>
 
             <Text style={styles.jbrText}>
-              JBR <Text>0.00</Text>
+              JBR{" "}
+              <Text>
+                {Math.floor(
+                  wallet?.getWalletBalance?.sila_balance / 100 || 0
+                ).toFixed(2)}
+              </Text>
             </Text>
           </View>
         </View>

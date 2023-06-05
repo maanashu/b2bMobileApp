@@ -42,10 +42,12 @@ import { getProductSelector } from "@/selectors/ProductSelectors";
 import { Loader } from "@/components/Loader";
 import HomeCategorySkeleton, {
   HomeNewProductsSkeleton,
+  RecomendedWholeSalersSkeleton,
 } from "@/components/SkeletonContent";
 import { getUser } from "@/selectors/UserSelectors";
 import { getSellers } from "@/actions/UserActions";
 import { useIsFocused } from "@react-navigation/native";
+import { emptyCart, getCart } from "@/actions/OrderAction";
 
 export function Products({ navigation }) {
   const listRef = useRef();
@@ -66,6 +68,7 @@ export function Products({ navigation }) {
 
   useEffect(() => {
     LogBox.ignoreAllLogs();
+    dispatch(getCart());
   }, [isFocused]);
 
   useEffect(() => {
@@ -94,6 +97,9 @@ export function Products({ navigation }) {
     isLoadingSelector([TYPES.GET_CATEGORY], state)
   );
   const isLoadingProducts = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_PRODUCT], state)
+  );
+  const isLoadingSellers = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT], state)
   );
   const LoadingData = () => {
@@ -161,7 +167,9 @@ export function Products({ navigation }) {
 
           <Spacer space={SH(10)} />
 
-          <Text style={styles.commonFlatlistText}>{item?.name}</Text>
+          <Text numberOfLines={2} style={styles.commonFlatlistText}>
+            {item?.name}
+          </Text>
         </View>
       )}
     </>
@@ -356,31 +364,35 @@ export function Products({ navigation }) {
         </View>
 
         <Spacer space={SH(15)} />
+        {isLoadingSellers ? (
+          <RecomendedWholeSalersSkeleton />
+        ) : (
+          <View style={styles.yewiView}>
+            <CompanyDetailView
+              title={
+                user?.getSellersList?.[0]?.user_profiles?.organization_name
+              }
+              profilePhoto={{
+                uri: user?.getSellersList?.[0]?.user_profiles?.profile_photo,
+              }}
+              locationText={`${
+                user?.getSellersList?.[0]?.user_locations?.[0]?.state
+              } ${", "}`}
+              country={user?.getSellersList?.[0]?.user_locations?.[0]?.country}
+              rating={user?.getSellersList?.[0]?.sellerRating?.rating}
+            />
 
-        <View style={styles.yewiView}>
-          <CompanyDetailView
-            title={user?.getSellersList?.[0]?.user_profiles?.organization_name}
-            profilePhoto={{
-              uri: user?.getSellersList?.[0]?.user_profiles?.profile_photo,
-            }}
-            locationText={`${
-              user?.getSellersList?.[0]?.user_locations?.[0]?.state
-            } ${", "}`}
-            country={user?.getSellersList?.[0]?.user_locations?.[0]?.country}
-            rating={user?.getSellersList?.[0]?.sellerRating?.rating}
-          />
+            <Spacer space={SH(10)} />
 
-          <Spacer space={SH(10)} />
-
-          <FlatList
-            data={user?.getSellersList?.[0]?.user_images}
-            renderItem={thirdItem}
-            keyExtractor={(item) => item.id}
-            ListEmptyComponent={renderNoData}
-            numColumns={4}
-          />
-        </View>
-
+            <FlatList
+              data={user?.getSellersList?.[0]?.user_images}
+              renderItem={thirdItem}
+              keyExtractor={(item) => item.id}
+              ListEmptyComponent={renderNoData}
+              numColumns={4}
+            />
+          </View>
+        )}
         <Spacer space={SH(30)} />
 
         <View style={styles.bottomListView}>

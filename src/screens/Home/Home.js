@@ -90,7 +90,7 @@ export function Home() {
         onPress={() =>
           !user?.user?.payload?.token
             ? loginFunction()
-            : navigate(NAVIGATION.addresses)
+            : navigate(NAVIGATION.selectAddress)
         }
       />
       <View style={{ flex: 1 }}>

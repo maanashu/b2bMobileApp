@@ -39,7 +39,8 @@ export const ApiOrderInventory = {
     `carts/${cartId}/${cartProductId}`,
   getCart: "carts/user",
   getShippingServices: "shipping_service",
-  createOrder: "orders/"
+  createOrder: "orders/",
+  emptyCart: "carts",
 };
 export const ApiSupportInventory = {
   subjectList: SUPPORT_URL + "subjects",

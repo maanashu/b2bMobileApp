@@ -66,6 +66,7 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.SemiBold,
     color: COLORS.white,
     marginRight: SW(1),
+    fontSize: SF(14),
   },
   rowView: {
     flexDirection: "row",
@@ -75,5 +76,15 @@ export const styles = StyleSheet.create({
     height: ms(15),
     width: ms(15),
     marginLeftL: ms(5),
+  },
+  cartCountView: {
+    backgroundColor: "red",
+    height: SW(15),
+    width: SW(15),
+    borderRadius: SW(15),
+    position: "absolute",
+    left: SW(14),
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

@@ -11,6 +11,7 @@ import {
   View,
 } from "react-native";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+const width = Dimensions.get("window").width;
 
 const HomeCategorySkeleton = ({}) => (
   <View
@@ -143,6 +144,42 @@ export const HomeNewProductsSkeleton = ({}) => {
         <SkeletonPlaceholder.Item
           width={100}
           height={100}
+          borderRadius={10}
+          marginHorizontal={SW(5)}
+        />
+      </View>
+    </SkeletonPlaceholder>
+  );
+  return (
+    <>
+      <View
+        style={{
+          paddingHorizontal: SW(20),
+          borderRadius: 20,
+          flex: 1,
+          alignItems: "center",
+        }}
+      >
+        <FlatList data={Data} renderItem={renderItem} numColumns={3} />
+      </View>
+    </>
+  );
+};
+export const RecomendedWholeSalersSkeleton = ({}) => {
+  const Data = [{ id: 1, title: "Apparel", image: headphones }];
+
+  const renderItem = ({ item }) => (
+    <SkeletonPlaceholder>
+      <View
+        style={{
+          alignItems: "center",
+          flex: 1,
+          marginTop: SH(20),
+        }}
+      >
+        <SkeletonPlaceholder.Item
+          width={width - SW(50)}
+          height={SH(160)}
           borderRadius={10}
           marginHorizontal={SW(5)}
         />
