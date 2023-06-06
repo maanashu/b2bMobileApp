@@ -108,6 +108,7 @@ export function ReviewAndPayment(props) {
     dispatch(createOrder(data))
       .then((res) => {
         console.log("newMethod", JSON.stringify(res));
+        navigate(NAVIGATION.home)
       })
       .catch((error) => {
         console.error("errorCame", error);
