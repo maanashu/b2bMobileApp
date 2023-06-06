@@ -1,5 +1,6 @@
 import { OrderController } from "@/controllers/OrderController";
 import { TYPES } from "@/Types/Types";
+import { getWalletBalance } from "./WalletActions";
 
 const createCartRequest = () => ({
   type: TYPES.CREATE_CART_REQUEST,
@@ -154,13 +155,29 @@ export const emptyCart = () => async (dispatch) => {
   }
 };
 
-export const createOrder = (data) => async (dispatch) => {
+// export const createOrder = (data) => async (dispatch) => {
+//   dispatch(createOrderRequest());
+//   try {
+//     const res = await OrderController.createOrderController(data);
+//     dispatch(createOrdertSuccess(res));
+//     dispatch(emptyCart());
+//     dispatch(getCart());
+//   } catch (error) {
+//     dispatch(createOrderError(error.message));
+//   }
+// };
+export const createOrder = (data) => (dispatch) => {
   dispatch(createOrderRequest());
-  try {
-    const res = await OrderController.createOrderController(data);
-    dispatch(createOrdertSuccess(res));
-    dispatch(emptyCart());
-  } catch (error) {
-    dispatch(createOrderError(error.message));
-  }
+  return OrderController.createOrderController(data)
+    .then((res) => {
+      dispatch(createOrdertSuccess(res));
+      dispatch(emptyCart());
+      dispatch(getCart());
+      dispatch(getWalletBalance());
+      return res;
+    })
+    .catch((error) => {
+      dispatch(createOrderError(error.message));
+      throw error;
+    });
 };

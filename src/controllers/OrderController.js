@@ -143,14 +143,13 @@ export class OrderController {
 
       HttpClient.post(endpoint, body)
         .then((response) => {
-          resolve(response);
           Toast.show({
             text2: response.msg,
             position: "bottom",
-            type: "error_toast",
+            type: "success_toast",
             visibilityTime: 1500,
           });
-          // navigate(NAVIGATION.checkout, { data: ArrayToRoute });
+          resolve(response);
         })
         .catch((error) => {
           Toast.show({

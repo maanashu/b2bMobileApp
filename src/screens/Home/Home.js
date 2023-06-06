@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { navigate } from "@/navigation/NavigationRef";
 import { previousScreen } from "@/actions/GlobalActions";
+import { getWalletBalance } from "@/actions/WalletActions";
 
 export function Home() {
   const layout = useWindowDimensions();
@@ -83,6 +84,10 @@ export function Home() {
     dispatch(previousScreen(NAVIGATION.home));
     navigate(NAVIGATION.splash);
   };
+  useEffect(() => {
+    dispatch(getWalletBalance());
+  }, []);
+
   return (
     <ScreenWrapper>
       <HomeHeader

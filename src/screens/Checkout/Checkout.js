@@ -49,9 +49,6 @@ export function Checkout() {
     cartList?.getCart ?? []
   );
   const totalStore = [];
-  console.log(
-    "amount" + JSON.stringify(cartList?.getCart?.amout?.total_amount)
-  );
 
   useEffect(() => {
     dispatch(getCart());

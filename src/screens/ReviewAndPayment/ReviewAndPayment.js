@@ -1,12 +1,13 @@
 import {
   FlatList,
   Image,
+  RefreshControl,
   ScrollView,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { styles } from "./ReviewAndPayment.styles";
 import { ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
@@ -42,6 +43,7 @@ import { getUser } from "@/selectors/UserSelectors";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { Dimensions } from "react-native";
 import { getWallet } from "@/selectors/WalletSelector";
+import { getWalletBalance } from "@/actions/WalletActions";
 
 const data = [
   {
@@ -69,38 +71,6 @@ const data = [
 export function ReviewAndPayment(props) {
   const getCartId = useSelector(orderSelector);
 
-  // const renderItem = ({ item }) => (
-  //   <View style={styles.rowMainCard}>
-  //     <View style={styles.renderinput}>
-  //       <Image source={whiteJobr} resizeMode="contain" style={styles.img} />
-  //       <Text
-  //         style={[
-  //           styles.getName,
-  //           { alignSelf: "center", paddingHorizontal: 10 },
-  //         ]}
-  //       >
-  //         {item.name}
-  //       </Text>
-  //     </View>
-
-  //     <TouchableOpacity
-  //       // onPress={() => navigate(NAVIGATION.paymentMethod, { data: "wallet" })}
-  //       onPress={() => {
-  //         refRBSheet.current.close();
-  //         navigate(NAVIGATION.paymentMethod);
-  //       }}
-  //       style={styles.row}
-  //     >
-  //       <Text style={styles.formText}>{item.sub}</Text>
-  //       <Image
-  //         source={rightArrowBlue}
-  //         resizeMode="contain"
-  //         style={styles.mask}
-  //       />
-  //     </TouchableOpacity>
-  //   </View>
-  // );
-
   const renderItem = ({ item }) => <SwiperButton item={item} />;
   const refRBSheet = useRef();
   const dispatch = useDispatch();
@@ -127,7 +97,14 @@ export function ReviewAndPayment(props) {
       shipping_service_id: route?.params?.deliveryId,
       mode_of_payment: "jbr",
     };
-    dispatch(createOrder(data));
+
+    dispatch(createOrder(data))
+      .then((res) => {
+        console.log("newMethod", JSON.stringify(res));
+      })
+      .catch((error) => {
+        console.error("errorCame", error);
+      });
   };
   const { width, height } = Dimensions.get("window");
   const route = useRoute();
@@ -136,48 +113,39 @@ export function ReviewAndPayment(props) {
   const LATITUDE_DELTA = 0.005;
   const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
   const { countryname } = route.params || {};
+  const [refreshing, setRefreshing] = useState(false);
+
   // const [address, setAddress] = useState(countryname);
-  console.log("addresses", user?.savedAddress);
-  const Details = [
-    {
-      id: "1",
-      quantity: "1",
-      itemName: "Marlboro Red Gold",
-      type: "packet",
-      price: "$6.56",
-    },
-    {
-      id: "2",
-      quantity: "1",
-      itemName: "Marlboro Red Gold",
-      type: "packet",
-      price: "$6.56",
-    },
-    {
-      id: "3",
-      quantity: "1",
-      itemName: "Marlboro Red Gold",
-      type: "packet",
-      price: "$6.56",
-    },
-  ];
+
   const render = (item) => {
     return (
       <View>
         <View style={styles.flatlistItems}>
-          <Text style={styles.quantityText}>
-            {item.quantity}
-            <Text style={styles.lightText}> x </Text>
-            <Text style={styles.quantityText}>{item.itemName}</Text>
-            <Text style={styles.lightText}> ({item.type})</Text>
-          </Text>
+          <View style={{ width: "75%" }}>
+            <Text numberOfLines={1} style={styles.quantityText}>
+              {item?.qty}
+              <Text style={styles.lightText}> x </Text>
+              <Text style={[styles.quantityText, {}]}>
+                {item.product_details?.name}
+              </Text>
+              <Text style={styles.lightText}> ({item.type})</Text>
+            </Text>
+          </View>
 
-          <Text style={styles.quantityText}>{item.price}</Text>
+          <Text style={styles.quantityText}>
+            $ {item.product_details?.supply?.supply_prices?.selling_price}
+          </Text>
         </View>
       </View>
     );
   };
-
+  const onRefresh = () => {
+    setRefreshing(true);
+    dispatch(getWalletBalance());
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1500);
+  };
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <View style={styles.header}>
@@ -208,6 +176,9 @@ export function ReviewAndPayment(props) {
       <Spacer space={SH(10)} />
 
       <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         style={styles.mainContainer}
         showsVerticalScrollIndicator={false}
       >
@@ -401,7 +372,7 @@ export function ReviewAndPayment(props) {
 
           <ScrollView style={{ paddingHorizontal: SW(20) }}>
             <FlatList
-              data={Details}
+              data={getCartId?.getCart?.cart_products}
               renderItem={({ item }) => render(item)}
               keyExtractor={(item) => item.id}
             />
@@ -414,35 +385,39 @@ export function ReviewAndPayment(props) {
 
             <View style={styles.pricesView}>
               <Text style={styles.pricesText}>Subtotal</Text>
-              <Text style={styles.pricesText}>$20.56</Text>
+              <Text style={styles.pricesText}>
+                $ {getCartId?.getCart?.amout?.total_amount?.toFixed(2)}
+              </Text>
             </View>
 
             <Spacer space={SH(10)} />
 
             <View style={styles.pricesView}>
               <Text style={styles.pricesText}>Discount</Text>
-              <Text style={styles.pricesText}>-$5.00</Text>
+              <Text style={styles.pricesText}>$0.00</Text>
             </View>
 
             <Spacer space={SH(10)} />
 
             <View style={styles.pricesView}>
               <Text style={styles.pricesText}>Taxes & Other fees</Text>
-              <Text style={styles.pricesText}>$1.00</Text>
+              <Text style={styles.pricesText}>$0.00</Text>
             </View>
 
             <Spacer space={SH(10)} />
 
             <View style={styles.pricesView}>
               <Text style={styles.deliveryPriceText}>Delivery fees</Text>
-              <Text style={styles.pricesText}>$1.00</Text>
+              <Text style={styles.pricesText}>$0.00</Text>
             </View>
 
             <Spacer space={SH(20)} />
 
             <View style={styles.pricesView}>
               <Text style={styles.totalPriceText}>Total</Text>
-              <Text style={styles.totalPriceText}>$19.65</Text>
+              <Text style={styles.totalPriceText}>
+                $ {getCartId?.getCart?.amout?.total_amount?.toFixed(2)}
+              </Text>
             </View>
           </ScrollView>
         </View>
@@ -483,7 +458,10 @@ export function ReviewAndPayment(props) {
         ) : (
           <View style={styles.bottomButtonView}>
             <TouchableOpacity
-              style={styles.missingAddressButton}
+              style={[
+                styles.missingAddressButton,
+                { backgroundColor: COLORS.primary },
+              ]}
               onPress={placeOrder}
             >
               <View style={styles.missingAddressButtonView}>
@@ -506,7 +484,7 @@ export function ReviewAndPayment(props) {
           </View>
         )}
 
-        <RBSheet
+        {/* <RBSheet
           ref={refRBSheet}
           animationType="fade"
           closeOnDragDown={false}
@@ -593,7 +571,7 @@ export function ReviewAndPayment(props) {
             </View>
             <Spacer space={SH(40)} />
           </ScrollView>
-        </RBSheet>
+        </RBSheet> */}
       </ScrollView>
     </ScreenWrapper>
   );
