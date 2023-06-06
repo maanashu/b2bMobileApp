@@ -44,6 +44,9 @@ import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { Dimensions } from "react-native";
 import { getWallet } from "@/selectors/WalletSelector";
 import { getWalletBalance } from "@/actions/WalletActions";
+import { TYPES } from "@/Types/Types";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { Loader } from "@/components/Loader";
 
 const data = [
   {
@@ -76,6 +79,10 @@ export function ReviewAndPayment(props) {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
   const wallet = useSelector(getWallet);
+
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.CREATE_ORDER], state)
+  );
 
   const placeOrder = () => {
     const data = {
@@ -573,6 +580,7 @@ export function ReviewAndPayment(props) {
           </ScrollView>
         </RBSheet> */}
       </ScrollView>
+      {isLoading && <Loader message="Placing Order.." />}
     </ScreenWrapper>
   );
 }
