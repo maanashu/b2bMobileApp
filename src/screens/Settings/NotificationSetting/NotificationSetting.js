@@ -7,8 +7,12 @@ import { backArrow, notiToggle, toggleOff } from "@/assets";
 import { strings } from "@/localization";
 import { NameHeader } from "@/components";
 import { Switch } from "@/components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateUserSettings } from "@/actions/UserActions";
+import { useMemo } from "react";
+import { getWallet } from "@/selectors/WalletSelector";
+import { getUser } from "@/selectors/UserSelectors";
+import { useCallback } from "react";
 
 export function NotificationSetting() {
   const [allowNoti, setallowNoti] = useState(true);
@@ -20,82 +24,106 @@ export function NotificationSetting() {
   const [rqf, setRqf] = useState(true);
 
   const dispatch = useDispatch();
+  const settings = useSelector(getUser)?.getUserSettings;
+  console.log("settings", settings);
 
-  const data = [
-    {
-      id: 1,
-      name: "Allow Notification",
-      status: allowNoti,
-      setter: setallowNoti,
-      value: "notification_status",
-    },
-    {
-      id: 2,
-      name: "Allow Notification popup",
-      status: allowPopup,
-      setter: setallowPopup,
-      value: "push_notification_status",
-    },
-    {
-      id: 3,
-      name: "Chat Messages",
-      status: messages,
-      setter: setMessages,
-      value: "chat_notification_status",
-    },
-    {
-      id: 4,
-      name: "Promotions",
-      status: promotions,
-      setter: setPromotions,
-      value: "promotion_notification_status",
-    },
-    {
-      id: 5,
-      name: "Orders",
-      status: orders,
-      setter: setOrders,
-      value: "order_notification_status",
-    },
-    {
-      id: 6,
-      name: "Feed",
-      status: feeds,
-      setter: setFeeds,
-      value: "feeds_notification_status",
-    },
-    {
-      id: 7,
-      name: "RQF",
-      status: rqf,
-      setter: setRqf,
-      value: "rqf_notification_status",
-    },
-  ];
+  // const data = [
+  //   {
+  //     id: 1,
+  //     name: "Allow Notification",
+  //     status: allowNoti,
+  //     setter: setallowNoti,
+  //     value: "notification_status",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Allow Notification popup",
+  //     status: allowPopup,
+  //     setter: setallowPopup,
+  //     value: "push_notification_status",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Chat Messages",
+  //     status: messages,
+  //     setter: setMessages,
+  //     value: "chat_notification_status",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Promotions",
+  //     status: promotions,
+  //     setter: setPromotions,
+  //     value: "promotion_notification_status",
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "Orders",
+  //     status: orders,
+  //     setter: setOrders,
+  //     value: "order_notification_status",
+  //   },
+  //   {
+  //     id: 6,
+  //     name: "Feed",
+  //     status: feeds,
+  //     setter: setFeeds,
+  //     value: "feeds_notification_status",
+  //   },
+  //   {
+  //     id: 7,
+  //     name: "RQF",
+  //     status: rqf,
+  //     setter: setRqf,
+  //     value: "rqf_notification_status",
+  //   },
+  // ];
 
-  const toggleSwitch = (index) => {
-    const item = data[index];
-    item.setter(!item.status);
-    const updatedItem = { ...item, status: !item.status };
-    updateSettings(updatedItem.value, updatedItem.status);
-  };
-  const updateSettings = (value, status) => {
-    const body = {
-      app_name: "b2b",
-      [value]: status,
+  const notificationData = useMemo(() => {
+    const fields = [];
+    const notificationKeys = {
+      notification_status: "Allow Notification",
+      push_notification_status: "Allow Notification popup",
+      chat_notification_status: "Chat Messages",
+      promotion_notification_status: "Promotions",
+      order_notification_status: "Orders",
+      feeds_notification_status: "Feed",
+      rqf_notification_status: "RQF",
     };
-    dispatch(updateUserSettings(body));
-  };
+
+    if (settings) {
+      for (const key in notificationKeys) {
+        const value = settings[key];
+        fields.push({
+          fieldName: notificationKeys[key],
+          fieldStatus: value,
+          fieldType: key,
+        });
+      }
+    }
+
+    return fields;
+  }, [settings]);
+
+  const onPressSettingsHandler = useCallback((item) => {
+    const updatedSettings = {
+      [item.fieldType]: !item.fieldStatus,
+    };
+    dispatch(updateUserSettings(updatedSettings));
+  },[])
+
+  
 
   const renderNotifications = ({ item, index }) => {
+    console.log(item);
     return (
       <>
         {index <= 1 ? (
           <View style={styles.topNotiView}>
             <Switch
-              title={item.name}
-              source={item.status ? notiToggle : toggleOff}
-              onPress={() => toggleSwitch(index)}
+              title={item.fieldName}
+              source={item.fieldStatus ? notiToggle : toggleOff}
+              onPress={() => onPressSettingsHandler(item,index)}
             />
 
             <Spacer space={SH(12)} />
@@ -108,10 +136,10 @@ export function NotificationSetting() {
             {index === 2 && <Spacer space={SH(30)} />}
             <View style={{ paddingHorizontal: SW(35) }}>
               <Switch
-                title={item.name}
-                source={item.status ? notiToggle : toggleOff}
-                onPress={() => toggleSwitch(index)}
-              />
+                title={item.fieldName}
+                source={item?.fieldStatus ? notiToggle : toggleOff}
+                onPress={() => onPressSettingsHandler(item,index)}
+                />
 
               <Spacer space={SH(12)} />
 
@@ -134,10 +162,10 @@ export function NotificationSetting() {
         <View>
           <Spacer space={SH(30)} />
           <FlatList
-            data={data}
+            data={notificationData}
             renderItem={renderNotifications}
-            keyExtractor={(item) => item.id}
-          />
+            extraData={notificationData}
+            />
         </View>
       </View>
     </ScreenWrapper>

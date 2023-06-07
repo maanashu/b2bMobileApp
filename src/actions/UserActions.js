@@ -344,7 +344,7 @@ const getSellersError = (error) => ({
 });
 
 const getManufacturersRequest = () => ({
-  type: TYPES.GET_MANUFACTURERS_REQUEST,
+  type: TYPES.GET_MANUFACTURERS_REQUsettingsSuccessEST,
   payload: null,
 });
 
@@ -385,6 +385,21 @@ const updateUserSettingsSucess = (updateUserSettings) => ({
 
 const updateUserSettingsError = (error) => ({
   type: TYPES.UPDATE_USER_SETTINGS_ERROR,
+  payload: { error },
+});
+
+const getUserSettingRequest = () => ({
+  type: TYPES.GET_USER_SETTINGS_REQUEST,
+  payload: null,
+});
+
+const getUserSettingSuccess = (getUserSettings) => ({
+  type: TYPES.GET_USER_SETTINGS_SUCCESS,
+  payload: { getUserSettings },
+});
+
+const getUserSettingError = (error) => ({
+  type: TYPES.GET_USER_SETTINGS_ERROR,
   payload: { error },
 });
 
@@ -579,11 +594,21 @@ export const getUserProfile = (data) => async (dispatch) => {
   }
 };
 
+export const getUserSettings = (data, callback) => async (dispatch) => {
+  dispatch(getUserSettingRequest());
+  try {
+    const res = await UserController.getUserSettings(data);
+    dispatch(getUserSettingSuccess(res?.payload));
+  } catch (error) {
+    dispatch(getUserSettingError(error.message));
+  }
+};
 export const updateUserSettings = (data) => async (dispatch) => {
+  console.log("Data", data);
   dispatch(updateUserSettingsRequest());
   try {
     const res = await UserController.patchSettings(data);
-    dispatch(updateUserSettingsSucess(res));
+    dispatch(getUserSettingSuccess(res?.payload));
   } catch (error) {
     dispatch(updateUserSettingsError(error.message));
   }

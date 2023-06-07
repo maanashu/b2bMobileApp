@@ -22,7 +22,7 @@ import {
 import { strings } from "@/localization";
 import { NAVIGATION } from "@/constants";
 import { useDispatch } from "react-redux";
-import { getSettings } from "@/actions/UserActions";
+import { getSettings, getUserSettings } from "@/actions/UserActions";
 
 export function Settings() {
   const dispatch = useDispatch();
@@ -106,6 +106,7 @@ export function Settings() {
     } else if (item.title === strings.profile.settings) {
       navigate(NAVIGATION.settings);
     } else if (item.title === strings.settings.notifications) {
+     dispatch(getUserSettings())
       navigate(NAVIGATION.notificationSetting);
     } else if (item.title === strings.settings.aboutUs) {
       navigate(NAVIGATION.aboutUs);

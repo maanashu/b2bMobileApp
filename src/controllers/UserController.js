@@ -387,16 +387,41 @@ export class UserController {
     });
   }
 
-  static async patchSettings(data) {
+  static async getUserSettings(data) {
     return new Promise((resolve, reject) => {
-      const endpoint = USER_URL + ApiUserInventory.updateUserSettings;
+      const endpoint = `${USER_URL + ApiUserInventory.getUserSettings}?app_name=b2b`;
 
-      HttpClient.patch(endpoint, data)
+      HttpClient.get(endpoint, data)
         .then((response) => {
           resolve(response);
           // navigate(NAVIGATION.settings);
         })
         .catch((error) => {
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 2000,
+          });
+          reject(new Error((strings.verify.error = error.msg)));
+        });
+    });
+  }
+  static async patchSettings(data) {
+    return new Promise((resolve, reject) => {
+      const endpoint = USER_URL + ApiUserInventory.updateUserSettings;
+      const body = {
+        app_name: 'b2b',
+        ...data,
+      };
+      HttpClient.patch(endpoint, body)
+        .then((response) => {
+          resolve(response);
+          // navigate(NAVIGATION.settings);
+        })
+        .catch((error) => {
+          console.log("error",JSON.stringify(error));
+          console.log("body",JSON.stringify(body));
           Toast.show({
             text2: error.msg,
             position: "bottom",
