@@ -95,6 +95,36 @@ const emptyCartError = (error) => ({
   payload: { error },
 });
 
+const getOrderListRequest = () => ({
+  type: TYPES.GET_ORDER_LIST_REQUEST,
+  payload: null,
+});
+
+const getOrderListSuccess = (getUserSettings) => ({
+  type: TYPES.GET_ORDER_LIST_SUCCESS,
+  payload: { getUserSettings },
+});
+
+const getOrderListError = (error) => ({
+  type: TYPES.GET_ORDER_LIST_ERROR,
+  payload: { error },
+});
+
+const getOrderDetailsRequest = () => ({
+  type: TYPES.GET_ORDER_DETAILS_REQUEST,
+  payload: null,
+});
+
+const getOrderDetailsSuccess = (getUserSettings) => ({
+  type: TYPES.GET_ORDER_DETAILS_SUCCESS,
+  payload: { getUserSettings },
+});
+
+const getOrderDetailsError = (error) => ({
+  type: TYPES.GET_ORDER_DETAILS_ERROR,
+  payload: { error },
+});
+
 export const getCart = () => async (dispatch) => {
   dispatch(getCartRequest());
   try {
@@ -181,3 +211,25 @@ export const createOrder = (data) => (dispatch) => {
       throw error;
     });
 };
+
+export const getOrderList = () => async (dispatch) => {
+  dispatch(getOrderListRequest());
+  try {
+    const res = await OrderController.getOrderList();
+    dispatch(getOrderListSuccess(res?.payload));
+  } catch (error) {
+    dispatch(getOrderListError(error.message));
+  }
+};
+
+export const getOrderDetails = (id) => async (dispatch) => {
+  console.log("id============", id);
+  dispatch(getOrderDetailsRequest());
+  try {
+    const res = await OrderController.getOrderDetails(id);
+    dispatch(getOrderDetailsSuccess(res?.payload));
+  } catch (error) {
+    dispatch(getOrderDetailsError(error.message));
+  }
+};
+

@@ -26,6 +26,7 @@ export const ApiUserInventory = {
   sendEmailOtp: "users/send-otp",
   getSellers: "users/sellers/b2b",
   getUserProfile: (userUuid) => `users/uuid/${userUuid}`,
+  getUserSettings: "user_settings",
   updateUserSettings: "user_settings",
 };
 
@@ -41,6 +42,8 @@ export const ApiOrderInventory = {
   getShippingServices: "shipping_service",
   createOrder: "orders/",
   emptyCart: "carts",
+  getOrderList: "orders",
+  getOrderDetails: (id) => `orders/${id}`,
 };
 export const ApiSupportInventory = {
   subjectList: SUPPORT_URL + "subjects",

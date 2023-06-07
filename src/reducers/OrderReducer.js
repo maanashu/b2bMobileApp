@@ -7,6 +7,8 @@ const INITIALSTATE = {
   removeProductFromCart: {},
   createOrder: {},
   emptyCart: {},
+  getOredrList: {},
+  getOrderDetails: {},
 };
 
 export const orderReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -45,6 +47,16 @@ export const orderReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         emptyCart: payload.emptyCart,
+      };
+    case TYPES.GET_ORDER_LIST_SUCCESS:
+      return {
+        ...state,
+        getOredrList: payload.getOredrList,
+      };
+    case TYPES.GET_ORDER_DETAILS_SUCCESS:
+      return {
+        ...state,
+        getOrderDetails: payload.getOrderDetails,
       };
     default:
       return state;
