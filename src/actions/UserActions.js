@@ -124,6 +124,10 @@ export const TYPES = {
   UPDATE_USER_SETTINGS_REQUEST: "UPDATE_USER_SETTINGS_REQUEST",
   UPDATE_USER_SETTINGS_SUCCESS: "UPDATE_USER_SETTINGS_SUCCESS",
   UPDATE_USER_SETTINGS_ERROR: "UPDATE_USER_SETTINGS_ERROR",
+
+  SEND_CHAT_REQUEST: "SEND_CHAT_REQUEST",
+  SEND_CHAT_SUCCESS: "SEND_CHAT_SUCCESS",
+  SEND_CHAT_ERROR: "SEND_CHAT_ERROR",
 };
 
 const loginRequest = () => ({
@@ -403,6 +407,21 @@ const getUserSettingError = (error) => ({
   payload: { error },
 });
 
+const sendChatRequest = () => ({
+  type: TYPES.SEND_CHAT_REQUEST,
+  payload: null,
+});
+
+const sendChatSuccess = (sendChat) => ({
+  type: TYPES.SEND_CHAT_SUCCESS,
+  payload: { sendChat },
+});
+
+const sendChatError = (error) => ({
+  type: TYPES.SEND_CHAT_ERROR,
+  payload: { error },
+});
+
 export const login =
   (value, countryCode, phoneNumber, screenName) => async (dispatch) => {
     dispatch(loginRequest());
@@ -611,5 +630,18 @@ export const updateUserSettings = (data) => async (dispatch) => {
     dispatch(getUserSettingSuccess(res?.payload));
   } catch (error) {
     dispatch(updateUserSettingsError(error.message));
+  }
+};
+
+export const sendChat = (data) => async (dispatch) => {
+  console.log("Data32", data);
+  dispatch(sendChatRequest());
+  try {
+    const res = await UserController.sendChat(data);
+    console.log("dataaaa", res)
+    dispatch(sendChatSuccess(res?.payload));
+  } catch (error) {
+    console.error("errror", JSON.stringify(error));
+    dispatch(sendChatError(error.message));
   }
 };

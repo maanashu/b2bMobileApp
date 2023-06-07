@@ -44,8 +44,10 @@ import { ChatHeader } from "@/components";
 import { navigate, navigationRef } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import DocumentPicker from "react-native-document-picker";
+import { useDispatch } from "react-redux";
+import { sendChat } from "@/actions/UserActions";
 
-export function Chatting({ navigation }) {
+export function Chatting(props) {
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [index, setIndex] = useState("");
   const [messages, setMessages] = useState([]);
@@ -53,7 +55,9 @@ export function Chatting({ navigation }) {
   const [userImage, setUserImage] = useState();
   const [fileResponse, setFileResponse] = useState([]);
   const [isBottomViewVisible, setisBottomViewVisible] = useState(false);
+  const [message, setMessage] = useState("");
 
+  const dispatch = useDispatch();
   const handleDocumentSelection = useCallback(async () => {
     try {
       const response = await DocumentPicker.pick({
@@ -201,7 +205,18 @@ export function Chatting({ navigation }) {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages)
     );
+    const latestMessage = messages[messages.length - 1];
+    const typedMessage = latestMessage && latestMessage.text;
+
+    console.log("message:", typedMessage)
+    dispatch(
+      sendChat({
+        recipient_id: props?.route?.params.seller_id,
+        content: typedMessage,
+      })
+    );
   }, []);
+
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <ChatHeader />
