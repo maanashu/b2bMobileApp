@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
   orderStatus: {
     backgroundColor: COLORS.placeHolder,
     paddingVertical: SH(15),
-    paddingHorizontal: SW(10),
+    paddingHorizontal: SW(30),
     borderRadius: SW(5),
     flexDirection: "row",
     alignItems: "center",
@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
   },
   statusInnerView: {
     alignItems: "center",
-    width: "32%",
+    width: "48%",
   },
   bottomStatusBar: {
     borderBottomWidth: 4,
@@ -56,8 +56,8 @@ export const styles = StyleSheet.create({
   },
   chatIcon: {
     tintColor: COLORS.light_grey,
-    height: SW(25),
-    width: SW(25),
+    height: SW(20),
+    width: SW(22),
   },
   deliveryView: {
     backgroundColor: COLORS.inputBorder,

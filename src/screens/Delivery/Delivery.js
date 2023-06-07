@@ -116,13 +116,6 @@ export function Delivery() {
             />
             <Text style={styles.headerText}>{strings.startOrder.delivery}</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
-            <Image
-              resizeMode="contain"
-              source={coins}
-              style={styles.crossIcon}
-            />
-          </TouchableOpacity>
         </View>
       </View>
 

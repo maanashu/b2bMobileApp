@@ -22,12 +22,13 @@ export class WalletController {
         state: data.state,
         zip: data.zip,
         country: data.country,
+        phone_code: data.phone_code,
         phone: data.phone,
         email: data.email,
         dob: data.dob,
         ssn: data.ssn,
-        latitude:data.latitude,
-        longitude:data.longitude
+        latitude: data.latitude,
+        longitude: data.longitude,
       };
       HttpClient.post(endpoint, body)
         .then((response) => {
@@ -47,7 +48,7 @@ export class WalletController {
           return;
         })
         .catch((error) => {
-          console.log("error",JSON.stringify(error));
+          console.log("error", JSON.stringify(error));
           reject(new Error((strings.verify.error = error)));
 
           Toast.show({

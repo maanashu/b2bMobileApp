@@ -91,7 +91,7 @@ export function MyOrders({ route }) {
 
           <View style={styles.statusInnerView}>
             <Text style={styles.statusText}>
-              {strings.myPurchase.toBeConfirmed}
+              {strings.myPurchase.confirmed}
             </Text>
             <Spacer space={SH(5)} />
             <View
@@ -103,17 +103,6 @@ export function MyOrders({ route }) {
           </View>
 
           {/*  */}
-
-          <View style={styles.statusInnerView}>
-            <Text style={styles.statusText}>{strings.myPurchase.paid}</Text>
-            <Spacer space={SH(5)} />
-            <View
-              style={[
-                styles.bottomStatusBar,
-                { borderColor: COLORS.backgroundGrey },
-              ]}
-            ></View>
-          </View>
         </View>
 
         <Spacer space={SH(20)} />

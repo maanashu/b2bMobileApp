@@ -55,6 +55,9 @@ export function PersonalInformation(params) {
   const lastname =
     getData?.user?.payload?.user_profiles?.lastname ??
     getData?.registerData?.lastname;
+  const phoneCode =
+    getData?.user?.payload?.user_profiles?.phone_code ??
+    getData?.registerData?.phone_code;
   const phone =
     getData?.user?.payload?.user_profiles?.phone_no ||
     getData?.phone?.phoneNumber;
@@ -228,6 +231,7 @@ export function PersonalInformation(params) {
       const data = {
         first_name: firstname.trim(),
         last_name: lastname.trim(),
+        phone_code: phoneCode,
         phone: phone,
         dob: getData?.registerData?.dob || dateformat,
         ssn: ssn,

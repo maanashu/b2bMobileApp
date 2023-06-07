@@ -38,7 +38,7 @@ import { NAVIGATION } from "@/constants";
 import { ms, vs } from "react-native-size-matters";
 import { SwiperButton } from "@/components/SwiperButton";
 import { useDispatch } from "react-redux";
-import { createOrder } from "@/actions/OrderAction";
+import { createOrder, getOrderList } from "@/actions/OrderAction";
 import { orderSelector } from "@/selectors/OrderSelector";
 import { useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
@@ -83,6 +83,17 @@ export function ReviewAndPayment(props) {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
   const wallet = useSelector(getWallet);
+  const { width, height } = Dimensions.get("window");
+  const route = useRoute();
+  const mapRef = useRef();
+  const ASPECT_RATIO = width / height;
+  const LATITUDE_DELTA = 0.005;
+  const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+  const { countryname } = route.params || {};
+  const [refreshing, setRefreshing] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+
+  // const [address, setAddress] = useState(countryname);
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.CREATE_ORDER], state)
@@ -108,28 +119,16 @@ export function ReviewAndPayment(props) {
       shipping_service_id: route?.params?.deliveryId,
       mode_of_payment: "jbr",
     };
-    navigate(NAVIGATION.myOrders);
-    // dispatch(createOrder(data))
-    //   .then((res) => {
-    //     console.log("newMethod", JSON.stringify(res));
-    //     // navigate(NAVIGATION.home);
-    //     setOpenModal(true);
-    //   })
-    //   .catch((error) => {
-    //     console.error("error", error);
-    //   });
-  };
-  const { width, height } = Dimensions.get("window");
-  const route = useRoute();
-  const mapRef = useRef();
-  const ASPECT_RATIO = width / height;
-  const LATITUDE_DELTA = 0.005;
-  const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-  const { countryname } = route.params || {};
-  const [refreshing, setRefreshing] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
 
-  // const [address, setAddress] = useState(countryname);
+    dispatch(createOrder(data))
+      .then((res) => {
+        // navigate(NAVIGATION.home);
+        setOpenModal(true);
+      })
+      .catch((error) => {
+        console.error("error", error);
+      });
+  };
 
   const render = (item) => {
     return (
@@ -161,7 +160,9 @@ export function ReviewAndPayment(props) {
     }, 1500);
   };
   const handleModal = () => {
+    navigate(NAVIGATION.myOrders);
     setOpenModal(false);
+    dispatch(getOrderList());
   };
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>

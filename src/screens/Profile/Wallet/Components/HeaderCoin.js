@@ -3,13 +3,16 @@ import React from "react";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
-import { s } from "react-native-size-matters";
+import { ms, s, vs } from "react-native-size-matters";
 import { goBack } from "@/navigation/NavigationRef";
 import { backArrow, coinStack, Fonts } from "@/assets";
 import { ShadowStyles } from "@/theme";
 import { style } from "deprecated-react-native-prop-types/DeprecatedViewPropTypes";
+import { useSelector } from "react-redux";
+import { getWallet } from "@/selectors/WalletSelector";
 
 export function HeaderCoin({ title, back, amount }) {
+  const wallet = useSelector(getWallet);
   return (
     <View style={styles.header}>
       <View style={styles.headerInnerView}>
@@ -28,7 +31,12 @@ export function HeaderCoin({ title, back, amount }) {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.coinButton}>
-          <Text style={styles.buyText}>{amount}</Text>
+          <Text style={styles.buyText}>
+            {" "}
+            {Math.floor(
+              wallet?.getWalletBalance?.sila_balance / 100 || 0
+            ).toFixed()}
+          </Text>
           <Image
             style={styles.coinStyle}
             resizeMode="contain"
@@ -68,13 +76,14 @@ export const styles = StyleSheet.create({
     fontSize: s(12),
   },
   coinButton: {
-    backgroundColor: COLORS.primary,
-    borderRadius: SW(20),
     height: SH(29),
     width: SW(50),
-    alignItems: "center",
+    backgroundColor: COLORS.primary,
+    borderRadius: ms(20),
     flexDirection: "row",
     justifyContent: "center",
+    alignItems: "center",
+    marginLeft: SW(5),
   },
   buyText: {
     fontFamily: Fonts.SemiBold,
@@ -82,9 +91,8 @@ export const styles = StyleSheet.create({
     marginRight: SW(1),
   },
   coinStyle: {
-    height: SH(19),
-    width: SW(19),
+    height: vs(16),
+    width: ms(16),
     marginLeft: SW(1),
-    marginTop: SH(0.5),
   },
 });

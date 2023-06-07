@@ -140,6 +140,7 @@ export function Checkout() {
                     <Image source={cross} style={styles.crossIcon} />
                   </TouchableOpacity>
                 </View>
+                <Spacer space={SH(5)} />
 
                 <View style={styles.boxStyling}>
                   <TouchableOpacity style={{ justifyContent: "center" }}>

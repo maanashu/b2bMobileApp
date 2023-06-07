@@ -641,7 +641,7 @@ export const en = {
     myPurchase: "My Purchase",
     orderDetails: "Order Details",
     pending: "Pending",
-    toBeConfirmed: "To be Confirmed",
+    confirmed: "Confirmed",
     paid: "Paid",
     pendingQuote: "Pending Quote",
     quote:
