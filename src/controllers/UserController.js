@@ -147,6 +147,7 @@ export class UserController {
 
   static async register(data) {
     return new Promise(async (resolve, reject) => {
+      console.log("checking Body", JSON.stringify(data));
       const endpoint = USER_URL + ApiUserInventory.userRegister;
       const body = {
         username: data.username,
@@ -389,7 +390,9 @@ export class UserController {
 
   static async getUserSettings(data) {
     return new Promise((resolve, reject) => {
-      const endpoint = `${USER_URL + ApiUserInventory.getUserSettings}?app_name=b2b`;
+      const endpoint = `${
+        USER_URL + ApiUserInventory.getUserSettings
+      }?app_name=b2b`;
 
       HttpClient.get(endpoint, data)
         .then((response) => {
@@ -411,7 +414,7 @@ export class UserController {
     return new Promise((resolve, reject) => {
       const endpoint = USER_URL + ApiUserInventory.updateUserSettings;
       const body = {
-        app_name: 'b2b',
+        app_name: "b2b",
         ...data,
       };
       HttpClient.patch(endpoint, body)
@@ -420,8 +423,8 @@ export class UserController {
           // navigate(NAVIGATION.settings);
         })
         .catch((error) => {
-          console.log("error",JSON.stringify(error));
-          console.log("body",JSON.stringify(body));
+          console.log("error", JSON.stringify(error));
+          console.log("body", JSON.stringify(body));
           Toast.show({
             text2: error.msg,
             position: "bottom",

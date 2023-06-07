@@ -57,7 +57,7 @@ export function PersonalInformation(params) {
     getData?.registerData?.lastname;
   const phoneCode =
     getData?.user?.payload?.user_profiles?.phone_code ??
-    getData?.registerData?.phone_code;
+    getData?.registerData?.code;
   const phone =
     getData?.user?.payload?.user_profiles?.phone_no ||
     getData?.phone?.phoneNumber;
@@ -80,10 +80,12 @@ export function PersonalInformation(params) {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
 
+  console.log("phone", getData?.registerData?.code);
+
   useEffect(() => {
     setEmail(getData?.registerData?.email);
     setDateformat(getData?.registerData?.dob);
-  }, [getData]);
+  }, [getData?.registerData]);
 
   useEffect(() => {
     dispatch(getUser);
@@ -227,6 +229,13 @@ export function PersonalInformation(params) {
         visibilityTime: 1500,
         text2: strings.validation.country,
       });
+    } else if (!phone) {
+      Toast.show({
+        position: "bottom",
+        type: "error_toast",
+        visibilityTime: 1500,
+        text2: "Phone code required",
+      });
     } else {
       const data = {
         first_name: firstname.trim(),
@@ -241,7 +250,7 @@ export function PersonalInformation(params) {
         state: state,
         zip: zipCode,
         country: country,
-        email: email || getData?.registerData?.email,
+        email: email || getData?.user?.payload?.email,
         countryCode: countryCode,
         stateCode: stateCode,
         type: individual ? "individual" : "business",
@@ -595,10 +604,6 @@ export function PersonalInformation(params) {
                     key: GOOGLE_MAP.API_KEYS,
                   }}
                   onPress={(data, details) => {
-                    console.log(
-                      "================================data, deatils",
-                      details
-                    );
                     setCity("");
                     setState("");
                     setZipCode("");
