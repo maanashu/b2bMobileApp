@@ -389,7 +389,9 @@ export class UserController {
 
   static async getUserSettings(data) {
     return new Promise((resolve, reject) => {
-      const endpoint = `${USER_URL + ApiUserInventory.getUserSettings}?app_name=b2b`;
+      const endpoint = `${
+        USER_URL + ApiUserInventory.getUserSettings
+      }?app_name=b2b`;
 
       HttpClient.get(endpoint, data)
         .then((response) => {
@@ -411,7 +413,7 @@ export class UserController {
     return new Promise((resolve, reject) => {
       const endpoint = USER_URL + ApiUserInventory.updateUserSettings;
       const body = {
-        app_name: 'b2b',
+        app_name: "b2b",
         ...data,
       };
       HttpClient.patch(endpoint, body)
@@ -420,8 +422,8 @@ export class UserController {
           // navigate(NAVIGATION.settings);
         })
         .catch((error) => {
-          console.log("error",JSON.stringify(error));
-          console.log("body",JSON.stringify(body));
+          console.log("error", JSON.stringify(error));
+          console.log("body", JSON.stringify(body));
           Toast.show({
             text2: error.msg,
             position: "bottom",
@@ -439,17 +441,69 @@ export class UserController {
       const body = {
         recipient_id: data,
         media_type: "text",
-...data
+        ...data,
       };
       HttpClient.post(endpoint, body)
         .then((response) => {
           resolve(response);
-          console.log("body",JSON.stringify(body))
+          console.log("body", JSON.stringify(body));
           // navigate(NAVIGATION.settings);
         })
         .catch((error) => {
-          console.log("error",JSON.stringify(error));
-          console.log("body",JSON.stringify(body));
+          console.log("error", JSON.stringify(error));
+          console.log("body", JSON.stringify(body));
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 2000,
+          });
+          reject(new Error((strings.verify.error = error.msg)));
+        });
+    });
+  }
+
+  static async getMessages(id) {
+    return new Promise((resolve, reject) => {
+      const endpoint = USER_URL + ApiUserInventory.getMessages;
+      const body = {
+        recipient_id: id,
+      };
+      HttpClient.get(endpoint, body)
+        .then((response) => {
+          resolve(response);
+          console.log("body", JSON.stringify(body));
+          // navigate(NAVIGATION.settings);
+        })
+        .catch((error) => {
+          console.log("error", JSON.stringify(error));
+          console.log("body", JSON.stringify(body));
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 2000,
+          });
+          reject(new Error((strings.verify.error = error.msg)));
+        });
+    });
+  }
+
+  static async deleteMessages(id) {
+    return new Promise((resolve, reject) => {
+      const endpoint = USER_URL + ApiUserInventory.deleteMessages;
+      const body = {
+        recipient_id: id,
+      };
+      HttpClient.delete(endpoint, body)
+        .then((response) => {
+          resolve(response);
+          console.log("body", JSON.stringify(body));
+          // navigate(NAVIGATION.settings);
+        })
+        .catch((error) => {
+          console.log("error", JSON.stringify(error));
+          console.log("body", JSON.stringify(body));
           Toast.show({
             text2: error.msg,
             position: "bottom",

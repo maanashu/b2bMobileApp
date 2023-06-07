@@ -28,7 +28,9 @@ export const ApiUserInventory = {
   getUserProfile: (userUuid) => `users/uuid/${userUuid}`,
   getUserSettings: "user_settings",
   updateUserSettings: "user_settings",
-  sendChat: "messages"
+  sendChat: "messages",
+  getMessages: `messageheads/${id}`,
+  deleteMessages: `messageheads/${id}`,
 };
 
 export const SupportInventory = {

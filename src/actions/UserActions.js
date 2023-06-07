@@ -128,6 +128,14 @@ export const TYPES = {
   SEND_CHAT_REQUEST: "SEND_CHAT_REQUEST",
   SEND_CHAT_SUCCESS: "SEND_CHAT_SUCCESS",
   SEND_CHAT_ERROR: "SEND_CHAT_ERROR",
+
+  GET_MESSAGES_REQUEST: "GET_MESSAGES_REQUEST",
+  GET_MESSAGES_SUCCESS: "GET_MESSAGES_SUCCESS",
+  GET_MESSAGES_ERROR: "GET_MESSAGES_ERROR",
+
+  DELETE_MESSAGES_REQUEST: "DELETE_MESSAGES_REQUEST",
+  DELETE_MESSAGES_SUCCESS: "DELETE_MESSAGES_SUCCESS",
+  DELETE_MESSAGES_ERROR: "DELETE_MESSAGES_ERROR",
 };
 
 const loginRequest = () => ({
@@ -422,6 +430,36 @@ const sendChatError = (error) => ({
   payload: { error },
 });
 
+const getMessagesRequest = () => ({
+  type: TYPES.GET_MESSAGES_REQUEST,
+  payload: null,
+});
+
+const getMessagesSuccess = (getMessages) => ({
+  type: TYPES.GET_MESSAGES_SUCCESS,
+  payload: { getMessages },
+});
+
+const getMessagesError = (error) => ({
+  type: TYPES.GET_MESSAGES_ERROR,
+  payload: { error },
+});
+
+const deleteMessagesRequest = () => ({
+  type: TYPES.DELETE_MESSAGES_REQUEST,
+  payload: null,
+});
+
+const deleteMessagesSuccess = (deleteMessages) => ({
+  type: TYPES.DELETE_MESSAGES_SUCCESS,
+  payload: { deleteMessages },
+});
+
+const deleteMessagesError = (error) => ({
+  type: TYPES.DELETE_MESSAGES_ERROR,
+  payload: { error },
+});
+
 export const login =
   (value, countryCode, phoneNumber, screenName) => async (dispatch) => {
     dispatch(loginRequest());
@@ -638,10 +676,34 @@ export const sendChat = (data) => async (dispatch) => {
   dispatch(sendChatRequest());
   try {
     const res = await UserController.sendChat(data);
-    console.log("dataaaa", res)
+    console.log("dataaaa", res);
     dispatch(sendChatSuccess(res?.payload));
   } catch (error) {
     console.error("errror", JSON.stringify(error));
     dispatch(sendChatError(error.message));
+  }
+};
+
+export const getMessages = (id) => async (dispatch) => {
+  console.log("id", id);
+  dispatch(getMessagesRequest());
+  try {
+    const res = await UserController.getMessages(id);
+    dispatch(getMessagesSuccess(res?.payload));
+  } catch (error) {
+    dispatch(getMessagesError(error.message));
+  }
+};
+
+export const deleteMessages = (id) => async (dispatch) => {
+  console.log("id", id);
+  dispatch(deleteMessagesRequest());
+  try {
+    const res = await UserController.deleteMessages(id);
+    console.log("dataaaa", res);
+    dispatch(deleteMessagesSuccess(res?.payload));
+  } catch (error) {
+    console.error("errror", JSON.stringify(error));
+    dispatch(deleteMessagesError(error.message));
   }
 };
