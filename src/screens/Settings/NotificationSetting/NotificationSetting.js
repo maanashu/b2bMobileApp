@@ -15,17 +15,18 @@ import { getUser } from "@/selectors/UserSelectors";
 import { useCallback } from "react";
 
 export function NotificationSetting() {
-  const [allowNoti, setallowNoti] = useState(true);
-  const [allowPopup, setallowPopup] = useState(true);
-  const [messages, setMessages] = useState(true);
-  const [promotions, setPromotions] = useState(true);
-  const [orders, setOrders] = useState(true);
-  const [feeds, setFeeds] = useState(true);
-  const [rqf, setRqf] = useState(true);
+  // const [allowNoti, setallowNoti] = useState(true);
+  // const [allowPopup, setallowPopup] = useState(true);
+  // const [messages, setMessages] = useState(true);
+  // const [promotions, setPromotions] = useState(true);
+  // const [orders, setOrders] = useState(true);
+  // const [feeds, setFeeds] = useState(true);
+  // const [rqf, setRqf] = useState(true);
 
   const dispatch = useDispatch();
   const settings = useSelector(getUser)?.getUserSettings;
-  console.log("settings", settings);
+  const getUserToken = useSelector(getUser)?.user?.payload?.token;
+  console.log("settings", getUserToken);
 
   // const data = [
   //   {

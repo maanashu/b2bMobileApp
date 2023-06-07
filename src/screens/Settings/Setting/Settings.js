@@ -23,6 +23,7 @@ import { strings } from "@/localization";
 import { NAVIGATION } from "@/constants";
 import { useDispatch } from "react-redux";
 import { getSettings, getUserSettings } from "@/actions/UserActions";
+import { getOrderList } from "@/actions/OrderAction";
 
 export function Settings() {
   const dispatch = useDispatch();
@@ -122,6 +123,9 @@ export function Settings() {
       navigate(NAVIGATION.FaceIdPin);
     }
   };
+  useEffect(()=>{
+dispatch(getOrderList())
+  },[])
   const FirstData = ({ item, index }) => (
     <View>
       <TouchableOpacity

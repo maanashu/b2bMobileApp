@@ -162,4 +162,45 @@ export class OrderController {
         });
     });
   }
+
+  static async getOrderList() {
+    return new Promise((resolve, reject) => {
+      const endpoint = ORDER_URL + ApiOrderInventory.getOrderList;
+      HttpClient.get(endpoint)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
+
+          reject(new Error((strings.validation.error = error.msg)));
+        });
+    });
+  }
+
+  static async getOrderDetails(id) {
+    return new Promise((resolve, reject) => {
+      const endpoint = ORDER_URL + ApiOrderInventory.getOrderDetails(id);
+      HttpClient.get(endpoint)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
+
+          reject(new Error((strings.validation.error = error.msg)));
+        });
+    });
+  }
 }
