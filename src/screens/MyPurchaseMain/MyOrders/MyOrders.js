@@ -311,7 +311,7 @@ export function MyOrders({ route }) {
 
         <Spacer space={SH(30)} />
 
-        {route.params.item == "Processing" && (
+        {route?.params?.item == "Processing" && (
           <Button
             onPress={() => navigate(NAVIGATION.trackOrder)}
             title={strings.myPurchase.trackOrder}

@@ -377,6 +377,10 @@ export const en = {
     orderDetails: "Order Details",
     byCompleting: "By completing this order, I agree to all",
     terms: "terms & conditions",
+    track: "Track Order",
+    orderPlaced: "Your order placed successfully",
+    pending: "Order is Pending",
+    placed: "Order Placed",
   },
   userInformation: {
     back: "Back",

@@ -7,6 +7,7 @@ import {
   moderateScale,
   ms,
   s,
+  scale,
   verticalScale,
   vs,
 } from "react-native-size-matters";
@@ -154,7 +155,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     marginHorizontal: 1,
-    ...ShadowStyles.shadow,
+
     paddingVertical: SH(10),
     paddingHorizontal: SW(10),
   },
@@ -490,4 +491,64 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.Regular,
     color: COLORS.darkGrey2,
   },
+  //modal
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  modalFilter: {
+    position: "absolute",
+    width: "86%",
+    backgroundColor: "white",
+    borderRadius: moderateScale(16),
+  },
+  formCont: {
+    alignItems: "center",
+    flex: 1,
+  },
+  subHeading: {
+    fontSize: scale(24),
+    fontFamily: Fonts.MaisonMonoBold,
+    color: "#1FB3FF",
+    alignItems: "center",
+  },
+  field: {
+    fontSize: scale(14),
+    fontFamily: Fonts.Medium,
+    color: COLORS.text,
+    alignItems: "center",
+  },
+  vectorImg: {
+    height: SH(54),
+    width: SW(40),
+    tintColor: "#1FB3FF",
+  },
+  waitImg: {
+    height: SH(54),
+    width: SW(50),
+  },
+  subfieldHeading: {
+    fontSize: scale(18),
+    fontFamily: Fonts.MaisonMonoBold,
+    color: COLORS.black,
+    alignItems: "center",
+  },
+  formContent: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: moderateScale(16),
+    backgroundColor: "#1FB3FF",
+    borderBottomEndRadius: moderateScale(16),
+    borderBottomStartRadius: moderateScale(16),
+  },
+  fieldHeading: {
+    fontSize: scale(14),
+    fontFamily: Fonts.SemiBold,
+    color: COLORS.white,
+    alignItems: "center",
+  },
+  // modal end
 });

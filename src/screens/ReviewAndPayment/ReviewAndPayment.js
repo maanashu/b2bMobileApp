@@ -1,6 +1,7 @@
 import {
   FlatList,
   Image,
+  Modal,
   RefreshControl,
   ScrollView,
   Text,
@@ -30,6 +31,7 @@ import {
   location,
   locationNear,
   pencil,
+  check,
 } from "@/assets";
 import { strings } from "@/localization";
 import { NAVIGATION } from "@/constants";
@@ -47,6 +49,8 @@ import { getWalletBalance } from "@/actions/WalletActions";
 import { TYPES } from "@/Types/Types";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { Loader } from "@/components/Loader";
+import { ImageBackground } from "react-native";
+import { ShadowStyles } from "@/theme";
 
 const data = [
   {
@@ -104,15 +108,16 @@ export function ReviewAndPayment(props) {
       shipping_service_id: route?.params?.deliveryId,
       mode_of_payment: "jbr",
     };
-
-    dispatch(createOrder(data))
-      .then((res) => {
-        console.log("newMethod", JSON.stringify(res));
-        navigate(NAVIGATION.home)
-      })
-      .catch((error) => {
-        console.error("errorCame", error);
-      });
+    navigate(NAVIGATION.myOrders);
+    // dispatch(createOrder(data))
+    //   .then((res) => {
+    //     console.log("newMethod", JSON.stringify(res));
+    //     // navigate(NAVIGATION.home);
+    //     setOpenModal(true);
+    //   })
+    //   .catch((error) => {
+    //     console.error("error", error);
+    //   });
   };
   const { width, height } = Dimensions.get("window");
   const route = useRoute();
@@ -122,6 +127,7 @@ export function ReviewAndPayment(props) {
   const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
   const { countryname } = route.params || {};
   const [refreshing, setRefreshing] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   // const [address, setAddress] = useState(countryname);
 
@@ -153,6 +159,9 @@ export function ReviewAndPayment(props) {
     setTimeout(() => {
       setRefreshing(false);
     }, 1500);
+  };
+  const handleModal = () => {
+    setOpenModal(false);
   };
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
@@ -221,16 +230,23 @@ export function ReviewAndPayment(props) {
         {!user?.savedAddress ? (
           <TouchableOpacity
             onPress={() => navigate(NAVIGATION.selectAddress)}
-            style={styles.addressView}
+            style={[
+              styles.addressView,
+              { height: SH(70), backgroundColor: COLORS.inputBorder },
+            ]}
           >
-            <View>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <Image
                 resizeMode="contain"
                 source={addSquareBox}
                 style={styles.addIcon}
               />
-            </View>
-            <View>
               <Text style={styles.addAddressText}>
                 {" "}
                 {strings.reviewAndPayment.addShippingAddress}
@@ -238,7 +254,7 @@ export function ReviewAndPayment(props) {
             </View>
           </TouchableOpacity>
         ) : (
-          <View style={styles.addressView}>
+          <View style={[styles.addressView, { ...ShadowStyles.shadow }]}>
             <View style={styles.row}>
               <View style={styles.rowView}>
                 <Image
@@ -581,6 +597,52 @@ export function ReviewAndPayment(props) {
           </ScrollView>
         </RBSheet> */}
       </ScrollView>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={openModal}
+        statusBarTranslucent
+      >
+        <ImageBackground
+          style={[styles.centeredView, { backgroundColor: "#979A9A" }]}
+        >
+          <View style={styles.modalFilter}>
+            <Spacer space={SH(30)} />
+            <View style={styles.formCont}>
+              <Text style={styles.subHeading}>
+                {strings.reviewAndPayment.placed}
+              </Text>
+              <Spacer space={SH(10)} />
+              <Image
+                source={check}
+                resizeMode="cover"
+                style={styles.vectorImg}
+              />
+              <Spacer space={SH(14)} />
+              <Text style={styles.field}>
+                {strings.reviewAndPayment.orderPlaced}
+              </Text>
+              <Spacer space={SH(14)} />
+              <Text style={styles.subfieldHeading}>
+                {strings.reviewAndPayment.pending}
+              </Text>
+            </View>
+            <Spacer space={SH(24)} />
+
+            <TouchableOpacity
+              style={styles.formContent}
+              // onPress={() => {
+              //   navigate(NAVIGATION.rating);
+              // }}
+              onPress={handleModal}
+            >
+              <Text style={styles.fieldHeading}>
+                {strings.reviewAndPayment.track}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </ImageBackground>
+      </Modal>
       {isLoading && <Loader message="Placing Order.." />}
     </ScreenWrapper>
   );

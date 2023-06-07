@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./SelectAddress.styles";
-import { home, pencil, work } from "@/assets";
-import { Button, ScreenWrapper, Spacer } from "@/components";
+import { backArrow, home, pencil, work } from "@/assets";
+import { Button, Header, ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { goBack, navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants/navigation";
@@ -29,7 +29,6 @@ export function SelectAddress() {
   useEffect(() => {
     dispatch(getUserLocations());
   }, []);
-  console.log("address", selectedAddress?.id);
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_USER_LOCATION], state)
   );
@@ -106,7 +105,11 @@ export function SelectAddress() {
 
   return (
     <ScreenWrapper>
-      <HeaderCoin amount={"0"} title={strings.addresses.addresses} />
+      <Header
+        back={backArrow}
+        enableBackButton
+        title={strings.addresses.addresses}
+      />
 
       <View style={{ paddingHorizontal: SW(10), paddingVertical: SH(10) }}>
         <FlatList
@@ -126,7 +129,7 @@ export function SelectAddress() {
 
       <Spacer space={SH(20)} />
 
-      {/* {isLoading ? <Loader message="Loading data ..." /> : null} */}
+      {isLoading ? <Loader message="Loading data ..." /> : null}
     </ScreenWrapper>
   );
 }
