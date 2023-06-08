@@ -210,6 +210,18 @@ const createWalletError = (error) => ({
   type: TYPES.CREATE_WALLET_USER_ERROR,
   payload: { error },
 });
+const clearWalletStore = () => ({
+  type: TYPES.CLEAR_WALLET_STORE,
+  payload: null,
+});
+
+export const logoutWallet = () => async (dispatch) => {
+  try {
+    await WalletController.logoutWallet();
+  } finally {
+    dispatch(clearWalletStore());
+  }
+};
 
 export const addWalletBalanceApi = (amount, account) => async (dispatch) => {
   dispatch(addWalletBalanceApiRequest());

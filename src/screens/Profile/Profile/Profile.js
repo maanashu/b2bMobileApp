@@ -41,6 +41,7 @@ import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { getWallet } from "@/selectors/WalletSelector";
 import { logoutOrder } from "@/actions/OrderAction";
+import { logoutWallet } from "@/actions/WalletActions";
 
 const Data = [
   {
@@ -132,6 +133,7 @@ export function Profile() {
   const logoutUser = () => {
     dispatch(logout());
     dispatch(logoutOrder());
+    dispatch(logoutWallet());
   };
   const navigationHandler = (item) => {
     if (item.title === strings.profile.myPurchase) {

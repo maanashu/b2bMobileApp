@@ -9,6 +9,12 @@ import { useSelector } from "react-redux";
 import { HttpClient } from "./HttpClient";
 
 export class WalletController {
+  static async logoutWallet() {
+    return new Promise((resolve) => {
+      setTimeout(resolve, 500);
+    });
+  }
+
   static async createWallet(data) {
     return new Promise(async (resolve, reject) => {
       const endpoint = ApiWalletInventory.createUser;

@@ -14,6 +14,9 @@ const INITIALSTATE = {
 
 export const walletReducer = (state = { INITIALSTATE }, { payload, type }) => {
   switch (type) {
+    case TYPES.CLEAR_WALLET_STORE:
+      return INITIALSTATE;
+
     case TYPES.GET_WALLET_BALANCE_SUCCESS:
       return {
         ...state,
