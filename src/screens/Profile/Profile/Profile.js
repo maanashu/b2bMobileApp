@@ -40,6 +40,7 @@ import { ms } from "react-native-size-matters";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { getWallet } from "@/selectors/WalletSelector";
+import { logoutOrder } from "@/actions/OrderAction";
 
 const Data = [
   {
@@ -130,6 +131,7 @@ export function Profile() {
   const token = user?.user?.payload?.token;
   const logoutUser = () => {
     dispatch(logout());
+    dispatch(logoutOrder());
   };
   const navigationHandler = (item) => {
     if (item.title === strings.profile.myPurchase) {

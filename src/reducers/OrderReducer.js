@@ -13,6 +13,8 @@ const INITIALSTATE = {
 
 export const orderReducer = (state = { INITIALSTATE }, { payload, type }) => {
   switch (type) {
+    case TYPES.CLEAR_ORDER_STORE:
+      return {};
     case TYPES.CREATE_CART_SUCCESS:
       return {
         ...state,

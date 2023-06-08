@@ -161,7 +161,8 @@ export function ConnectBank(props) {
         getData?.registerData?.pin ||
           getData?.user?.payload?.user_profiles?.security_pin,
         getData?.phone?.countryCode,
-        getData?.phone?.phoneNumber
+        getData?.phone?.phoneNumber,
+        getData?.screenName
       )
     );
   };

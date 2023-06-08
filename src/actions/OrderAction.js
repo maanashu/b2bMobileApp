@@ -124,6 +124,18 @@ const getOrderDetailsError = (error) => ({
   type: TYPES.GET_ORDER_DETAILS_ERROR,
   payload: { error },
 });
+const clearOrderStore = () => ({
+  type: TYPES.CLEAR_ORDER_STORE,
+  payload: null,
+});
+
+export const logoutOrder = () => async (dispatch) => {
+  try {
+    await OrderController.logoutOrder();
+  } finally {
+    dispatch(clearOrderStore());
+  }
+};
 
 export const getCart = () => async (dispatch) => {
   dispatch(getCartRequest());

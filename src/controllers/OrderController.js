@@ -6,6 +6,12 @@ import { HttpClient } from "./HttpClient";
 import { strings } from "@/localization";
 
 export class OrderController {
+  static async logoutOrder() {
+    return new Promise((resolve) => {
+      setTimeout(resolve, 500);
+    });
+  }
+
   static async createCartController(data, ArrayToRoute) {
     return new Promise(async (resolve, reject) => {
       const endpoint = ORDER_URL + ApiOrderInventory.createNewCart;
