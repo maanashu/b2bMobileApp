@@ -11,7 +11,7 @@ import { walletReducer } from "@/reducers/WalletReducer";
 import { orderReducer } from "@/reducers/OrderReducer";
 import { TYPES } from "@/actions/UserActions";
 
-export const appReducer = combineReducers({
+export const rootReducer = combineReducers({
   error: errorReducer,
   status: statusReducer,
   user: userReducer,
@@ -23,9 +23,9 @@ export const appReducer = combineReducers({
   wallet: walletReducer,
   order: orderReducer,
 });
-export const rootReducer = (state, action) => {
-  if (action.type === TYPES.CLEAR_STORE) {
-    return appReducer(undefined, action);
-  }
-  return appReducer(state, action);
-};
+// export const rootReducer = (state, action) => {
+//   if (action.type === TYPES.CLEAR_STORE) {
+//     return appReducer(undefined, action);
+//   }
+//   return appReducer(state, action);
+// };
