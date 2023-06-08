@@ -578,7 +578,8 @@ export const getWalletUserProfile = (uuid) => async (dispatch) => {
   dispatch(getWalletUserProfileRequest());
   try {
     const res = await UserController.getWalletUserProfile(uuid);
-    return dispatch(getWalletUserProfileSuccess(res.payload));
+    console.log("success")
+     dispatch(getWalletUserProfileSuccess(res.payload));
   } catch (error) {
     dispatch(getWalletUserProfileError(error.message));
   }

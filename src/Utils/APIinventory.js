@@ -29,8 +29,8 @@ export const ApiUserInventory = {
   getUserSettings: "user_settings",
   updateUserSettings: "user_settings",
   sendChat: "messages",
-  getMessages: `messageheads/${id}`,
-  deleteMessages: `messageheads/${id}`,
+  getMessages: (id) => `messageheads/${id}`,
+  deleteMessages: (id) => `messageheads/${id}`,
 };
 
 export const SupportInventory = {

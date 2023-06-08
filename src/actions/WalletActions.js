@@ -268,10 +268,10 @@ export const getWalletBalance = () => async (dispatch) => {
   }
 };
 
-export const getTransactions = (status) => async (dispatch) => {
+export const getTransactions = (data) => async (dispatch) => {
   dispatch(getTransactionsRequest());
   try {
-    const res = await WalletController.getTransactions(status);
+    const res = await WalletController.getTransactions(data);
     dispatch(getTransactionsSuccess(res));
   } catch (error) {
     dispatch(getTransactionsError(error.message));

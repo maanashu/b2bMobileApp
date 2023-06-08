@@ -26,8 +26,8 @@ export class WalletController {
         email: data.email,
         dob: data.dob,
         ssn: data.ssn,
-        latitude:data.latitude,
-        longitude:data.longitude
+        latitude: data.latitude,
+        longitude: data.longitude,
       };
       HttpClient.post(endpoint, body)
         .then((response) => {
@@ -47,7 +47,7 @@ export class WalletController {
           return;
         })
         .catch((error) => {
-          console.log("error",JSON.stringify(error));
+          console.log("error", JSON.stringify(error));
           reject(new Error((strings.verify.error = error)));
 
           Toast.show({
@@ -217,9 +217,10 @@ export class WalletController {
     });
   }
 
-  static async getTransactions() {
+  static async getTransactions(data) {
     return new Promise((resolve, reject) => {
-      const endpoint = ApiWalletInventory.getTransactions + `?page=1&limit=10`;
+      const params = new URLSearchParams(data).toString();
+      const endpoint = `${ApiWalletInventory.getTransactions}?${params}`;
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
