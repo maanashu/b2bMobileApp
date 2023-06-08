@@ -46,7 +46,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: SW(15),
+    paddingHorizontal: SW(10),
     marginTop: verticalScale(10),
     borderColor: COLORS.placeholder,
     backgroundColor: COLORS.placeholder,

@@ -286,7 +286,7 @@ export function Register() {
             autoCapitalize="none"
             returnKeyType="done"
             placeholder={strings.personalInformation.reEnterPin}
-            placeholderTextColor={COLORS.darkGrey}
+            placeholderTextColor={COLORS.secondary}
             keyboardType="numeric"
             onChangeText={setconfirmPin}
             style={styles.textFieldStyle}

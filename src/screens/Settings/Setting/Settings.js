@@ -103,11 +103,11 @@ export function Settings() {
 
   const navigationHandler = (item) => {
     if (item.title === strings.settings.shipTo) {
-      navigate(NAVIGATION.connectBank);
+      navigate(NAVIGATION.selectAddress);
     } else if (item.title === strings.profile.settings) {
       navigate(NAVIGATION.settings);
     } else if (item.title === strings.settings.notifications) {
-     dispatch(getUserSettings())
+      dispatch(getUserSettings());
       navigate(NAVIGATION.notificationSetting);
     } else if (item.title === strings.settings.aboutUs) {
       navigate(NAVIGATION.aboutUs);
@@ -123,9 +123,9 @@ export function Settings() {
       navigate(NAVIGATION.FaceIdPin);
     }
   };
-  useEffect(()=>{
-dispatch(getOrderList())
-  },[])
+  useEffect(() => {
+    dispatch(getOrderList());
+  }, []);
   const FirstData = ({ item, index }) => (
     <View>
       <TouchableOpacity

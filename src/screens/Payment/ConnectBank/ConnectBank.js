@@ -257,7 +257,7 @@ export function ConnectBank(props) {
                 pending={isLoading}
                 onPress={loginHandler}
                 title={strings.kyc.continue}
-                style={{ alignSelf: "center" }}
+                style={{ alignSelf: "center", height: SH(55) }}
               />
             </View>
           ) : null}

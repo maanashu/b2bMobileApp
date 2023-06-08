@@ -61,10 +61,15 @@ export function PersonalInformation(params) {
   const phone =
     getData?.user?.payload?.user_profiles?.phone_no ||
     getData?.phone?.phoneNumber;
+  const email = getData?.registerData?.email || getData?.user?.payload?.email;
+  const dateformat =
+    getData?.registerData?.dob || getData?.user?.payload?.user_profiles?.dob;
 
   const [ssn, setSsn] = useState("");
   const [city, setCity] = useState("");
-  const [email, setEmail] = useState(getData?.registerData?.email);
+  const [male, setMale] = useState("");
+  const [female, setFemale] = useState("");
+  // const [email, setEmail] = useState(getData?.registerData?.email);
   const [state, setState] = useState("");
   const [show, setShow] = useState(false);
   const [street, setStreet] = useState("");
@@ -73,26 +78,22 @@ export function PersonalInformation(params) {
   const [date, setDate] = useState(getData?.registerData?.dob);
   const [stateCode, setStateCode] = useState("");
   const [appartment, setAppartment] = useState("");
-  const [dateformat, setDateformat] = useState(getData?.registerData?.dob);
+  // const [dateformat, setDateformat] = useState(getData?.registerData?.dob);
   const [countryCode, setCountryCode] = useState("");
   const [individual, setIndividual] = useState(false);
   const [business, setBusiness] = useState(false);
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
 
-  console.log("phone", getData?.registerData?.code);
+  console.log("phone", getData?.user?.payload?.user_profiles?.dob);
 
-  useEffect(() => {
-    setEmail(getData?.registerData?.email);
-    setDateformat(getData?.registerData?.dob);
-  }, [getData?.registerData]);
+  // useEffect(() => {
+  //   setEmail(getData?.registerData?.email);
+  //   setDateformat(getData?.registerData?.dob);
+  // }, [getData?.registerData]);
 
   useEffect(() => {
     dispatch(getUser);
-    setTimeout(() => {
-      setDateformat(getData?.registerData?.dob);
-      setEmail(getData?.registerData?.email);
-    }, 2000);
   }, [isFocused]);
   const handleBackButton = () => {
     if (params?.route?.params?.route === "kyc") {
@@ -120,29 +121,29 @@ export function PersonalInformation(params) {
     );
   };
 
-  const onChangeDate = (selectedDate) => {
-    const currentDate = moment().format("MM-DD-YYYY");
-    const selected = moment(selectedDate).format("MM/DD/YYYY");
-    if (currentDate === selected) {
-      setShow(false);
-      const fullDate = new Date(moment(selectedDate).subtract(21, "years"));
-      const changedDate = moment(fullDate).format("MM / DD / YYYY");
-      const newDateFormat = moment(fullDate).format("YYYY-MM-DD");
-      setDateformat(newDateFormat);
-      setDate(changedDate);
-    } else {
-      setShow(false);
-      const month = selectedDate?.getMonth() + 1;
-      const selectedMonth = month < 10 ? "0" + month : month;
-      const day = selectedDate?.getDate();
-      const selectedDay = day < 10 ? "0" + day : day;
-      const year = selectedDate?.getFullYear();
-      const fullDate = selectedMonth + " - " + selectedDay + " - " + year;
-      const newDateFormat = year + "-" + selectedMonth + "-" + selectedDay;
-      setDateformat(newDateFormat);
-      setDate(fullDate);
-    }
-  };
+  // const onChangeDate = (selectedDate) => {
+  //   const currentDate = moment().format("MM-DD-YYYY");
+  //   const selected = moment(selectedDate).format("MM/DD/YYYY");
+  //   if (currentDate === selected) {
+  //     setShow(false);
+  //     const fullDate = new Date(moment(selectedDate).subtract(21, "years"));
+  //     const changedDate = moment(fullDate).format("MM / DD / YYYY");
+  //     const newDateFormat = moment(fullDate).format("YYYY-MM-DD");
+  //     setDateformat(newDateFormat);
+  //     setDate(changedDate);
+  //   } else {
+  //     setShow(false);
+  //     const month = selectedDate?.getMonth() + 1;
+  //     const selectedMonth = month < 10 ? "0" + month : month;
+  //     const day = selectedDate?.getDate();
+  //     const selectedDay = day < 10 ? "0" + day : day;
+  //     const year = selectedDate?.getFullYear();
+  //     const fullDate = selectedMonth + " - " + selectedDay + " - " + year;
+  //     const newDateFormat = year + "-" + selectedMonth + "-" + selectedDay;
+  //     setDateformat(newDateFormat);
+  //     setDate(fullDate);
+  //   }
+  // };
 
   const submit = async () => {
     if (!dateformat) {
@@ -194,6 +195,13 @@ export function PersonalInformation(params) {
         visibilityTime: 1500,
         text2: strings.validation.selectType,
       });
+    } else if (male === false && female === false) {
+      Toast.show({
+        position: "bottom",
+        type: "error_toast",
+        visibilityTime: 1500,
+        text2: strings.validation.selectGender,
+      });
     } else if (!street) {
       Toast.show({
         position: "bottom",
@@ -242,8 +250,11 @@ export function PersonalInformation(params) {
         last_name: lastname.trim(),
         phone_code: phoneCode,
         phone: phone,
-        dob: getData?.registerData?.dob || dateformat,
+        dob:
+          getData?.registerData?.dob ||
+          getData?.user?.payload?.user_profiles?.dob,
         ssn: ssn,
+        gender: male ? "male" : "female",
         address: street,
         appartment: appartment,
         city: city,
@@ -271,7 +282,7 @@ export function PersonalInformation(params) {
     setCountry("");
     setZipCode("");
     setAppartment("");
-    setEmail("");
+    // setEmail("");
   };
 
   const isLoading = useSelector((state) =>
@@ -342,13 +353,10 @@ export function PersonalInformation(params) {
                 {strings.personalInformation.labelDob}
               </Text>
 
-              <TouchableOpacity
-                style={styles.input}
-                onPress={() => setShow(!show)}
-              >
+              <View style={styles.input} onPress={() => setShow(!show)}>
                 <Image source={calendar} style={styles.calendarImage} />
 
-                <TextInput
+                {/* <TextInput
                   value={dateformat}
                   returnKeyType={"done"}
                   pointerEvents={"none"}
@@ -361,16 +369,23 @@ export function PersonalInformation(params) {
                   ]}
                   onChange={(text) => onChangeDate(text)}
                   editable={false}
-                />
-              </TouchableOpacity>
+                /> */}
+                <Spacer space={SH(5)} horizontal />
 
-              <DateTimePickerModal
+                <Text
+                  style={{ color: COLORS.darkGrey, fontFamily: Fonts.Regular }}
+                >
+                  {dateformat}
+                </Text>
+              </View>
+
+              {/* <DateTimePickerModal
                 mode={"date"}
                 isVisible={show}
                 onConfirm={onChangeDate}
                 onCancel={() => setShow(false)}
                 maximumDate={new Date(moment().subtract(21, "years"))}
-              />
+              /> */}
 
               <TextInput
                 maxLength={9}
@@ -385,7 +400,7 @@ export function PersonalInformation(params) {
                 placeholder={strings.personalInformation.ssn}
               />
 
-              <TextInput
+              {/* <TextInput
                 value={email}
                 returnKeyType={"done"}
                 onChangeText={setEmail}
@@ -394,8 +409,23 @@ export function PersonalInformation(params) {
                 keyboardType={"email-address"}
                 placeholderTextColor={COLORS.darkGrey}
                 placeholder={strings.personalInformation.email}
-              />
+              /> */}
+              <Spacer space={SH(12)} />
 
+              <View
+                style={{
+                  backgroundColor: COLORS.inputBorder,
+                  paddingHorizontal: SW(10),
+                  paddingVertical: SH(13),
+                  borderRadius: SW(5),
+                }}
+              >
+                <Text
+                  style={{ color: COLORS.darkGrey, fontFamily: Fonts.Regular }}
+                >
+                  {email}
+                </Text>
+              </View>
               <Spacer space={SH(16)} />
               <View>
                 <Text style={styles.labelStyle}>
@@ -490,7 +520,7 @@ export function PersonalInformation(params) {
               </View>
 
               <Spacer space={SH(16)} />
-              {/* <View>
+              <View>
                 <Text style={styles.labelStyle}>
                   {strings.personalInformation.gender}
                 </Text>
@@ -582,7 +612,7 @@ export function PersonalInformation(params) {
                 </View>
               </View>
 
-              <Spacer space={SH(16)} /> */}
+              <Spacer space={SH(16)} />
               <View>
                 <Text style={styles.labelStyle}>
                   {strings.personalInformation.currentAddress}
