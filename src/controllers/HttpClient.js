@@ -4,6 +4,10 @@ import { strings } from "@/localization";
 import { store } from "@/store";
 import { Alert } from "react-native";
 import { logout } from "@/actions/UserActions";
+import { logoutOrder } from "@/actions/OrderAction";
+import { logoutWallet } from "@/actions/WalletActions";
+import { navigate } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
 
 const client = axios.create({
   baseURL: Config.API_BASE_URL,
@@ -36,7 +40,12 @@ client.interceptors.response.use(
         Alert.alert("Invalid Token", "Please login again.", [
           {
             text: "Ok",
-            onPress: () => store.dispatch(logout()),
+            onPress: () => {
+              navigate(NAVIGATION.home);
+              store.dispatch(logout());
+              store.dispatch(logoutOrder());
+              store.dispatch(logoutWallet());
+            },
             style: "Ok",
           },
         ]);

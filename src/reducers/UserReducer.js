@@ -36,6 +36,9 @@ const INITIALSTATE = {
   screenName: {},
   updateUserSettings: {},
   getUserSettings: {},
+  sendChat: {},
+  getMessages: [],
+  deleteMessages: {},
 };
 
 export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -180,6 +183,22 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         getUserSettings: payload.getUserSettings,
+      };
+
+    case TYPES.SEND_CHAT_SUCCESS:
+      return {
+        ...state,
+        sendChat: payload.sendChat,
+      };
+    case TYPES.GET_MESSAGES_SUCCESS:
+      return {
+        ...state,
+        getMessages: payload.getMessages,
+      };
+    case TYPES.DELETE_MESSAGES_SUCCESS:
+      return {
+        ...state,
+        deleteMessages: payload.deleteMessages,
       };
   }
 };

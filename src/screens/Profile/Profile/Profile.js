@@ -9,7 +9,7 @@ import {
   ScrollView,
 } from "react-native";
 import { useDispatch } from "react-redux";
-import { logout } from "@/actions/UserActions";
+import { getWalletUserProfile, logout } from "@/actions/UserActions";
 import { Button, ScreenWrapper, Spacer } from "@/components";
 import { strings } from "@/localization";
 import { styles } from "./Profile.styles";
@@ -148,6 +148,7 @@ export function Profile() {
       if (!user?.user?.payload?.token) {
         navigate(NAVIGATION.noWalletScreen);
       } else {
+        dispatch(getWalletUserProfile(user?.user?.payload?.uuid))
         navigate(NAVIGATION.jbrWallet);
       }
     } else if (item.title === strings.profile.businessCard) {

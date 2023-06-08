@@ -224,9 +224,10 @@ export class WalletController {
     });
   }
 
-  static async getTransactions() {
+  static async getTransactions(data) {
     return new Promise((resolve, reject) => {
-      const endpoint = ApiWalletInventory.getTransactions + `?page=1&limit=10`;
+      const params = new URLSearchParams(data).toString();
+      const endpoint = `${ApiWalletInventory.getTransactions}?${params}`;
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);

@@ -435,4 +435,84 @@ export class UserController {
         });
     });
   }
+
+  static async sendChat(data) {
+    return new Promise((resolve, reject) => {
+      const endpoint = USER_URL + ApiUserInventory.sendChat;
+      const body = {
+        recipient_id: data,
+        media_type: "text",
+        ...data,
+      };
+      HttpClient.post(endpoint, body)
+        .then((response) => {
+          resolve(response);
+          console.log("body", JSON.stringify(body));
+          // navigate(NAVIGATION.settings);
+        })
+        .catch((error) => {
+          console.log("error", JSON.stringify(error));
+          console.log("body", JSON.stringify(body));
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 2000,
+          });
+          reject(new Error((strings.verify.error = error.msg)));
+        });
+    });
+  }
+
+  static async getMessages(id) {
+    return new Promise((resolve, reject) => {
+      const endpoint = USER_URL + ApiUserInventory.getMessages;
+      const body = {
+        recipient_id: id,
+      };
+      HttpClient.get(endpoint, body)
+        .then((response) => {
+          resolve(response);
+          console.log("body", JSON.stringify(body));
+          // navigate(NAVIGATION.settings);
+        })
+        .catch((error) => {
+          console.log("error", JSON.stringify(error));
+          console.log("body", JSON.stringify(body));
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 2000,
+          });
+          reject(new Error((strings.verify.error = error.msg)));
+        });
+    });
+  }
+
+  static async deleteMessages(id) {
+    return new Promise((resolve, reject) => {
+      const endpoint = USER_URL + ApiUserInventory.deleteMessages;
+      const body = {
+        recipient_id: id,
+      };
+      HttpClient.delete(endpoint, body)
+        .then((response) => {
+          resolve(response);
+          console.log("body", JSON.stringify(body));
+          // navigate(NAVIGATION.settings);
+        })
+        .catch((error) => {
+          console.log("error", JSON.stringify(error));
+          console.log("body", JSON.stringify(body));
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 2000,
+          });
+          reject(new Error((strings.verify.error = error.msg)));
+        });
+    });
+  }
 }

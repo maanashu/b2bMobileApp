@@ -20,6 +20,7 @@ import { NAVIGATION } from "@/constants";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addWalletBalanceApi,
+  getTransactions,
   getWalletBalance,
   redeemMoney,
 } from "@/actions/WalletActions";
@@ -33,6 +34,7 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { Loader } from "@/components/Loader";
+import moment from "moment";
 
 export function JbrWallet() {
   const dispatch = useDispatch();
@@ -63,6 +65,16 @@ export function JbrWallet() {
     dispatch(getWalletBalance());
     dispatch(getBankAccounts());
   }, []);
+
+  const body = {
+    page: 1,
+    limit: 10,
+    transaction_type: "all",
+  };
+  useEffect(() => {
+    dispatch(getTransactions(body));
+  }, []);
+
   const dollarToCents = (dollarValue) => {
     const centsValue = dollarValue * 100;
     return centsValue;
@@ -78,25 +90,61 @@ export function JbrWallet() {
       setSelectedAccount(accounts?.bankAccounts[0]);
     }
   };
-  const renderItem = ({ item }) => (
-    <View style={styles.tranHisCon}>
-      <View style={{ display: "flex", flexDirection: "row" }}>
-        <Image source={item.image} style={styles.bgEarn} />
-        <TouchableOpacity
-          onPress={() => navigate(NAVIGATION.transactionHistory)}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            marginLeft: 6,
-          }}
-        >
-          <Text style={styles.deliveryFeeText}>{item.title}</Text>
-          <Text style={styles.dateTime}>{item.date}</Text>
-        </TouchableOpacity>
+
+  const transactionheading = (item) => {
+    if (item?.payment_type === "issue_sila") {
+      return <Text style={styles.titleText}>{"Top Up"}</Text>;
+    } else if (
+      item?.receive_wallet_address === user?.walletProfile?.wallet_address
+    ) {
+      return <Text style={styles.titleText}>{"Received"}</Text>;
+    } else if (item?.payment_type === "redeem") {
+      return <Text style={styles.titleText}>{"Withdraw (To Bank)"}</Text>;
+    } else if (item?.payment_type === "transfer") {
+      return <Text style={styles.titleText}>{"Purchased"}</Text>;
+    } else {
+      return <Text style={styles.titleText}>{"Sent"}</Text>;
+    }
+  };
+
+  const transactionImage = (item) => {
+    if (item?.payment_type === "issue_sila") {
+      return <Image source={downleft} style={styles.bgEarn} />;
+    } else if (
+      item?.receive_wallet_address === user?.walletProfile?.wallet_address
+    ) {
+      return <Image source={downleft} style={styles.bgEarn} />;
+    } else if (item?.payment_type === "redeem") {
+      return <Image source={downleft} style={styles.bgEarn} />;
+    } else if (item?.payment_type === "transfer") {
+      return <Image source={uparrow} style={styles.bgEarn} />;
+    } else {
+      return <Image source={uparrow} style={styles.bgEarn} />;
+    }
+  };
+
+  const renderItem = ({ item }) => {
+    const date = moment(item.createdAt).format("DD MMM YYYY");
+    return (
+      <View style={styles.tranHisCon}>
+        <View style={{ display: "flex", flexDirection: "row" }}>
+          {transactionImage(item)}
+          <TouchableOpacity
+            onPress={() => navigate(NAVIGATION.transactionHistory)}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              marginLeft: 6,
+            }}
+          >
+            {transactionheading(item)}
+            <Text style={styles.dateTime}>{date}</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.balanceText}>JBR {item.amount}</Text>
       </View>
-      <Text style={styles.balanceText}>{item.balance}</Text>
-    </View>
-  );
+    );
+  };
   const renderBankAccounts = ({ item }) => {
     return (
       <>
@@ -323,15 +371,17 @@ export function JbrWallet() {
             <Text style={styles.delHiStText}>
               {strings.jbrWallet.transactionHistory}
             </Text>
+
             <Spacer space={SH(10)} />
 
             <FlatList
-              data={transactionHistory}
+              data={wallet?.transactions}
               renderItem={renderItem}
               keyExtractor={(item) => item.id}
               showsVerticalScrollIndicator={false}
             />
           </View>
+          <Spacer space={SH(30)} />
         </ScrollView>
         {walletLoading ? <Loader message="Loading data..." /> : null}
 
