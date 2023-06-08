@@ -1,4 +1,5 @@
 import { UserController } from "@/controllers";
+import { getWalletBalance } from "./WalletActions";
 // import { TYPES } from "@/Types/Types";
 
 export const TYPES = {
@@ -415,6 +416,7 @@ export const login =
       );
       dispatch(loginSuccess(user));
       dispatch(getUserProfile(user?.payload?.uuid));
+      dispatch(getWalletBalance());
     } catch (error) {
       dispatch(loginError(error.message));
     }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Image,
@@ -14,7 +14,7 @@ import {
   ScreenWrapper,
   Spacer,
 } from "@/components";
-import { styles } from "./MyOrders.styles";
+import { styles } from "@/screens/PlacedOrderStatus/OrderedStatus/OrderedStatus.styles";
 import { COLORS, SH, SW } from "@/theme";
 import { strings } from "@/localization";
 import {
@@ -29,8 +29,18 @@ import {
 } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
+import { getUser } from "@/selectors/UserSelectors";
+import { getWallet } from "@/selectors/WalletSelector";
+import { useDispatch, useSelector } from "react-redux";
+import { orderSelector } from "@/selectors/OrderSelector";
+import { useNavigation } from "@react-navigation/native";
 
-export function MyOrders({ route }) {
+export function OrderedStatus({ route }) {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const user = useSelector(getUser);
+  const wallet = useSelector(getWallet);
+  const order = useSelector(orderSelector);
   const Details = [
     {
       id: "1",
@@ -54,6 +64,7 @@ export function MyOrders({ route }) {
       price: "$6.56",
     },
   ];
+  console.log("orderDetail====", JSON.stringify(order?.getOneOrderDetail));
 
   const render = (item) => {
     return (
@@ -74,14 +85,16 @@ export function MyOrders({ route }) {
 
   return (
     <ScreenWrapper>
-      <NameHeader title={strings.myPurchase.orderDetails} back={backArrow} />
+      <NameHeader title={"Home"} back={backArrow} />
 
       <ScrollView style={styles.mainContainer}>
         <Spacer space={SH(25)} />
 
         <View style={styles.orderStatus}>
           <View style={styles.statusInnerView}>
-            <Text style={styles.statusText}>{strings.myPurchase.pending}</Text>
+            <Text style={styles.statusText}>
+              {strings.myPurchase.processing}
+            </Text>
             <Spacer space={SH(5)} />
 
             <View style={styles.bottomStatusBar}></View>
@@ -90,9 +103,7 @@ export function MyOrders({ route }) {
           {/*  */}
 
           <View style={styles.statusInnerView}>
-            <Text style={styles.statusText}>
-              {strings.myPurchase.confirmed}
-            </Text>
+            <Text style={styles.statusText}>{strings.myPurchase.shipped}</Text>
             <Spacer space={SH(5)} />
             <View
               style={[
@@ -102,7 +113,9 @@ export function MyOrders({ route }) {
             ></View>
           </View>
           <View style={styles.statusInnerView}>
-            <Text style={styles.statusText}>{strings.myPurchase.paid}</Text>
+            <Text style={styles.statusText}>
+              {strings.myPurchase.delivered}
+            </Text>
             <Spacer space={SH(5)} />
             <View
               style={[
@@ -118,12 +131,12 @@ export function MyOrders({ route }) {
         <Spacer space={SH(20)} />
 
         <Text style={styles.statusHeading}>
-          {strings.myPurchase.pendingQuote}
+          {strings.myPurchase.processing}
         </Text>
 
-        <Spacer space={SH(15)} />
+        {/* <Spacer space={SH(15)} />
 
-        <Text style={styles.quoteText}>{strings.myPurchase.quote}</Text>
+        <Text style={styles.quoteText}>{strings.myPurchase.quote}</Text> */}
 
         <Spacer space={SH(20)} />
 
@@ -308,15 +321,19 @@ export function MyOrders({ route }) {
           </ScrollView>
         </View>
 
-        <Spacer space={SH(30)} />
+        <Spacer space={SH(20)} />
 
-        {route?.params?.item == "Processing" && (
-          <Button
-            onPress={() => navigate(NAVIGATION.trackOrder)}
-            title={strings.myPurchase.trackOrder}
-            style={styles.trackOrderButton}
-          />
-        )}
+        <Button
+          onPress={() =>
+            navigation.reset({
+              index: 0,
+              routes: [{ name: NAVIGATION.home }],
+            })
+          }
+          title={"Go to Home Page"}
+          style={styles.trackOrderButton}
+        />
+        <Spacer space={SH(30)} />
       </ScrollView>
     </ScreenWrapper>
   );

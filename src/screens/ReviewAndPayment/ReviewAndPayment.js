@@ -38,7 +38,11 @@ import { NAVIGATION } from "@/constants";
 import { ms, vs } from "react-native-size-matters";
 import { SwiperButton } from "@/components/SwiperButton";
 import { useDispatch } from "react-redux";
-import { createOrder, getOrderList } from "@/actions/OrderAction";
+import {
+  createOrder,
+  getOrderDetails,
+  getOrderList,
+} from "@/actions/OrderAction";
 import { orderSelector } from "@/selectors/OrderSelector";
 import { useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
@@ -83,6 +87,7 @@ export function ReviewAndPayment(props) {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
   const wallet = useSelector(getWallet);
+
   const { width, height } = Dimensions.get("window");
   const route = useRoute();
   const mapRef = useRef();
@@ -122,7 +127,6 @@ export function ReviewAndPayment(props) {
 
     dispatch(createOrder(data))
       .then((res) => {
-        // navigate(NAVIGATION.home);
         setOpenModal(true);
       })
       .catch((error) => {
@@ -160,9 +164,9 @@ export function ReviewAndPayment(props) {
     }, 1500);
   };
   const handleModal = () => {
-    navigate(NAVIGATION.myOrders);
+    dispatch(getOrderDetails(getCartId?.createOrder?.payload?.id));
+    navigate(NAVIGATION.orderedStatus);
     setOpenModal(false);
-    dispatch(getOrderList());
   };
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>

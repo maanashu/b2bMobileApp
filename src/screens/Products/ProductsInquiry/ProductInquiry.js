@@ -174,10 +174,10 @@ export function ProductInquiry(params) {
           case 0:
           case undefined:
           case null:
+            dispatch(previousScreen(NAVIGATION.productInquiry));
             navigate(NAVIGATION.personalInformation, {
               route: "kyc",
             });
-            dispatch(previousScreen(NAVIGATION.productInquiry));
             break;
           case 1:
             dispatch(previousScreen(NAVIGATION.productInquiry));

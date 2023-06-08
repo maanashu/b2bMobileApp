@@ -35,7 +35,7 @@ const INITIALSTATE = {
   getUserProfile: {},
   screenName: {},
   updateUserSettings: {},
-  getUserSettings:{}
+  getUserSettings: {},
 };
 
 export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -176,11 +176,10 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         updateUserSettings: payload.updateUserSettings.payload,
       };
-      case TYPES.GET_USER_SETTINGS_SUCCESS:
-        return {
-          ...state,
-          getUserSettings: payload.getUserSettings
-        };
-      
+    case TYPES.GET_USER_SETTINGS_SUCCESS:
+      return {
+        ...state,
+        getUserSettings: payload.getUserSettings,
+      };
   }
 };

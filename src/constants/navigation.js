@@ -97,4 +97,5 @@ export const NAVIGATION = {
   recomendedWholesalers: "RecomendedWholesalers",
   productsBySeller: "ProductsBySeller",
   selectAddress: "SelectAddress",
+  orderedStatus: "OrderedStatus",
 };

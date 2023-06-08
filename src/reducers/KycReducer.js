@@ -83,8 +83,6 @@ export const kycReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         doc: payload.doc,
       };
-    case TYPES.CLEAR_STORE:
-      return INITIALSTATE;
     default:
       return state;
   }

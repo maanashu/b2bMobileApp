@@ -98,3 +98,4 @@ export { BusinessKyc } from "@/screens/GetStarted/PersonalInformation/BusinessKy
 export { RecomendedWholesalers } from "@/screens/RecomendedWholesalers/RecomendedWholesalers";
 export { ProductsBySeller } from "@/screens/ProductsBySeller/ProductsBySeller";
 export { SelectAddress } from "@/screens/SelectAddress/SelectAddress";
+export { OrderedStatus } from "@/screens/PlacedOrderStatus/OrderedStatus/OrderedStatus";

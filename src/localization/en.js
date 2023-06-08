@@ -641,8 +641,11 @@ export const en = {
     myPurchase: "My Purchase",
     orderDetails: "Order Details",
     pending: "Pending",
+    processing: "Processing",
     confirmed: "Confirmed",
+    shipped: "Shipped",
     paid: "Paid",
+    delivered: "Delivered",
     pendingQuote: "Pending Quote",
     quote:
       "This order will autometically be cancled if the manufactured does not provide a shipping cost",

@@ -100,9 +100,9 @@ const getOrderListRequest = () => ({
   payload: null,
 });
 
-const getOrderListSuccess = (getUserSettings) => ({
+const getOrderListSuccess = (getAllOrdersList) => ({
   type: TYPES.GET_ORDER_LIST_SUCCESS,
-  payload: { getUserSettings },
+  payload: { getAllOrdersList },
 });
 
 const getOrderListError = (error) => ({
@@ -115,9 +115,9 @@ const getOrderDetailsRequest = () => ({
   payload: null,
 });
 
-const getOrderDetailsSuccess = (getUserSettings) => ({
+const getOrderDetailsSuccess = (getOneOrderDetail) => ({
   type: TYPES.GET_ORDER_DETAILS_SUCCESS,
-  payload: { getUserSettings },
+  payload: { getOneOrderDetail },
 });
 
 const getOrderDetailsError = (error) => ({
@@ -223,13 +223,12 @@ export const getOrderList = () => async (dispatch) => {
 };
 
 export const getOrderDetails = (id) => async (dispatch) => {
-  console.log("id============", id);
   dispatch(getOrderDetailsRequest());
   try {
     const res = await OrderController.getOrderDetails(id);
-    dispatch(getOrderDetailsSuccess(res?.payload));
+    dispatch(getOrderDetailsSuccess(res));
+    console.log("data received");
   } catch (error) {
     dispatch(getOrderDetailsError(error.message));
   }
 };
-

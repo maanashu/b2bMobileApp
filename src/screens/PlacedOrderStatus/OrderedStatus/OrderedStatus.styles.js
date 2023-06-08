@@ -32,9 +32,10 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
   },
   statusHeading: {
-    color: COLORS.rose,
+    color: COLORS.darkGrey,
     fontFamily: Fonts.SemiBold,
     fontSize: SF(18),
+    left: SW(2),
   },
   quoteText: {
     color: COLORS.text,

@@ -70,6 +70,7 @@ import {
   NewProducts,
   NotificationSetting,
   NoWalletScreen,
+  OrderedStatus,
   Orders,
   PastCoupons,
   PastOrders,
@@ -683,6 +684,11 @@ export function AppBottom() {
       <Stack.Screen
         component={ProductsBySeller}
         name={NAVIGATION.productsBySeller}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={OrderedStatus}
+        name={NAVIGATION.orderedStatus}
         options={{ headerShown: false }}
       />
       {/* Home navigator ends here */}

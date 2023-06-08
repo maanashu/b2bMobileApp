@@ -21,13 +21,14 @@ import {
 } from "@/assets";
 import { strings } from "@/localization";
 import { NAVIGATION } from "@/constants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getSettings, getUserSettings } from "@/actions/UserActions";
 import { getOrderList } from "@/actions/OrderAction";
+import { getUser } from "@/selectors/UserSelectors";
 
 export function Settings() {
   const dispatch = useDispatch();
-
+  const user = useSelector(getUser);
   useEffect(() => {
     dispatch(getSettings());
   }, []);
@@ -100,6 +101,7 @@ export function Settings() {
       openIcon: forward,
     },
   ];
+  console.log("screen", user?.screenName);
 
   const navigationHandler = (item) => {
     if (item.title === strings.settings.shipTo) {

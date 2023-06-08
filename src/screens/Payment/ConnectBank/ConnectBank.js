@@ -172,7 +172,7 @@ export function ConnectBank(props) {
         <TouchableOpacity
           onPress={() =>
             param === "bankList"
-              ? navigate(NAVIGATION.bottomTab)
+              ? navigate(NAVIGATION.home)
               : navigate(NAVIGATION.ageVerification)
           }
         >

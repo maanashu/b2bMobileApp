@@ -37,7 +37,7 @@ import {
   CategoryManufacturersProducts,
   companies,
 } from "@/constants/flatlistData";
-import { renderCompanies } from "@/components/FlatlistStyling";
+import { renderCompanies, renderNoData } from "@/components/FlatlistStyling";
 import { COLORS } from "@/theme";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
@@ -341,25 +341,37 @@ export function Business() {
         <Search placeholder={strings.business.searchHere} />
 
         <Spacer space={SH(10)} />
+        {categoryData?.serviceCategoryList?.data?.length > 0 ? (
+          <View style={{ paddingHorizontal: SW(16) }}>
+            <Spacer space={SH(18)} />
 
-        <View style={{ paddingHorizontal: SW(16) }}>
-          <Spacer space={SH(18)} />
+            {/* Categories Below */}
 
-          {/* Categories Below */}
+            {isLoading ? (
+              <HomeCategorySkeleton />
+            ) : (
+              <FlatList
+                columnWrapperStyle={{ justifyContent: "space-between" }}
+                data={updatedData ?? []}
+                renderItem={renderCategoryItem}
+                keyExtractor={(item) => item.id}
+                extraData={updatedData ?? []}
+                numColumns={4}
+              />
+            )}
+          </View>
+        ) : (
+          <View style={{ paddingHorizontal: SW(25) }}>
+            <Spacer space={SH(18)} />
 
-          {isLoading ? (
-            <HomeCategorySkeleton />
-          ) : (
-            <FlatList
-              columnWrapperStyle={{ justifyContent: "space-between" }}
-              data={updatedData ?? []}
-              renderItem={renderCategoryItem}
-              keyExtractor={(item) => item.id}
-              extraData={updatedData ?? []}
-              numColumns={4}
-            />
-          )}
-        </View>
+            <Text
+              style={{ color: COLORS.darkGrey, fontFamily: Fonts.SemiBold }}
+            >
+              No categories found
+            </Text>
+            <Spacer space={SH(5)} />
+          </View>
+        )}
 
         <Spacer space={SH(20)} />
 
