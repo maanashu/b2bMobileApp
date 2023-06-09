@@ -13,7 +13,7 @@ import { styles } from "./ReviewAndPayment.styles";
 import { ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { goBack, navigate } from "@/navigation/NavigationRef";
 import RBSheet from "react-native-raw-bottom-sheet";
 import {
@@ -81,6 +81,7 @@ const data = [
 
 export function ReviewAndPayment(props) {
   const getCartId = useSelector(orderSelector);
+  const navigation = useNavigation();
 
   const renderItem = ({ item }) => <SwiperButton item={item} />;
   const refRBSheet = useRef();
@@ -165,7 +166,10 @@ export function ReviewAndPayment(props) {
   };
   const handleModal = () => {
     dispatch(getOrderDetails(getCartId?.createOrder?.payload?.id));
-    navigate(NAVIGATION.orderedStatus);
+    navigation.reset({
+      index: 0,
+      routes: [{ name: NAVIGATION.orderedStatus }],
+    });
     setOpenModal(false);
   };
   return (

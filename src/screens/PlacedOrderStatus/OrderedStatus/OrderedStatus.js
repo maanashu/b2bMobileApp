@@ -125,7 +125,16 @@ export function OrderedStatus({ route }) {
   };
   return (
     <ScreenWrapper>
-      <NameHeader title={"Home"} back={backArrow} />
+      <NameHeader
+        title={"Home"}
+        back={backArrow}
+        backNavi={() =>
+          navigation.reset({
+            index: 0,
+            routes: [{ name: NAVIGATION.home }],
+          })
+        }
+      />
 
       <ScrollView style={styles.mainContainer}>
         <Spacer space={SH(25)} />

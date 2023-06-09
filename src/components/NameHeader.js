@@ -8,14 +8,17 @@ import { goBack } from "@/navigation/NavigationRef";
 import { Fonts } from "@/assets";
 import { ShadowStyles } from "@/theme";
 
-export function NameHeader({ title, back }) {
+export function NameHeader({ title, back, backNavi }) {
   return (
     <View style={styles.header}>
       <View style={styles.headerInnerView}>
         {back && (
           <TouchableOpacity
             style={{ flexDirection: "row", alignItems: "center" }}
-            onPress={() => goBack()}
+            onPress={() => {
+              goBack();
+              backNavi();
+            }}
           >
             <Image
               resizeMode="contain"

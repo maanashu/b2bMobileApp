@@ -677,6 +677,9 @@ export const en = {
     speed: "Speed and Efficiency",
     experienced: "Experienced",
     writeAdditional: "Write your additional feedback",
+    readyToPickup: "Ready to pickup",
+    pickedUp: "Picked Up",
+    delivered: "Delivered",
   },
   helpCenter: {
     mySupportRequest: "My support request",

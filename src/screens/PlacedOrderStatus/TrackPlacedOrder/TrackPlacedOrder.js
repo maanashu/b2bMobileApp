@@ -20,6 +20,7 @@ import { orderSelector } from "@/selectors/OrderSelector";
 import moment from "moment";
 import { useNavigation } from "@react-navigation/native";
 import { NAVIGATION } from "@/constants";
+import { Components } from "./Components";
 
 export function TrackPlacedOrder({ route }) {
   const navigation = useNavigation();
@@ -89,99 +90,9 @@ export function TrackPlacedOrder({ route }) {
     },
   ];
 
-  const renderItem = ({ item, index }) => {
-    return (
-      <>
-        <View style={{ flexDirection: "row", marginBottom: SW(5) }}>
-          <View style={{ alignItems: "center" }}>
-            {index === 0 ? null : (
-              <Image
-                source={dashedLineUp}
-                resizeMode="contain"
-                style={{
-                  height: SH(45),
-                  width: SW(20),
-                  tintColor: index <= 4 ? COLORS.secondary : COLORS.primary,
-                }}
-              />
-            )}
-            {index >= 5 ? (
-              <Image
-                source={roundCheck}
-                resizeMode="contain"
-                style={styles.checkLogo}
-              />
-            ) : (
-              <Image
-                source={roundBlank}
-                resizeMode="contain"
-                style={styles.checkLogo}
-              />
-            )}
-          </View>
-
-          <View style={styles.textAlignStyle}>
-            <Text
-              style={[
-                styles.titleText,
-                { color: index <= 4 ? COLORS.secondary : COLORS.darkGrey },
-              ]}
-            >
-              {item.title}
-            </Text>
-            <Text
-              style={[
-                styles.statusText,
-                { color: index <= 4 ? COLORS.secondary : COLORS.text },
-              ]}
-            >
-              {item.status}
-            </Text>
-          </View>
-        </View>
-      </>
-    );
-  };
-  const allStatus = () => {
-    return (
-      <>
-        <View style={{ flexDirection: "row", marginBottom: SW(5) }}>
-          <View style={{ alignItems: "center" }}>
-            <Image
-              source={dashedLineUp}
-              resizeMode="contain"
-              style={{
-                height: SH(45),
-                width: SW(20),
-                tintColor:
-                  order?.getOneOrderDetail?.status > 0
-                    ? COLORS.primary
-                    : "grey",
-              }}
-            />
-
-            <Image
-              source={
-                order?.getOneOrderDetail?.status > 0 ? roundCheck : roundBlank
-              }
-              resizeMode="contain"
-              style={styles.checkLogo}
-            />
-          </View>
-
-          <View style={styles.textAlignStyle}>
-            <Text style={[styles.titleText, { color: COLORS.darkGrey }]}>
-              {strings.trackOrder.orderAccepted}
-            </Text>
-            <Text style={[styles.statusText]}>{formattedDate}</Text>
-          </View>
-        </View>
-      </>
-    );
-  };
   const renderCurrentStatus = ({ item, index }) => (
     <>
-      <View style={{ flexDirection: "row", marginBottom: SH(42) }}>
+      <View style={{ flexDirection: "row", marginBottom: SH(3) }}>
         <View style={{ alignItems: "center", justifyContent: "flex-end" }}>
           <Image
             source={roundCheck}
@@ -219,7 +130,7 @@ export function TrackPlacedOrder({ route }) {
           <View
             style={[
               styles.mainModal,
-              { marginTop: isModalVisible == true ? SH(100) : SH(520) },
+              { marginTop: isModalVisible == true ? SH(150) : SH(500) },
             ]}
           >
             <View style={styles.modalHeader}>
@@ -269,7 +180,72 @@ export function TrackPlacedOrder({ route }) {
                 />
               </View>
             )} */}
-            {allStatus()}
+            {/* {allStatus()}
+             */}
+            {isModalVisible ? (
+              <>
+                <Components
+                  title={strings?.trackOrder?.delivered}
+                  source={
+                    order?.getOneOrderDetail?.status === 5
+                      ? roundCheck
+                      : roundBlank
+                  }
+                  tintColor={
+                    order?.getOneOrderDetail?.status === 5
+                      ? COLORS.primary
+                      : COLORS.secondary
+                  }
+                />
+                <Components
+                  title={strings?.trackOrder?.pickedUp}
+                  source={
+                    order?.getOneOrderDetail?.status >= 4
+                      ? roundCheck
+                      : roundBlank
+                  }
+                  tintColor={
+                    order?.getOneOrderDetail?.status >= 4
+                      ? COLORS.primary
+                      : COLORS.secondary
+                  }
+                />
+                <Components
+                  title={strings?.trackOrder?.readyToPickup}
+                  source={
+                    order?.getOneOrderDetail?.status >= 3
+                      ? roundCheck
+                      : roundBlank
+                  }
+                  tintColor={
+                    order?.getOneOrderDetail?.status >= 3
+                      ? COLORS.primary
+                      : COLORS.secondary
+                  }
+                />
+                <Components
+                  title={strings?.trackOrder?.orderAccepted}
+                  source={
+                    order?.getOneOrderDetail?.status >= 1
+                      ? roundCheck
+                      : roundBlank
+                  }
+                  tintColor={
+                    order?.getOneOrderDetail?.status >= 1
+                      ? COLORS.primary
+                      : COLORS.secondary
+                  }
+                />
+              </>
+            ) : (
+              <View style={{ paddingHorizontal: SW(15) }}>
+                <FlatList
+                  renderItem={renderCurrentStatus}
+                  data={CurrentStatus}
+                  keyExtractor={(item) => item.id}
+                />
+              </View>
+            )}
           </View>
         </View>
         <Spacer />
