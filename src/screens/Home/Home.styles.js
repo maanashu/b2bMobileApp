@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
   },
   coinView: {
     height: SH(29),
-    width: SW(50),
+    paddingHorizontal: SW(8),
     backgroundColor: COLORS.primary,
     borderRadius: ms(20),
     flexDirection: "row",
