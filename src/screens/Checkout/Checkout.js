@@ -27,7 +27,11 @@ import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCart, removeOneProductfromCart } from "@/actions/OrderAction";
+import {
+  getCart,
+  removeOneProductfromCart,
+  saveSubTotalAmount,
+} from "@/actions/OrderAction";
 import { orderSelector } from "@/selectors/OrderSelector";
 import { getUser } from "@/selectors/UserSelectors";
 import {
@@ -308,7 +312,10 @@ export function Checkout() {
         <View style={styles.bottomButtonView}>
           <TouchableOpacity
             style={styles.missingAddressButton}
-            onPress={() => navigate(NAVIGATION.delivery)}
+            onPress={() => {
+              dispatch(saveSubTotalAmount(cartList?.getCart?.amout));
+              navigate(NAVIGATION.delivery);
+            }}
           >
             <View style={styles.missingAddressButtonView}>
               <Text style={styles.placeOrderText}>

@@ -98,4 +98,5 @@ export const NAVIGATION = {
   productsBySeller: "ProductsBySeller",
   selectAddress: "SelectAddress",
   orderedStatus: "OrderedStatus",
+  trackPlacedOrder: "TrackPlacedOrder",
 };

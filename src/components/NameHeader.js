@@ -12,16 +12,19 @@ export function NameHeader({ title, back }) {
   return (
     <View style={styles.header}>
       <View style={styles.headerInnerView}>
-        <TouchableOpacity
-          style={{ flexDirection: "row", alignItems: "center" }}
-          onPress={() => goBack()}
-        >
-          <Image
-            resizeMode="contain"
-            source={back}
-            style={{ height: 25, width: 25 }}
-          />
-        </TouchableOpacity>
+        {back && (
+          <TouchableOpacity
+            style={{ flexDirection: "row", alignItems: "center" }}
+            onPress={() => goBack()}
+          >
+            <Image
+              resizeMode="contain"
+              source={back}
+              style={{ height: 25, width: 25 }}
+            />
+          </TouchableOpacity>
+        )}
+
         <Text style={styles.headerText}>{title}</Text>
       </View>
     </View>
@@ -48,6 +51,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginRight: SW(10),
+    justifyContent: "flex-start",
   },
   headerText: {
     fontFamily: Fonts.SemiBold,

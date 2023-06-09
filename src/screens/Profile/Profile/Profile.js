@@ -148,7 +148,7 @@ export function Profile() {
       if (!user?.user?.payload?.token) {
         navigate(NAVIGATION.noWalletScreen);
       } else {
-        dispatch(getWalletUserProfile(user?.user?.payload?.uuid))
+        dispatch(getWalletUserProfile(user?.user?.payload?.uuid));
         navigate(NAVIGATION.jbrWallet);
       }
     } else if (item.title === strings.profile.businessCard) {
@@ -222,7 +222,7 @@ export function Profile() {
             >
               <Text style={styles.filterText}>
                 {Math.floor(
-                  wallet?.getWalletBalance?.sila_balance / 100 || 0
+                  wallet?.getWalletBalance?.sila_balance || 0
                 ).toFixed()}
               </Text>
               <Image

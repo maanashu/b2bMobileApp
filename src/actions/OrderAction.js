@@ -1,6 +1,8 @@
 import { OrderController } from "@/controllers/OrderController";
 import { TYPES } from "@/Types/Types";
 import { getWalletBalance } from "./WalletActions";
+import { goBack, navigate } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
 
 const createCartRequest = () => ({
   type: TYPES.CREATE_CART_REQUEST,
@@ -127,6 +129,11 @@ const getOrderDetailsError = (error) => ({
 const clearOrderStore = () => ({
   type: TYPES.CLEAR_ORDER_STORE,
   payload: null,
+});
+
+export const saveSubTotalAmount = (subTotalAmount) => ({
+  type: TYPES.SAVE_SUBTOTAL_AMOUNT_SUCCESS,
+  payload: { subTotalAmount },
 });
 
 export const logoutOrder = () => async (dispatch) => {

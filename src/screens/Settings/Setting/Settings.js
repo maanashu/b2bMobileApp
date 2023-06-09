@@ -101,7 +101,6 @@ export function Settings() {
       openIcon: forward,
     },
   ];
-  console.log("screen", user?.screenName);
 
   const navigationHandler = (item) => {
     if (item.title === strings.settings.shipTo) {

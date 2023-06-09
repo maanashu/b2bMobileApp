@@ -662,6 +662,7 @@ export const en = {
     productPickup: "Product Pickup by DHL",
     pickedByDhl: "Picked by DHL",
     orderProcessing: "Order Processing",
+    orderAccepted: "Order Accepted",
     madepayment: "Made Payment",
     map: "Map",
     order: "Order",

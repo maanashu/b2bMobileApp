@@ -88,9 +88,9 @@ export function ReviewAndPayment(props) {
   const user = useSelector(getUser);
   const wallet = useSelector(getWallet);
 
-  const { width, height } = Dimensions.get("window");
   const route = useRoute();
   const mapRef = useRef();
+  const { width, height } = Dimensions.get("window");
   const ASPECT_RATIO = width / height;
   const LATITUDE_DELTA = 0.005;
   const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
@@ -145,7 +145,7 @@ export function ReviewAndPayment(props) {
               <Text style={[styles.quantityText, {}]}>
                 {item.product_details?.name}
               </Text>
-              <Text style={styles.lightText}> ({item.type})</Text>
+              {/* <Text style={styles.lightText}> ({item.type})</Text> */}
             </Text>
           </View>
 
@@ -377,9 +377,7 @@ export function ReviewAndPayment(props) {
             <Text style={styles.jbrText}>
               JBR{" "}
               <Text>
-                {Math.floor(
-                  wallet?.getWalletBalance?.sila_balance / 100 || 0
-                ).toFixed(2)}
+                {Math.floor(wallet?.getWalletBalance?.sila_balance || 0)}
               </Text>
             </Text>
           </View>

@@ -122,6 +122,8 @@ export function ProductsBySeller(params) {
         <Spacer space={SH(1)} />
         {user?.user?.payload?.token && (
           <Text style={styles.priceText}>
+            {" "}
+            <Text>{"$ "}</Text>
             {item.price}
             {/* <Text style={styles.categoryText}> {item.product_type.name}</Text> */}
           </Text>

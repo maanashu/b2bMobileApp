@@ -88,7 +88,7 @@ export const styles = StyleSheet.create({
   deliveryName: {
     color: COLORS.black,
     fontFamily: Fonts.Bold,
-    fontSize: SF(18),
+    fontSize: SF(15),
     margin: 1,
   },
   estimatedDelivery: {
@@ -152,7 +152,7 @@ export const styles = StyleSheet.create({
   },
   orderedProductsView: {
     backgroundColor: COLORS.white,
-    height: SH(400),
+    paddingVertical: SH(20),
     flex: 1,
     borderRadius: 10,
     marginHorizontal: 1,
@@ -162,7 +162,7 @@ export const styles = StyleSheet.create({
   orderDetailsHeader: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: SH(10),
+    paddingBottom: SH(10),
     paddingHorizontal: SW(15),
   },
   ordetDetailsIcon: {
@@ -185,6 +185,11 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.Regular,
     fontSize: SF(12),
   },
+  quantityText: {
+    color: COLORS.darkGrey2,
+    fontFamily: Fonts.Regular,
+    fontSize: SF(12),
+  },
   lightText: {
     fontFamily: Fonts.Regular,
     color: COLORS.secondary,
@@ -201,7 +206,6 @@ export const styles = StyleSheet.create({
   pricesText: {
     fontFamily: Fonts.Regular,
     color: COLORS.darkGrey,
-    fontSize: SF(12),
   },
   deliveryPriceText: {
     fontFamily: Fonts.Regular,
@@ -226,5 +230,11 @@ export const styles = StyleSheet.create({
   trackOrderButton: {
     backgroundColor: COLORS.darkGrey,
     height: SH(50),
+  },
+  map: {
+    height: SH(170),
+    width: "100%",
+    alignSelf: "center",
+    justifyContent: "center",
   },
 });

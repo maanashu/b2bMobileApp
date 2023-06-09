@@ -105,6 +105,7 @@ import {
   TermsConditions,
   TopRankingManufacturers,
   TrackOrder,
+  TrackPlacedOrder,
   TransactionHistory,
   UserInformation,
   Verify,
@@ -578,6 +579,11 @@ export function AppBottom() {
       <Stack.Screen
         component={SearchPlaces}
         name={NAVIGATION.searchPlaces}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={TrackPlacedOrder}
+        name={NAVIGATION.trackPlacedOrder}
         options={{ headerShown: false }}
       />
 

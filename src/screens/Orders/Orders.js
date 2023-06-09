@@ -106,7 +106,7 @@ export function Orders() {
             >
               <Text style={styles.filterText}>
                 {Math.floor(
-                  wallet?.getWalletBalance?.sila_balance / 100 || 0
+                  wallet?.getWalletBalance?.sila_balance || 0
                 ).toFixed()}
               </Text>
               <Image

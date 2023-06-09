@@ -9,6 +9,7 @@ const INITIALSTATE = {
   emptyCart: {},
   getAllOrdersList: {},
   getOneOrderDetail: {},
+  subTotalAmount: {},
 };
 
 export const orderReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -20,6 +21,11 @@ export const orderReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         createCart: payload.createCart,
+      };
+    case TYPES.SAVE_SUBTOTAL_AMOUNT_SUCCESS:
+      return {
+        ...state,
+        subTotalAmount: payload.subTotalAmount,
       };
     case TYPES.GET_CART_SUCCESS:
       return {
