@@ -130,9 +130,11 @@ export function Checkout() {
 
               <View style={{ flex: 1 }}>
                 <View style={styles.rowView}>
-                  <Text style={styles.productNameText}>
-                    {data.product_details?.name}
-                  </Text>
+                  <View style={{ width: "80%" }}>
+                    <Text style={styles.productNameText}>
+                      {data.product_details?.name}
+                    </Text>
+                  </View>
 
                   <TouchableOpacity
                     onPress={() => removeProduct(item?.id, data?.id)}

@@ -357,7 +357,7 @@ const getSellersError = (error) => ({
 });
 
 const getManufacturersRequest = () => ({
-  type: TYPES.GET_MANUFACTURERS_REQUsettingsSuccessEST,
+  type: TYPES.GET_MANUFACTURERS_REQUEST,
   payload: null,
 });
 
@@ -580,8 +580,8 @@ export const getWalletUserProfile = (uuid) => async (dispatch) => {
   dispatch(getWalletUserProfileRequest());
   try {
     const res = await UserController.getWalletUserProfile(uuid);
-    console.log("success")
-     dispatch(getWalletUserProfileSuccess(res.payload));
+    console.log("success");
+    dispatch(getWalletUserProfileSuccess(res.payload));
   } catch (error) {
     dispatch(getWalletUserProfileError(error.message));
   }

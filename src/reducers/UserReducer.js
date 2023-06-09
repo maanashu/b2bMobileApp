@@ -39,6 +39,7 @@ const INITIALSTATE = {
   sendChat: {},
   getMessages: [],
   deleteMessages: {},
+  getManufacturersList: [],
 };
 
 export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {

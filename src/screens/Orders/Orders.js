@@ -16,8 +16,11 @@ import { Pending } from "../MyPurchaseMain/Pending/Pending";
 import { Processing } from "../MyPurchaseMain/Processing/Processing";
 import { Completed } from "../MyPurchaseMain/Completed/Completed";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
+import { getWallet } from "@/selectors/WalletSelector";
+import { useSelector } from "react-redux";
 
 export function Orders() {
+  const wallet = useSelector(getWallet);
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
 
@@ -97,8 +100,15 @@ export function Orders() {
                 style={styles.searchIcon}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.headerIconView}>
-              <Text style={styles.filterText}>0</Text>
+            <TouchableOpacity
+              style={styles.headerIconView}
+              onPress={() => navigate(NAVIGATION.jbrWallet)}
+            >
+              <Text style={styles.filterText}>
+                {Math.floor(
+                  wallet?.getWalletBalance?.sila_balance / 100 || 0
+                ).toFixed()}
+              </Text>
               <Image
                 resizeMode="contain"
                 source={coinStack}
