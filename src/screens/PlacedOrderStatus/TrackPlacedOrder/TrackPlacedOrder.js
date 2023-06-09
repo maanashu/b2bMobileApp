@@ -18,8 +18,11 @@ import { getUser } from "@/selectors/UserSelectors";
 import { getWallet } from "@/selectors/WalletSelector";
 import { orderSelector } from "@/selectors/OrderSelector";
 import moment from "moment";
+import { useNavigation } from "@react-navigation/native";
+import { NAVIGATION } from "@/constants";
 
 export function TrackPlacedOrder({ route }) {
+  const navigation = useNavigation();
   const user = useSelector(getUser);
   const wallet = useSelector(getWallet);
   const order = useSelector(orderSelector);
@@ -279,7 +282,15 @@ export function TrackPlacedOrder({ route }) {
             paddingHorizontal: SW(20),
           }}
         >
-          <Button title={"Go to Homepage"} />
+          <Button
+            title={"Go to Homepage"}
+            onPress={() =>
+              navigation.reset({
+                index: 0,
+                routes: [{ name: NAVIGATION.home }],
+              })
+            }
+          />
         </View>
       </View>
     </ScreenWrapper>
