@@ -29,7 +29,6 @@ import { NAVIGATION } from "@/constants";
 export function TopRankingManufacturers() {
   const user = useSelector(getUser);
   const image = [yewiLogo, yewiLogo, yewiLogo];
-  console.log("yoyo", user?.getManufacturersList);
   const renderManufacturers = ({ item }) => (
     <>
       <TouchableOpacity
