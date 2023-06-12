@@ -292,8 +292,8 @@ export function ProductInquiry(params) {
             <View style={styles.queryIcons}>
               <TouchableOpacity
                 style={styles.chatbutton}
-                onPress={() => 
-                  navigate(NAVIGATION.chatting, {seller_id: data.seller_id})
+                onPress={() =>
+                  navigate(NAVIGATION.chatting, { seller_id: data.seller_id })
                 }
               >
                 <Image source={chatNow} style={styles.buttonIcon} />

@@ -162,7 +162,7 @@ export function ProductsBySeller(params) {
           numColumns={2}
         />
       </View>
-      {isLoadingProducts && <Loader message="Loading data ..." />}
+      {isLoadingProducts && <Loader message="Loading products ..." />}
     </ScreenWrapper>
   );
 }

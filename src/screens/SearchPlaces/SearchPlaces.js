@@ -40,7 +40,7 @@ export function SearchPlaces(props) {
             key: GOOGLE_MAP.API_KEYS,
             language: "en",
             type: "address",
-            components: "country:us",
+            // components: "country:us",
           }}
           fetchDetails
           textInputProps={{ placeholderTextColor: "#A7A7A7" }}

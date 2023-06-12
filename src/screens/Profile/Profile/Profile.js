@@ -43,87 +43,6 @@ import { getWallet } from "@/selectors/WalletSelector";
 import { logoutOrder } from "@/actions/OrderAction";
 import { logoutWallet } from "@/actions/WalletActions";
 
-const Data = [
-  {
-    id: 1,
-    icon: ordersIcon,
-    title: strings.profile.myPurchase,
-    openIcon: forward,
-  },
-  {
-    id: 2,
-    icon: quote,
-    title: strings.profile.requestQuotation,
-    openIcon: forward,
-  },
-  {
-    id: 3,
-    icon: question,
-    title: strings.profile.inquiries,
-    openIcon: forward,
-  },
-  {
-    id: 4,
-    icon: discount,
-    title: strings.profile.myCoupons,
-    openIcon: forward,
-  },
-  {
-    id: 5,
-    icon: heartIcon,
-    title: strings.profile.favouriteList,
-    openIcon: forward,
-  },
-  {
-    id: 6,
-    icon: searchDoc,
-    title: strings.profile.searchingPreference,
-    openIcon: forward,
-  },
-  {
-    id: 7,
-    icon: shippingAddressIcon,
-    title: strings.profile.shippingAddress,
-    openIcon: forward,
-  },
-  {
-    id: 8,
-    icon: jobrWallet,
-    title: strings.profile.jbrWallet,
-    openIcon: forward,
-  },
-  {
-    id: 9,
-    icon: jobrWallet,
-    title: strings.profile.paymentMethods,
-    openIcon: forward,
-  },
-  {
-    id: 10,
-    icon: businessCard,
-    title: strings.profile.businessCard,
-    openIcon: forward,
-  },
-  {
-    id: 11,
-    icon: catalogue,
-    title: strings.profile.myCatalogs,
-    openIcon: forward,
-  },
-  {
-    id: 12,
-    icon: helpCenter,
-    title: strings.profile.helpCenter,
-    openIcon: forward,
-  },
-  {
-    id: 13,
-    icon: settings,
-    title: strings.profile.settings,
-    openIcon: forward,
-  },
-];
-
 export function Profile() {
   const { colors } = useTheme();
   const dispatch = useDispatch();
@@ -135,37 +54,102 @@ export function Profile() {
     dispatch(logoutOrder());
     dispatch(logoutWallet());
   };
+  const Data = [
+    {
+      id: 1,
+      icon: ordersIcon,
+      title: strings.profile.myPurchase,
+      openIcon: forward,
+      navigation: NAVIGATION.myPurchase,
+    },
+    {
+      id: 2,
+      icon: quote,
+      title: strings.profile.requestQuotation,
+      openIcon: forward,
+    },
+    {
+      id: 3,
+      icon: question,
+      title: strings.profile.inquiries,
+      openIcon: forward,
+      navigation: NAVIGATION.inquiries,
+    },
+    {
+      id: 4,
+      icon: discount,
+      title: strings.profile.myCoupons,
+      openIcon: forward,
+      navigation: NAVIGATION.addCoupon,
+    },
+    {
+      id: 5,
+      icon: heartIcon,
+      title: strings.profile.favouriteList,
+      openIcon: forward,
+      navigation: NAVIGATION.favouriteList,
+    },
+    {
+      id: 6,
+      icon: searchDoc,
+      title: strings.profile.searchingPreference,
+      openIcon: forward,
+      navigation: NAVIGATION.selectedPreferance,
+    },
+    {
+      id: 7,
+      icon: shippingAddressIcon,
+      title: strings.profile.shippingAddress,
+      openIcon: forward,
+      navigation: NAVIGATION.addresses,
+    },
+    {
+      id: 8,
+      icon: jobrWallet,
+      title: strings.profile.jbrWallet,
+      openIcon: forward,
+      navigation: !user?.user?.payload?.token
+        ? NAVIGATION.noWalletScreen
+        : NAVIGATION.jbrWallet,
+    },
+    {
+      id: 9,
+      icon: jobrWallet,
+      title: strings.profile.paymentMethods,
+      openIcon: forward,
+      navigation: NAVIGATION.paymentMethod,
+    },
+    {
+      id: 10,
+      icon: businessCard,
+      title: strings.profile.businessCard,
+      openIcon: forward,
+      navigation: NAVIGATION.businessCards,
+    },
+    {
+      id: 11,
+      icon: catalogue,
+      title: strings.profile.myCatalogs,
+      openIcon: forward,
+      navigation: NAVIGATION.myCatalogue,
+    },
+    {
+      id: 12,
+      icon: helpCenter,
+      title: strings.profile.helpCenter,
+      openIcon: forward,
+      navigation: NAVIGATION.helpCenter,
+    },
+    {
+      id: 13,
+      icon: settings,
+      title: strings.profile.settings,
+      openIcon: forward,
+      navigation: NAVIGATION.settings,
+    },
+  ];
   const navigationHandler = (item) => {
-    if (item.title === strings.profile.myPurchase) {
-      navigate(NAVIGATION.myPurchase);
-    } else if (item.title === strings.profile.settings) {
-      navigate(NAVIGATION.settings);
-    } else if (item.title === strings.profile.myCatalogs) {
-      navigate(NAVIGATION.myCatalogue);
-    } else if (item.title === strings.profile.myCoupons) {
-      navigate(NAVIGATION.addCoupon);
-    } else if (item.title === strings.profile.jbrWallet) {
-      if (!user?.user?.payload?.token) {
-        navigate(NAVIGATION.noWalletScreen);
-      } else {
-        dispatch(getWalletUserProfile(user?.user?.payload?.uuid));
-        navigate(NAVIGATION.jbrWallet);
-      }
-    } else if (item.title === strings.profile.businessCard) {
-      navigate(NAVIGATION.businessCards);
-    } else if (item.title === strings.profile.searchingPreference) {
-      navigate(NAVIGATION.selectedPreferance);
-    } else if (item.title === strings.profile.shippingAddress) {
-      navigate(NAVIGATION.addresses);
-    } else if (item.title === strings.profile.paymentMethods) {
-      navigate(NAVIGATION.paymentMethod);
-    } else if (item.title === strings.profile.favouriteList) {
-      navigate(NAVIGATION.favouriteList);
-    } else if (item.title === strings.profile.inquiries) {
-      navigate(NAVIGATION.inquiries);
-    } else if (item.title === strings.profile.helpCenter) {
-      navigate(NAVIGATION.helpCenter);
-    }
+    navigate(item.navigation);
   };
   const ProfileData = ({ item, index }) => (
     <View>

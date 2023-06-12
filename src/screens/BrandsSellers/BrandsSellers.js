@@ -229,7 +229,7 @@ export function BrandsSellers(params) {
 
       <View style={{ flex: 1 }}>
         {isLoadingProducts ? (
-          <Loader message="Loading data ..." />
+          <Loader message="Loading Sellers ..." />
         ) : (
           <FlatList
             data={user?.getSellersList ?? []}

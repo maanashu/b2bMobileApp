@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { View, Image, Text, FlatList, TouchableOpacity } from "react-native";
 import { Button, ScreenWrapper, Spacer } from "@/components";
 import { styles } from "./TrackPlacedOrder.styles";
@@ -21,8 +21,13 @@ import moment from "moment";
 import { useNavigation } from "@react-navigation/native";
 import { NAVIGATION } from "@/constants";
 import { Components } from "./Components";
+import MapView, { Marker, PROVIDER_GOOGLE, Polyline } from "react-native-maps";
+import { Dimensions } from "react-native";
+import MapViewDirections from "react-native-maps-directions";
 
 export function TrackPlacedOrder({ route }) {
+  const { width, height } = Dimensions.get("window");
+  const mapRef = useRef();
   const navigation = useNavigation();
   const user = useSelector(getUser);
   const wallet = useSelector(getWallet);
@@ -32,6 +37,20 @@ export function TrackPlacedOrder({ route }) {
   const inputDate = order?.getOneOrderDetail?.created_at;
   const formattedDate = moment(inputDate).format("DD MMM, YYYY || hh:mm A");
 
+  const ASPECT_RATIO = width / height;
+  const LATITUDE_DELTA = 0.4689;
+  const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
+  const sourceCoordinate = {
+    latitude: user?.savedAddress?.latitude,
+    longitude: user?.savedAddress?.longitude,
+  };
+  const destinationCoordinates =
+    order?.getOneOrderDetail?.seller_details?.seller_location;
+  const destinationCoordinate = {
+    latitude: destinationCoordinates?.[1],
+    longitude: destinationCoordinates?.[0],
+  };
   useEffect(() => {
     setisModalVisible(true);
   }, []);
@@ -105,32 +124,65 @@ export function TrackPlacedOrder({ route }) {
           <Text style={[styles.titleText, { color: COLORS.darkGrey }]}>
             {item.title}
           </Text>
-          <Text style={[styles.statusText, { color: COLORS.text }]}>
-            {item.status}
-          </Text>
         </View>
       </View>
     </>
   );
-
+  const polylineCoordinates = [sourceCoordinate, destinationCoordinate];
   return (
     <ScreenWrapper>
       <HeaderCoin title={strings.trackOrder.trackYourOrder} amount={"0"} />
 
       <View style={styles.mainContainer}>
         <View>
-          <Image
+          {/* <Image
             source={trackingMap}
             resizeMode="cover"
             style={{ width: "100%", height: "100%" }}
-          />
+          /> */}
         </View>
+        <MapView
+          ref={mapRef}
+          provider={PROVIDER_GOOGLE}
+          showsCompass
+          zoomEnabled
+          showsMyLocationButton
+          // initialRegion={{
+          //   latitude: latitude,
+          //   longitude: longitude,
+          //   latitudeDelta: 0.00722,
+          //   longitudeDelta: 0.00721,
+          // }}
+          region={{
+            latitude: user?.savedAddress?.latitude,
+            longitude: user?.savedAddress?.longitude,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
+          }}
+          style={styles.map}
+        >
+          <Marker coordinate={sourceCoordinate} />
+          <Marker coordinate={destinationCoordinate} />
+          <MapViewDirections
+            origin={{
+              latitude: user?.savedAddress?.latitude,
+              longitude: user?.savedAddress?.longitude,
+            }}
+            destination={{
+              latitude: destinationCoordinates?.[1],
+              longitude: destinationCoordinates?.[0],
+            }}
+            apikey={PROVIDER_GOOGLE}
+            strokeWidth={3}
+            strokeColor={COLORS.primary}
+          />
+        </MapView>
 
         <View style={{ position: "absolute", alignSelf: "center" }}>
           <View
             style={[
               styles.mainModal,
-              { marginTop: isModalVisible == true ? SH(150) : SH(500) },
+              { marginTop: isModalVisible == true ? SH(230) : SH(500) },
             ]}
           >
             <View style={styles.modalHeader}>

@@ -1,7 +1,9 @@
 import { SH, SW, SF, COLORS, ShadowStyles } from "@/theme";
 import { Fonts } from "@/assets";
 import { StyleSheet } from "react-native";
-
+import { Dimensions } from "react-native";
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
 export const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
@@ -70,5 +72,10 @@ export const styles = StyleSheet.create({
     alignItems: "flex-start",
     justifyContent: "flex-end",
     marginLeft: SW(10),
+  },
+  map: {
+    height: height,
+    width: width,
+    alignSelf: "center",
   },
 });
