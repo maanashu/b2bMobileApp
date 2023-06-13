@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
   headerStyle: {
     height: SH(50),
     backgroundColor: COLORS.white,
-    paddingHorizontal: SW(20),
+    paddingHorizontal: SW(20.5),
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",

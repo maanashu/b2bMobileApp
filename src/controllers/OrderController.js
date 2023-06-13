@@ -169,22 +169,18 @@ export class OrderController {
     });
   }
 
-  static async getOrderList() {
+  static async getOrderList(data) {
     return new Promise((resolve, reject) => {
-      const endpoint = ORDER_URL + ApiOrderInventory.getOrderList;
+      const params = new URLSearchParams(data).toString();
+      const endpoint = `${
+        ORDER_URL + ApiOrderInventory.getOrderList
+      }?${params}`;
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
         })
         .catch((error) => {
-          Toast.show({
-            text2: error.msg,
-            position: "bottom",
-            type: "error_toast",
-            visibilityTime: 1500,
-          });
-
-          reject(new Error((strings.validation.error = error.msg)));
+          reject(error);
         });
     });
   }

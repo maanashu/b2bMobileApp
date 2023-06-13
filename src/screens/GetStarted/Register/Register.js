@@ -94,14 +94,14 @@ export function Register() {
 
   const data = {
     username: username,
-    firstname: firstname.trim(),
-    lastname: lastname.trim(),
+    firstname: firstname?.trim(),
+    lastname: lastname?.trim(),
     email: email,
     dob: dateformat,
     pin: pin,
     confirmPin: confirmPin,
     code: countryCode,
-    phone: phoneNumber.trim(),
+    phone: phoneNumber?.trim(),
   };
 
   const submit = () => {

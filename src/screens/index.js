@@ -100,3 +100,4 @@ export { ProductsBySeller } from "@/screens/ProductsBySeller/ProductsBySeller";
 export { SelectAddress } from "@/screens/SelectAddress/SelectAddress";
 export { OrderedStatus } from "@/screens/PlacedOrderStatus/OrderedStatus/OrderedStatus";
 export { TrackPlacedOrder } from "@/screens/PlacedOrderStatus/TrackPlacedOrder/TrackPlacedOrder";
+export { NewOrders } from "@/screens/Orders/NewOrders/NewOrders";

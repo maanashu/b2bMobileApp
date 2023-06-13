@@ -78,15 +78,6 @@ export function BrandsSellers(params) {
     isLoadingSelector([TYPE.GET_SELLERS], state)
   );
 
-  // const navigationHandler = (item) => {
-  //   if (item === item) {
-  //     navigate(NAVIGATION.productInquiry, {
-  //       itemId: item.id,
-  //       seller_id: item?.supplies[0]?.seller_id,
-  //     });
-  //   }
-  // };
-
   const renderBrands = ({ item, index }) => (
     <>
       <TouchableOpacity
@@ -220,7 +211,7 @@ export function BrandsSellers(params) {
             renderItem={renderBrands}
             ListEmptyComponent={renderNoData}
             keyExtractor={(item) => item.id}
-            // extraData={selectedId}
+            extraData={brandsData?.brandsList ?? []}
           />
         )}
       </View>

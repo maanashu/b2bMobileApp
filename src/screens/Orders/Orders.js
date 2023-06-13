@@ -18,6 +18,7 @@ import { Completed } from "../MyPurchaseMain/Completed/Completed";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
 import { getWallet } from "@/selectors/WalletSelector";
 import { useSelector } from "react-redux";
+import { NewOrders } from "./NewOrders/NewOrders";
 
 export function Orders() {
   const wallet = useSelector(getWallet);
@@ -31,7 +32,7 @@ export function Orders() {
     // { key: "fifth", title: "Cancelled" },
   ]);
 
-  const FirstRoute = () => <Pending />;
+  const FirstRoute = () => <NewOrders />;
   const SecondRoute = () => <Processing />;
   const ThirdRoute = () => <Completed />;
   // const FifthRoute = () => <Cancelled />;
@@ -88,6 +89,36 @@ export function Orders() {
   };
   return (
     <ScreenWrapper style={styles.container}>
+      {/* <View style={styles.header}>
+        <View style={styles.headerInnerView}>
+          <Text style={styles.headerText}>{strings.profile.myJobr}</Text>
+
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <TouchableOpacity>
+              <Image
+                resizeMode="contain"
+                source={search}
+                style={styles.searchIcon}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.headerIconView}
+              onPress={() => navigate(NAVIGATION.jbrWallet)}
+            >
+              <Text style={styles.filterText}>
+                {Math.floor(
+                  wallet?.getWalletBalance?.sila_balance || 0
+                ).toFixed()}
+              </Text>
+              <Image
+                resizeMode="contain"
+                source={coinStack}
+                style={styles.filterIcon}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View> */}
       <View style={styles.header}>
         <View style={styles.headerInnerView}>
           <Text style={styles.headerText}>{strings.profile.myJobr}</Text>

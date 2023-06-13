@@ -111,6 +111,10 @@ const getOrderListError = (error) => ({
   type: TYPES.GET_ORDER_LIST_ERROR,
   payload: { error },
 });
+const getOrderListReset = () => ({
+  type: TYPES.GET_ORDER_LIST_RESET,
+  payload: null,
+});
 
 const getOrderDetailsRequest = () => ({
   type: TYPES.GET_ORDER_DETAILS_REQUEST,
@@ -231,13 +235,17 @@ export const createOrder = (data) => (dispatch) => {
     });
 };
 
-export const getOrderList = () => async (dispatch) => {
+export const getOrderList = (data) => async (dispatch) => {
   dispatch(getOrderListRequest());
   try {
-    const res = await OrderController.getOrderList();
+    const res = await OrderController.getOrderList(data);
     dispatch(getOrderListSuccess(res?.payload));
   } catch (error) {
-    dispatch(getOrderListError(error.message));
+    if (error?.statusCode === 204) {
+      dispatch(getOrderListReset());
+    } else {
+      dispatch(getOrderListError(error.message));
+    }
   }
 };
 

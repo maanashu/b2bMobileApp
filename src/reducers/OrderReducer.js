@@ -47,6 +47,12 @@ export const orderReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         getCart: {},
       };
+    case TYPES.GET_ORDER_LIST_RESET:
+      return {
+        ...state,
+        getAllOrdersList: {},
+      };
+
     case TYPES.CREATE_ORDER_SUCCESS:
       return {
         ...state,

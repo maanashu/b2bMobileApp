@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
   header: {
     height: SH(50),
     backgroundColor: COLORS.white,
-    ...ShadowStyles.shadow2,
+    ...ShadowStyles.shadow1,
     paddingHorizontal: SW(20),
     justifyContent: "center",
   },
@@ -36,7 +36,6 @@ export const styles = StyleSheet.create({
     height: SH(35),
     width: SW(40),
   },
-
   topTabContainer: {
     flex: 1,
     paddingVertical: SH(5),

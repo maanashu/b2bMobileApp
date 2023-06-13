@@ -125,7 +125,7 @@ export function Settings() {
     }
   };
   useEffect(() => {
-    dispatch(getOrderList());
+    dispatch(getOrderList({ page: 1, limit: 10 }));
   }, []);
   const FirstData = ({ item, index }) => (
     <View>
