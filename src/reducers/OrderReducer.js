@@ -66,7 +66,7 @@ export const orderReducer = (state = { INITIALSTATE }, { payload, type }) => {
     case TYPES.GET_ORDER_LIST_SUCCESS:
       return {
         ...state,
-        getAllOrdersList: payload.getAllOrdersList,
+        getAllOrdersList: payload.getAllOrdersList?.data,
       };
     case TYPES.GET_ORDER_DETAILS_SUCCESS:
       return {

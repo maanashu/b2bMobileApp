@@ -47,12 +47,13 @@ export function PurchaseView({
 
         <Spacer space={SH(10)} />
         <View style={styles.bottomLine}></View>
+        <Spacer space={SH(10)} />
 
         <View style={{ flexDirection: "row" }}>
           <Image
             source={productImage}
             resizeMode="contain"
-            style={{ height: SW(70), width: SW(70) }}
+            style={{ height: SW(70), width: SW(70), borderRadius: SW(15) }}
           />
 
           <View style={{ flex: 1, marginTop: SH(10), marginLeft: SW(5) }}>
@@ -75,7 +76,11 @@ export function PurchaseView({
                 color: COLORS.darkGrey,
               }}
             >
-              {price} x <Text>{quantity}</Text>
+              {"US$ "} {price} x{" "}
+              <Text>
+                {quantity}
+                {" Pieces"}
+              </Text>
             </Text>
           </View>
         </View>

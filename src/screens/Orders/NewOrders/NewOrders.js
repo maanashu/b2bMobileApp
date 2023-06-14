@@ -7,13 +7,20 @@ import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
-import { getOrderList } from "@/actions/OrderAction";
+import { getOrderDetails, getOrderList } from "@/actions/OrderAction";
+import { orderSelector } from "@/selectors/OrderSelector";
+import moment from "moment";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
+import { Loader } from "@/components/Loader";
 
 export function NewOrders() {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
+  const order = useSelector(orderSelector);
 
-  console.log("user>", user?.user?.payload?.uuid);
+  // console.log("user>", user?.user?.payload?.uuid);
+  // console.log("orders>", JSON.stringify(order?.getAllOrdersList));
   const object = {
     page: 1,
     limit: 10,
@@ -48,19 +55,26 @@ export function NewOrders() {
       date: "14 Jun, 21:33",
     },
   ];
-
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_ORDER_LIST], state)
+  );
   const renderItem = ({ item, index }) => (
     <>
       <PurchaseView
-        onPress={() => navigate(NAVIGATION.myOrders, { item: "pending" })}
-        companyLogo={item.companyLogo}
-        companyName={item.companyName}
-        price={item.price}
-        quantity={item.quantity}
-        orderedAmount={item.orderedAmount}
-        productImage={item.productImage}
-        productName={item.productName}
-        date={item.date}
+        onPress={() => {
+          navigate(NAVIGATION.myOrders);
+          dispatch(getOrderDetails(item?.id));
+        }}
+        companyLogo={item?.seller_details?.profile_photo}
+        companyName={item?.seller_details?.username}
+        price={item?.order_details?.[0]?.price}
+        quantity={item?.order_details?.[0]?.qty}
+        orderedAmount={item?.order_details?.[0]?.price}
+        productImage={{ uri: item?.order_details?.[0]?.product_image }}
+        productName={item?.order_details?.[0]?.product_name}
+        date={moment(item?.order_details?.created_at)
+          .utc()
+          .format("DD MMM, HH:mm ")}
       />
     </>
   );
@@ -76,11 +90,12 @@ export function NewOrders() {
         }}
       >
         <FlatList
-          data={data}
+          data={order?.getAllOrdersList}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
       </View>
+      {isLoading ? <Loader message="Loading your orders ..." /> : null}
     </ScreenWrapper>
   );
 }

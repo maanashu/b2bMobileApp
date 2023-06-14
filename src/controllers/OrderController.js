@@ -178,8 +178,10 @@ export class OrderController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
+          console.log("success", response);
         })
         .catch((error) => {
+          console.log("errorrrrr", error);
           reject(error);
         });
     });

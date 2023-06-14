@@ -91,11 +91,11 @@ export function Delivery() {
             </View>
           </TouchableOpacity>
         </View>
-        <Text style={styles.priceText}>$8.00</Text>
+        {/* <Text style={styles.priceText}>$8.00</Text> */}
         <Spacer space={SH(5)} />
       </View>
 
-      <View style={{ borderBottomWidth: 1, borderColor: COLORS.grey }}></View>
+      <View style={{ borderBottomWidth: 0.5, borderColor: COLORS.grey }}></View>
     </>
   );
   const isLoading = useSelector((state) =>

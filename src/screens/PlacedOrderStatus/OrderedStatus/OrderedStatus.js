@@ -113,13 +113,13 @@ export function OrderedStatus({ route }) {
     );
   };
   const deliveryService = (item) => {
-    if (item.shipping_service_id === 1) {
+    if (item?.shipping_service_id === 1) {
       return "Fedex Express Shipping";
-    } else if (item.shipping_service_id === 2) {
+    } else if (item?.shipping_service_id === 2) {
       return "UPS Priority Shipping";
-    } else if (item.shipping_service_id === 3) {
+    } else if (item?.shipping_service_id === 3) {
       return "DHL Standard Shipping";
-    } else if (item.shipping_service_id === 4) {
+    } else if (item?.shipping_service_id === 4) {
       return "USPS Standard shipping";
     }
   };

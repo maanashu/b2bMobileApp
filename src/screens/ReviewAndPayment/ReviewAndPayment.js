@@ -104,6 +104,7 @@ export function ReviewAndPayment(props) {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.CREATE_ORDER], state)
   );
+  console.log("==getCartId==", getCartId?.createOrder);
 
   const placeOrder = () => {
     const data = {

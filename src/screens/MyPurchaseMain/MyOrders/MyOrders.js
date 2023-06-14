@@ -15,7 +15,7 @@ import {
   Spacer,
 } from "@/components";
 import { styles } from "./MyOrders.styles";
-import { COLORS, SH, SW } from "@/theme";
+import { COLORS, SF, SH, SW } from "@/theme";
 import { strings } from "@/localization";
 import {
   backArrow,
@@ -29,8 +29,11 @@ import {
 } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
+import { useSelector } from "react-redux";
+import { orderSelector } from "@/selectors/OrderSelector";
 
 export function MyOrders({ route }) {
+  const order = useSelector(orderSelector);
   const Details = [
     {
       id: "1",
@@ -55,6 +58,8 @@ export function MyOrders({ route }) {
     },
   ];
 
+  console.log("uuiiii", order?.getOneOrderDetail);
+
   const render = (item) => {
     return (
       <View>
@@ -76,50 +81,30 @@ export function MyOrders({ route }) {
     <ScreenWrapper>
       <NameHeader title={strings.myPurchase.orderDetails} back={backArrow} />
 
-      <ScrollView style={styles.mainContainer}>
-        <Spacer space={SH(25)} />
-
-        <View style={styles.orderStatus}>
-          <View style={styles.statusInnerView}>
-            <Text style={styles.statusText}>{strings.myPurchase.pending}</Text>
-            <Spacer space={SH(5)} />
-
-            <View style={styles.bottomStatusBar}></View>
-          </View>
-
-          {/*  */}
-
-          <View style={styles.statusInnerView}>
-            <Text style={styles.statusText}>
-              {strings.myPurchase.confirmed}
+      <ScrollView
+        style={styles.mainContainer}
+        showsVerticalScrollIndicator={false}
+      >
+        <Spacer space={SH(15)} />
+        <View style={styles.rowView}>
+          <Text style={styles.statusHeading}>{"To be confirmed"}</Text>
+          <View
+            style={{
+              backgroundColor: COLORS.primary,
+              borderRadius: SW(5),
+            }}
+          >
+            <Text
+              style={{
+                paddingVertical: SH(4),
+                paddingHorizontal: SW(12),
+                color: COLORS.white,
+              }}
+            >
+              {"Paid"}
             </Text>
-            <Spacer space={SH(5)} />
-            <View
-              style={[
-                styles.bottomStatusBar,
-                { borderColor: COLORS.backgroundGrey },
-              ]}
-            ></View>
           </View>
-          <View style={styles.statusInnerView}>
-            <Text style={styles.statusText}>{strings.myPurchase.paid}</Text>
-            <Spacer space={SH(5)} />
-            <View
-              style={[
-                styles.bottomStatusBar,
-                { borderColor: COLORS.backgroundGrey },
-              ]}
-            ></View>
-          </View>
-
-          {/*  */}
         </View>
-
-        <Spacer space={SH(20)} />
-
-        <Text style={styles.statusHeading}>
-          {strings.myPurchase.pendingQuote}
-        </Text>
 
         <Spacer space={SH(15)} />
 
@@ -129,7 +114,7 @@ export function MyOrders({ route }) {
 
         <View style={styles.companyBackground}>
           <View style={styles.companyInnerView}>
-            <Text>About company</Text>
+            <Text>{"Buyer"}</Text>
             <TouchableOpacity>
               <Image
                 source={chatNow}
@@ -258,7 +243,10 @@ export function MyOrders({ route }) {
 
           <Spacer space={SH(10)} />
 
-          <ScrollView style={{ paddingHorizontal: SW(20) }}>
+          <ScrollView
+            style={{ paddingHorizontal: SW(20) }}
+            showsVerticalScrollIndicator={false}
+          >
             <FlatList
               data={Details}
               renderItem={({ item }) => render(item)}
@@ -310,13 +298,12 @@ export function MyOrders({ route }) {
 
         <Spacer space={SH(30)} />
 
-        {route?.params?.item == "Processing" && (
-          <Button
-            onPress={() => navigate(NAVIGATION.trackOrder)}
-            title={strings.myPurchase.trackOrder}
-            style={styles.trackOrderButton}
-          />
-        )}
+        <Button
+          onPress={() => navigate(NAVIGATION.trackOrder)}
+          title={"Confirm Order"}
+          style={styles.trackOrderButton}
+        />
+        <Spacer space={SH(20)} />
       </ScrollView>
     </ScreenWrapper>
   );

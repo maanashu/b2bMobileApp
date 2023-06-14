@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
   },
   statusHeading: {
-    color: COLORS.rose,
+    color: COLORS.light_yellow,
     fontFamily: Fonts.SemiBold,
     fontSize: SF(18),
   },
@@ -223,7 +223,7 @@ export const styles = StyleSheet.create({
     fontSize: SF(13),
   },
   trackOrderButton: {
-    backgroundColor: COLORS.darkGrey,
+    backgroundColor: COLORS.primary,
     height: SH(50),
   },
 });
