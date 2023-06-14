@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
 import { styles } from "@/screens/Products/ProductsInquiry/ProductInquiry.styles";
-import { SW } from "@/theme/ScalerDimensions";
+import { SH, SW } from "@/theme/ScalerDimensions";
 import { clock, location, star, yewiCertified, yewiLogo } from "@/assets";
 
 export function CompanyDetailView({
@@ -14,7 +14,7 @@ export function CompanyDetailView({
   return (
     <View style={styles.yewiInnerView}>
       <Image source={profilePhoto} style={styles.logoYewi} />
-      <View style={{ paddingHorizontal: SW(10) }}>
+      <View style={{ paddingHorizontal: SW(5) }}>
         <Text style={styles.yewiHeadingText}>{title}</Text>
         <View style={styles.yewiSmallView}>
           <Image
@@ -28,13 +28,28 @@ export function CompanyDetailView({
               resizeMode="contain"
               style={styles.yewiIcons}
             />
-            <Text style={styles.yewiSmallText}>
+            <Text
+              style={[
+                styles.yewiSmallText,
+                { maxWidth: SW(90), maxHeight: SH(15) },
+              ]}
+            >
               {" "}
               {locationText}
               <Text>{country}</Text>
             </Text>
-            <Image source={star} resizeMode="contain" style={styles.yewistar} />
-            <Text style={styles.yewiSmallText}> {rating}</Text>
+            {rating ? (
+              <>
+                <Image
+                  source={star}
+                  resizeMode="contain"
+                  style={styles.yewistar}
+                />
+                <Text style={styles.yewiSmallText}> {rating}</Text>
+              </>
+            ) : (
+              <></>
+            )}
             <Image
               source={clock}
               resizeMode="contain"

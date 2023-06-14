@@ -5,7 +5,7 @@ import {
   useWindowDimensions,
   FlatList,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { styles } from "./AboutBusiness.style";
 import {
   CompanyDetailView,
@@ -15,17 +15,25 @@ import {
 } from "@/components";
 import { SF, SH } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import {
-  Fonts,
-  yewiLogo,
-  backArrow,
-} from "@/assets";
+import { Fonts, yewiLogo, backArrow, ProfileUser } from "@/assets";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { BusinessHome, BusinessProducts, BusinessProfile } from "@/screens";
 import { moderateScale, ms } from "react-native-size-matters";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getOneManufactureDetails } from "@/actions/UserActions";
+import { getUser } from "@/selectors/UserSelectors";
+import { getProductSelector } from "@/selectors/ProductSelectors";
 
-export function AboutBusiness() {
+export function AboutBusiness(props) {
   const layout = useWindowDimensions();
+  const dispatch = useDispatch();
+  const user =useSelector(getProductSelector);
+  console.log(
+    "useruseruser",
+    JSON.stringify(props.route?.params?.sellerDetails)
+  );
+  console.log("prop==s", user?.savedManufacturerDetail);
 
   const [index, setIndex] = React.useState(0);
 
@@ -145,9 +153,19 @@ export function AboutBusiness() {
           <Spacer space={SH(20)} />
           <View style={styles.yewiView}>
             <CompanyDetailView
-              title={"Yiwu Leqi E-Commerce Firm"}
-              profilePhoto={yewiLogo}
-              locationText={"Miami, USA"}
+              profilePhoto={
+                user?.user_profiles?.profile_photo
+                  ? user?.user_profiles?.profile_photo
+                  : ProfileUser
+              }
+              title={
+                user?.user_profiles?.organization_name
+                  ? user?.user_profiles?.organization_name
+                  : "Seller"
+              }
+              locationText={`${user?.current_location?.city},`}
+              rating={user?.sellerRating?.rating}
+              country={user?.current_location?.country}
             />
 
             <Spacer space={SH(15)} />

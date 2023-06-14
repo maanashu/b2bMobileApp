@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: COLORS.white,
     margin: 2,
-    flex: 1,
+    flex: 1/2,
     paddingVertical: SH(5),
   },
   filerView: {
@@ -43,6 +43,7 @@ export const styles = StyleSheet.create({
     borderRadius: moderateScale(20),
     justifyContent: "space-evenly",
     alignSelf: "flex-end",
+    marginTop: SH(10)
   },
   filterIcon: {
     height: ms(20),
@@ -71,5 +72,7 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.Regular,
     fontSize: ms(12),
     color: COLORS.darkGrey,
+    paddingHorizontal: ms(10),
+    marginTop: vs(2),
   },
 });

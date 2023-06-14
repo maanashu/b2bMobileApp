@@ -155,7 +155,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   rowMainCard: {
-    flex: 1,
+    flex: 1 / 4,
     alignItems: "center",
     paddingTop: verticalScale(1),
   },
@@ -376,5 +376,24 @@ export const styles = StyleSheet.create({
     fontSize: ms(12),
     color: COLORS.darkGrey,
     paddingHorizontal: ms(10),
+  },
+  flexDirectionRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  textStyle: {
+    fontFamily: Fonts.Regular,
+    fontSize: ms(11),
+    color: COLORS.darkGrey,
+  },
+  width: {
+    width: "50%",
+  },
+  textStyle2: {
+    alignSelf: "flex-start",
+    fontFamily: Fonts.Regular,
+    fontSize: ms(12),
+    color: COLORS.dark_gray,
+    paddingVertical: vs(10),
   },
 });

@@ -14,8 +14,12 @@ import { COLORS } from "@/theme/Colors";
 import { videoPic2, videoPic1, videoPic3, videoPic4, filter } from "@/assets";
 import { strings } from "@/localization";
 import { ms, vs } from "react-native-size-matters";
+import { useSelector } from "react-redux";
+import { getProductSelector } from "@/selectors/ProductSelectors";
 
 export function BusinessProducts() {
+  const user = useSelector(getProductSelector)?.product?.data;
+
   const Bags = [
     {
       id: 1,
@@ -91,7 +95,7 @@ export function BusinessProducts() {
       ]}
     >
       <Image
-        source={item.image}
+        source={{ uri: item.image }}
         resizeMode="contain"
         style={{
           height: vs(130),
@@ -101,10 +105,7 @@ export function BusinessProducts() {
         }}
       />
 
-      <Text style={styles.titleBoldText}>
-        {item.title}
-        <Text style={styles.subTitleText}> {item.subTitle}</Text>
-      </Text>
+      <Text style={styles.subTitleText} numberOfLines={2}> {item.name}</Text>
       <Text style={styles.quantityText}>{item.quantity}</Text>
     </TouchableOpacity>
   );
@@ -128,7 +129,7 @@ export function BusinessProducts() {
         <Spacer space={SH(20)} />
 
         <FlatList
-          data={Bags}
+          data={user}
           renderItem={SecondItem}
           keyExtractor={(item) => item.id}
           numColumns={2}

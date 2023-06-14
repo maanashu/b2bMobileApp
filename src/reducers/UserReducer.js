@@ -39,6 +39,7 @@ const INITIALSTATE = {
   sendChat: {},
   getMessages: [],
   deleteMessages: {},
+  getOneManufactureDetails: {},
   getManufacturersList: [],
 };
 
@@ -200,6 +201,11 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         deleteMessages: payload.deleteMessages,
+      };
+    case TYPES.GET_ONE_MANUFACTURE_DETAILS_SUCCESS:
+      return {
+        ...state,
+        getOneManufactureDetails: payload.getOneManufactureDetails,
       };
   }
 };

@@ -31,6 +31,7 @@ export const ApiUserInventory = {
   sendChat: "messages",
   getMessages: (id) => `messageheads/${id}`,
   deleteMessages: (id) => `messageheads/${id}`,
+  getOneManufactureDetails: (id) => `users/${id}`,
 };
 
 export const SupportInventory = {

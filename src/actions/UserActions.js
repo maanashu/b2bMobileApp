@@ -137,6 +137,10 @@ export const TYPES = {
   DELETE_MESSAGES_REQUEST: "DELETE_MESSAGES_REQUEST",
   DELETE_MESSAGES_SUCCESS: "DELETE_MESSAGES_SUCCESS",
   DELETE_MESSAGES_ERROR: "DELETE_MESSAGES_ERROR",
+
+  GET_ONE_MANUFACTURE_DETAILS_REQUEST: "GET_ONE_MANUFACTURE_DETAILS_REQUEST",
+  GET_ONE_MANUFACTURE_DETAILS_SUCCESS: "GET_ONE_MANUFACTURE_DETAILS_SUCCESS",
+  GET_ONE_MANUFACTURE_DETAILS_ERROR: "GET_ONE_MANUFACTURE_DETAILS_ERROR"
 };
 
 const loginRequest = () => ({
@@ -460,6 +464,20 @@ const deleteMessagesError = (error) => ({
   type: TYPES.DELETE_MESSAGES_ERROR,
   payload: { error },
 });
+const getOneManufactureDetailsRequest = () => ({
+  type: TYPES.GET_ONE_MANUFACTURE_DETAILS_REQUEST,
+  payload: null,
+});
+
+const getOneManufactureDetailsSuccess = (getOneManufactureDetails) => ({
+  type: TYPES.GET_ONE_MANUFACTURE_DETAILS_SUCCESS,
+  payload: { getOneManufactureDetails },
+});
+
+const getOneManufactureDetailsError = (error) => ({
+  type: TYPES.GET_ONE_MANUFACTURE_DETAILS_ERROR,
+  payload: { error },
+});
 
 export const login =
   (value, countryCode, phoneNumber, screenName) => async (dispatch) => {
@@ -708,5 +726,18 @@ export const deleteMessages = (id) => async (dispatch) => {
   } catch (error) {
     console.error("errror", JSON.stringify(error));
     dispatch(deleteMessagesError(error.message));
+  }
+};
+
+export const getOneManufactureDetails = (id) => async (dispatch) => {
+  console.log("id==", id);
+  dispatch(getOneManufactureDetailsRequest());
+  try {
+    const res = await UserController.getOneManufactureDetails(id);
+    console.log("dataaaa", res);
+    dispatch(getOneManufactureDetailsSuccess(res?.payload));
+  } catch (error) {
+    console.error("errror", JSON.stringify(error));
+    dispatch(getOneManufactureDetailsError(error.message));
   }
 };

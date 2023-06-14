@@ -121,6 +121,11 @@ const catWithProductReset = () => ({
   payload: null,
 });
 
+export const saveManufacturerDetail = (savedManufacturerDetail) => ({
+  type: TYPES.SAVED_MANUFACTURER_DETAIL_SUCCESS,
+  payload: { savedManufacturerDetail },
+});
+
 export const getProduct = (data) => async (dispatch) => {
   dispatch(getProductRequest());
   try {
