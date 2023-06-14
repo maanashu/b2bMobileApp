@@ -88,11 +88,11 @@ export const styles = StyleSheet.create({
   },
   yewiView: {
     borderRadius: 10,
-    paddingVertical: SH(12),
+    paddingVertical: SH(8),
     backgroundColor: COLORS.white,
     ...ShadowStyles.shadow2,
     flex: 1,
-    paddingHorizontal: SW(10),
+    // paddingHorizontal: SW(10),
     marginBottom: SW(2),
   },
   yewiInnerView: {

@@ -15,8 +15,14 @@ import { drink, Fonts, forward, girl, shampoo } from "@/assets";
 import { ms } from "react-native-size-matters";
 import SwiperFlatList from "react-native-swiper-flatlist";
 import { Images, Bags } from "./Components";
+import { useSelector } from "react-redux";
+import { getProductSelector } from "@/selectors/ProductSelectors";
+import { navigate } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
 
 export function BusinessHome() {
+  const user = useSelector(getProductSelector)?.product?.data;
+
   const renderRecentItem = ({ item, index }) => (
     <TouchableOpacity style={styles.swiperView}>
       <Image source={item.img} style={styles.storeImg} resizeMode="cover" />
@@ -86,7 +92,7 @@ export function BusinessHome() {
       ]}
     >
       <Image
-        source={item.image}
+        source={{ uri: item.image }}
         resizeMode="contain"
         style={{
           width: ms(145),
@@ -96,7 +102,7 @@ export function BusinessHome() {
       />
 
       <Text style={styles.titleText}>
-        {item.title}
+        {item.name}
         <Text style={styles.subTitleText}> {item.subtitle}</Text>
       </Text>
       <Text style={styles.moqText}>{item.quantity}</Text>
@@ -104,11 +110,11 @@ export function BusinessHome() {
   );
   const secondItem = ({ item, onPress }) => (
     <TouchableOpacity style={styles.item}>
-      <Image source={item.image} style={styles.secondView} />
+      <Image source={{ uri: item.image }} style={styles.secondView} />
 
       <Spacer space={SH(10)} />
 
-      <Text style={styles.commonFlatlistText}>{item.title}</Text>
+      <Text style={styles.commonFlatlistText}>{item.name}</Text>
     </TouchableOpacity>
   );
   return (
@@ -121,7 +127,7 @@ export function BusinessHome() {
 
         <View style={{ paddingBottom: SH(30) }}>
           <SwiperFlatList
-            autoplay
+            // autoplay
             autoplayDelay={2}
             showPagination
             data={Images}
@@ -144,7 +150,7 @@ export function BusinessHome() {
             >
               New Products
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=> navigate(NAVIGATION.businessProducts)}>
               <View style={{ flexDirection: "row" }}>
                 <Text style={styles.smallText}>See all </Text>
                 <Image
@@ -158,7 +164,7 @@ export function BusinessHome() {
           <Spacer space={SH(20)} />
 
           <FlatList
-            data={secondData}
+            data={user}
             renderItem={secondItem}
             keyExtractor={(item) => item.id}
             // extraData={product}
@@ -169,7 +175,7 @@ export function BusinessHome() {
         <Spacer space={SH(20)} />
 
         <FlatList
-          data={Bags}
+          data={user}
           renderItem={SecondItem}
           keyExtractor={(item) => item.id}
           numColumns={2}

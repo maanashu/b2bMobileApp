@@ -140,6 +140,7 @@ export const styles = StyleSheet.create({
   yewiInnerView: {
     flexDirection: "row",
     marginHorizontal: SW(5),
+    marginVertical: SH(5)
   },
   thirdView: {
     height: SH(74),
@@ -150,6 +151,7 @@ export const styles = StyleSheet.create({
     height: SW(36),
     width: SW(36),
     borderRadius: SW(18),
+    marginLeft: SW(10),
   },
   yewiHeadingText: {
     color: COLORS.black,
@@ -174,12 +176,12 @@ export const styles = StyleSheet.create({
   yewistar: {
     height: SH(10),
     width: SW(10),
-    marginLeft: SW(7),
+    marginLeft: SW(8),
   },
   yewiClock: {
     height: SH(10),
     width: SW(11),
-    marginLeft: SW(5),
+    marginLeft: SW(8),
   },
   sideIcons: {
     height: SH(24),
@@ -276,9 +278,9 @@ export const styles = StyleSheet.create({
   yewiSmallView: {
     flexDirection: "row",
     alignItems: "center",
+    marginTop: SH(5)
   },
   yewiDirection: {
-    paddingHorizontal: SW(5),
     flexDirection: "row",
     alignItems: "center",
   },

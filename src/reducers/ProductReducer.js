@@ -8,6 +8,7 @@ const INITIALSTATE = {
   addCoupons: {},
   variantId: {},
   categoryWithProducts: [],
+  savedManufacturerDetail:{}
 };
 export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
   switch (type) {
@@ -32,6 +33,12 @@ export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         trendingList: [],
       };
+      case TYPES.SAVED_MANUFACTURER_DETAIL_SUCCESS:
+        return {
+          ...state,
+          savedManufacturerDetail:payload?.savedManufacturerDetail
+        };
+  
 
     case TYPES.GET_TRENDING_SELLERS_SUCCESS:
       return {

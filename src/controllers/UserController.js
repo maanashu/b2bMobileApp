@@ -514,4 +514,28 @@ export class UserController {
         });
     });
   }
+
+  static async getOneManufactureDetails(id) {
+    console.log("idData", id);
+    return new Promise((resolve, reject) => {
+      const endpoint = USER_URL + ApiUserInventory.getOneManufactureDetails(id);
+      HttpClient.get(endpoint, id)
+        .then((response) => {
+          resolve(response);
+          console.log("endpoint", JSON.stringify(response));
+          // navigate(NAVIGATION.settings);
+        })
+        .catch((error) => {
+          console.log("error", JSON.stringify(error));
+          console.log("endpoint", JSON.stringify(endpoint));
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 2000,
+          });
+          reject(new Error((strings.verify.error = error.msg)));
+        });
+    });
+  }
 }

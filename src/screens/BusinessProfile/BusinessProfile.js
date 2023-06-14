@@ -36,18 +36,23 @@ import {
   verticalScale,
   moderateScale,
 } from "react-native-size-matters";
+import { useSelector } from "react-redux";
+import { getProductSelector } from "@/selectors/ProductSelectors";
+import moment from "moment";
 
 export function BusinessProfile() {
   const ReviewSheet = useRef();
   const refRBSheet = useRef();
+  const user = useSelector(getProductSelector);
+  console.log(user?.user_profiles?.certification, "gsdjfgjsdgfd");
 
   const renderItem = ({ item }) => (
     <View style={styles.rowMainCard}>
       <Image
-        source={item.image}
+        source={{ uri: item }}
         style={{
-          height: vs(80),
-          width: ms(70),
+          height: SH(90),
+          width: SW(70),
           borderRadius: 5,
         }}
       />
@@ -60,14 +65,13 @@ export function BusinessProfile() {
       // onPress={() => navigate(NAVIGATION.productInquiry)}
     >
       <Image
-        source={item.image}
+        source={{ uri: item.image }}
         resizeMode="contain"
         style={{ height: vs(130), width: ms(140) }}
       />
 
-      <Text style={styles.titleBoldText}>
-        {item.title}
-        <Text style={styles.titleRegularText}> {item.subTitle}</Text>
+      <Text style={styles.subTitleText} numberOfLines={2}>
+        {item.name}
       </Text>
       <Text style={styles.bagsQuantityText}>{item.quantity}</Text>
     </TouchableOpacity>
@@ -75,42 +79,82 @@ export function BusinessProfile() {
 
   const OverviewItems = ({ item }) => (
     <View>
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <View style={{ width: "50%" }}>
-          <Text
-            style={{
-              fontFamily: Fonts.Regular,
-              fontSize: ms(11),
-              color: COLORS.darkGrey,
-            }}
-          >
-            {item.title}
-          </Text>
+      <View style={styles.flexDirectionRow}>
+        <View style={styles.width}>
+          <Text style={styles.textStyle}>{"Year established"}</Text>
         </View>
-        <View style={{ width: "50%" }}>
-          <Text
-            style={{
-              alignSelf: "flex-start",
-              fontFamily: Fonts.Regular,
-              fontSize: ms(12),
-              color: COLORS.darkGrey2,
-              paddingVertical: vs(10),
-            }}
-          >
-            {item.detail}
+        <View style={styles.width}>
+          <Text style={styles.textStyle2}>
+            {moment(item.year_established, "DD/MM/YYYY").year()}
           </Text>
         </View>
       </View>
+
+      <View style={styles.flexDirectionRow}>
+        <View style={styles.width}>
+          <Text style={styles.textStyle}> {"Business Type"}</Text>
+        </View>
+        <View style={styles.width}>
+          <Text style={styles.textStyle2}>{item.main_markets}</Text>
+        </View>
+      </View>
+
+      <View style={styles.flexDirectionRow}>
+        <View style={styles.width}>
+          <Text style={styles.textStyle}>{"Country / Region"}</Text>
+        </View>
+        <View style={styles.width}>
+          <Text style={styles.textStyle2}>{item.country}</Text>
+        </View>
+      </View>
+
+      <View style={styles.flexDirectionRow}>
+        <View style={styles.width}>
+          <Text style={styles.textStyle}>{"Main Products"}</Text>
+        </View>
+        <View style={styles.width}>
+          <Text style={styles.textStyle2}>{item.main_products}</Text>
+        </View>
+      </View>
+
+      <View style={styles.flexDirectionRow}>
+        <View style={styles.width}>
+          <Text style={styles.textStyle}>{"Total Annual Revenue"}</Text>
+        </View>
+        <View style={styles.width}>
+          <Text style={styles.textStyle2}>{item.total_annual_revenue}</Text>
+        </View>
+      </View>
+
+      <View style={styles.flexDirectionRow}>
+        <View style={styles.width}>
+          <Text style={styles.textStyle}>{"Patents(4)"}</Text>
+        </View>
+        <View style={styles.width}>
+          <Text style={styles.textStyle2}>{item.patents}</Text>
+        </View>
+      </View>
+
+      <View style={styles.flexDirectionRow}>
+        <View style={styles.width}>
+          <Text style={styles.textStyle}>{"Product Certifications(1)"}</Text>
+        </View>
+        <View style={styles.width}>
+          <Text style={styles.textStyle2}>{item.product_certifications}</Text>
+        </View>
+      </View>
+
       <View
         style={{ borderTopWidth: 0.5, borderColor: COLORS.input_bg }}
       ></View>
     </View>
   );
+
   const Equipment = ({ item }) => (
     <View style={{ paddingBottom: SH(10), paddingHorizontal: SW(2) }}>
       <Image
         resizeMode="stretch"
-        source={item.image}
+        source={{ uri: item }}
         style={{ height: SH(145), width: SW(156), margin: 1 }}
       />
     </View>
@@ -207,8 +251,8 @@ export function BusinessProfile() {
                   style={{ height: 14, width: 14 }}
                 />
               </View>
-              <Text style={styles.businessText}>
-                {strings.businessProfile.text}
+              <Text style={styles.businessText} numberOfLines={3}>
+                {user?.savedManufacturerDetail?.user_profiles?.business_details}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -216,7 +260,8 @@ export function BusinessProfile() {
               style={styles.ratingView}
             >
               <Text style={styles.ratingText}>
-                4.5/<Text style={styles.totalRatingText}>5.0</Text>
+                {user?.savedManufacturerDetail?.sellerRating.rating}/
+                <Text style={styles.totalRatingText}>5.0</Text>
               </Text>
               <Text style={styles.companyReviewText}>
                 {strings.businessProfile.companyReview}
@@ -245,7 +290,9 @@ export function BusinessProfile() {
             <Spacer space={SH(10)} />
 
             <FlatList
-              data={Data}
+              data={JSON.parse(
+                user?.savedManufacturerDetail?.user_profiles?.certification
+              )}
               renderItem={renderItem}
               keyExtractor={(item) => item.id}
               //   extraData={product}
@@ -275,7 +322,7 @@ export function BusinessProfile() {
           {/* product listing */}
 
           <FlatList
-            data={Bags}
+            data={user?.product?.data}
             renderItem={SecondItem}
             keyExtractor={(item) => item.id}
             //   extraData={product}
@@ -357,7 +404,10 @@ export function BusinessProfile() {
                 <Spacer space={SH(5)} />
 
                 <Text style={styles.detailText}>
-                  {strings.businessProfile.bottomSheetText}
+                  {
+                    user?.savedManufacturerDetail?.user_profiles
+                      ?.business_details
+                  }
                 </Text>
               </View>
             </View>
@@ -370,9 +420,11 @@ export function BusinessProfile() {
               </Text>
 
               <Spacer space={SH(5)} />
-
+              {/*  */}
               <FlatList
-                data={ProductDetails}
+                data={JSON.parse(
+                  user?.savedManufacturerDetail?.user_profiles?.overview
+                )}
                 renderItem={OverviewItems}
                 keyExtractor={(item) => item.id}
                 showsVerticalScrollIndicator={false}
@@ -393,7 +445,10 @@ export function BusinessProfile() {
               <Spacer space={SH(5)} />
 
               <FlatList
-                data={ProductionEquipment}
+                data={JSON.parse(
+                  user?.savedManufacturerDetail?.user_profiles
+                    ?.manufacturer_images
+                )}
                 renderItem={Equipment}
                 keyExtractor={(item) => item.id}
                 showsVerticalScrollIndicator={false}
@@ -415,7 +470,9 @@ export function BusinessProfile() {
               <Spacer space={SH(5)} />
 
               <FlatList
-                data={Data}
+                data={JSON.parse(
+                  user?.savedManufacturerDetail?.user_profiles?.certification
+                )}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
                 //   extraData={product}
@@ -434,7 +491,10 @@ export function BusinessProfile() {
               <Spacer space={SH(5)} />
 
               <FlatList
-                data={Inspection}
+                data={JSON.parse(
+                  user?.savedManufacturerDetail?.user_profiles
+                    ?.business_inspection_report
+                )}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
                 //   extraData={product}
@@ -512,7 +572,8 @@ export function BusinessProfile() {
                   <Spacer space={SH(5)} />
                   <View style={styles.ratingViewSheet}>
                     <Text style={styles.ratingText}>
-                      4.5/<Text style={styles.totalRatingText}>5.0</Text>
+                      {user?.savedManufacturerDetail.sellerRating.rating}/
+                      <Text style={styles.totalRatingText}>5.0</Text>
                     </Text>
                     <View>
                       <Text style={styles.subHeadingText}>
@@ -525,7 +586,11 @@ export function BusinessProfile() {
                           color: COLORS.darkGrey2,
                         }}
                       >
-                        {strings.businessProfile.reviews}
+                        {
+                          user?.savedManufacturerDetail.sellerRating
+                            .review_count
+                        }{" "}
+                        Reviews
                       </Text>
                     </View>
                   </View>

@@ -17,18 +17,32 @@ import {
 } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { backArrow, messageSend, sendInquiry, yewiLogo } from "@/assets";
+import { ProfileUser, backArrow, sendInquiry, yewiLogo } from "@/assets";
 import { strings } from "@/localization";
 import { Header } from "@/components/Header";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { ShadowStyles } from "@/theme";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
+import { getProduct, saveManufacturerDetail } from "@/actions/ProductActions";
 
 export function TopRankingManufacturers() {
   const user = useSelector(getUser);
   const image = [yewiLogo, yewiLogo, yewiLogo];
+  const dispatch = useDispatch();
+
+  const getProducts = (id) => {
+    const data = {
+      app_name: "b2b",
+      delivery_options: "4",
+      page: 1,
+      limit: 10,
+      seller_id: id,
+    };
+    dispatch(getProduct(data));
+  };
+
   const renderManufacturers = ({ item }) => (
     <>
       <TouchableOpacity
@@ -37,21 +51,38 @@ export function TopRankingManufacturers() {
           borderRadius: SW(10),
           ...ShadowStyles.shadow2,
         }}
-        onPress={() => navigate(NAVIGATION.aboutBusiness)}
+        onPress={() => {
+          navigate(NAVIGATION.aboutBusiness, {
+            sellerDetails: item,
+          });
+          getProducts(item?.unique_uuid);
+          dispatch(saveManufacturerDetail(item));
+        }}
       >
         <CompanyDetailView
-          profilePhoto={user?.user_profiles?.banner_image}
-          title={item?.user_profiles?.organization_name}
-          locationText={item?.user_profiles?.overview?.[0]?.country}
+          profilePhoto={
+            item.user_profiles?.profile_photo
+              ? item.user_profiles?.profile_photo
+              : ProfileUser
+          }
+          title={
+            item?.user_profiles?.organization_name
+              ? item?.user_profiles?.organization_name
+              : "Seller"
+          }
+          locationText={`${item?.user_profiles?.current_address?.city}, `}
           rating={item?.sellerRating?.rating}
+          country={item?.user_profiles?.current_address?.country}
         />
         <Spacer space={SW(8)} />
-        <FlatList
-          data={item?.user_profiles?.manufacturer_images ?? []}
-          extraData={item?.user_profiles?.manufacturer_images}
-          numColumns={3}
-          renderItem={renderImages}
-        />
+        <View style={{ marginHorizontal: SW(15), paddingBottom: SH(5) }}>
+          <FlatList
+            data={JSON.parse(item?.user_profiles?.manufacturer_images) ?? []}
+            extraData={item?.user_profiles?.manufacturer_images}
+            numColumns={3}
+            renderItem={renderImages}
+          />
+        </View>
 
         <Spacer space={SW(8)} />
 
@@ -70,22 +101,22 @@ export function TopRankingManufacturers() {
     </>
   );
   const renderImages = ({ item }) => (
-    <>
-      <View
+    <View
+      style={{
+        justifyContent: "space-between",
+        flex: 1 / 3,
+        marginHorizontal: SW(4),
+      }}
+    >
+      <Image
+        source={{ uri: item }}
         style={{
-          paddingHorizontal: SW(15),
-          justifyContent: "space-between",
-          flex: 1 / 3,
-          paddingBottom: SH(5),
+          height: SH(65),
+          borderRadius: SW(10),
         }}
-      >
-        <Image
-          source={{ uri: item }}
-          style={{ height: SH(65), width: SW(80), borderRadius: SW(5) }}
-          resizeMode="cover"
-        />
-      </View>
-    </>
+        resizeMode="cover"
+      />
+    </View>
   );
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
