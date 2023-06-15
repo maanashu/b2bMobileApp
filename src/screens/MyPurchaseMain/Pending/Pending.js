@@ -35,7 +35,7 @@ export function Pending() {
   const renderItem = ({ item, index }) => (
     <>
       <PurchaseView
-        onPress={() => navigate(NAVIGATION.myOrders, { item: "pending" })}
+        onPress={() => navigate(NAVIGATION.confirmOrder, { item: "pending" })}
         companyLogo={item.companyLogo}
         companyName={item.companyName}
         price={item.price}

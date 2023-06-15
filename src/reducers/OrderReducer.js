@@ -7,9 +7,10 @@ const INITIALSTATE = {
   removeProductFromCart: {},
   createOrder: {},
   emptyCart: {},
-  getAllOrdersList: {},
+  getAllOrdersList: [],
   getOneOrderDetail: {},
   subTotalAmount: {},
+  changeOrderStatus: {},
 };
 
 export const orderReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -47,11 +48,6 @@ export const orderReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         getCart: {},
       };
-    case TYPES.GET_ORDER_LIST_RESET:
-      return {
-        ...state,
-        getAllOrdersList: {},
-      };
 
     case TYPES.CREATE_ORDER_SUCCESS:
       return {
@@ -68,10 +64,21 @@ export const orderReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         getAllOrdersList: payload.getAllOrdersList?.data,
       };
+    case TYPES.GET_ORDER_LIST_RESET:
+      return {
+        ...state,
+        getAllOrdersList: [],
+      };
+
     case TYPES.GET_ORDER_DETAILS_SUCCESS:
       return {
         ...state,
         getOneOrderDetail: payload.getOneOrderDetail.payload,
+      };
+    case TYPES.CHANGE_ORDER_STATUS_SUCCESS:
+      return {
+        ...state,
+        changeOrderStatus: payload.changeOrderStatus,
       };
     default:
       return state;

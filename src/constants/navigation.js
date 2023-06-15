@@ -67,7 +67,7 @@ export const NAVIGATION = {
   nearMe: "NearMe",
   nearMeOptions: "NearMeOptions",
   myPurchase: "MyPurchase",
-  myOrders: "MyOrders",
+  confirmOrder: "ConfirmOrder",
   trackOrder: "TrackOrder",
   rateExperience: "RateExperience",
   helpCenter: "HelpCenter",

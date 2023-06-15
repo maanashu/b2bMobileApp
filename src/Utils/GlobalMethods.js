@@ -4,18 +4,18 @@ import {
   Linking,
   PermissionsAndroid,
   ToastAndroid,
-} from 'react-native';
-import { strings } from '@/localization';
+} from "react-native";
+import { strings } from "@/localization";
 
 const HandleUnhandledTouches = () => {
   Keyboard.dismiss();
 };
 
 const NormalAlert = ({
-  title = '',
-  message = '',
-  yesText = 'OK',
-  cancelText = 'Cancel',
+  title = "",
+  message = "",
+  yesText = "OK",
+  cancelText = "Cancel",
   singleButton = true,
 }) => {
   return new Promise((resolve, reject) => {
@@ -23,7 +23,7 @@ const NormalAlert = ({
       ? Alert.alert(
           title,
           message,
-          [{ text: yesText, onPress: () => resolve(true), style: 'default' }],
+          [{ text: yesText, onPress: () => resolve(true), style: "default" }],
           { cancelable: false }
         )
       : Alert.alert(
@@ -33,12 +33,12 @@ const NormalAlert = ({
             {
               text: cancelText,
               onPress: () => reject(false),
-              style: 'default',
+              style: "default",
             },
             {
               text: yesText,
               onPress: () => resolve(true),
-              style: 'default',
+              style: "default",
             },
           ],
           { cancelable: false }
@@ -46,8 +46,9 @@ const NormalAlert = ({
   });
 };
 
-const ValidateEmail = param => {
-  const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+const ValidateEmail = (param) => {
+  const emailRegex =
+    /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
   const paramTrim = param?.trim();
   if (paramTrim) {
     if (emailRegex.test(paramTrim)) {
@@ -64,7 +65,7 @@ const ValidateEmail = param => {
   }
 };
 
-const ValidateName = param => {
+const ValidateName = (param) => {
   const nameRegex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
   const paramTrim = param?.trim();
   if (paramTrim) {
@@ -88,27 +89,27 @@ const ValidateName = param => {
 
 const requestPermissions = async () => {
   try {
-    if (Platform.OS === 'android') {
+    if (Platform.OS === "android") {
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
         {
-          title: 'Allow JOBR Driver to use your location?',
+          title: "Allow JOBR Driver to use your location?",
           message: `Your precise location is used to show your position on the map, get directions, estimate travel times and improve search results`,
-          buttonPositive: 'Allow Once',
-          buttonNeutral: 'Allow while using the app',
-          buttonNegative: 'Don’t Allow',
+          buttonPositive: "Allow Once",
+          buttonNeutral: "Allow while using the app",
+          buttonNegative: "Don’t Allow",
         }
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         getCurrentLocation();
       } else {
-        console.log('location permission denied');
+        console.log("location permission denied");
       }
     } else {
-      const auth = await Geolocation.requestAuthorization('whenInUse');
+      const auth = await Geolocation.requestAuthorization("whenInUse");
       Geolocation.setRNConfiguration({
         skipPermissionRequests: false,
-        authorizationLevel: 'whenInUse',
+        authorizationLevel: "whenInUse",
       });
       getCurrentLocation();
     }
@@ -117,10 +118,15 @@ const requestPermissions = async () => {
   }
 };
 const getCurrentLocation = () => {
-  Geolocation.getCurrentPosition(loc => {
+  Geolocation.getCurrentPosition((loc) => {
     setLatitude(loc.coords.latitude);
     setLongitude(loc.coords.longitude);
   });
+};
+const kFormatter = (num) => {
+  return Math.abs(num) > 999
+    ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + "k"
+    : Math.sign(num) * Math.abs(num);
 };
 export {
   HandleUnhandledTouches,
@@ -130,6 +136,7 @@ export {
   // RequestMultiplePermissions,
   // OpenCamera,
   // OpenGallery,
+  kFormatter,
   ValidateEmail,
   ValidateName,
 };

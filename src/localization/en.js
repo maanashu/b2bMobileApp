@@ -652,6 +652,7 @@ export const en = {
     trackOrder: "Track your order",
   },
   trackOrder: {
+    pickedByCsutomer: "Picked up by Customer",
     trackYourOrder: "Track your order",
     orderStatus: "Order status",
     preparingYourOrder: "Preparing your order",
@@ -680,6 +681,7 @@ export const en = {
     readyToPickup: "Ready to pickup",
     pickedUp: "Picked Up",
     delivered: "Delivered",
+    cancelled: "Cancelled",
   },
   helpCenter: {
     mySupportRequest: "My support request",

@@ -111,7 +111,7 @@ const getOrderListError = (error) => ({
   type: TYPES.GET_ORDER_LIST_ERROR,
   payload: { error },
 });
-const getOrderListReset = () => ({
+export const getOrderListReset = () => ({
   type: TYPES.GET_ORDER_LIST_RESET,
   payload: null,
 });
@@ -128,6 +128,21 @@ const getOrderDetailsSuccess = (getOneOrderDetail) => ({
 
 const getOrderDetailsError = (error) => ({
   type: TYPES.GET_ORDER_DETAILS_ERROR,
+  payload: { error },
+});
+
+const changeOrderStatusRequest = () => ({
+  type: TYPES.CHANGE_ORDER_STATUS_REQUEST,
+  payload: null,
+});
+
+const changeOrderStatusSuccess = (changeOrderStatus) => ({
+  type: TYPES.CHANGE_ORDER_STATUS_SUCCESS,
+  payload: { changeOrderStatus },
+});
+
+const changeOrderStatusError = (error) => ({
+  type: TYPES.CHANGE_ORDER_STATUS_ERROR,
   payload: { error },
 });
 const clearOrderStore = () => ({
@@ -254,8 +269,20 @@ export const getOrderDetails = (id) => async (dispatch) => {
   try {
     const res = await OrderController.getOrderDetails(id);
     dispatch(getOrderDetailsSuccess(res));
-    console.log("data received");
   } catch (error) {
     dispatch(getOrderDetailsError(error.message));
   }
+};
+
+export const changeOrderStatus = (id) => async (dispatch) => {
+  dispatch(changeOrderStatusRequest());
+  return OrderController.changeOrderStatus(id)
+    .then((res) => {
+      dispatch(changeOrderStatusSuccess(res));
+      return res;
+    })
+    .catch((error) => {
+      dispatch(changeOrderStatusError(error.message));
+      throw error;
+    });
 };

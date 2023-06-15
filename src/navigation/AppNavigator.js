@@ -41,6 +41,7 @@ import {
   CheckAndRequestKYC,
   Checkout,
   CompanyInfo,
+  ConfirmOrder,
   ConnectBank,
   ContactUs,
   CookiesPolicy,
@@ -557,8 +558,8 @@ export function AppBottom() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        component={MyOrders}
-        name={NAVIGATION.myOrders}
+        component={ConfirmOrder}
+        name={NAVIGATION.confirmOrder}
         options={{ headerShown: false }}
       />
       <Stack.Screen

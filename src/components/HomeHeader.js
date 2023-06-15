@@ -9,6 +9,7 @@ import { NAVIGATION } from "@/constants";
 import { orderSelector } from "@/selectors/OrderSelector";
 import { SF, SH, SW } from "@/theme";
 import { getWallet } from "@/selectors/WalletSelector";
+import { kFormatter } from "@/Utils/GlobalMethods";
 
 export function HomeHeader({ onPress, userLocation }) {
   const user = useSelector(getUser);
@@ -52,7 +53,7 @@ export function HomeHeader({ onPress, userLocation }) {
           onPress={() => navigate(NAVIGATION.jbrWallet)}
         >
           <Text style={styles.balanceText}>
-            {Math.floor(wallet?.getWalletBalance?.sila_balance || 0).toFixed()}
+            {kFormatter(wallet?.getWalletBalance?.sila_balance) || 0}
           </Text>
           <Image
             source={coinStack}

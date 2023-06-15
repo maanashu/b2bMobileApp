@@ -108,7 +108,6 @@ export const styles = StyleSheet.create({
     paddingHorizontal: SW(10),
     ...ShadowStyles.shadow2,
     marginHorizontal: SW(1),
-    height: SH(350),
     borderRadius: SW(8),
     backgroundColor: COLORS.white,
   },
@@ -151,7 +150,7 @@ export const styles = StyleSheet.create({
   },
   orderedProductsView: {
     backgroundColor: COLORS.white,
-    height: SH(400),
+    paddingVertical: SH(10),
     flex: 1,
     borderRadius: 10,
     marginHorizontal: 1,
@@ -225,5 +224,11 @@ export const styles = StyleSheet.create({
   trackOrderButton: {
     backgroundColor: COLORS.primary,
     height: SH(50),
+  },
+  map: {
+    height: SH(170),
+    width: "100%",
+    alignSelf: "center",
+    justifyContent: "center",
   },
 });

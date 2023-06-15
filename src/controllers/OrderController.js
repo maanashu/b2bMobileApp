@@ -178,10 +178,8 @@ export class OrderController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
-          console.log("success", response);
         })
         .catch((error) => {
-          console.log("errorrrrr", error);
           reject(error);
         });
     });
@@ -202,6 +200,32 @@ export class OrderController {
             type: "error_toast",
             visibilityTime: 1500,
           });
+
+          reject(new Error((strings.validation.error = error.msg)));
+        });
+    });
+  }
+  static async changeOrderStatus(id) {
+    return new Promise((resolve, reject) => {
+      const endpoint = ORDER_URL + ApiOrderInventory.changeStatus(id);
+      const body = {
+        status: 1,
+      };
+      HttpClient.put(endpoint, body)
+        .then((response) => {
+          resolve(response);
+          console.log("changeOrderStatus Sucess", JSON.stringify(response));
+        })
+        .catch((error) => {
+          console.log("changeOrderStatus error", JSON.stringify(error));
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
+
+          reject(error);
 
           reject(new Error((strings.validation.error = error.msg)));
         });

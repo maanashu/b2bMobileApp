@@ -109,7 +109,6 @@ export const styles = StyleSheet.create({
     paddingHorizontal: SW(10),
     ...ShadowStyles.shadow2,
     marginHorizontal: SW(1),
-    height: SH(350),
     borderRadius: SW(8),
     backgroundColor: COLORS.white,
   },

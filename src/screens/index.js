@@ -67,7 +67,7 @@ export { ManufacturersNearMe } from "@/screens/NearMe/ManufacturersNearMe/Manufa
 export { DistributorsNearMe } from "@/screens/NearMe/DistributorsNearMe/DistributorsNearMe";
 export { RetailersNearMe } from "@/screens/NearMe/RetailersNearMe/RetailersNearMe";
 export { MyPurchase } from "@/screens/MyPurchaseMain/MyPurchase/MyPurchase";
-export { MyOrders } from "@/screens/MyPurchaseMain/MyOrders/MyOrders";
+export { ConfirmOrder } from "@/screens/MyPurchaseMain/ConfirmOrder/ConfirmOrder";
 export { TrackOrder } from "@/screens/MyPurchaseMain/TrackOrder/TrackOrder";
 export { RateExperience } from "@/screens/MyPurchaseMain/RateExperience/RateExperience";
 export { HelpCenter } from "@/screens/HelpCenter/HelpCenter";

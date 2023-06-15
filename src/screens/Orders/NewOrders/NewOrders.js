@@ -1,18 +1,23 @@
 import React, { useEffect } from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, Text } from "react-native";
 import { PurchaseView, ScreenWrapper, Spacer } from "@/components";
-import { SH, SW } from "@/theme";
-import { Shoes2, womenShoes, yewiLogo } from "@/assets";
+import { SF, SH, SW } from "@/theme";
+import { Fonts, Shoes2, womenShoes, yewiLogo } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
-import { getOrderDetails, getOrderList } from "@/actions/OrderAction";
+import {
+  getOrderDetails,
+  getOrderList,
+  getOrderListReset,
+} from "@/actions/OrderAction";
 import { orderSelector } from "@/selectors/OrderSelector";
 import moment from "moment";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
+import { useIsFocused } from "@react-navigation/native";
 
 export function NewOrders() {
   const dispatch = useDispatch();
@@ -20,41 +25,7 @@ export function NewOrders() {
   const order = useSelector(orderSelector);
 
   // console.log("user>", user?.user?.payload?.uuid);
-  // console.log("orders>", JSON.stringify(order?.getAllOrdersList));
-  const object = {
-    page: 1,
-    limit: 10,
-    seller_id: user?.user?.payload?.uuid,
-    status: 0,
-  };
-  useEffect(() => {
-    dispatch(getOrderList(object));
-  }, []);
 
-  const data = [
-    {
-      id: 1,
-      productImage: womenShoes,
-      companyLogo: yewiLogo,
-      companyName: "Yiwu Leqi E-Commerce Firm",
-      productName: "PUMA Men's Tazon 6 Wide Sneaker",
-      quantity: "5000 Pairs",
-      price: "US$ 1.4",
-      orderedAmount: "USD $7056.00",
-      date: "14 Jun, 21:33",
-    },
-    {
-      id: 2,
-      productImage: Shoes2,
-      companyLogo: yewiLogo,
-      companyName: "Yiwu Leqi E-Commerce Firm",
-      productName: "Men Sneakers Men Shoes Lightweight Running Shoes",
-      quantity: "5000 Pairs",
-      price: "US$ 1.4",
-      orderedAmount: "USD $7056.00",
-      date: "14 Jun, 21:33",
-    },
-  ];
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_ORDER_LIST], state)
   );
@@ -62,7 +33,7 @@ export function NewOrders() {
     <>
       <PurchaseView
         onPress={() => {
-          navigate(NAVIGATION.myOrders);
+          navigate(NAVIGATION.confirmOrder);
           dispatch(getOrderDetails(item?.id));
         }}
         companyLogo={item?.seller_details?.profile_photo}
@@ -81,8 +52,6 @@ export function NewOrders() {
 
   return (
     <ScreenWrapper>
-      <Spacer space={SH(20)} />
-
       <View
         style={{
           paddingHorizontal: SW(20),
@@ -91,8 +60,16 @@ export function NewOrders() {
       >
         <FlatList
           data={order?.getAllOrdersList}
+          extraData={order?.getAllOrdersList}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
+          ListEmptyComponent={(item) => (
+            <View>
+              <Text style={{ fontFamily: Fonts.Bold, fontSize: SF(20) }}>
+                No New Order
+              </Text>
+            </View>
+          )}
         />
       </View>
       {isLoading ? <Loader message="Loading your orders ..." /> : null}
