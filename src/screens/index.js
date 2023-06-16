@@ -101,3 +101,5 @@ export { SelectAddress } from "@/screens/SelectAddress/SelectAddress";
 export { OrderedStatus } from "@/screens/PlacedOrderStatus/OrderedStatus/OrderedStatus";
 export { TrackPlacedOrder } from "@/screens/PlacedOrderStatus/TrackPlacedOrder/TrackPlacedOrder";
 export { NewOrders } from "@/screens/Orders/NewOrders/NewOrders";
+export { FavouritesProduct } from "@/screens/FavouriteList/FavouritesProduct/FavouritesProduct";
+export { FavouritesSeller } from "@/screens/FavouriteList/FavouritesSeller/FavouritesSeller";

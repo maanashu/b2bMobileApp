@@ -42,6 +42,10 @@ const INITIALSTATE = {
   getOneManufactureDetails: {},
   getManufacturersList: [],
   getMessageHeads: [],
+  sellerFavourites: {},
+  productFavourites: {},
+  getFavouritesProduct: [],
+  getFavouritesSeller: [],
 };
 
 export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -212,6 +216,32 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         getMessageHeads: payload?.getMessageHeads?.payload?.data,
+      };
+    case TYPES.PRODUCT_FAVOURITES_SUCCESS:
+      return {
+        ...state,
+        productFavourites: payload.productFavourites,
+      };
+    case TYPES.SELLER_FAVOURITES_SUCCESS:
+      return {
+        ...state,
+        sellerFavourites: payload.sellerFavourites,
+      };
+    case TYPES.GET_FAVOURITES_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        getFavouritesProduct: payload.getFavouritesproduct?.data,
+      };
+
+    case TYPES.GET_FAVOURITES_SELLER_SUCCESS:
+      return {
+        ...state,
+        getFavouritesSeller: payload.getFavouriteSellers?.data,
+      };
+    case TYPES.GET_FAVOURITES_SELLER_RESET:
+      return {
+        ...state,
+        getFavouritesSeller: [],
       };
   }
 };

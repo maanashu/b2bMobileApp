@@ -33,6 +33,8 @@ export const ApiUserInventory = {
   getMessageHeads: `messageheads/?`,
   deleteMessages: (id) => `messageheads/${id}`,
   getOneManufactureDetails: (id) => `users/${id}`,
+  sellerFavourites: "favourites",
+  productFavourites: "product_favourites",
 };
 
 export const SupportInventory = {

@@ -28,12 +28,11 @@ import { getProductSelector } from "@/selectors/ProductSelectors";
 export function AboutBusiness(props) {
   const layout = useWindowDimensions();
   const dispatch = useDispatch();
-  const user =useSelector(getProductSelector);
-  console.log(
-    "useruseruser",
-    JSON.stringify(props.route?.params?.sellerDetails)
-  );
-  console.log("prop==s", user?.savedManufacturerDetail);
+  const user = useSelector(getUser)?.getOneManufactureDetails;
+  // const auth =useSelector(getUser);
+
+  console.log("useruseruser", JSON.stringify(user));
+  // console.log("prop==s", user);
 
   const [index, setIndex] = React.useState(0);
 
@@ -155,7 +154,7 @@ export function AboutBusiness(props) {
             <CompanyDetailView
               profilePhoto={
                 user?.user_profiles?.profile_photo
-                  ? user?.user_profiles?.profile_photo
+                  ? { uri: user?.user_profiles?.profile_photo }
                   : ProfileUser
               }
               title={

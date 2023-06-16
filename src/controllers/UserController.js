@@ -553,4 +553,89 @@ export class UserController {
         });
     });
   }
+
+  static async sellerFavourites(data) {
+    return new Promise((resolve, reject) => {
+      const endpoint = USER_URL + ApiUserInventory.sellerFavourites;
+      const body = {
+        ...data,
+      };
+      HttpClient.post(endpoint, body)
+        .then((response) => {
+          resolve(response);
+          console.log("body", JSON.stringify(body));
+          // navigate(NAVIGATION.settings);
+        })
+        .catch((error) => {
+          console.log("error", JSON.stringify(error));
+          console.log("body", JSON.stringify(body));
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 2000,
+          });
+          reject(new Error((strings.verify.error = error.msg)));
+        });
+    });
+  }
+
+  static async productFavourites(data) {
+    console.log("controller data", data);
+    return new Promise((resolve, reject) => {
+      const endpoint = USER_URL + ApiUserInventory.productFavourites;
+      const body = {
+        ...data,
+      };
+      HttpClient.post(endpoint, body)
+        .then((response) => {
+          resolve(response);
+          console.log("body", JSON.stringify(body));
+          // navigate(NAVIGATION.settings);
+        })
+        .catch((error) => {
+          console.log("error", JSON.stringify(error));
+          console.log("body", JSON.stringify(body));
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 2000,
+          });
+          reject(new Error((strings.verify.error = error.msg)));
+        });
+    });
+  }
+
+  static async getFavouritesProduct(data) {
+    console.log("idData", data);
+    return new Promise((resolve, reject) => {
+      const params = new URLSearchParams(data).toString();
+      const endpoint = `${USER_URL}${ApiUserInventory.productFavourites}?${params}`;
+      HttpClient.get(endpoint, id)
+        .then((response) => {
+          resolve(response);
+          console.log("endpoint", JSON.stringify(response));
+        })
+        .catch((error) => {
+          console.log("error", JSON.stringify(error));
+          console.log("endpoint", JSON.stringify(endpoint));
+
+          reject(new Error((strings.verify.error = error.msg)));
+        });
+    });
+  }
+  static async getFavouritesSeller(data) {
+    return new Promise((resolve, reject) => {
+      const params = new URLSearchParams(data).toString();
+      const endpoint = `${USER_URL}${ApiUserInventory.sellerFavourites}?${params}`;
+      HttpClient.get(endpoint, id)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
 }

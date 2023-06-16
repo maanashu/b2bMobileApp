@@ -52,6 +52,8 @@ import {
   Faq,
   FaqVerified,
   FavouriteList,
+  FavouritesProduct,
+  FavouritesSeller,
   HelpCenter,
   HelpWithOrders,
   Home,
@@ -780,6 +782,18 @@ export function AppBottom() {
       <Stack.Screen
         component={SelectAddress}
         name={NAVIGATION.selectAddress}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        component={FavouritesProduct}
+        name={NAVIGATION.favouritesProduct}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        component={FavouritesSeller}
+        name={NAVIGATION.favouritesSeller}
         options={{ headerShown: false }}
       />
 

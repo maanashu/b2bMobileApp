@@ -62,6 +62,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     marginTop: Platform.OS == "ios" ? SH(450) : SH(490),
     paddingHorizontal: SW(15),
+    flexDirection: "row"
   },
   bottomView: {
     ...ShadowStyles.shadow2,

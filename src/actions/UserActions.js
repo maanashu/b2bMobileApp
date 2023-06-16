@@ -146,9 +146,31 @@ export const TYPES = {
   DELETE_MESSAGES_SUCCESS: "DELETE_MESSAGES_SUCCESS",
   DELETE_MESSAGES_ERROR: "DELETE_MESSAGES_ERROR",
 
+  GET_ONE_MANUFACTURE_DETAILS: "GET_ONE_MANUFACTURE_DETAILS",
   GET_ONE_MANUFACTURE_DETAILS_REQUEST: "GET_ONE_MANUFACTURE_DETAILS_REQUEST",
   GET_ONE_MANUFACTURE_DETAILS_SUCCESS: "GET_ONE_MANUFACTURE_DETAILS_SUCCESS",
   GET_ONE_MANUFACTURE_DETAILS_ERROR: "GET_ONE_MANUFACTURE_DETAILS_ERROR",
+
+  SELLER_FAVOURITES: "SELLER_FAVOURITES",
+  SELLER_FAVOURITES_REQUEST: "SELLER_FAVOURITES_REQUEST",
+  SELLER_FAVOURITES_SUCCESS: "SELLER_FAVOURITES_SUCCESS",
+  SELLER_FAVOURITES_ERROR: "SELLER_FAVOURITES_ERROR",
+
+  PRODUCT_FAVOURITES: "PRODUCT_FAVOURITES",
+  PRODUCT_FAVOURITES_REQUEST: "PRODUCT_FAVOURITES_REQUEST",
+  PRODUCT_FAVOURITES_SUCCESS: "PRODUCT_FAVOURITES_SUCCESS",
+  PRODUCT_FAVOURITES_ERROR: "PRODUCT_FAVOURITES_ERROR",
+
+  GET_FAVOURITES_PORDUCT: "GET_FAVOURITES_PORDUCT",
+  GET_FAVOURITES_PORDUCT_REQUEST: "GET_FAVOURITES_PORDUCT_REQUEST",
+  GET_FAVOURITES_PRODUCT_SUCCESS: "GET_FAVOURITES_PRODUCT_SUCCESS",
+  GET_FAVOURITES_PRODUCT_ERROR: "GET_FAVOURITES_PRODUCT_ERROR",
+
+  GET_FAVOURITES_SELLER: "GET_FAVOURITES_SELLER",
+  GET_FAVOURITES_SELLER_REQUEST: "GET_FAVOURITES_SELLER_REQUEST",
+  GET_FAVOURITES_SELLER_SUCCESS: "GET_FAVOURITES_SELLER_SUCCESS",
+  GET_FAVOURITES_SELLER_ERROR: "GET_FAVOURITES_SELLER_ERROR",
+  GET_FAVOURITES_SELLER_RESET: "GET_FAVOURITES_SELLER_RESET",
 };
 
 const loginRequest = () => ({
@@ -502,6 +524,69 @@ const getOneManufactureDetailsError = (error) => ({
   payload: { error },
 });
 
+const sellerFavouritesRequest = () => ({
+  type: TYPES.SELLER_FAVOURITES_REQUEST,
+  payload: null,
+});
+
+const sellerFavouritesSuccess = (sellerFavourites) => ({
+  type: TYPES.SELLER_FAVOURITES_SUCCESS,
+  payload: { sellerFavourites },
+});
+
+const sellerFavouritesError = (error) => ({
+  type: TYPES.SELLER_FAVOURITES_ERROR,
+  payload: { error },
+});
+
+const productFavouritesRequest = () => ({
+  type: TYPES.PRODUCT_FAVOURITES_REQUEST,
+  payload: null,
+});
+
+const productFavouritesSuccess = (productFavourites) => ({
+  type: TYPES.PRODUCT_FAVOURITES_SUCCESS,
+  payload: { productFavourites },
+});
+
+const productFavouritesError = (error) => ({
+  type: TYPES.PRODUCT_FAVOURITES_ERROR,
+  payload: { error },
+});
+
+const getFavouritesproductRequest = () => ({
+  type: TYPES.GET_FAVOURITES_PORDUCT_REQUEST,
+  payload: null,
+});
+
+const getFavouritesproductSuccess = (getFavouritesproduct) => ({
+  type: TYPES.GET_FAVOURITES_PRODUCT_SUCCESS,
+  payload: { getFavouritesproduct },
+});
+
+const getFavouritesproductError = (error) => ({
+  type: TYPES.GET_FAVOURITES_PRODUCT_ERROR,
+  payload: { error },
+});
+const getFavouritesSellerRequest = () => ({
+  type: TYPES.GET_FAVOURITES_SELLER_REQUEST,
+  payload: null,
+});
+
+const getFavouritesSelllerSuccess = (getFavouriteSellers) => ({
+  type: TYPES.GET_FAVOURITES_SELLER_SUCCESS,
+  payload: { getFavouriteSellers },
+});
+
+const getFavouritesSellerError = (error) => ({
+  type: TYPES.GET_FAVOURITES_SELLER_ERROR,
+  payload: { error },
+});
+
+const getFavouritesSellerReset = () => ({
+  type: TYPES.GET_FAVOURITES_SELLER_RESET,
+  payload: null,
+});
 export const login =
   (value, countryCode, phoneNumber, screenName) => async (dispatch) => {
     dispatch(loginRequest());
@@ -773,5 +858,52 @@ export const getOneManufactureDetails = (id) => async (dispatch) => {
     dispatch(getOneManufactureDetailsSuccess(res?.payload));
   } catch (error) {
     dispatch(getOneManufactureDetailsError(error.message));
+  }
+};
+
+export const sellerFavourites = (data) => async (dispatch) => {
+  dispatch(sellerFavouritesRequest());
+  try {
+    const res = await UserController.sellerFavourites(data);
+    dispatch(sellerFavouritesSuccess(res?.payload));
+  } catch (error) {
+    dispatch(sellerFavouritesError(error.message));
+  }
+};
+
+export const productFavourites = (data) => async (dispatch) => {
+  dispatch(productFavouritesRequest());
+  try {
+    const res = await UserController.productFavourites(data);
+    dispatch(productFavouritesSuccess(res?.payload));
+  } catch (error) {
+    dispatch(productFavouritesError(error.message));
+  }
+};
+
+export const getFavouritesProduct = (data) => async (dispatch) => {
+  console.log("id==--", data);
+  dispatch(getFavouritesproductRequest());
+  try {
+    const res = await UserController.getFavouritesProduct(data);
+    console.log("dataaaa", res);
+    dispatch(getFavouritesproductSuccess(res?.payload));
+  } catch (error) {
+    console.error("errror===????", JSON.stringify(error));
+    dispatch(getFavouritesproductError(error.message));
+  }
+};
+
+export const getFavouritesSeller = (data) => async (dispatch) => {
+  dispatch(getFavouritesSellerRequest());
+  try {
+    const res = await UserController.getFavouritesSeller(data);
+    dispatch(getFavouritesSelllerSuccess(res?.payload));
+  } catch (error) {
+    if (error?.statusCode === 204) {
+      dispatch(getFavouritesSellerReset());
+    } else {
+      dispatch(getFavouritesSellerError(error.message));
+    }
   }
 };

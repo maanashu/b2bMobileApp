@@ -26,6 +26,7 @@ import { ShadowStyles } from "@/theme";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { getProduct, saveManufacturerDetail } from "@/actions/ProductActions";
+import { getOneManufactureDetails } from "@/actions/UserActions";
 
 export function TopRankingManufacturers() {
   const user = useSelector(getUser);
@@ -42,6 +43,7 @@ export function TopRankingManufacturers() {
     };
     dispatch(getProduct(data));
   };
+  console.log("gfsjdgjgdsjfs", JSON.stringify(user?.getManufacturersList) );
 
   const renderManufacturers = ({ item }) => (
     <>
@@ -51,18 +53,22 @@ export function TopRankingManufacturers() {
           borderRadius: SW(10),
           ...ShadowStyles.shadow2,
         }}
-        onPress={() => {
+        onPress={() => 
+          {
           navigate(NAVIGATION.aboutBusiness, {
             sellerDetails: item,
           });
           getProducts(item?.unique_uuid);
-          dispatch(saveManufacturerDetail(item));
-        }}
+          dispatch(getOneManufactureDetails(item.id));
+      // console.log("first", item.id)
+
+        }
+      }
       >
         <CompanyDetailView
           profilePhoto={
             item.user_profiles?.profile_photo
-              ? item.user_profiles?.profile_photo
+              ? { uri: item.user_profiles?.profile_photo }
               : ProfileUser
           }
           title={

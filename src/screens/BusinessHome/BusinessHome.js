@@ -23,7 +23,7 @@ import { NAVIGATION } from "@/constants";
 export function BusinessHome() {
   const user = useSelector(getProductSelector)?.product?.data;
 
-  const renderRecentItem = ({ item, index }) => (
+  const renderRecentItem = ({ item }) => (
     <TouchableOpacity style={styles.swiperView}>
       <Image source={item.img} style={styles.storeImg} resizeMode="cover" />
     </TouchableOpacity>
@@ -62,24 +62,6 @@ export function BusinessHome() {
     }
   }
 
-  const secondData = [
-    {
-      id: "1",
-      title: " MOQ30 ",
-      image: girl,
-    },
-    {
-      id: "2",
-      title: " MOQ30 ",
-      image: drink,
-    },
-    {
-      id: "3",
-      title: " MOQ30 ",
-      image: shampoo,
-    },
-  ];
-
   const SecondItem = ({ item, index }) => (
     <TouchableOpacity
       style={[
@@ -92,7 +74,7 @@ export function BusinessHome() {
       ]}
     >
       <Image
-        source={{ uri: item.image }}
+        source={{ uri: item?.image }}
         resizeMode="contain"
         style={{
           width: ms(145),
@@ -108,7 +90,7 @@ export function BusinessHome() {
       <Text style={styles.moqText}>{item.quantity}</Text>
     </TouchableOpacity>
   );
-  const secondItem = ({ item, onPress }) => (
+  const secondItem = ({ item }) => (
     <TouchableOpacity style={styles.item}>
       <Image source={{ uri: item.image }} style={styles.secondView} />
 
@@ -117,6 +99,7 @@ export function BusinessHome() {
       <Text style={styles.commonFlatlistText}>{item.name}</Text>
     </TouchableOpacity>
   );
+
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <ScrollView
@@ -138,42 +121,55 @@ export function BusinessHome() {
         </View>
 
         <Spacer space={SH(20)} />
+        {user ? (
+          <View style={styles.ProductView}>
+            <View style={styles.innerView}>
+              <Text
+                style={{
+                  color: COLORS.black,
+                  fontSize: SF(16),
+                  fontFamily: Fonts.SemiBold,
+                }}
+              >
+                New Products
+              </Text>
+              <TouchableOpacity
+                onPress={() => navigate(NAVIGATION.businessProducts)}
+              >
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={styles.smallText}>See all </Text>
+                  <Image
+                    source={forward}
+                    style={{ height: SH(10), width: SW(6), marginTop: SH(5) }}
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
 
-        <View style={styles.ProductView}>
-          <View style={styles.innerView}>
-            <Text
-              style={{
-                color: COLORS.black,
-                fontSize: SF(16),
-                fontFamily: Fonts.SemiBold,
-              }}
-            >
-              New Products
-            </Text>
-            <TouchableOpacity
-              onPress={() => navigate(NAVIGATION.businessProducts)}
-            >
-              <View style={{ flexDirection: "row" }}>
-                <Text style={styles.smallText}>See all </Text>
-                <Image
-                  source={forward}
-                  style={{ height: SH(10), width: SW(6), marginTop: SH(5) }}
-                />
-              </View>
-            </TouchableOpacity>
+            <Spacer space={SH(20)} />
+
+            <FlatList
+              data={typeof user === "string" ? JSON.parse(user) : user}
+              renderItem={secondItem}
+              keyExtractor={(item) => item.id}
+              // extraData={product}
+              numColumns={3}
+              showsVerticalScrollIndicator={false}
+            />
           </View>
-
-          <Spacer space={SH(20)} />
-
-          <FlatList
-            data={user}
-            renderItem={secondItem}
-            keyExtractor={(item) => item.id}
-            // extraData={product}
-            numColumns={3}
-            showsVerticalScrollIndicator={false}
-          />
-        </View>
+        ) : (
+          <Text
+            style={{
+              color: COLORS.black,
+              fontSize: SF(18),
+              fontFamily: Fonts.SemiBold,
+              justifyContent: "center",
+              alignSelf: "center",
+            }}
+          >
+            {"No Product Found"}
+          </Text>
+        )}
 
         <Spacer space={SH(20)} />
 

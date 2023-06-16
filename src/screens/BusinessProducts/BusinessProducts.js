@@ -9,9 +9,16 @@ import {
 import React from "react";
 import { styles } from "./BusinessProducts.style";
 import { ScreenWrapper, Spacer } from "@/components";
-import { SH } from "@/theme/ScalerDimensions";
+import { SF, SH } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { videoPic2, videoPic1, videoPic3, videoPic4, filter } from "@/assets";
+import {
+  videoPic2,
+  videoPic1,
+  videoPic3,
+  videoPic4,
+  filter,
+  Fonts,
+} from "@/assets";
 import { strings } from "@/localization";
 import { ms, vs } from "react-native-size-matters";
 import { useSelector } from "react-redux";
@@ -105,7 +112,10 @@ export function BusinessProducts() {
         }}
       />
 
-      <Text style={styles.subTitleText} numberOfLines={2}> {item.name}</Text>
+      <Text style={styles.subTitleText} numberOfLines={2}>
+        {" "}
+        {item.name}
+      </Text>
       <Text style={styles.quantityText}>{item.quantity}</Text>
     </TouchableOpacity>
   );
@@ -116,24 +126,40 @@ export function BusinessProducts() {
         style={styles.mainContainer}
       >
         <Spacer space={SH(5)} />
+        {user ? (
+          <>
+            <TouchableOpacity style={styles.filerView}>
+              <Image
+                source={filter}
+                resizeMode="contain"
+                style={styles.filterIcon}
+              />
+              <Text style={styles.filterText}>{strings.business.filter}</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity style={styles.filerView}>
-          <Image
-            source={filter}
-            resizeMode="contain"
-            style={styles.filterIcon}
-          />
-          <Text style={styles.filterText}>{strings.business.filter}</Text>
-        </TouchableOpacity>
+            <Spacer space={SH(20)} />
 
-        <Spacer space={SH(20)} />
-
-        <FlatList
-          data={user}
-          renderItem={SecondItem}
-          keyExtractor={(item) => item.id}
-          numColumns={2}
-        />
+            <FlatList
+              data={typeof user === "string" ? JSON.parse(user) : user}
+              renderItem={SecondItem}
+              keyExtractor={(item) => item.id}
+              numColumns={2}
+            />
+          </>
+        ) : (
+          <Text
+            style={{
+              color: COLORS.black,
+              fontSize: SF(18),
+              fontFamily: Fonts.SemiBold,
+              justifyContent: "center",
+              alignSelf: "center",
+              marginTop: SH(50),
+            }}
+          >
+            {"No Product Found"}
+          </Text>
+        )}
       </ScrollView>
 
       <Spacer space={SH(10)} />

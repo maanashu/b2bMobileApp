@@ -100,4 +100,6 @@ export const NAVIGATION = {
   orderedStatus: "OrderedStatus",
   trackPlacedOrder: "TrackPlacedOrder",
   newOrders: "NewOrders",
+  favouritesProduct: "FavouritesProduct",
+  favouritesSeller: "FavouritesSeller",
 };

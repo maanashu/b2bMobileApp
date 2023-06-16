@@ -27,9 +27,10 @@ import { GOOGLE_MAP } from "@/constants/ApiKeys";
 import { useDispatch, useSelector } from "react-redux";
 import { NearMeSellers } from "@/actions/UserActions";
 import { getUser } from "@/selectors/UserSelectors";
+import Component from "./Component";
+
 export function NearMe() {
   const dispatch = useDispatch();
-  const windowWidth = Dimensions.get("window").width * 0.6;
 
   const mapViewRef = useRef(null);
   const googlePlacesRef = useRef(null);
@@ -38,23 +39,11 @@ export function NearMe() {
 
   const store = sellers?.nearMeSellers;
 
-  const Data = [
-    { id: 1, icon: manufactureLogo, title: "Manufacturers", count: "18" },
-    { id: 2, icon: wareHouseLogo, title: "Wholesalers", count: "31" },
-    { id: 3, icon: shopLight, title: "Retailers", count: "109" },
-  ];
   const Longitude = -122.4324;
   const Latitude = 37.78825;
 
   const [initialLongitude, setinitialLongitude] = useState(Longitude);
   const [intialLatitude, setintialLatitude] = useState(Latitude);
-
-  const defaultRegion = {
-    latitude: 59.9139,
-    longitude: 10.7522,
-    latitudeDelta: 0.0922 / 1,
-    longitudeDelta: 0.0521 / 1,
-  };
 
   const newLocation = {
     latitude: 30.7333,
@@ -73,43 +62,20 @@ export function NearMe() {
   useEffect(() => {
     dispatch(NearMeSellers(nearMeObject));
   }, [intialLatitude, initialLongitude]);
-  const renderItem = ({ item, index }) => (
-    <>
-      <TouchableOpacity
-        onPress={() => navigate(NAVIGATION.nearMeOptions)}
-        activeOpacity={1}
-        style={styles.bottomView}
-      >
-        <View style={styles.innerRowView}>
-          <View style={styles.iconView}>
-            <Image
-              source={item.icon}
-              resizeMode="contain"
-              style={styles.bottomIcons}
-            />
-          </View>
 
-          <Text
-            style={[
-              styles.quantityText,
-              {
-                color:
-                  index == 1
-                    ? COLORS.bright_blue
-                    : index == 2
-                    ? COLORS.persian_green
-                    : COLORS.primary,
-              },
-            ]}
-          >
-            {item.count}
-          </Text>
-        </View>
+  const userProfiles = sellers?.nearMeSellers;
 
-        <Text style={styles.typeText}>{item.title}</Text>
-      </TouchableOpacity>
-    </>
-  );
+  const sellerTypeCounts = {
+    retailer: 0,
+    manufacturer: 0,
+    null: 0,
+    whole_seller: 0,
+  };
+
+  userProfiles?.forEach((profile) => {
+    const { seller_type } = profile.user_profiles;
+    sellerTypeCounts[seller_type] += 1;
+  });
 
   return (
     <ScreenWrapper>
@@ -125,7 +91,7 @@ export function NearMe() {
           longitudeDelta: 0.0521 / 1,
         }}
       >
-        {store?.map((val, index) => {
+        {store?.map((val) => {
           return (
             <Marker
               coordinate={{
@@ -247,18 +213,32 @@ export function NearMe() {
             style={styles.locationIcon}
           />
           <Text style={styles.nearMeTextSmall}>
-            {" "}
             {"In your"}
             <Text style={styles.nearMeTextBold}> {"5 miles"}</Text>
           </Text>
         </TouchableOpacity>
 
         <View style={styles.bottomAbsoluteView}>
-          <FlatList
-            data={Data}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-            numColumns={3}
+          <Component
+            source={manufactureLogo}
+            style={{ color: COLORS.primary }}
+            title={"Manufacturers"}
+            count={sellerTypeCounts.manufacturer}
+            onPress={() => navigate(NAVIGATION.nearMeOptions,{id: 0})}
+          />
+          <Component
+            source={wareHouseLogo}
+            style={{ color: COLORS.persian_green }}
+            title={"Wholesalers"}
+            count={sellerTypeCounts.whole_seller}
+            onPress={() => navigate(NAVIGATION.nearMeOptions,{id: 1})}
+          />
+          <Component
+            source={shopLight}
+            style={{ color: COLORS.bright_blue }}
+            title={"Retailers"}
+            count={sellerTypeCounts.retailer + sellerTypeCounts.null}
+            onPress={() => navigate(NAVIGATION.nearMeOptions,{id : 2})}
           />
         </View>
       </View>
