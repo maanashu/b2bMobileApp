@@ -148,7 +148,7 @@ export const nearMeData = [
 export const MessageHeader = [
   {
     id: 1,
-    title: "Orders (17)",
+    title: "Orders",
     image: orderProducts,
   },
   {
@@ -169,7 +169,7 @@ export const MessageHeader = [
 ];
 
 export const messageRenderData = [
-  { id: 1, title: "New Messages (17)" },
+  { id: 1, title: "New Messages" },
   { id: 2, title: "All" },
 ];
 export const ChatData = [

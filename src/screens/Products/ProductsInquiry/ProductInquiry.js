@@ -57,7 +57,7 @@ import FastImage from "react-native-fast-image";
 import { renderNoData } from "@/components/FlatlistStyling";
 import { Loader } from "@/components/Loader";
 import { getKyc } from "@/selectors/KycSelector";
-import { getUserProfile } from "@/actions/UserActions";
+import { getMessages, getUserProfile } from "@/actions/UserActions";
 import { previousScreen } from "@/actions/GlobalActions";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 
@@ -89,6 +89,21 @@ export function ProductInquiry(params) {
     dispatch(getProductDetail(params?.route?.params?.itemId, data));
     dispatch(getTrendingProducts(object));
   }, []);
+
+  const handleChat = () => {
+    // console.log(
+    //   ProductDetail?.productDetail?.product_detail?.supplies?.[0]?.seller_id
+    // );
+    dispatch(
+      getMessages(
+        ProductDetail?.productDetail?.product_detail?.supplies?.[0]?.seller_id
+      )
+    );
+    navigate(NAVIGATION.chatting, {
+      seller_id:
+        ProductDetail?.productDetail?.product_detail?.supplies?.[0]?.seller_id,
+    });
+  };
 
   const renderItem = ({ item }) => (
     <TouchableOpacity style={[styles.item, { marginTop: SH(30) }]}>
@@ -290,12 +305,7 @@ export function ProductInquiry(params) {
 
           <View style={styles.mainView}>
             <View style={styles.queryIcons}>
-              <TouchableOpacity
-                style={styles.chatbutton}
-                onPress={() =>
-                  navigate(NAVIGATION.chatting, { seller_id: data.seller_id })
-                }
-              >
+              <TouchableOpacity style={styles.chatbutton} onPress={handleChat}>
                 <Image source={chatNow} style={styles.buttonIcon} />
 
                 <Text style={styles.chatText}>

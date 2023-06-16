@@ -54,6 +54,7 @@ export const styles = StyleSheet.create({
   userPicStyle: {
     height: SW(50),
     width: SW(50),
+    borderRadius: SW(25),
   },
   chatView: {
     flexDirection: "row",
@@ -87,6 +88,6 @@ export const styles = StyleSheet.create({
   nameText: {
     fontFamily: Fonts.Regular,
     color: COLORS.light_grey,
-    fontSize: SF(15),
+    fontSize: SF(14),
   },
 });

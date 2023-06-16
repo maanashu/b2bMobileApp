@@ -466,25 +466,39 @@ export class UserController {
 
   static async getMessages(id) {
     return new Promise((resolve, reject) => {
-      const endpoint = USER_URL + ApiUserInventory.getMessages;
+      const endpoint = USER_URL + ApiUserInventory.getMessages(id);
       const body = {
         recipient_id: id,
       };
       HttpClient.get(endpoint, body)
         .then((response) => {
           resolve(response);
-          console.log("body", JSON.stringify(body));
           // navigate(NAVIGATION.settings);
         })
         .catch((error) => {
-          console.log("error", JSON.stringify(error));
-          console.log("body", JSON.stringify(body));
           Toast.show({
             text2: error.msg,
             position: "bottom",
             type: "error_toast",
             visibilityTime: 2000,
           });
+          reject(new Error((strings.verify.error = error.msg)));
+        });
+    });
+  }
+  static async getMessageHeads(data) {
+    return new Promise((resolve, reject) => {
+      const params = new URLSearchParams(data).toString();
+      const endpoint = `${
+        USER_URL + ApiUserInventory.getMessageHeads
+      }${params}`;
+
+      HttpClient.get(endpoint)
+        .then((response) => {
+          resolve(response);
+          // navigate(NAVIGATION.settings);
+        })
+        .catch((error) => {
           reject(new Error((strings.verify.error = error.msg)));
         });
     });

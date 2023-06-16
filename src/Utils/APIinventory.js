@@ -30,6 +30,7 @@ export const ApiUserInventory = {
   updateUserSettings: "user_settings",
   sendChat: "messages",
   getMessages: (id) => `messageheads/${id}`,
+  getMessageHeads: `messageheads/?`,
   deleteMessages: (id) => `messageheads/${id}`,
   getOneManufactureDetails: (id) => `users/${id}`,
 };

@@ -21,11 +21,25 @@ import {
 } from "@/constants/flatlistData";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { getMessageHeads, getMessages } from "@/actions/UserActions";
+import { getUser } from "@/selectors/UserSelectors";
+import moment from "moment";
 
 export function Messages() {
+  const dispatch = useDispatch();
   const [selected, setselected] = useState(1);
   const [messageRender, setmessageRender] = useState(1);
+  const user = useSelector(getUser);
 
+  useEffect(() => {
+    dispatch(getMessageHeads({ page: 1 }));
+  }, []);
+
+  const handleChat = (id) => {
+    dispatch(getMessages(id));
+    navigate(NAVIGATION.chatting);
+  };
   const renderTopItems = ({ item }) => (
     <>
       <View
@@ -93,45 +107,55 @@ export function Messages() {
       </View>
     </>
   );
-  const Users = ({ item }) => (
-    <>
-      <TouchableOpacity onPress={() => navigate(NAVIGATION.chatting)}>
-        <View style={styles.chatView}>
-          <Image
-            source={item.pic}
-            resizeMode="contain"
-            style={styles.userPicStyle}
-          />
+  const Users = ({ item }) => {
+    const formattedTime = moment
+      .utc(item?.messages?.[0]?.created_at)
+      .local()
+      .format("hh:mm A");
+    return (
+      <>
+        <TouchableOpacity onPress={() => handleChat(item.recipient_id)}>
+          <View style={styles.chatView}>
+            <Image
+              source={{ uri: item.receiver?.user_profiles?.banner_image }}
+              resizeMode="contain"
+              style={styles.userPicStyle}
+            />
 
-          <View style={{ marginLeft: SW(10), flex: 1 }}>
-            <View style={styles.chatinnerView}>
-              <Text style={styles.businessText}>{item.businessName}</Text>
-              <Text style={styles.timeText}>{item.time}</Text>
-            </View>
+            <View style={{ marginLeft: SW(10), flex: 1 }}>
+              <View style={styles.chatinnerView}>
+                <Text style={styles.businessText}>
+                  {item.receiver?.user_profiles?.organization_name}
+                </Text>
+                <Text style={styles.timeText}>{formattedTime}</Text>
+              </View>
 
-            <Spacer space={SH(3)} />
+              <Spacer space={SH(3)} />
 
-            <Text style={styles.nameText}>
-              {item.userName} |{" "}
-              <Text style={styles.positionText}>{item.position}</Text>
-            </Text>
-
-            <Spacer space={SH(5)} />
-
-            <View style={{ flex: 1, paddingRight: SW(5) }}>
-              <Text style={styles.timeText} numberOfLines={1}>
-                {item.message}
+              <Text style={styles.nameText}>
+                {item?.receiver?.user_profiles?.firstname +
+                  " " +
+                  item?.receiver?.user_profiles?.lastname}
+                <Text style={styles.positionText}>{item.position}</Text>
               </Text>
+
+              <Spacer space={SH(4)} />
+
+              <View style={{ flex: 1, paddingRight: SW(5) }}>
+                <Text style={styles.timeText} numberOfLines={1}>
+                  {item?.messages?.[0]?.content}
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
 
-      <Spacer space={SH(15)} />
+        <Spacer space={SH(15)} />
 
-      <View style={styles.bottomLine}></View>
-    </>
-  );
+        <View style={styles.bottomLine}></View>
+      </>
+    );
+  };
 
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
@@ -197,9 +221,17 @@ export function Messages() {
 
         <View style={{ paddingHorizontal: SW(10) }}>
           <FlatList
-            data={ChatData}
+            data={user?.getMessageHeads}
+            extraData={user?.getMessageHeads}
             renderItem={Users}
             keyExtractor={(item) => item.id}
+            ListEmptyComponent={(item) => (
+              <View>
+                <Text style={{ fontFamily: Fonts.SemiBold, fontSize: SF(18) }}>
+                  {"No New Messages"}
+                </Text>
+              </View>
+            )}
           />
         </View>
       </ScrollView>

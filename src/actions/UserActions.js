@@ -126,14 +126,22 @@ export const TYPES = {
   UPDATE_USER_SETTINGS_SUCCESS: "UPDATE_USER_SETTINGS_SUCCESS",
   UPDATE_USER_SETTINGS_ERROR: "UPDATE_USER_SETTINGS_ERROR",
 
+  SEND_CHAT: "SEND_CHAT",
   SEND_CHAT_REQUEST: "SEND_CHAT_REQUEST",
   SEND_CHAT_SUCCESS: "SEND_CHAT_SUCCESS",
   SEND_CHAT_ERROR: "SEND_CHAT_ERROR",
 
+  GET_MESSAGES: "GET_MESSAGES",
   GET_MESSAGES_REQUEST: "GET_MESSAGES_REQUEST",
   GET_MESSAGES_SUCCESS: "GET_MESSAGES_SUCCESS",
   GET_MESSAGES_ERROR: "GET_MESSAGES_ERROR",
 
+  GET_MESSAGES_HEADS: "GET_MESSAGES_HEADS",
+  GET_MESSAGES_HEADS_REQUEST: "GET_MESSAGES_HEADS_REQUEST",
+  GET_MESSAGES_HEADS_SUCCESS: "GET_MESSAGES_HEADS_SUCCESS",
+  GET_MESSAGES_HEADS_ERROR: "GET_MESSAGES_HEADS_ERROR",
+
+  DELETE_MESSAGE: "DELETE_MESSAGE",
   DELETE_MESSAGES_REQUEST: "DELETE_MESSAGES_REQUEST",
   DELETE_MESSAGES_SUCCESS: "DELETE_MESSAGES_SUCCESS",
   DELETE_MESSAGES_ERROR: "DELETE_MESSAGES_ERROR",
@@ -450,6 +458,21 @@ const getMessagesError = (error) => ({
   payload: { error },
 });
 
+const getMessagesHeadsRequest = () => ({
+  type: TYPES.GET_MESSAGES_HEADS_REQUEST,
+  payload: null,
+});
+
+const getMessagesHeadsSuccess = (getMessageHeads) => ({
+  type: TYPES.GET_MESSAGES_HEADS_SUCCESS,
+  payload: { getMessageHeads },
+});
+
+const getMessagesHeadsError = (error) => ({
+  type: TYPES.GET_MESSAGES_HEADS_ERROR,
+  payload: { error },
+});
+
 const deleteMessagesRequest = () => ({
   type: TYPES.DELETE_MESSAGES_REQUEST,
   payload: null,
@@ -693,16 +716,17 @@ export const updateUserSettings = (data) => async (dispatch) => {
 };
 
 export const sendChat = (data) => async (dispatch) => {
-  console.log("Data32", data);
   dispatch(sendChatRequest());
-  try {
-    const res = await UserController.sendChat(data);
-    console.log("dataaaa", res);
-    dispatch(sendChatSuccess(res?.payload));
-  } catch (error) {
-    console.error("errror", JSON.stringify(error));
-    dispatch(sendChatError(error.message));
-  }
+  return UserController.sendChat(data)
+    .then((res) => {
+      console.log("dataaaa", res);
+      dispatch(sendChatSuccess(res?.payload));
+      return res;
+    })
+    .catch((error) => {
+      dispatch(sendChatError(error.message));
+      throw error;
+    });
 };
 
 export const getMessages = (id) => async (dispatch) => {
@@ -711,8 +735,20 @@ export const getMessages = (id) => async (dispatch) => {
   try {
     const res = await UserController.getMessages(id);
     dispatch(getMessagesSuccess(res?.payload));
+    console.log("getting Messages", res?.payload);
   } catch (error) {
+    console.log("gigd", JSON.stringify(error));
     dispatch(getMessagesError(error.message));
+  }
+};
+export const getMessageHeads = (data) => async (dispatch) => {
+  console.log("page", data);
+  dispatch(getMessagesHeadsRequest());
+  try {
+    const res = await UserController.getMessageHeads(data);
+    dispatch(getMessagesHeadsSuccess(res));
+  } catch (error) {
+    dispatch(getMessagesHeadsError(error.message));
   }
 };
 
