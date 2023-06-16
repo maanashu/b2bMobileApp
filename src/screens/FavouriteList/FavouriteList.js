@@ -1,69 +1,98 @@
 import React from "react";
-import { FlatList, ScrollView, TouchableOpacity, View } from "react-native";
-import { ScreenWrapper, Spacer } from "@/components";
+import { Image, View, useWindowDimensions } from "react-native";
+import { ScreenWrapper } from "@/components";
 import { styles } from "./FavouriteList.styles";
-import { COLORS, SH } from "@/theme";
+import { COLORS, SF, SH, SW } from "@/theme";
 import { HeaderCoin } from "../Profile/Wallet/Components/HeaderCoin";
 import { strings } from "@/localization";
-import { CompanyView } from "../Profile/Wallet/Manufacturers/Components/CompanyView";
-import { navigate } from "@/navigation/NavigationRef";
-import { NAVIGATION } from "@/constants";
-import { SwiperButton } from "@/components/SwiperButton";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getFavouritesSeller } from "@/actions/UserActions";
+import { SceneMap, TabBar, TabView } from "react-native-tab-view";
+import { Fonts, bottomProducts, shopLight } from "@/assets";
+import { FavouritesSeller } from "./FavouritesSeller/FavouritesSeller";
+import { FavouritesProduct } from "./FavouritesProduct/FavouritesProduct";
 
 export function FavouriteList() {
-  const coinPlans = [
-    {
-      name: "JBR 10",
-      sub: "USD $10",
-      key: 1,
-    },
-    {
-      name: "JBR 25",
-      sub: "USD $25",
-      key: 2,
-    },
-    {
-      name: "JBR 50",
-      sub: "USD $50",
-      key: 3,
-    },
-    {
-      name: "JBR 100",
-      sub: "USD $100",
-      key: 4,
-    },
-  ];
-  const renderItem = ({ item }) => <SwiperButton item={item} />;
+  const dispatch = useDispatch();
+  const data = {
+    page: 1,
+    limit: 10,
+  };
+  useEffect(() => {
+    dispatch(getFavouritesSeller(data));
+  }, []);
 
+  const layout = useWindowDimensions();
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    { key: "first", title: "Seller" },
+    { key: "second", title: "Product" },
+  ]);
+
+  const FirstRoute = () => <FavouritesSeller />;
+  const SecondRoute = () => <FavouritesProduct />;
+
+  const renderScene = SceneMap({
+    first: FirstRoute,
+    second: SecondRoute,
+  });
+  const renderTabBar = (props) => {
+    return (
+      <TabBar
+        contentContainerStyle={{
+          paddingHorizontal: SW(10),
+          paddingVertical: SH(15),
+        }}
+        {...props}
+        renderLabel={({ focused, route }) => {
+          return (
+            <View
+              style={[
+                styles.tabButtonView,
+
+                {
+                  backgroundColor: focused
+                    ? COLORS.primary
+                    : COLORS.transparent,
+                },
+              ]}
+            >
+              <Image
+                source={route.title === "Seller" ? shopLight : bottomProducts}
+                resizeMode="contain"
+                style={{
+                  tintColor: focused ? COLORS.white : COLORS.light_grey,
+                  height: SH(20),
+                  width: SW(20),
+                }}
+              />
+            </View>
+          );
+        }}
+        indicatorStyle={{ backgroundColor: COLORS.white }}
+        style={{
+          backgroundColor: COLORS.white,
+          elevation: 0,
+        }}
+        pressColor={COLORS.white}
+        tabStyle={{ width: "auto", marginHorizontal: SW(-5) }}
+      />
+    );
+  };
   return (
     <ScreenWrapper>
       <HeaderCoin amount={"0"} title={strings.profile.favouriteList} />
-
-      <Spacer space={SH(15)} />
-
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={styles.mainContainer}
-      >
-        <Spacer space={SH(20)} />
-
-        <TouchableOpacity onPress={() => navigate(NAVIGATION.aboutBusiness)}>
-          <CompanyView about={"About Company"} />
-        </TouchableOpacity>
-
-        <Spacer space={SH(20)} />
-      </ScrollView>
-
-      {/* <View>
-        <FlatList
-          windowSize={1}
-          data={coinPlans}
-          renderItem={renderItem}
-          removeClippedSubviews={true}
-          keyExtractor={(item) => item.id}
-          showsVerticalScrollIndicator={false}
+      <View style={{ flex: 1, paddingVertical: SH(5) }}>
+        <TabView
+          navigationState={{ index, routes }}
+          renderScene={renderScene}
+          onIndexChange={setIndex}
+          initialLayout={{ width: layout.width }}
+          renderTabBar={renderTabBar}
+          swipeEnabled={false}
         />
-      </View> */}
+      </View>
     </ScreenWrapper>
   );
 }

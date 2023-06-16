@@ -1,48 +1,20 @@
-import React, { useState } from "react";
-import {
-  View,
-  Image,
-  Text,
-  FlatList,
-  useWindowDimensions,
-  ScrollView,
-  TouchableOpacity,
-  ImageBackground,
-} from "react-native";
-import { NameHeader, ScreenWrapper, Spacer, TextField } from "@/components";
+import React from "react";
+import { View, Text, useWindowDimensions } from "react-native";
+import { NameHeader, ScreenWrapper } from "@/components";
 import { styles } from "./NearMeOptions.styles";
-import { COLORS, SF, SH, ShadowStyles, SW } from "@/theme";
-import { transactionHistory } from "@/constants/flatlistData";
-import { HeaderCoin } from "../../Profile/Wallet/Components/HeaderCoin";
+import { COLORS, SF, SH, SW } from "@/theme";
 import { strings } from "@/localization";
-import { CompanyView } from "../../Profile/Wallet/Manufacturers/Components/CompanyView";
-import { navigate } from "@/navigation/NavigationRef";
-import { NAVIGATION } from "@/constants";
-import {
-  backArrow,
-  filter,
-  Fonts,
-  forward,
-  loactionPinFilled,
-  location,
-  manufactureLogo,
-  nearMeMap,
-  shopLight,
-  wareHouseLogo,
-} from "@/assets";
-import { Search } from "@/components/Search";
-import { store } from "@/store";
+import { backArrow, Fonts } from "@/assets";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
-import { Products } from "@/screens/TopTabScreens/Products/Products";
-import { Business } from "@/screens/TopTabScreens/Business/Business";
-import { NearMe } from "../NearMe";
 import { ManufacturersNearMe } from "../ManufacturersNearMe/ManufacturersNearMe";
 import { DistributorsNearMe } from "../DistributorsNearMe/DistributorsNearMe";
 import { RetailersNearMe } from "../RetailersNearMe/RetailersNearMe";
+import { goBack } from "@/navigation/NavigationRef";
+import { useEffect } from "react";
 
-export function NearMeOptions() {
+export function NearMeOptions(props) {
   const layout = useWindowDimensions();
-  const [index, setIndex] = React.useState(0);
+  const [index, setIndex] = React.useState(props?.route?.params?.id);
 
   const [routes] = React.useState([
     { key: "products", title: "Manufacturers" },
@@ -105,7 +77,11 @@ export function NearMeOptions() {
   };
   return (
     <ScreenWrapper>
-      <NameHeader back={backArrow} title={strings.home.nearMe} />
+      <NameHeader
+        back={backArrow}
+        title={strings.home.nearMe}
+        backNavi={() => goBack()}
+      />
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}

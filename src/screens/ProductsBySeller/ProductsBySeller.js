@@ -75,12 +75,12 @@ export function ProductsBySeller(params) {
       return SH(10);
     }
   }
-
   const navigationHandler = (item) => {
     if (item === item) {
       navigate(NAVIGATION.productInquiry, {
         itemId: item.id,
         seller_id: item?.supplies[0]?.seller_id,
+        id:params?.route?.params?.idSeller
       });
     }
   };

@@ -57,7 +57,7 @@ import FastImage from "react-native-fast-image";
 import { renderNoData } from "@/components/FlatlistStyling";
 import { Loader } from "@/components/Loader";
 import { getKyc } from "@/selectors/KycSelector";
-import { getUserProfile } from "@/actions/UserActions";
+import { getUserProfile, productFavourites } from "@/actions/UserActions";
 import { previousScreen } from "@/actions/GlobalActions";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 
@@ -67,14 +67,12 @@ export function ProductInquiry(params) {
   const user = useSelector(getUser);
   const token = user?.user?.payload?.token;
   const kyc = useSelector(getKyc);
-  const colorChange = () => {
-    setFavourite(!favourite);
-  };
+
   const ProductDetail = useSelector(getProductSelector);
   const isLoadingDetails = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
   );
-  // console.log("productDetail", JSON.stringify(ProductDetail?.productDetail));
+  console.log("productDetail", params?.route?.params?.id);
 
   const object = {
     service_type: "product",
@@ -84,12 +82,21 @@ export function ProductInquiry(params) {
     delivery_options: "4",
     seller_id: params?.route?.params?.seller_id,
   };
+
+  const productData = {
+    seller_id: params?.route?.params?.id,
+    product_id: ProductDetail?.productDetail?.product_detail?.id
+  }
   useEffect(() => {
     dispatch(getUserProfile(user?.user?.payload?.uuid));
     dispatch(getProductDetail(params?.route?.params?.itemId, data));
     dispatch(getTrendingProducts(object));
   }, []);
 
+  const colorChange = () => {
+    setFavourite(!favourite);
+    dispatch(productFavourites(productData))
+  };
   const renderItem = ({ item }) => (
     <TouchableOpacity style={[styles.item, { marginTop: SH(30) }]}>
       <View style={styles.upperButtons}>
@@ -229,7 +236,7 @@ export function ProductInquiry(params) {
                 resizeMode="contain"
                 style={[
                   styles.favIcon,
-                  { tintColor: favourite == true ? "red" : "black" },
+                  { tintColor: favourite === true ? "red" : "black" },
                 ]}
               />
             </TouchableOpacity>

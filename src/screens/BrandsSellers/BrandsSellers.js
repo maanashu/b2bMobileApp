@@ -135,7 +135,10 @@ export function BrandsSellers(params) {
           ...ShadowStyles.shadow2,
         }}
         onPress={() =>
-          navigate(NAVIGATION.productsBySeller, { sellerId: item?.unique_uuid })
+          navigate(NAVIGATION.productsBySeller, {
+            sellerId: item?.unique_uuid,
+            idSeller: item?.id,
+          })
         }
       >
         <View style={{ flexDirection: "row", alignItems: "center" }}>
