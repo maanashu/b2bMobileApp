@@ -64,6 +64,7 @@ export function Chatting(props) {
   const user = useSelector(getUser);
   const allMessages = user?.getMessages?.messages;
   const dispatch = useDispatch();
+  console.log("jhfd", props?.route?.params?.seller_id);
   const handleDocumentSelection = useCallback(async () => {
     try {
       const response = await DocumentPicker.pick({
@@ -246,7 +247,7 @@ export function Chatting(props) {
         dispatch(getMessages(props?.route?.params?.seller_id));
       })
       .catch((error) => {
-        console.log("error: " + error);
+        console.log("errorafter catch " + error);
       });
   }, []);
 

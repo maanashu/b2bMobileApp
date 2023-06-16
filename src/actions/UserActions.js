@@ -716,6 +716,7 @@ export const updateUserSettings = (data) => async (dispatch) => {
 };
 
 export const sendChat = (data) => async (dispatch) => {
+  console.log("chchcbcch" + JSON.stringify(data));
   dispatch(sendChatRequest());
   return UserController.sendChat(data)
     .then((res) => {
@@ -724,13 +725,14 @@ export const sendChat = (data) => async (dispatch) => {
       return res;
     })
     .catch((error) => {
+      console.log("errorrrr", JSON.stringify(error));
       dispatch(sendChatError(error.message));
       throw error;
     });
 };
 
 export const getMessages = (id) => async (dispatch) => {
-  console.log("id", id);
+  console.log("checkId" + id);
   dispatch(getMessagesRequest());
   try {
     const res = await UserController.getMessages(id);
@@ -742,7 +744,6 @@ export const getMessages = (id) => async (dispatch) => {
   }
 };
 export const getMessageHeads = (data) => async (dispatch) => {
-  console.log("page", data);
   dispatch(getMessagesHeadsRequest());
   try {
     const res = await UserController.getMessageHeads(data);
@@ -766,14 +767,11 @@ export const deleteMessages = (id) => async (dispatch) => {
 };
 
 export const getOneManufactureDetails = (id) => async (dispatch) => {
-  console.log("id==", id);
   dispatch(getOneManufactureDetailsRequest());
   try {
     const res = await UserController.getOneManufactureDetails(id);
-    console.log("dataaaa", res);
     dispatch(getOneManufactureDetailsSuccess(res?.payload));
   } catch (error) {
-    console.error("errror", JSON.stringify(error));
     dispatch(getOneManufactureDetailsError(error.message));
   }
 };
