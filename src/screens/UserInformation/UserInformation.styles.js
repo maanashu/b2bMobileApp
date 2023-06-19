@@ -113,7 +113,7 @@ export const styles = StyleSheet.create({
     alignSelf: "center",
     height: ms(150),
     width: ms(150),
-    borderRadius: ms(75),
+    borderRadius: ms(150),
     justifyContent: "flex-end",
     backgroundColor: COLORS.placeholder,
   },
@@ -121,7 +121,7 @@ export const styles = StyleSheet.create({
     alignSelf: "center",
     height: ms(150),
     width: ms(150),
-    borderRadius: ms(75),
+    borderRadius: ms(150),
   },
   modalBackground: {
     padding: SW(30),
@@ -145,4 +145,19 @@ export const styles = StyleSheet.create({
     width: ms(150),
     borderRadius: ms(75),
   },
+  editProfileView:{
+position:"absolute",
+right:SW(5),
+bottom:SH(20),
+backgroundColor:COLORS.primary,
+height:SW(20),
+width:SW(20),
+borderRadius:SW(10),
+justifyContent:"center",
+alignItems:"center"
+  },
+  pencilIcon:{
+    height:SH(15),
+    tintColor:COLORS.white
+  }
 });

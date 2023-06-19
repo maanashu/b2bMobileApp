@@ -50,6 +50,10 @@ export function Profile() {
   const user = useSelector(getUser);
   const wallet = useSelector(getWallet);
   const token = user?.user?.payload?.token;
+  const profile_photo =
+    user?.user?.payload?.user_profiles?.profile_photo ||
+    user?.getUserProfile?.user_profiles?.profile_photo;
+
   const logoutUser = () => {
     dispatch(logout());
     dispatch(logoutOrder());
@@ -228,11 +232,20 @@ export function Profile() {
               onPress={() => navigate(NAVIGATION.userInformation)}
               style={styles.userView}
             >
-              <Image
-                source={profileLogo}
-                resizeMode="stretch"
-                style={{ height: ms(50), width: ms(50) }}
-              />
+              {profile_photo ? (
+                <Image
+                  source={{ uri: profile_photo }}
+                  resizeMode="stretch"
+                  style={{ height: ms(50), width: ms(50) }}
+                />
+              ) : (
+                <Image
+                  source={profileLogo}
+                  resizeMode="stretch"
+                  style={{ height: ms(50), width: ms(50) }}
+                />
+              )}
+
               <View style={styles.userInnerView}>
                 <View style={styles.usernameRowView}>
                   <Text style={styles.usernameText}>

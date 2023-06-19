@@ -9,6 +9,7 @@ import {
 import DeviceInfo from "react-native-device-info";
 import Toast from "react-native-toast-message";
 import { HttpClient } from "./HttpClient";
+import axios from "axios";
 
 export class UserController {
   static async login(value, countryCode, phoneNumber, screenName) {
@@ -350,7 +351,7 @@ export class UserController {
           resolve(response);
         })
         .catch((error) => {
-          reject(new Error((strings.validation.error = error.msg)));
+          reject(error);
         });
     });
   }
@@ -563,12 +564,8 @@ export class UserController {
       HttpClient.post(endpoint, body)
         .then((response) => {
           resolve(response);
-          console.log("body", JSON.stringify(body));
-          // navigate(NAVIGATION.settings);
         })
         .catch((error) => {
-          console.log("error", JSON.stringify(error));
-          console.log("body", JSON.stringify(body));
           Toast.show({
             text2: error.msg,
             position: "bottom",
@@ -590,12 +587,8 @@ export class UserController {
       HttpClient.post(endpoint, body)
         .then((response) => {
           resolve(response);
-          console.log("body", JSON.stringify(body));
-          // navigate(NAVIGATION.settings);
         })
         .catch((error) => {
-          console.log("error", JSON.stringify(error));
-          console.log("body", JSON.stringify(body));
           Toast.show({
             text2: error.msg,
             position: "bottom",
@@ -640,28 +633,44 @@ export class UserController {
     });
   }
 
-  static async uploadProfileImage(data) {
-    console.log("IDData", data);
-    return new Promise((resolve, reject) => {
+  static async uploadProfileImage(image) {
+    console.log("IDData", image);
+    return new Promise(async (resolve, reject) => {
+      const formData = new FormData();
+      formData.append("profile", {
+        uri: image.path,
+        type: image.mime,
+        name: image.path,
+      });
       const endpoint = USER_URL + ApiUserInventory.uploadProfileImage;
+      await axios({
+        url: endpoint,
+        method: "POST",
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Accept: "application/json",
+          "app-name": "b2b",
+        },
+      })
+        .then(async (response) => {
+          resolve(response?.data);
+        })
+        .catch((error) => reject(error));
+    });
+  }
+
+  static async editProfileController(id, data) {
+    return new Promise((resolve, reject) => {
+      const endpoint = `${USER_URL}${ApiUserInventory.editProfile}/${id}`;
       const body = {
-        profile: data?.profile,
+        profile_photo: data?.profile_photo,
       };
-      HttpClient.post(endpoint, body)
+      HttpClient.put(endpoint, body)
         .then((response) => {
           resolve(response);
-          console.log("image data", response);
         })
         .catch((error) => {
-          console.log("image error", JSON.stringify(error));
-          console.log("image data", body);
-
-          Toast.show({
-            text2: error.msg,
-            position: "bottom",
-            type: "error_toast",
-            visibilityTime: 2000,
-          });
           reject(error);
         });
     });

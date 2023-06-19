@@ -46,7 +46,8 @@ const INITIALSTATE = {
   productFavourites: {},
   getFavouriteProducts: {},
   getFavouriteSellers: [],
-  uploadProfileImage:{}
+  uploadProfileImage: {},
+  editProfile: {},
 };
 
 export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -111,7 +112,7 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
     case TYPES.GET_USER_SUCCESS:
       return {
         ...state,
-        getuser: payload.getuser,
+        getUser: payload.getuser,
       };
     case TYPES.EMAIL_VERIFY_OTP_SUCCESS:
       return {
@@ -248,12 +249,6 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         getFavouriteSellers: [],
-      };
-
-    case TYPES.UPLOAD_PROFILE_IMAGE_SUCCESS:
-      return {
-        ...state,
-        uploadProfileImage: payload.uploadProfileImage,
       };
 
     case TYPES.UPLOAD_PROFILE_IMAGE_SUCCESS:
