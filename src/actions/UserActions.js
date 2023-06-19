@@ -167,11 +167,16 @@ export const TYPES = {
   GET_FAVOURITE_PRODUCTS_ERROR: "GET_FAVOURITE_PRODUCTS_ERROR",
   GET_FAVOURITE_PRODUCTS_RESET: "GET_FAVOURITE_PRODUCTS_RESET",
 
-  GET_FAVOURITE_SELLERS: "GET_FAGET_FAVOURITE_SELLERSVOURITE_SELLERS",
+  GET_FAVOURITE_SELLERS: "GET_FAVOURITE_SELLERS",
   GET_FAVOURITE_SELLERS_REQUEST: "GET_FAVOURITE_SELLERS_REQUEST",
   GET_FAVOURITE_SELLERS_SUCCESS: "GET_FAVOURITE_SELLERS_SUCCESS",
   GET_FAVOURITE_SELLERS_ERROR: "GET_FAVOURITE_SELLERS_ERROR",
   GET_FAVOURITE_SELLERS_RESET: "GET_FAVOURITE_SELLERS_RESET",
+
+  UPLOAD_PROFILE_IMAGE: "UPLOAD_PROFILE_IMAGE",
+  UPLOAD_PROFILE_IMAGE_REQUEST: "UPLOAD_PROFILE_IMAGE_REQUEST",
+  UPLOAD_PROFILE_IMAGE_SUCCESS: "UPLOAD_PROFILE_IMAGE_SUCCESS",
+  UPLOAD_PROFILE_IMAGE_ERROR: "UPLOAD_PROFILE_IMAGE_ERROR",
 };
 
 const loginRequest = () => ({
@@ -594,6 +599,37 @@ const getFavouriteSellersReset = () => ({
   payload: null,
 });
 //
+
+const uploadProfileImageRequest = () => ({
+  type: TYPES.UPLOAD_PROFILE_IMAGE_REQUEST,
+  payload: null,
+});
+
+const uploadProfileImageSuccess = (uploadProfileImage) => ({
+  type: TYPES.UPLOAD_PROFILE_IMAGE_SUCCESS,
+  payload: { uploadProfileImage },
+});
+
+const uploadProfileImageError = (error) => ({
+  type: TYPES.UPLOAD_PROFILE_IMAGE_ERROR,
+  payload: { error },
+});
+
+const editProfileRequest = () => ({
+  type: TYPES.EDIT_PROFILE_REQUEST,
+  payload: null,
+});
+
+const editProfileSuccess = (editProfile) => ({
+  type: TYPES.EDIT_PROFILE_SUCCESS,
+  payload: { editProfile },
+});
+
+const editProfileError = (error) => ({
+  type: TYPES.EDIT_PROFILE_ERROR,
+  payload: { error },
+});
+
 export const login =
   (value, countryCode, phoneNumber, screenName) => async (dispatch) => {
     dispatch(loginRequest());
@@ -605,7 +641,7 @@ export const login =
         screenName
       );
       dispatch(loginSuccess(user));
-      dispatch(getUserProfile(user?.payload?.uuid));
+      // dispatch(getUserProfile(user?.payload?.uuid));
       dispatch(getWalletBalance());
     } catch (error) {
       dispatch(loginError(error.message));
@@ -623,8 +659,8 @@ export const logout = () => async (dispatch) => {
 export const getUser = (data) => async (dispatch) => {
   dispatch(getUserRequest());
   try {
-    const res = await UserController.getUser(data);
-    dispatch(getUserSuccess(res?.payload?.user_profiles));
+    const res = await UserController.getUserProfile(data);
+    dispatch(getUserSuccess(res));
   } catch (error) {
     dispatch(getUserError(error.message));
   }
@@ -776,7 +812,9 @@ export const getUserProfile = (data) => async (dispatch) => {
   try {
     const res = await UserController.getUserProfile(data);
     dispatch(getUserProfileSucess(res));
+    console.log("check resp on action success", JSON.stringify(res));
   } catch (error) {
+    console.log("action error", JSON.stringify(error));
     dispatch(getUserProfileError(error.message));
   }
 };
@@ -908,4 +946,30 @@ export const getFavouriteSellers = (data) => async (dispatch) => {
       dispatch(getFavouriteSellersError(error.message));
     }
   }
+};
+
+export const uploadProfileImage = (data) => async (dispatch) => {
+  dispatch(uploadProfileImageRequest());
+  return UserController.uploadProfileImage(data)
+    .then((res) => {
+      dispatch(uploadProfileImageSuccess(res?.payload));
+      return res;
+    })
+    .catch((error) => {
+      dispatch(uploadProfileImageError(error.message));
+      throw error;
+    });
+};
+
+export const editProfile = (id, data) => async (dispatch) => {
+  dispatch(editProfileRequest());
+  return UserController.editProfileController(id, data)
+    .then((res) => {
+      dispatch(editProfileSuccess(res));
+      return res;
+    })
+    .catch((error) => {
+      dispatch(editProfileError(error.message));
+      throw error;
+    });
 };

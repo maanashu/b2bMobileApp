@@ -9,7 +9,13 @@ import {
   ScrollView,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "@/actions/UserActions";
+import {
+  TYPES,
+  editProfile,
+  getUserProfile,
+  logout,
+  uploadProfileImage,
+} from "@/actions/UserActions";
 import { Button, ScreenWrapper, Spacer } from "@/components";
 import { strings } from "@/localization";
 import { styles } from "./UserInformation.styles";
@@ -24,6 +30,7 @@ import {
   email,
   call,
   calendar,
+  pencil,
 } from "@/assets";
 import { ms, vs } from "react-native-size-matters";
 import { goBack, navigate } from "@/navigation/NavigationRef";
@@ -33,18 +40,26 @@ import { useState } from "react";
 import ImageCropPicker from "react-native-image-crop-picker";
 import { personalInfo, CompanyInfo } from "./Components.js/FlatlistData";
 import { getUser } from "@/selectors/UserSelectors";
+import { useEffect } from "react";
+import { Loader } from "@/components/Loader";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
 
 export function UserInformation() {
   const user = useSelector(getUser);
   const [isModalVisible, setModalVisible] = useState(false);
-  const [userImage, setUserImage] = useState();
+  const profile_photo =
+    user?.user?.payload?.user_profiles?.profile_photo ||
+    user?.getUserProfile?.user_profiles?.profile_photo;
 
-  const { colors } = useTheme();
+  const [userImage, setUserImage] = useState(profile_photo);
+  const id = user?.user?.payload?.user_profiles?.id;
+  const uuid = user?.user?.payload?.uuid;
+
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.UPLOAD_PROFILE_IMAGE], state)
+  );
+
   const dispatch = useDispatch();
-
-  const logoutUser = () => {
-    dispatch(logout());
-  };
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -53,15 +68,24 @@ export function UserInformation() {
   const closeModal = () => {
     setModalVisible(!isModalVisible);
   };
-
   const OpenGallery = () => {
     ImageCropPicker.openPicker({
       width: 300,
       height: 400,
       cropping: true,
     }).then((image) => {
-      setUserImage(image.path);
       setModalVisible(!isModalVisible);
+      dispatch(uploadProfileImage(image)).then((res) => {
+        if (res?.status_code === 200) {
+          setUserImage(res?.payload?.profile_photo);
+          const data = {
+            profile_photo: res?.payload?.profile_photo,
+          };
+          dispatch(editProfile(id, data)).then((res) => {
+            dispatch(getUserProfile(uuid));
+          });
+        }
+      });
     });
   };
 
@@ -71,11 +95,21 @@ export function UserInformation() {
       height: 400,
       cropping: true,
     }).then((image) => {
-      setUserImage(image.path);
       setModalVisible(!isModalVisible);
+
+      dispatch(uploadProfileImage(image)).then((res) => {
+        if (res?.status_code === 200) {
+          setUserImage(res?.payload?.profile_photo);
+          const data = {
+            profile_photo: res?.payload?.profile_photo,
+          };
+          dispatch(editProfile(id, data)).then((res) => {
+            dispatch(getUserProfile(uuid));
+          });
+        }
+      });
     });
   };
-
   const ProfileData = ({ item }) => (
     <View>
       <View style={styles.profileOptions}>
@@ -157,9 +191,22 @@ export function UserInformation() {
 
       <ScrollView style={styles.mainContainer}>
         <Spacer space={SH(25)} />
-        {userImage ? (
+        {profile_photo && userImage ? (
           <View style={styles.UserImageBackground}>
-            <Image source={{ uri: userImage }} style={styles.userImageStyle} />
+            <Image
+              source={{ uri: profile_photo }}
+              style={styles.userImageStyle}
+            />
+            <TouchableOpacity
+              style={styles.editProfileView}
+              onPress={toggleModal}
+            >
+              <Image
+                source={pencil}
+                style={styles.pencilIcon}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
           </View>
         ) : (
           <View style={styles.imageBackground}>
@@ -325,6 +372,7 @@ export function UserInformation() {
           </View>
         </View>
       </Modal>
+      {isLoading ? <Loader message="Loading profile image..." /> : null}
     </ScreenWrapper>
   );
 }

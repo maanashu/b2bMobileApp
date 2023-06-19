@@ -9,11 +9,11 @@ import {
   ScrollView,
 } from "react-native";
 import { useDispatch } from "react-redux";
-import { getWalletUserProfile, logout } from "@/actions/UserActions";
+import { logout } from "@/actions/UserActions";
 import { Button, ScreenWrapper, Spacer } from "@/components";
 import { strings } from "@/localization";
 import { styles } from "./Profile.styles";
-import { SH } from "@/theme";
+import { COLORS, SH } from "@/theme";
 import { getUser } from "@/selectors/UserSelectors";
 import { useSelector } from "react-redux";
 
@@ -28,13 +28,14 @@ import {
   jobrWallet,
   ordersIcon,
   pinPoint,
-  profileLogo,
   question,
   quote,
   search,
   searchDoc,
   settings,
   shippingAddressIcon,
+  userIcon,
+  userPhoto,
 } from "@/assets";
 import { ms } from "react-native-size-matters";
 import { navigate } from "@/navigation/NavigationRef";
@@ -50,6 +51,12 @@ export function Profile() {
   const user = useSelector(getUser);
   const wallet = useSelector(getWallet);
   const token = user?.user?.payload?.token;
+  const profile_photo =
+    user?.user?.payload?.user_profiles?.profile_photo ||
+    user?.getUserProfile?.user_profiles?.profile_photo;
+
+  console.log("location", user?.user?.payload?.user_profiles?.current_address);
+
   const logoutUser = () => {
     dispatch(logout());
     dispatch(logoutOrder());
@@ -152,6 +159,7 @@ export function Profile() {
   const navigationHandler = (item) => {
     navigate(item.navigation);
   };
+
   const ProfileData = ({ item, index }) => (
     <View>
       <TouchableOpacity
@@ -228,11 +236,28 @@ export function Profile() {
               onPress={() => navigate(NAVIGATION.userInformation)}
               style={styles.userView}
             >
-              <Image
-                source={profileLogo}
-                resizeMode="stretch"
-                style={{ height: ms(50), width: ms(50) }}
-              />
+              {profile_photo ? (
+                <Image
+                  source={{ uri: profile_photo }}
+                  resizeMode="stretch"
+                  style={{
+                    height: ms(50),
+                    width: ms(50),
+                    borderRadius: ms(25),
+                  }}
+                />
+              ) : (
+                <Image
+                  source={userPhoto}
+                  resizeMode="contain"
+                  style={{
+                    height: ms(40),
+                    width: ms(40),
+                    tintColor: COLORS.darkGrey,
+                  }}
+                />
+              )}
+
               <View style={styles.userInnerView}>
                 <View style={styles.usernameRowView}>
                   <Text style={styles.usernameText}>
@@ -251,17 +276,28 @@ export function Profile() {
                 </View>
 
                 <View style={styles.mapIconView}>
-                  {/* <Image
-                source={pinPoint}
-                resizeMode="stretch"
-                style={{ height: ms(20), width: ms(20) }}
-              />
-              <Text style={styles.addressText}>{strings.profile.address}</Text> */}
+                  <Image
+                    source={pinPoint}
+                    resizeMode="stretch"
+                    style={{ height: ms(20), width: ms(20) }}
+                  />
+                  <Text style={styles.addressText}>
+                    {user?.user?.payload?.user_profiles?.current_address
+                      ?.street_address +
+                      " " +
+                      user?.user?.payload?.user_profiles?.current_address
+                        ?.state +
+                      " ," +
+                      user?.user?.payload?.user_profiles?.current_address
+                        ?.zipcode}
+                  </Text>
                 </View>
 
-                {/* <Text style={styles.manufacturerText}>
-              {strings.profile.manufacturer}
-            </Text> */}
+                <Text style={styles.manufacturerText}>
+                  {user?.user?.payload?.user_profiles?.seller_type === null
+                    ? "Retailer"
+                    : user?.user?.payload?.user_profiles?.seller_type}
+                </Text>
               </View>
             </TouchableOpacity>
             <Spacer space={SH(20)} />
