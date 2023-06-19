@@ -52,8 +52,9 @@ import {
   Faq,
   FaqVerified,
   FavouriteList,
+  FavouriteProducts,
+  FavouriteSellers,
   FavouritesProduct,
-  FavouritesSeller,
   HelpCenter,
   HelpWithOrders,
   Home,
@@ -65,7 +66,6 @@ import {
   Messages,
   MobileNumber,
   MyCatalogue,
-  MyOrders,
   MyPurchase,
   NearMe,
   NearMeOptions,
@@ -700,6 +700,24 @@ export function AppBottom() {
         name={NAVIGATION.orderedStatus}
         options={{ headerShown: false }}
       />
+
+      <Stack.Screen
+        component={SelectAddress}
+        name={NAVIGATION.selectAddress}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        component={FavouriteProducts}
+        name={NAVIGATION.favouriteProducts}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        component={FavouriteSellers}
+        name={NAVIGATION.favouriteSellers}
+        options={{ headerShown: false }}
+      />
       {/* Home navigator ends here */}
 
       {/* Auth Navigator starts here*/}
@@ -777,23 +795,6 @@ export function AppBottom() {
       <Stack.Screen
         component={NoWalletScreen}
         name={NAVIGATION.noWalletScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        component={SelectAddress}
-        name={NAVIGATION.selectAddress}
-        options={{ headerShown: false }}
-      />
-
-      <Stack.Screen
-        component={FavouritesProduct}
-        name={NAVIGATION.favouritesProduct}
-        options={{ headerShown: false }}
-      />
-
-      <Stack.Screen
-        component={FavouritesSeller}
-        name={NAVIGATION.favouritesSeller}
         options={{ headerShown: false }}
       />
 

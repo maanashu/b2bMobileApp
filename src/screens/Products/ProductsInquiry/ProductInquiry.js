@@ -61,6 +61,7 @@ import {
   getMessages,
   getUserProfile,
   productFavourites,
+  sellerFavourites,
 } from "@/actions/UserActions";
 import { previousScreen } from "@/actions/GlobalActions";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
@@ -115,6 +116,8 @@ export function ProductInquiry(params) {
   const colorChange = () => {
     setFavourite(!favourite);
     dispatch(productFavourites(productData));
+    dispatch(sellerFavourites({ seller_id: params?.route?.params?.id }));
+    // alert(params?.route?.params?.id);
   };
   const renderItem = ({ item }) => (
     <TouchableOpacity style={[styles.item, { marginTop: SH(30) }]}>

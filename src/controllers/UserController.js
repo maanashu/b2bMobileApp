@@ -607,29 +607,30 @@ export class UserController {
     });
   }
 
-  static async getFavouritesProduct(data) {
-    console.log("idData", data);
+  static async getFavouriteProducts(data) {
     return new Promise((resolve, reject) => {
       const params = new URLSearchParams(data).toString();
-      const endpoint = `${USER_URL}${ApiUserInventory.productFavourites}?${params}`;
-      HttpClient.get(endpoint, id)
+      const endpoint = `${
+        USER_URL + ApiUserInventory.productFavourites
+      }?${params}`;
+
+      HttpClient.get(endpoint, data)
         .then((response) => {
           resolve(response);
-          console.log("endpoint", JSON.stringify(response));
         })
         .catch((error) => {
-          console.log("error", JSON.stringify(error));
-          console.log("endpoint", JSON.stringify(endpoint));
-
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }
-  static async getFavouritesSeller(data) {
+  static async getFavouriteSellers(data) {
     return new Promise((resolve, reject) => {
       const params = new URLSearchParams(data).toString();
-      const endpoint = `${USER_URL}${ApiUserInventory.sellerFavourites}?${params}`;
-      HttpClient.get(endpoint, id)
+      const endpoint = `${
+        USER_URL + ApiUserInventory.sellerFavourites
+      }?${params}`;
+
+      HttpClient.get(endpoint, data)
         .then((response) => {
           resolve(response);
         })

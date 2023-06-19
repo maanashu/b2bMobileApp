@@ -44,8 +44,8 @@ const INITIALSTATE = {
   getMessageHeads: [],
   sellerFavourites: {},
   productFavourites: {},
-  getFavouritesProduct: [],
-  getFavouritesSeller: [],
+  getFavouriteProducts: {},
+  getFavouriteSellers: [],
 };
 
 export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -227,21 +227,26 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         sellerFavourites: payload.sellerFavourites,
       };
-    case TYPES.GET_FAVOURITES_PRODUCT_SUCCESS:
+    case TYPES.GET_FAVOURITE_PRODUCTS_SUCCESS:
       return {
         ...state,
-        getFavouritesProduct: payload.getFavouritesproduct?.data,
+        getFavouriteProducts: payload.getFavouriteProducts,
+      };
+    case TYPES.GET_FAVOURITE_PRODUCTS_RESET:
+      return {
+        ...state,
+        getFavouriteProducts: {},
       };
 
-    case TYPES.GET_FAVOURITES_SELLER_SUCCESS:
+    case TYPES.GET_FAVOURITE_SELLERS_SUCCESS:
       return {
         ...state,
-        getFavouritesSeller: payload.getFavouriteSellers?.data,
+        getFavouriteSellers: payload.getFavouriteSellers?.data,
       };
-    case TYPES.GET_FAVOURITES_SELLER_RESET:
+    case TYPES.GET_FAVOURITE_SELLERS_RESET:
       return {
         ...state,
-        getFavouritesSeller: [],
+        getFavouriteSellers: [],
       };
   }
 };
