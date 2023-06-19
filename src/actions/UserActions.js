@@ -157,6 +157,11 @@ export const TYPES = {
   GET_FAVOURITES_SELLER_REQUEST: "GET_FAVOURITES_SELLER_REQUEST",
   GET_FAVOURITES_SELLER_SUCCESS: "GET_FAVOURITES_SELLER_SUCCESS",
   GET_FAVOURITES_SELLER_ERROR: "GET_FAVOURITES_SELLER_ERROR",
+
+  UPLOAD_PROFILE_IMAGE: "UPLOAD_PROFILE_IMAGE",
+  UPLOAD_PROFILE_IMAGE_REQUEST: "UPLOAD_PROFILE_IMAGE_REQUEST",
+  UPLOAD_PROFILE_IMAGE_SUCCESS: "UPLOAD_PROFILE_IMAGE_SUCCESS",
+  UPLOAD_PROFILE_IMAGE_ERROR: "UPLOAD_PROFILE_IMAGE_ERROR",
 };
 
 const loginRequest = () => ({
@@ -553,6 +558,22 @@ const getFavouritesSellerError = (error) => ({
   type: TYPES.GET_FAVOURITES_SELLER_ERROR,
   payload: { error },
 });
+
+const uploadProfileImageRequest = () => ({
+  type: TYPES.UPLOAD_PROFILE_IMAGE_REQUEST,
+  payload: null,
+});
+
+const uploadProfileImageSuccess = (uploadProfileImage) => ({
+  type: TYPES.UPLOAD_PROFILE_IMAGE_SUCCESS,
+  payload: { uploadProfileImage },
+});
+
+const uploadProfileImageError = (error) => ({
+  type: TYPES.UPLOAD_PROFILE_IMAGE_ERROR,
+  payload: { error },
+});
+
 export const login =
   (value, countryCode, phoneNumber, screenName) => async (dispatch) => {
     dispatch(loginRequest());
@@ -859,5 +880,18 @@ export const getFavouritesSeller = (data) => async (dispatch) => {
   } catch (error) {
     console.error("errror===", JSON.stringify(error));
     dispatch(getFavouritesSellerError(error.message));
+  }
+};
+
+export const uploadProfileImage = (data) => async (dispatch) => {
+  console.log("id==--", data);
+  dispatch(uploadProfileImageRequest());
+  try {
+    const res = await UserController.uploadProfileImage(data);
+    console.log("dataaaa", res);
+    dispatch(uploadProfileImageSuccess(res?.payload));
+  } catch (error) {
+    console.error("errror===", JSON.stringify(error));
+    dispatch(uploadProfileImageError(error.message));
   }
 };

@@ -635,4 +635,31 @@ export class UserController {
         });
     });
   }
+
+  static async uploadProfileImage(data) {
+    console.log("IDData", data);
+    return new Promise((resolve, reject) => {
+      const endpoint = USER_URL + ApiUserInventory.uploadProfileImage;
+      const body = {
+        profile: data?.profile,
+      };
+      HttpClient.post(endpoint, body)
+        .then((response) => {
+          resolve(response);
+          console.log("image data", response);
+        })
+        .catch((error) => {
+          console.log("image error", JSON.stringify(error));
+          console.log("image data", body);
+
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 2000,
+          });
+          reject(error);
+        });
+    });
+  }
 }

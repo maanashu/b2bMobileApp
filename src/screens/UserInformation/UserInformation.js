@@ -9,7 +9,7 @@ import {
   ScrollView,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "@/actions/UserActions";
+import { logout, uploadProfileImage } from "@/actions/UserActions";
 import { Button, ScreenWrapper, Spacer } from "@/components";
 import { strings } from "@/localization";
 import { styles } from "./UserInformation.styles";
@@ -33,6 +33,7 @@ import { useState } from "react";
 import ImageCropPicker from "react-native-image-crop-picker";
 import { personalInfo, CompanyInfo } from "./Components.js/FlatlistData";
 import { getUser } from "@/selectors/UserSelectors";
+import { useEffect } from "react";
 
 export function UserInformation() {
   const user = useSelector(getUser);
@@ -41,7 +42,6 @@ export function UserInformation() {
 
   const { colors } = useTheme();
   const dispatch = useDispatch();
-
   const logoutUser = () => {
     dispatch(logout());
   };
@@ -60,6 +60,9 @@ export function UserInformation() {
       height: 400,
       cropping: true,
     }).then((image) => {
+      const data = { profile: image?.path };
+      console.log("fsgjfgjasgf", data);
+      dispatch(uploadProfileImage({profile: image?.path}));
       setUserImage(image.path);
       setModalVisible(!isModalVisible);
     });

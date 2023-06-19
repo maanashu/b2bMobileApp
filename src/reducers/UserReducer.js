@@ -45,6 +45,7 @@ const INITIALSTATE = {
   productFavourites: {},
   getFavouritesProduct: [],
   getFavouritesSeller: [],
+  uploadProfileImage:{}
 };
 
 export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -231,6 +232,12 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         getFavouritesSeller: payload.getFavouriteSellers?.data,
+      };
+
+    case TYPES.UPLOAD_PROFILE_IMAGE_SUCCESS:
+      return {
+        ...state,
+        uploadProfileImage: payload.uploadProfileImage,
       };
   }
 };

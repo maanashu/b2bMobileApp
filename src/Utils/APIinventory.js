@@ -34,6 +34,7 @@ export const ApiUserInventory = {
   getOneManufactureDetails: (id) => `users/${id}`,
   sellerFavourites: "favourites",
   productFavourites: "product_favourites",
+  uploadProfileImage: "user_profiles/profile",
 };
 
 export const SupportInventory = {
