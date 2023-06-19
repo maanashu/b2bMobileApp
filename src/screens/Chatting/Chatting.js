@@ -24,6 +24,7 @@ import {
   Send,
   InputToolbar,
   MessageImage,
+  Bubble,
 } from "react-native-gifted-chat";
 import { ms } from "react-native-size-matters";
 import BottomSheet from "@gorhom/bottom-sheet";
@@ -44,10 +45,13 @@ import { ChatHeader } from "@/components";
 import { navigate, navigationRef } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import DocumentPicker from "react-native-document-picker";
-import { useDispatch } from "react-redux";
-import { sendChat } from "@/actions/UserActions";
+import { useDispatch, useSelector } from "react-redux";
+import { getMessages, sendChat } from "@/actions/UserActions";
+import { getUser } from "@/selectors/UserSelectors";
+let allMessages = [];
 
 export function Chatting(props) {
+  const myId = "43";
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [index, setIndex] = useState("");
   const [messages, setMessages] = useState([]);
@@ -57,7 +61,10 @@ export function Chatting(props) {
   const [isBottomViewVisible, setisBottomViewVisible] = useState(false);
   const [message, setMessage] = useState("");
 
+  const user = useSelector(getUser);
+  const allMessages = user?.getMessages?.messages;
   const dispatch = useDispatch();
+  console.log("jhfd", props?.route?.params?.seller_id);
   const handleDocumentSelection = useCallback(async () => {
     try {
       const response = await DocumentPicker.pick({
@@ -72,7 +79,6 @@ export function Chatting(props) {
       console.warn(err);
     }
   }, []);
-
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       "keyboardDidShow",
@@ -86,6 +92,20 @@ export function Chatting(props) {
     };
   }, []);
 
+  useEffect(() => {
+    setMessages(allMessages.map(convertMessage));
+  }, []);
+
+  const convertMessage = (message) => {
+    return {
+      _id: message.id.toString(),
+      text: message.content,
+      createdAt: new Date(message.created_at),
+      user: {
+        _id: message.sender_id.toString(),
+      },
+    };
+  };
   const OpenCamera = () => {
     ImageCropPicker.openCamera({
       width: 300,
@@ -179,26 +199,33 @@ export function Chatting(props) {
       <Spacer space={SH(20)} />
     </View>
   );
-
-  useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: "Hello developer",
-        createdAt: new Date(),
-        image: "https://facebook.github.io/react/img/logo_og.png",
-        sent: true,
-        received: true,
-        pending: true,
-
-        user: {
-          _id: 2,
-          name: "React Native",
-          avatar: "https://placeimg.com/140/140/any",
-        },
-      },
-    ]);
-  }, []);
+  const renderBubble = (props) => {
+    return (
+      <Bubble
+        {...props}
+        wrapperStyle={{
+          right: {
+            // Styling for sender's bubble
+            backgroundColor: "#007AFF",
+          },
+          left: {
+            // Styling for recipient's bubble
+            backgroundColor: "#7C7C7C",
+          },
+        }}
+        textStyle={{
+          right: {
+            // Styling for sender's text
+            color: "#FFFFFF",
+          },
+          left: {
+            // Styling for recipient's text
+            color: "#FFFFFF",
+          },
+        }}
+      />
+    );
+  };
 
   const onSend = useCallback((messages = []) => {
     setShowView(false);
@@ -214,7 +241,14 @@ export function Chatting(props) {
         recipient_id: props?.route?.params?.seller_id,
         content: typedMessage,
       })
-    );
+    )
+      .then((res) => {
+        // setOpenModal(true); dispatch(
+        dispatch(getMessages(props?.route?.params?.seller_id));
+      })
+      .catch((error) => {
+        console.log("errorafter catch " + error);
+      });
   }, []);
 
   return (
@@ -232,8 +266,9 @@ export function Chatting(props) {
             messages={messages}
             onSend={(messages) => onSend(messages)}
             user={{
-              _id: 1,
+              _id: myId,
             }}
+            renderBubble={renderBubble}
             renderSend={renderSend}
             renderInputToolbar={(props) => {
               return (

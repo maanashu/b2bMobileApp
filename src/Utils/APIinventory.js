@@ -30,6 +30,7 @@ export const ApiUserInventory = {
   updateUserSettings: "user_settings",
   sendChat: "messages",
   getMessages: (id) => `messageheads/${id}`,
+  getMessageHeads: `messageheads/?`,
   deleteMessages: (id) => `messageheads/${id}`,
   getOneManufactureDetails: (id) => `users/${id}`,
   sellerFavourites: "favourites",
@@ -51,6 +52,7 @@ export const ApiOrderInventory = {
   emptyCart: "carts",
   getOrderList: "orders",
   getOrderDetails: (id) => `orders/${id}`,
+  changeStatus: (id) => `orders/status/${id}`,
 };
 export const ApiSupportInventory = {
   subjectList: SUPPORT_URL + "subjects",

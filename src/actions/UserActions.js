@@ -126,37 +126,52 @@ export const TYPES = {
   UPDATE_USER_SETTINGS_SUCCESS: "UPDATE_USER_SETTINGS_SUCCESS",
   UPDATE_USER_SETTINGS_ERROR: "UPDATE_USER_SETTINGS_ERROR",
 
+  SEND_CHAT: "SEND_CHAT",
   SEND_CHAT_REQUEST: "SEND_CHAT_REQUEST",
   SEND_CHAT_SUCCESS: "SEND_CHAT_SUCCESS",
   SEND_CHAT_ERROR: "SEND_CHAT_ERROR",
 
+  GET_MESSAGES: "GET_MESSAGES",
   GET_MESSAGES_REQUEST: "GET_MESSAGES_REQUEST",
   GET_MESSAGES_SUCCESS: "GET_MESSAGES_SUCCESS",
   GET_MESSAGES_ERROR: "GET_MESSAGES_ERROR",
 
+  GET_MESSAGES_HEADS: "GET_MESSAGES_HEADS",
+  GET_MESSAGES_HEADS_REQUEST: "GET_MESSAGES_HEADS_REQUEST",
+  GET_MESSAGES_HEADS_SUCCESS: "GET_MESSAGES_HEADS_SUCCESS",
+  GET_MESSAGES_HEADS_ERROR: "GET_MESSAGES_HEADS_ERROR",
+
+  DELETE_MESSAGE: "DELETE_MESSAGE",
   DELETE_MESSAGES_REQUEST: "DELETE_MESSAGES_REQUEST",
   DELETE_MESSAGES_SUCCESS: "DELETE_MESSAGES_SUCCESS",
   DELETE_MESSAGES_ERROR: "DELETE_MESSAGES_ERROR",
 
+  GET_ONE_MANUFACTURE_DETAILS: "GET_ONE_MANUFACTURE_DETAILS",
   GET_ONE_MANUFACTURE_DETAILS_REQUEST: "GET_ONE_MANUFACTURE_DETAILS_REQUEST",
   GET_ONE_MANUFACTURE_DETAILS_SUCCESS: "GET_ONE_MANUFACTURE_DETAILS_SUCCESS",
   GET_ONE_MANUFACTURE_DETAILS_ERROR: "GET_ONE_MANUFACTURE_DETAILS_ERROR",
 
+  SELLER_FAVOURITES: "SELLER_FAVOURITES",
   SELLER_FAVOURITES_REQUEST: "SELLER_FAVOURITES_REQUEST",
   SELLER_FAVOURITES_SUCCESS: "SELLER_FAVOURITES_SUCCESS",
   SELLER_FAVOURITES_ERROR: "SELLER_FAVOURITES_ERROR",
 
+  PRODUCT_FAVOURITES: "PRODUCT_FAVOURITES",
   PRODUCT_FAVOURITES_REQUEST: "PRODUCT_FAVOURITES_REQUEST",
   PRODUCT_FAVOURITES_SUCCESS: "PRODUCT_FAVOURITES_SUCCESS",
   PRODUCT_FAVOURITES_ERROR: "PRODUCT_FAVOURITES_ERROR",
 
-  GET_FAVOURITES_PORDUCT_REQUEST: "GET_FAVOURITES_PORDUCT_REQUEST",
-  GET_FAVOURITES_PRODUCT_SUCCESS: "GET_FAVOURITES_PRODUCT_SUCCESS",
-  GET_FAVOURITES_PRODUCT_ERROR: "GET_FAVOURITES_PRODUCT_ERROR",
+  GET_FAVOURITE_PRODUCTS: "GET_FAVOURITE_PRODUCTS",
+  GET_FAVOURITE_PRODUCT_REQUEST: "GET_FAVOURITE_PRODUCT_REQUEST",
+  GET_FAVOURITE_PRODUCTS_SUCCESS: "GET_FAVOURITE_PRODUCTS_SUCCESS",
+  GET_FAVOURITE_PRODUCTS_ERROR: "GET_FAVOURITE_PRODUCTS_ERROR",
+  GET_FAVOURITE_PRODUCTS_RESET: "GET_FAVOURITE_PRODUCTS_RESET",
 
-  GET_FAVOURITES_SELLER_REQUEST: "GET_FAVOURITES_SELLER_REQUEST",
-  GET_FAVOURITES_SELLER_SUCCESS: "GET_FAVOURITES_SELLER_SUCCESS",
-  GET_FAVOURITES_SELLER_ERROR: "GET_FAVOURITES_SELLER_ERROR",
+  GET_FAVOURITE_SELLERS: "GET_FAVOURITE_SELLERS",
+  GET_FAVOURITE_SELLERS_REQUEST: "GET_FAVOURITE_SELLERS_REQUEST",
+  GET_FAVOURITE_SELLERS_SUCCESS: "GET_FAVOURITE_SELLERS_SUCCESS",
+  GET_FAVOURITE_SELLERS_ERROR: "GET_FAVOURITE_SELLERS_ERROR",
+  GET_FAVOURITE_SELLERS_RESET: "GET_FAVOURITE_SELLERS_RESET",
 
   UPLOAD_PROFILE_IMAGE: "UPLOAD_PROFILE_IMAGE",
   UPLOAD_PROFILE_IMAGE_REQUEST: "UPLOAD_PROFILE_IMAGE_REQUEST",
@@ -471,6 +486,21 @@ const getMessagesError = (error) => ({
   payload: { error },
 });
 
+const getMessagesHeadsRequest = () => ({
+  type: TYPES.GET_MESSAGES_HEADS_REQUEST,
+  payload: null,
+});
+
+const getMessagesHeadsSuccess = (getMessageHeads) => ({
+  type: TYPES.GET_MESSAGES_HEADS_SUCCESS,
+  payload: { getMessageHeads },
+});
+
+const getMessagesHeadsError = (error) => ({
+  type: TYPES.GET_MESSAGES_HEADS_ERROR,
+  payload: { error },
+});
+
 const deleteMessagesRequest = () => ({
   type: TYPES.DELETE_MESSAGES_REQUEST,
   payload: null,
@@ -530,34 +560,45 @@ const productFavouritesError = (error) => ({
   payload: { error },
 });
 
-const getFavouritesproductRequest = () => ({
-  type: TYPES.GET_FAVOURITES_PORDUCT_REQUEST,
+const getFavouriteProductsRequest = () => ({
+  type: TYPES.GET_FAVOURITE_PRODUCT_REQUEST,
   payload: null,
 });
 
-const getFavouritesproductSuccess = (getFavouritesproduct) => ({
-  type: TYPES.GET_FAVOURITES_PRODUCT_SUCCESS,
-  payload: { getFavouritesproduct },
+const getFavouriteProductsSuccess = (getFavouriteProducts) => ({
+  type: TYPES.GET_FAVOURITE_PRODUCTS_SUCCESS,
+  payload: { getFavouriteProducts },
 });
 
-const getFavouritesproductError = (error) => ({
-  type: TYPES.GET_FAVOURITES_PRODUCT_ERROR,
+const getFavouriteProductsError = (error) => ({
+  type: TYPES.GET_FAVOURITE_PRODUCTS_ERROR,
   payload: { error },
 });
-const getFavouritesSellerRequest = () => ({
-  type: TYPES.GET_FAVOURITES_SELLER_REQUEST,
+const getFavouriteProductsReset = () => ({
+  type: TYPES.GET_FAVOURITE_PRODUCTS_RESET,
+  payload: null,
+});
+//
+const getFavouriteSellersRequest = () => ({
+  type: TYPES.GET_FAVOURITE_SELLERS_REQUEST,
   payload: null,
 });
 
-const getFavouritesSelllerSuccess = (getFavouriteSellers) => ({
-  type: TYPES.GET_FAVOURITES_SELLER_SUCCESS,
+const getFavouriteSellersSuccess = (getFavouriteSellers) => ({
+  type: TYPES.GET_FAVOURITE_SELLERS_SUCCESS,
   payload: { getFavouriteSellers },
 });
 
-const getFavouritesSellerError = (error) => ({
-  type: TYPES.GET_FAVOURITES_SELLER_ERROR,
+const getFavouriteSellersError = (error) => ({
+  type: TYPES.GET_FAVOURITE_SELLERS_ERROR,
   payload: { error },
 });
+
+const getFavouriteSellersReset = () => ({
+  type: TYPES.GET_FAVOURITE_SELLERS_RESET,
+  payload: null,
+});
+//
 
 const uploadProfileImageRequest = () => ({
   type: TYPES.UPLOAD_PROFILE_IMAGE_REQUEST,
@@ -704,7 +745,6 @@ export const addUserLocation = (data) => async (dispatch) => {
   dispatch(userLocationRequest());
   try {
     const res = await UserController.userLocation(data);
-
     dispatch(userLocationSuccess(res));
     dispatch(getUserLocations());
   } catch (error) {
@@ -716,12 +756,7 @@ export const updateUserLocation = (id, data) => async (dispatch) => {
   try {
     const res = await UserController.patchCurrentAddress(id, data);
     dispatch(updateLocationSuccess(res));
-    dispatch(getUserLocations()); // Toast.show({
-    //   text2: error.msg,
-    //   position: "bottom",
-    //   type: "error_toast",
-    //   visibilityTime: 1500,
-    // });
+    dispatch(getUserLocations());
   } catch (error) {
     dispatch(updateLocationError(error.message));
   }
@@ -788,26 +823,40 @@ export const updateUserSettings = (data) => async (dispatch) => {
 };
 
 export const sendChat = (data) => async (dispatch) => {
-  console.log("Data32", data);
+  console.log("chchcbcch" + JSON.stringify(data));
   dispatch(sendChatRequest());
-  try {
-    const res = await UserController.sendChat(data);
-    console.log("dataaaa", res);
-    dispatch(sendChatSuccess(res?.payload));
-  } catch (error) {
-    console.error("errror", JSON.stringify(error));
-    dispatch(sendChatError(error.message));
-  }
+  return UserController.sendChat(data)
+    .then((res) => {
+      console.log("dataaaa", res);
+      dispatch(sendChatSuccess(res?.payload));
+      return res;
+    })
+    .catch((error) => {
+      console.log("errorrrr", JSON.stringify(error));
+      dispatch(sendChatError(error.message));
+      throw error;
+    });
 };
 
 export const getMessages = (id) => async (dispatch) => {
-  console.log("id", id);
+  console.log("checkId" + id);
   dispatch(getMessagesRequest());
   try {
     const res = await UserController.getMessages(id);
     dispatch(getMessagesSuccess(res?.payload));
+    console.log("getting Messages", res?.payload);
   } catch (error) {
+    console.log("gigd", JSON.stringify(error));
     dispatch(getMessagesError(error.message));
+  }
+};
+export const getMessageHeads = (data) => async (dispatch) => {
+  dispatch(getMessagesHeadsRequest());
+  try {
+    const res = await UserController.getMessageHeads(data);
+    dispatch(getMessagesHeadsSuccess(res));
+  } catch (error) {
+    dispatch(getMessagesHeadsError(error.message));
   }
 };
 
@@ -825,14 +874,11 @@ export const deleteMessages = (id) => async (dispatch) => {
 };
 
 export const getOneManufactureDetails = (id) => async (dispatch) => {
-  console.log("id==", id);
   dispatch(getOneManufactureDetailsRequest());
   try {
     const res = await UserController.getOneManufactureDetails(id);
-    console.log("dataaaa", res);
     dispatch(getOneManufactureDetailsSuccess(res?.payload));
   } catch (error) {
-    console.error("errror", JSON.stringify(error));
     dispatch(getOneManufactureDetailsError(error.message));
   }
 };
@@ -857,29 +903,34 @@ export const productFavourites = (data) => async (dispatch) => {
   }
 };
 
-export const getFavouritesProduct = (data) => async (dispatch) => {
-  console.log("id==--", data);
-  dispatch(getFavouritesproductRequest());
+export const getFavouriteProducts = (data) => async (dispatch) => {
+  dispatch(getFavouriteProductsRequest());
   try {
-    const res = await UserController.getFavouritesProduct(data);
-    console.log("dataaaa", res);
-    dispatch(getFavouritesproductSuccess(res?.payload));
+    const res = await UserController.getFavouriteProducts(data);
+    dispatch(getFavouriteProductsSuccess(res?.payload));
   } catch (error) {
-    console.error("errror===", JSON.stringify(error));
-    dispatch(getFavouritesproductError(error.message));
+    if (error?.statusCode === 204) {
+      dispatch(getFavouriteProductsReset());
+    } else {
+      console.log("error still exist", JSON.stringify(error));
+      dispatch(getFavouriteProductsError(error.message));
+    }
   }
 };
 
-export const getFavouritesSeller = (data) => async (dispatch) => {
-  console.log("id==--", data);
-  dispatch(getFavouritesSellerRequest());
+export const getFavouriteSellers = (data) => async (dispatch) => {
+  dispatch(getFavouriteSellersRequest());
   try {
-    const res = await UserController.getFavouritesSeller(data);
-    console.log("dataaaa", res);
-    dispatch(getFavouritesSelllerSuccess(res?.payload));
+    const res = await UserController.getFavouriteSellers(data);
+    dispatch(getFavouriteSellersSuccess(res?.payload));
   } catch (error) {
-    console.error("errror===", JSON.stringify(error));
-    dispatch(getFavouritesSellerError(error.message));
+    if (error?.statusCode === 204) {
+      dispatch(getFavouriteSellersReset());
+    } else {
+      console.log("error still exist", JSON.stringify(error));
+
+      dispatch(getFavouriteSellersError(error.message));
+    }
   }
 };
 
@@ -895,3 +946,4 @@ export const uploadProfileImage = (data) => async (dispatch) => {
     dispatch(uploadProfileImageError(error.message));
   }
 };
+

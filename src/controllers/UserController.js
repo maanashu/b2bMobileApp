@@ -466,25 +466,39 @@ export class UserController {
 
   static async getMessages(id) {
     return new Promise((resolve, reject) => {
-      const endpoint = USER_URL + ApiUserInventory.getMessages;
+      const endpoint = USER_URL + ApiUserInventory.getMessages(id);
       const body = {
         recipient_id: id,
       };
       HttpClient.get(endpoint, body)
         .then((response) => {
           resolve(response);
-          console.log("body", JSON.stringify(body));
           // navigate(NAVIGATION.settings);
         })
         .catch((error) => {
-          console.log("error", JSON.stringify(error));
-          console.log("body", JSON.stringify(body));
           Toast.show({
             text2: error.msg,
             position: "bottom",
             type: "error_toast",
             visibilityTime: 2000,
           });
+          reject(new Error((strings.verify.error = error.msg)));
+        });
+    });
+  }
+  static async getMessageHeads(data) {
+    return new Promise((resolve, reject) => {
+      const params = new URLSearchParams(data).toString();
+      const endpoint = `${
+        USER_URL + ApiUserInventory.getMessageHeads
+      }${params}`;
+
+      HttpClient.get(endpoint)
+        .then((response) => {
+          resolve(response);
+          // navigate(NAVIGATION.settings);
+        })
+        .catch((error) => {
           reject(new Error((strings.verify.error = error.msg)));
         });
     });
@@ -593,45 +607,35 @@ export class UserController {
     });
   }
 
-  static async getFavouritesProduct(data) {
-    console.log("idData", data);
+  static async getFavouriteProducts(data) {
     return new Promise((resolve, reject) => {
       const params = new URLSearchParams(data).toString();
-      const endpoint = `${USER_URL}${ApiUserInventory.productFavourites}?${params}`;
-      HttpClient.get(endpoint, id)
+      const endpoint = `${
+        USER_URL + ApiUserInventory.productFavourites
+      }?${params}`;
+
+      HttpClient.get(endpoint, data)
         .then((response) => {
           resolve(response);
-          console.log("endpoint", JSON.stringify(response));
         })
         .catch((error) => {
-          console.log("error", JSON.stringify(error));
-          console.log("endpoint", JSON.stringify(endpoint));
-          Toast.show({
-            text2: error.msg,
-            position: "bottom",
-            type: "error_toast",
-            visibilityTime: 2000,
-          });
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }
-  static async getFavouritesSeller(data) {
+  static async getFavouriteSellers(data) {
     return new Promise((resolve, reject) => {
       const params = new URLSearchParams(data).toString();
-      const endpoint = `${USER_URL}${ApiUserInventory.sellerFavourites}?${params}`;
-      HttpClient.get(endpoint, id)
+      const endpoint = `${
+        USER_URL + ApiUserInventory.sellerFavourites
+      }?${params}`;
+
+      HttpClient.get(endpoint, data)
         .then((response) => {
           resolve(response);
         })
         .catch((error) => {
-          Toast.show({
-            text2: error.msg,
-            position: "bottom",
-            type: "error_toast",
-            visibilityTime: 2000,
-          });
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }

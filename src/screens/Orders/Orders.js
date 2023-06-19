@@ -17,13 +17,49 @@ import { Processing } from "../MyPurchaseMain/Processing/Processing";
 import { Completed } from "../MyPurchaseMain/Completed/Completed";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
 import { getWallet } from "@/selectors/WalletSelector";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NewOrders } from "./NewOrders/NewOrders";
+import { kFormatter } from "@/Utils/GlobalMethods";
+import { getUser } from "@/selectors/UserSelectors";
+import { getOrderList } from "@/actions/OrderAction";
 
 export function Orders() {
+  const dispatch = useDispatch();
   const wallet = useSelector(getWallet);
+  const user = useSelector(getUser);
+
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
+  const firstScreenFunction = React.useCallback(() => {
+    const object = {
+      page: 1,
+      limit: 10,
+      seller_id: user?.user?.payload?.uuid,
+      status: 0,
+    };
+    dispatch(getOrderList(object));
+  }, []);
+
+  const secondScreenFunction = React.useCallback(() => {
+    const object = {
+      page: 1,
+      limit: 10,
+      seller_id: user?.user?.payload?.uuid,
+      status: 1,
+    };
+    dispatch(getOrderList(object));
+  }, []);
+
+  const thirdScreenFunction = React.useCallback(() => {
+    const object = {
+      page: 1,
+      limit: 10,
+      seller_id: user?.user?.payload?.uuid,
+      status: 5,
+    };
+    dispatch(getOrderList(object));
+    // Function logic for the third screen
+  }, []);
 
   const [routes] = React.useState([
     { key: "first", title: "New Orders" },
@@ -38,11 +74,31 @@ export function Orders() {
   // const FifthRoute = () => <Cancelled />;
 
   const renderScene = SceneMap({
-    first: FirstRoute,
-    second: SecondRoute,
-    third: ThirdRoute,
-    // fifth: FifthRoute,
+    first: () => <FirstRoute onScreenChange={firstScreenFunction} />,
+    second: () => <SecondRoute onScreenChange={secondScreenFunction} />,
+    third: () => <ThirdRoute onScreenChange={thirdScreenFunction} />,
   });
+  React.useEffect(() => {
+    switch (index) {
+      case 0:
+        if (firstScreenFunction) {
+          firstScreenFunction();
+        }
+        break;
+      case 1:
+        if (secondScreenFunction) {
+          secondScreenFunction();
+        }
+        break;
+      case 2:
+        if (thirdScreenFunction) {
+          thirdScreenFunction();
+        }
+        break;
+      default:
+        break;
+    }
+  }, [index]);
   const renderTabBar = (props) => {
     return (
       <TabBar
@@ -136,9 +192,7 @@ export function Orders() {
               onPress={() => navigate(NAVIGATION.jbrWallet)}
             >
               <Text style={styles.filterText}>
-                {Math.floor(
-                  wallet?.getWalletBalance?.sila_balance || 0
-                ).toFixed()}
+                {kFormatter(wallet?.getWalletBalance?.sila_balance) || 0}
               </Text>
               <Image
                 resizeMode="contain"

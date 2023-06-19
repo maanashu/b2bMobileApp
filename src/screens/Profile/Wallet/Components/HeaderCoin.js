@@ -10,6 +10,7 @@ import { ShadowStyles } from "@/theme";
 import { style } from "deprecated-react-native-prop-types/DeprecatedViewPropTypes";
 import { useSelector } from "react-redux";
 import { getWallet } from "@/selectors/WalletSelector";
+import { kFormatter } from "@/Utils/GlobalMethods";
 
 export function HeaderCoin({ title, back, amount }) {
   const wallet = useSelector(getWallet);
@@ -33,9 +34,7 @@ export function HeaderCoin({ title, back, amount }) {
         <TouchableOpacity style={styles.coinButton}>
           <Text style={styles.buyText}>
             {" "}
-            {Math.floor(
-              wallet?.getWalletBalance?.sila_balance / 100 || 0
-            ).toFixed()}
+            {kFormatter(wallet?.getWalletBalance?.sila_balance) || 0}
           </Text>
           <Image
             style={styles.coinStyle}
@@ -77,7 +76,7 @@ export const styles = StyleSheet.create({
   },
   coinButton: {
     height: SH(29),
-    width: SW(50),
+    paddingHorizontal: SW(5),
     backgroundColor: COLORS.primary,
     borderRadius: ms(20),
     flexDirection: "row",

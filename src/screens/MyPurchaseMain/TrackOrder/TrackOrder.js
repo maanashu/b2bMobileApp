@@ -1,5 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { View, Image, Text, FlatList, TouchableOpacity } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  View,
+  Image,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import { ScreenWrapper, Spacer } from "@/components";
 import { styles } from "./TrackOrder.styles";
 import { COLORS, SH, SW } from "@/theme";
@@ -13,163 +20,123 @@ import {
   trackingMap,
 } from "@/assets";
 import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
+import { orderSelector } from "@/selectors/OrderSelector";
+import { useDispatch, useSelector } from "react-redux";
+import { Components } from "./Components";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import MapViewDirections from "react-native-maps-directions";
 
 export function TrackOrder({ route }) {
+  const { width, height } = Dimensions.get("window");
+  const mapRef = useRef();
+  const dispatch = useDispatch();
+  const order = useSelector(orderSelector);
+
+  const ASPECT_RATIO = width / height;
+  const LATITUDE_DELTA = 0.4689;
+  const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
   const [isModalVisible, setisModalVisible] = useState("");
 
   useEffect(() => {
     setisModalVisible(true);
   }, []);
 
-  const CurrentStatus = [
-    {
-      id: 1,
-      title: strings.trackOrder.orderProcessing,
-      status: "21 Jun,2022  | 10:30 am",
-      statusLogo: roundCheck,
-    },
-  ];
-
-  const Data = [
-    {
-      id: 1,
-      title: strings.trackOrder.verifyCode,
-      status: "---- ----",
-      statusLogo: roundBlank,
-    },
-    {
-      id: 2,
-      title: strings.trackOrder.delivery,
-      status: strings.trackOrder.withTenMin,
-      statusLogo: roundBlank,
-    },
-    {
-      id: 3,
-      title: strings.trackOrder.inWarehouse,
-      status: strings.trackOrder.withTenMin,
-      statusLogo: roundBlank,
-    },
-    {
-      id: 4,
-      title: strings.trackOrder.productPickup,
-      status: strings.trackOrder.withTenMin,
-      statusLogo: roundBlank,
-    },
-    {
-      id: 5,
-      title: strings.trackOrder.pickedByDhl,
-      status: strings.trackOrder.withTenMin,
-      statusLogo: roundBlank,
-    },
-    {
-      id: 6,
-      title: strings.trackOrder.orderProcessing,
-      status: "21 Jun,2022  | 10:30 am",
-      statusLogo: roundCheck,
-    },
-    {
-      id: 7,
-      title: strings.trackOrder.madepayment,
-      status: "21 Jun,2022  | 10:30 am",
-      statusLogo: roundCheck,
-    },
-  ];
-
-  const renderItem = ({ item, index }) => {
-    return (
-      <>
-        <View style={{ flexDirection: "row", marginBottom: SW(5) }}>
-          <View style={{ alignItems: "center" }}>
-            {index === 0 ? null : (
-              <Image
-                source={dashedLineUp}
-                resizeMode="contain"
-                style={{
-                  height: SH(45),
-                  width: SW(20),
-                  tintColor: index <= 4 ? COLORS.secondary : COLORS.primary,
-                }}
-              />
-            )}
-            {index >= 5 ? (
-              <Image
-                source={roundCheck}
-                resizeMode="contain"
-                style={styles.checkLogo}
-              />
-            ) : (
-              <Image
-                source={roundBlank}
-                resizeMode="contain"
-                style={styles.checkLogo}
-              />
-            )}
-          </View>
-
-          <View style={styles.textAlignStyle}>
-            <Text
-              style={[
-                styles.titleText,
-                { color: index <= 4 ? COLORS.secondary : COLORS.darkGrey },
-              ]}
-            >
-              {item.title}
-            </Text>
-            <Text
-              style={[
-                styles.statusText,
-                { color: index <= 4 ? COLORS.secondary : COLORS.text },
-              ]}
-            >
-              {item.status}
-            </Text>
-          </View>
-        </View>
-      </>
-    );
+  const currentStatus = (item) => {
+    if (order?.getOneOrderDetail?.status >= 1) {
+      return strings?.trackOrder?.orderProcessing;
+    } else if (order?.getOneOrderDetail?.status >= 2) {
+      return strings?.trackOrder?.preparingYourOrder;
+    } else if (order?.getOneOrderDetail?.status >= 3) {
+      return strings?.trackOrder?.readyToPickup;
+    } else if (order?.getOneOrderDetail?.status >= 4) {
+      return strings?.trackOrder?.pickedUp;
+    } else if (order?.getOneOrderDetail?.status >= 5) {
+      return strings?.trackOrder?.delivered;
+    } else if (order?.getOneOrderDetail?.status >= 6) {
+      return strings?.trackOrder?.pickedByCsutomer;
+    } else if (order?.getOneOrderDetail?.status >= 7) {
+      return strings?.trackOrder?.cancelled;
+    }
   };
-
-  const renderCurrentStatus = ({ item, index }) => (
-    <>
-      <View style={{ flexDirection: "row", marginBottom: SH(42) }}>
-        <View style={{ alignItems: "center", justifyContent: "flex-end" }}>
-          <Image
-            source={roundCheck}
-            resizeMode="contain"
-            style={styles.checkLogo}
-          />
-        </View>
-
-        <View style={styles.textAlignStyle}>
-          <Text style={[styles.titleText, { color: COLORS.darkGrey }]}>
-            {item.title}
-          </Text>
-          <Text style={[styles.statusText, { color: COLORS.text }]}>
-            {item.status}
-          </Text>
-        </View>
-      </View>
-    </>
-  );
-
+  console.log("gdsiff", order?.getOneOrderDetail);
   return (
     <ScreenWrapper>
       <HeaderCoin title={strings.trackOrder.trackYourOrder} amount={"0"} />
 
       <View style={styles.mainContainer}>
-        <View>
-          <Image
-            source={trackingMap}
-            resizeMode="cover"
-            style={{ width: "100%", height: "100%" }}
+        <MapView
+          ref={mapRef}
+          provider={PROVIDER_GOOGLE}
+          showsCompass
+          zoomEnabled
+          showsMyLocationButton
+          // initialRegion={{
+          //   latitude: latitude,
+          //   longitude: longitude,
+          //   latitudeDelta: 0.00722,
+          //   longitudeDelta: 0.00721,
+          // }}
+          // region={{
+          //   latitude:
+          //     order?.getOneOrderDetail?.seller_details?.current_address
+          //       ?.latitude,
+          //   longitude:
+          //     order?.getOneOrderDetail?.seller_details?.current_address
+          //       ?.longitude,
+          //   latitudeDelta: LATITUDE_DELTA,
+          //   longitudeDelta: LONGITUDE_DELTA,
+          // }}
+          style={styles.map}
+        >
+          {/* <Marker
+            coordinate={{
+              latitude:
+                order?.getOneOrderDetail?.seller_details?.current_address
+                  ?.latitude,
+              longitude:
+                order?.getOneOrderDetail?.seller_details?.current_address
+                  ?.longitude,
+            }}
           />
-        </View>
+          <Marker
+            coordinate={{
+              latitude:
+                order?.getOneOrderDetail?.user_details?.current_address
+                  ?.latitude,
+              longitude:
+                order?.getOneOrderDetail?.user_details?.current_address
+                  ?.longitude,
+            }}
+          />
+          <MapViewDirections
+            origin={{
+              latitude:
+                order?.getOneOrderDetail?.seller_details?.current_address
+                  ?.latitude,
+              longitude:
+                order?.getOneOrderDetail?.seller_details?.current_address
+                  ?.longitude,
+            }}
+            destination={{
+              latitude:
+                order?.getOneOrderDetail?.user_details?.current_address
+                  ?.latitude,
+              longitude:
+                order?.getOneOrderDetail?.user_details?.current_address
+                  ?.longitude,
+            }}
+            apikey={PROVIDER_GOOGLE}
+            strokeWidth={3}
+            strokeColor={COLORS.primary}
+          /> */}
+        </MapView>
 
         <View style={{ position: "absolute", alignSelf: "center" }}>
           <View
             style={[
               styles.mainModal,
-              { marginTop: isModalVisible == true ? SH(100) : SH(520) },
+              { marginTop: isModalVisible == true ? SH(133) : SH(523) },
             ]}
           >
             <View style={styles.modalHeader}>
@@ -204,19 +171,109 @@ export function TrackOrder({ route }) {
             <Spacer space={SH(5)} />
             {isModalVisible ? (
               <View style={{ paddingHorizontal: SW(15) }}>
-                <FlatList
-                  renderItem={renderItem}
-                  data={Data}
-                  keyExtractor={(item) => item.id}
+                <Components
+                  title={strings?.trackOrder?.delivered}
+                  source={
+                    order?.getOneOrderDetail?.status >= 5
+                      ? roundCheck
+                      : roundBlank
+                  }
+                  tintColor={
+                    order?.getOneOrderDetail?.status >= 5
+                      ? COLORS.primary
+                      : COLORS.secondary
+                  }
+                />
+                <Components
+                  title={strings?.trackOrder?.pickedUp}
+                  source={
+                    order?.getOneOrderDetail?.status >= 4
+                      ? roundCheck
+                      : roundBlank
+                  }
+                  tintColor={
+                    order?.getOneOrderDetail?.status >= 4
+                      ? COLORS.primary
+                      : COLORS.secondary
+                  }
+                />
+                <Components
+                  title={strings?.trackOrder?.readyToPickup}
+                  source={
+                    order?.getOneOrderDetail?.status >= 3
+                      ? roundCheck
+                      : roundBlank
+                  }
+                  tintColor={
+                    order?.getOneOrderDetail?.status >= 3
+                      ? COLORS.primary
+                      : COLORS.secondary
+                  }
+                />
+                <Components
+                  title={strings?.trackOrder?.preparingYourOrder}
+                  source={
+                    order?.getOneOrderDetail?.status >= 2
+                      ? roundCheck
+                      : roundBlank
+                  }
+                  tintColor={
+                    order?.getOneOrderDetail?.status >= 2
+                      ? COLORS.primary
+                      : COLORS.secondary
+                  }
+                />
+                <Components
+                  title={strings?.trackOrder?.orderProcessing}
+                  source={
+                    order?.getOneOrderDetail?.status >= 1
+                      ? roundCheck
+                      : roundBlank
+                  }
+                  tintColor={
+                    order?.getOneOrderDetail?.status >= 1
+                      ? COLORS.primary
+                      : COLORS.secondary
+                  }
+                />
+                <Components
+                  title={strings?.trackOrder?.madepayment}
+                  source={
+                    order?.getOneOrderDetail?.status >= 0
+                      ? roundCheck
+                      : roundBlank
+                  }
+                  tintColor={
+                    order?.getOneOrderDetail?.status >= 0
+                      ? COLORS.primary
+                      : COLORS.secondary
+                  }
                 />
               </View>
             ) : (
               <View style={{ paddingHorizontal: SW(15) }}>
-                <FlatList
-                  renderItem={renderCurrentStatus}
-                  data={CurrentStatus}
-                  keyExtractor={(item) => item.id}
-                />
+                <View style={{ flexDirection: "row", marginBottom: SH(30) }}>
+                  <View
+                    style={{ alignItems: "center", justifyContent: "flex-end" }}
+                  >
+                    <Image
+                      source={roundCheck}
+                      resizeMode="contain"
+                      style={styles.checkLogo}
+                    />
+                  </View>
+
+                  <View style={styles.textAlignStyle}>
+                    <Text
+                      style={[styles.titleText, { color: COLORS.darkGrey }]}
+                    >
+                      {currentStatus(order?.getOneOrderDetail)}
+                    </Text>
+                    {/* <Text style={[styles.statusText, { color: COLORS.text }]}>
+                      {item.status}
+                    </Text> */}
+                  </View>
+                </View>
               </View>
             )}
           </View>

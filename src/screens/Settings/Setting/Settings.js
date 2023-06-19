@@ -39,18 +39,21 @@ export function Settings() {
       icon: shippingBox,
       title: strings.settings.shipTo,
       openIcon: forward,
+      navigation: NAVIGATION.selectAddress,
     },
     {
       id: 2,
       icon: bellSettings,
       title: strings.settings.notifications,
       openIcon: forward,
+      navigation: NAVIGATION.notificationSetting,
     },
     {
       id: 3,
       icon: fingerPrint,
       title: strings.settings.faceId,
       openIcon: forward,
+      navigation: NAVIGATION.FaceIdPin,
     },
   ];
 
@@ -60,30 +63,35 @@ export function Settings() {
       icon: workBag,
       title: strings.settings.aboutUs,
       openIcon: forward,
+      navigation: NAVIGATION.aboutUs,
     },
     {
       id: 2,
       icon: callIcon,
       title: strings.settings.contactUs,
       openIcon: forward,
+      navigation: NAVIGATION.contactUs,
     },
     {
       id: 3,
       icon: privacyCheck,
       title: strings.settings.privacyPolicy,
       openIcon: forward,
+      navigation: NAVIGATION.privacyPolicy,
     },
     {
       id: 4,
       icon: cookies,
       title: strings.settings.cookiePolicy,
       openIcon: forward,
+      navigation: NAVIGATION.cookiesPolicy,
     },
     {
       id: 5,
       icon: lock_light,
       title: strings.settings.terms,
       openIcon: forward,
+      navigation: NAVIGATION.termsConditions,
     },
   ];
 
@@ -103,25 +111,11 @@ export function Settings() {
   ];
 
   const navigationHandler = (item) => {
-    if (item.title === strings.settings.shipTo) {
-      navigate(NAVIGATION.selectAddress);
-    } else if (item.title === strings.profile.settings) {
-      navigate(NAVIGATION.settings);
-    } else if (item.title === strings.settings.notifications) {
-      dispatch(getUserSettings());
-      navigate(NAVIGATION.notificationSetting);
-    } else if (item.title === strings.settings.aboutUs) {
-      navigate(NAVIGATION.aboutUs);
-    } else if (item.title === strings.settings.contactUs) {
-      navigate(NAVIGATION.contactUs);
-    } else if (item.title === strings.settings.privacyPolicy) {
-      navigate(NAVIGATION.privacyPolicy);
-    } else if (item.title === strings.settings.cookiePolicy) {
-      navigate(NAVIGATION.cookiesPolicy);
-    } else if (item.title === strings.settings.terms) {
-      navigate(NAVIGATION.termsConditions);
-    } else if (item.title === strings.settings.faceId) {
-      navigate(NAVIGATION.FaceIdPin);
+    if (item?.navigation) {
+      if (item?.navigation === NAVIGATION.notificationSetting) {
+        dispatch(getUserSettings({}));
+      }
+      navigate(item?.navigation);
     }
   };
   useEffect(() => {

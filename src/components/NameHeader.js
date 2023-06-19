@@ -9,7 +9,7 @@ import { Fonts } from "@/assets";
 import { ShadowStyles } from "@/theme";
 
 export function NameHeader({ title, back, backNavi }) {
-  const handleBackpress = () => {
+  const handleBackPress = () => {
     goBack();
     if (backNavi) {
       backNavi();
@@ -21,7 +21,7 @@ export function NameHeader({ title, back, backNavi }) {
         {back && (
           <TouchableOpacity
             style={{ flexDirection: "row", alignItems: "center" }}
-            onPress={handleBackpress}
+            onPress={handleBackPress}
           >
             <Image
               resizeMode="contain"

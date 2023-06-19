@@ -2,16 +2,19 @@ import React from "react";
 import { Image, View, useWindowDimensions } from "react-native";
 import { ScreenWrapper } from "@/components";
 import { styles } from "./FavouriteList.styles";
-import { COLORS, SF, SH, SW } from "@/theme";
+import { COLORS, SH, SW } from "@/theme";
 import { HeaderCoin } from "../Profile/Wallet/Components/HeaderCoin";
 import { strings } from "@/localization";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getFavouritesSeller } from "@/actions/UserActions";
+import {
+  getFavouriteSellers,
+  getFavouritesSeller,
+} from "@/actions/UserActions";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
-import { Fonts, bottomProducts, shopLight } from "@/assets";
-import { FavouritesSeller } from "./FavouritesSeller/FavouritesSeller";
-import { FavouritesProduct } from "./FavouritesProduct/FavouritesProduct";
+import { bottomProducts, shopLight } from "@/assets";
+import { FavouriteSellers } from "./FavouriteSellers/FavouriteSellers";
+import { FavouriteProducts } from "./FavouriteProducts/FavouriteProducts";
 
 export function FavouriteList() {
   const dispatch = useDispatch();
@@ -20,7 +23,7 @@ export function FavouriteList() {
     limit: 10,
   };
   useEffect(() => {
-    dispatch(getFavouritesSeller(data));
+    dispatch(getFavouriteSellers(data));
   }, []);
 
   const layout = useWindowDimensions();
@@ -30,8 +33,8 @@ export function FavouriteList() {
     { key: "second", title: "Product" },
   ]);
 
-  const FirstRoute = () => <FavouritesSeller />;
-  const SecondRoute = () => <FavouritesProduct />;
+  const FirstRoute = () => <FavouriteSellers />;
+  const SecondRoute = () => <FavouriteProducts />;
 
   const renderScene = SceneMap({
     first: FirstRoute,

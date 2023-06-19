@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import {
   View,
   Image,
@@ -6,6 +6,7 @@ import {
   FlatList,
   ScrollView,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import {
   Button,
@@ -14,8 +15,8 @@ import {
   ScreenWrapper,
   Spacer,
 } from "@/components";
-import { styles } from "@/screens/PlacedOrderStatus/OrderedStatus/OrderedStatus.styles";
-import { COLORS, SH, SW } from "@/theme";
+import { styles } from "./ConfirmOrder.styles";
+import { COLORS, SF, SH, SW } from "@/theme";
 import { strings } from "@/localization";
 import {
   backArrow,
@@ -27,20 +28,20 @@ import {
   orderDetails,
   yewiLogo,
 } from "@/assets";
-import { navigate } from "@/navigation/NavigationRef";
+import { goBack, navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
-import { getUser } from "@/selectors/UserSelectors";
-import { getWallet } from "@/selectors/WalletSelector";
 import { useDispatch, useSelector } from "react-redux";
 import { orderSelector } from "@/selectors/OrderSelector";
-import { useNavigation } from "@react-navigation/native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import { Dimensions } from "react-native";
+import { getUser } from "@/selectors/UserSelectors";
+import { changeOrderStatus, getOrderList } from "@/actions/OrderAction";
+import { TYPES } from "@/Types/Types";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { Loader } from "@/components/Loader";
 
-export function OrderedStatus({ route }) {
-  const navigation = useNavigation();
+export function ConfirmOrder({ route }) {
   const dispatch = useDispatch();
-  const wallet = useSelector(getWallet);
+
   const order = useSelector(orderSelector);
   const user = useSelector(getUser);
   const mapRef = useRef();
@@ -48,50 +49,38 @@ export function OrderedStatus({ route }) {
   const ASPECT_RATIO = width / height;
   const LATITUDE_DELTA = 0.005;
   const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-  const Details = [
-    {
-      id: "1",
-      quantity: "1",
-      itemName: "Marlboro Red Gold",
-      type: "packet",
-      price: "$6.56",
-    },
-    {
-      id: "2",
-      quantity: "1",
-      itemName: "Marlboro Red Gold",
-      type: "packet",
-      price: "$6.56",
-    },
-    {
-      id: "3",
-      quantity: "1",
-      itemName: "Marlboro Red Gold",
-      type: "packet",
-      price: "$6.56",
-    },
-  ];
-  console.log(
-    "orderDetail====",
-    JSON.stringify(order?.getOneOrderDetail?.status)
+
+  const destinationCoordinates = order?.getOneOrderDetail?.coordinates;
+
+  const isStatusChanging = useSelector((state) =>
+    isLoadingSelector([TYPES.CHANGE_ORDER_STATUS], state)
   );
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_ORDER_DETAILS], state)
+  );
+  console.log("check lat ", order?.getOneOrderDetail);
+  console.log("check lat ", user?.user?.payload?.token);
 
-  // const render = (item) => {
-  //   return (
-  //     <View>
-  //       <View style={styles.flatlistItems}>
-  //         <Text style={styles.quantityText}>
-  //           {item.quantity}
-  //           <Text style={styles.lightText}> x </Text>
-  //           <Text style={styles.quantityText}>{item.itemName}</Text>
-  //           <Text style={styles.lightText}> ({item.type})</Text>
-  //         </Text>
-
-  //         <Text style={styles.quantityText}>{item.price}</Text>
-  //       </View>
-  //     </View>
-  //   );
-  // };
+  const headerText = (item) => {
+    if (item?.status === 0) {
+      return "To Be Confirmed";
+    } else if (item?.status === 1) {
+      return "Processing";
+    } else if (item?.status === 5) {
+      return "Completed";
+    }
+  };
+  const deliveryService = (item) => {
+    if (item?.shipping_service_id === 1) {
+      return "Fedex Express Shipping";
+    } else if (item?.shipping_service_id === 2) {
+      return "UPS Priority Shipping";
+    } else if (item?.shipping_service_id === 3) {
+      return "DHL Standard Shipping";
+    } else if (item?.shipping_service_id === 4) {
+      return "USPS Standard shipping";
+    }
+  };
   const render = (item) => {
     return (
       <View>
@@ -112,106 +101,51 @@ export function OrderedStatus({ route }) {
       </View>
     );
   };
-  const deliveryService = (item) => {
-    if (item?.shipping_service_id === 1) {
-      return "Fedex Express Shipping";
-    } else if (item?.shipping_service_id === 2) {
-      return "UPS Priority Shipping";
-    } else if (item?.shipping_service_id === 3) {
-      return "DHL Standard Shipping";
-    } else if (item?.shipping_service_id === 4) {
-      return "USPS Standard shipping";
-    }
-  };
+
   return (
     <ScreenWrapper>
-      <NameHeader
-        title={"Home"}
-        back={backArrow}
-        backNavi={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: NAVIGATION.home }],
-          })
-        }
-      />
+      <NameHeader title={strings.myPurchase.orderDetails} back={backArrow} />
 
-      <ScrollView style={styles.mainContainer}>
-        <Spacer space={SH(25)} />
+      <ScrollView
+        style={styles.mainContainer}
+        showsVerticalScrollIndicator={false}
+      >
+        <Spacer space={SH(15)} />
+        {order?.getOneOrderDetail?.status == 0 && (
+          <>
+            <View style={styles.rowView}>
+              <Text style={styles.statusHeading}>
+                {headerText(order?.getOneOrderDetail)}
+              </Text>
+              <View
+                style={{
+                  backgroundColor: COLORS.primary,
+                  borderRadius: SW(5),
+                }}
+              >
+                <Text
+                  style={{
+                    paddingVertical: SH(4),
+                    paddingHorizontal: SW(12),
+                    color: COLORS.white,
+                  }}
+                >
+                  {"Paid"}
+                </Text>
+              </View>
+            </View>
 
-        <View style={styles.orderStatus}>
-          <View style={styles.statusInnerView}>
-            <Text style={styles.statusText}>
-              {strings.myPurchase.processing}
-            </Text>
-            <Spacer space={SH(5)} />
+            <Spacer space={SH(15)} />
 
-            <View
-              style={[
-                styles.bottomStatusBar,
-                {
-                  borderColor:
-                    order?.getOneOrderDetail?.status >= 0
-                      ? COLORS.primary
-                      : COLORS.backgroundGrey,
-                },
-              ]}
-            ></View>
-          </View>
+            <Text style={styles.quoteText}>{strings.myPurchase.quote}</Text>
 
-          {/*  */}
-
-          <View style={styles.statusInnerView}>
-            <Text style={styles.statusText}>{strings.myPurchase.shipped}</Text>
-            <Spacer space={SH(5)} />
-            <View
-              style={[
-                styles.bottomStatusBar,
-                {
-                  borderColor:
-                    order?.getOneOrderDetail?.status == 4
-                      ? COLORS.primary
-                      : COLORS.backgroundGrey,
-                },
-              ]}
-            ></View>
-          </View>
-          <View style={styles.statusInnerView}>
-            <Text style={styles.statusText}>
-              {strings.myPurchase.delivered}
-            </Text>
-            <Spacer space={SH(5)} />
-            <View
-              style={[
-                styles.bottomStatusBar,
-                {
-                  borderColor:
-                    order?.getOneOrderDetail?.status == 5
-                      ? COLORS.primary
-                      : COLORS.backgroundGrey,
-                },
-              ]}
-            ></View>
-          </View>
-
-          {/*  */}
-        </View>
-
-        <Spacer space={SH(20)} />
-
-        <Text style={styles.statusHeading}>
-          {strings.myPurchase.processing}
-        </Text>
-
-        {/* <Spacer space={SH(15)} />
-
-        <Text style={styles.quoteText}>{strings.myPurchase.quote}</Text> */}
-
-        <Spacer space={SH(20)} />
+            <Spacer space={SH(20)} />
+          </>
+        )}
 
         <View style={styles.companyBackground}>
           <View style={styles.companyInnerView}>
-            <Text>About company</Text>
+            <Text>{"Buyer"}</Text>
             <TouchableOpacity>
               <Image
                 source={chatNow}
@@ -223,18 +157,9 @@ export function OrderedStatus({ route }) {
 
           <Spacer space={SH(15)} />
           <CompanyDetailView
-            title={
-              order?.getOneOrderDetail?.seller_details?.firstname +
-              " " +
-              order?.getOneOrderDetail?.seller_details?.lastname
-            }
-            profilePhoto={{
-              uri: order?.getOneOrderDetail?.seller_details?.profile_photo,
-            }}
+            title={"Yiwu Leqi E-Commerce Firm"}
+            profilePhoto={yewiLogo}
             locationText={"Miami, USA"}
-            rating={
-              order?.getOneOrderDetail?.seller_details?.sellerRating?.rating
-            }
           />
         </View>
 
@@ -267,7 +192,7 @@ export function OrderedStatus({ route }) {
           </View>
         </View>
 
-        <Spacer space={SH(1)} />
+        <Spacer space={SH(15)} />
 
         <View style={styles.elevatedView} pointerEvents="none">
           <View style={styles.deliveryViewDirection}>
@@ -294,8 +219,8 @@ export function OrderedStatus({ route }) {
               //   longitudeDelta: 0.00721,
               // }}
               region={{
-                latitude: user?.savedAddress?.latitude,
-                longitude: user?.savedAddress?.longitude,
+                latitude: destinationCoordinates?.[1],
+                longitude: destinationCoordinates?.[0],
                 latitudeDelta: LATITUDE_DELTA,
                 longitudeDelta: LONGITUDE_DELTA,
               }}
@@ -303,8 +228,8 @@ export function OrderedStatus({ route }) {
             >
               <Marker
                 coordinate={{
-                  latitude: user?.savedAddress?.latitude,
-                  longitude: user?.savedAddress?.longitude,
+                  latitude: destinationCoordinates?.[1],
+                  longitude: destinationCoordinates?.[0],
                 }}
               />
             </MapView>
@@ -362,8 +287,8 @@ export function OrderedStatus({ route }) {
                 {order?.getOneOrderDetail?.id}
               </Text>
             </View>
-
-            {/* <Spacer space={SH(10)} />
+            {/* 
+            <Spacer space={SH(10)} />
 
             <View style={styles.pricesView}>
               <Text style={styles.pricesTextSemi}>{"Order from"}</Text>
@@ -384,7 +309,10 @@ export function OrderedStatus({ route }) {
 
           <Spacer space={SH(10)} />
 
-          <ScrollView style={{ paddingHorizontal: SW(20) }}>
+          <ScrollView
+            style={{ paddingHorizontal: SW(20) }}
+            showsVerticalScrollIndicator={false}
+          >
             <FlatList
               data={order?.getOneOrderDetail?.order_details}
               renderItem={({ item }) => render(item)}
@@ -400,7 +328,7 @@ export function OrderedStatus({ route }) {
             <View style={styles.pricesView}>
               <Text style={styles.pricesText}>{"Subtotal"}</Text>
               <Text style={styles.pricesText}>
-                {order?.subTotalAmount?.total_amount}
+                {order?.getOneOrderDetail?.actual_amount}
               </Text>
             </View>
 
@@ -409,7 +337,7 @@ export function OrderedStatus({ route }) {
             <View style={styles.pricesView}>
               <Text style={styles.pricesText}>{"Discount"}</Text>
               <Text style={styles.pricesText}>
-                {order?.getOneOrderDetail?.discount}
+                {"$ " + order?.getOneOrderDetail?.discount}
               </Text>
             </View>
 
@@ -418,7 +346,7 @@ export function OrderedStatus({ route }) {
             <View style={styles.pricesView}>
               <Text style={styles.pricesText}>{"Taxes & Other fees"}</Text>
               <Text style={styles.pricesText}>
-                {order?.getOneOrderDetail?.tax}
+                {"$ " + order?.getOneOrderDetail?.tax}
               </Text>
             </View>
 
@@ -426,10 +354,10 @@ export function OrderedStatus({ route }) {
 
             <View style={styles.pricesView}>
               <Text style={styles.pricesText}>
-                {deliveryService(order?.getOneOrderDetail)} fees
+                {"DHL Standard shipping fees"}
               </Text>
               <Text style={styles.pricesText}>
-                {order?.getOneOrderDetail?.shipping_charge}
+                {"$ " + order?.getOneOrderDetail?.shipping_charge}
               </Text>
             </View>
 
@@ -438,27 +366,48 @@ export function OrderedStatus({ route }) {
             <View style={styles.pricesView}>
               <Text style={styles.totalPriceText}>{"Total"}</Text>
               <Text style={styles.totalPriceText}>
-                {order?.getOneOrderDetail?.payable_amount}
+                {"$ " + order?.getOneOrderDetail?.payable_amount}
               </Text>
             </View>
           </ScrollView>
         </View>
 
-        <Spacer space={SH(20)} />
-
-        <Button
-          onPress={() =>
-            // navigation.reset({
-            //   index: 0,
-            //   routes: [{ name: NAVIGATION.home }],
-            // })
-            navigate(NAVIGATION.trackPlacedOrder)
-          }
-          title={"Tracking your order"}
-          style={styles.trackOrderButton}
-        />
         <Spacer space={SH(30)} />
+
+        {order?.getOneOrderDetail?.status == 0 ? (
+          <Button
+            onPress={() =>
+              dispatch(changeOrderStatus(order?.getOneOrderDetail?.id))
+                .then((res) => {
+                  goBack();
+                  const object = {
+                    page: 1,
+                    limit: 10,
+                    seller_id: user?.user?.payload?.uuid,
+                    status: 0,
+                  };
+                  dispatch(getOrderList(object));
+                })
+                .catch(() => {})
+            }
+            title={"Confirm Order"}
+            style={styles.trackOrderButton}
+          />
+        ) : (
+          <Button
+            onPress={() => navigate(NAVIGATION.trackOrder)}
+            title={"Track Order"}
+            style={[
+              styles.trackOrderButton,
+              { backgroundColor: COLORS.darkGrey },
+            ]}
+          />
+        )}
+
+        <Spacer space={SH(20)} />
       </ScrollView>
+      {isLoading ? <Loader message="Loading Details ..." /> : null}
+      {isStatusChanging ? <Loader message="Confirming order ..." /> : null}
     </ScreenWrapper>
   );
 }

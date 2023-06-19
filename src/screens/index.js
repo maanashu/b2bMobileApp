@@ -67,7 +67,7 @@ export { ManufacturersNearMe } from "@/screens/NearMe/ManufacturersNearMe/Manufa
 export { DistributorsNearMe } from "@/screens/NearMe/DistributorsNearMe/DistributorsNearMe";
 export { RetailersNearMe } from "@/screens/NearMe/RetailersNearMe/RetailersNearMe";
 export { MyPurchase } from "@/screens/MyPurchaseMain/MyPurchase/MyPurchase";
-export { MyOrders } from "@/screens/MyPurchaseMain/MyOrders/MyOrders";
+export { ConfirmOrder } from "@/screens/MyPurchaseMain/ConfirmOrder/ConfirmOrder";
 export { TrackOrder } from "@/screens/MyPurchaseMain/TrackOrder/TrackOrder";
 export { RateExperience } from "@/screens/MyPurchaseMain/RateExperience/RateExperience";
 export { HelpCenter } from "@/screens/HelpCenter/HelpCenter";
@@ -101,5 +101,5 @@ export { SelectAddress } from "@/screens/SelectAddress/SelectAddress";
 export { OrderedStatus } from "@/screens/PlacedOrderStatus/OrderedStatus/OrderedStatus";
 export { TrackPlacedOrder } from "@/screens/PlacedOrderStatus/TrackPlacedOrder/TrackPlacedOrder";
 export { NewOrders } from "@/screens/Orders/NewOrders/NewOrders";
-export { FavouritesProduct } from "@/screens/FavouriteList/FavouritesProduct/FavouritesProduct";
-export { FavouritesSeller } from "@/screens/FavouriteList/FavouritesSeller/FavouritesSeller";
+export { FavouriteProducts } from "@/screens/FavouriteList/FavouriteProducts/FavouriteProducts";
+export { FavouriteSellers } from "@/screens/FavouriteList/FavouriteSellers/FavouriteSellers";

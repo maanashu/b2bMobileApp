@@ -37,14 +37,15 @@ const INITIALSTATE = {
   updateUserSettings: {},
   getUserSettings: {},
   sendChat: {},
-  getMessages: [],
+  getMessages: {},
   deleteMessages: {},
   getOneManufactureDetails: {},
   getManufacturersList: [],
+  getMessageHeads: [],
   sellerFavourites: {},
   productFavourites: {},
-  getFavouritesProduct: [],
-  getFavouritesSeller: [],
+  getFavouriteProducts: {},
+  getFavouriteSellers: [],
   uploadProfileImage:{}
 };
 
@@ -212,6 +213,11 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         getOneManufactureDetails: payload.getOneManufactureDetails,
       };
+    case TYPES.GET_MESSAGES_HEADS_SUCCESS:
+      return {
+        ...state,
+        getMessageHeads: payload?.getMessageHeads?.payload?.data,
+      };
     case TYPES.PRODUCT_FAVOURITES_SUCCESS:
       return {
         ...state,
@@ -222,16 +228,32 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         sellerFavourites: payload.sellerFavourites,
       };
-    case TYPES.GET_FAVOURITES_PRODUCT_SUCCESS:
+    case TYPES.GET_FAVOURITE_PRODUCTS_SUCCESS:
       return {
         ...state,
-        getFavouritesProduct: payload.getFavouritesProduct?.data,
+        getFavouriteProducts: payload.getFavouriteProducts,
+      };
+    case TYPES.GET_FAVOURITE_PRODUCTS_RESET:
+      return {
+        ...state,
+        getFavouriteProducts: {},
       };
 
-    case TYPES.GET_FAVOURITES_SELLER_SUCCESS:
+    case TYPES.GET_FAVOURITE_SELLERS_SUCCESS:
       return {
         ...state,
-        getFavouritesSeller: payload.getFavouriteSellers?.data,
+        getFavouriteSellers: payload.getFavouriteSellers?.data,
+      };
+    case TYPES.GET_FAVOURITE_SELLERS_RESET:
+      return {
+        ...state,
+        getFavouriteSellers: [],
+      };
+
+    case TYPES.UPLOAD_PROFILE_IMAGE_SUCCESS:
+      return {
+        ...state,
+        uploadProfileImage: payload.uploadProfileImage,
       };
 
     case TYPES.UPLOAD_PROFILE_IMAGE_SUCCESS:

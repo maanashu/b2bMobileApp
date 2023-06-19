@@ -42,6 +42,7 @@ import { NAVIGATION } from "@/constants";
 import { getWallet } from "@/selectors/WalletSelector";
 import { logoutOrder } from "@/actions/OrderAction";
 import { logoutWallet } from "@/actions/WalletActions";
+import { kFormatter } from "@/Utils/GlobalMethods";
 
 export function Profile() {
   const { colors } = useTheme();
@@ -205,9 +206,7 @@ export function Profile() {
               onPress={() => navigate(NAVIGATION.jbrWallet)}
             >
               <Text style={styles.filterText}>
-                {Math.floor(
-                  wallet?.getWalletBalance?.sila_balance || 0
-                ).toFixed()}
+                {kFormatter(wallet?.getWalletBalance?.sila_balance) || 0}
               </Text>
               <Image
                 resizeMode="contain"

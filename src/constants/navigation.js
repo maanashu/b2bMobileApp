@@ -67,7 +67,7 @@ export const NAVIGATION = {
   nearMe: "NearMe",
   nearMeOptions: "NearMeOptions",
   myPurchase: "MyPurchase",
-  myOrders: "MyOrders",
+  confirmOrder: "ConfirmOrder",
   trackOrder: "TrackOrder",
   rateExperience: "RateExperience",
   helpCenter: "HelpCenter",
@@ -100,6 +100,6 @@ export const NAVIGATION = {
   orderedStatus: "OrderedStatus",
   trackPlacedOrder: "TrackPlacedOrder",
   newOrders: "NewOrders",
-  favouritesProduct: "FavouritesProduct",
-  favouritesSeller: "FavouritesSeller",
+  favouriteProducts: "FavouriteProducts",
+  favouriteSellers: "FavouriteSellers",
 };

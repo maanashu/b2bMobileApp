@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export function Button({ style, textStyle, title, onPress, ...rest }) {
+export function Button({ style, textStyle, title, onPress, pending, ...rest }) {
   const { colors } = useTheme();
 
   return (
@@ -27,9 +27,13 @@ export function Button({ style, textStyle, title, onPress, ...rest }) {
       {...rest}
       onPress={onPress}
     >
-      <Text style={[{ color: COLORS.white }, TextStyles.label, textStyle]}>
-        {title}
-      </Text>
+      {pending ? (
+        <ActivityIndicator size="smalll" color={COLORS.white} />
+      ) : (
+        <Text style={[{ color: COLORS.white }, TextStyles.label, textStyle]}>
+          {title}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 }
