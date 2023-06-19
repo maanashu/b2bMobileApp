@@ -64,6 +64,7 @@ export function Chatting(props) {
   const user = useSelector(getUser);
   const allMessages = user?.getMessages?.messages;
   const dispatch = useDispatch();
+  console.log("token", user.user.payload.token);
   console.log("jhfd", props?.route?.params?.seller_id);
   const handleDocumentSelection = useCallback(async () => {
     try {
@@ -93,7 +94,7 @@ export function Chatting(props) {
   }, []);
 
   useEffect(() => {
-    setMessages(allMessages.map(convertMessage));
+    setMessages(allMessages?.map(convertMessage));
   }, []);
 
   const convertMessage = (message) => {
@@ -226,6 +227,10 @@ export function Chatting(props) {
       />
     );
   };
+  const recipientId =
+    props?.route?.params?.screenName === "productInquiry"
+      ? props?.route?.params?.seller_id
+      : JSON.stringify(props?.route?.params?.seller_id);
 
   const onSend = useCallback((messages = []) => {
     setShowView(false);
@@ -238,12 +243,13 @@ export function Chatting(props) {
     console.log("message:", typedMessage);
     dispatch(
       sendChat({
-        recipient_id: props?.route?.params?.seller_id,
+        recipient_id: recipientId,
         content: typedMessage,
       })
     )
       .then((res) => {
         // setOpenModal(true); dispatch(
+        console.log("checl respppp", JSON.stringify(res));
         dispatch(getMessages(props?.route?.params?.seller_id));
       })
       .catch((error) => {

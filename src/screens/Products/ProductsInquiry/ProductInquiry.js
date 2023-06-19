@@ -77,7 +77,10 @@ export function ProductInquiry(params) {
   const isLoadingDetails = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
   );
-  console.log("productDetail", params?.route?.params?.id);
+  console.log(
+    "productDetail",
+    ProductDetail?.productDetail?.product_detail?.supplies?.[0]
+  );
 
   const object = {
     service_type: "product",
@@ -110,6 +113,7 @@ export function ProductInquiry(params) {
     navigate(NAVIGATION.chatting, {
       seller_id:
         ProductDetail?.productDetail?.product_detail?.supplies?.[0]?.seller_id,
+      screenName: "productInquiry",
     });
   };
 

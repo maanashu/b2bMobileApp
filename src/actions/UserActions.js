@@ -806,7 +806,7 @@ export const sendChat = (data) => async (dispatch) => {
   dispatch(sendChatRequest());
   return UserController.sendChat(data)
     .then((res) => {
-      console.log("dataaaa", res);
+      console.log("send message success", res);
       dispatch(sendChatSuccess(res?.payload));
       return res;
     })
@@ -823,9 +823,9 @@ export const getMessages = (id) => async (dispatch) => {
   try {
     const res = await UserController.getMessages(id);
     dispatch(getMessagesSuccess(res?.payload));
-    console.log("getting Messages", res?.payload);
+    console.log("getting Messages success", res?.payload);
   } catch (error) {
-    console.log("gigd", JSON.stringify(error));
+    console.log("getting messages error", JSON.stringify(error));
     dispatch(getMessagesError(error.message));
   }
 };
@@ -891,7 +891,6 @@ export const getFavouriteProducts = (data) => async (dispatch) => {
     if (error?.statusCode === 204) {
       dispatch(getFavouriteProductsReset());
     } else {
-      console.log("error still exist", JSON.stringify(error));
       dispatch(getFavouriteProductsError(error.message));
     }
   }
@@ -906,9 +905,7 @@ export const getFavouriteSellers = (data) => async (dispatch) => {
     if (error?.statusCode === 204) {
       dispatch(getFavouriteSellersReset());
     } else {
-      console.log("error still exist", JSON.stringify(error));
-
-      // dispatch(getFavouriteSellersError(error.message));
+      dispatch(getFavouriteSellersError(error.message));
     }
   }
 };

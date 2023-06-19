@@ -1,23 +1,55 @@
-import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { useDispatch } from "react-redux";
-import {
-  getFavouriteProducts,
-  getFavouritesProduct,
-} from "@/actions/UserActions";
-import { useEffect } from "react";
+import { FlatList, Image, ScrollView, Text, View } from "react-native";
+import { ScreenWrapper, Spacer } from "@/components";
+import { useSelector } from "react-redux";
+import { getUser } from "@/selectors/UserSelectors";
+import { styles } from "./FavouriteProducts.styles";
+import { SH, SW } from "@/theme";
 
 export function FavouriteProducts() {
-  const dispatch = useDispatch();
-  const data = {
-    page: 1,
-    limit: 10,
+  const favouriteProducts = useSelector(getUser);
+
+  const renderItem = ({ item }) => {
+    return (
+      <>
+        <View style={styles.Item}>
+          <Image
+            source={{ uri: item?.image }}
+            resizeMode="contain"
+            style={styles.productImageStyle}
+          />
+
+          <Spacer space={SW(10)} />
+
+          <Text numberOfLines={2} style={styles.productName}>
+            {item?.name}
+          </Text>
+        </View>
+
+        <Spacer horizontal space={SW(10)} />
+      </>
+    );
   };
-  useEffect(() => {
-    dispatch(getFavouriteProducts(data));
-  }, []);
+  return (
+    <ScreenWrapper containerPropStyle={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {favouriteProducts?.getFavouriteProducts.map((item, index) => (
+          <View key={index}>
+            <Text style={styles.sectionHeaderName}>{item?.sellerName} </Text>
 
-  return <View></View>;
+            <Spacer space={SH(15)} />
+
+            <FlatList
+              data={item?.favourite_product}
+              renderItem={renderItem}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+            />
+
+            <Spacer space={SH(15)} />
+          </View>
+        ))}
+      </ScrollView>
+    </ScreenWrapper>
+  );
 }
-
-const styles = StyleSheet.create({});

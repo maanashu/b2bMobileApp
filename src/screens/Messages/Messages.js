@@ -37,7 +37,7 @@ export function Messages() {
   }, []);
 
   const handleChat = (id) => {
-    // dispatch(getMessages(id));
+    dispatch(getMessages(id));
     navigate(NAVIGATION.chatting, { seller_id: id });
   };
   const renderTopItems = ({ item }) => (

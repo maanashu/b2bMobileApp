@@ -4,7 +4,7 @@ import { circleStar, clockTiming, deliveryParcel } from "@/assets";
 import { useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { styles } from "./FavouriteSellers.styles";
-import { Spacer } from "@/components";
+import { ScreenWrapper, Spacer } from "@/components";
 import { SH } from "@/theme";
 
 export function FavouriteSellers() {
@@ -60,13 +60,13 @@ export function FavouriteSellers() {
     </>
   );
   return (
-    <View>
+    <ScreenWrapper containerPropStyle={{ backgroundColor: "#F9F9F9" }}>
       <FlatList
         data={sellerList}
         renderItem={renderItem}
         removeClippedSubviews={true}
         keyExtractor={(item) => item.id}
       />
-    </View>
+    </ScreenWrapper>
   );
 }

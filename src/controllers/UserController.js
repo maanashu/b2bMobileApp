@@ -451,7 +451,7 @@ export class UserController {
           // navigate(NAVIGATION.settings);
         })
         .catch((error) => {
-          console.log("error", JSON.stringify(error));
+          console.log("error in controller", JSON.stringify(error));
           console.log("body", JSON.stringify(body));
           Toast.show({
             text2: error.msg,
@@ -459,7 +459,7 @@ export class UserController {
             type: "error_toast",
             visibilityTime: 2000,
           });
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }
@@ -482,7 +482,7 @@ export class UserController {
             type: "error_toast",
             visibilityTime: 2000,
           });
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }
