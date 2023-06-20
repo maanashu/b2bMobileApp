@@ -7,7 +7,6 @@ import {
   FlatList,
   ScrollView,
   Keyboard,
-  Dimensions,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -124,9 +123,7 @@ export function UserInformation() {
           const data = {
             profile_photo: res?.payload?.profile_photo,
           };
-          dispatch(editProfile(id, data)).then((res) => {
-            dispatch(getUserProfile(uuid));
-          });
+          dispatch(editProfile(id, data));
         }
       });
     });
@@ -146,9 +143,7 @@ export function UserInformation() {
           const data = {
             profile_photo: res?.payload?.profile_photo,
           };
-          dispatch(editProfile(id, data)).then((res) => {
-            dispatch(getUserProfile(uuid));
-          });
+          dispatch(editProfile(id, data));
         }
       });
     });

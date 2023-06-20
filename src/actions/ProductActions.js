@@ -73,6 +73,10 @@ const getCouponsError = (error) => ({
   type: TYPES.GET_COUPONS_ERROR,
   payload: { error },
 });
+const getCouponsReset = () => ({
+  type: TYPES.GET_COUPONS_RESET,
+  payload: null,
+});
 
 const addCouponRequest = () => ({
   type: TYPES.ADD_COUPONS_REQUEST,
@@ -179,10 +183,15 @@ export const getCoupons = (data) => async (dispatch) => {
   dispatch(getCouponsRequest());
   try {
     const res = await ProductController.getCoupons(data);
+    console.log("response get coupons", res);
 
     dispatch(getCouponsSuccess(res));
   } catch (error) {
-    dispatch(getCouponsError(error.message));
+    if (error.statusCode === 204) {
+      dispatch(getCouponsReset());
+    } else {
+      dispatch(getCouponsError(error.message));
+    }
   }
 };
 
