@@ -91,16 +91,16 @@ export function FaceIdPin() {
 
             <Spacer space={SH(12)} />
 
-            <Switch
+            {/* <Switch
               TextStyle={styles.bottomTexts}
               onPress={() => setPin(!pin)}
               source={pin ? toggleOn : toggleOff}
               title={strings.faceId.pin}
-            />
-
+            /> */}
+            {/* 
             <Spacer space={SH(12)} />
 
-            <View style={styles.bottomLine} />
+            <View style={styles.bottomLine} /> */}
 
             <Spacer space={SH(12)} />
 

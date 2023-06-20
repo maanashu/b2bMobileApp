@@ -1,5 +1,4 @@
-import { useTheme } from "@react-navigation/native";
-import React from "react";
+import React, { useCallback, useMemo, useRef } from "react";
 import {
   Text,
   View,
@@ -7,19 +6,21 @@ import {
   Image,
   FlatList,
   ScrollView,
+  Keyboard,
+  Dimensions,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
   TYPES,
   editProfile,
   getUserProfile,
-  logout,
+  sendEmailOtp,
   uploadProfileImage,
 } from "@/actions/UserActions";
-import { Button, ScreenWrapper, Spacer } from "@/components";
+import { Button, ScreenWrapper, Spacer, TextField } from "@/components";
 import { strings } from "@/localization";
 import { styles } from "./UserInformation.styles";
-import { SH } from "@/theme";
+import { COLORS, SH, ShadowStyles } from "@/theme";
 import {
   backArrow,
   camera,
@@ -31,6 +32,10 @@ import {
   call,
   calendar,
   pencil,
+  rightArrowThin,
+  crossBlack,
+  roundCheck,
+  verifiedCheck,
 } from "@/assets";
 import { ms, vs } from "react-native-size-matters";
 import { goBack, navigate } from "@/navigation/NavigationRef";
@@ -38,33 +43,71 @@ import { NAVIGATION } from "@/constants";
 import Modal from "react-native-modal";
 import { useState } from "react";
 import ImageCropPicker from "react-native-image-crop-picker";
-import { personalInfo, CompanyInfo } from "./Components.js/FlatlistData";
+import { CompanyInfo } from "./Components.js/FlatlistData";
 import { getUser } from "@/selectors/UserSelectors";
-import { useEffect } from "react";
 import { Loader } from "@/components/Loader";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import BottomSheet from "@gorhom/bottom-sheet";
+import RBSheet from "react-native-raw-bottom-sheet";
+import {
+  CodeField,
+  Cursor,
+  useClearByFocusCell,
+} from "react-native-confirmation-code-field";
+import { characterReg } from "@/Utils/validators";
 
 export function UserInformation() {
   const user = useSelector(getUser);
-  const [isModalVisible, setModalVisible] = useState(false);
-  const profile_photo =
-    user?.user?.payload?.user_profiles?.profile_photo ||
-    user?.getUserProfile?.user_profiles?.profile_photo;
-
-  const [userImage, setUserImage] = useState(profile_photo);
+  const dispatch = useDispatch();
+  const bottomSheetRef = useRef(null);
+  const codeFieldRef = useRef(null);
   const id = user?.user?.payload?.user_profiles?.id;
-  const uuid = user?.user?.payload?.uuid;
 
+  const [isModalVisible, setModalVisible] = useState(false);
+  const profile_photo = user?.getUserProfile?.user_profiles?.profile_photo;
+  const [openModalState, setOpenModalState] = useState("");
+  const [userImage, setUserImage] = useState(profile_photo);
+  const [newFirstName, setNewFirstName] = useState("");
+  const [newLastName, setNewLastName] = useState("");
+
+  const uuid = user?.user?.payload?.uuid;
+  const [value, setValue] = useState("");
+  const CELL_COUNT = 5;
+  const [prop, getCellOnLayoutHandler] = useClearByFocusCell({
+    value,
+    setValue,
+  });
+  const ssn =
+    user?.getUser?.payload?.user_profiles?.ssn_number ||
+    user?.user?.payload?.user_profiles?.ssn_number;
+  const maskedSSN = ssn.substring(0, 5).replace(/./g, "_ ") + ssn.substring(5);
+  const changeName = () => {
+    if (!newFirstName) {
+      alert(strings.validation.firstName);
+    } else if (newFirstName && characterReg.test(newFirstName) === false) {
+      alert(strings.validation.validFirstName);
+    } else if (!newLastName) {
+      alert(strings.validation.lastNameerror);
+    } else if (newLastName && characterReg.test(newLastName) === false) {
+      alert(strings.validation.validlastName);
+    } else {
+      bottomSheetRef.current.close();
+      dispatch(
+        editProfile(id, { firstname: newFirstName, lastname: newLastName })
+      );
+    }
+  };
+  console.log("check verified", user?.getUserProfile?.email);
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.UPLOAD_PROFILE_IMAGE], state)
   );
-
-  const dispatch = useDispatch();
+  const isLoadingName = useSelector((state) =>
+    isLoadingSelector([TYPES.EDIT_PROFILE], state)
+  );
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-
   const closeModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -110,24 +153,6 @@ export function UserInformation() {
       });
     });
   };
-  const ProfileData = ({ item }) => (
-    <View>
-      <View style={styles.profileOptions}>
-        <Text style={styles.headingText}>{item.heading}</Text>
-        <View style={styles.mainRowView}>
-          <Image
-            source={item.icon}
-            style={styles.iconStyle}
-            resizeMode="contain"
-          />
-          <Text style={styles.titleText}>{item.title}</Text>
-        </View>
-
-        <Spacer space={SH(18)} />
-      </View>
-      <Spacer space={SH(5)} />
-    </View>
-  );
 
   const CompanyData = ({ item }) => (
     <View>
@@ -158,6 +183,22 @@ export function UserInformation() {
       <Spacer space={SH(5)} />
     </View>
   );
+
+  const sendEmail = () => {
+    bottomSheetRef.current.open();
+    dispatch(sendEmailOtp(user?.getUserProfile?.email))
+      .then((res) => {
+        setPayloadId(res?.payload?.id);
+        console.log("check id" + res?.payload?.id);
+      })
+      .catch((error) => {
+        console.log("error====" + JSON.stringify(error));
+      });
+  };
+
+  const submitOtp = () => {
+    alert("submitted");
+  };
 
   return (
     <ScreenWrapper style={styles.container}>
@@ -191,7 +232,7 @@ export function UserInformation() {
 
       <ScrollView style={styles.mainContainer}>
         <Spacer space={SH(25)} />
-        {profile_photo && userImage ? (
+        {profile_photo ? (
           <View style={styles.UserImageBackground}>
             <Image
               source={{ uri: profile_photo }}
@@ -238,17 +279,39 @@ export function UserInformation() {
             {/* Name */}
             <View style={styles.profileOptions}>
               <Text style={styles.headingText}>{"Name"}</Text>
-              <View style={styles.mainRowView}>
-                <Image
-                  source={userIcon}
-                  style={styles.iconStyle}
-                  resizeMode="contain"
-                />
-                <Text style={styles.titleText}>
-                  {` ${user?.user?.payload?.user_profiles?.firstname}${" "}${
-                    user?.user?.payload?.user_profiles?.lastname
-                  }`}
-                </Text>
+              <View
+                style={[
+                  styles.mainRowView,
+                  { justifyContent: "space-between" },
+                ]}
+              >
+                <View style={styles.mainRowView}>
+                  <Image
+                    source={userIcon}
+                    style={[
+                      styles.iconStyle,
+                      { height: SH(25), width: SH(25) },
+                    ]}
+                    resizeMode="contain"
+                  />
+                  <Text style={styles.titleText}>
+                    {`${user?.getUserProfile?.user_profiles?.firstname}${" "}${
+                      user?.getUserProfile?.user_profiles?.lastname
+                    }`}
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  onPress={() => {
+                    setOpenModalState("name");
+                    bottomSheetRef.current.open();
+                  }}
+                >
+                  <Image
+                    source={rightArrowThin}
+                    resizeMode="contain"
+                    style={styles.iconStyle}
+                  />
+                </TouchableOpacity>
               </View>
 
               <Spacer space={SH(18)} />
@@ -257,16 +320,39 @@ export function UserInformation() {
 
             {/* Email */}
             <View style={styles.profileOptions}>
-              <Text style={styles.headingText}>{"Email address"}</Text>
-              <View style={styles.mainRowView}>
-                <Image
-                  source={email}
-                  style={styles.iconStyle}
-                  resizeMode="contain"
-                />
-                <Text style={styles.titleText}>
-                  {user?.user?.payload?.email}
-                </Text>
+              <View style={styles.rowView}>
+                <Text style={styles.headingText}>{"Email address"}</Text>
+                {/* {user?.getUserProfile?.user_profiles?.is_email_verified ===
+                  false && (
+                  <TouchableOpacity
+                    onPress={() => {
+                      setOpenModalState("email");
+                      sendEmail();
+                    }}
+                  >
+                    <Text style={styles.verifyEmailText}>{"Verify Email"}</Text>
+                  </TouchableOpacity>
+                )} */}
+              </View>
+              <View style={styles.rowView}>
+                <View style={styles.mainRowView}>
+                  <Image
+                    source={email}
+                    style={styles.iconStyle}
+                    resizeMode="contain"
+                  />
+                  <Text style={styles.titleText}>
+                    {user?.user?.payload?.email}
+                  </Text>
+                </View>
+                {user?.getUserProfile?.user_profiles?.is_email_verified ===
+                  true && (
+                  <Image
+                    source={roundCheck}
+                    resizeMode="contain"
+                    style={{ height: SH(20) }}
+                  />
+                )}
               </View>
 
               <Spacer space={SH(18)} />
@@ -276,15 +362,22 @@ export function UserInformation() {
             {/* phone number */}
             <View style={styles.profileOptions}>
               <Text style={styles.headingText}>{"Phone number"}</Text>
-              <View style={styles.mainRowView}>
+              <View style={styles.rowView}>
+                <View style={styles.mainRowView}>
+                  <Image
+                    source={call}
+                    style={styles.iconStyle}
+                    resizeMode="contain"
+                  />
+                  <Text style={styles.titleText}>
+                    {`${user?.user?.payload?.user_profiles?.phone_code} ${user?.user?.payload?.user_profiles?.phone_no}`}
+                  </Text>
+                </View>
                 <Image
-                  source={call}
-                  style={styles.iconStyle}
+                  source={verifiedCheck}
+                  style={styles.verifyCheck}
                   resizeMode="contain"
                 />
-                <Text style={styles.titleText}>
-                  {`${user?.user?.payload?.user_profiles?.phone_code} ${user?.user?.payload?.user_profiles?.phone_no}`}
-                </Text>
               </View>
 
               <Spacer space={SH(18)} />
@@ -292,26 +385,33 @@ export function UserInformation() {
             <Spacer space={SH(5)} />
 
             {/* ssn */}
-            {user?.user?.payload?.user_profiles?.ssn_number !== null && (
-              <>
-                <View style={styles.profileOptions}>
-                  <Text style={styles.headingText}>{"SSN"}</Text>
-                  <View style={styles.mainRowView}>
+
+            <View style={styles.profileOptions}>
+              <Text style={styles.headingText}>{"SSN"}</Text>
+              <View style={styles.rowView}>
+                <View style={styles.mainRowView}>
+                  <Image
+                    source={calendar}
+                    style={styles.iconStyle}
+                    resizeMode="contain"
+                  />
+                  <Text style={styles.titleText}>
+                    {`  ${maskedSSN || "_ _ _ _ _ _ _ _ _"}`}
+                  </Text>
+                </View>
+                {user?.getUser?.payload?.user_profiles?.ssn_number != null ||
+                  (user?.user?.payload?.user_profiles?.ssn_number != null && (
                     <Image
-                      source={calendar}
-                      style={styles.iconStyle}
+                      source={verifiedCheck}
+                      style={styles.verifyCheck}
                       resizeMode="contain"
                     />
-                    <Text style={styles.titleText}>
-                      {`  ${user?.user?.payload?.user_profiles?.phone_code} ${user?.user?.payload?.user_profiles?.phone_no}`}
-                    </Text>
-                  </View>
+                  ))}
+              </View>
 
-                  <Spacer space={SH(18)} />
-                </View>
-                <Spacer space={SH(5)} />
-              </>
-            )}
+              <Spacer space={SH(18)} />
+            </View>
+            <Spacer space={SH(5)} />
 
             {/* Date of Birth*/}
             <View style={styles.profileOptions}>
@@ -372,8 +472,103 @@ export function UserInformation() {
           </View>
         </View>
       </Modal>
-      {isLoading ? <Loader message="Loading profile image..." /> : null}
+      <RBSheet
+        animationType="slide"
+        ref={bottomSheetRef}
+        customStyles={{
+          wrapper: styles.wrapperStyle,
+          container: styles.containerStyle,
+          draggableIcon: styles.containerStyle,
+        }}
+      >
+        <View style={{ padding: SH(20) }}>
+          <TouchableOpacity
+            style={{ alignSelf: "flex-end" }}
+            onPress={() => {
+              setOpenModalState("");
+              bottomSheetRef.current.close();
+            }}
+          >
+            <Image
+              source={crossBlack}
+              resizeMode="contain"
+              style={{ height: SH(30), width: SH(30) }}
+            />
+          </TouchableOpacity>
+
+          <Spacer space={SH(15)} />
+
+          {openModalState === "name" && (
+            <View>
+              <Text>{"First Name"}</Text>
+              <TextField
+                style={{
+                  borderWidth: 0.5,
+                  borderRadius: SH(5),
+                  height: SH(45),
+                }}
+                onChangeText={setNewFirstName}
+              />
+              <Spacer space={SH(15)} />
+              <Text>{"Last Name"}</Text>
+              <TextField
+                style={{
+                  borderWidth: 0.5,
+                  borderRadius: SH(5),
+                  height: SH(45),
+                }}
+                onChangeText={setNewLastName}
+              />
+              <Spacer space={SH(30)} />
+
+              <Button
+                title={strings.buttonText.submit}
+                onPress={() => changeName()}
+              />
+            </View>
+          )}
+
+          {openModalState === "email" && (
+            <View>
+              <Text style={styles.labelTextStyle}>
+                {"Verify your Email Address"}
+              </Text>
+              <Spacer space={SH(10)} backgroundColor={COLORS.transparent} />
+              <CodeField
+                ref={codeFieldRef}
+                {...prop}
+                value={value}
+                autoFocus={true}
+                returnKeyType={"done"}
+                cellCount={CELL_COUNT}
+                onChangeText={setValue}
+                keyboardType={"number-pad"}
+                textContentType={"oneTimeCode"}
+                onSubmitEditing={Keyboard.dismiss}
+                rootStyle={styles.alignSelfCenter}
+                renderCell={({ index, symbol, isFocused }) => (
+                  <View
+                    key={index}
+                    style={styles.cellRoot}
+                    onLayout={getCellOnLayoutHandler(index)}
+                  >
+                    <Text style={styles.cellText}>
+                      {symbol || (isFocused ? <Cursor /> : null)}
+                    </Text>
+                  </View>
+                )}
+              />
+
+              <Spacer space={SH(100)} />
+              <View>
+                <Button title={"Verify"} onPress={() => submitOtp()} />
+              </View>
+            </View>
+          )}
+        </View>
+      </RBSheet>
+      {isLoading ? <Loader message="Updating Profile photo..." /> : null}
+      {isLoadingName ? <Loader message="Updating..." /> : null}
     </ScreenWrapper>
   );
 }
-3;

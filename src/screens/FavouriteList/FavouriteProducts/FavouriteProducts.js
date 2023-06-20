@@ -5,9 +5,16 @@ import { useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { styles } from "./FavouriteProducts.styles";
 import { SH, SW } from "@/theme";
+import { Loader } from "@/components/Loader";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/actions/UserActions";
 
 export function FavouriteProducts() {
   const favouriteProducts = useSelector(getUser);
+
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_FAVOURITE_PRODUCTS], state)
+  );
 
   const renderItem = ({ item }) => {
     return (
@@ -32,8 +39,11 @@ export function FavouriteProducts() {
   };
   return (
     <ScreenWrapper containerPropStyle={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {favouriteProducts?.getFavouriteProducts.map((item, index) => (
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ paddingHorizontal: SW(20) }}
+      >
+        {favouriteProducts?.getFavouriteProducts?.map((item, index) => (
           <View key={index}>
             <Text style={styles.sectionHeaderName}>{item?.sellerName} </Text>
 
@@ -50,6 +60,7 @@ export function FavouriteProducts() {
           </View>
         ))}
       </ScrollView>
+      {isLoading && <Loader message="Loading your Favourite Products ..." />}
     </ScreenWrapper>
   );
 }

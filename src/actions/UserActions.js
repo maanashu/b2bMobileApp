@@ -641,8 +641,9 @@ export const login =
         screenName
       );
       dispatch(loginSuccess(user));
-      // dispatch(getUserProfile(user?.payload?.uuid));
+      dispatch(getUserProfile(user?.payload?.uuid));
       dispatch(getWalletBalance());
+      dispatch(getSettings());
     } catch (error) {
       dispatch(loginError(error.message));
     }
@@ -691,14 +692,17 @@ export const verifyOtp = (id, value) => async (dispatch) => {
     dispatch(verifyOtpError(error));
   }
 };
-export const sendEmailOtp = (id, value) => async (dispatch) => {
+export const sendEmailOtp = (email) => async (dispatch) => {
   dispatch(emailOtpRequest());
-  try {
-    const res = await UserController.sendEmailOtp(id, value);
-    dispatch(emailOtpSuccess(res));
-  } catch (error) {
-    dispatch(emailOtpError(error));
-  }
+  return UserController.sendEmailOtp(email)
+    .then((res) => {
+      dispatch(emailOtpSuccess(res));
+      return res;
+    })
+    .catch((error) => {
+      dispatch(emailOtpError(error));
+      throw error;
+    });
 };
 
 export const register = (data) => async (dispatch) => {
@@ -708,7 +712,17 @@ export const register = (data) => async (dispatch) => {
 
     dispatch(registerSuccess(res));
     dispatch(registrationData(data));
-    // dispatch(getUser(res?.payload?.id));
+    dispatch(
+      updateUserSettings({
+        notification_status: true,
+        push_notification_status: true,
+        chat_notification_status: true,
+        promotion_notification_status: true,
+        order_notification_status: true,
+        feeds_notification_status: true,
+        rqf_notification_status: true,
+      })
+    );
   } catch (error) {
     dispatch(registerError(error.message));
   }
@@ -747,13 +761,14 @@ export const getSettings = () => async (dispatch) => {
 
 export const getWalletUserProfile = (uuid) => async (dispatch) => {
   dispatch(getWalletUserProfileRequest());
-  try {
-    const res = await UserController.getWalletUserProfile(uuid);
-    console.log("success");
-    dispatch(getWalletUserProfileSuccess(res.payload));
-  } catch (error) {
-    dispatch(getWalletUserProfileError(error.message));
-  }
+  return UserController.getWalletUserProfile(uuid)
+    .then((res) => {
+      dispatch(getWalletUserProfileSuccess(res.payload));
+      return res;
+    })
+    .catch((error) => {
+      dispatch(getWalletUserProfileError(error.message));
+    });
 };
 
 export const addUserLocation = (data) => async (dispatch) => {
@@ -966,6 +981,7 @@ export const editProfile = (id, data) => async (dispatch) => {
   return UserController.editProfileController(id, data)
     .then((res) => {
       dispatch(editProfileSuccess(res));
+      dispatch(getUserProfile(res?.payload?.user?.unique_uuid));
       return res;
     })
     .catch((error) => {

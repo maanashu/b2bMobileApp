@@ -4,7 +4,6 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
     backgroundColor: "#F9F9F9",
   },
   sectionHeaderName: {

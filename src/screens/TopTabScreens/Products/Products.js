@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import {
-  BackHandler,
   Dimensions,
   FlatList,
   Image,
@@ -47,7 +46,7 @@ import HomeCategorySkeleton, {
 import { getUser } from "@/selectors/UserSelectors";
 import { getSellers } from "@/actions/UserActions";
 import { useIsFocused } from "@react-navigation/native";
-import { emptyCart, getCart } from "@/actions/OrderAction";
+import { getCart } from "@/actions/OrderAction";
 
 export function Products({ navigation }) {
   const listRef = useRef();

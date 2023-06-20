@@ -6,7 +6,7 @@ import { TextStyles } from "@/theme";
 
 const styles = StyleSheet.create({
   input: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    // borderBottomWidth: StyleSheet.hairlineWidth,
     marginVertical: 2,
     paddingVertical: 5,
   },

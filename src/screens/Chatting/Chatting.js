@@ -6,19 +6,12 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, {
-  useRef,
-  useEffect,
-  useState,
-  useCallback,
-  useMemo,
-} from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { styles } from "./Chatting.styles";
 import { ScreenWrapper, Spacer } from "@/components";
-import { SH, SW } from "@/theme/ScalerDimensions";
+import { SH } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { messageSend, attachPic, addAttachment, closeX } from "@/assets";
-import { MakeAnOffer } from "@/screens";
 import {
   GiftedChat,
   Send,
@@ -27,7 +20,6 @@ import {
   Bubble,
 } from "react-native-gifted-chat";
 import { ms } from "react-native-size-matters";
-import BottomSheet from "@gorhom/bottom-sheet";
 import ImageCropPicker from "react-native-image-crop-picker";
 import {
   BottomOptions,
@@ -42,7 +34,7 @@ import {
 } from "./BottomSheet";
 
 import { ChatHeader } from "@/components";
-import { navigate, navigationRef } from "@/navigation/NavigationRef";
+import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import DocumentPicker from "react-native-document-picker";
 import { useDispatch, useSelector } from "react-redux";

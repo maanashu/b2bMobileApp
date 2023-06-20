@@ -55,8 +55,6 @@ export function Profile() {
     user?.user?.payload?.user_profiles?.profile_photo ||
     user?.getUserProfile?.user_profiles?.profile_photo;
 
-  console.log("location", user?.user?.payload?.user_profiles?.current_address);
-
   const logoutUser = () => {
     dispatch(logout());
     dispatch(logoutOrder());
@@ -248,11 +246,11 @@ export function Profile() {
                 />
               ) : (
                 <Image
-                  source={userPhoto}
+                  source={userIcon}
                   resizeMode="contain"
                   style={{
-                    height: ms(40),
-                    width: ms(40),
+                    height: ms(30),
+                    width: ms(30),
                     tintColor: COLORS.darkGrey,
                   }}
                 />
@@ -274,24 +272,25 @@ export function Profile() {
                     />
                   </TouchableOpacity>
                 </View>
-
-                <View style={styles.mapIconView}>
-                  <Image
-                    source={pinPoint}
-                    resizeMode="stretch"
-                    style={{ height: ms(20), width: ms(20) }}
-                  />
-                  <Text style={styles.addressText}>
-                    {user?.user?.payload?.user_profiles?.current_address
-                      ?.street_address +
-                      " " +
-                      user?.user?.payload?.user_profiles?.current_address
-                        ?.state +
-                      " ," +
-                      user?.user?.payload?.user_profiles?.current_address
-                        ?.zipcode}
-                  </Text>
-                </View>
+                {user?.user?.payload?.user_profiles?.current_address && (
+                  <View style={styles.mapIconView}>
+                    <Image
+                      source={pinPoint}
+                      resizeMode="stretch"
+                      style={{ height: ms(20), width: ms(20) }}
+                    />
+                    <Text style={styles.addressText}>
+                      {user?.user?.payload?.user_profiles?.current_address
+                        ?.street_address +
+                        " " +
+                        user?.user?.payload?.user_profiles?.current_address
+                          ?.state +
+                        " ," +
+                        user?.user?.payload?.user_profiles?.current_address
+                          ?.zipcode}
+                    </Text>
+                  </View>
+                )}
 
                 <Text style={styles.manufacturerText}>
                   {user?.user?.payload?.user_profiles?.seller_type === null

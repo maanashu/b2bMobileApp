@@ -210,6 +210,7 @@ export function NeedMoreHelp(props) {
       headers: {
         "Content-Type": "multipart/form-data",
         Accept: "application/json",
+        "app-name": "b2b",
       },
     })
       .then((resp) => {

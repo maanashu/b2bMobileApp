@@ -705,16 +705,13 @@ export function PersonalInformation(params) {
                 />
               </View>
 
-              <Spacer space={SH(40)} />
+              <Spacer space={SH(10)} />
             </View>
-
-            <Spacer space={SH(50)} />
           </View>
         </KeyboardAwareScrollView>
         <View style={{ justifyContent: "flex-end", padding: SW(20) }}>
           <Button
             onPress={submit}
-            pending={isLoading}
             style={{ zIndex: -99 }}
             title={strings.buttonText.next}
           />

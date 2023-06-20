@@ -6,9 +6,16 @@ import { getUser } from "@/selectors/UserSelectors";
 import { styles } from "./FavouriteSellers.styles";
 import { ScreenWrapper, Spacer } from "@/components";
 import { SH } from "@/theme";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/actions/UserActions";
+import { Loader } from "@/components/Loader";
 
 export function FavouriteSellers() {
   const sellerList = useSelector(getUser)?.getFavouriteSellers;
+
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_FAVOURITE_SELLERS], state)
+  );
   const renderItem = ({ item }) => (
     <>
       <ImageBackground
@@ -67,6 +74,8 @@ export function FavouriteSellers() {
         removeClippedSubviews={true}
         keyExtractor={(item) => item.id}
       />
+
+      {isLoading && <Loader message="Loading your Favourite Sellers ..." />}
     </ScreenWrapper>
   );
 }

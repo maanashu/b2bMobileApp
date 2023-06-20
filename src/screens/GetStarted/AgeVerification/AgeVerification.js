@@ -46,7 +46,7 @@ export function AgeVerification(props) {
   const getUser = useSelector(getuser);
   const getKycData = useSelector(getKyc);
   const screen = props?.route?.params?.screen;
-  const uuid = getUser?.user?.payload?.uuid ?? getUser?.registered?.uuid;
+  const uuid = getUser?.user?.payload?.uuid || getUser?.registered?.uuid;
 
   const [key, setKey] = useState("");
   const [open, setOpen] = useState(false);
@@ -171,6 +171,7 @@ export function AgeVerification(props) {
       //     alert("connect bank");
       //   }
       // } else {
+
       if (screen === "business") {
         const res = await dispatch(businessDocumentUpload(data, uuid));
         if (res?.type === TYPES.BUSINESS_DOCUMENTS_UPLOAD_SUCCESS) {
@@ -178,18 +179,20 @@ export function AgeVerification(props) {
           navigate(NAVIGATION.connectBank);
         }
       } else {
-        const res = await dispatch(documentsUpload(data, uuid));
-        if (res?.type === "DOCUMENTS_UPLOAD_SUCCESS") {
-          const walletres = await dispatch(getWalletUserProfile(uuid));
-          if (walletres?.type === "GET_WALLET_USER_SUCCESS") {
-            if (walletData?.walletData?.payload?.type === "business") {
-              navigate(NAVIGATION.businessRegistration);
-            } else {
-              navigate(NAVIGATION.connectBank);
-            }
-          }
-          // }
-        }
+        dispatch(documentsUpload(data, uuid))
+          .then((res) => {
+            dispatch(getWalletUserProfile(uuid)).then((res) => {
+              console.log(JSON.stringify(res));
+              if (walletData?.walletData?.payload?.type === "business") {
+                navigate(NAVIGATION.businessRegistration);
+              } else {
+                navigate(NAVIGATION.connectBank);
+              }
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     }
   };
@@ -416,11 +419,7 @@ export function AgeVerification(props) {
 
           <View style={{ flex: 1 }} />
 
-          <Button
-            onPress={submit}
-            pending={isLoading}
-            title={strings.ageVerification.button}
-          />
+          <Button onPress={submit} title={strings.ageVerification.button} />
         </View>
 
         <ActionSheet
@@ -449,6 +448,7 @@ export function AgeVerification(props) {
           onPress={(index) => openPickerBackHandler(index)}
         />
       </ScrollView>
+      {isLoading && <Loader />}
     </ScreenWrapper>
   );
 }

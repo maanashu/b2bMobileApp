@@ -15,70 +15,8 @@ import { getUser } from "@/selectors/UserSelectors";
 import { useCallback } from "react";
 
 export function NotificationSetting() {
-  // const [allowNoti, setallowNoti] = useState(true);
-  // const [allowPopup, setallowPopup] = useState(true);
-  // const [messages, setMessages] = useState(true);
-  // const [promotions, setPromotions] = useState(true);
-  // const [orders, setOrders] = useState(true);
-  // const [feeds, setFeeds] = useState(true);
-  // const [rqf, setRqf] = useState(true);
-
   const dispatch = useDispatch();
   const settings = useSelector(getUser)?.getUserSettings;
-  const getUserToken = useSelector(getUser)?.user?.payload?.token;
-  console.log("settings", getUserToken);
-
-  // const data = [
-  //   {
-  //     id: 1,
-  //     name: "Allow Notification",
-  //     status: allowNoti,
-  //     setter: setallowNoti,
-  //     value: "notification_status",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Allow Notification popup",
-  //     status: allowPopup,
-  //     setter: setallowPopup,
-  //     value: "push_notification_status",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Chat Messages",
-  //     status: messages,
-  //     setter: setMessages,
-  //     value: "chat_notification_status",
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Promotions",
-  //     status: promotions,
-  //     setter: setPromotions,
-  //     value: "promotion_notification_status",
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Orders",
-  //     status: orders,
-  //     setter: setOrders,
-  //     value: "order_notification_status",
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "Feed",
-  //     status: feeds,
-  //     setter: setFeeds,
-  //     value: "feeds_notification_status",
-  //   },
-  //   {
-  //     id: 7,
-  //     name: "RQF",
-  //     status: rqf,
-  //     setter: setRqf,
-  //     value: "rqf_notification_status",
-  //   },
-  // ];
 
   const notificationData = useMemo(() => {
     const fields = [];
@@ -111,12 +49,9 @@ export function NotificationSetting() {
       [item.fieldType]: !item.fieldStatus,
     };
     dispatch(updateUserSettings(updatedSettings));
-  },[])
-
-  
+  }, []);
 
   const renderNotifications = ({ item, index }) => {
-    console.log(item);
     return (
       <>
         {index <= 1 ? (
@@ -124,7 +59,7 @@ export function NotificationSetting() {
             <Switch
               title={item.fieldName}
               source={item.fieldStatus ? notiToggle : toggleOff}
-              onPress={() => onPressSettingsHandler(item,index)}
+              onPress={() => onPressSettingsHandler(item, index)}
             />
 
             <Spacer space={SH(12)} />
@@ -139,8 +74,8 @@ export function NotificationSetting() {
               <Switch
                 title={item.fieldName}
                 source={item?.fieldStatus ? notiToggle : toggleOff}
-                onPress={() => onPressSettingsHandler(item,index)}
-                />
+                onPress={() => onPressSettingsHandler(item, index)}
+              />
 
               <Spacer space={SH(12)} />
 
@@ -166,7 +101,7 @@ export function NotificationSetting() {
             data={notificationData}
             renderItem={renderNotifications}
             extraData={notificationData}
-            />
+          />
         </View>
       </View>
     </ScreenWrapper>

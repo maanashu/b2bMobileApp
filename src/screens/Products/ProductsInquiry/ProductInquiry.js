@@ -71,7 +71,6 @@ export function ProductInquiry(params) {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
   const token = user?.user?.payload?.token;
-  const kyc = useSelector(getKyc);
 
   const ProductDetail = useSelector(getProductSelector);
   const isLoadingDetails = useSelector((state) =>

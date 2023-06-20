@@ -308,12 +308,15 @@ export const getDocumentTypes = () => async (dispatch) => {
 
 export const documentsUpload = (data, uuid) => async (dispatch) => {
   dispatch(documentsUploadRequest());
-  try {
-    const res = await KycController.documentsUpload(data, uuid);
-    return dispatch(documentsUploadSuccess(res));
-  } catch (error) {
-    dispatch(documentsUploadError(error.message));
-  }
+  return KycController.documentsUpload(data, uuid)
+    .then((res) => {
+      dispatch(documentsUploadSuccess(res));
+      return res;
+    })
+    .catch((error) => {
+      dispatch(documentsUploadError(error.message));
+      throw error;
+    });
 };
 
 export const businessDocumentUpload = (data, uuid) => async (dispatch) => {

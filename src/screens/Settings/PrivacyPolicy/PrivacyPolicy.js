@@ -1,4 +1,4 @@
-import { Text, View, ScrollView } from "react-native";
+import { Text, View, ScrollView, useWindowDimensions } from "react-native";
 import React, { useEffect } from "react";
 import { styles } from "./PrivacyPolicy.styles";
 import { ScreenWrapper, Spacer } from "@/components";
@@ -9,8 +9,11 @@ import { NameHeader } from "@/components";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { getSettings } from "@/actions/UserActions";
+import WebView from "react-native-webview";
 
 export function PrivacyPolicy() {
+  const { height } = useWindowDimensions();
+
   const dispatch = useDispatch();
 
   const settingData = useSelector(getUser);
@@ -37,9 +40,15 @@ export function PrivacyPolicy() {
           <Text style={styles.headingText}>
             {strings.privacyPolicy.welcome}
           </Text>
-          <Text style={styles.paraText}>
-            {settingData?.settings?.privacy_policy}
-          </Text>
+
+          <WebView
+            showsVerticalScrollIndicator={false}
+            nestedScrollEnabled
+            source={{
+              html: `<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body>${settingData?.settings?.privacy_policy}</body></html>`,
+            }}
+            style={{ height: height - SH(200), backgroundColor: "transparent" }}
+          />
 
           {/* <Text style={styles.paraText}>{strings.privacyPolicy.para1}</Text>
 

@@ -1,4 +1,4 @@
-import { View, ScrollView, Text } from "react-native";
+import { View, ScrollView, Text, useWindowDimensions } from "react-native";
 import React, { useEffect } from "react";
 import { styles } from "./TermsConditions.styles";
 import { ScreenWrapper, Spacer } from "@/components";
@@ -9,8 +9,10 @@ import { NameHeader } from "@/components";
 import { useDispatch, useSelector } from "react-redux";
 import { getSettings } from "@/actions/UserActions";
 import { getUser } from "@/selectors/UserSelectors";
+import WebView from "react-native-webview";
 
 export function TermsConditions() {
+  const { height } = useWindowDimensions();
   const dispatch = useDispatch();
 
   const settingData = useSelector(getUser);
@@ -35,66 +37,17 @@ export function TermsConditions() {
           <Text style={styles.headingText}>
             {strings.privacyPolicy.welcome}
           </Text>
-
-          <Text style={styles.paraText}>
-            {settingData?.settings?.terms_and_conditons}
-          </Text>
-          {/* 
-          <Text style={styles.paraText}>{strings.privacyPolicy.para1}</Text>
-
-          <Spacer space={SH(15)} />
-
-          <Text style={styles.paraText}>{strings.privacyPolicy.para2}</Text>
-
-          <Spacer space={SH(15)} />
-
-          <Text style={styles.paraText}>{strings.privacyPolicy.para3}</Text>
-
-          <Spacer space={SH(15)} />
-
-          <Text style={styles.paraText}>{strings.privacyPolicy.para4}</Text>
-
-          <Spacer space={SH(15)} />
-
-          <Text style={styles.paraText}>{strings.privacyPolicy.cookies}</Text>
-
-          <Text style={styles.paraText}>{strings.privacyPolicy.para5}</Text>
-
-          <Spacer space={SH(15)} />
-
-          <Text style={styles.paraText}>{strings.privacyPolicy.para6}</Text>
-
-          <Spacer space={SH(15)} />
-
-          <Text style={styles.paraText}>{strings.privacyPolicy.licenses}</Text>
-
-          <Text style={styles.paraText}>{strings.privacyPolicy.para7}</Text> */}
-
-          {/* <Spacer space={SH(0)} />
-
-          <Text style={styles.paraText}>
-            {strings.privacyPolicy.youMustNot}
-          </Text>
-
-          <Text style={styles.paraText}>{strings.privacyPolicy.para8}</Text>
-
-          <Spacer space={SH(15)} />
-
-          <Text style={styles.paraText}>{strings.privacyPolicy.para9}</Text>
-
-          <Spacer space={SH(0)} />
-
-          <Text style={styles.paraText}>{strings.privacyPolicy.para10}</Text>
-
-          <Spacer space={SH(15)} />
-
-          <Text style={styles.paraText}>
-            {strings.privacyPolicy.yourWarrant}
-          </Text>
-
-          <Spacer space={SH(5)} />
-
-          <Text style={styles.paraText}>{strings.privacyPolicy.para11}</Text> */}
+          <WebView
+            showsVerticalScrollIndicator={false}
+            source={{
+              html: `<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body>${settingData?.settings?.terms_and_conditons}</body></html>`,
+            }}
+            style={{
+              height: height - SH(200),
+              backgroundColor: "transparent",
+              flex: 1,
+            }}
+          />
         </ScrollView>
       </View>
     </ScreenWrapper>

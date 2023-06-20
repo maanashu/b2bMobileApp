@@ -215,8 +215,11 @@ export class KycController {
       HttpClient.post(endpoint, body)
         .then((response) => {
           resolve(response);
+          console.log("docs upload successful");
         })
         .catch((error) => {
+          console.log("docs upload error");
+
           reject(error);
         });
     });

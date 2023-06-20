@@ -158,5 +158,6 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginTop: vs(2),
+    left: SW(-2),
   },
 });

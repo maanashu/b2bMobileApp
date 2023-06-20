@@ -95,16 +95,17 @@ export class UserController {
       HttpClient.post(endpoint, body)
         .then((response) => {
           resolve(response);
-          if (response?.payload?.is_phone_exits) {
+          if (response?.msg == "Email already exist") {
             Toast.show({
               text2: "Email already registered",
               position: "bottom",
               type: "error_toast",
               visibilityTime: 1500,
             });
+            alert("okokokok");
           } else {
             Toast.show({
-              text2: "Email verified",
+              text2: "Otp sent successfully",
               position: "bottom",
               type: "success_toast",
               visibilityTime: 1500,
@@ -112,13 +113,16 @@ export class UserController {
           }
         })
         .catch((error) => {
+          if (error.msg === "Email already exist") {
+            alert("Email already registered");
+          }
           Toast.show({
             text2: error.msg,
             position: "bottom",
             type: "error_toast",
             visibilityTime: 1500,
           });
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }
@@ -422,6 +426,8 @@ export class UserController {
         .then((response) => {
           resolve(response);
           // navigate(NAVIGATION.settings);
+
+          console.log("success api", JSON.stringify(response));
         })
         .catch((error) => {
           console.log("error", JSON.stringify(error));
@@ -663,14 +669,22 @@ export class UserController {
   static async editProfileController(id, data) {
     return new Promise((resolve, reject) => {
       const endpoint = `${USER_URL}${ApiUserInventory.editProfile}/${id}`;
-      const body = {
-        profile_photo: data?.profile_photo,
-      };
+      const body = data.profile_photo
+        ? {
+            profile_photo: data?.profile_photo,
+          }
+        : {
+            firstname: data.firstname,
+            lastname: data.lastname,
+          };
       HttpClient.put(endpoint, body)
         .then((response) => {
           resolve(response);
+          console.log("edit successful", JSON.stringify(response));
         })
         .catch((error) => {
+          console.log("edit error", JSON.stringify(error));
+
           reject(error);
         });
     });

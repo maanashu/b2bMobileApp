@@ -182,6 +182,7 @@ export { default as email } from "@/assets/icons/ic_profile/email.png";
 export { default as rocket } from "@/assets/icons/ic_profile/rocket.png";
 export { default as userFull } from "@/assets/icons/ic_profile/userFull.png";
 export { default as userIcon } from "@/assets/icons/ic_profile/userIcon.png";
+export { default as verifiedCheck } from "@/assets/icons/ic_profile/verifiedCheck.png";
 export { default as camera } from "@/assets/icons/ic_profile/camera.png";
 export { default as bigQr } from "@/assets/icons/ic_profile/bigQrCode.png";
 export { default as shareFull } from "@/assets/icons/ic_profile/shareFull.png";

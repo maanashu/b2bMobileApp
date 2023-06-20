@@ -170,6 +170,7 @@ export function SupportTicket() {
       headers: {
         "Content-Type": "multipart/form-data",
         Accept: "application/json",
+        "app-name": "b2b",
       },
     })
       .then((resp) => {
