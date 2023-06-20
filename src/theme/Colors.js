@@ -40,5 +40,6 @@ export const COLORS = {
   light_peach: "#CCD2E3",
   bright_blue: "#3498DB",
   persian_green: "#00ADA7",
-  transparent: "transparent"
+  transparent: "transparent",
+  silver: "#E1E3E4"
 };

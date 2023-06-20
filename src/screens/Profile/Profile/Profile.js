@@ -1,5 +1,5 @@
 import { useTheme } from "@react-navigation/native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -44,6 +44,8 @@ import { getWallet } from "@/selectors/WalletSelector";
 import { logoutOrder } from "@/actions/OrderAction";
 import { logoutWallet } from "@/actions/WalletActions";
 import { kFormatter } from "@/Utils/GlobalMethods";
+import { getCategorySelector } from "@/selectors/CategorySelectors";
+import { getCoupons } from "@/actions/ProductActions";
 
 export function Profile() {
   const { colors } = useTheme();
@@ -55,6 +57,9 @@ export function Profile() {
     user?.user?.payload?.user_profiles?.profile_photo ||
     user?.getUserProfile?.user_profiles?.profile_photo;
 
+  const categoryData = useSelector(getCategorySelector);
+  const categoryId = categoryData?.categoryList?.data?.[0]?.id;
+
   console.log("location", user?.user?.payload?.user_profiles?.current_address);
 
   const logoutUser = () => {
@@ -62,6 +67,14 @@ export function Profile() {
     dispatch(logoutOrder());
     dispatch(logoutWallet());
   };
+  const body = {
+    category_id: categoryData?.categoryList?.data?.[0]?.id,
+  };
+
+  useEffect(() => {
+    dispatch(getCoupons(body));
+  }, []);
+
   const Data = [
     {
       id: 1,

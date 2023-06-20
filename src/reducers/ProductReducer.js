@@ -8,7 +8,7 @@ const INITIALSTATE = {
   addCoupons: {},
   variantId: {},
   categoryWithProducts: [],
-  savedManufacturerDetail:{}
+  savedManufacturerDetail: {},
 };
 export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
   switch (type) {
@@ -33,12 +33,11 @@ export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         trendingList: [],
       };
-      case TYPES.SAVED_MANUFACTURER_DETAIL_SUCCESS:
-        return {
-          ...state,
-          savedManufacturerDetail:payload?.savedManufacturerDetail
-        };
-  
+    case TYPES.SAVED_MANUFACTURER_DETAIL_SUCCESS:
+      return {
+        ...state,
+        savedManufacturerDetail: payload?.savedManufacturerDetail,
+      };
 
     case TYPES.GET_TRENDING_SELLERS_SUCCESS:
       return {
@@ -48,7 +47,12 @@ export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
     case TYPES.GET_COUPONS_SUCCESS:
       return {
         ...state,
-        coupons: payload.coupons.payload.data,
+        coupons: payload.coupons.payload,
+      };
+    case TYPES.GET_COUPONS_RESET:
+      return {
+        ...state,
+        coupons: [],
       };
     case TYPES.ADD_COUPONS_SUCCESS:
       return {

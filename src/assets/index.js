@@ -304,6 +304,7 @@ export { default as notiToggle } from "@/assets/icons/ic_settings/notiToggle.png
 export { default as circleStar } from "@/assets/icons/ic_business/circleStar.png";
 export { default as clockTiming } from "@/assets/icons/ic_business/clockTiming.png";
 export { default as deliveryParcel } from "@/assets/icons/ic_business/deliveryParcel.png";
+export { default as coupon } from "@/assets/icons/ic_payment/coupon.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

@@ -1,88 +1,50 @@
-import { useWindowDimensions, View, Text } from "react-native";
-import React, { useEffect } from "react";
+import {
+  useWindowDimensions,
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  Image,
+} from "react-native";
+import React, { useEffect, useRef } from "react";
 import { styles } from "./AddCoupon.styles";
 import {
   Button,
   NameHeaderCoins,
   ScreenWrapper,
+  Spacer,
   TextField,
 } from "@/components";
-import { SH } from "@/theme/ScalerDimensions";
+import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { useState } from "react";
-import { backArrow, Fonts } from "@/assets";
+import { backArrow, bank, coupon, Fonts } from "@/assets";
 import { strings } from "@/localization";
 import { CurrentCoupons, PastCoupons } from "@/screens";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addCoupon, getCoupons } from "@/actions/ProductActions";
-import { goBack, navigate } from "@/navigation/NavigationRef";
-import { NAVIGATION } from "@/constants";
+import { goBack } from "@/navigation/NavigationRef";
+import { renderNoData } from "@/components/FlatlistStyling";
+import { getCategorySelector } from "@/selectors/CategorySelectors";
+import FastImage from "react-native-fast-image";
+import { getProductSelector } from "@/selectors/ProductSelectors";
 
 export function AddCoupon(params) {
   const layout = useWindowDimensions();
   const dispatch = useDispatch();
   const [index, setIndex] = React.useState(0);
   const [couponAdd, setcouponAdd] = useState();
+  const categoryData = useSelector(getCategorySelector);
+  const listRef = useRef();
+  const [selectedId, setSelectedId] = useState(
+    categoryData?.categoryList?.data?.[0]?.id
+  );
+  const coupons = useSelector(getProductSelector)?.coupons;
 
-  const [routes] = React.useState([
-    { key: "Current", title: "Current" },
-    { key: "Past", title: "Past" },
-  ]);
-
-  const FirstRoute = () => <CurrentCoupons />;
-  const SecondRoute = () => <PastCoupons />;
-
-  const renderScene = SceneMap({
-    Current: FirstRoute,
-    Past: SecondRoute,
-  });
-  const renderTabBar = (props) => {
-    return (
-      <TabBar
-        {...props}
-        renderLabel={({ focused, route }) => {
-          return (
-            <View
-              style={[
-                styles.tabButtonView,
-                {
-                  borderColor: focused ? COLORS.primary : COLORS.light_border,
-                },
-              ]}
-            >
-              <Text
-                style={{
-                  color: focused ? COLORS.primary : COLORS.text,
-                  textAlignVertical: "center",
-                  fontFamily: focused ? Fonts.SemiBold : Fonts.Regular,
-                }}
-              >
-                {route.title}
-              </Text>
-            </View>
-          );
-        }}
-        indicatorStyle={{ backgroundColor: COLORS.primary }}
-        style={{
-          elevation: 0,
-          backgroundColor: COLORS.white,
-        }}
-        pressColor={COLORS.white}
-        tabStyle={{ width: "auto" }}
-      />
-    );
-  };
-  const body = {
-    page: 1,
-    limit: 10,
-  };
   const data = {
     code: couponAdd,
   };
-  useEffect(() => {
-    dispatch(getCoupons(body));
-  }, []);
 
   const addingCoupons = () => {
     dispatch(addCoupon(data));
@@ -93,8 +55,76 @@ export function AddCoupon(params) {
     //   : navigate(NAVIGATION.profile);
     goBack();
   };
+
+  const getSubCategoryList = (item) => {
+    setSelectedId(item?.id);
+  };
+
+  const renderCategory = ({ item, index }) => (
+    <>
+      <TouchableOpacity
+        style={styles.categoryTouchableView}
+        onPress={() => {
+          getSubCategoryList(item);
+          dispatch(getCoupons({ category_id: item?.id }));
+        }}
+      >
+        <View
+          style={{
+            borderWidth: item?.id === selectedId ? 1 : null,
+            padding: SW(5),
+            borderRadius: SW(30),
+            borderColor:
+              item?.id === selectedId ? COLORS.primary : COLORS.light_grey,
+
+            backgroundColor:
+              item?.id === selectedId ? COLORS.white : COLORS.input_bg,
+          }}
+        >
+          <View style={styles.rowView}>
+            <FastImage
+              source={{ uri: item?.image }}
+              resizeMode="cover"
+              style={styles.categoryImages}
+            />
+            <Text
+              style={{
+                marginHorizontal: SW(2),
+                fontFamily: item.id === selectedId ? Fonts.Bold : Fonts.Regular,
+                color: item?.id === selectedId ? COLORS.primary : COLORS.text,
+              }}
+            >
+              {item?.name}
+            </Text>
+          </View>
+        </View>
+        <Spacer space={SH(5)} />
+      </TouchableOpacity>
+    </>
+  );
+  const renderItem = ({ item }) => {
+    return (
+      <>
+        <View style={styles.Item}>
+          <Image
+            source={{ uri: item?.image }}
+            resizeMode="contain"
+            style={styles.productImageStyle}
+          />
+
+          <Spacer space={SW(10)} />
+
+          <Text numberOfLines={2} style={styles.productName}>
+            {item?.name}
+          </Text>
+        </View>
+
+        <Spacer horizontal space={SW(10)} />
+      </>
+    );
+  };
   return (
-    <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
+    <ScreenWrapper style={{ flex: 1, backgroundColor: "#F9F9F9" }}>
       <NameHeaderCoins
         title={strings.coupons.coupons}
         back={backArrow}
@@ -103,28 +133,59 @@ export function AddCoupon(params) {
       />
 
       <View style={styles.mainContainer}>
-        <View style={{ marginTop: SH(20), marginBottom: SH(10) }}>
-          <TextField
-            style={styles.inputCoupon}
-            placeholder={strings.coupons.couponCode}
-            onChangeText={setcouponAdd}
+        <View style={styles.subContainer}>
+          <View style={styles.flex}>
+            <Text style={styles.text}>{"USD $256"}</Text>
+            <Text style={styles.text2}>{"Saved this month"}</Text>
+          </View>
+          <View style={styles.seprator} />
+          <TouchableOpacity style={styles.addCouponView}>
+            <Image source={coupon} style={styles.coupon} />
+            <Text style={styles.addCoupon}>{"Add Coupon"}</Text>
+          </TouchableOpacity>
+        </View>
+        <Spacer space={SH(10)} />
+
+        <View style={styles.upperView}>
+          <Spacer space={SH(10)} />
+
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            data={categoryData?.categoryList?.data}
+            renderItem={renderCategory}
+            keyExtractor={(item) => item.id}
+            getItemLayout={(data, index) => ({
+              length: SH(75),
+              offset: SH(85) * index,
+              index,
+            })}
+            ListEmptyComponent={renderNoData}
+            ref={listRef}
           />
         </View>
-        <Button
-          style={styles.Button}
-          title={strings.coupons.addCoupon}
-          textStyle={styles.buttonTextStyle}
-          onPress={addingCoupons}
-        />
+        <Spacer space={SH(20)} />
+        <View style={styles.couponView}>
+          {coupons?.map((item, index) => (
+            <View key={index}>
+              <Text style={styles.sectionHeaderName}>
+                {item?.categoryName}
+              </Text>
 
-        <TabView
-          swipeEnabled={true}
-          navigationState={{ index, routes }}
-          renderScene={renderScene}
-          onIndexChange={setIndex}
-          initialLayout={{ width: layout.width }}
-          renderTabBar={renderTabBar}
-        />
+              <Spacer space={SH(15)} />
+
+              <FlatList
+                data={item?.couponData}
+                renderItem={renderItem}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                ListEmptyComponent={renderNoData}
+              />
+
+              <Spacer space={SH(15)} />
+            </View>
+          ))}
+        </View>
       </View>
     </ScreenWrapper>
   );
