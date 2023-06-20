@@ -66,8 +66,12 @@ export function UserInformation() {
   const profile_photo = user?.getUserProfile?.user_profiles?.profile_photo;
   const [openModalState, setOpenModalState] = useState("");
   const [userImage, setUserImage] = useState(profile_photo);
-  const [newFirstName, setNewFirstName] = useState("");
-  const [newLastName, setNewLastName] = useState("");
+  const [newFirstName, setNewFirstName] = useState(
+    user?.getUserProfile?.user_profiles?.firstname
+  );
+  const [newLastName, setNewLastName] = useState(
+    user?.getUserProfile?.user_profiles?.lastname
+  );
 
   const uuid = user?.user?.payload?.uuid;
   const [value, setValue] = useState("");
@@ -96,7 +100,6 @@ export function UserInformation() {
       );
     }
   };
-  console.log("check verified", user?.getUserProfile?.email);
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.UPLOAD_PROFILE_IMAGE], state)
   );
@@ -503,6 +506,7 @@ export function UserInformation() {
                   height: SH(45),
                 }}
                 onChangeText={setNewFirstName}
+                value={newFirstName}
               />
               <Spacer space={SH(15)} />
               <Text>{"Last Name"}</Text>
@@ -513,6 +517,7 @@ export function UserInformation() {
                   height: SH(45),
                 }}
                 onChangeText={setNewLastName}
+                value={newLastName}
               />
               <Spacer space={SH(30)} />
 
