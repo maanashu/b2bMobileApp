@@ -33,7 +33,7 @@ export function FavouriteProducts() {
   return (
     <ScreenWrapper containerPropStyle={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {favouriteProducts?.getFavouriteProducts.map((item, index) => (
+        {favouriteProducts?.getFavouriteProducts?.map((item, index) => (
           <View key={index}>
             <Text style={styles.sectionHeaderName}>{item?.sellerName} </Text>
 
