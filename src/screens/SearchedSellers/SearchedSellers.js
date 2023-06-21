@@ -9,7 +9,7 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import FastImage from "react-native-fast-image";
 import { TYPES } from "@/Types/Types";
-import { Fonts } from "@/assets";
+import { Fonts, image1, image10, image4, staticBackground } from "@/assets";
 
 export function SearchedSellers() {
   const sellers = useSelector(getProductSelector);
@@ -22,11 +22,23 @@ export function SearchedSellers() {
     return (
       <>
         <View style={styles.Item}>
+          {item?.user_profiles?.banner_image?
           <FastImage
-            source={{ uri: item?.user_profiles?.banner_image }}
-            style={{ height: SH(187), borderRadius: SW(5) }}
-            resizeMode="contain"
-          />
+          source={{ uri: item?.user_profiles?.banner_image }}
+          style={{ height: SH(187), borderRadius: SW(5) }}
+          resizeMode="cover"
+        />:
+
+        <FastImage
+        source={staticBackground}
+        style={{ height: SH(187), borderRadius: SW(5) }}
+        resizeMode="cover"
+      />
+
+        }
+          
+         
+
 
           <View
             style={{
@@ -44,9 +56,7 @@ export function SearchedSellers() {
               }}
             >
               {item?.user_profiles?.organization_name ||
-                item?.user_profiles?.firstname +
-                  " " +
-                  item?.user_profiles?.lastname ||
+                item?.user_profiles?.firstname||"Seller" ||
                 "Seller"}
             </Text>
           </View>

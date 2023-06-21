@@ -23,7 +23,6 @@ export const styles = StyleSheet.create({
   },
   Item: {
     borderRadius: SW(8),
-    backgroundColor: "red",
   },
   headerText: {
     color: COLORS.darkGrey,

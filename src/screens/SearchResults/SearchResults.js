@@ -18,7 +18,7 @@ const Tab = createMaterialTopTabNavigator();
 export function SearchResults(props) {
   const dispatch = useDispatch();
 
-  const [searchKeyword, setSearchKeyword] = useState("second");
+  const [searchKeyword, setSearchKeyword] = useState("");
   useEffect(() => {
     const body = {
       page: 1,

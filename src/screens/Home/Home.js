@@ -76,6 +76,7 @@ export function Home() {
   };
   useEffect(() => {
     dispatch(getWalletBalance());
+    
   }, []);
 
   return (

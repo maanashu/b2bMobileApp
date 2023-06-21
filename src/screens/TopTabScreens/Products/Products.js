@@ -69,6 +69,7 @@ export function Products({ navigation }) {
   useEffect(() => {
     LogBox.ignoreAllLogs();
     dispatch(getCart());
+    setSearchedKeyword("")
   }, [isFocused]);
 
   useEffect(() => {
