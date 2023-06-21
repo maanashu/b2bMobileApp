@@ -195,6 +195,7 @@ export class ProductController {
           resolve(response);
         })
         .catch((error) => {
+          console.log("errororrr",JSON.stringify(error))
           Toast.show({
             text2: error.msg,
             position: "bottom",

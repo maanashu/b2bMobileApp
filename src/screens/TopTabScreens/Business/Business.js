@@ -353,10 +353,15 @@ export function Business() {
               navigate(NAVIGATION.searchResults, { keyword: searchedKeyword });
             }
           }}
+         
           setKeyword={setSearchedKeyword}
           keyword={searchedKeyword}
           icon={search}
           clearSearch={() => setSearchedKeyword("")}
+          onPress={()=>{
+            if (searchedKeyword) {
+              navigate(NAVIGATION.searchResults, { keyword: searchedKeyword });
+            }}}
         />
 
         <Spacer space={SH(10)} />

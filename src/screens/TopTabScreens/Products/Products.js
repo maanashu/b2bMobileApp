@@ -261,10 +261,18 @@ export function Products({ navigation }) {
               navigate(NAVIGATION.searchResults, { keyword: searchedKeyword });
             }
           }}
+          onPress={()=>{
+            if (searchedKeyword) {
+              navigate(NAVIGATION.searchResults, { keyword: searchedKeyword });
+            }
+
+
+          }}
           setKeyword={setSearchedKeyword}
           keyword={searchedKeyword}
           icon={search}
           clearSearch={() => setSearchedKeyword("")}
+          
         />
 
         <Spacer space={SH(10)} />
