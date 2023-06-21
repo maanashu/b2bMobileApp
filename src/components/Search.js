@@ -36,6 +36,7 @@ export function Search({
           height: SH(50),
           width: "90%",
           alignSelf: "center",
+          marginTop: 10,
 
           backgroundColor: COLORS.inputBorder,
         },

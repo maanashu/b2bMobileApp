@@ -86,7 +86,7 @@ export function SearchResults(props) {
   return (
     <ScreenWrapper>
       <View style={{ flex: 1 }}>
-        <Spacer space={SH(20)} />
+        <Spacer space={SH(10)} />
         <Search
           icon={leftArrow}
           onPress={() => navigate(NAVIGATION.home)}

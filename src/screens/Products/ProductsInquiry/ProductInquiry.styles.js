@@ -114,6 +114,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 3,
   },
   buyNowIcon: {
     height: SH(40),
@@ -123,6 +124,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 3,
   },
   smallIcons: {
     fontFamily: Fonts.Regular,
@@ -299,7 +301,7 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     flex: 1,
     paddingHorizontal: 10,
-    paddingVertical: SH(15),
+    paddingVertical: SH(10),
   },
   belowImage: {
     flexDirection: "row",

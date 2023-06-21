@@ -346,8 +346,6 @@ export function Business() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{}}
       >
-        <Spacer space={SH(10)} icon={search} />
-
         <Search
           placeholder={strings.business.searchHere}
           onSubmitEditing={() => {

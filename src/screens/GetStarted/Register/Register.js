@@ -346,6 +346,7 @@ export function Register() {
               onPress={() => {
                 submit();
               }}
+              style={styles.loginButton}
             />
           </View>
         </View>

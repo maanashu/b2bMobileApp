@@ -56,7 +56,6 @@ export function EnterPin(params) {
           </TouchableOpacity>
           <Text style={styles.setPin}>{strings.auth.enterPin}</Text>
         </View>
-        <Text style={styles.cancel}>{strings.auth.cancel}</Text>
       </View>
 
       <Spacer space={SH(54)} />

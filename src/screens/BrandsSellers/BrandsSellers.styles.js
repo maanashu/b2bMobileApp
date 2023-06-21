@@ -160,4 +160,8 @@ export const styles = StyleSheet.create({
     width: SW(90),
     borderRadius: SW(10),
   },
+  favIcon: {
+    height: SH(20),
+    width: SW(20),
+  },
 });

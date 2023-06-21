@@ -252,8 +252,6 @@ export function Products({ navigation }) {
 
   return (
     <ScreenWrapper>
-      <Spacer space={SH(10)} />
-
       <ScrollView showsVerticalScrollIndicator={false} ref={listRef}>
         <Search
           placeholder={strings.business.searchHere}

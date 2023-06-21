@@ -58,6 +58,7 @@ export const en = {
     emptyEmployerNo: "Please enter Employer Identification Number",
     invalidBusinessWebsite: "Please enter a valid business website",
     invalidEmployerNo: "Please enter valid Employer Identification Number",
+    otpSent: "OTP Sent"
   },
   personalInformation: {
     email: "Enter you email address",
