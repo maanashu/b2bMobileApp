@@ -227,4 +227,11 @@ export const styles = StyleSheet.create({
     fontSize: SF(14),
     fontFamily: Fonts.SemiBold,
   },
+  loginButton: {
+    backgroundColor: COLORS.primary,
+    borderColor: "transparent",
+    height: SH(54),
+    width: windowWidth * 0.92,
+    alignSelf: "center",
+  },
 });

@@ -16,6 +16,7 @@ import {
   circleStar,
   clockTiming,
   deliveryParcel,
+  fav,
   Fonts,
 } from "@/assets";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,7 +30,7 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
 import { getUser } from "@/selectors/UserSelectors";
-import { getSellers } from "@/actions/UserActions";
+import { getSellers, sellerFavourites } from "@/actions/UserActions";
 import { ShadowStyles } from "@/theme";
 import { TYPES as TYPE } from "@/actions/UserActions";
 
@@ -37,6 +38,7 @@ export function BrandsSellers(params) {
   const dispatch = useDispatch();
   const routeId = params?.route?.params?.categoryId;
   const [selectedId, setSelectedId] = useState([0]);
+  const [favourite, setFavourite] = useState(false);
 
   const brandsData = useSelector(getCategorySelector);
   const user = useSelector(getUser);
@@ -45,10 +47,18 @@ export function BrandsSellers(params) {
     limit: 10,
     category_id: params?.route?.params?.categoryId,
   };
+
+  const getFavouriteSeller = useSelector(getUser)?.getFavouriteSellers;
+  const [matchedIds, setMatchedIds] = useState(new Set());
+
+  useEffect(() => {
+    const idSet = new Set(getFavouriteSeller?.map((item) => item?.seller_id));
+    setMatchedIds(idSet);
+  }, [getFavouriteSeller]);
+
   useEffect(() => {
     dispatch(getBrands(brandBody));
   }, []);
-  // console.log("user: " + JSON.stringify(user?.user?.payload));
 
   useEffect(() => {
     setSelectedId(brandsData?.brandsList?.[0]?.id);
@@ -77,6 +87,11 @@ export function BrandsSellers(params) {
   const isLoadingProducts = useSelector((state) =>
     isLoadingSelector([TYPE.GET_SELLERS], state)
   );
+
+  const colorChange = (item) => {
+    setFavourite(!favourite);
+    dispatch(sellerFavourites({ seller_id: item.id }));
+  };
 
   const renderBrands = ({ item, index }) => (
     <>
@@ -122,81 +137,95 @@ export function BrandsSellers(params) {
     </>
   );
 
-  const renderSellers = ({ item, index }) => (
-    <>
-      <TouchableOpacity
-        style={{
-          backgroundColor: COLORS.white,
-          flex: 1,
-          paddingHorizontal: SW(15),
-          marginHorizontal: SW(20),
-          borderRadius: SW(10),
-          paddingVertical: SH(20),
-          ...ShadowStyles.shadow2,
-        }}
-        onPress={() =>
-          navigate(NAVIGATION.productsBySeller, {
-            sellerId: item?.unique_uuid,
-            idSeller: item?.id,
-          })
-        }
-      >
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <FastImage
-            source={{ uri: item?.user_profiles?.profile_photo }}
-            resizeMode="contain"
-            style={styles.mainImageStyle}
-          />
-          <Spacer horizontal space={SW(15)} />
-          <View>
-            <Text
-              style={{
-                color: COLORS.darkGrey,
-                fontFamily: Fonts.Bold,
-                fontSize: SF(18),
-                left: SW(3),
-              }}
-            >
-              {item?.user_profiles?.organization_name}
-            </Text>
-            <View style={styles.rowAlign}>
+  const renderSellers = ({ item, index }) => {
+    const isMatched = matchedIds?.has(item?.id);
+    return (
+      <>
+        <TouchableOpacity
+          style={{
+            backgroundColor: COLORS.white,
+            flex: 1,
+            paddingHorizontal: SW(15),
+            marginHorizontal: SW(20),
+            borderRadius: SW(10),
+            paddingVertical: SH(15),
+            ...ShadowStyles.shadow2,
+          }}
+          onPress={() =>
+            navigate(NAVIGATION.productsBySeller, {
+              sellerId: item?.unique_uuid,
+              idSeller: item?.id,
+            })
+          }
+        >
+          <View style={{ alignItems: "flex-end" }}>
+            <TouchableOpacity onPress={() => colorChange(item)}>
               <Image
-                source={circleStar}
-                resizeMode="contain"
-                style={styles.iconStyle}
+                source={fav}
+                style={[
+                  styles.favIcon,
+                  { tintColor: isMatched ? "red" : "black" },
+                ]}
               />
-              <Text style={styles.secondaryText}>
-                {item?.sellerRating?.rating}
+            </TouchableOpacity>
+          </View>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <FastImage
+              source={{ uri: item?.user_profiles?.profile_photo }}
+              resizeMode="contain"
+              style={styles.mainImageStyle}
+            />
+            <Spacer horizontal space={SW(15)} />
+            <View>
+              <Text
+                style={{
+                  color: COLORS.darkGrey,
+                  fontFamily: Fonts.Bold,
+                  fontSize: SF(18),
+                  left: SW(3),
+                }}
+              >
+                {item?.user_profiles?.organization_name}
               </Text>
-            </View>
-            <View style={styles.rowAlign}>
-              <Image
-                source={clockTiming}
-                resizeMode="contain"
-                style={styles.iconStyle}
-              />
-              <Text style={styles.secondaryText}>
-                {item?.distance?.time}
-                {" min"}
-              </Text>
-            </View>
-            <View style={styles.rowAlign}>
-              <Image
-                source={deliveryParcel}
-                resizeMode="contain"
-                style={styles.iconStyle}
-              />
-              <Text style={styles.secondaryText}>
-                {item?.deliveryFee}
-                {" Delivery fee"}
-              </Text>
+              <View style={styles.rowAlign}>
+                <Image
+                  source={circleStar}
+                  resizeMode="contain"
+                  style={styles.iconStyle}
+                />
+                <Text style={styles.secondaryText}>
+                  {item?.sellerRating?.rating}
+                </Text>
+              </View>
+              <View style={styles.rowAlign}>
+                <Image
+                  source={clockTiming}
+                  resizeMode="contain"
+                  style={styles.iconStyle}
+                />
+                <Text style={styles.secondaryText}>
+                  {item?.distance?.time}
+                  {" min"}
+                </Text>
+              </View>
+              <View style={styles.rowAlign}>
+                <Image
+                  source={deliveryParcel}
+                  resizeMode="contain"
+                  style={styles.iconStyle}
+                />
+                <Text style={styles.secondaryText}>
+                  {item?.deliveryFee}
+                  {" Delivery fee"}
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
-      </TouchableOpacity>
-      <Spacer space={SH(15)} />
-    </>
-  );
+        </TouchableOpacity>
+        <Spacer space={SH(15)} />
+      </>
+    );
+  };
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <Header title={"Sellers"} back={backArrow} enableBackButton />

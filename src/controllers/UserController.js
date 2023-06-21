@@ -72,13 +72,21 @@ export class UserController {
           if (response?.payload?.is_phone_exits) {
             navigate(NAVIGATION.enterPin, { route: "registered" });
           } else {
+
+            Toast.show({
+              position: "bottom",
+              type: "success_toast",
+              text2: strings.validation.otpSent,
+              visibilityTime: 2000,
+            });
+
             navigate(NAVIGATION.verify, { id: response.payload.id });
           }
 
           resolve(response);
         })
         .catch((error) => {
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }

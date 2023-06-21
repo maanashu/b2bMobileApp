@@ -644,6 +644,8 @@ export const login =
       dispatch(getUserProfile(user?.payload?.uuid));
       dispatch(getWalletBalance());
       dispatch(getSettings());
+      dispatch(getFavouriteSellers());
+      dispatch(getFavouriteProducts());
     } catch (error) {
       dispatch(loginError(error.message));
     }
@@ -827,7 +829,6 @@ export const getUserProfile = (data) => async (dispatch) => {
   try {
     const res = await UserController.getUserProfile(data);
     dispatch(getUserProfileSucess(res));
-    console.log("check resp on action success", JSON.stringify(res));
   } catch (error) {
     console.log("action error", JSON.stringify(error));
     dispatch(getUserProfileError(error.message));
@@ -920,6 +921,7 @@ export const sellerFavourites = (data) => async (dispatch) => {
   try {
     const res = await UserController.sellerFavourites(data);
     dispatch(sellerFavouritesSuccess(res?.payload));
+    dispatch(getFavouriteSellers());
   } catch (error) {
     dispatch(sellerFavouritesError(error.message));
   }
@@ -930,6 +932,7 @@ export const productFavourites = (data) => async (dispatch) => {
   try {
     const res = await UserController.productFavourites(data);
     dispatch(productFavouritesSuccess(res?.payload));
+    dispatch(getFavouriteProducts());
   } catch (error) {
     dispatch(productFavouritesError(error.message));
   }

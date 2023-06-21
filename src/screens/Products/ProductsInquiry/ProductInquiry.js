@@ -318,7 +318,6 @@ export function ProductInquiry(params) {
               />
             )}
           </View>
-          <Spacer space={SH(10)} />
 
           <View style={styles.mainView}>
             <View style={styles.queryIcons}>
