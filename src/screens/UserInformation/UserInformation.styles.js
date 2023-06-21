@@ -127,6 +127,7 @@ export const styles = StyleSheet.create({
     color: COLORS.darkGrey,
     fontFamily: Fonts.Regular,
     fontSize: ms(16),
+    width: "80%",
   },
   imageBackground: {
     alignSelf: "center",

@@ -89,7 +89,10 @@ import {
   ReEnterPin,
   Register,
   ReviewAndPayment,
+  SearchedProducts,
+  SearchedSellers,
   SearchPlaces,
+  SearchResults,
   SelectAddress,
   SelectCity,
   SelectCountry,
@@ -716,6 +719,21 @@ export function AppBottom() {
       <Stack.Screen
         component={FavouriteSellers}
         name={NAVIGATION.favouriteSellers}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={SearchResults}
+        name={NAVIGATION.searchResults}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={SearchedProducts}
+        name={NAVIGATION.searchedProducts}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={SearchedSellers}
+        name={NAVIGATION.searchedSellers}
         options={{ headerShown: false }}
       />
       {/* Home navigator ends here */}

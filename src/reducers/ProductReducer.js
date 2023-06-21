@@ -9,6 +9,7 @@ const INITIALSTATE = {
   variantId: {},
   categoryWithProducts: [],
   savedManufacturerDetail: {},
+  getProductsSellersList: {},
 };
 export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
   switch (type) {
@@ -78,6 +79,16 @@ export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         categoryWithProducts: [],
+      };
+    case TYPES.GET_PRODUCTS_SELLERS_SUCCESS:
+      return {
+        ...state,
+        getProductsSellersList: payload?.getProductsSellersList?.payload,
+      };
+    case TYPES.GET_PRODUCTS_SELLERS_RESET:
+      return {
+        ...state,
+        getProductsSellersList: {},
       };
 
     default:

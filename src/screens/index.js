@@ -103,3 +103,6 @@ export { TrackPlacedOrder } from "@/screens/PlacedOrderStatus/TrackPlacedOrder/T
 export { NewOrders } from "@/screens/Orders/NewOrders/NewOrders";
 export { FavouriteProducts } from "@/screens/FavouriteList/FavouriteProducts/FavouriteProducts";
 export { FavouriteSellers } from "@/screens/FavouriteList/FavouriteSellers/FavouriteSellers";
+export { SearchResults } from "@/screens/SearchResults/SearchResults";
+export { SearchedProducts } from "@/screens/SearchedProducts/SearchedProducts";
+export { SearchedSellers } from "@/screens/SearchedSellers/SearchedSellers";

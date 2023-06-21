@@ -47,7 +47,7 @@ export function Addresses() {
       <View style={[styles.item]}>
         <View style={styles.innerView}>
           <Image
-            source={item.address_type == "Home" ? home : work}
+            source={item.address_type == "Home" || "home" ? home : work}
             resizeMode="contain"
             style={styles.iconStyle}
           />

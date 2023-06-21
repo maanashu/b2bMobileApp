@@ -105,6 +105,7 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.Regular,
     color: COLORS.light_grey,
     fontSize: ms(10),
+    width: "80%",
   },
   manufacturerText: {
     fontFamily: Fonts.SemiBold,

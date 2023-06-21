@@ -102,4 +102,7 @@ export const NAVIGATION = {
   newOrders: "NewOrders",
   favouriteProducts: "FavouriteProducts",
   favouriteSellers: "FavouriteSellers",
+  searchResults: "SearchResults",
+  searchedProducts: "SearchedProducts",
+  searchedSellers: "SearchedSellers",
 };

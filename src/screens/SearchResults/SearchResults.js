@@ -1,32 +1,47 @@
-import React, { useEffect } from "react";
-import { Text, View, useWindowDimensions, BackHandler } from "react-native";
-import { ScreenWrapper } from "@/components";
+import React, { useEffect, useState } from "react";
+import { Text, View } from "react-native";
+import { ScreenWrapper, Spacer } from "@/components";
 import { COLORS } from "@/theme/Colors";
-import { SF, SW } from "@/theme/ScalerDimensions";
+import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { TabBar } from "react-native-tab-view";
-import { Business, NearMe, Products } from "@/screens";
-import { styles } from "./Home.styles";
-import { Fonts } from "@/assets";
-const Tab = createMaterialTopTabNavigator();
-import { HomeHeader } from "@/components/HomeHeader";
+import { SearchedProducts, SearchedSellers } from "@/screens";
+import { styles } from "./SearchResults.styles";
+import { Fonts, backArrow, backIcon, leftArrow } from "@/assets";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { useDispatch } from "react-redux";
+import { searchProductsSellers } from "@/actions/ProductActions";
+import { Search } from "@/components/Search";
+import { goBack, navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
-import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "@/selectors/UserSelectors";
-import { navigate } from "@/navigation/NavigationRef";
-import { previousScreen } from "@/actions/GlobalActions";
-import { getWalletBalance } from "@/actions/WalletActions";
+const Tab = createMaterialTopTabNavigator();
 
-export function Home() {
-  const user = useSelector(getUser);
+export function SearchResults(props) {
   const dispatch = useDispatch();
+
+  const [searchKeyword, setSearchKeyword] = useState("second");
+  useEffect(() => {
+    const body = {
+      page: 1,
+      limit: 10,
+      search: props?.route?.params?.keyword,
+    };
+    dispatch(searchProductsSellers(body));
+  }, []);
+
+  const hitSearch = () => {
+    const searchBody = {
+      page: 1,
+      limit: 10,
+      search: searchKeyword,
+    };
+    dispatch(searchProductsSellers(searchBody));
+  };
 
   const renderTabBar = (props) => {
     return (
       <TabBar
         contentContainerStyle={{
-          paddingHorizontal: SW(40),
-          justifyContent: "center",
+          paddingHorizontal: SW(10),
         }}
         {...props}
         renderLabel={({ focused, route }) => {
@@ -67,37 +82,29 @@ export function Home() {
       />
     );
   };
-  const userLocation = user?.getLocation
-    ? `${user?.getLocation?.[0]?.state}, ${user?.getLocation?.[0]?.country}`
-    : "Add Address";
-  const loginFunction = () => {
-    dispatch(previousScreen(NAVIGATION.home));
-    navigate(NAVIGATION.splash);
-  };
-  useEffect(() => {
-    dispatch(getWalletBalance());
-  }, []);
 
   return (
     <ScreenWrapper>
-      <HomeHeader
-        userLocation={userLocation}
-        onPress={() =>
-          !user?.user?.payload?.token
-            ? loginFunction()
-            : navigate(NAVIGATION.selectAddress)
-        }
-      />
       <View style={{ flex: 1 }}>
+        <Spacer space={SH(20)} />
+        <Search
+          icon={leftArrow}
+          onPress={() => navigate(NAVIGATION.home)}
+          onSubmitEditing={() => {
+            if (searchKeyword) {
+              hitSearch();
+            }
+          }}
+          setKeyword={setSearchKeyword}
+          keyword={searchKeyword}
+          clearSearch={() => setSearchKeyword("")}
+        />
         <Tab.Navigator
           tabBar={(props) => renderTabBar(props)}
           swipeEnabled={false}
         >
-          <Tab.Screen name={NAVIGATION.products} component={Products} />
-          <Tab.Screen name={"Services"} component={Business} />
-          {user?.user?.payload?.token && (
-            <Tab.Screen name={NAVIGATION.nearMe} component={NearMe} />
-          )}
+          <Tab.Screen name={"Products"} component={SearchedProducts} />
+          <Tab.Screen name={"Sellers"} component={SearchedSellers} />
         </Tab.Navigator>
       </View>
     </ScreenWrapper>

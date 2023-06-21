@@ -1,14 +1,17 @@
-import React, { useMemo, useState } from "react";
-import { Image, StyleSheet, View, TextInput } from "react-native";
+import React, { useMemo } from "react";
+import {
+  Image,
+  StyleSheet,
+  View,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import { SF } from "@/theme/ScalerDimensions";
 import { SH } from "@/theme/ScalerDimensions";
 import { SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { searchIcon, Fonts, search } from "@/assets";
+import { Fonts, cross, search } from "@/assets";
 import { moderateScale } from "react-native-size-matters";
-import { strings } from "@/localization";
-import { navigate } from "@/navigation/NavigationRef";
-import { NAVIGATION } from "@/constants";
 
 export function Search({
   style,
@@ -16,9 +19,13 @@ export function Search({
   backRequired,
   placeholder,
   styling,
+  onSubmitEditing,
+  keyword,
+  setKeyword,
+  icon,
+  onPress,
+  clearSearch,
 }) {
-  const [code, setCode] = useState("");
-
   const styles = useMemo(
     () =>
       StyleSheet.create({
@@ -58,20 +65,35 @@ export function Search({
           : [styles.rowCards]
       }
     >
-      <Image source={search} style={styles.imageStyle} />
+      <TouchableOpacity activeOpacity={1} onPress={onPress}>
+        <Image source={icon} style={styles.imageStyle} />
+      </TouchableOpacity>
       <TextInput
         keyboardType="default"
         returnKeyType="search"
-        // onSubmitEditing={() => {
-        //   navigate(NAVIGATION.search, { code: code });
-        //   setCode({ code: "" });
-        // }}
+        onSubmitEditing={onSubmitEditing}
         style={[styles.inputStyle, { styling }]}
         placeholder={placeholder}
         placeholderTextColor={"#A7A7A7"}
-        onChangeText={setCode}
-        value={code}
+        onChangeText={setKeyword}
+        value={keyword}
       />
+      {keyword && (
+        <TouchableOpacity
+          style={{
+            marginRight: SW(15),
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          onPress={clearSearch}
+        >
+          <Image
+            source={cross}
+            resizeMode="contain"
+            style={{ height: SH(20), width: SH(20), tintColor: "black" }}
+          />
+        </TouchableOpacity>
+      )}
     </View>
   );
 }

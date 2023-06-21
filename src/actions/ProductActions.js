@@ -125,6 +125,23 @@ const catWithProductReset = () => ({
   payload: null,
 });
 
+const getProductsSellersRequest = () => ({
+  type: TYPES.GET_PRODUCTS_SELLERS_REQUEST,
+  payload: null,
+});
+const getProductsSellersSuccess = (getProductsSellersList) => ({
+  type: TYPES.GET_PRODUCTS_SELLERS_SUCCESS,
+  payload: { getProductsSellersList },
+});
+const getProductsSellersError = (error) => ({
+  type: TYPES.GET_PRODUCTS_SELLERS_ERROR,
+  payload: { error },
+});
+const getProductsSellersReset = () => ({
+  type: TYPES.GET_PRODUCTS_SELLERS_RESET,
+  payload: null,
+});
+
 export const saveManufacturerDetail = (savedManufacturerDetail) => ({
   type: TYPES.SAVED_MANUFACTURER_DETAIL_SUCCESS,
   payload: { savedManufacturerDetail },
@@ -234,28 +251,16 @@ export const getCategoriesWithProducts = (data) => async (dispatch) => {
   }
 };
 
-// export const getProduct =
-//   (selectedId, subSelectedId, brandSelectedId, sellerID) =>
-//   async (dispatch) => {
-//     dispatch(getProductRequest());
-//     try {
-//       const res = await RetailController.getProduct(
-//         selectedId,
-//         subSelectedId,
-//         brandSelectedId,
-//         sellerID
-//       );
-//       dispatch(getProductSuccess(res));
-//     } catch (error) {
-//       dispatch(getProductError(error.message));
-//     }
-//   };
-// export const getSearchProduct = (search, sellerID) => async (dispatch) => {
-//   dispatch(getSeaProductRequest());
-//   try {
-//     const res = await RetailController.getSearchProduct(search, sellerID);
-//     dispatch(getSeaProductSuccess(res));
-//   } catch (error) {
-//     dispatch(getSeaProductError(error.message));
-//   }
-// };
+export const searchProductsSellers = (data) => async (dispatch) => {
+  dispatch(getProductsSellersRequest());
+  try {
+    const res = await ProductController.searchProductsSellers(data);
+    dispatch(getProductsSellersSuccess(res));
+  } catch (error) {
+    if (error?.statusCode === 204) {
+      dispatch(getProductsSellersReset());
+    } else {
+      dispatch(getProductsSellersError(error.message));
+    }
+  }
+};

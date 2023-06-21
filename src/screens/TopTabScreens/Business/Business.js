@@ -24,6 +24,7 @@ import {
   Fonts,
   certifiedLogo,
   Tobacco,
+  search,
 } from "@/assets";
 import { NAVIGATION } from "@/constants";
 import { Search } from "@/components/Search";
@@ -58,6 +59,8 @@ export function Business() {
   const user = useSelector(getUser);
   const categoryData = useSelector(getCategorySelector);
   const ProductsData = useSelector(getProductSelector);
+
+  const [searchedKeyword, setSearchedKeyword] = useState("");
 
   const categoryObject = {
     page: 1,
@@ -343,9 +346,20 @@ export function Business() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{}}
       >
-        <Spacer space={SH(10)} />
+        <Spacer space={SH(10)} icon={search} />
 
-        <Search placeholder={strings.business.searchHere} />
+        <Search
+          placeholder={strings.business.searchHere}
+          onSubmitEditing={() => {
+            if (searchedKeyword) {
+              navigate(NAVIGATION.searchResults, { keyword: searchedKeyword });
+            }
+          }}
+          setKeyword={setSearchedKeyword}
+          keyword={searchedKeyword}
+          icon={search}
+          clearSearch={() => setSearchedKeyword("")}
+        />
 
         <Spacer space={SH(10)} />
         {categoryData?.serviceCategoryList?.data?.length > 0 ? (

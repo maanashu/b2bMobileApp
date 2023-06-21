@@ -20,7 +20,7 @@ import {
 import { COLORS } from "@/theme/Colors";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { navigate } from "@/navigation/NavigationRef";
-import { forward, threeDots } from "@/assets";
+import { forward, search, threeDots } from "@/assets";
 
 import { ms } from "react-native-size-matters";
 import { NAVIGATION } from "@/constants";
@@ -56,6 +56,7 @@ export function Products({ navigation }) {
   const BannerData = useSelector(getBannerSelector);
   const ProductsData = useSelector(getProductSelector);
   const [selectedId, setSelectedId] = useState("");
+  const [searchedKeyword, setSearchedKeyword] = useState("");
 
   const isFocused = useIsFocused();
   const categoryObject = {
@@ -254,7 +255,18 @@ export function Products({ navigation }) {
       <Spacer space={SH(10)} />
 
       <ScrollView showsVerticalScrollIndicator={false} ref={listRef}>
-        <Search placeholder={strings.business.searchHere} />
+        <Search
+          placeholder={strings.business.searchHere}
+          onSubmitEditing={() => {
+            if (searchedKeyword) {
+              navigate(NAVIGATION.searchResults, { keyword: searchedKeyword });
+            }
+          }}
+          setKeyword={setSearchedKeyword}
+          keyword={searchedKeyword}
+          icon={search}
+          clearSearch={() => setSearchedKeyword("")}
+        />
 
         <Spacer space={SH(10)} />
 

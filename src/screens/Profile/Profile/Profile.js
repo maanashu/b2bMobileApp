@@ -53,9 +53,7 @@ export function Profile() {
   const user = useSelector(getUser);
   const wallet = useSelector(getWallet);
   const token = user?.user?.payload?.token;
-  const profile_photo =
-    user?.user?.payload?.user_profiles?.profile_photo ||
-    user?.getUserProfile?.user_profiles?.profile_photo;
+  const profile_photo = user?.getUserProfile?.user_profiles?.profile_photo;
 
   const categoryData = useSelector(getCategorySelector);
   const categoryId = categoryData?.categoryList?.data?.[0]?.id;
@@ -274,8 +272,8 @@ export function Profile() {
               <View style={styles.userInnerView}>
                 <View style={styles.usernameRowView}>
                   <Text style={styles.usernameText}>
-                    {`${user?.user?.payload?.user_profiles?.firstname}${" "}${
-                      user?.user?.payload?.user_profiles?.lastname
+                    {`${user?.getUserProfile?.user_profiles?.firstname}${" "}${
+                      user?.getUserProfile?.user_profiles?.lastname
                     }`}
                   </Text>
 
@@ -300,7 +298,7 @@ export function Profile() {
                         " " +
                         user?.user?.payload?.user_profiles?.current_address
                           ?.state +
-                        " ," +
+                        ", " +
                         user?.user?.payload?.user_profiles?.current_address
                           ?.zipcode}
                     </Text>
