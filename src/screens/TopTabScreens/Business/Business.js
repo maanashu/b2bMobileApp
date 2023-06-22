@@ -91,14 +91,14 @@ export function Business() {
         category_ids: categoryData?.serviceCategoryList?.data?.[0]?.id,
       })
     );
-    // dispatch(
-    //   getManufacturers({
-    //     page: 1,
-    //     limit: 10,
-    //     is_manufacture: "true",
-    //     delivery_options: "4",
-    //   })
-    // );
+    dispatch(
+      getManufacturers({
+        page: 1,
+        limit: 10,
+        is_manufacture: "true",
+        delivery_options: "4",
+      })
+    );
   }, [isFocused]);
 
   const categoryHandler = (item) => {
