@@ -39,6 +39,11 @@ export function ProductsBySeller(params) {
     dispatch(getProduct(productObject));
   }, []);
 
+  console.log(
+    "params?.route?.params?.idSeller",
+    params?.route?.params?.idSeller
+  );
+
   const isLoadingProducts = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT], state)
   );
@@ -80,8 +85,9 @@ export function ProductsBySeller(params) {
       navigate(NAVIGATION.productInquiry, {
         itemId: item.id,
         seller_id: item?.supplies[0]?.seller_id,
-        id:params?.route?.params?.idSeller
+        id: params?.route?.params?.idSeller,
       });
+      // alert(item?.supplies[0]?.seller_id);
     }
   };
 

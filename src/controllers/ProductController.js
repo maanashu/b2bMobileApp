@@ -193,9 +193,10 @@ export class ProductController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
+          console.log("sucess", JSON.stringify(response));
         })
         .catch((error) => {
-          console.log("errororrr",JSON.stringify(error))
+          console.log("errororrr", JSON.stringify(error));
           Toast.show({
             text2: error.msg,
             position: "bottom",

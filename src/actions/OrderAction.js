@@ -177,6 +177,7 @@ export const getCart = () => async (dispatch) => {
   }
 };
 export const createCartAction = (data, ArrayToRoute) => async (dispatch) => {
+  console.log("check data", JSON.stringify(data));
   dispatch(createCartRequest());
   try {
     const res = await OrderController.createCartController(data, ArrayToRoute);
@@ -202,16 +203,16 @@ export const getShippingServices = () => async (dispatch) => {
 export const removeOneProductfromCart =
   (cartId, cartProductId) => async (dispatch) => {
     dispatch(removeOneProductfromCartRequest());
-    try {
-      const res = await OrderController.removeOneProductfromCart(
-        cartId,
-        cartProductId
-      );
-      dispatch(removeOneProductfromCartSuccess(res));
-      dispatch(getCart());
-    } catch (error) {
-      dispatch(removeOneProductfromCartError(error.message));
-    }
+    return OrderController.removeOneProductfromCart(cartId, cartProductId)
+      .then((res) => {
+        dispatch(removeOneProductfromCartSuccess(res));
+        dispatch(getCart());
+        return res;
+      })
+      .catch((error) => {
+        dispatch(removeOneProductfromCartError(error.message));
+        throw error;
+      });
   };
 export const emptyCart = () => async (dispatch) => {
   dispatch(emptyCartRequest());

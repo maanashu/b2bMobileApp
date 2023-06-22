@@ -91,20 +91,19 @@ export function Business() {
         category_ids: categoryData?.serviceCategoryList?.data?.[0]?.id,
       })
     );
-    dispatch(
-      getManufacturers({
-        page: 1,
-        limit: 10,
-        is_manufacture: "true",
-        delivery_options: "4",
-      })
-    );
+    // dispatch(
+    //   getManufacturers({
+    //     page: 1,
+    //     limit: 10,
+    //     is_manufacture: "true",
+    //     delivery_options: "4",
+    //   })
+    // );
   }, [isFocused]);
 
   const categoryHandler = (item) => {
     setmanufacturersCategoryId(item.id);
   };
-
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_SUB_CATEGORY], state)
   );
@@ -149,7 +148,6 @@ export function Business() {
       image: boots,
     },
   ];
-
   const renderCategoryItem = ({ item, index }) => {
     const itemCount = categoryData?.serviceCategoryList?.data.length;
     return (
@@ -214,7 +212,6 @@ export function Business() {
       <Text style={styles.commonFlatlistText}>{item.subtitle}</Text>
     </View>
   );
-
   const renderHorizontalData = ({ item, index }) => (
     <>
       <TouchableOpacity
@@ -256,7 +253,6 @@ export function Business() {
       </TouchableOpacity>
     </>
   );
-
   const rendercategoryManufacturers = ({ item, index }) => {
     return (
       <>
@@ -353,15 +349,15 @@ export function Business() {
               navigate(NAVIGATION.searchResults, { keyword: searchedKeyword });
             }
           }}
-         
           setKeyword={setSearchedKeyword}
           keyword={searchedKeyword}
           icon={search}
           clearSearch={() => setSearchedKeyword("")}
-          onPress={()=>{
+          onPress={() => {
             if (searchedKeyword) {
               navigate(NAVIGATION.searchResults, { keyword: searchedKeyword });
-            }}}
+            }
+          }}
         />
 
         <Spacer space={SH(10)} />

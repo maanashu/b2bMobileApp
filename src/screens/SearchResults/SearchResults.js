@@ -33,6 +33,7 @@ export function SearchResults(props) {
 
   const hitSearch = () => {
     const searchBody = {
+      app_name: "b2b",
       page: 1,
       limit: 10,
       search: searchKeyword,

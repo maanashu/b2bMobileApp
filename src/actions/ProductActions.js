@@ -162,6 +162,7 @@ export const getProduct = (data) => async (dispatch) => {
 };
 
 export const getProductDetail = (productId, seller_id) => async (dispatch) => {
+  console.log("data Check ", JSON.stringify(seller_id));
   dispatch(getProductDetailRequest());
   try {
     const res = await ProductController.getProductDetail(productId, seller_id);

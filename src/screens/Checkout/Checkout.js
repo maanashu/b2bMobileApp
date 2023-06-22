@@ -23,7 +23,7 @@ import {
 import { strings } from "@/localization";
 import { HeaderCoin } from "../Profile/Wallet/Components/HeaderCoin";
 import { useState } from "react";
-import { navigate } from "@/navigation/NavigationRef";
+import { goBack, navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,20 +39,12 @@ import {
   successSelector,
 } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
-import { Loader } from "@/components/Loader";
 import { createCartAction } from "@/actions/OrderAction";
 
 export function Checkout() {
   const dispatch = useDispatch();
   const cartList = useSelector(orderSelector);
-  const user = useSelector(getUser);
-  const route = useRoute();
   let arr = [cartList?.getCart];
-  const [storeTotal, setstoreTotal] = useState(0);
-  const [setProductArray, setsetProductArrat] = useState(
-    cartList?.getCart ?? []
-  );
-  const totalStore = [];
 
   useEffect(() => {
     dispatch(getCart());
@@ -63,30 +55,21 @@ export function Checkout() {
       alert("noke");
     }
   };
-  useEffect(() => {
-    try {
-      // setProductArray.reduce((sum, i) => {
-      //   var sepTotal = i.qty * i.selling_price;
-      //   totalStore.push(sepTotal);
-      // }, 0);
-      // setstoreTotal(totalStore.reduce((a, b) => a + b, 0));
-      const calculatedResult =
-        setProductArray?.qty * setProductArray?.selling_price;
-      setstoreTotal(calculatedResult);
-    } catch (error) {}
-  }, [setProductArray]);
 
   const applyCouponHandler = () => {
     navigate(NAVIGATION.addCoupon, { params: "checkout" });
   };
 
   const removeProduct = (cartId, cartProductId) => {
-    dispatch(getCart());
-    dispatch(removeOneProductfromCart(cartId, cartProductId));
+    dispatch(removeOneProductfromCart(cartId, cartProductId)).then((res) => {
+      if (res?.payload == 0) {
+        goBack();
+      }
+    });
   };
 
   const isLoading = useSelector((state) =>
-    successSelector([TYPES.REMOVE_PRODUCT_FROM_CART], state)
+    isLoadingSelector([TYPES.REMOVE_PRODUCT_FROM_CART], state)
   );
   const isAddToCartLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_CART], state)
@@ -102,7 +85,9 @@ export function Checkout() {
       if (operation === "+") {
         cartItem.qty += 1;
       } else if (operation === "-") {
-        cartItem.qty -= 1;
+        if (cartItem.qty > 1) {
+          cartItem.qty -= 1;
+        }
       }
       const withoutVariantObject = {
         seller_id: cartItem?.product_details?.supply?.seller_id,

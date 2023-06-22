@@ -78,7 +78,7 @@ export const ApiProductInventory = {
   getSupplyVariant: (values, id) =>
     `supply_variants/by-attribute-value-ids?attribute_value_ids=${values}&supply_id=${id}`,
   getCategoriesWithFewProducts: `categories/b2b/with-few-products`,
-  searchProductsSellers: PRODUCT_URL + "global_search?",
+  searchProductsSellers: PRODUCT_URL + "global_search/search?",
 };
 
 export const ApiWalletInventory = {

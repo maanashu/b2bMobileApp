@@ -98,6 +98,7 @@ import {
   SelectCountry,
   SelectedPreferance,
   SelectState,
+  SellersByProduct,
   SendAnOffer,
   SendInquiry,
   Settings,
@@ -734,6 +735,11 @@ export function AppBottom() {
       <Stack.Screen
         component={SearchedSellers}
         name={NAVIGATION.searchedSellers}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={SellersByProduct}
+        name={NAVIGATION.sellersByProduct}
         options={{ headerShown: false }}
       />
       {/* Home navigator ends here */}

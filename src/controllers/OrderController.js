@@ -75,15 +75,14 @@ export class OrderController {
           resolve(response);
         })
         .catch((error) => {
-          reject(error);
+          console.log("error idr hai", JSON.stringify(error));
           Toast.show({
             text2: error.msg,
             position: "bottom",
             type: "error_toast",
             visibilityTime: 1500,
           });
-
-          reject(new Error((strings.validation.error = error.msg)));
+          reject(error);
         });
     });
   }

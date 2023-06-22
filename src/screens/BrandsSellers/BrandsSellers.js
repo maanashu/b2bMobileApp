@@ -49,7 +49,6 @@ export function BrandsSellers(params) {
     limit: 10,
     category_id: params?.route?.params?.categoryId,
   };
-  console.log("checkforstring", JSON.stringify(user?.getSellersList));
 
   const getFavouriteSeller = useSelector(getUser)?.getFavouriteSellers;
   const [matchedIds, setMatchedIds] = useState(new Set());

@@ -56,15 +56,12 @@ import { COLORS } from "@/theme";
 import FastImage from "react-native-fast-image";
 import { renderNoData } from "@/components/FlatlistStyling";
 import { Loader } from "@/components/Loader";
-import { getKyc } from "@/selectors/KycSelector";
 import {
   getMessages,
   getUserProfile,
   productFavourites,
-  sellerFavourites,
 } from "@/actions/UserActions";
 import { previousScreen } from "@/actions/GlobalActions";
-import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 export function ProductInquiry(params) {
   const [favourite, setFavourite] = useState(false);
@@ -76,10 +73,7 @@ export function ProductInquiry(params) {
   const isLoadingDetails = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
   );
-  console.log(
-    "productDetail",
-    ProductDetail?.productDetail?.product_detail?.supplies?.[0]
-  );
+  // console.log("productDetail", ProductDetail?.productDetail?.product_detail);
 
   const object = {
     service_type: "product",
@@ -101,9 +95,6 @@ export function ProductInquiry(params) {
   }, []);
 
   const handleChat = () => {
-    // console.log(
-    //   ProductDetail?.productDetail?.product_detail?.supplies?.[0]?.seller_id
-    // );
     dispatch(
       getMessages(
         ProductDetail?.productDetail?.product_detail?.supplies?.[0]?.seller_id
@@ -119,8 +110,7 @@ export function ProductInquiry(params) {
   const colorChange = () => {
     setFavourite(!favourite);
     dispatch(productFavourites(productData));
-    dispatch(sellerFavourites({ seller_id: params?.route?.params?.id }));
-    // alert(params?.route?.params?.id);
+    // dispatch(sellerFavourites({ seller_id: params?.route?.params?.id }));
   };
   const renderItem = ({ item }) => (
     <TouchableOpacity style={[styles.item, { marginTop: SH(30) }]}>

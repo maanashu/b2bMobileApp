@@ -1,15 +1,15 @@
 import React from "react";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
-import { ScreenWrapper, Spacer } from "@/components";
+import { NameHeader, ScreenWrapper, Spacer } from "@/components";
 import { useSelector } from "react-redux";
-import { styles } from "./SearchedSellers.styles";
+import { styles } from "./SellersByProduct.styles";
 import { COLORS, SF, SH, SW } from "@/theme";
 import { Loader } from "@/components/Loader";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import FastImage from "react-native-fast-image";
-import { TYPES } from "@/Types/Types";
 import {
+  backArrow,
   circleStar,
   clockTiming,
   deliveryParcel,
@@ -17,14 +17,16 @@ import {
 } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
+import { TYPES } from "@/actions/UserActions";
+import { getUser } from "@/selectors/UserSelectors";
 
-export function SearchedSellers() {
-  const sellers = useSelector(getProductSelector);
+export function SellersByProduct(props) {
+  const sellers = useSelector(getUser);
 
   const isLoading = useSelector((state) =>
-    isLoadingSelector([TYPES.GET_PRODUCTS_SELLERS], state)
+    isLoadingSelector([TYPES.GET_SELLERS], state)
   );
-
+  // console.log("ui", props?.route?.params?.itemId);
   const renderItem = ({ item }) => {
     return (
       <>
@@ -32,11 +34,11 @@ export function SearchedSellers() {
           style={styles.Item}
           onPress={
             () =>
-              navigate(NAVIGATION.productsBySeller, {
-                sellerId: item?.unique_uuid,
-                idSeller: item?.id,
+              navigate(NAVIGATION.productInquiry, {
+                itemId: props?.route?.params?.itemId,
+                seller_id: item?.unique_uuid,
               })
-            // alert(item?.id)
+            // alert(item?.unique_uuid)
           }
         >
           <FastImage
@@ -97,18 +99,18 @@ export function SearchedSellers() {
   };
   return (
     <ScreenWrapper containerPropStyle={styles.container}>
+      <NameHeader back={backArrow} title={"Sellers"} />
       <View style={{ paddingHorizontal: SW(15) }}>
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={sellers?.getProductsSellersList?.sellers}
-          extraData={sellers?.getProductsSellersList?.sellers}
+          data={sellers?.getSellersList}
+          extraData={sellers?.getSellersList}
           renderItem={renderItem}
           ListHeaderComponent={() => (
             <View>
               <Spacer space={SW(10)} />
               <Text style={styles.headerText}>
-                {(sellers?.getProductsSellersList?.sellers?.length || "0") +
-                  " Results"}
+                {(sellers?.getSellersList?.length || "0") + " Results"}
               </Text>
               <Spacer space={SW(10)} />
             </View>

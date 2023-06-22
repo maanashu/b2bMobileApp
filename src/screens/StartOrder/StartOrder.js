@@ -33,11 +33,11 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 
 export function StartOrder(params) {
   const bundle = params?.route?.params?.attributes;
+  console.log("bundle", JSON.stringify(bundle));
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
   const getVariantId = useSelector(getProductSelector);
   const user = useSelector(getUser);
-  // console.log("token", user?.user?.payload?.token);
 
   const [selectedItem, setSelectedItem] = useState("");
   const [ArrayToRoute, setArrayToRoute] = useState([]);
@@ -56,7 +56,7 @@ export function StartOrder(params) {
   const [firstSupplyPrice, setFirstSupplyPrice] = useState(
     bundle?.[0]?.supply_prices?.[0]
   );
-  const arr = bundle?.[0].supply_prices?.[0];
+  const arr = bundle?.[0]?.supply_prices?.[0];
   const [quantity, setQuantity] = useState(arr);
   const [string, setString] = useState();
   useEffect(() => {}, [isFocused]);

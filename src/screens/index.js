@@ -106,3 +106,4 @@ export { FavouriteSellers } from "@/screens/FavouriteList/FavouriteSellers/Favou
 export { SearchResults } from "@/screens/SearchResults/SearchResults";
 export { SearchedProducts } from "@/screens/SearchedProducts/SearchedProducts";
 export { SearchedSellers } from "@/screens/SearchedSellers/SearchedSellers";
+export { SellersByProduct } from "@/screens/SellersByProduct/SellersByProduct";
