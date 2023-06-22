@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
   },
   borderBottom: {
     borderBottomWidth: 1,
-    paddingVertical: vs(10),
+    paddingVertical: vs(5),
     borderColor: COLORS.termsBorder,
   },
 
@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.MaisonMonoBold,
     fontSize: ms(18),
     color: COLORS.darkGrey,
-    paddingVertical: vs(10),
+    paddingVertical: vs(5),
   },
   paraText: {
     fontFamily: Fonts.Regular,
