@@ -6,13 +6,14 @@ import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { TabBar } from "react-native-tab-view";
 import { SearchedProducts, SearchedSellers } from "@/screens";
 import { styles } from "./SearchResults.styles";
-import { Fonts, backArrow, backIcon, leftArrow } from "@/assets";
+import { Fonts, leftArrow } from "@/assets";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useDispatch } from "react-redux";
 import { searchProductsSellers } from "@/actions/ProductActions";
 import { Search } from "@/components/Search";
-import { goBack, navigate } from "@/navigation/NavigationRef";
+import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
+
 const Tab = createMaterialTopTabNavigator();
 
 export function SearchResults(props) {
