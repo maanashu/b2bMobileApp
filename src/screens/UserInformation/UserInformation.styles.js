@@ -115,7 +115,7 @@ export const styles = StyleSheet.create({
   iconStyle: {
     height: SH(20),
     width: SH(20),
-    marginRight: ms(7),
+    marginRight: ms(8),
   },
   headingText: {
     fontFamily: Fonts.Regular,

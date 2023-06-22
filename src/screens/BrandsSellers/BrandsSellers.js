@@ -18,6 +18,8 @@ import {
   deliveryParcel,
   fav,
   Fonts,
+  heartBlank,
+  heartFilled,
 } from "@/assets";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
@@ -47,6 +49,7 @@ export function BrandsSellers(params) {
     limit: 10,
     category_id: params?.route?.params?.categoryId,
   };
+  console.log("checkforstring", JSON.stringify(user?.getSellersList));
 
   const getFavouriteSeller = useSelector(getUser)?.getFavouriteSellers;
   const [matchedIds, setMatchedIds] = useState(new Set());
@@ -161,10 +164,12 @@ export function BrandsSellers(params) {
           <View style={{ alignItems: "flex-end" }}>
             <TouchableOpacity onPress={() => colorChange(item)}>
               <Image
-                source={fav}
+                source={isMatched ? heartFilled : heartBlank}
                 style={[
                   styles.favIcon,
-                  { tintColor: isMatched ? "red" : "black" },
+                  {
+                    tintColor: isMatched ? "red" : "black",
+                  },
                 ]}
                 resizeMode="contain"
               />

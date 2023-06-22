@@ -19,7 +19,7 @@ import {
 import { Button, ScreenWrapper, Spacer, TextField } from "@/components";
 import { strings } from "@/localization";
 import { styles } from "./UserInformation.styles";
-import { COLORS, SH, ShadowStyles } from "@/theme";
+import { COLORS, SH, SW, ShadowStyles } from "@/theme";
 import {
   backArrow,
   camera,
@@ -288,7 +288,12 @@ export function UserInformation() {
                     source={userIcon}
                     style={[
                       styles.iconStyle,
-                      { height: SH(25), width: SH(25) },
+                      {
+                        height: SH(25),
+                        width: SH(25),
+                        marginRight: ms(2),
+                        left: SW(-1.5),
+                      },
                     ]}
                     resizeMode="contain"
                   />
@@ -504,6 +509,7 @@ export function UserInformation() {
                   borderWidth: 0.5,
                   borderRadius: SH(5),
                   height: SH(45),
+                  paddingHorizontal: SW(10),
                 }}
                 onChangeText={setNewFirstName}
                 value={newFirstName}
@@ -515,6 +521,7 @@ export function UserInformation() {
                   borderWidth: 0.5,
                   borderRadius: SH(5),
                   height: SH(45),
+                  paddingHorizontal: SW(10),
                 }}
                 onChangeText={setNewLastName}
                 value={newLastName}
