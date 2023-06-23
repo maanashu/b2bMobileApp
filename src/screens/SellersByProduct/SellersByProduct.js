@@ -1,5 +1,12 @@
 import React from "react";
-import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { NameHeader, ScreenWrapper, Spacer } from "@/components";
 import { useSelector } from "react-redux";
 import { styles } from "./SellersByProduct.styles";
@@ -26,19 +33,17 @@ export function SellersByProduct(props) {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_SELLERS], state)
   );
-  // console.log("ui", props?.route?.params?.itemId);
   const renderItem = ({ item }) => {
     return (
       <>
         <TouchableOpacity
           style={styles.Item}
-          onPress={
-            () =>
-              navigate(NAVIGATION.productInquiry, {
-                itemId: props?.route?.params?.itemId,
-                seller_id: item?.unique_uuid,
-              })
-            // alert(item?.unique_uuid)
+          onPress={() =>
+            navigate(NAVIGATION.productInquiry, {
+              itemId: props?.route?.params?.itemId,
+              seller_id: item?.unique_uuid,
+              idSeller: item?.id,
+            })
           }
         >
           <FastImage
@@ -100,7 +105,7 @@ export function SellersByProduct(props) {
   return (
     <ScreenWrapper containerPropStyle={styles.container}>
       <NameHeader back={backArrow} title={"Sellers"} />
-      <View style={{ paddingHorizontal: SW(15) }}>
+      <ScrollView style={{ paddingHorizontal: SW(15) }}>
         <FlatList
           showsVerticalScrollIndicator={false}
           data={sellers?.getSellersList}
@@ -116,7 +121,7 @@ export function SellersByProduct(props) {
             </View>
           )}
         />
-      </View>
+      </ScrollView>
       {isLoading && <Loader message="Loading Sellers..." />}
     </ScreenWrapper>
   );

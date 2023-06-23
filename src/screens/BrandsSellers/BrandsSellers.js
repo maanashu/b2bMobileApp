@@ -167,7 +167,7 @@ export function BrandsSellers(params) {
                 style={[
                   styles.favIcon,
                   {
-                    tintColor: isMatched ? "red" : "black",
+                    tintColor: isMatched ? "#C70A0A" : "black",
                   },
                 ]}
                 resizeMode="contain"

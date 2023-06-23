@@ -304,11 +304,7 @@ export function BusinessProfile() {
             <Spacer space={SH(10)} />
 
             <FlatList
-              data={
-                typeof certification === "string"
-                  ? JSON.parse(certification)
-                  : certification || []
-              }
+              data={certification || []}
               renderItem={renderItem}
               keyExtractor={(item) => item.id}
               //   extraData={product}
@@ -339,11 +335,7 @@ export function BusinessProfile() {
 
           {product ? (
             <FlatList
-              data={
-                typeof product === "string"
-                  ? JSON.parse(product)
-                  : product || []
-              }
+              data={product || []}
               renderItem={SecondItem}
               keyExtractor={(item) => item.id}
               numColumns={2}
@@ -456,11 +448,7 @@ export function BusinessProfile() {
               <Spacer space={SH(5)} />
               {/*  */}
               <FlatList
-                data={
-                  typeof overView === "string"
-                    ? JSON.parse(overView)
-                    : overView || []
-                }
+                data={overView || []}
                 renderItem={OverviewItems}
                 keyExtractor={(item) => item.id}
                 showsVerticalScrollIndicator={false}
@@ -482,11 +470,7 @@ export function BusinessProfile() {
                 <Spacer space={SH(5)} />
 
                 <FlatList
-                  data={
-                    typeof manufacturerImages === "string"
-                      ? JSON.parse(manufacturerImages)
-                      : manufacturerImages || []
-                  }
+                  data={manufacturerImages || []}
                   renderItem={Equipment}
                   keyExtractor={(item) => item.id}
                   showsVerticalScrollIndicator={false}
@@ -522,11 +506,7 @@ export function BusinessProfile() {
               <Spacer space={SH(5)} />
 
               <FlatList
-                data={
-                  typeof certification === "string"
-                    ? JSON.parse(certification)
-                    : certification || []
-                }
+                data={certification || []}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
                 //   extraData={product}
@@ -545,11 +525,7 @@ export function BusinessProfile() {
               <Spacer space={SH(5)} />
 
               <FlatList
-                data={
-                  typeof factoryInspection === "string"
-                    ? JSON.parse(factoryInspection)
-                    : factoryInspection || []
-                }
+                data={factoryInspection || []}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
                 extraData={

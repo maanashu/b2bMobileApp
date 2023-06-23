@@ -7,22 +7,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useRef } from "react";
+import React from "react";
 import { styles } from "./Checkout.styles";
 import { ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { useRoute } from "@react-navigation/native";
-import {
-  deliveryTruck,
-  cross,
-  forwardArrowWhite,
-  rightArrowThin,
-  Fonts,
-} from "@/assets";
+import { cross, forwardArrowWhite, rightArrowThin, Fonts } from "@/assets";
 import { strings } from "@/localization";
 import { HeaderCoin } from "../Profile/Wallet/Components/HeaderCoin";
-import { useState } from "react";
 import { goBack, navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { useEffect } from "react";
@@ -33,11 +25,7 @@ import {
   saveSubTotalAmount,
 } from "@/actions/OrderAction";
 import { orderSelector } from "@/selectors/OrderSelector";
-import { getUser } from "@/selectors/UserSelectors";
-import {
-  isLoadingSelector,
-  successSelector,
-} from "@/selectors/StatusSelectors";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { createCartAction } from "@/actions/OrderAction";
 
@@ -45,19 +33,18 @@ export function Checkout() {
   const dispatch = useDispatch();
   const cartList = useSelector(orderSelector);
   let arr = [cartList?.getCart];
-
+  // console.log("fbfdbv", JSON.stringify(cartList?.getCart));
   useEffect(() => {
     dispatch(getCart());
   }, []);
 
-  const backNavigationHandler = () => {
-    if (Object.keys(cartList?.getCart)?.length === 0) {
-      alert("noke");
-    }
-  };
-
   const applyCouponHandler = () => {
-    navigate(NAVIGATION.addCoupon, { params: "checkout" });
+    navigate(NAVIGATION.addCoupon, {
+      params: "checkout",
+      seller_id: cartList?.getCart?.seller_id,
+      order_amount: cartList?.getCart?.amout?.total_amount,
+      service_id: cartList?.getCart?.service_id,
+    });
   };
 
   const removeProduct = (cartId, cartProductId) => {
@@ -68,9 +55,6 @@ export function Checkout() {
     });
   };
 
-  const isLoading = useSelector((state) =>
-    isLoadingSelector([TYPES.REMOVE_PRODUCT_FROM_CART], state)
-  );
   const isAddToCartLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_CART], state)
   );
@@ -97,7 +81,6 @@ export function Checkout() {
         service_id: cartItem?.service_id,
         qty: cartItem?.qty,
       };
-      // console.log("Updated Cart Item:", JSON.stringify(withoutVariantObject));
       dispatch(createCartAction(withoutVariantObject));
     }
   };
@@ -310,7 +293,7 @@ export function Checkout() {
                 <Image
                   resizeMode="stretch"
                   source={forwardArrowWhite}
-                  style={{ height: 15, width: SW(25) }}
+                  style={{ height: 15, width: SW(25), tintColor: COLORS.green }}
                 />
               </View>
             </View>

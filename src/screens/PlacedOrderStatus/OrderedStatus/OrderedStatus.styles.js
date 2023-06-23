@@ -236,4 +236,10 @@ export const styles = StyleSheet.create({
     alignSelf: "center",
     justifyContent: "center",
   },
+  totalJbrCoinText: {
+    alignSelf: "flex-end",
+    fontFamily: Fonts.Regular,
+    fontSize: SF(12),
+    color: COLORS.darkGrey,
+  },
 });

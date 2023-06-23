@@ -69,7 +69,7 @@ export function Products({ navigation }) {
   useEffect(() => {
     LogBox.ignoreAllLogs();
     dispatch(getCart());
-    setSearchedKeyword("")
+    setSearchedKeyword("");
   }, [isFocused]);
 
   useEffect(() => {
@@ -105,6 +105,17 @@ export function Products({ navigation }) {
   );
   const LoadingData = () => {
     <>{isLoading ? <Loader message="Loading data ..." /> : null}</>;
+  };
+
+  const handleNavigation = (item) => {
+    const body = {
+      page: 1,
+      limit: 20,
+      delivery_options: "4",
+      product_id: item,
+    };
+    dispatch(getSellers(body));
+    navigate(NAVIGATION.sellersByProduct, { itemId: item });
   };
 
   const renderCategoryItem = ({ item, index, data }) => {
@@ -189,6 +200,7 @@ export function Products({ navigation }) {
   const listDetail = ({ item, index }) => (
     <>
       <TouchableOpacity
+        onPress={() => handleNavigation(item?.id)}
         style={[
           styles.ShoesStyle,
           {
@@ -261,18 +273,15 @@ export function Products({ navigation }) {
               navigate(NAVIGATION.searchResults, { keyword: searchedKeyword });
             }
           }}
-          onPress={()=>{
+          onPress={() => {
             if (searchedKeyword) {
               navigate(NAVIGATION.searchResults, { keyword: searchedKeyword });
             }
-
-
           }}
           setKeyword={setSearchedKeyword}
           keyword={searchedKeyword}
           icon={search}
           clearSearch={() => setSearchedKeyword("")}
-          
         />
 
         <Spacer space={SH(10)} />

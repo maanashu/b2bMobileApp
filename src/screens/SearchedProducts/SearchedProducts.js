@@ -27,9 +27,7 @@ export function SearchedProducts() {
       product_id: item,
     };
     dispatch(getSellers(body));
-
     navigate(NAVIGATION.sellersByProduct, { itemId: item });
-    // alert(item);
   };
   const renderItem = ({ item }) => {
     return (

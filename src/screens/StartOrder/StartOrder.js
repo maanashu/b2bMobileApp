@@ -33,19 +33,12 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 
 export function StartOrder(params) {
   const bundle = params?.route?.params?.attributes;
-  console.log("bundle", JSON.stringify(bundle));
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
   const getVariantId = useSelector(getProductSelector);
   const user = useSelector(getUser);
 
-  const [selectedItem, setSelectedItem] = useState("");
-  const [ArrayToRoute, setArrayToRoute] = useState([]);
-
-  const [bundleArray, setbundleArray] = useState(bundle ?? []);
   const [setBundleArray, setSetBundleArray] = useState(bundle ?? []);
-  const setProductArrat = [...ArrayToRoute];
-  const totalStore = [];
   const [storeTotal, setstoreTotal] = useState(0);
   const [colors, setColors] = useState();
   const [selectColor, setSelectColor] = useState();
@@ -57,12 +50,11 @@ export function StartOrder(params) {
     bundle?.[0]?.supply_prices?.[0]
   );
   const arr = bundle?.[0]?.supply_prices?.[0];
+  console.log("bundleData", bundle?.[0]?.supply_prices?.[0]);
   const [quantity, setQuantity] = useState(arr);
   const [string, setString] = useState();
   useEffect(() => {}, [isFocused]);
-  // console.log("check kro jra", JSON.stringify(quantity));
 
-  const SizeData = ["USA", "UK"];
   const withoutVariantObject = {
     seller_id: bundle?.[0]?.seller_id,
     supply_id: bundle?.[0]?.id,
@@ -90,7 +82,6 @@ export function StartOrder(params) {
   }, [selectedItems]);
 
   useEffect(() => {
-    // setSetBundleArray(bundle?.map((item) => ({ ...item, qty: 0 })) ?? []);
     for (let i = 0; i < bundle?.length; i++) {
       let supplyPrices = bundle[i]?.supply_prices;
       for (let j = 0; j < supplyPrices?.length; j++) {
@@ -99,10 +90,20 @@ export function StartOrder(params) {
       setSetBundleArray(bundle);
     }
   }, []);
+
+  useEffect(() => {
+    if (quantity.qty == 0) {
+      setQuantity((prevState) => ({
+        ...prevState,
+        qty: prevState.qty + 1,
+      }));
+    }
+  }, [quantity.qty]);
   useEffect(() => {
     const newTotalPrice = quantity?.qty * quantity?.selling_price;
     setstoreTotal(newTotalPrice);
   }, [quantity]);
+
   const renderBundle = ({ item }) => (
     <TouchableOpacity
       style={[

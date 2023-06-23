@@ -11,30 +11,13 @@ import { styles } from "./RecomendedWholesalers.styles";
 import { ScreenWrapper, Spacer, SubHeader } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { navigate } from "@/navigation/NavigationRef";
-import {
-  sendInquiry,
-  boxStar,
-  yiwuJean1,
-  yiwuJean3,
-  yiwuJean2,
-  yewiLogo,
-  yewiCertified,
-  location,
-  star,
-  clock,
-  backArrow,
-  starBadge,
-  circleStar,
-  deliveryParcel,
-  clockTiming,
-} from "@/assets";
+import { backArrow, circleStar, deliveryParcel, clockTiming } from "@/assets";
 import { strings } from "@/localization";
-import { NAVIGATION } from "@/constants";
-import { ms, vs } from "react-native-size-matters";
 import { Header } from "@/components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
+import { navigate } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
 
 export function RecomendedWholesalers() {
   const dispatch = useDispatch();
@@ -43,9 +26,9 @@ export function RecomendedWholesalers() {
 
   const capitalizeWords = (str) => {
     return str
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+      ?.split(" ")
+      ?.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      ?.join(" ");
   };
 
   const renderWholeSalers = ({ item }) => {
@@ -53,7 +36,17 @@ export function RecomendedWholesalers() {
     const capitalizedString = capitalizeWords(inputString);
     return (
       <>
-        <TouchableOpacity style={styles.backgroundView}>
+        <TouchableOpacity
+          style={styles.backgroundView}
+          onPress={
+            () =>
+              navigate(NAVIGATION.productsBySeller, {
+                sellerId: item?.unique_uuid,
+                idSeller: item?.id,
+              })
+            // alert(item?.id)
+          }
+        >
           <View style={styles.rowView}>
             <Image
               source={{ uri: item?.user_profiles?.profile_photo }}

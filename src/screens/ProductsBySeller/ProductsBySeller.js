@@ -29,7 +29,7 @@ export function ProductsBySeller(params) {
   useEffect(() => {
     const productObject = {
       page: 1,
-      limit: 10,
+      limit: 20,
       delivery_options: 4,
       app_name: "b2b",
       seller_id: params?.route?.params?.sellerId,
@@ -85,7 +85,7 @@ export function ProductsBySeller(params) {
       navigate(NAVIGATION.productInquiry, {
         itemId: item.id,
         seller_id: item?.supplies[0]?.seller_id,
-        id: params?.route?.params?.idSeller,
+        idSeller: params?.route?.params?.idSeller,
       });
       // alert(item?.supplies[0]?.seller_id);
     }

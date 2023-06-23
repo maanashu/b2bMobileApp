@@ -77,34 +77,36 @@ const renderImages = ({ item }) => (
 export const renderCompanies = ({ item }) => {
   return (
     <>
-      <View style={{ flex: 1, marginHorizontal: 10 }}>
-        <View
-          style={{
-            backgroundColor: COLORS.white,
-            width: width,
-            ...ShadowStyles.shadow2,
-            paddingVertical: SH(8),
-            paddingHorizontal: SW(10),
-            borderRadius: 8,
-            marginBottom: SH(1),
-            marginRight: SW(1),
-          }}
-        >
-          <CompanyDetailView
-            title={item?.user_profiles?.organization_name}
-            profilePhoto={item?.user_profiles?.banner_image}
-            locationText={item?.user_profiles?.overview?.[0]?.country}
-          />
-          <View style={{ alignItems: "flex-start", marginTop: SH(5) }}>
-            <FlatList
-              data={item?.user_profiles?.manufacturer_images}
-              renderItem={renderImages}
-              numColumns={4}
-              showsHorizontalScrollIndicator={false}
+      {item?.user_profiles?.organization_name && (
+        <View style={{ flex: 1, marginHorizontal: 10 }}>
+          <View
+            style={{
+              backgroundColor: COLORS.white,
+              width: width,
+              ...ShadowStyles.shadow2,
+              paddingVertical: SH(8),
+              paddingHorizontal: SW(10),
+              borderRadius: 8,
+              marginBottom: SH(1),
+              marginRight: SW(1),
+            }}
+          >
+            <CompanyDetailView
+              title={item?.user_profiles?.organization_name}
+              profilePhoto={item?.user_profiles?.banner_image}
+              locationText={item?.user_profiles?.overview?.[0]?.country}
             />
+            <View style={{ alignItems: "flex-start", marginTop: SH(5) }}>
+              <FlatList
+                data={item?.user_profiles?.manufacturer_images}
+                renderItem={renderImages}
+                numColumns={4}
+                showsHorizontalScrollIndicator={false}
+              />
+            </View>
           </View>
         </View>
-      </View>
+      )}
     </>
   );
 };

@@ -77,6 +77,22 @@ const getCouponsReset = () => ({
   type: TYPES.GET_COUPONS_RESET,
   payload: null,
 });
+const getCouponsWithCategoryIdRequest = () => ({
+  type: TYPES.GET_COUPONS_WITH_CATEGORY_ID_REQUEST,
+  payload: null,
+});
+const getCouponsWithCategoryIdSuccess = (couponsWithCatId) => ({
+  type: TYPES.GET_COUPONS_WITH_CATEGORY_ID_SUCCESS,
+  payload: { couponsWithCatId },
+});
+const getCouponsWithCategoryIdError = (error) => ({
+  type: TYPES.GET_COUPONS_WITH_CATEGORY_ID_ERROR,
+  payload: { error },
+});
+const getCouponsWithCategoryIdReset = () => ({
+  type: TYPES.GET_COUPONS_WITH_CATEGORY_ID_RESET,
+  payload: null,
+});
 
 const addCouponRequest = () => ({
   type: TYPES.ADD_COUPONS_REQUEST,
@@ -162,7 +178,6 @@ export const getProduct = (data) => async (dispatch) => {
 };
 
 export const getProductDetail = (productId, seller_id) => async (dispatch) => {
-  console.log("data Check ", JSON.stringify(seller_id));
   dispatch(getProductDetailRequest());
   try {
     const res = await ProductController.getProductDetail(productId, seller_id);
@@ -201,14 +216,27 @@ export const getCoupons = (data) => async (dispatch) => {
   dispatch(getCouponsRequest());
   try {
     const res = await ProductController.getCoupons(data);
-    console.log("response get coupons", res);
-
     dispatch(getCouponsSuccess(res));
   } catch (error) {
     if (error.statusCode === 204) {
       dispatch(getCouponsReset());
     } else {
       dispatch(getCouponsError(error.message));
+    }
+  }
+};
+
+export const getCouponsWithCategoryId = (data) => async (dispatch) => {
+  dispatch(getCouponsWithCategoryIdRequest());
+  try {
+    const res = await ProductController.getCouponsWithCategoryId(data);
+
+    dispatch(getCouponsWithCategoryIdSuccess(res));
+  } catch (error) {
+    if (error.statusCode === 204) {
+      dispatch(getCouponsWithCategoryIdReset());
+    } else {
+      dispatch(getCouponsWithCategoryIdError(error.message));
     }
   }
 };

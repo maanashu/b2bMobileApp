@@ -36,7 +36,7 @@ export function FavouriteList() {
       page: 1,
       limit: 10,
     };
-    dispatch(getFavouriteProducts(data));
+    dispatch(getFavouriteProducts());
   }, []);
   const [routes] = React.useState([
     { key: "first", title: "Seller" },

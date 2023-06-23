@@ -36,13 +36,14 @@ export const styles = StyleSheet.create({
   },
   itemS: {
     backgroundColor: COLORS.white,
-    borderColor: "blue",
+    borderColor: "#E5F0FF",
     borderRadius: 1,
     flexDirection: "row",
     flex: 1,
     justifyContent: "center",
     margin: 2,
     borderRadius: 5,
+    borderWidth: 1,
   },
   priceTitle: {
     color: COLORS.blue,
@@ -142,7 +143,7 @@ export const styles = StyleSheet.create({
   yewiInnerView: {
     flexDirection: "row",
     marginHorizontal: SW(5),
-    marginVertical: SH(5)
+    marginVertical: SH(5),
   },
   thirdView: {
     height: SH(74),
@@ -280,7 +281,7 @@ export const styles = StyleSheet.create({
   yewiSmallView: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: SH(5)
+    marginTop: SH(5),
   },
   yewiDirection: {
     flexDirection: "row",
@@ -305,7 +306,7 @@ export const styles = StyleSheet.create({
   },
   belowImage: {
     flexDirection: "row",
-    justifyContent: "flex-end",
+    justifyContent: "center",
     alignItems: "center",
     alignSelf: "flex-end",
     backgroundColor: "#828282",

@@ -39,6 +39,8 @@ export function SubCategories(params) {
   const [selectedId, setSelectedId] = useState(params?.route?.params?.idItem);
   const [serviceModalisVisible, setserviceModalisVisible] = useState(false);
 
+  const categoryData = useSelector(getCategorySelector);
+  const SUBCATEGORIES = useSelector(getCategorySelector);
   const subcategoryObject = {
     page: 1,
     limit: 10,
@@ -47,8 +49,6 @@ export function SubCategories(params) {
       params?.route?.params?.serviceType == "product" ? "product" : "service",
     app_name: "b2b",
   };
-  const categoryData = useSelector(getCategorySelector);
-  const SUBCATEGORIES = useSelector(getCategorySelector);
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_SUB_CATEGORY], state)
@@ -186,12 +186,7 @@ export function SubCategories(params) {
 
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <Header
-        title={"Categories"}
-        back={backArrow}
-        enableBackButton
-        // onFilterPress={toggleModal}
-      />
+      <Header title={"Categories"} back={backArrow} enableBackButton />
       <View style={styles.upperView}>
         <Spacer space={SH(10)} />
 

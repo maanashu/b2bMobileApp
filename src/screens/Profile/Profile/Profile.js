@@ -58,8 +58,6 @@ export function Profile() {
   const categoryData = useSelector(getCategorySelector);
   const categoryId = categoryData?.categoryList?.data?.[0]?.id;
 
-  console.log("location", user?.user?.payload?.user_profiles?.current_address);
-
   const logoutUser = () => {
     dispatch(logout());
     dispatch(logoutOrder());

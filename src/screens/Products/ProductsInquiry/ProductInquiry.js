@@ -19,7 +19,7 @@ import {
   ScreenWrapper,
   Spacer,
 } from "@/components";
-import { SH, SW } from "@/theme/ScalerDimensions";
+import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import {
   fav,
   starBadge,
@@ -37,6 +37,8 @@ import {
   bellGrey,
   bagGrey,
   image10,
+  heartFilled,
+  heartBlank,
 } from "@/assets";
 import { ms } from "react-native-size-matters";
 import { CompanyData, ShoesData } from "./FlatlistData";
@@ -68,6 +70,7 @@ export function ProductInquiry(params) {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
   const token = user?.user?.payload?.token;
+  const [matchedIds, setMatchedIds] = useState(new Set());
 
   const ProductDetail = useSelector(getProductSelector);
   const isLoadingDetails = useSelector((state) =>
@@ -83,9 +86,14 @@ export function ProductInquiry(params) {
     delivery_options: "4",
     seller_id: params?.route?.params?.seller_id,
   };
+  // const idArray = user?.getFavouriteProducts.map(
+  //   (obj) => obj.favourite_product[0].id
+  // );
+
+  // console.log("valueeeessss" + idArray);
 
   const productData = {
-    seller_id: params?.route?.params?.id,
+    seller_id: params?.route?.params?.idSeller,
     product_id: ProductDetail?.productDetail?.product_detail?.id,
   };
   useEffect(() => {
@@ -108,10 +116,18 @@ export function ProductInquiry(params) {
   };
 
   const colorChange = () => {
-    setFavourite(!favourite);
     dispatch(productFavourites(productData));
+    setFavourite(!favourite);
     // dispatch(sellerFavourites({ seller_id: params?.route?.params?.id }));
   };
+
+  useEffect(() => {
+    const idSet = new Set(
+      user?.getFavouriteProducts?.map((item) => item?.favourite_product[0].id)
+    );
+    setMatchedIds(idSet);
+  }, [user?.getFavouriteProducts]);
+  console.log("valluuujj", matchedIds);
   const renderItem = ({ item }) => (
     <TouchableOpacity style={[styles.item, { marginTop: SH(30) }]}>
       <View style={styles.upperButtons}>
@@ -237,6 +253,9 @@ export function ProductInquiry(params) {
       return CustomPaginationWithoutText();
     }
   };
+  const isMatched = matchedIds?.has(
+    ProductDetail?.productDetail?.product_detail?.id
+  );
   return (
     <ScreenWrapper>
       <Header back={backArrow} bell={bellGrey} bag={bagGrey} />
@@ -247,11 +266,11 @@ export function ProductInquiry(params) {
           <View style={{ alignItems: "flex-end" }}>
             <TouchableOpacity onPress={colorChange}>
               <Image
-                source={fav}
+                source={isMatched ? heartFilled : heartBlank}
                 resizeMode="contain"
                 style={[
                   styles.favIcon,
-                  { tintColor: favourite === true ? "red" : "black" },
+                  { tintColor: isMatched ? "#C70A0A" : "black" },
                 ]}
               />
             </TouchableOpacity>
@@ -287,7 +306,9 @@ export function ProductInquiry(params) {
                 {"(500+ ratings)"}
               </Text>
             </View>
+
             <Spacer space={SH(40)} />
+
             <Text style={styles.productHeading}>
               {ProductDetail?.productDetail?.product_detail?.name}
             </Text>
@@ -359,7 +380,14 @@ export function ProductInquiry(params) {
 
             <Spacer space={SH(10)} />
 
-            <Text style={{ fontFamily: Fonts.Regular, marginLeft: ms(5) }}>
+            <Text
+              style={{
+                fontFamily: Fonts.SemiBold,
+                marginLeft: ms(5),
+                fontSize: SF(10),
+                color: "black",
+              }}
+            >
               {strings.productInquiry.estimated}
             </Text>
             <Spacer space={SH(12)} />

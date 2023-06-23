@@ -193,7 +193,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: COLORS.white,
+    borderColor: COLORS.green,
     borderRadius: 14,
   },
   placeOrderText: {

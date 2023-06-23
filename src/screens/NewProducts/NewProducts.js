@@ -1,15 +1,14 @@
-import { Text, View, FlatList, TouchableOpacity, Image } from "react-native";
+import { Text, View, FlatList, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { styles } from "./NewProducts.style";
 import { ScreenWrapper, Spacer, SubHeader } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { backArrow, Fonts, image10, shoesBusiness } from "@/assets";
+import { backArrow, Fonts, image10 } from "@/assets";
 import { strings } from "@/localization";
 import { Header } from "@/components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
-import { LastData } from "../Products/ProductsInquiry/FlatlistData";
 import { getCategory } from "@/actions/CategoryActions";
 import { getProduct } from "@/actions/ProductActions";
 import { getProductSelector } from "@/selectors/ProductSelectors";
@@ -21,57 +20,35 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
 import { getUser } from "@/selectors/UserSelectors";
+import { getSellers } from "@/actions/UserActions";
 export function NewProducts() {
   const [selectedId, setSelectedId] = useState(0);
 
   const dispatch = useDispatch();
   const categoryData = useSelector(getCategorySelector);
   const user = useSelector(getUser);
-  const categoryArray = categoryData?.categoryList?.categoryResponse;
+  const categoryArray = categoryData?.categoryList?.data;
   const splicedArray = categoryArray?.slice(0, 7);
 
   const ProductsData = useSelector(getProductSelector);
   const Products = ProductsData?.product;
-  // const newData = [
-  //   {
-  //     categoryData: {
-  //       name: "All",
-  //     },
-  //   },
-  //   ...splicedArray,
-  // ];
+
   const newValue = {
-    categoryData: {
-      name: "All",
-    },
+    name: "All",
   };
   splicedArray?.unshift(newValue);
-  // console.log(
-  //   "response: " +
-  //     JSON.stringify(
-  //       ProductsData?.productDetail?.product_detail?.product_attribute
-  //     )
-  // );
-  //function to merge dynamic arrays
 
-  // const mergeArrays = (arrays) => {
-  //   return [].concat.apply([], arrays);
-  // };
+  const handleNavigation = (item) => {
+    const body = {
+      page: 1,
+      limit: 20,
+      delivery_options: "4",
+      product_id: item,
+    };
+    dispatch(getSellers(body));
+    navigate(NAVIGATION.sellersByProduct, { itemId: item });
+  };
 
-  // let myMappedData =
-  //   ProductsData?.productDetail?.product_detail?.product_attribute.map(
-  //     (data) => {
-  //       return data?.attributes?.attribute_values;
-  //     }
-  //   );
-  // let myLetVariable = myMappedData;
-  // useEffect(() => {
-  //   const mergedArray = mergeArrays(myLetVariable);
-  //   setMergedData(mergedArray);
-  // }, []);
-  // console.log("item merged-->" + JSON.stringify(mergedDataa));
-
-  // console.log("myLetVariable: ", myLetVariable);
   const getAllProducts = () => {
     const probject = {
       app_name: "b2b",
@@ -83,6 +60,7 @@ export function NewProducts() {
     };
     dispatch(getProduct(probject));
   };
+
   useEffect(() => {
     const Object = {
       page: 1,
@@ -98,13 +76,13 @@ export function NewProducts() {
   );
 
   const getProductsList = (item) => {
-    setSelectedId(item?.categoryData?.id);
+    setSelectedId(item?.id);
     const probject = {
       app_name: "b2b",
       delivery_options: "4",
       page: 1,
       limit: 30,
-      category_ids: item?.categoryData.id,
+      category_ids: item.id,
       need_trending: true,
     };
     dispatch(getProduct(probject));
@@ -128,34 +106,24 @@ export function NewProducts() {
       >
         <View
           style={{
-            borderWidth: item?.categoryData?.id === selectedId ? 1 : null,
+            borderWidth: item?.id === selectedId ? 1 : null,
             padding: SW(5),
             borderRadius: SW(20),
             borderColor:
-              item?.categoryData?.id === selectedId
-                ? COLORS.primary
-                : COLORS.light_grey,
+              item?.id === selectedId ? COLORS.primary : COLORS.light_grey,
 
             backgroundColor:
-              item?.categoryData?.id === selectedId
-                ? COLORS.white
-                : COLORS.input_bg,
+              item?.id === selectedId ? COLORS.white : COLORS.input_bg,
           }}
         >
           <Text
             style={{
               marginHorizontal: SW(1),
-              fontFamily:
-                item?.categoryData?.id === selectedId
-                  ? Fonts.Bold
-                  : Fonts.Regular,
-              color:
-                item?.categoryData?.id === selectedId
-                  ? COLORS.primary
-                  : COLORS.text,
+              fontFamily: item?.id === selectedId ? Fonts.Bold : Fonts.Regular,
+              color: item?.id === selectedId ? COLORS.primary : COLORS.text,
             }}
           >
-            {item?.categoryData?.name}
+            {item?.name}
           </Text>
         </View>
       </TouchableOpacity>
@@ -198,12 +166,7 @@ export function NewProducts() {
   const listDetail = ({ item, index }) => (
     <>
       <TouchableOpacity
-        onPress={() =>
-          navigate(NAVIGATION.productInquiry, {
-            itemId: item.id,
-            seller_id: item?.supplies[0]?.seller_id,
-          })
-        }
+        onPress={() => handleNavigation(item?.id)}
         style={[
           styles.ShoesStyle,
           {

@@ -73,7 +73,8 @@ export const ApiProductInventory = {
   getBanners: "banners/b2b?service_id=2&page=1&limit=10",
   getProductDetails: (productId) => `${PRODUCT_URL}products/b2b/${productId}`,
   getTrendingSellers: "users/sellers/b2b?page=1&limit=10&need_trending=true",
-  getCoupons: `${PRODUCT_URL}coupons/get-coupon-by-categoryId`,
+  getCoupons: PRODUCT_URL + "coupons",
+  getCouponsWithCategoryId: `${PRODUCT_URL}coupons/get-coupon-by-categoryId`,
   verifyCoupon: "coupons/verify",
   getSupplyVariant: (values, id) =>
     `supply_variants/by-attribute-value-ids?attribute_value_ids=${values}&supply_id=${id}`,

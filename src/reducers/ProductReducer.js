@@ -48,7 +48,7 @@ export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
     case TYPES.GET_COUPONS_SUCCESS:
       return {
         ...state,
-        coupons: payload.coupons.payload,
+        coupons: payload.coupons.payload?.data,
       };
     case TYPES.GET_COUPONS_RESET:
       return {

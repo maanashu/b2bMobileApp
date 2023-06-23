@@ -4,7 +4,6 @@ import { styles } from "./PastCoupons.styles";
 import { ScreenWrapper, Spacer } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { ms } from "react-native-size-matters";
 import { strings } from "@/localization";
 import { useSelector } from "react-redux";
 import { getProductSelector } from "@/selectors/ProductSelectors";
@@ -12,47 +11,6 @@ import moment from "moment";
 import { Fonts } from "@/assets";
 
 export function PastCoupons() {
-  const Coupons = [
-    {
-      id: 1,
-      couponName: strings.coupons.welcomeCoupon,
-      currency: "USD $",
-      amount: "2.00",
-      code: "jbvrgcu01",
-      discountCurrency: "USD $",
-      discount_amount: "30",
-      minMax: "minimum",
-      valid: strings.coupons.valid,
-      end_time: " Jan 14, 2023",
-      minimum_order_amount: "50",
-    },
-    {
-      id: 2,
-      couponName: strings.coupons.welcomeCoupon,
-      currency: "USD $",
-      discount_amount: "2.00",
-      couponCode: "jbvrgcu01",
-      discountCurrency: "USD $",
-      discountAmount: "30",
-      minMax: "minimum",
-      valid: strings.coupons.valid,
-      end_time: " Jan 12, 2023",
-      minimum_order_amount: "50",
-    },
-    {
-      id: 3,
-      couponName: strings.coupons.welcomeCoupon,
-      currency: "USD $",
-      amount: "2.00",
-      couponCode: "jbvrgcu01",
-      discountCurrency: "USD $",
-      discountAmount: "30",
-      minMax: "minimum",
-      valid: strings.coupons.valid,
-      end_time: " Jun 14, 2023",
-    },
-  ];
-
   const coupon = useSelector(getProductSelector);
 
   const CouponData = ({ item, index }) => {
@@ -111,7 +69,6 @@ export function PastCoupons() {
     );
   };
 
-  const checkCoupon = () => {};
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <Spacer space={SH(10)} />

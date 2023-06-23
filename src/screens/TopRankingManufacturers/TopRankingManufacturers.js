@@ -43,7 +43,7 @@ export function TopRankingManufacturers() {
     };
     dispatch(getProduct(data));
   };
-  console.log("gfsjdgjgdsjfs", JSON.stringify(user?.getManufacturersList) );
+  console.log("gfsjdgjgdsjfs", JSON.stringify(user?.getManufacturersList));
 
   const renderManufacturers = ({ item }) => (
     <>
@@ -53,17 +53,14 @@ export function TopRankingManufacturers() {
           borderRadius: SW(10),
           ...ShadowStyles.shadow2,
         }}
-        onPress={() => 
-          {
+        onPress={() => {
           navigate(NAVIGATION.aboutBusiness, {
             sellerDetails: item,
           });
           getProducts(item?.unique_uuid);
           dispatch(getOneManufactureDetails(item.id));
-      // console.log("first", item.id)
-
-        }
-      }
+          // console.log("first", item.id)
+        }}
       >
         <CompanyDetailView
           profilePhoto={
@@ -83,7 +80,7 @@ export function TopRankingManufacturers() {
         <Spacer space={SW(8)} />
         <View style={{ marginHorizontal: SW(15), paddingBottom: SH(5) }}>
           <FlatList
-            data={JSON.parse(item?.user_profiles?.manufacturer_images) ?? []}
+            data={item?.user_profiles?.manufacturer_images ?? []}
             extraData={item?.user_profiles?.manufacturer_images}
             numColumns={3}
             renderItem={renderImages}

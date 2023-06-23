@@ -194,7 +194,7 @@ export const styles = StyleSheet.create({
   },
   orderedProductsView: {
     backgroundColor: COLORS.white,
-    height: SH(300),
+    paddingBottom: SH(15),
     flex: 1,
     borderRadius: 10,
     marginHorizontal: 1,

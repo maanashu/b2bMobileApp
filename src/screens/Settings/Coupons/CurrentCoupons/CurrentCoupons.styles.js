@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     paddingVertical: SH(5),
   },
   couponView: {
-    backgroundColor: COLORS.placeHolder,
+    backgroundColor: "#F1F1F1",
     paddingBottom: SH(10),
     borderRadius: ms(10),
     paddingTop: SH(20),
@@ -52,6 +52,9 @@ export const styles = StyleSheet.create({
   },
   bottomView: {
     paddingHorizontal: SW(15),
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   dashedLine: {
     borderBottomWidth: 1,
@@ -65,5 +68,18 @@ export const styles = StyleSheet.create({
     height: SW(20),
     borderRadius: SW(10),
     left: SW(10),
+  },
+  applyButton: {
+    backgroundColor: COLORS.light_yellow,
+    paddingHorizontal: SW(8),
+    paddingVertical: SW(4),
+    borderRadius: SW(5),
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  applyText: {
+    color: COLORS.white,
+    fontFamily: Fonts.Regular,
+    fontSize: SF(12),
   },
 });

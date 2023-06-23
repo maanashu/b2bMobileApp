@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import {
   View,
   Image,
@@ -20,12 +20,10 @@ import { strings } from "@/localization";
 import {
   backArrow,
   chatNow,
-  deliveryMap,
   deliveryTruck,
   forward,
   location,
   orderDetails,
-  yewiLogo,
 } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
@@ -73,25 +71,9 @@ export function OrderedStatus({ route }) {
   ];
   console.log(
     "orderDetail====",
-    JSON.stringify(order?.getOneOrderDetail?.status)
+    JSON.stringify(order?.getOneOrderDetail?.discount)
   );
 
-  // const render = (item) => {
-  //   return (
-  //     <View>
-  //       <View style={styles.flatlistItems}>
-  //         <Text style={styles.quantityText}>
-  //           {item.quantity}
-  //           <Text style={styles.lightText}> x </Text>
-  //           <Text style={styles.quantityText}>{item.itemName}</Text>
-  //           <Text style={styles.lightText}> ({item.type})</Text>
-  //         </Text>
-
-  //         <Text style={styles.quantityText}>{item.price}</Text>
-  //       </View>
-  //     </View>
-  //   );
-  // };
   const render = (item) => {
     return (
       <View>
@@ -136,7 +118,10 @@ export function OrderedStatus({ route }) {
         }
       />
 
-      <ScrollView style={styles.mainContainer}>
+      <ScrollView
+        style={styles.mainContainer}
+        showsVerticalScrollIndicator={false}
+      >
         <Spacer space={SH(25)} />
 
         <View style={styles.orderStatus}>
@@ -400,7 +385,7 @@ export function OrderedStatus({ route }) {
             <View style={styles.pricesView}>
               <Text style={styles.pricesText}>{"Subtotal"}</Text>
               <Text style={styles.pricesText}>
-                {order?.subTotalAmount?.total_amount}
+                {"$ " + order?.subTotalAmount?.total_amount}
               </Text>
             </View>
 
@@ -409,7 +394,9 @@ export function OrderedStatus({ route }) {
             <View style={styles.pricesView}>
               <Text style={styles.pricesText}>{"Discount"}</Text>
               <Text style={styles.pricesText}>
-                {order?.getOneOrderDetail?.discount}
+                {order?.getOneOrderDetail?.discount > 0
+                  ? "- $ " + order?.getOneOrderDetail?.discount
+                  : order?.getOneOrderDetail?.discount}
               </Text>
             </View>
 
@@ -418,7 +405,7 @@ export function OrderedStatus({ route }) {
             <View style={styles.pricesView}>
               <Text style={styles.pricesText}>{"Taxes & Other fees"}</Text>
               <Text style={styles.pricesText}>
-                {order?.getOneOrderDetail?.tax}
+                {"+ $ " + order?.getOneOrderDetail?.tax}
               </Text>
             </View>
 
@@ -429,7 +416,9 @@ export function OrderedStatus({ route }) {
                 {deliveryService(order?.getOneOrderDetail)} fees
               </Text>
               <Text style={styles.pricesText}>
-                {order?.getOneOrderDetail?.shipping_charge}
+                {order?.getOneOrderDetail?.shipping_charge > 0
+                  ? "+ $ " + order?.getOneOrderDetail?.shipping_charge
+                  : order?.getOneOrderDetail?.shipping_charge}
               </Text>
             </View>
 
@@ -438,9 +427,12 @@ export function OrderedStatus({ route }) {
             <View style={styles.pricesView}>
               <Text style={styles.totalPriceText}>{"Total"}</Text>
               <Text style={styles.totalPriceText}>
-                {order?.getOneOrderDetail?.payable_amount}
+                {"$ " + order?.getOneOrderDetail?.payable_amount}
               </Text>
             </View>
+            <Text style={styles.totalJbrCoinText}>
+              {`(JBR ${order?.getOneOrderDetail?.payable_amount * 100})`}
+            </Text>
           </ScrollView>
         </View>
 

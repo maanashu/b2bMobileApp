@@ -98,6 +98,20 @@ export class ProductController {
     });
   }
 
+  static async getCouponsWithCategoryId(data) {
+    return new Promise((resolve, reject) => {
+      const params = new URLSearchParams(data).toString();
+      const endpoint = `${ApiProductInventory.getCouponsWithCategoryId}?${params}`;
+
+      HttpClient.get(endpoint)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
   static async getCoupons(data) {
     return new Promise((resolve, reject) => {
       const params = new URLSearchParams(data).toString();
@@ -108,12 +122,8 @@ export class ProductController {
           resolve(response);
         })
         .catch((error) => {
-          // Toast.show({
-          //   text2: error.msg,
-          //   position: "bottom",
-          //   type: "error_toast",
-          //   visibilityTime: 1500,
-          // });
+          console.log("error in controller", error);
+          console.log("endpoint in controller", endpoint);
           reject(error);
         });
     });

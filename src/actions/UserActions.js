@@ -938,10 +938,10 @@ export const productFavourites = (data) => async (dispatch) => {
   }
 };
 
-export const getFavouriteProducts = (data) => async (dispatch) => {
+export const getFavouriteProducts = () => async (dispatch) => {
   dispatch(getFavouriteProductsRequest());
   try {
-    const res = await UserController.getFavouriteProducts(data);
+    const res = await UserController.getFavouriteProducts();
     dispatch(getFavouriteProductsSuccess(res?.payload));
   } catch (error) {
     if (error?.statusCode === 204) {

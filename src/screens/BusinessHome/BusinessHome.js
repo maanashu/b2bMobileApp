@@ -149,7 +149,7 @@ export function BusinessHome() {
             <Spacer space={SH(20)} />
 
             <FlatList
-              data={typeof user === "string" ? JSON.parse(user) : user}
+              data={user}
               renderItem={secondItem}
               keyExtractor={(item) => item.id}
               // extraData={product}

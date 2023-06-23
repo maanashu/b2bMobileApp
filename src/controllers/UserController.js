@@ -72,7 +72,6 @@ export class UserController {
           if (response?.payload?.is_phone_exits) {
             navigate(NAVIGATION.enterPin, { route: "registered" });
           } else {
-
             Toast.show({
               position: "bottom",
               type: "success_toast",
@@ -592,7 +591,6 @@ export class UserController {
   }
 
   static async productFavourites(data) {
-    console.log("controller data", data);
     return new Promise((resolve, reject) => {
       const endpoint = USER_URL + ApiUserInventory.productFavourites;
       const body = {
@@ -614,14 +612,11 @@ export class UserController {
     });
   }
 
-  static async getFavouriteProducts(data) {
+  static async getFavouriteProducts() {
     return new Promise((resolve, reject) => {
-      const params = new URLSearchParams(data).toString();
-      const endpoint = `${
-        USER_URL + ApiUserInventory.productFavourites
-      }?${params}`;
+      const endpoint = USER_URL + ApiUserInventory.productFavourites;
 
-      HttpClient.get(endpoint, data)
+      HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
         })
