@@ -177,7 +177,6 @@ export const getCart = () => async (dispatch) => {
   }
 };
 export const createCartAction = (data, ArrayToRoute) => async (dispatch) => {
-  console.log("check data", JSON.stringify(data));
   dispatch(createCartRequest());
   try {
     const res = await OrderController.createCartController(data, ArrayToRoute);

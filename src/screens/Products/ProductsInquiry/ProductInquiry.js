@@ -76,7 +76,6 @@ export function ProductInquiry(params) {
   const isLoadingDetails = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
   );
-  // console.log("productDetail", ProductDetail?.productDetail?.product_detail);
 
   const object = {
     service_type: "product",
@@ -89,8 +88,6 @@ export function ProductInquiry(params) {
   // const idArray = user?.getFavouriteProducts.map(
   //   (obj) => obj.favourite_product[0].id
   // );
-
-  // console.log("valueeeessss" + idArray);
 
   const productData = {
     seller_id: params?.route?.params?.idSeller,
@@ -127,7 +124,6 @@ export function ProductInquiry(params) {
     );
     setMatchedIds(idSet);
   }, [user?.getFavouriteProducts]);
-  console.log("valluuujj", matchedIds);
   const renderItem = ({ item }) => (
     <TouchableOpacity style={[styles.item, { marginTop: SH(30) }]}>
       <View style={styles.upperButtons}>

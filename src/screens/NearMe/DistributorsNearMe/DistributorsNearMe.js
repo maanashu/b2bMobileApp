@@ -56,7 +56,6 @@ export function DistributorsNearMe() {
         onPress={() => {
           // navigate(NAVIGATION.aboutBusiness);
           // dispatch(saveManufacturerDetail(item));
-          // console.log((item.unique_uuid))
         }}
       >
         <View style={styles.rowView}>

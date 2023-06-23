@@ -50,7 +50,6 @@ export function StartOrder(params) {
     bundle?.[0]?.supply_prices?.[0]
   );
   const arr = bundle?.[0]?.supply_prices?.[0];
-  console.log("bundleData", bundle?.[0]?.supply_prices?.[0]);
   const [quantity, setQuantity] = useState(arr);
   const [string, setString] = useState();
   useEffect(() => {}, [isFocused]);

@@ -33,7 +33,6 @@ export function BusinessKyc(params) {
     if (kycStatus !== "passed") {
       interval = setInterval(() => {
         dispatch(checkBusinessKyc());
-        console.log("htting", kycStatus);
       }, 5000);
     } else {
       clearInterval(interval);

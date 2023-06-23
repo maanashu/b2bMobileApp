@@ -24,8 +24,6 @@ export function NewOrders() {
   const user = useSelector(getUser);
   const order = useSelector(orderSelector);
 
-  // console.log("user>", user?.user?.payload?.uuid);
-
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_ORDER_LIST], state)
   );

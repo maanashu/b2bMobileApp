@@ -54,8 +54,7 @@ export class WalletController {
           return;
         })
         .catch((error) => {
-          console.log("error", JSON.stringify(error));
-          reject(new Error((strings.verify.error = error)));
+          reject(error);
 
           Toast.show({
             text2: error.msg,

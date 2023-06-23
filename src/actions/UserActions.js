@@ -830,7 +830,6 @@ export const getUserProfile = (data) => async (dispatch) => {
     const res = await UserController.getUserProfile(data);
     dispatch(getUserProfileSucess(res));
   } catch (error) {
-    console.log("action error", JSON.stringify(error));
     dispatch(getUserProfileError(error.message));
   }
 };
@@ -845,7 +844,6 @@ export const getUserSettings = (data, callback) => async (dispatch) => {
   }
 };
 export const updateUserSettings = (data) => async (dispatch) => {
-  console.log("Data", data);
   dispatch(updateUserSettingsRequest());
   try {
     const res = await UserController.patchSettings(data);
@@ -856,30 +854,24 @@ export const updateUserSettings = (data) => async (dispatch) => {
 };
 
 export const sendChat = (data) => async (dispatch) => {
-  console.log("chchcbcch" + JSON.stringify(data));
   dispatch(sendChatRequest());
   return UserController.sendChat(data)
     .then((res) => {
-      console.log("send message success", res);
       dispatch(sendChatSuccess(res?.payload));
       return res;
     })
     .catch((error) => {
-      console.log("errorrrr", JSON.stringify(error));
       dispatch(sendChatError(error.message));
       throw error;
     });
 };
 
 export const getMessages = (id) => async (dispatch) => {
-  console.log("checkId" + id);
   dispatch(getMessagesRequest());
   try {
     const res = await UserController.getMessages(id);
     dispatch(getMessagesSuccess(res?.payload));
-    console.log("getting Messages success", res?.payload);
   } catch (error) {
-    console.log("getting messages error", JSON.stringify(error));
     dispatch(getMessagesError(error.message));
   }
 };
@@ -894,14 +886,11 @@ export const getMessageHeads = (data) => async (dispatch) => {
 };
 
 export const deleteMessages = (id) => async (dispatch) => {
-  console.log("id", id);
   dispatch(deleteMessagesRequest());
   try {
     const res = await UserController.deleteMessages(id);
-    console.log("dataaaa", res);
     dispatch(deleteMessagesSuccess(res?.payload));
   } catch (error) {
-    console.error("errror", JSON.stringify(error));
     dispatch(deleteMessagesError(error.message));
   }
 };

@@ -39,15 +39,13 @@ export class UserController {
           resolve(response);
         })
         .catch((error) => {
-          console.log("error in login ", JSON.stringify(error));
-
           Toast.show({
             text2: error.msg,
             position: "bottom",
             type: "error_toast",
             visibilityTime: 2000,
           });
-          reject(new Error((strings.login.loginError = error.msg)));
+          reject(error);
         });
     });
   }
@@ -159,7 +157,6 @@ export class UserController {
 
   static async register(data) {
     return new Promise(async (resolve, reject) => {
-      console.log("checking Body", JSON.stringify(data));
       const endpoint = USER_URL + ApiUserInventory.userRegister;
       const body = {
         username: data.username,
@@ -303,14 +300,13 @@ export class UserController {
           navigate(NAVIGATION.addresses);
         })
         .catch((error) => {
-          console.log("error: " + JSON.stringify(error));
           Toast.show({
             text2: error.msg,
             position: "bottom",
             type: "error_toast",
             visibilityTime: 2000,
           });
-          reject(new Error(error.msg));
+          reject(error);
         });
     });
   }
@@ -433,19 +429,15 @@ export class UserController {
         .then((response) => {
           resolve(response);
           // navigate(NAVIGATION.settings);
-
-          console.log("success api", JSON.stringify(response));
         })
         .catch((error) => {
-          console.log("error", JSON.stringify(error));
-          console.log("body", JSON.stringify(body));
           Toast.show({
             text2: error.msg,
             position: "bottom",
             type: "error_toast",
             visibilityTime: 2000,
           });
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }
@@ -461,12 +453,9 @@ export class UserController {
       HttpClient.post(endpoint, body)
         .then((response) => {
           resolve(response);
-          console.log("body", JSON.stringify(body));
           // navigate(NAVIGATION.settings);
         })
         .catch((error) => {
-          console.log("error in controller", JSON.stringify(error));
-          console.log("body", JSON.stringify(body));
           Toast.show({
             text2: error.msg,
             position: "bottom",
@@ -527,43 +516,36 @@ export class UserController {
       HttpClient.delete(endpoint, body)
         .then((response) => {
           resolve(response);
-          console.log("body", JSON.stringify(body));
           // navigate(NAVIGATION.settings);
         })
         .catch((error) => {
-          console.log("error", JSON.stringify(error));
-          console.log("body", JSON.stringify(body));
           Toast.show({
             text2: error.msg,
             position: "bottom",
             type: "error_toast",
             visibilityTime: 2000,
           });
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }
 
   static async getOneManufactureDetails(id) {
-    console.log("idData", id);
     return new Promise((resolve, reject) => {
       const endpoint = USER_URL + ApiUserInventory.getOneManufactureDetails(id);
       HttpClient.get(endpoint, id)
         .then((response) => {
           resolve(response);
-          console.log("endpoint", JSON.stringify(response));
           // navigate(NAVIGATION.settings);
         })
         .catch((error) => {
-          console.log("error", JSON.stringify(error));
-          console.log("endpoint", JSON.stringify(endpoint));
           Toast.show({
             text2: error.msg,
             position: "bottom",
             type: "error_toast",
             visibilityTime: 2000,
           });
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }
@@ -643,7 +625,6 @@ export class UserController {
   }
 
   static async uploadProfileImage(image) {
-    console.log("IDData", image);
     return new Promise(async (resolve, reject) => {
       const formData = new FormData();
       formData.append("profile", {
@@ -683,11 +664,8 @@ export class UserController {
       HttpClient.put(endpoint, body)
         .then((response) => {
           resolve(response);
-          console.log("edit successful", JSON.stringify(response));
         })
         .catch((error) => {
-          console.log("edit error", JSON.stringify(error));
-
           reject(error);
         });
     });

@@ -43,7 +43,6 @@ export function TopRankingManufacturers() {
     };
     dispatch(getProduct(data));
   };
-  console.log("gfsjdgjgdsjfs", JSON.stringify(user?.getManufacturersList));
 
   const renderManufacturers = ({ item }) => (
     <>

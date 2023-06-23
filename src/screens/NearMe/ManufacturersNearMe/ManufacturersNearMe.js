@@ -48,9 +48,7 @@ export function ManufacturersNearMe() {
       });
     }
   });
-  
 
-  console.log("ghgsgdfjgsjdgfjs", sellerType);
   const renderItem = ({ item }) => (
     <>
       <TouchableOpacity
@@ -58,7 +56,6 @@ export function ManufacturersNearMe() {
         onPress={() => {
           // navigate(NAVIGATION.aboutBusiness);
           // dispatch(saveManufacturerDetail(item));
-          // console.log((item))
         }}
       >
         <View style={styles.rowView}>

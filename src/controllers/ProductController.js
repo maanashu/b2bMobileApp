@@ -122,8 +122,6 @@ export class ProductController {
           resolve(response);
         })
         .catch((error) => {
-          console.log("error in controller", error);
-          console.log("endpoint in controller", endpoint);
           reject(error);
         });
     });
@@ -138,17 +136,13 @@ export class ProductController {
       };
       HttpClient.post(endpoint, body)
         .then((response) => {
-          console.log("controller success", response);
           resolve(response);
         })
-        .catch((error) => {
-          console.log("controller error", error);
-        });
+        .catch((error) => {});
     });
   }
 
   static async getVariantId(values, id) {
-    console.log("cheking daata", values, id);
     return new Promise((resolve, reject) => {
       const endpoint =
         PRODUCT_URL + ApiProductInventory.getSupplyVariant(values, id);
@@ -203,10 +197,8 @@ export class ProductController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
-          console.log("sucess", JSON.stringify(response));
         })
         .catch((error) => {
-          console.log("errororrr", JSON.stringify(error));
           Toast.show({
             text2: error.msg,
             position: "bottom",
@@ -285,7 +277,6 @@ export class ProductController {
   //     HttpClient.get(endpoint)
   //       .then((response) => {
   //         if (response.status === 204) {
-  //           console.log("no content");
   //           resolve([]);
   //         }
   //         resolve(response);

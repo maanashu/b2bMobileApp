@@ -58,8 +58,6 @@ export function ConfirmOrder({ route }) {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_ORDER_DETAILS], state)
   );
-  console.log("check lat ", order?.getOneOrderDetail);
-  console.log("check lat ", user?.user?.payload?.token);
 
   const headerText = (item) => {
     if (item?.status === 0) {

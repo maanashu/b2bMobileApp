@@ -131,10 +131,8 @@ export function VideoCall({ onClosePress }) {
   const [isVisible, setisVisible] = useState(false);
 
   const [selectedTiming, setselectedTiming] = useState("");
-  console.log("selected timings", selectedTiming);
 
   const [date, setDate] = useState(new Date());
-  console.log("selected date", date);
 
   const renderTimings = ({ item, index }) => (
     <TouchableOpacity

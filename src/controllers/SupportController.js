@@ -126,7 +126,6 @@ export class SupportController {
           resolve(response);
         })
         .catch((error) => {
-          console.log("error in support", JSON.stringify(error));
           Toast.show({
             text2: error.msg,
             position: "bottom",
@@ -146,7 +145,7 @@ export class SupportController {
           resolve(response);
         })
         .catch((error) => {
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }

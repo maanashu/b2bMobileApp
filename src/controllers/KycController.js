@@ -127,11 +127,8 @@ export class KycController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
-          console.log("controller success", response);
         })
         .catch((error) => {
-          console.log("controller error", error);
-
           reject(new Error((strings.verify.error = error.msg)));
         });
     });
@@ -156,11 +153,8 @@ export class KycController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
-          console.log("kyc controller success", response);
         })
         .catch((error) => {
-          console.log("kyc controller error", error);
-
           // Toast.show({
           //   text2: error.msg,
           //   position: "bottom",
@@ -215,11 +209,8 @@ export class KycController {
       HttpClient.post(endpoint, body)
         .then((response) => {
           resolve(response);
-          console.log("docs upload successful");
         })
         .catch((error) => {
-          console.log("docs upload error");
-
           reject(error);
         });
     });

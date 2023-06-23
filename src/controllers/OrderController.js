@@ -75,7 +75,6 @@ export class OrderController {
           resolve(response);
         })
         .catch((error) => {
-          console.log("error idr hai", JSON.stringify(error));
           Toast.show({
             text2: error.msg,
             position: "bottom",
@@ -109,7 +108,7 @@ export class OrderController {
             visibilityTime: 1500,
           });
 
-          reject(new Error((strings.validation.error = error.msg)));
+          reject(error);
         });
     });
   }
@@ -120,11 +119,10 @@ export class OrderController {
       HttpClient.delete(endpoint)
         .then((response) => {
           resolve(response);
-          console.log("cart empty success");
         })
         .catch((error) => {
           reject(error);
-          reject(new Error((strings.validation.error = error.msg)));
+          reject(error);
         });
     });
   }
@@ -213,10 +211,8 @@ export class OrderController {
       HttpClient.put(endpoint, body)
         .then((response) => {
           resolve(response);
-          console.log("changeOrderStatus Sucess", JSON.stringify(response));
         })
         .catch((error) => {
-          console.log("changeOrderStatus error", JSON.stringify(error));
           Toast.show({
             text2: error.msg,
             position: "bottom",
@@ -225,8 +221,6 @@ export class OrderController {
           });
 
           reject(error);
-
-          reject(new Error((strings.validation.error = error.msg)));
         });
     });
   }

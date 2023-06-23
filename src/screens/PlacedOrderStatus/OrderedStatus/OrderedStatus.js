@@ -69,10 +69,6 @@ export function OrderedStatus({ route }) {
       price: "$6.56",
     },
   ];
-  console.log(
-    "orderDetail====",
-    JSON.stringify(order?.getOneOrderDetail?.discount)
-  );
 
   const render = (item) => {
     return (

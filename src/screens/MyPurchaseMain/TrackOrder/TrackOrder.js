@@ -59,7 +59,6 @@ export function TrackOrder({ route }) {
       return strings?.trackOrder?.cancelled;
     }
   };
-  console.log("gdsiff", order?.getOneOrderDetail);
   return (
     <ScreenWrapper>
       <HeaderCoin title={strings.trackOrder.trackYourOrder} amount={"0"} />

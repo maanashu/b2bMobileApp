@@ -48,7 +48,6 @@ export function RetailersNearMe() {
     }
   });
 
-  console.log("ghgsgdfjgsjdgfjs", sellerType);
   const renderItem = ({ item }) => (
     <>
       <TouchableOpacity
