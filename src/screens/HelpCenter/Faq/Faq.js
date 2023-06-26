@@ -19,10 +19,11 @@ export function Faq(props) {
   const Body = {
     page: 1,
     limit: 10,
+    type: "faq",
   };
 
   useEffect(() => {
-    dispatch(faq(Body));
+    dispatch(faq("faq"));
   }, []);
   const navigationHandler = (item, index) => {
     navigate(NAVIGATION.faqVerified, {

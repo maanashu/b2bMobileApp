@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, useWindowDimensions } from "react-native";
 import { Spacer, ScreenWrapper, Button } from "@/components";
 import { styles } from "./Faq.styles";
 import { COLORS, SH, SW } from "@/theme";
@@ -8,14 +8,20 @@ import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
 import { backArrow } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
+import WebView from "react-native-webview";
 
 export function FaqVerified(props) {
+  const { height } = useWindowDimensions();
+
   const RouteData = props?.route?.params?.data;
   return (
     <ScreenWrapper>
       <HeaderCoin title={RouteData?.question} back={backArrow} amount={0} />
       <View style={{ flex: 1 }}>
-        <ScrollView style={{ paddingHorizontal: SW(20), flex: 1 }}>
+        <ScrollView
+          style={{ paddingHorizontal: SW(20), flex: 1 }}
+          showsVerticalScrollIndicator={false}
+        >
           <Spacer space={SH(20)} />
 
           <Text style={[styles.text]}>{RouteData?.question}</Text>
@@ -26,7 +32,18 @@ export function FaqVerified(props) {
 
           <Spacer space={SH(34)} />
           <View style={{ flex: 1 }}>
-            <Text style={[styles.stext]}>{RouteData?.answer}</Text>
+            {/* <Text style={[styles.stext]}>{RouteData?.answer}</Text> */}
+            <WebView
+              showsVerticalScrollIndicator={false}
+              source={{
+                html: `<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body>${RouteData?.answer}</body></html>`,
+              }}
+              style={{
+                height: height - SH(125),
+                backgroundColor: "transparent",
+                flex: 1,
+              }}
+            />
           </View>
 
           <Spacer space={SH(30)} />
@@ -35,7 +52,6 @@ export function FaqVerified(props) {
         <View
           style={{
             justifyContent: "flex-end",
-            flex: 1,
             padding: SW(20),
           }}
         >

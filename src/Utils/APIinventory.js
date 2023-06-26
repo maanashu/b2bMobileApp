@@ -40,7 +40,7 @@ export const ApiUserInventory = {
 };
 
 export const SupportInventory = {
-  faqs: "faqs",
+  faqs: (type) => `faqs?type=${type}`,
 };
 
 export const ApiOrderInventory = {

@@ -16,25 +16,24 @@ import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { HttpClient } from "./HttpClient";
 
 export class SupportController {
-  static async getFaqs(data) {
+  static async getFaqs(type) {
     return new Promise((resolve, reject) => {
-      const params = new URLSearchParams(data).toString();
-      const endpoint = `${SUPPORT_URL}${SupportInventory.faqs}?${params}`;
+      const endpoint = SUPPORT_URL + SupportInventory.faqs(type);
       HttpClient.get(endpoint)
-
         .then((response) => {
+          console.log("success in gaq", response);
+
           resolve(response);
         })
         .catch((error) => {
-          reject(error);
-
+          console.log("error in gaq", error);
           Toast.show({
             text2: error.msg,
             position: "bottom",
             type: "error_toast",
             visibilityTime: 1500,
           });
-          // reject(new Error((strings.validation.error = error.msg)));
+          reject(error);
         });
     });
   }

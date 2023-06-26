@@ -58,10 +58,10 @@ const getSupportListSuccess = (support) => ({
   payload: { support },
 });
 
-export const faq = (data) => async (dispatch) => {
+export const faq = (type) => async (dispatch) => {
   dispatch(getFaqRequest());
   try {
-    const res = await SupportController.getFaqs(data);
+    const res = await SupportController.getFaqs(type);
     dispatch(getFaqSuccess(res));
   } catch (error) {
     dispatch(getFaqError(error.message));
