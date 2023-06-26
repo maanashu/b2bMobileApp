@@ -135,6 +135,7 @@ export const TYPES = {
   GET_MESSAGES_REQUEST: "GET_MESSAGES_REQUEST",
   GET_MESSAGES_SUCCESS: "GET_MESSAGES_SUCCESS",
   GET_MESSAGES_ERROR: "GET_MESSAGES_ERROR",
+  GET_MESSAGES_RESET: "GET_MESSAGES_RESET",
 
   GET_MESSAGES_HEADS: "GET_MESSAGES_HEADS",
   GET_MESSAGES_HEADS_REQUEST: "GET_MESSAGES_HEADS_REQUEST",
@@ -484,6 +485,11 @@ const getMessagesSuccess = (getMessages) => ({
 const getMessagesError = (error) => ({
   type: TYPES.GET_MESSAGES_ERROR,
   payload: { error },
+});
+
+const getMessagesReset = () => ({
+  type: TYPES.GET_MESSAGES_RESET,
+  payload: null,
 });
 
 const getMessagesHeadsRequest = () => ({
@@ -870,15 +876,21 @@ export const getMessages = (id) => async (dispatch) => {
   dispatch(getMessagesRequest());
   try {
     const res = await UserController.getMessages(id);
-    dispatch(getMessagesSuccess(res?.payload));
+    dispatch(getMessagesSuccess(res));
   } catch (error) {
-    dispatch(getMessagesError(error.message));
+    console.log("error in getMessagesRequest", JSON.stringify(error));
+
+    if (error?.statusCode === 204) {
+      dispatch(getMessagesReset());
+    } else {
+      dispatch(getMessagesError(error.message));
+    }
   }
 };
-export const getMessageHeads = (data) => async (dispatch) => {
+export const getMessageHeads = () => async (dispatch) => {
   dispatch(getMessagesHeadsRequest());
   try {
-    const res = await UserController.getMessageHeads(data);
+    const res = await UserController.getMessageHeads();
     dispatch(getMessagesHeadsSuccess(res));
   } catch (error) {
     dispatch(getMessagesHeadsError(error.message));

@@ -130,15 +130,27 @@ export class ProductController {
   static async addCoupon(data) {
     return new Promise((resolve, reject) => {
       const endpoint = PRODUCT_URL + ApiProductInventory.verifyCoupon;
-
       const body = {
-        code: data.code,
+        ...data,
       };
       HttpClient.post(endpoint, body)
         .then((response) => {
           resolve(response);
+          Toast.show({
+            text2: "Coupon Applied",
+            position: "bottom",
+            type: "success_toast",
+            visibilityTime: 1500,
+          });
         })
-        .catch((error) => {});
+        .catch((error) => {
+          Toast.show({
+            text2: error?.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
+        });
     });
   }
 

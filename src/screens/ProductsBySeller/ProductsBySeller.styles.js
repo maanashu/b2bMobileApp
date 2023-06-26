@@ -73,7 +73,7 @@ export const styles = StyleSheet.create({
     color: COLORS.primary,
     fontFamily: Fonts.SemiBold,
     fontSize: SF(16),
-    paddingLeft: SW(12),
+    paddingLeft: SW(7),
   },
   categoryText: {
     color: COLORS.primary,
@@ -134,11 +134,5 @@ export const styles = StyleSheet.create({
     fontSize: ms(9),
     color: COLORS.darkGrey,
     marginTop: vs(2),
-  },
-  priceText: {
-    color: COLORS.primary,
-    fontFamily: Fonts.SemiBold,
-    fontSize: SF(16),
-    paddingLeft: SW(12),
   },
 });

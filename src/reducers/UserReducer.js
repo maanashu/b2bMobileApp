@@ -37,7 +37,7 @@ const INITIALSTATE = {
   updateUserSettings: {},
   getUserSettings: {},
   sendChat: {},
-  getMessages: {},
+  getMessages: [],
   deleteMessages: {},
   getOneManufactureDetails: {},
   getManufacturersList: [],
@@ -202,7 +202,12 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
     case TYPES.GET_MESSAGES_SUCCESS:
       return {
         ...state,
-        getMessages: payload.getMessages,
+        getMessages: payload.getMessages?.payload,
+      };
+    case TYPES.GET_MESSAGES_RESET:
+      return {
+        ...state,
+        getMessages: [],
       };
     case TYPES.DELETE_MESSAGES_SUCCESS:
       return {

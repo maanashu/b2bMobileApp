@@ -9,7 +9,6 @@ import {
 import React from "react";
 import { styles } from "./TopRankingManufacturers.style";
 import {
-  Button,
   CompanyDetailView,
   ScreenWrapper,
   Spacer,
@@ -25,7 +24,7 @@ import { getUser } from "@/selectors/UserSelectors";
 import { ShadowStyles } from "@/theme";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
-import { getProduct, saveManufacturerDetail } from "@/actions/ProductActions";
+import { getProduct } from "@/actions/ProductActions";
 import { getOneManufactureDetails } from "@/actions/UserActions";
 
 export function TopRankingManufacturers() {

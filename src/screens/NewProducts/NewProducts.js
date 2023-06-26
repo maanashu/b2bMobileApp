@@ -2,7 +2,7 @@ import { Text, View, FlatList, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { styles } from "./NewProducts.style";
 import { ScreenWrapper, Spacer, SubHeader } from "@/components";
-import { SH, SW } from "@/theme/ScalerDimensions";
+import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { backArrow, Fonts, image10 } from "@/assets";
 import { strings } from "@/localization";
@@ -202,7 +202,10 @@ export function NewProducts() {
         <Spacer space={SH(1)} />
         {user?.user?.payload?.token && (
           <Text style={styles.priceText}>
-            {"$"} {item.price}
+            {"$ " + item.price} /
+            <Text style={{ fontFamily: Fonts.Regular, fontSize: SF(14) }}>
+              {" Carton"}
+            </Text>
             {/* <Text style={styles.categoryText}> {item.product_type.name}</Text> */}
           </Text>
         )}

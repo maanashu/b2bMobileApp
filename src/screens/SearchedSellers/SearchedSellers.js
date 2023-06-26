@@ -3,7 +3,7 @@ import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { ScreenWrapper, Spacer } from "@/components";
 import { useSelector } from "react-redux";
 import { styles } from "./SearchedSellers.styles";
-import { COLORS, SF, SH, SW } from "@/theme";
+import { SH, SW } from "@/theme";
 import { Loader } from "@/components/Loader";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { getProductSelector } from "@/selectors/ProductSelectors";

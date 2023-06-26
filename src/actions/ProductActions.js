@@ -98,13 +98,17 @@ const addCouponRequest = () => ({
   type: TYPES.ADD_COUPONS_REQUEST,
   payload: null,
 });
-const addCouponSuccess = (addCoupons) => ({
+export const addCouponSuccess = (addCoupons) => ({
   type: TYPES.ADD_COUPONS_SUCCESS,
   payload: { addCoupons },
 });
 const addCouponError = (error) => ({
   type: TYPES.ADD_COUPONS_ERROR,
   payload: { error },
+});
+const addCouponReset = () => ({
+  type: TYPES.ADD_COUPONS_RESET,
+  payload: null,
 });
 
 const supplyVariantRequest = () => ({
@@ -243,13 +247,15 @@ export const getCouponsWithCategoryId = (data) => async (dispatch) => {
 
 export const addCoupon = (data) => async (dispatch) => {
   dispatch(addCouponRequest());
-  try {
-    const res = await ProductController.addCoupon(data);
-
-    dispatch(addCouponSuccess(res));
-  } catch (error) {
-    dispatch(addCouponError(error.message));
-  }
+  return ProductController.addCoupon(data)
+    .then((res) => {
+      dispatch(addCouponSuccess(res));
+      return res;
+    })
+    .catch((error) => {
+      dispatch(addCouponError(error.message));
+      throw error;
+    });
 };
 
 export const getSupplyVariantId = (values, id) => async (dispatch) => {

@@ -60,6 +60,11 @@ export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         addCoupons: payload.addCoupons.payload,
       };
+    case TYPES.ADD_COUPONS_RESET:
+      return {
+        ...state,
+        addCoupons: {},
+      };
     case TYPES.SUPPLY_VARIANT_SUCCESS:
       return {
         ...state,

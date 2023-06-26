@@ -33,12 +33,14 @@ export function Messages() {
   const user = useSelector(getUser);
 
   useEffect(() => {
-    dispatch(getMessageHeads({ page: 1 }));
+    dispatch(getMessageHeads());
   }, []);
 
   const handleChat = (id) => {
     dispatch(getMessages(id));
     navigate(NAVIGATION.chatting, { seller_id: id });
+    // alert(id);
+    console.log(id);
   };
   const renderTopItems = ({ item }) => (
     <>

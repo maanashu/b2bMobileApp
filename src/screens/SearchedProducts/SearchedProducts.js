@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { ScreenWrapper, Spacer } from "@/components";
 import { useDispatch, useSelector } from "react-redux";
 import { styles } from "./SearchedProducts.styles";
@@ -11,6 +11,7 @@ import { TYPES } from "@/Types/Types";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { getSellers } from "@/actions/UserActions";
+import FastImage from "react-native-fast-image";
 
 export function SearchedProducts() {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ export function SearchedProducts() {
           style={styles.Item}
           onPress={() => handleNavigation(item?.id)}
         >
-          <Image
+          <FastImage
             source={{ uri: item?.image }}
             resizeMode="contain"
             style={styles.productImageStyle}

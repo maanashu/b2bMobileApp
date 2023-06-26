@@ -150,7 +150,7 @@ export class UserController {
           resolve(response);
         })
         .catch((error) => {
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }
@@ -195,7 +195,7 @@ export class UserController {
             type: "error_toast",
             visibilityTime: 1500,
           });
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }
@@ -219,7 +219,7 @@ export class UserController {
             type: "error_toast",
             visibilityTime: 2000,
           });
-          reject(new Error(error.msg));
+          reject(error);
         });
     });
   }
@@ -259,7 +259,7 @@ export class UserController {
           //   type: "error_toast",
           //   visibilityTime: 1500,
           // });
-          reject(new Error((strings.validation.error = error.msg)));
+          reject(error);
         });
     });
   }
@@ -271,7 +271,7 @@ export class UserController {
           resolve(response);
         })
         .catch((error) => {
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }
@@ -346,7 +346,7 @@ export class UserController {
           resolve(response);
         })
         .catch((error) => {
-          reject(new Error((strings.validation.error = error.msg)));
+          reject(error);
         });
     });
   }
@@ -391,7 +391,7 @@ export class UserController {
             type: "error_toast",
             visibilityTime: 2000,
           });
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }
@@ -414,7 +414,7 @@ export class UserController {
             type: "error_toast",
             visibilityTime: 2000,
           });
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }
@@ -469,14 +469,14 @@ export class UserController {
 
   static async getMessages(id) {
     return new Promise((resolve, reject) => {
+      // const params = new URLSearchParams(data).toString();
+
       const endpoint = USER_URL + ApiUserInventory.getMessages(id);
-      const body = {
-        recipient_id: id,
-      };
-      HttpClient.get(endpoint, body)
+
+      HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
-          // navigate(NAVIGATION.settings);
+          console.log("checkEndpoint", endpoint);
         })
         .catch((error) => {
           Toast.show({
@@ -489,12 +489,9 @@ export class UserController {
         });
     });
   }
-  static async getMessageHeads(data) {
+  static async getMessageHeads() {
     return new Promise((resolve, reject) => {
-      const params = new URLSearchParams(data).toString();
-      const endpoint = `${
-        USER_URL + ApiUserInventory.getMessageHeads
-      }${params}`;
+      const endpoint = USER_URL + ApiUserInventory.getMessageHeads;
 
       HttpClient.get(endpoint)
         .then((response) => {
@@ -502,7 +499,7 @@ export class UserController {
           // navigate(NAVIGATION.settings);
         })
         .catch((error) => {
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }
@@ -567,7 +564,7 @@ export class UserController {
             type: "error_toast",
             visibilityTime: 2000,
           });
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }
@@ -589,7 +586,7 @@ export class UserController {
             type: "error_toast",
             visibilityTime: 2000,
           });
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }

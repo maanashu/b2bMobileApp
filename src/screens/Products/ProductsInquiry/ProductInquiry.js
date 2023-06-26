@@ -66,7 +66,6 @@ import {
 import { previousScreen } from "@/actions/GlobalActions";
 
 export function ProductInquiry(params) {
-  const [favourite, setFavourite] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector(getUser);
   const token = user?.user?.payload?.token;
@@ -85,9 +84,6 @@ export function ProductInquiry(params) {
     delivery_options: "4",
     seller_id: params?.route?.params?.seller_id,
   };
-  // const idArray = user?.getFavouriteProducts.map(
-  //   (obj) => obj.favourite_product[0].id
-  // );
 
   const productData = {
     seller_id: params?.route?.params?.idSeller,
@@ -110,11 +106,13 @@ export function ProductInquiry(params) {
         ProductDetail?.productDetail?.product_detail?.supplies?.[0]?.seller_id,
       screenName: "productInquiry",
     });
+    // console.log(
+    //   ProductDetail?.productDetail?.product_detail?.supplies?.[0]?.seller_id
+    // );
   };
 
   const colorChange = () => {
     dispatch(productFavourites(productData));
-    setFavourite(!favourite);
     // dispatch(sellerFavourites({ seller_id: params?.route?.params?.id }));
   };
 

@@ -95,16 +95,13 @@ export function ReviewAndPayment(props) {
   const ASPECT_RATIO = width / height;
   const LATITUDE_DELTA = 0.005;
   const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-  const { countryname } = route.params || {};
   const [refreshing, setRefreshing] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-
-  // const [address, setAddress] = useState(countryname);
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.CREATE_ORDER], state)
   );
-
+  console.log("dfih=====", getCartId?.subTotalAmount);
   const placeOrder = () => {
     const data = {
       Cart_id: getCartId?.getCart?.id,
@@ -425,14 +422,18 @@ export function ReviewAndPayment(props) {
 
             <View style={styles.pricesView}>
               <Text style={styles.pricesText}>Discount</Text>
-              <Text style={styles.pricesText}>$0.00</Text>
+              <Text style={styles.pricesText}>
+                {"- $ " + getCartId?.subTotalAmount?.discount_amount.toFixed(2)}
+              </Text>
             </View>
 
             <Spacer space={SH(10)} />
 
             <View style={styles.pricesView}>
               <Text style={styles.pricesText}>Taxes & Other fees</Text>
-              <Text style={styles.pricesText}>$0.00</Text>
+              <Text style={styles.pricesText}>
+                + $ {getCartId?.subTotalAmount?.tax_amount.toFixed(2)}
+              </Text>
             </View>
 
             <Spacer space={SH(10)} />
@@ -447,7 +448,7 @@ export function ReviewAndPayment(props) {
             <View style={styles.pricesView}>
               <Text style={styles.totalPriceText}>Total</Text>
               <Text style={styles.totalPriceText}>
-                $ {getCartId?.getCart?.amout?.total_amount?.toFixed(2)}
+                $ {getCartId?.subTotalAmount?.total_amount?.toFixed(2)}
               </Text>
             </View>
           </ScrollView>
@@ -514,95 +515,6 @@ export function ReviewAndPayment(props) {
             </TouchableOpacity>
           </View>
         )}
-
-        {/* <RBSheet
-          ref={refRBSheet}
-          animationType="fade"
-          closeOnDragDown={false}
-          closeOnPressMask={false}
-          height={vs(630)}
-          customStyles={{
-            wrapper: {
-              backgroundColor: "#999999",
-            },
-            container: {
-              backgroundColor: "#999999",
-            },
-            draggableIcon: {
-              backgroundColor: "#000",
-            },
-          }}
-        >
-          <View style={styles.modalCloseView}>
-            <TouchableOpacity onPress={() => refRBSheet.current.close()}>
-              <Text style={styles.textStyle}>{strings.wallet.close}</Text>
-            </TouchableOpacity>
-          </View>
-
-          <ScrollView
-            bounces={false}
-            showsVerticalScrollIndicator={false}
-            style={styles.scrollViewStyle}
-          >
-            <View style={styles.headingRowView}>
-              <Text style={styles.walletText}>{strings.wallet.wallet}</Text>
-              <Image
-                source={coins}
-                resizeMode="contain"
-                style={styles.coinIcon}
-              />
-            </View>
-
-            <View style={{ paddingHorizontal: 10 }}>
-              <Text style={{ textAlign: "center" }}>
-                {strings.wallet.useCoin}
-              </Text>
-            </View>
-            <Spacer space={SH(15)} />
-
-            <View style={{ paddingHorizontal: ms(20) }}>
-              <View style={styles.referralView}>
-                <View style={{ paddingLeft: ms(10) }}>
-                  <Spacer space={SH(10)} />
-                  <Text style={styles.refferalBigText}>Get 15.00 JBR</Text>
-
-                  <Text style={styles.refferalsmallText}>
-                    {strings.wallet.getJbr}
-                  </Text>
-                  <Spacer space={SH(17)} />
-                  <View style={styles.shareButton}>
-                    <Text style={styles.shareText}>Share</Text>
-                  </View>
-                </View>
-                <Image
-                  source={referralCorner}
-                  resizeMode="cover"
-                  style={styles.cornerImage}
-                />
-              </View>
-            </View>
-
-            <Spacer space={SH(15)} />
-            <View style={{ paddingHorizontal: 20 }}>
-              <FlatList
-                windowSize={1}
-                data={data}
-                renderItem={renderItem}
-                removeClippedSubviews={true}
-                keyExtractor={(item) => item.id}
-                showsVerticalScrollIndicator={false}
-              />
-            </View>
-            <Spacer space={SH(15)} />
-
-            <View style={{ paddingHorizontal: ms(20), alignItems: "center" }}>
-              <Text style={styles.agreementText}>
-                {strings.wallet.agreement}
-              </Text>
-            </View>
-            <Spacer space={SH(40)} />
-          </ScrollView>
-        </RBSheet> */}
       </ScrollView>
       <Modal
         animationType="fade"

@@ -352,4 +352,8 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: SW(10),
   },
+  couponDataText: {
+    color: COLORS.darkGrey,
+    fontFamily: Fonts.Regular,
+  },
 });

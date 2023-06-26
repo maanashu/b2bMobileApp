@@ -1,12 +1,11 @@
 import { Text, View, FlatList, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { styles } from "./ProductsBySeller.styles";
 import { Header, ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { backArrow, Fonts } from "@/assets";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategorySelector } from "@/selectors/CategorySelectors";
 import FastImage from "react-native-fast-image";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
@@ -19,10 +18,7 @@ import { Loader } from "@/components/Loader";
 
 export function ProductsBySeller(params) {
   const dispatch = useDispatch();
-  const routeId = params?.route?.params?.sellerId;
-  const [selectedId, setSelectedId] = useState([0]);
 
-  const brandsData = useSelector(getCategorySelector);
   const productsData = useSelector(getProductSelector);
   const user = useSelector(getUser);
 
@@ -39,10 +35,7 @@ export function ProductsBySeller(params) {
     dispatch(getProduct(productObject));
   }, []);
 
-  console.log(
-    "params?.route?.params?.idSeller",
-    params?.route?.params?.idSeller
-  );
+  // console.log("favProducts---", JSON.stringify(user?.getFavouriteProducts));
 
   const isLoadingProducts = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT], state)
@@ -87,7 +80,6 @@ export function ProductsBySeller(params) {
         seller_id: item?.supplies[0]?.seller_id,
         idSeller: params?.route?.params?.idSeller,
       });
-      // alert(item?.supplies[0]?.seller_id);
     }
   };
 
@@ -129,8 +121,10 @@ export function ProductsBySeller(params) {
         {user?.user?.payload?.token && (
           <Text style={styles.priceText}>
             {" "}
-            <Text>{"$ "}</Text>
-            {item.price}
+            {"$" + item.price} /
+            <Text style={{ fontFamily: Fonts.Regular, fontSize: SF(14) }}>
+              {" Carton"}
+            </Text>
             {/* <Text style={styles.categoryText}> {item.product_type.name}</Text> */}
           </Text>
         )}

@@ -15,16 +15,23 @@ import { backArrow, Fonts } from "@/assets";
 import { strings } from "@/localization";
 import { CurrentCoupons, PastCoupons } from "@/screens";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addCoupon, getCoupons } from "@/actions/ProductActions";
 import { goBack, navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
+import { Loader } from "@/components/Loader";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
 
 export function AddCoupon(params) {
   const layout = useWindowDimensions();
   const dispatch = useDispatch();
   const [index, setIndex] = React.useState(0);
   const [couponAdd, setcouponAdd] = useState();
+
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_COUPONS], state)
+  );
 
   const [routes] = React.useState([
     { key: "Current", title: "Current" },
@@ -131,6 +138,7 @@ export function AddCoupon(params) {
           renderTabBar={renderTabBar}
         />
       </View>
+      {isLoading && <Loader message="Loading Coupons..." />}
     </ScreenWrapper>
   );
 }

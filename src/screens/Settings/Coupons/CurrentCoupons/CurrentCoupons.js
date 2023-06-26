@@ -5,13 +5,24 @@ import { ScreenWrapper, Spacer } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { strings } from "@/localization";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import { Fonts } from "@/assets";
 import moment from "moment";
+import { addCoupon } from "@/actions/ProductActions";
+import { goBack } from "@/navigation/NavigationRef";
 export function CurrentCoupons(params) {
   const coupon = useSelector(getProductSelector);
-  console.log("params: " + params?.route?.params?.order_amount);
+  const dispatch = useDispatch();
+  const applyCoupon = (item) => {
+    const data = {
+      code: item?.code,
+      seller_id: params?.route?.params?.seller_id,
+      service_id: params?.route?.params?.service_id,
+      order_amount: params?.route?.params?.order_amount,
+    };
+    dispatch(addCoupon(data)).then((res) => goBack());
+  };
 
   const CouponData = ({ item, index }) => {
     const formattedDate = moment(item.end_time).format("MMM DD, yyyy");
@@ -25,8 +36,8 @@ export function CurrentCoupons(params) {
                 <Text style={styles.upperText}>{item.code}</Text>
 
                 <Text style={styles.upperText}>
-                  {"USD $ "}
-                  {item.discount_amount}
+                  {"Save Upto "}
+                  {item?.discount_percentage + " %"}
                 </Text>
               </View>
 
@@ -60,7 +71,10 @@ export function CurrentCoupons(params) {
             <View style={styles.bottomView}>
               {params?.route?.params?.order_amount >
               item?.minimum_order_amount ? (
-                <TouchableOpacity style={styles.applyButton}>
+                <TouchableOpacity
+                  style={styles.applyButton}
+                  onPress={() => applyCoupon(item)}
+                >
                   <Text style={styles.applyText}>{"Apply"}</Text>
                 </TouchableOpacity>
               ) : (

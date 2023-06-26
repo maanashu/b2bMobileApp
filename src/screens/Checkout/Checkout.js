@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { styles } from "./Checkout.styles";
 import { ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
@@ -28,15 +28,34 @@ import { orderSelector } from "@/selectors/OrderSelector";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { createCartAction } from "@/actions/OrderAction";
+import { getProductSelector } from "@/selectors/ProductSelectors";
 
 export function Checkout() {
   const dispatch = useDispatch();
   const cartList = useSelector(orderSelector);
+  const coupon = useSelector(getProductSelector);
+  const [discountAmnt, setdiscountAmnt] = useState(0);
+  const [taxAmount, setTaxAmount] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(0);
   let arr = [cartList?.getCart];
-  // console.log("fbfdbv", JSON.stringify(cartList?.getCart));
   useEffect(() => {
     dispatch(getCart());
-  }, []);
+    if (coupon?.addCoupons) {
+      setdiscountAmnt(
+        (coupon?.addCoupons?.discount_percentage / 100) *
+          cartList?.getCart?.amout?.total_amount
+      );
+    }
+    setTaxAmount(
+      (cartList?.getCart?.amout?.tax_percentage / 100) *
+        (coupon?.addCoupons?.discount_percentage ||
+          cartList?.getCart?.amout?.total_amount / 100) *
+        cartList?.getCart?.amout?.total_amount
+    );
+    setTotalAmount(
+      cartList?.getCart?.amout?.total_amount - discountAmnt + taxAmount
+    );
+  }, [discountAmnt, cartList?.getCart?.amout?.total_amount, taxAmount]);
 
   const applyCouponHandler = () => {
     navigate(NAVIGATION.addCoupon, {
@@ -46,7 +65,6 @@ export function Checkout() {
       service_id: cartList?.getCart?.service_id,
     });
   };
-
   const removeProduct = (cartId, cartProductId) => {
     dispatch(removeOneProductfromCart(cartId, cartProductId)).then((res) => {
       if (res?.payload == 0) {
@@ -54,7 +72,6 @@ export function Checkout() {
       }
     });
   };
-
   const isAddToCartLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_CART], state)
   );
@@ -84,7 +101,6 @@ export function Checkout() {
       dispatch(createCartAction(withoutVariantObject));
     }
   };
-
   const renderItem = ({ item, index }) => (
     <>
       {item?.cart_products?.map((data, ind) => {
@@ -154,7 +170,6 @@ export function Checkout() {
       })}
     </>
   );
-
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <HeaderCoin title={strings.checkout.checkout} />
@@ -163,31 +178,6 @@ export function Checkout() {
 
       <View style={styles.mainContainer} showsVerticalScrollIndicator={false}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          {/* <View style={styles.deliveryView}>
-            <View style={styles.deliveryViewDirection}>
-              <View>
-                <Image
-                  resizeMode="contain"
-                  style={styles.truckIcon}
-                  source={deliveryTruck}
-                />
-              </View>
-              <View style={styles.deliveryViewText}>
-                <Text style={styles.deliveryTime}>
-                  {strings.reviewAndPayment.deliveryTime}
-                </Text>
-                <Text style={styles.deliveryName}>{"Express Shipping"}</Text>
-                <Text style={styles.estimatedDelivery}>
-                  {strings.reviewAndPayment.estimatedDelivery}{" "}
-                  <Text style={styles.deliveryDays}>
-                    {" "}
-                    {strings.reviewAndPayment.days}
-                  </Text>
-                </Text>
-              </View>
-            </View>
-          </View> */}
-          <Spacer space={SH(20)} />
           {/* ////////////////////// */}
 
           <FlatList
@@ -199,29 +189,61 @@ export function Checkout() {
           />
 
           <Spacer space={SH(25)} />
-          <TouchableOpacity
-            style={styles.applyCouponBackground}
-            onPress={applyCouponHandler}
-          >
-            <View style={styles.headerInnerView}>
-              <Text style={styles.ApplyCouponHeading}>
-                {"Apply coupon here"}
-              </Text>
-              <Image
-                source={rightArrowThin}
-                resizeMode="contain"
-                style={styles.rightArrowStyle}
-              />
-            </View>
+          <>
+            {coupon?.addCoupons ? (
+              <>
+                <View style={[styles.applyCouponBackground]}>
+                  <Text
+                    style={{
+                      fontFamily: Fonts.SemiBold,
+                      color: COLORS.primary,
+                    }}
+                  >
+                    Coupon Applied !
+                  </Text>
 
-            <Spacer space={SH(2)} />
+                  <Spacer space={SH(5)} />
 
-            <Text style={styles.ApplyCouponHeadingText}>
-              {"Add your coupon here"}
-            </Text>
-          </TouchableOpacity>
+                  <View style={styles.rowView}>
+                    <Text style={styles.couponDataText}>
+                      {coupon?.addCoupons?.code}
+                    </Text>
+                    <Text style={styles.couponDataText}>
+                      {"Save upto " +
+                        coupon?.addCoupons?.discount_percentage +
+                        " %"}
+                    </Text>
+                  </View>
+                </View>
+                <Spacer space={SH(25)} />
+              </>
+            ) : (
+              <>
+                <TouchableOpacity
+                  style={styles.applyCouponBackground}
+                  onPress={applyCouponHandler}
+                >
+                  <View style={styles.headerInnerView}>
+                    <Text style={styles.ApplyCouponHeading}>
+                      {"Apply coupon here"}
+                    </Text>
+                    <Image
+                      source={rightArrowThin}
+                      resizeMode="contain"
+                      style={styles.rightArrowStyle}
+                    />
+                  </View>
 
-          <Spacer space={SH(25)} />
+                  <Spacer space={SH(2)} />
+
+                  <Text style={styles.ApplyCouponHeadingText}>
+                    {"Add your coupon here"}
+                  </Text>
+                </TouchableOpacity>
+                <Spacer space={SH(25)} />
+              </>
+            )}
+          </>
 
           <View style={styles.subtotalBackground}>
             <View style={styles.subtotalView}>
@@ -240,8 +262,9 @@ export function Checkout() {
             <View style={styles.subtotalView}>
               <Text style={styles.feeText}>{"Coupon"}</Text>
               <Text style={styles.feeText}>
+                {discountAmnt > 0 ? "- " : ""}
                 {"$ "}
-                {"0.00"}
+                {discountAmnt.toFixed(2)}
               </Text>
             </View>
 
@@ -255,7 +278,7 @@ export function Checkout() {
               <Text style={styles.feeText}>{"Taxes & Other fees "}</Text>
               <Text style={styles.feeText}>
                 {"$ "}
-                {"0.00"}
+                {taxAmount.toFixed(2)}
               </Text>
             </View>
 
@@ -269,7 +292,7 @@ export function Checkout() {
               <Text style={styles.totalText}>{"Total"}</Text>
               <Text style={styles.totalText}>
                 {"$ "}
-                {cartList?.getCart?.amout?.total_amount?.toFixed(2)}
+                {totalAmount.toFixed(2)}
               </Text>
             </View>
           </View>
@@ -281,7 +304,14 @@ export function Checkout() {
           <TouchableOpacity
             style={styles.missingAddressButton}
             onPress={() => {
-              dispatch(saveSubTotalAmount(cartList?.getCart?.amout));
+              dispatch(
+                saveSubTotalAmount({
+                  subTotalAmount: cartList?.getCart?.amout?.total_amount,
+                  discount_amount: discountAmnt,
+                  tax_amount: taxAmount,
+                  total_amount: totalAmount,
+                })
+              );
               navigate(NAVIGATION.delivery);
             }}
           >
