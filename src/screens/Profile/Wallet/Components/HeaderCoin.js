@@ -26,8 +26,10 @@ export function HeaderCoin({ title, back, amount }) {
             source={backArrow}
             style={{ height: 20, width: 20 }}
           />
-          <View>
-            <Text style={styles.headerText}>{title}</Text>
+          <View style={{ width: "75%" }}>
+            <Text numberOfLines={1} style={styles.headerText}>
+              {title}
+            </Text>
           </View>
         </TouchableOpacity>
 
@@ -65,14 +67,13 @@ export const styles = StyleSheet.create({
   },
   headerInnerView: {
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
     alignItems: "center",
   },
   headerText: {
     fontFamily: Fonts.SemiBold,
     color: COLORS.black,
-    fontSize: s(12),
+    fontSize: SF(13),
   },
   coinButton: {
     height: SH(29),
