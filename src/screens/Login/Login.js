@@ -9,12 +9,14 @@ import { styles } from "@/screens/Login/Login.styles";
 import { errorsSelector } from "@/selectors/ErrorSelectors";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { ShadowStyles } from "@/theme";
+import { getUser } from "@/selectors/UserSelectors";
 
 export function Login() {
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const user = useSelector(getUser);
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.LOGIN], state)
@@ -26,7 +28,7 @@ export function Login() {
   );
 
   const handleSubmit = () => {
-    dispatch(login(username, password));
+    dispatch(login(username, password, user?.screenName));
   };
 
   return (

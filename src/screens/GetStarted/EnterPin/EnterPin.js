@@ -15,14 +15,16 @@ import { Button, Spacer, ScreenWrapper } from "@/components";
 import { styles } from "@/screens/GetStarted/EnterPin/EnterPin.styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
-import { login, TYPES } from "@/actions/UserActions";
+import { deviceLogin, login, TYPES } from "@/actions/UserActions";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { Loader } from "@/components/Loader";
+import { storage } from "@/storage";
+import ReactNativeBiometrics, { BiometryTypes } from "react-native-biometrics";
 const CELL_COUNT = 4;
 
 export function EnterPin(params) {
   const route = params?.route?.params?.route;
-
+  const user = useSelector(getUser);
   const dispatch = useDispatch();
   const [value, setValue] = useState("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
@@ -31,7 +33,80 @@ export function EnterPin(params) {
     setValue,
   });
 
-  const user = useSelector(getUser);
+  const phoneNum = user?.phone?.phoneNumber;
+
+  const rnBiometrics = new ReactNativeBiometrics({
+    allowDeviceCredentials: true,
+  });
+  console.log("isstatus", user?.isStatus);
+  useEffect(() => {
+    getStorageData();
+  }, []);
+
+  const getStorageData = () => {
+    storage.getMapAsync("biometric-data").then((res) => {
+      console.log("resss===", res?.phoneNum);
+      if (res?.phoneNum === phoneNum) {
+        storage.getMapAsync("Biometric-status").then((res) => {
+          if (res?.isStatus == true) {
+            bioMetricLogin();
+          }
+        });
+
+        // if (isBiometricEnabled || bioMetricsAvailable) {
+        // alert("ok");
+        // }
+      }
+    });
+  };
+
+  const bioMetricLogin = () => {
+    rnBiometrics.isSensorAvailable().then((resultObject) => {
+      const { available, biometryType } = resultObject;
+      if (available && biometryType === BiometryTypes.TouchID) {
+        checkBioMetricKeyExists();
+      } else if (available && biometryType === BiometryTypes.FaceID) {
+        checkBioMetricKeyExists();
+      } else if (available && biometryType === BiometryTypes.Biometrics) {
+        checkBioMetricKeyExists();
+      } else {
+        // alert('Biometrics not supported');
+        setBioMetricsAvailable(false);
+      }
+    });
+  };
+
+  const checkBioMetricKeyExists = () => {
+    rnBiometrics.biometricKeysExist().then((resultObject) => {
+      const { keysExist } = resultObject;
+      if (keysExist) {
+        promptBioMetricSignin();
+      } else {
+        createKeys();
+      }
+    });
+  };
+
+  const promptBioMetricSignin = () => {
+    let epochTimeSeconds = Math.round(new Date().getTime() / 1000).toString();
+    let payload = epochTimeSeconds + "some message";
+    rnBiometrics
+      .createSignature({
+        promptMessage: "Sign in",
+        payload: payload,
+      })
+      .then((resultObject) => {
+        const { success } = resultObject;
+        if (success) {
+          dispatch(deviceLogin(user?.screenName));
+        } else {
+        }
+      })
+      .catch((error) => console.log("eror:", error));
+  };
+
+  const createKeys = () =>
+    rnBiometrics.createKeys().then(() => promptBioMetricSignin());
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.LOGIN], state)

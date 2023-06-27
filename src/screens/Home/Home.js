@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Text, View, useWindowDimensions, BackHandler } from "react-native";
 import { ScreenWrapper } from "@/components";
 import { COLORS } from "@/theme/Colors";
@@ -16,11 +16,14 @@ import { getUser } from "@/selectors/UserSelectors";
 import { navigate } from "@/navigation/NavigationRef";
 import { previousScreen } from "@/actions/GlobalActions";
 import { getWalletBalance } from "@/actions/WalletActions";
+import ModalsContext from "@/context/ModalsContext";
+import { storage } from "@/storage";
 
 export function Home() {
   const user = useSelector(getUser);
   const dispatch = useDispatch();
-
+  const { openBioMetricSetupModal } = useContext(ModalsContext).biometric;
+  const phoneNum = user?.phone?.phoneNumber;
   const renderTabBar = (props) => {
     return (
       <TabBar
@@ -74,10 +77,28 @@ export function Home() {
     dispatch(previousScreen(NAVIGATION.home));
     navigate(NAVIGATION.splash);
   };
+  // useEffect(() => {
+  //   dispatch(getWalletBalance());
+  //   if (user?.user?.payload?.token) {
+  //     if (!user?.user?.payload?.user_profiles?.is_biometric) {
+  //       openBioMetricSetupModal();
+  //     }
+  //   }
+  // }, [user?.user]);
   useEffect(() => {
-    dispatch(getWalletBalance());
-    
-  }, []);
+    getStorageData();
+  }, [user?.user]);
+
+  const getStorageData = () => {
+    storage.getMapAsync("biometric-data").then((res) => {
+      console.log("resss===", res?.phoneNum);
+      if (user?.user) {
+        if (res?.phoneNum != phoneNum) {
+          openBioMetricSetupModal();
+        }
+      }
+    });
+  };
 
   return (
     <ScreenWrapper>

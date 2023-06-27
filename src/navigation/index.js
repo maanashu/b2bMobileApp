@@ -9,6 +9,7 @@ import { theme } from "@/theme";
 import { navigationRef } from "./NavigationRef";
 import ReactNativeBiometrics, { BiometryTypes } from "react-native-biometrics";
 import { Biometrics } from "@/components";
+import Modals from "./Modals";
 
 export function RootNavigator() {
   const scheme = useColorScheme();
@@ -110,8 +111,9 @@ export function RootNavigator() {
     <NavigationContainer ref={navigationRef} theme={theme[scheme]}>
       {/* {!user ? <AppNavigator /> : <AuthNavigator />} */}
       {/* <AuthNavigator /> */}
-
-      <AppBottom />
+      <Modals>
+        <AppBottom />
+      </Modals>
     </NavigationContainer>
   );
 }

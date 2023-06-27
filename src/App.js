@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { COLORS, SF, SH, SW } from "./theme";
 import { error, Fonts, success } from "./assets";
 import Toast, { BaseToast } from "react-native-toast-message";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 enableScreens();
 
@@ -78,8 +79,10 @@ export function App() {
   return (
     <Provider store={store}>
       <PersistGate onBeforeLift={hide} persistor={persistor}>
-        <RootNavigator />
-        <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
+        <BottomSheetModalProvider>
+          <RootNavigator />
+          <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
+        </BottomSheetModalProvider>
       </PersistGate>
     </Provider>
   );

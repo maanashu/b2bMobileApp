@@ -199,18 +199,44 @@ export class UserController {
         });
     });
   }
-
-  static async deviceLogin() {
+  static async deviceRegister(uniqueId) {
     return new Promise(async (resolve, reject) => {
-      const endpoint = USER_URL + ApiUserInventory.deviceLogin;
-      const uniqueId = await DeviceInfo.getUniqueId();
+      const endpoint = ApiUserInventory.deviceRegister;
       const body = {
-        device: uniqueId,
+        device_id: uniqueId,
+        app_name: "b2b",
       };
       HttpClient.post(endpoint, body)
         .then((response) => {
           resolve(response);
-          navigate(NAVIGATION.productInquiry);
+          console.log("succewessssss", JSON.stringify(response));
+        })
+        .catch((error) => {
+          console.log("error in register", JSON.stringify(error));
+          if (error.msg === "biometric_off") {
+            alert(
+              "Please login with PIN and enable biometric authentication from your application"
+            );
+          } else {
+            alert(error.msg);
+          }
+          reject(error);
+        });
+    });
+  }
+
+  static async deviceLogin(screenName) {
+    return new Promise(async (resolve, reject) => {
+      const endpoint = USER_URL + ApiUserInventory.deviceLogin;
+      const uniqueId = await DeviceInfo.getUniqueId();
+      const body = {
+        device_id: uniqueId,
+        app_name: "b2b",
+      };
+      HttpClient.post(endpoint, body)
+        .then((response) => {
+          resolve(response);
+          navigate(screenName || NAVIGATION.home);
         })
         .catch((error) => {
           Toast.show({

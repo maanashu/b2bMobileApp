@@ -1,15 +1,9 @@
 import { Image, Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { styles } from "./FaceIdPin.styles";
 import { ScreenWrapper, Spacer, Switch } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
-import {
-  backArrow,
-  faceIdIcon,
-  rightArrowBlue,
-  toggleOff,
-  toggleOn,
-} from "@/assets";
+import { backArrow, faceIdIcon, toggleOff, toggleOn } from "@/assets";
 import { strings } from "@/localization";
 import { NameHeader } from "@/components";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,20 +12,42 @@ import { biometricsSet } from "@/actions/GlobalActions";
 import { useIsFocused } from "@react-navigation/native";
 import ReactNativeBiometrics, { BiometryTypes } from "react-native-biometrics";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
+import ModalsContext from "@/context/ModalsContext";
+import { storage } from "@/storage";
 
 export function FaceIdPin() {
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
   const [pin, setPin] = useState(false);
+  const [status, setStatus] = useState("");
 
-  const handleBiometrics = () => {
-    if (user?.isStatus) {
-      dispatch(biometricsSet(false));
+  const user = useSelector(getUser);
+  const { openBioMetricSetupModal } = useContext(ModalsContext).biometric;
+
+  useEffect(() => {
+    getStorageData();
+  }, [user?.getUserProfile]);
+
+  const getStorageData = () => {
+    storage.getMapAsync("Biometric-status").then((res) => {
+      setStatus(res?.isStatus);
+    });
+  };
+
+  const handleBiometrics = async () => {
+    if (status) {
+      // dispatch(biometricsSet(false));
+      const bioStatus = {
+        isStatus: false,
+      };
+      await storage.setMapAsync("Biometric-status", bioStatus);
+      getStorageData();
     } else {
       // dispatch(biometricsSet(true));
       bioMetricLogin();
     }
   };
+
   const rnBiometrics = new ReactNativeBiometrics({
     allowDeviceCredentials: true,
   });
@@ -48,7 +64,8 @@ export function FaceIdPin() {
         dispatch(biometricsSet(true));
       } else if (available && biometryType === BiometryTypes.Biometrics) {
         console.log("Biometrics is supported");
-        dispatch(biometricsSet(true));
+
+        openBioMetricSetupModal();
       } else {
         Toast.show({
           text2: strings.biometric.setupBiometric,
@@ -59,7 +76,6 @@ export function FaceIdPin() {
       }
     });
   };
-  const user = useSelector(getUser);
 
   return (
     <ScreenWrapper>
@@ -82,13 +98,9 @@ export function FaceIdPin() {
             <Switch
               TextStyle={styles.bottomTexts}
               onPress={handleBiometrics}
-              source={user?.isStatus === true ? toggleOn : toggleOff}
+              source={status === true ? toggleOn : toggleOff}
               title={strings.faceId.faceId}
             />
-            <Spacer space={SH(12)} />
-
-            <View style={styles.bottomLine} />
-
             <Spacer space={SH(12)} />
 
             {/* <Switch
@@ -108,7 +120,7 @@ export function FaceIdPin() {
           </View>
 
           <Spacer space={SH(35)} />
-          <View style={styles.pinButton}>
+          {/* <View style={styles.pinButton}>
             <Switch
               TextStyle={styles.bottomTexts}
               resizeMode="contain"
@@ -116,7 +128,7 @@ export function FaceIdPin() {
               source={rightArrowBlue}
               title={strings.faceId.setupFaceId}
             />
-          </View>
+          </View> */}
 
           <Spacer space={SH(10)} />
 

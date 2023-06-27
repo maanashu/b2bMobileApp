@@ -1,5 +1,7 @@
 import { UserController } from "@/controllers";
 import { getWalletBalance } from "./WalletActions";
+import { storage } from "@/storage";
+import DeviceInfo from "react-native-device-info";
 // import { TYPES } from "@/Types/Types";
 
 export const TYPES = {
@@ -736,12 +738,36 @@ export const register = (data) => async (dispatch) => {
   }
 };
 
-export const deviceLogin = () => async (dispatch) => {
+export const deviceRegister = (user) => async (dispatch) => {
+  dispatch(loginRequest());
+  const uniqueId = await DeviceInfo.getUniqueId();
+  return UserController.deviceRegister(uniqueId)
+    .then(async (res) => {
+      dispatch(getUserProfile(user?.uuid));
+      const biometricData = {
+        uniqueId,
+        uuid: user?.uuid,
+        phoneNum: user?.user_profiles?.phone_no,
+        is_biometric: res?.data?.payload,
+      };
+      await storage.setMapAsync("biometric-data", biometricData);
+      return res;
+    })
+    .catch((error) => {
+      dispatch(loginError(error.message));
+      throw error;
+    });
+};
+export const deviceLogin = (screenName) => async (dispatch) => {
   dispatch(loginRequest());
   try {
-    const res = await UserController.deviceLogin();
+    const res = await UserController.deviceLogin(screenName);
     dispatch(loginSuccess(res));
-    dispatch(getUser(res?.payload?.id));
+    dispatch(getUserProfile(res?.payload?.uuid));
+    dispatch(getWalletBalance());
+    dispatch(getSettings());
+    dispatch(getFavouriteSellers());
+    dispatch(getFavouriteProducts());
   } catch (error) {
     dispatch(loginError(error.message));
   }
