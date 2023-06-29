@@ -495,14 +495,19 @@ export class UserController {
 
   static async getMessages(id) {
     return new Promise((resolve, reject) => {
-      // const params = new URLSearchParams(data).toString();
+      const params = new URLSearchParams(id).toString();
 
-      const endpoint = USER_URL + ApiUserInventory.getMessages(id);
+      let endpoint;
+
+      if (typeof id === "object") {
+        endpoint = `${ApiUserInventory.getMessages}get-seller-message?${params}`;
+      } else {
+        endpoint = `${ApiUserInventory.getMessages}${id}`;
+      }
 
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
-          console.log("checkEndpoint", endpoint);
         })
         .catch((error) => {
           Toast.show({

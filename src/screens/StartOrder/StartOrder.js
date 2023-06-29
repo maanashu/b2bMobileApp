@@ -91,13 +91,13 @@ export function StartOrder(params) {
   }, []);
 
   useEffect(() => {
-    if (quantity.qty == 0) {
+    if (quantity?.qty == 0) {
       setQuantity((prevState) => ({
         ...prevState,
         qty: prevState.qty + 1,
       }));
     }
-  }, [quantity.qty]);
+  }, [quantity?.qty]);
   useEffect(() => {
     const newTotalPrice = quantity?.qty * quantity?.selling_price;
     setstoreTotal(newTotalPrice);

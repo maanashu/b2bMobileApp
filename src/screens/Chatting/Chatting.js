@@ -2,11 +2,12 @@ import {
   FlatList,
   Image,
   Keyboard,
+  ScrollView,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { styles } from "./Chatting.styles";
 import { ScreenWrapper, Spacer } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
@@ -38,12 +39,16 @@ import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import DocumentPicker from "react-native-document-picker";
 import { useDispatch, useSelector } from "react-redux";
-import { getMessages, sendChat } from "@/actions/UserActions";
+import { TYPES, getMessages, sendChat } from "@/actions/UserActions";
 import { getUser } from "@/selectors/UserSelectors";
+import { Loader } from "@/components/Loader";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
 let allMessages = [];
 
 export function Chatting(props) {
-  const myId = "43";
+  const user = useSelector(getUser);
+  const scrollViewRef = useRef();
+  const myId = user?.user?.payload?.id;
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [index, setIndex] = useState("");
   const [messages, setMessages] = useState([]);
@@ -51,12 +56,13 @@ export function Chatting(props) {
   const [userImage, setUserImage] = useState();
   const [fileResponse, setFileResponse] = useState([]);
   const [isBottomViewVisible, setisBottomViewVisible] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState([]);
+  // const allMessages = useSelector((state) => state.user.getMessages?.messages);
+  const allMessages = useSelector(
+    (state) => state?.user?.getMessages?.messages
+  );
 
-  const user = useSelector(getUser);
-  const allMessages = user?.getMessages?.messages;
   const dispatch = useDispatch();
-  console.log("jhfd", allMessages);
   const handleDocumentSelection = useCallback(async () => {
     try {
       const response = await DocumentPicker.pick({
@@ -71,6 +77,9 @@ export function Chatting(props) {
       console.warn(err);
     }
   }, []);
+  const isLoadingMessages = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_MESSAGES], state)
+  );
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       "keyboardDidShow",
@@ -85,18 +94,24 @@ export function Chatting(props) {
   }, []);
 
   useEffect(() => {
-    setMessages(allMessages?.map(convertMessage));
-  }, []);
+    const formattedMessages = formatMessages(allMessages)?.reverse();
+    setMessages(formattedMessages);
+  }, [user?.getMessages?.messages]);
 
-  const convertMessage = (message) => {
-    return {
-      _id: message.id.toString(),
-      text: message.content,
-      createdAt: new Date(message.created_at),
-      user: {
-        _id: message.sender_id.toString(),
-      },
-    };
+  const formatMessages = (messages) => {
+    return messages?.map((message) => {
+      return {
+        _id: message.recipient_id,
+        text: message.content,
+        createdAt: new Date(message.created_at),
+        user: {
+          _id: message.sender_id,
+          avatar: null,
+
+          // You can add more user properties if needed, like name, avatar, etc.
+        },
+      };
+    });
   };
   const OpenCamera = () => {
     ImageCropPicker.openCamera({
@@ -137,13 +152,7 @@ export function Chatting(props) {
 
   const renderSend = (props) => {
     return (
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <View style={styles.sendView}>
         <TouchableOpacity>
           <Image
             source={attachPic}
@@ -223,41 +232,41 @@ export function Chatting(props) {
       ? props?.route?.params?.seller_id
       : JSON.stringify(props?.route?.params?.seller_id);
 
-  const onSend = useCallback((messages = []) => {
-    setShowView(false);
-    setMessages((previousMessages) =>
-      GiftedChat.append(previousMessages, messages)
-    );
-    const latestMessage = messages[messages.length - 1];
-    const typedMessage = latestMessage && latestMessage.text;
-
-    console.log("message:", typedMessage);
+  const onSend = useCallback((newMessages) => {
     dispatch(
       sendChat({
         recipient_id: recipientId,
-        content: typedMessage,
+        content: newMessages[0]?.text,
       })
     )
       .then((res) => {
-        // setOpenModal(true); dispatch(
-        console.log("checl respppp", JSON.stringify(res));
-        dispatch(getMessages(props?.route?.params?.seller_id));
+        dispatch(getMessages(res?.payload?.messagehead_id));
+        console.log("send succcess hogi", res?.payload?.messagehead_id);
       })
       .catch((error) => {
-        console.log("errorafter catch " + error);
+        console.log("error after catch: " + error);
       });
   }, []);
-
+  const renderAvatar = () => null; // Return null to disable avatars
+  const scrollToBottom = () => {
+    scrollViewRef.current?.scrollToEnd({ animated: false });
+  };
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <ChatHeader />
+      <ChatHeader
+        name={
+          props?.route?.params?.user_profile?.firstname +
+          " " +
+          props?.route?.params?.user_profile?.lastname
+        }
+        organizationName={props?.route?.params?.user_profile?.organization_name}
+      />
 
       <Spacer space={SH(10)} />
 
       <View style={styles.mainContainer}>
         <View style={styles.chatViewContainer}>
           <GiftedChat
-            showAvatarForEveryMessage={true}
             alwaysShowSend={true}
             scrollToBottom={true}
             messages={messages}
@@ -265,8 +274,11 @@ export function Chatting(props) {
             user={{
               _id: myId,
             }}
+            renderSystemMessage={null}
+            messagesContainerStyle={styles.containerStyle}
             renderBubble={renderBubble}
             renderSend={renderSend}
+            renderAvatar={renderAvatar}
             renderInputToolbar={(props) => {
               return (
                 <InputToolbar
@@ -283,6 +295,19 @@ export function Chatting(props) {
                 ></MessageImage>
               );
             }}
+            listViewProps={{
+              scrollEventThrottle: 400,
+              onScroll: () => {},
+              // Customize the ScrollView component
+              renderScrollComponent: (props) => (
+                <ScrollView
+                  {...props}
+                  ref={scrollViewRef}
+                  showsVerticalScrollIndicator={false}
+                  onContentSizeChange={scrollToBottom}
+                />
+              ),
+            }}
           />
         </View>
 
@@ -291,7 +316,7 @@ export function Chatting(props) {
             <FlatList
               data={BottomOptions}
               renderItem={renderOptions}
-              keyExtractor={(item) => item.id}
+              keyExtractor={(item) => item?.id}
               showsVerticalScrollIndicator={false}
               numColumns={4}
             />
@@ -332,6 +357,7 @@ export function Chatting(props) {
           ) : null}
         </View>
       )}
+      {/* {isLoadingMessages && <Loader message="Loading Messages..." />} */}
     </ScreenWrapper>
   );
 }

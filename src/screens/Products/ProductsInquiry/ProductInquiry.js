@@ -97,9 +97,11 @@ export function ProductInquiry(params) {
 
   const handleChat = () => {
     dispatch(
-      getMessages(
-        ProductDetail?.productDetail?.product_detail?.supplies?.[0]?.seller_id
-      )
+      getMessages({
+        seller_id:
+          ProductDetail?.productDetail?.product_detail?.supplies?.[0]
+            ?.seller_id,
+      })
     );
     navigate(NAVIGATION.chatting, {
       seller_id:

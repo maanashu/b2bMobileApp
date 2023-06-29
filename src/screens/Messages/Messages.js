@@ -22,62 +22,55 @@ import {
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { getMessageHeads, getMessages } from "@/actions/UserActions";
+import {
+  getMessageHeads,
+  getMessages,
+  getMessagesReset,
+} from "@/actions/UserActions";
 import { getUser } from "@/selectors/UserSelectors";
 import moment from "moment";
+import { useIsFocused } from "@react-navigation/native";
 
 export function Messages() {
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
   const [selected, setselected] = useState(1);
   const [messageRender, setmessageRender] = useState(1);
   const user = useSelector(getUser);
 
   useEffect(() => {
     dispatch(getMessageHeads());
-  }, []);
+    dispatch(getMessagesReset());
+  }, [isFocused]);
 
-  const handleChat = (id) => {
+  const handleChat = (id, seller_id, user_profile) => {
     dispatch(getMessages(id));
-    navigate(NAVIGATION.chatting, { seller_id: id });
+    navigate(NAVIGATION.chatting, {
+      seller_id: seller_id,
+      user_profile: user_profile,
+    });
     // alert(id);
-    console.log(id);
   };
   const renderTopItems = ({ item }) => (
     <>
-      <View
-        style={{
-          alignItems: "center",
-          width: "23%",
-        }}
-      >
+      <View style={styles.topView}>
         <TouchableOpacity
           onPress={() => setselected(item.id)}
-          style={{
-            backgroundColor:
-              item.id === selected ? COLORS.primary : COLORS.termsBorder,
-            borderRadius: SW(20),
-            alignItems: "center",
-            justifyContent: "center",
-            width: SW(40),
-            height: SW(40),
-          }}
+          style={[
+            styles.touchableStyle,
+            {
+              backgroundColor:
+                item.id === selected ? COLORS.primary : COLORS.termsBorder,
+            },
+          ]}
         >
           <Image
             source={item.image}
             resizeMode="contain"
-            style={{ height: SW(25), width: SW(25) }}
+            style={styles.topImages}
           />
         </TouchableOpacity>
-        <Text
-          style={{
-            fontSize: SF(13),
-            fontFamily: Fonts.Regular,
-            marginTop: SH(5),
-            color: COLORS.light_grey,
-          }}
-        >
-          {item.title}
-        </Text>
+        <Text style={styles.titleText}>{item.title}</Text>
       </View>
     </>
   );
@@ -116,7 +109,16 @@ export function Messages() {
       .format("hh:mm A");
     return (
       <>
-        <TouchableOpacity onPress={() => handleChat(item.recipient_id)}>
+        <TouchableOpacity
+          onPress={() =>
+            handleChat(
+              item?.messages?.[0]?.messagehead_id,
+              item.recipient_id,
+              item?.receiver?.user_profiles
+            )
+          }
+          // onPress={() => console.log("itemmmmm", item?.receiver?.user_profiles)}
+        >
           <View style={styles.chatView}>
             <Image
               source={{ uri: item.receiver?.user_profiles?.banner_image }}

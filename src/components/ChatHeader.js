@@ -4,7 +4,7 @@ import { styles } from "@/screens/Chatting/Chatting.styles";
 import { addPerson, backArrow } from "@/assets";
 import { goBack } from "@/navigation/NavigationRef";
 
-export function ChatHeader() {
+export function ChatHeader({ name, organizationName }) {
   return (
     <View style={styles.header}>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -16,10 +16,8 @@ export function ChatHeader() {
           />
         </TouchableOpacity>
         <View>
-          <Text style={styles.HeaderNameText}>Senia PanFang</Text>
-          <Text style={styles.headerCompanyName}>
-            Yiwu Leqi E-Commerce Firm
-          </Text>
+          <Text style={styles.HeaderNameText}>{name}</Text>
+          <Text style={styles.headerCompanyName}>{organizationName}</Text>
         </View>
       </View>
       <TouchableOpacity>

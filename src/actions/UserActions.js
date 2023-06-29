@@ -489,7 +489,7 @@ const getMessagesError = (error) => ({
   payload: { error },
 });
 
-const getMessagesReset = () => ({
+export const getMessagesReset = () => ({
   type: TYPES.GET_MESSAGES_RESET,
   payload: null,
 });
@@ -890,6 +890,7 @@ export const sendChat = (data) => async (dispatch) => {
   return UserController.sendChat(data)
     .then((res) => {
       dispatch(sendChatSuccess(res?.payload));
+      console.log("check send Messgae", res?.payload);
       return res;
     })
     .catch((error) => {
@@ -903,9 +904,8 @@ export const getMessages = (id) => async (dispatch) => {
   try {
     const res = await UserController.getMessages(id);
     dispatch(getMessagesSuccess(res));
+    console.log("success get message", JSON.stringify(res));
   } catch (error) {
-    console.log("error in getMessagesRequest", JSON.stringify(error));
-
     if (error?.statusCode === 204) {
       dispatch(getMessagesReset());
     } else {

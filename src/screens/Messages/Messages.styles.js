@@ -90,4 +90,25 @@ export const styles = StyleSheet.create({
     color: COLORS.light_grey,
     fontSize: SF(14),
   },
+  touchableStyle: {
+    borderRadius: SW(20),
+    alignItems: "center",
+    justifyContent: "center",
+    width: SW(40),
+    height: SW(40),
+  },
+  titleText: {
+    fontSize: SF(13),
+    fontFamily: Fonts.Regular,
+    marginTop: SH(5),
+    color: COLORS.light_grey,
+  },
+  topImages: {
+    height: SW(25),
+    width: SW(25),
+  },
+  topView: {
+    alignItems: "center",
+    width: "23%",
+  },
 });

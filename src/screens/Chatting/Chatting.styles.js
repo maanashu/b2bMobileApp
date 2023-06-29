@@ -13,6 +13,9 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: 40,
   },
+  containerStyle: {
+    showsVerticalScrollIndicator: false,
+  },
 
   header: {
     height: SH(50),
@@ -52,6 +55,11 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.inputBorder,
     paddingHorizontal: SW(20),
     paddingVertical: SH(20),
+  },
+  sendView: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   optionText: {
     textAlign: "center",
