@@ -182,7 +182,6 @@ export function AgeVerification(props) {
         dispatch(documentsUpload(data, uuid))
           .then((res) => {
             dispatch(getWalletUserProfile(uuid)).then((res) => {
-              console.log(JSON.stringify(res));
               if (walletData?.walletData?.payload?.type === "business") {
                 navigate(NAVIGATION.businessRegistration);
               } else {

@@ -35,7 +35,6 @@ export function Verify(params) {
   });
   const [mobileNumber, setmobileNumber] = useState(user?.phone?.phoneNumber);
   const [countryCode, setcountryCode] = useState(user?.phone?.countryCode);
-  console.log("ffd",countryCode+mobileNumber)
   const submit = () => {
     if (!value) {
       Toast.show({

@@ -38,14 +38,12 @@ export function EnterPin(params) {
   const rnBiometrics = new ReactNativeBiometrics({
     allowDeviceCredentials: true,
   });
-  console.log("isstatus", user?.isStatus);
   useEffect(() => {
     getStorageData();
   }, []);
 
   const getStorageData = () => {
     storage.getMapAsync("biometric-data").then((res) => {
-      console.log("resss===", res?.phoneNum);
       if (res?.phoneNum === phoneNum) {
         storage.getMapAsync("Biometric-status").then((res) => {
           if (res?.isStatus == true) {

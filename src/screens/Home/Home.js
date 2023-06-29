@@ -91,7 +91,6 @@ export function Home() {
 
   const getStorageData = () => {
     storage.getMapAsync("biometric-data").then((res) => {
-      console.log("resss===", res?.phoneNum);
       if (user?.user) {
         if (res?.phoneNum != phoneNum) {
           openBioMetricSetupModal();

@@ -241,11 +241,8 @@ export function Chatting(props) {
     )
       .then((res) => {
         dispatch(getMessages(res?.payload?.messagehead_id));
-        console.log("send succcess hogi", res?.payload?.messagehead_id);
       })
-      .catch((error) => {
-        console.log("error after catch: " + error);
-      });
+      .catch((error) => {});
   }, []);
   const renderAvatar = () => null; // Return null to disable avatars
   const scrollToBottom = () => {

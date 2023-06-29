@@ -53,7 +53,6 @@ export function BusinessProfile() {
   const factoryInspection =
     user?.getOneManufactureDetails?.user_profiles?.business_inspection_report;
   const overView = user?.getOneManufactureDetails?.user_profiles?.overview;
-  console.log("ksgfsgdfksgdkfsd", overView);
 
   const renderItem = ({ item }) => (
     <View style={styles.rowMainCard}>

@@ -57,7 +57,6 @@ export function TopRankingManufacturers() {
           });
           getProducts(item?.unique_uuid);
           dispatch(getOneManufactureDetails(item.id));
-          // console.log("first", item.id)
         }}
       >
         <CompanyDetailView

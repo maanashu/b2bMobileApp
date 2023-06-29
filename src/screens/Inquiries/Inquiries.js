@@ -70,7 +70,6 @@ export function Inquiries() {
   // let dataArray = [ChatData, ChatDuta];
   // useEffect(() => {
   //   const mergedArray = mergeArrays(dataArray);
-  //   console.log("item" + JSON.stringify(mergedArray));
   // }, []);
 
   const Item = ({ item }) => (

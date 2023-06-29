@@ -323,10 +323,8 @@ export const businessDocumentUpload = (data, uuid) => async (dispatch) => {
   try {
     const res = await KycController.businessDocumentUpload(data, uuid);
     return dispatch(businessDocumentUploadSuccess(res));
-    // console.log("businessDocumentUpload====",res)
     // if (res) {
     //   const walletres = await dispatch(getWalletUserProfile(uuid));
-    //   console.log("walletres====",walletres)
     //   if (walletres?.type === 'GET_WALLET_USER_SUCCESS') {
     //     if (walletres?.payload?.getwalletuser?.type === 'business') {
     //       navigate(NAVIGATION.connectBank);

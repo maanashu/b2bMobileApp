@@ -22,20 +22,15 @@ export function Biometrics() {
 
   const bioMetricLogin = () => {
     rnBiometrics.isSensorAvailable().then((resultObject) => {
-      console.log("BIOMETRICS_RESULT--" + JSON.stringify(resultObject));
       const { available, biometryType } = resultObject;
 
       if (available && biometryType === BiometryTypes.TouchID) {
-        console.log("TouchID is supported");
         checkBioMetricKeyExists();
       } else if (available && biometryType === BiometryTypes.FaceID) {
-        console.log("FaceID is supported");
         checkBioMetricKeyExists();
       } else if (available && biometryType === BiometryTypes.Biometrics) {
-        console.log("Biometrics is supported");
         checkBioMetricKeyExists();
       } else {
-        console.log("Biometrics not supported");
       }
     });
   };
@@ -43,10 +38,8 @@ export function Biometrics() {
     rnBiometrics.biometricKeysExist().then((resultObject) => {
       const { keysExist } = resultObject;
       if (keysExist) {
-        console.log("Keys exist");
         promptBioMetricSignin();
       } else {
-        console.log("Keys do not exist or were deleted");
         createKeys();
       }
     });
@@ -64,12 +57,11 @@ export function Biometrics() {
         const { success, signature } = resultObject;
 
         if (success) {
-          console.log(signature);
           // dispatch(deviceLogin());
           //  verifySignatureWithServer(signature, payload);
         }
       })
-      .catch((error) => console.log("erorr-->>", error));
+      .catch((error) => {});
   };
 
   const createKeys = () => {
@@ -85,11 +77,7 @@ export function Biometrics() {
       const { keysDeleted } = resultObject;
 
       if (keysDeleted) {
-        console.log("Successful deletion");
       } else {
-        console.log(
-          "Unsuccessful deletion because there were no keys to delete"
-        );
       }
     });
   };

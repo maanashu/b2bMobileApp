@@ -35,8 +35,6 @@ export function ProductsBySeller(params) {
     dispatch(getProduct(productObject));
   }, []);
 
-  // console.log("favProducts---", JSON.stringify(user?.getFavouriteProducts));
-
   const isLoadingProducts = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT], state)
   );

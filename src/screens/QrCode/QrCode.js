@@ -113,9 +113,7 @@ export function QrCode() {
         type: "image/jpeg", // Change this to the mime type of your image
       };
       await Share.open(shareOptions);
-    } catch (error) {
-      console.log(error.message);
-    }
+    } catch (error) {}
   };
   return (
     <ScreenWrapper style={styles.container}>

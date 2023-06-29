@@ -108,9 +108,6 @@ export function ProductInquiry(params) {
         ProductDetail?.productDetail?.product_detail?.supplies?.[0]?.seller_id,
       screenName: "productInquiry",
     });
-    // console.log(
-    //   ProductDetail?.productDetail?.product_detail?.supplies?.[0]?.seller_id
-    // );
   };
 
   const colorChange = () => {

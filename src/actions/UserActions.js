@@ -890,7 +890,6 @@ export const sendChat = (data) => async (dispatch) => {
   return UserController.sendChat(data)
     .then((res) => {
       dispatch(sendChatSuccess(res?.payload));
-      console.log("check send Messgae", res?.payload);
       return res;
     })
     .catch((error) => {

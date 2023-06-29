@@ -97,7 +97,7 @@ export default function Modals({ children }) {
         } else {
         }
       })
-      .catch((error) => console.log("eror:", error));
+      .catch((error) => {});
   };
 
   const isLoading = useSelector((state) =>

@@ -21,12 +21,9 @@ export class SupportController {
       const endpoint = SUPPORT_URL + SupportInventory.faqs(type);
       HttpClient.get(endpoint)
         .then((response) => {
-          console.log("success in gaq", response);
-
           resolve(response);
         })
         .catch((error) => {
-          console.log("error in gaq", error);
           Toast.show({
             text2: error.msg,
             position: "bottom",

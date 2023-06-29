@@ -21,20 +21,15 @@ export function LoginMethod(props) {
 
   const bioMetricLogin = () => {
     rnBiometrics.isSensorAvailable().then((resultObject) => {
-      console.log("BIOMETRICS_RESULT--" + JSON.stringify(resultObject));
       const { available, biometryType } = resultObject;
 
       if (available && biometryType === BiometryTypes.TouchID) {
-        console.log("TouchID is supported");
         checkBioMetricKeyExists();
       } else if (available && biometryType === BiometryTypes.FaceID) {
-        console.log("FaceID is supported");
         checkBioMetricKeyExists();
       } else if (available && biometryType === BiometryTypes.Biometrics) {
-        console.log("Biometrics is supported");
         checkBioMetricKeyExists();
       } else {
-        console.log("Biometrics not supported");
       }
     });
   };

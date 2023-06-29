@@ -85,8 +85,6 @@ export function PersonalInformation(params) {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
 
-  console.log("phone", getData?.user?.payload?.user_profiles?.dob);
-
   // useEffect(() => {
   //   setEmail(getData?.registerData?.email);
   //   setDateformat(getData?.registerData?.dob);

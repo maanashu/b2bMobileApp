@@ -117,7 +117,6 @@ export function Messages() {
               item?.receiver?.user_profiles
             )
           }
-          // onPress={() => console.log("itemmmmm", item?.receiver?.user_profiles)}
         >
           <View style={styles.chatView}>
             <Image

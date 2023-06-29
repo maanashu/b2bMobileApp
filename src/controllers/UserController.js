@@ -209,10 +209,8 @@ export class UserController {
       HttpClient.post(endpoint, body)
         .then((response) => {
           resolve(response);
-          console.log("succewessssss", JSON.stringify(response));
         })
         .catch((error) => {
-          console.log("error in register", JSON.stringify(error));
           if (error.msg === "biometric_off") {
             alert(
               "Please login with PIN and enable biometric authentication from your application"

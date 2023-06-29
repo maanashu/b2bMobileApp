@@ -19,7 +19,6 @@ export function Splash() {
     navigate(NAVIGATION.mobileNumber);
   };
   const user = useSelector(getUser);
-  console.log("screenName: " + user?.screenName);
   return (
     <LinearGradient
       style={styles.container}

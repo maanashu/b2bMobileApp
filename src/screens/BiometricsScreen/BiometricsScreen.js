@@ -63,20 +63,15 @@ export function BiometricsScreen({ navigation }) {
   });
   const bioMetricLogin = () => {
     rnBiometrics.isSensorAvailable().then((resultObject) => {
-      console.log("BIOMETRICS_RESULT--" + JSON.stringify(resultObject));
       const { available, biometryType } = resultObject;
 
       if (available && biometryType === BiometryTypes.TouchID) {
-        console.log("TouchID is supported");
         checkBioMetricKeyExists();
       } else if (available && biometryType === BiometryTypes.FaceID) {
-        console.log("FaceID is supported");
         checkBioMetricKeyExists();
       } else if (available && biometryType === BiometryTypes.Biometrics) {
-        console.log("Biometrics is supported");
         checkBioMetricKeyExists();
       } else {
-        console.log("Biometrics not supported");
       }
     });
   };
@@ -116,14 +111,10 @@ export function BiometricsScreen({ navigation }) {
 
           // Do something after successful PIN entry
         } else if (resultObject?.error === "User cancellation") {
-          // console.log("User cancelled the biometric prompt");
-          // console.log("result: ", resultObject);
-          console.log("cacneled");
           BackHandler.exitApp();
 
           // Handle cancelled biometric prompt
         } else {
-          console.log("PIN entry failed: " + error);
           // Handle failed PIN entry
         }
       });

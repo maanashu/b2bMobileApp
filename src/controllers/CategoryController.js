@@ -175,7 +175,6 @@ export class CategoryController {
   //     HttpClient.get(endpoint)
   //       .then((response) => {
   //         if (response.status === 204) {
-  //           console.log("no content");
   //           resolve([]);
   //         }
   //         resolve(response);

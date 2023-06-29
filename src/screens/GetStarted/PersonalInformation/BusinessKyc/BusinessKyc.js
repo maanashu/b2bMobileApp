@@ -50,9 +50,7 @@ export function BusinessKyc(params) {
   //   getUserData?.registerData?.firstname;
   // const businessRequest = getKycData?.requestBusinessKyc?.payload;
   // const kycBusinessStatus = getKycData?.checkBusinessKyc?.payload?.status;
-  // // console.log(
-  // //   "kyc request" + JSON.stringify(getKycData?.requestKyc?.kyc?.payload)
-  // // );
+
   // const [requestedKyc, setRequestedKyc] = useState(false);
   // const customHeader = () => (
   //   <View style={styles.headerRowView}>
