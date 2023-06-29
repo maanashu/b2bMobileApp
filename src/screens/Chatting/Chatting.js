@@ -252,9 +252,11 @@ export function Chatting(props) {
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <ChatHeader
         name={
-          props?.route?.params?.user_profile?.firstname +
-          " " +
-          props?.route?.params?.user_profile?.lastname
+          props?.route?.params?.user_profile?.firstname ||
+          "Seller" + " " ||
+          "" + props?.route?.params?.user_profile?.lastname ||
+          "Seller" ||
+          ""
         }
         organizationName={props?.route?.params?.user_profile?.organization_name}
       />

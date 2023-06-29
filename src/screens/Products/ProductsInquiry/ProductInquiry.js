@@ -96,6 +96,10 @@ export function ProductInquiry(params) {
   }, []);
 
   const handleChat = () => {
+    // console.log(
+    //   "sellerProfile",
+    //   JSON.stringify(ProductDetail?.productDetail?.product_detail)
+    // );
     dispatch(
       getMessages({
         seller_id:
