@@ -900,17 +900,19 @@ export const sendChat = (data) => async (dispatch) => {
 
 export const getMessages = (id) => async (dispatch) => {
   dispatch(getMessagesRequest());
-  try {
-    const res = await UserController.getMessages(id);
-    dispatch(getMessagesSuccess(res));
-    console.log("success get message", JSON.stringify(res));
-  } catch (error) {
-    if (error?.statusCode === 204) {
-      dispatch(getMessagesReset());
-    } else {
-      dispatch(getMessagesError(error.message));
-    }
-  }
+  return await UserController.getMessages(id)
+    .then((res) => {
+      dispatch(getMessagesSuccess(res));
+      return res;
+    })
+    .catch((error) => {
+      if (error?.statusCode === 204) {
+        dispatch(getMessagesReset());
+      } else {
+        dispatch(getMessagesError(error.message));
+      }
+      throw error;
+    });
 };
 export const getMessageHeads = () => async (dispatch) => {
   dispatch(getMessagesHeadsRequest());

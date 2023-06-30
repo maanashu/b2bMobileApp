@@ -89,7 +89,7 @@ export function MyPurchase() {
     <>
       <ScreenWrapper>
         <NameHeaderCoins
-          back={backArrow}
+          backRequired
           title={strings.myPurchase.myPurchase}
           onPress={() => goBack()}
         />

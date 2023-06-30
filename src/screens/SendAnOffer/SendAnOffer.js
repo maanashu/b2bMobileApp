@@ -19,9 +19,7 @@ import { SH, SW } from "@/theme/ScalerDimensions";
 import { backArrow, calendar, marlboroPic } from "@/assets";
 import { styles } from "./SendAnOffer.styles";
 import { strings } from "@/localization";
-import { COLORS } from "@/theme";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import moment from "moment";
 
 export function SendAnOffer() {
   const countries = ["Egypt", "Canada", "Australia", "Ireland"];

@@ -105,7 +105,7 @@ export const styles = StyleSheet.create({
   },
   ShoesStyle: {
     width: 180,
-    ...ShadowStyles.shadow2,
+    ...ShadowStyles.shadow4,
     borderRadius: 1,
     backgroundColor: COLORS.white,
     margin: SW(6),

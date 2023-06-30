@@ -82,4 +82,13 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.Regular,
     fontSize: SF(12),
   },
+  EmptyComponentStyle: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  EmptyComponentText: {
+    fontFamily: Fonts.SemiBold,
+    color: COLORS.darkGrey,
+    fontSize: SF(20),
+  },
 });

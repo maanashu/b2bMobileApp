@@ -161,4 +161,14 @@ export const styles = StyleSheet.create({
     marginTop: vs(2),
     left: SW(-2),
   },
+  profilePhotoStyle: {
+    height: ms(50),
+    width: ms(50),
+    borderRadius: ms(25),
+  },
+  userIconStyle: {
+    height: ms(30),
+    width: ms(30),
+    tintColor: COLORS.darkGrey,
+  },
 });

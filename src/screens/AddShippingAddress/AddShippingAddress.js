@@ -12,20 +12,17 @@ import { Button, ScreenWrapper, Spacer, TextField } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { useState } from "react";
-import { goBack, navigate } from "@/navigation/NavigationRef";
+import { goBack } from "@/navigation/NavigationRef";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import CountryPicker from "react-native-country-picker-modal";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import { backArrow } from "@/assets";
 import { strings } from "@/localization";
-import { NAVIGATION } from "@/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { digits } from "@/Utils/validators";
 import { addUserLocation, updateUserLocation } from "@/actions/UserActions";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { GOOGLE_MAP } from "@/constants/ApiKeys";
 export function AddShippingAddress(props) {
   const [flag, setFlag] = useState("US");
   const [countryCode, setCountryCode] = useState("+1");
@@ -183,7 +180,10 @@ export function AddShippingAddress(props) {
         </View>
       </View>
 
-      <ScrollView style={styles.scrollView}>
+      <ScrollView
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}
+      >
         <Spacer space={SH(10)} />
         {/* <TextField style={styles.countryInput} /> */}
 
@@ -225,7 +225,7 @@ export function AddShippingAddress(props) {
               style={styles.textInputContainer}
               placeholder={strings.auth.mobilePlaceholder}
               placeholderTextColor={"#A7A7A7"}
-              maxLength={15}
+              maxLength={10}
               onChangeText={(newText) => setMobileNumber(newText)}
             />
           </View>
@@ -312,8 +312,8 @@ export function AddShippingAddress(props) {
             />
           </View>
         </View>
+        <Spacer space={SH(30)} />
       </ScrollView>
-      <Spacer space={SH(10)} />
       <View
         style={{
           flex: 0.2,

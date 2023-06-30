@@ -80,6 +80,13 @@ export function PastCoupons() {
           extradata={coupon?.coupons}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
+          ListEmptyComponent={() => (
+            <View style={styles.EmptyComponentStyle}>
+              <Text style={styles.EmptyComponentText}>
+                {"No Expired coupon found"}
+              </Text>
+            </View>
+          )}
         />
       </View>
     </ScreenWrapper>

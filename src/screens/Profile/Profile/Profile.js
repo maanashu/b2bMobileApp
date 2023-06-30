@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { logout } from "@/actions/UserActions";
-import { Button, ScreenWrapper, Spacer } from "@/components";
+import { Button, NameHeaderCoins, ScreenWrapper, Spacer } from "@/components";
 import { strings } from "@/localization";
 import { styles } from "./Profile.styles";
 import { COLORS, SH } from "@/theme";
@@ -56,7 +56,6 @@ export function Profile() {
   const profile_photo = user?.getUserProfile?.user_profiles?.profile_photo;
 
   const categoryData = useSelector(getCategorySelector);
-  const categoryId = categoryData?.categoryList?.data?.[0]?.id;
 
   const logoutUser = () => {
     dispatch(logout());
@@ -206,34 +205,7 @@ export function Profile() {
 
   return (
     <ScreenWrapper style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.headerInnerView}>
-          <Text style={styles.headerText}>{strings.profile.myJobr}</Text>
-
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <TouchableOpacity>
-              <Image
-                resizeMode="contain"
-                source={search}
-                style={styles.searchIcon}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.headerIconView}
-              onPress={() => navigate(NAVIGATION.jbrWallet)}
-            >
-              <Text style={styles.filterText}>
-                {kFormatter(wallet?.getWalletBalance?.sila_balance) || 0}
-              </Text>
-              <Image
-                resizeMode="contain"
-                source={coinStack}
-                style={styles.filterIcon}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
+      <NameHeaderCoins title={"My Jobr"} searchRequired />
 
       <ScrollView
         style={styles.mainContainer}
@@ -249,21 +221,13 @@ export function Profile() {
                 <Image
                   source={{ uri: profile_photo }}
                   resizeMode="stretch"
-                  style={{
-                    height: ms(50),
-                    width: ms(50),
-                    borderRadius: ms(25),
-                  }}
+                  style={styles.profilePhotoStyle}
                 />
               ) : (
                 <Image
                   source={userIcon}
                   resizeMode="contain"
-                  style={{
-                    height: ms(30),
-                    width: ms(30),
-                    tintColor: COLORS.darkGrey,
-                  }}
+                  style={styles.userIconStyle}
                 />
               )}
 

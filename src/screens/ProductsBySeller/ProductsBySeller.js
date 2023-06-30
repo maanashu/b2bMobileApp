@@ -89,9 +89,9 @@ export function ProductsBySeller(params) {
         style={[
           styles.ShoesStyle,
           {
-            height: dynamicHeight(index),
-            marginTop: dynamicMarginTop(index),
-            marginBottom: dynamicMarginBottom(index),
+            paddingVertical: index % 2 === 0 ? SH(10) : SH(10),
+            marginTop: index === 1 ? SH(40) : index === 0 ? SH(0) : SH(10),
+            bottom: index % 2 === 0 ? SH(10) : SH(50),
           },
         ]}
       >
@@ -102,7 +102,7 @@ export function ProductsBySeller(params) {
             resizeMode="cover"
             style={{
               width: SW(153),
-              height: dynamicImageHeight(index),
+              height: index === 0 ? SH(180) : SH(150),
               borderRadius: SW(10),
             }}
           />

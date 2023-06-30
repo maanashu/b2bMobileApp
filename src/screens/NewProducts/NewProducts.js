@@ -1,7 +1,12 @@
 import { Text, View, FlatList, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { styles } from "./NewProducts.style";
-import { ScreenWrapper, Spacer, SubHeader } from "@/components";
+import {
+  NameHeaderCoins,
+  ScreenWrapper,
+  Spacer,
+  SubHeader,
+} from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { backArrow, Fonts, image10 } from "@/assets";
@@ -130,39 +135,6 @@ export function NewProducts() {
     </>
   );
 
-  function dynamicHeight(_index) {
-    if (_index % 2 == 0) {
-      return SH(250);
-    } else if (_index % 2 !== 0) {
-      return SH(245);
-    } else {
-      return SH(230);
-    }
-  }
-  function dynamicImageHeight(_index) {
-    if (_index % 2 == 0) {
-      return SH(150);
-    } else if (_index % 2 !== 0) {
-      return SH(135);
-    } else {
-      return 100;
-    }
-  }
-  function dynamicMarginTop(_index) {
-    if (_index % 2 !== 0) {
-      return 0;
-    } else {
-      return SH(20);
-    }
-  }
-  function dynamicMarginBottom(_index) {
-    if (_index % 2 == 0) {
-      return SH(10);
-    } else {
-      return SH(10);
-    }
-  }
-
   const listDetail = ({ item, index }) => (
     <>
       <TouchableOpacity
@@ -170,9 +142,9 @@ export function NewProducts() {
         style={[
           styles.ShoesStyle,
           {
-            height: dynamicHeight(index),
-            marginTop: dynamicMarginTop(index),
-            marginBottom: dynamicMarginBottom(index),
+            paddingVertical: index % 2 === 0 ? SH(10) : SH(10),
+            marginTop: index === 1 ? SH(40) : index === 0 ? SH(0) : SH(10),
+            bottom: index % 2 === 0 ? SH(10) : SH(50),
           },
         ]}
       >
@@ -183,8 +155,8 @@ export function NewProducts() {
             resizeMode="cover"
             style={{
               width: SW(153),
-              height: dynamicImageHeight(index),
-              borderRadius: SW(10),
+              height: index === 0 ? SH(180) : SH(150),
+              borderRadius: SW(5),
             }}
           />
         </View>
@@ -196,19 +168,20 @@ export function NewProducts() {
         </Text>
 
         <Spacer space={SH(5)} />
+        <View style={{ flex: 1, justifyContent: "flex-end" }}>
+          <Text style={styles.productsQuantity}>{`MOQ:10`}</Text>
 
-        <Text style={styles.productsQuantity}>{`MOQ:10`}</Text>
-
-        <Spacer space={SH(1)} />
-        {user?.user?.payload?.token && (
-          <Text style={styles.priceText}>
-            {"$ " + item.price} /
-            <Text style={{ fontFamily: Fonts.Regular, fontSize: SF(14) }}>
-              {" Carton"}
+          <Spacer space={SH(1)} />
+          {user?.user?.payload?.token && (
+            <Text style={styles.priceText}>
+              {"$ " + item.price} /
+              <Text style={{ fontFamily: Fonts.Regular, fontSize: SF(14) }}>
+                {" Carton"}
+              </Text>
+              {/* <Text style={styles.categoryText}> {item.product_type.name}</Text> */}
             </Text>
-            {/* <Text style={styles.categoryText}> {item.product_type.name}</Text> */}
-          </Text>
-        )}
+          )}
+        </View>
       </TouchableOpacity>
     </>
   );
@@ -219,6 +192,8 @@ export function NewProducts() {
         title={strings.newProducts.newProducts}
         back={backArrow}
         enableBackButton
+        isFilterIconRequired
+        isSearcgIconRequired
       />
 
       <View style={styles.upperView}>
@@ -229,28 +204,6 @@ export function NewProducts() {
 
         <Spacer space={SH(10)} />
         <View style={{ flexDirection: "row" }}>
-          {/* <TouchableOpacity
-            style={{
-              paddingLeft: SW(10),
-              alignItems: "center",
-              borderBottomColor: 0 === selectedId ? COLORS.primary : null,
-              borderBottomWidth: 0 === selectedId ? 1 : 0,
-            }}
-            onPress={() => {
-              setSelectedId(0);
-              getAllProducts();
-            }}
-          >
-            <Text
-              style={{
-                marginHorizontal: SW(1),
-                fontFamily: 0 === selectedId ? Fonts.Bold : Fonts.Regular,
-                color: 0 === selectedId ? COLORS.primary : COLORS.text,
-              }}
-            >
-              All categories
-            </Text>
-          </TouchableOpacity> */}
           <FlatList
             showsHorizontalScrollIndicator={false}
             horizontal
@@ -272,7 +225,6 @@ export function NewProducts() {
           keyExtractor={(item) => item.id}
           ListEmptyComponent={renderNoData}
           numColumns={2}
-          // onEndReached={() => alert("ok")}
         />
         {isLoadingProducts ? <Loader message="Loading data ..." /> : null}
       </View>

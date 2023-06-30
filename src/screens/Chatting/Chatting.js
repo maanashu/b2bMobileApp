@@ -33,7 +33,6 @@ import {
   QuickReply,
   VideoCall,
 } from "./BottomSheet";
-
 import { ChatHeader } from "@/components";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
@@ -41,9 +40,8 @@ import DocumentPicker from "react-native-document-picker";
 import { useDispatch, useSelector } from "react-redux";
 import { TYPES, getMessages, sendChat } from "@/actions/UserActions";
 import { getUser } from "@/selectors/UserSelectors";
-import { Loader } from "@/components/Loader";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
-let allMessages = [];
+import { Loader } from "@/components/Loader";
 
 export function Chatting(props) {
   const user = useSelector(getUser);
@@ -56,8 +54,8 @@ export function Chatting(props) {
   const [userImage, setUserImage] = useState();
   const [fileResponse, setFileResponse] = useState([]);
   const [isBottomViewVisible, setisBottomViewVisible] = useState(false);
-  const [message, setMessage] = useState([]);
-  // const allMessages = useSelector((state) => state.user.getMessages?.messages);
+  const [isLoading, setisLoading] = useState(false);
+  const [isLoadingMsg, setisLoadingMsg] = useState(false);
   const allMessages = useSelector(
     (state) => state?.user?.getMessages?.messages
   );
@@ -79,6 +77,9 @@ export function Chatting(props) {
   }, []);
   const isLoadingMessages = useSelector((state) =>
     isLoadingSelector([TYPES.GET_MESSAGES], state)
+  );
+  const isLoadingSendMessage = useSelector((state) =>
+    isLoadingSelector([TYPES.SEND_CHAT], state)
   );
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -233,6 +234,7 @@ export function Chatting(props) {
       : JSON.stringify(props?.route?.params?.seller_id);
 
   const onSend = useCallback((newMessages) => {
+    setisLoading(true);
     dispatch(
       sendChat({
         recipient_id: recipientId,
@@ -240,9 +242,13 @@ export function Chatting(props) {
       })
     )
       .then((res) => {
-        dispatch(getMessages(res?.payload?.messagehead_id));
+        setisLoading(false);
+        setisLoadingMsg(true);
+        dispatch(getMessages(res?.payload?.messagehead_id))
+          .then((res) => setisLoadingMsg(false))
+          .catch((error) => setisLoadingMsg(false));
       })
-      .catch((error) => {});
+      .catch((error) => setisLoading(false));
   }, []);
   const renderAvatar = () => null; // Return null to disable avatars
   const scrollToBottom = () => {
@@ -265,6 +271,8 @@ export function Chatting(props) {
 
       <View style={styles.mainContainer}>
         <View style={styles.chatViewContainer}>
+          {isLoadingSendMessage && <Loader message="Sending message..." />}
+          {isLoadingMessages && <Loader message="Loading new messages..." />}
           <GiftedChat
             alwaysShowSend={true}
             scrollToBottom={true}
@@ -278,6 +286,7 @@ export function Chatting(props) {
             renderBubble={renderBubble}
             renderSend={renderSend}
             renderAvatar={renderAvatar}
+            renderLoading={() => null}
             renderInputToolbar={(props) => {
               return (
                 <InputToolbar

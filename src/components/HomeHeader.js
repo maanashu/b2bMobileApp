@@ -11,7 +11,7 @@ import { SF, SH, SW } from "@/theme";
 import { getWallet } from "@/selectors/WalletSelector";
 import { kFormatter } from "@/Utils/GlobalMethods";
 
-export function HomeHeader({ onPress, userLocation }) {
+export function HomeHeader({ onPress, userLocation, fullAddress }) {
   const user = useSelector(getUser);
   const cart = useSelector(orderSelector)?.getCart;
   const wallet = useSelector(getWallet);
@@ -23,13 +23,35 @@ export function HomeHeader({ onPress, userLocation }) {
           style={styles.locationIcon}
           resizeMode="contain"
         />
-        <TouchableOpacity style={styles.rowView} onPress={onPress}>
-          <Text style={styles.locationText}>{userLocation}</Text>
+        {/* <TouchableOpacity style={styles.rowView} onPress={onPress}>
+          <View>
+            <Text style={styles.locationText}>{userLocation}</Text>
+            <Text numberOfLines={1} style={styles.fullAddressText}>
+              {fullAddress}
+            </Text>
+          </View>
           <Image
             source={dropdownIcon}
             style={styles.downIcon}
             resizeMode="contain"
           />
+        </TouchableOpacity> */}
+        <TouchableOpacity onPress={onPress}>
+          <View style={styles.rowView}>
+            <Text style={styles.locationText}>{userLocation}</Text>
+            <Image
+              source={dropdownIcon}
+              style={styles.downIcon}
+              resizeMode="contain"
+            />
+          </View>
+          {user?.savedAddress && (
+            <View style={styles.fullAddressView}>
+              <Text numberOfLines={1} style={styles.fullAddressText}>
+                {fullAddress}
+              </Text>
+            </View>
+          )}
         </TouchableOpacity>
       </View>
       <View style={{ flexDirection: "row", alignItems: "center" }}>

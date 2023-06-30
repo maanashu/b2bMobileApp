@@ -54,6 +54,7 @@ export function NewOrders() {
         style={{
           paddingHorizontal: SW(20),
           width: "100%",
+          flex: 1,
         }}
       >
         <FlatList

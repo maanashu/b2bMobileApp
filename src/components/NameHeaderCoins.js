@@ -1,56 +1,69 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { COLORS } from "@/theme/Colors";
-import { SH, SW } from "@/theme/ScalerDimensions";
+import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
 import { ms, s, verticalScale } from "react-native-size-matters";
 import { goBack } from "@/navigation/NavigationRef";
-import { Fonts, coinStack } from "@/assets";
+import { Fonts, backArrow, coinStack, search } from "@/assets";
 import { ShadowStyles } from "@/theme";
+import { kFormatter } from "@/Utils/GlobalMethods";
+import { getWallet } from "@/selectors/WalletSelector";
+import { useSelector } from "react-redux";
 
-export function NameHeaderCoins({ title, back, amount, onPress }) {
+export function NameHeaderCoins({
+  title,
+  backRequired,
+  amount,
+  onPress,
+  searchRequired,
+}) {
+  const wallet = useSelector(getWallet);
   return (
     <View style={styles.header}>
       <View style={styles.headerInnerView}>
-        <TouchableOpacity
-          style={{ flexDirection: "row", alignItems: "center" }}
-          onPress={onPress}
-        >
-          <Image
-            resizeMode="contain"
-            source={back}
-            style={{ height: 30, width: 30 }}
-          />
-          <Text style={styles.headerText}>{title}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            backgroundColor: COLORS.primary,
-            borderRadius: ms(20),
-            flexDirection: "row",
-            alignItems: "center",
-            paddingHorizontal: ms(6),
-            paddingVertical: verticalScale(3),
-            justifyContent: "center",
-            width: SW(50),
-          }}
-        >
-          <Text
-            style={{
-              fontFamily: Fonts.SemiBold,
-              color: COLORS.white,
-              fontSize: ms(14),
-              marginLeft: ms(2),
-            }}
+        {backRequired ? (
+          <TouchableOpacity
+            style={{ flexDirection: "row", alignItems: "center" }}
+            onPress={onPress}
           >
-            {amount}
-          </Text>
-          <Image
-            resizeMode="contain"
-            source={coinStack}
-            style={styles.crossIcon}
-          />
-        </TouchableOpacity>
+            <Image
+              resizeMode="contain"
+              source={backArrow}
+              style={{ height: 30, width: 30 }}
+            />
+            <Text style={styles.headerText}>{title}</Text>
+          </TouchableOpacity>
+        ) : (
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Text style={styles.headerText}>{title}</Text>
+          </View>
+        )}
+        <View style={styles.rowView}>
+          {searchRequired && (
+            <TouchableOpacity>
+              <Image
+                resizeMode="contain"
+                source={search}
+                style={styles.searchIcon}
+              />
+            </TouchableOpacity>
+          )}
+
+          <TouchableOpacity
+            style={styles.coinView}
+            onPress={() => navigate(NAVIGATION.jbrWallet)}
+          >
+            <Text style={styles.balanceText}>
+              {kFormatter(wallet?.getWalletBalance?.sila_balance) || 0}
+            </Text>
+            <Image
+              source={coinStack}
+              style={styles.coinIcon}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -85,5 +98,35 @@ export const styles = StyleSheet.create({
   crossIcon: {
     height: SH(17),
     width: SW(17),
+  },
+  coinView: {
+    height: SH(29),
+    paddingHorizontal: SW(8),
+    backgroundColor: COLORS.primary,
+    borderRadius: ms(20),
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: SW(2),
+  },
+  coinIcon: {
+    height: SH(16),
+    width: SW(16),
+    marginLeft: SW(1),
+  },
+  balanceText: {
+    fontFamily: Fonts.SemiBold,
+    color: COLORS.white,
+    marginRight: SW(1),
+    fontSize: SF(14),
+  },
+  rowView: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  searchIcon: {
+    height: SH(30),
+    width: SW(30),
+    marginRight: SW(12),
   },
 });

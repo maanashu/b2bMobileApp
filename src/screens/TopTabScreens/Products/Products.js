@@ -21,7 +21,6 @@ import { COLORS } from "@/theme/Colors";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { navigate } from "@/navigation/NavigationRef";
 import { forward, search, threeDots } from "@/assets";
-
 import { ms } from "react-native-size-matters";
 import { NAVIGATION } from "@/constants";
 import { Search } from "@/components/Search";
@@ -179,7 +178,7 @@ export function Products({ navigation }) {
 
           <Spacer space={SH(10)} />
 
-          <Text numberOfLines={2} style={styles.commonFlatlistText}>
+          <Text numberOfLines={1} style={styles.commonFlatlistText}>
             {item?.name}
           </Text>
         </View>
@@ -205,20 +204,19 @@ export function Products({ navigation }) {
           styles.ShoesStyle,
           {
             paddingVertical: index % 2 === 0 ? SH(10) : SH(10),
-            marginTop: index === 1 ? SH(50) : index === 0 ? SH(50) : SH(10),
+            marginTop: index === 1 ? SH(40) : index === 0 ? SH(0) : SH(10),
             bottom: index % 2 === 0 ? SH(10) : SH(50),
           },
         ]}
       >
         <Spacer space={SH(10)} />
-        <View style={{ alignItems: "center" }}>
+        <View style={{ alignItems: "center", flex: 1 }}>
           <Image
             source={{ uri: item?.image }}
-            resizeMode="contain"
+            // resizeMode="contain"
             style={{
               width: ms(140),
-              // height: dynamicImageHeight(index),
-              height: SH(150),
+              height: index === 0 ? SH(180) : SH(150),
               borderRadius: SW(5),
             }}
           />
@@ -420,7 +418,7 @@ export function Products({ navigation }) {
             />
           </View>
         )}
-        <Spacer space={SH(30)} />
+        <Spacer space={SH(10)} />
 
         <View style={styles.bottomListView}>
           <FlatList
@@ -430,6 +428,15 @@ export function Products({ navigation }) {
             keyExtractor={(item) => item.id}
             ListEmptyComponent={renderNoData}
             numColumns={2}
+            ListHeaderComponent={() => (
+              <View>
+                <Text style={styles.headerText}>
+                  {ProductsData?.trendingList?.length + " " + "Products"}
+                </Text>
+
+                <Spacer space={SH(20)} />
+              </View>
+            )}
           />
         </View>
         {/* {isLoading ? <Loader message="Loading data ..." /> : null} */}

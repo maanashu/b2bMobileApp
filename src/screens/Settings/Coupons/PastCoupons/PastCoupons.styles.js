@@ -67,4 +67,13 @@ export const styles = StyleSheet.create({
     borderRadius: SW(10),
     left: SW(10),
   },
+  EmptyComponentStyle: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  EmptyComponentText: {
+    fontFamily: Fonts.SemiBold,
+    fontSize: SF(20),
+    color: COLORS.darkGrey,
+  },
 });

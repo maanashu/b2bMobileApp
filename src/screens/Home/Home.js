@@ -70,8 +70,8 @@ export function Home() {
       />
     );
   };
-  const userLocation = user?.getLocation
-    ? `${user?.getLocation?.[0]?.state}, ${user?.getLocation?.[0]?.country}`
+  const userLocation = user?.savedAddress
+    ? `${user?.savedAddress?.state}, ${user?.savedAddress?.country}`
     : "Add Address";
   const loginFunction = () => {
     dispatch(previousScreen(NAVIGATION.home));
@@ -108,6 +108,7 @@ export function Home() {
             ? loginFunction()
             : navigate(NAVIGATION.selectAddress)
         }
+        fullAddress={user?.savedAddress?.custom_address}
       />
       <View style={{ flex: 1 }}>
         <Tab.Navigator

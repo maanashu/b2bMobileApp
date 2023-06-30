@@ -506,11 +506,8 @@ export class UserController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
-          console.log("success getting messages", JSON.stringify(response));
-          console.log("endpoint", endpoint);
         })
         .catch((error) => {
-          console.log("error getting messages", JSON.stringify(error));
           if (error?.statusCode != 204) {
             Toast.show({
               text2: error.msg,

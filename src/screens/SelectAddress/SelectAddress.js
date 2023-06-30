@@ -32,22 +32,16 @@ export function SelectAddress() {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_USER_LOCATION], state)
   );
-
+  console.log("saveddsaf", locations?.savedAddress);
   const navigationHandler = () => {
-    if (!selectedAddress) {
-      Toast.show({
-        text2: "Please select an address",
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-      });
-    } else {
-      dispatch(saveUserAddress(selectedAddress));
-      goBack();
-    }
+    // dispatch(saveUserAddress(selectedAddress));
+    // goBack();
+    navigate(NAVIGATION.addressDetails);
   };
   const AddressSelected = (item) => {
     setSelectedAddress(item);
+    dispatch(saveUserAddress(item));
+    goBack();
   };
 
   const renderItem = ({ item, index }) => (
@@ -76,7 +70,8 @@ export function SelectAddress() {
             borderWidth: SF(2),
             padding: SW(3),
             borderRadius: SW(10),
-            borderColor: selectedAddress === item ? "#275AFF" : "#D8D8D8",
+            borderColor:
+              locations?.savedAddress?.id === item?.id ? "#275AFF" : "#D8D8D8",
           }}
           onPress={() => AddressSelected(item)}
           // onPress={() =>
@@ -93,7 +88,9 @@ export function SelectAddress() {
               width: SW(10),
               borderRadius: SW(10),
               backgroundColor:
-                selectedAddress === item ? "#275AFF" : COLORS.placeHolder,
+                locations?.savedAddress?.id === item?.id
+                  ? "#275AFF"
+                  : COLORS.placeHolder,
             }}
           ></View>
         </TouchableOpacity>
@@ -121,7 +118,7 @@ export function SelectAddress() {
       </View>
       <View style={styles.buttonView}>
         <Button
-          title={strings.buttonText.selectAddress}
+          title={strings.buttonText.addNewAddress}
           onPress={navigationHandler}
           disabled={locations?.getLocation?.length === 5 && true}
         />

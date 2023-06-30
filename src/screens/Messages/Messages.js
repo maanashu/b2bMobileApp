@@ -23,6 +23,7 @@ import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  TYPES,
   getMessageHeads,
   getMessages,
   getMessagesReset,
@@ -30,6 +31,8 @@ import {
 import { getUser } from "@/selectors/UserSelectors";
 import moment from "moment";
 import { useIsFocused } from "@react-navigation/native";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { Loader } from "@/components/Loader";
 
 export function Messages() {
   const dispatch = useDispatch();
@@ -37,6 +40,10 @@ export function Messages() {
   const [selected, setselected] = useState(1);
   const [messageRender, setmessageRender] = useState(1);
   const user = useSelector(getUser);
+
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_MESSAGES_HEADS], state)
+  );
 
   useEffect(() => {
     dispatch(getMessageHeads());
@@ -190,7 +197,7 @@ export function Messages() {
 
       <Spacer space={SH(30)} />
 
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={{ alignItems: "center" }}>
           <FlatList
             columnWrapperStyle={{ justifyContent: "space-between" }}
@@ -238,6 +245,7 @@ export function Messages() {
           />
         </View>
       </ScrollView>
+      {isLoading && <Loader message="Loading Messages" />}
     </ScreenWrapper>
   );
 }

@@ -116,7 +116,6 @@ export function ProductInquiry(params) {
 
   const colorChange = () => {
     dispatch(productFavourites(productData));
-    // dispatch(sellerFavourites({ seller_id: params?.route?.params?.id }));
   };
 
   useEffect(() => {

@@ -69,5 +69,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     paddingHorizontal: SW(10),
+    flex: 1,
+    margin: 4,
   },
 });

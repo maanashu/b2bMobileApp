@@ -152,8 +152,7 @@ export function Settings() {
     <ScreenWrapper>
       <NameHeaderCoins
         title={strings.profile.settings}
-        back={backArrow}
-        amount={"0"}
+        backRequired
         onPress={() => goBack()}
       />
 

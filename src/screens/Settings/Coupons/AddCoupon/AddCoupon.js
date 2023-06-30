@@ -108,8 +108,7 @@ export function AddCoupon(params) {
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <NameHeaderCoins
         title={strings.coupons.coupons}
-        back={backArrow}
-        amount={"0"}
+        backRequired
         onPress={backHandler}
       />
 

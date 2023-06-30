@@ -25,11 +25,10 @@ export const styles = StyleSheet.create({
     flex: 1 / 4,
   },
   itemS: {
-    alignItems: "center",
     padding: SH(2),
     marginBottom: SH(10),
     marginBottom: 4,
-    margin: SH(5),
+    margin: SH(8),
     flex: 1 / 3,
   },
   title: {
@@ -42,6 +41,7 @@ export const styles = StyleSheet.create({
     fontSize: SF(14),
     color: COLORS.light_grey,
     fontFamily: Fonts.Regular,
+    paddingLeft: SW(2),
   },
   yiwuPriceText: {
     fontSize: SF(14),
@@ -67,7 +67,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: SW(5),
   },
   secondView: {
-    height: SH(85),
+    height: SH(75),
     width: SW(100),
     borderRadius: 5,
   },
@@ -134,7 +134,7 @@ export const styles = StyleSheet.create({
   },
   ShoesStyle: {
     width: 180,
-    ...ShadowStyles.shadow2,
+    ...ShadowStyles.shadow4,
     borderRadius: s(5),
     backgroundColor: COLORS.white,
     margin: 2,
@@ -202,5 +202,11 @@ export const styles = StyleSheet.create({
   allIcon: {
     height: SH(56),
     width: SW(54),
+  },
+  headerText: {
+    color: COLORS.darkGrey,
+    fontSize: SF(16),
+    fontFamily: Fonts.SemiBold,
+    marginLeft: SW(6),
   },
 });

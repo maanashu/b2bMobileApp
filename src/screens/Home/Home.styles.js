@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
   headerStyle: {
     height: SH(50),
     backgroundColor: COLORS.white,
-    paddingHorizontal: SW(20.5),
+    paddingHorizontal: SW(20),
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -29,12 +29,20 @@ export const styles = StyleSheet.create({
   },
   locationView: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
   },
   locationText: {
     color: COLORS.black,
     fontFamily: Fonts.SemiBold,
     fontSize: SF(13),
+  },
+  fullAddressView: {
+    width: SW(150),
+  },
+  fullAddressText: {
+    color: COLORS.black,
+    fontFamily: Fonts.Regular,
+    fontSize: SF(11),
   },
   locationIcon: {
     tintColor: COLORS.primary,
@@ -58,8 +66,8 @@ export const styles = StyleSheet.create({
     marginLeft: SW(5),
   },
   coinIcon: {
-    height: vs(16),
-    width: ms(16),
+    height: SH(16),
+    width: SW(16),
     marginLeft: SW(1),
   },
   balanceText: {
@@ -75,7 +83,9 @@ export const styles = StyleSheet.create({
   downIcon: {
     height: ms(15),
     width: ms(15),
-    marginLeftL: ms(5),
+    marginLeft: SW(4),
+    top: SH(2),
+    tintColor: COLORS.darkGrey,
   },
   cartCountView: {
     backgroundColor: "red",

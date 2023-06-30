@@ -88,6 +88,7 @@ export const styles = StyleSheet.create({
     borderRadius: 6,
     borderWidth: 1,
     borderColor: COLORS.light_border,
+    height: SH(50),
   },
   dollarPrice: {
     fontFamily: Fonts.SemiBold,
