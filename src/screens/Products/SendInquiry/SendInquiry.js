@@ -187,10 +187,11 @@ export function SendInquiry() {
               height: SH(310),
               backgroundColor: COLORS.placeholder,
               flex: 1,
+              borderRadius:SW(5),
             }}
           >
             <TextField
-              maxLength={1500}
+              maxLength={500}
               multiline={true}
               editable={true}
               scrollEnabled={true}
