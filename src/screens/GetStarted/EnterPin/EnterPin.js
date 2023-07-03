@@ -110,13 +110,15 @@ export function EnterPin(params) {
     isLoadingSelector([TYPES.LOGIN], state)
   );
 
-  const navigationHandler = () => {
+  const navigationHandler = async () => {
+    const fcmtoken = await AsyncStorage.getItem("token");
     dispatch(
       login(
         value,
         user?.phone?.countryCode,
         user?.phone?.phoneNumber,
-        user?.screenName
+        user?.screenName,
+        fcmtoken
       )
     );
   };

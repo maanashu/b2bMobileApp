@@ -82,7 +82,7 @@ export function Products({ navigation }) {
     };
     dispatch(getSellers(sellersObject));
     dispatch(getTrendingProducts({ app_name: "b2b", limit: 4, page: 1 }));
-  }, []);
+  }, [user?.user]);
   const getAllProducts = () => {
     const probject = {
       page: 1,

@@ -12,7 +12,7 @@ import { HttpClient } from "./HttpClient";
 import axios from "axios";
 
 export class UserController {
-  static async login(value, countryCode, phoneNumber, screenName) {
+  static async login(value, countryCode, phoneNumber, screenName, token) {
     return new Promise(async (resolve, reject) => {
       const endpoint = USER_URL + ApiUserInventory.login;
       const body = {
@@ -23,7 +23,7 @@ export class UserController {
       // const uniqueId = await DeviceInfo.getUniqueId();
       const uniqueId = await DeviceInfo.getUniqueId();
       HttpClient.post(endpoint, body, {
-        headers: { "device-id": uniqueId },
+        headers: { "device-id": uniqueId, "fcm-token": token },
       })
         .then((response) => {
           if (screenName) {
@@ -155,7 +155,7 @@ export class UserController {
     });
   }
 
-  static async register(data) {
+  static async register(data, token) {
     return new Promise(async (resolve, reject) => {
       const endpoint = USER_URL + ApiUserInventory.userRegister;
       const body = {
@@ -172,7 +172,7 @@ export class UserController {
 
       const uniqueId = await DeviceInfo.getUniqueId();
       HttpClient.post(endpoint, body, {
-        headers: { "device-id": uniqueId },
+        headers: { "device-id": uniqueId, "fcm-token": token },
       })
         .then((response) => {
           if (response?.status_code === 201) {

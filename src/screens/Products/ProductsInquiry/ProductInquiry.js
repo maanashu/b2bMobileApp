@@ -75,7 +75,6 @@ export function ProductInquiry(params) {
   const isLoadingDetails = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
   );
-
   const object = {
     service_type: "product",
   };
@@ -119,10 +118,18 @@ export function ProductInquiry(params) {
   };
 
   useEffect(() => {
-    const idSet = new Set(
-      user?.getFavouriteProducts?.map((item) => item?.favourite_product[0].id)
-    );
-    setMatchedIds(idSet);
+    if (
+      user &&
+      user?.getFavouriteProducts &&
+      Array.isArray(user?.getFavouriteProducts)
+    ) {
+      const idSet = new Set(
+        user?.getFavouriteProducts?.map(
+          (item) => item?.favourite_product?.[0]?.id
+        )
+      );
+      setMatchedIds(idSet);
+    }
   }, [user?.getFavouriteProducts]);
   const renderItem = ({ item }) => (
     <TouchableOpacity style={[styles.item, { marginTop: SH(30) }]}>
@@ -155,7 +162,7 @@ export function ProductInquiry(params) {
       <View style={styles.productDetail}>
         <Text style={styles.questions}>{item?.attributes?.name} :</Text>
 
-        {item?.attributes?.attribute_values.map((item, index) => (
+        {item?.attributes?.attribute_values?.map((item, index) => (
           <Text style={styles.productAnswer}> {`${item?.name}  `}</Text>
         ))}
       </View>
@@ -725,7 +732,9 @@ export function ProductInquiry(params) {
           </View>
         </View>
       </ScrollView>
-      {isLoadingDetails ? <Loader /> : null}
+      {isLoadingDetails ? (
+        <Loader message="Loading product details..." />
+      ) : null}
     </ScreenWrapper>
   );
 }

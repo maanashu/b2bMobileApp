@@ -40,6 +40,7 @@ import { Loader } from "@/components/Loader";
 import { navigate } from "@/navigation/NavigationRef";
 import { useIsFocused } from "@react-navigation/native";
 import RBSheet from "react-native-raw-bottom-sheet";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function PersonalInformation(params) {
   const isFocused = useIsFocused();
@@ -107,14 +108,18 @@ export function PersonalInformation(params) {
       BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
   }, []);
 
-  const crossHandler = () => {
+  const crossHandler = async () => {
     // dispatch(logout());
+    const fcmtoken = await AsyncStorage.getItem("token");
+
     dispatch(
       login(
         getData?.registerData?.pin ||
           getData?.user?.payload?.user_profiles?.security_pin,
         getData?.phone?.countryCode,
-        getData?.phone?.phoneNumber
+        getData?.phone?.phoneNumber,
+        getData?.screenName,
+        fcmtoken
       )
     );
   };

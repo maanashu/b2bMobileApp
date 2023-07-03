@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import React, { useRef, useState } from "react";
 import { styles } from "./ReviewAndPayment.styles";
-import { ScreenWrapper, Spacer } from "@/components";
+import { NameHeaderCoins, ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -170,30 +170,7 @@ export function ReviewAndPayment(props) {
   };
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <View style={styles.header}>
-        <View style={styles.headerInnerView}>
-          <TouchableOpacity
-            style={{ flexDirection: "row", alignItems: "center" }}
-            onPress={() => goBack()}
-          >
-            <Image
-              resizeMode="contain"
-              source={backArrow}
-              style={{ height: 30, width: 30 }}
-            />
-            <Text style={styles.headerText}>
-              {strings.delivery.reviewAndPayment}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Image
-              resizeMode="contain"
-              source={coins}
-              style={styles.crossIcon}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <NameHeaderCoins backRequired title={strings.delivery.reviewAndPayment} />
 
       <Spacer space={SH(10)} />
 

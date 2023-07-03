@@ -639,14 +639,15 @@ const editProfileError = (error) => ({
 });
 
 export const login =
-  (value, countryCode, phoneNumber, screenName) => async (dispatch) => {
+  (value, countryCode, phoneNumber, screenName, token) => async (dispatch) => {
     dispatch(loginRequest());
     try {
       const user = await UserController.login(
         value,
         countryCode,
         phoneNumber,
-        screenName
+        screenName,
+        token
       );
       dispatch(loginSuccess(user));
       dispatch(getUserProfile(user?.payload?.uuid));
@@ -715,10 +716,10 @@ export const sendEmailOtp = (email) => async (dispatch) => {
     });
 };
 
-export const register = (data) => async (dispatch) => {
+export const register = (data, token) => async (dispatch) => {
   dispatch(registerRequest());
   try {
-    const res = await UserController.register(data);
+    const res = await UserController.register(data, token);
 
     dispatch(registerSuccess(res));
     dispatch(registrationData(data));

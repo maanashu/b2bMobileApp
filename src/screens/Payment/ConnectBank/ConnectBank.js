@@ -32,6 +32,10 @@ import { getKyc } from "@/selectors/KycSelector";
 import { store } from "@/store";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { TYPES } from "@/Types/Types";
+import { TYPES as TYPE } from "@/actions/UserActions";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Loader } from "@/components/Loader";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
 
 export function ConnectBank(props) {
   const dispatch = useDispatch();
@@ -43,6 +47,10 @@ export function ConnectBank(props) {
   const param = props?.route?.params?.screen;
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const isLoginLoading = useSelector((state) =>
+    isLoadingSelector([TYPE.LOGIN], state)
+  );
 
   const getPlaidTokenHandler = () => dispatch(getPlaidToken());
 
@@ -155,14 +163,16 @@ export function ConnectBank(props) {
   };
 
   const emptyComponent = () => <Text>{strings.bank.noBankAccount}</Text>;
-  const loginHandler = () => {
+  const loginHandler = async () => {
+    const fcmtoken = await AsyncStorage.getItem("token");
     dispatch(
       login(
         getData?.registerData?.pin ||
           getData?.user?.payload?.user_profiles?.security_pin,
         getData?.phone?.countryCode,
         getData?.phone?.phoneNumber,
-        getData?.screenName
+        getData?.screenName,
+        fcmtoken
       )
     );
   };
@@ -264,6 +274,7 @@ export function ConnectBank(props) {
           ) : null}
         </View>
       )}
+      {isLoginLoading && <Loader message="Loging in..." />}
     </SafeAreaView>
   );
 }

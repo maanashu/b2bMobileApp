@@ -28,17 +28,17 @@ import {
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { getUser } from "@/selectors/UserSelectors";
-import { getWallet } from "@/selectors/WalletSelector";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { orderSelector } from "@/selectors/OrderSelector";
 import { useNavigation } from "@react-navigation/native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { Dimensions } from "react-native";
+import { Loader } from "@/components/Loader";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
 
-export function OrderedStatus({ route }) {
+export function OrderedStatus() {
   const navigation = useNavigation();
-  const dispatch = useDispatch();
-  const wallet = useSelector(getWallet);
   const order = useSelector(orderSelector);
   const user = useSelector(getUser);
   const mapRef = useRef();
@@ -46,29 +46,11 @@ export function OrderedStatus({ route }) {
   const ASPECT_RATIO = width / height;
   const LATITUDE_DELTA = 0.005;
   const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-  const Details = [
-    {
-      id: "1",
-      quantity: "1",
-      itemName: "Marlboro Red Gold",
-      type: "packet",
-      price: "$6.56",
-    },
-    {
-      id: "2",
-      quantity: "1",
-      itemName: "Marlboro Red Gold",
-      type: "packet",
-      price: "$6.56",
-    },
-    {
-      id: "3",
-      quantity: "1",
-      itemName: "Marlboro Red Gold",
-      type: "packet",
-      price: "$6.56",
-    },
-  ];
+  const subTotalAmout = order?.subTotalAmount?.total_amount;
+
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_ORDER_DETAILS], state)
+  );
 
   const render = (item) => {
     return (
@@ -268,12 +250,6 @@ export function OrderedStatus({ route }) {
               provider={PROVIDER_GOOGLE}
               showsCompass
               showsMyLocationButton
-              // initialRegion={{
-              //   latitude: latitude,
-              //   longitude: longitude,
-              //   latitudeDelta: 0.00722,
-              //   longitudeDelta: 0.00721,
-              // }}
               region={{
                 latitude: user?.savedAddress?.latitude,
                 longitude: user?.savedAddress?.longitude,
@@ -344,20 +320,6 @@ export function OrderedStatus({ route }) {
               </Text>
             </View>
 
-            {/* <Spacer space={SH(10)} />
-
-            <View style={styles.pricesView}>
-              <Text style={styles.pricesTextSemi}>{"Order from"}</Text>
-              <Text style={styles.pricesTextSemi}>{"-$6.56"}</Text>
-            </View>
-
-            <Spacer space={SH(10)} />
-
-            <View style={styles.pricesView}>
-              <Text style={styles.pricesTextSemi}>{"Delivery address"}</Text>
-              <Text style={styles.pricesTextSemi}>{"-$6.56"}</Text>
-            </View> */}
-
             <Spacer space={SH(10)} />
 
             <View style={styles.borderLine}></View>
@@ -381,7 +343,7 @@ export function OrderedStatus({ route }) {
             <View style={styles.pricesView}>
               <Text style={styles.pricesText}>{"Subtotal"}</Text>
               <Text style={styles.pricesText}>
-                {"$ " + order?.subTotalAmount?.total_amount}
+                {"$ " + subTotalAmout.toFixed(2)}
               </Text>
             </View>
 
@@ -447,6 +409,8 @@ export function OrderedStatus({ route }) {
         />
         <Spacer space={SH(30)} />
       </ScrollView>
+
+      {isLoading && <Loader message="Loading details" />}
     </ScreenWrapper>
   );
 }

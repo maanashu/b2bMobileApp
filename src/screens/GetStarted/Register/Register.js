@@ -29,6 +29,7 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
 import { emailReg } from "@/Utils/validators";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function Register() {
   const dispatch = useDispatch();
@@ -102,6 +103,10 @@ export function Register() {
     confirmPin: confirmPin,
     code: countryCode,
     phone: phoneNumber?.trim(),
+  };
+  const handleRegister = async () => {
+    const token = await AsyncStorage.getItem("token");
+    dispatch(register(data, token));
   };
 
   const submit = () => {
@@ -184,7 +189,7 @@ export function Register() {
 
       return;
     } else {
-      dispatch(register(data));
+      handleRegister();
     }
   };
 
