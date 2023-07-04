@@ -14,7 +14,6 @@ import { Header } from "../Components/NameHeader";
 import { COLORS, SH, SW } from "@/theme";
 import { jbrLogo, downleft, downright, uparrow, backArrow } from "@/assets";
 import { strings } from "@/localization";
-import { transactionHistory } from "@/constants/flatlistData";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { useDispatch, useSelector } from "react-redux";
@@ -68,7 +67,7 @@ export function JbrWallet() {
 
   const body = {
     page: 1,
-    limit: 10,
+    limit: 50,
     transaction_type: "all",
   };
   useEffect(() => {
@@ -130,7 +129,11 @@ export function JbrWallet() {
         <View style={{ display: "flex", flexDirection: "row" }}>
           {transactionImage(item)}
           <TouchableOpacity
-            onPress={() => navigate(NAVIGATION.transactionHistory)}
+            // onPress={() =>
+            //   navigate(NAVIGATION.transactionHistory, {
+            //     index: item?.payment_type === "transfer" ? 1 : 0,
+            //   })
+            // }
             style={{
               display: "flex",
               flexDirection: "column",
@@ -271,6 +274,10 @@ export function JbrWallet() {
                   </Text>
                   <Text style={styles.balance}>
                     {strings.jbrWallet.JBR}{" "}
+                    {Math.floor(wallet?.getWalletBalance?.sila_balance)}
+                  </Text>
+                  <Text style={styles.balanceSmallText}>
+                    {"$ "}
                     {Math.floor(
                       wallet?.getWalletBalance?.sila_balance / 100
                     ).toFixed(2)}
@@ -280,13 +287,21 @@ export function JbrWallet() {
             </View>
             <Spacer space={SH(30)} />
             <View style={styles.earnView}>
-              <TouchableOpacity onPress={() => alert("coming soon")}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigate(NAVIGATION.transactionHistory, { index: 0 })
+                }
+              >
                 <View style={styles.earnBtn}>
                   <Image source={downleft} style={styles.earnlogo} />
                   <Text style={styles.earnText}>{strings.jbrWallet.added}</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => alert("coming soon")}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigate(NAVIGATION.transactionHistory, { index: 1 })
+                }
+              >
                 <View style={styles.earnBtn}>
                   <Image source={uparrow} style={styles.earnlogo} />
                   <Text style={styles.earnText}>
@@ -294,7 +309,11 @@ export function JbrWallet() {
                   </Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => alert("coming soon")}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigate(NAVIGATION.transactionHistory, { index: 2 })
+                }
+              >
                 <View style={styles.earnBtn}>
                   <Image source={downright} style={styles.earnlogo} />
                   <Text style={styles.earnText}>{strings.jbrWallet.earn}</Text>

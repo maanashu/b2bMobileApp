@@ -232,7 +232,7 @@ export class WalletController {
           resolve(response);
         })
         .catch((error) => {
-          reject(new Error(error.msg));
+          reject(error);
         });
     });
   }

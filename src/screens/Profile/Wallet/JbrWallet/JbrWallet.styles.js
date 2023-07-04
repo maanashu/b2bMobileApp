@@ -66,6 +66,12 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.MaisonRegular,
     color: COLORS.black,
   },
+  balanceSmallText: {
+    fontWeight: "500",
+    fontSize: SF(16),
+    fontFamily: Fonts.MaisonRegular,
+    color: COLORS.black,
+  },
   earnView: {
     flexDirection: "row",
     justifyContent: "space-between",

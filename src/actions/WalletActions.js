@@ -90,6 +90,10 @@ const getTransactionsError = (error) => ({
   type: TYPES.GET_TRANSACTIONS_ERROR,
   payload: { error },
 });
+const getTransactionsReset = () => ({
+  type: TYPES.GET_TRANSACTIONS_RESET,
+  payload: null,
+});
 
 const getRequestTransactionsRequest = () => ({
   type: TYPES.GET_REQUEST_TRANSACTIONS_REQUEST,
@@ -286,7 +290,11 @@ export const getTransactions = (data) => async (dispatch) => {
     const res = await WalletController.getTransactions(data);
     dispatch(getTransactionsSuccess(res));
   } catch (error) {
-    dispatch(getTransactionsError(error.message));
+    if (error?.payload?.status_code === 404) {
+      dispatch(getTransactionsReset());
+    } else {
+      dispatch(getTransactionsError(error.message));
+    }
   }
 };
 

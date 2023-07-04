@@ -69,6 +69,12 @@ export function Products({ navigation }) {
     LogBox.ignoreAllLogs();
     dispatch(getCart());
     setSearchedKeyword("");
+    const sellersObject = {
+      page: 1,
+      limit: 10,
+      need_trending: "true",
+    };
+    dispatch(getSellers(sellersObject));
   }, [isFocused]);
 
   useEffect(() => {

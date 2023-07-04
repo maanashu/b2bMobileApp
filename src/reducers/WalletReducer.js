@@ -27,6 +27,11 @@ export const walletReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         transactions: payload.transactions.payload.data,
       };
+    case TYPES.GET_TRANSACTIONS_RESET:
+      return {
+        ...state,
+        transactions: [],
+      };
     case TYPES.GET_REQUEST_TRANSACTIONS_SUCCESS:
       return {
         ...state,
