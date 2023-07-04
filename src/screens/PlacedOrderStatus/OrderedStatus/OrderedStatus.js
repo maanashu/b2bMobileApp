@@ -47,6 +47,7 @@ export function OrderedStatus() {
   const LATITUDE_DELTA = 0.005;
   const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
   const subTotalAmout = order?.subTotalAmount?.total_amount;
+  const jobrCoin = order?.getOneOrderDetail?.payable_amount * 100;
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_ORDER_DETAILS], state)
@@ -389,7 +390,7 @@ export function OrderedStatus() {
               </Text>
             </View>
             <Text style={styles.totalJbrCoinText}>
-              {`(JBR ${order?.getOneOrderDetail?.payable_amount * 100})`}
+              JBR {Math.floor(jobrCoin)}
             </Text>
           </ScrollView>
         </View>

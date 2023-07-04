@@ -12,7 +12,14 @@ import { styles } from "./Checkout.styles";
 import { ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { cross, forwardArrowWhite, rightArrowThin, Fonts } from "@/assets";
+import {
+  cross,
+  forwardArrowWhite,
+  rightArrowThin,
+  Fonts,
+  crossBlack,
+  pencil,
+} from "@/assets";
 import { strings } from "@/localization";
 import { HeaderCoin } from "../Profile/Wallet/Components/HeaderCoin";
 import { goBack, navigate } from "@/navigation/NavigationRef";
@@ -29,6 +36,7 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { createCartAction } from "@/actions/OrderAction";
 import { getProductSelector } from "@/selectors/ProductSelectors";
+import { addCouponReset } from "@/actions/ProductActions";
 
 export function Checkout() {
   const dispatch = useDispatch();
@@ -40,22 +48,38 @@ export function Checkout() {
   let arr = [cartList?.getCart];
   useEffect(() => {
     dispatch(getCart());
-    if (coupon?.addCoupons) {
+    if (coupon?.addCoupons && Object.entries(coupon?.addCoupons).length != 0) {
       setdiscountAmnt(
         (coupon?.addCoupons?.discount_percentage / 100) *
           cartList?.getCart?.amout?.total_amount
       );
+    } else {
+      setdiscountAmnt(0);
     }
-    setTaxAmount(
-      (cartList?.getCart?.amout?.tax_percentage / 100) *
-        (coupon?.addCoupons?.discount_percentage ||
-          cartList?.getCart?.amout?.total_amount / 100) *
-        cartList?.getCart?.amout?.total_amount
-    );
+    if (coupon?.addCoupons && Object.entries(coupon?.addCoupons).length != 0) {
+      setTaxAmount(
+        ((cartList?.getCart?.amout?.total_amount -
+          (coupon?.addCoupons?.discount_percentage / 100) *
+            cartList?.getCart?.amout?.total_amount) *
+          cartList?.getCart?.amout?.tax_percentage) /
+          100
+      );
+    } else {
+      setTaxAmount(
+        (cartList?.getCart?.amout?.total_amount *
+          cartList?.getCart?.amout?.tax_percentage) /
+          100
+      );
+    }
     setTotalAmount(
-      cartList?.getCart?.amout?.total_amount - discountAmnt + taxAmount
+      cartList?.getCart?.amout?.total_amount - (discountAmnt || 0) + taxAmount
     );
-  }, [discountAmnt, cartList?.getCart?.amout?.total_amount, taxAmount]);
+  }, [
+    discountAmnt,
+    cartList?.getCart?.amout?.total_amount,
+    taxAmount,
+    coupon?.addCoupons,
+  ]);
 
   const applyCouponHandler = () => {
     navigate(NAVIGATION.addCoupon, {
@@ -190,9 +214,29 @@ export function Checkout() {
 
           <Spacer space={SH(25)} />
           <>
-            {coupon?.addCoupons ? (
+            {coupon?.addCoupons &&
+            Object.entries(coupon?.addCoupons).length != 0 ? (
               <>
-                <View style={[styles.applyCouponBackground]}>
+                <View style={[styles.appliedCouponBackground]}>
+                  <View style={[styles.rowView, { paddingBottom: SH(7) }]}>
+                    <TouchableOpacity onPress={applyCouponHandler}>
+                      <Image
+                        source={pencil}
+                        style={styles.couponIcons}
+                        resizeMode="contain"
+                      />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => dispatch(addCouponReset())}
+                    >
+                      <Image
+                        source={crossBlack}
+                        style={styles.couponIcons}
+                        resizeMode="contain"
+                      />
+                    </TouchableOpacity>
+                  </View>
+
                   <Text
                     style={{
                       fontFamily: Fonts.SemiBold,
@@ -277,7 +321,7 @@ export function Checkout() {
             <View style={styles.subtotalView}>
               <Text style={styles.feeText}>{"Taxes & Other fees "}</Text>
               <Text style={styles.feeText}>
-                {"$ "}
+                {"+ $ "}
                 {taxAmount.toFixed(2)}
               </Text>
             </View>

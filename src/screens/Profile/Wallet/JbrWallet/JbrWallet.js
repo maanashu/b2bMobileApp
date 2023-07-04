@@ -141,7 +141,10 @@ export function JbrWallet() {
             <Text style={styles.dateTime}>{date}</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.balanceText}>JBR {item.amount}</Text>
+        <Text style={styles.balanceText}>
+          {item?.payment_type === "transfer" ? "- " : "+ "}
+          JBR {item.amount}
+        </Text>
       </View>
     );
   };

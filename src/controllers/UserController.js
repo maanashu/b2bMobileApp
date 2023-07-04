@@ -209,6 +209,12 @@ export class UserController {
       HttpClient.post(endpoint, body)
         .then((response) => {
           resolve(response);
+          Toast.show({
+            text2: "Biometric Registered",
+            position: "bottom",
+            type: "success_toast",
+            visibilityTime: 2000,
+          });
         })
         .catch((error) => {
           if (error.msg === "biometric_off") {

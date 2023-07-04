@@ -311,6 +311,13 @@ export const styles = StyleSheet.create({
     paddingHorizontal: SW(15),
     borderRadius: SW(5),
   },
+  appliedCouponBackground: {
+    backgroundColor: COLORS.placeHolder,
+    flex: 1,
+    paddingBottom: SH(20),
+    paddingHorizontal: SW(15),
+    borderRadius: SW(5),
+  },
   rightArrowStyle: {
     tintColor: "black",
     height: SW(15),
@@ -355,5 +362,10 @@ export const styles = StyleSheet.create({
   couponDataText: {
     color: COLORS.darkGrey,
     fontFamily: Fonts.Regular,
+  },
+  couponIcons: {
+    height: SH(20),
+    width: SW(20),
+    marginTop: SH(10),
   },
 });

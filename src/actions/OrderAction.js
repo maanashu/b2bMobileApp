@@ -3,7 +3,7 @@ import { TYPES } from "@/Types/Types";
 import { getWalletBalance } from "./WalletActions";
 import { goBack, navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
-import { addCouponSuccess } from "./ProductActions";
+import { addCouponReset, addCouponSuccess } from "./ProductActions";
 
 const createCartRequest = () => ({
   type: TYPES.CREATE_CART_REQUEST,
@@ -242,6 +242,7 @@ export const createOrder = (data) => (dispatch) => {
       dispatch(createOrdertSuccess(res));
       dispatch(emptyCart());
       dispatch(getCart());
+      dispatch(addCouponReset());
       dispatch(getWalletBalance());
       dispatch(addCouponSuccess({}));
       return res;

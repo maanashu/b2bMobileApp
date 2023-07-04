@@ -106,7 +106,7 @@ const addCouponError = (error) => ({
   type: TYPES.ADD_COUPONS_ERROR,
   payload: { error },
 });
-const addCouponReset = () => ({
+export const addCouponReset = () => ({
   type: TYPES.ADD_COUPONS_RESET,
   payload: null,
 });
@@ -222,7 +222,7 @@ export const getCoupons = (data) => async (dispatch) => {
     const res = await ProductController.getCoupons(data);
     dispatch(getCouponsSuccess(res));
   } catch (error) {
-    if (error.statusCode === 204) {
+    if (error?.statusCode === 204) {
       dispatch(getCouponsReset());
     } else {
       dispatch(getCouponsError(error.message));

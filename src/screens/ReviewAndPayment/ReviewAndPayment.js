@@ -55,6 +55,7 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { Loader } from "@/components/Loader";
 import { ImageBackground } from "react-native";
 import { ShadowStyles } from "@/theme";
+import { getProductSelector } from "@/selectors/ProductSelectors";
 
 const data = [
   {
@@ -88,6 +89,7 @@ export function ReviewAndPayment(props) {
   const dispatch = useDispatch();
   const user = useSelector(getUser);
   const wallet = useSelector(getWallet);
+  // const coupon = useSelector(getProductSelector)?.coupon?.addCoupons;
 
   const route = useRoute();
   const mapRef = useRef();
@@ -101,6 +103,9 @@ export function ReviewAndPayment(props) {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.CREATE_ORDER], state)
   );
+  console.log("tokeeen", user?.user?.payload?.token);
+  const coupon = useSelector(getProductSelector)?.addCoupons || null;
+
   const placeOrder = () => {
     const data = {
       Cart_id: getCartId?.getCart?.id,
@@ -120,6 +125,7 @@ export function ReviewAndPayment(props) {
       delivery_option: "4",
       shipping_service_id: route?.params?.deliveryId,
       mode_of_payment: "jbr",
+      ...(coupon && { coupon_code: coupon?.code }),
     };
 
     dispatch(createOrder(data))

@@ -142,6 +142,7 @@ export class OrderController {
         shipping_service_id: data.shipping_service_id,
         mode_of_payment: data.mode_of_payment,
         coordinates: data.Coordinates,
+        ...(data?.coupon_code && { coupon_code: data?.coupon_code }),
       };
 
       HttpClient.post(endpoint, body)
@@ -152,9 +153,12 @@ export class OrderController {
             type: "success_toast",
             visibilityTime: 1500,
           });
+          console.log("check body", JSON.stringify(body));
           resolve(response);
         })
         .catch((error) => {
+          console.log("check body", JSON.stringify(body));
+
           Toast.show({
             text2: error.msg,
             position: "bottom",
