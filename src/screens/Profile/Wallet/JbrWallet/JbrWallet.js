@@ -383,7 +383,7 @@ export function JbrWallet() {
           </View>
           <Spacer space={SH(30)} />
         </ScrollView>
-        {walletLoading ? <Loader message="Loading data..." /> : null}
+        {walletLoading ? <Loader message="Fetching balance..." /> : null}
 
         <Modal
           isVisible={isAddBalanceModal}

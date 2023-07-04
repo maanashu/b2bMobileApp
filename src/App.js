@@ -134,7 +134,6 @@ export function App() {
       try {
         const token = await messaging().getToken();
         await AsyncStorage.setItem("token", token);
-        console.log("fcmtoken", token);
       } catch (error) {}
     }
   };

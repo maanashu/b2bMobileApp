@@ -20,6 +20,7 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { Loader } from "@/components/Loader";
 import { storage } from "@/storage";
 import ReactNativeBiometrics, { BiometryTypes } from "react-native-biometrics";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const CELL_COUNT = 4;
 
 export function EnterPin(params) {
