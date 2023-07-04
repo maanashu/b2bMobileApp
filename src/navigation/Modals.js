@@ -6,7 +6,7 @@ import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
 import { ShadowStyles, SH, SW, TextStyles, COLORS } from "@/theme";
 
 import { TYPES, deviceRegister } from "@/actions/UserActions";
-import { fingerprintLogin } from "@/assets";
+import { faceIdIcon, fingerprintLogin } from "@/assets";
 import ReactNativeBiometrics, { BiometryTypes } from "react-native-biometrics";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 
@@ -18,6 +18,7 @@ import { navigate } from "./NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { biometricsSet, previousScreen } from "@/actions/GlobalActions";
 import { storage } from "@/storage";
+import { Platform } from "react-native";
 
 export const rnBiometrics = new ReactNativeBiometrics({
   allowDeviceCredentials: true,
@@ -131,10 +132,10 @@ export default function Modals({ children }) {
           <View style={styles.contentContainer}>
             <Spacer space={SH(60)} />
             <Text style={styles.title}>{"Setup Biometrics"}</Text>
-            <Spacer space={SH(50)} />
-            <Image source={fingerprintLogin} style={styles.bioMetricImage} />
+            <Spacer space={SH(40)} />
+            <Image source={ Platform.OS === "ios" ?faceIdIcon:fingerprintLogin} style={styles.bioMetricImage} />
 
-            <Spacer space={SH(16)} />
+            <Spacer space={SH(30)} />
 
             <Text style={styles.desc}>
               {"You can also login to JOBR Wallet using biometric unlock."}
