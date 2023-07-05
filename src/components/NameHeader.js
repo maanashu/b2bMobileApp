@@ -5,7 +5,7 @@ import { SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
 import { s } from "react-native-size-matters";
 import { goBack } from "@/navigation/NavigationRef";
-import { Fonts } from "@/assets";
+import { Fonts, backArrow } from "@/assets";
 import { ShadowStyles } from "@/theme";
 
 export function NameHeader({ title, back, backNavi }) {
@@ -25,7 +25,7 @@ export function NameHeader({ title, back, backNavi }) {
           >
             <Image
               resizeMode="contain"
-              source={back}
+              source={backArrow}
               style={{ height: 25, width: 25 }}
             />
           </TouchableOpacity>

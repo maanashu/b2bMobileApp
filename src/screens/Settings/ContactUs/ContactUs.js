@@ -11,54 +11,54 @@ import { ms } from "react-native-size-matters";
 export function ContactUs() {
   return (
     <ScreenWrapper>
-    <View style={styles.container}>
-      <NameHeader title={strings.settings.contactUs} back={backArrow} />
+      <View style={styles.container}>
+        <NameHeader title={strings.settings.contactUs} back />
 
-      <View style={styles.mainView}>
-        <Spacer space={SH(30)} />
-        <View style={styles.logoView}>
-          <Image
-            source={jobr_logo_icon}
-            resizeMode="contain"
-            style={styles.logoStyle}
-          />
-
-          <Text style={styles.jobrText}>{strings.aboutUs.jobr}</Text>
-        </View>
-
-        <Spacer space={SH(50)} />
-
-        <View style={{ paddingHorizontal: ms(40) }}>
-          <Text style={styles.headingText}>{strings.contactUs.email}</Text>
-
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <View style={styles.mainView}>
+          <Spacer space={SH(30)} />
+          <View style={styles.logoView}>
             <Image
-              source={email}
-              style={styles.iconStyle}
+              source={jobr_logo_icon}
               resizeMode="contain"
+              style={styles.logoStyle}
             />
-            <Text style={styles.paraText}>{strings.contactUs.mail}</Text>
+
+            <Text style={styles.jobrText}>{strings.aboutUs.jobr}</Text>
           </View>
 
-          <Spacer space={SH(20)} />
+          <Spacer space={SH(50)} />
 
-          <Spacer space={SH(20)} />
+          <View style={{ paddingHorizontal: ms(40) }}>
+            <Text style={styles.headingText}>{strings.contactUs.email}</Text>
 
-          <Text style={styles.headingText}>
-            {strings.contactUs.phoneNumber}
-          </Text>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Image
+                source={email}
+                style={styles.iconStyle}
+                resizeMode="contain"
+              />
+              <Text style={styles.paraText}>{strings.contactUs.mail}</Text>
+            </View>
 
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Image
-              source={call}
-              style={styles.iconStyle}
-              resizeMode="contain"
-            />
-            <Text style={styles.paraText}>612717070</Text>
+            <Spacer space={SH(20)} />
+
+            <Spacer space={SH(20)} />
+
+            <Text style={styles.headingText}>
+              {strings.contactUs.phoneNumber}
+            </Text>
+
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Image
+                source={call}
+                style={styles.iconStyle}
+                resizeMode="contain"
+              />
+              <Text style={styles.paraText}>612717070</Text>
+            </View>
           </View>
         </View>
       </View>
-    </View>
     </ScreenWrapper>
   );
 }

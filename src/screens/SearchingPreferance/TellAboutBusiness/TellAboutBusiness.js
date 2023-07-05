@@ -1,18 +1,8 @@
 import React, { useState } from "react";
-import {
-  FlatList,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./TellAboutBusiness.styles";
 import { backArrow } from "@/assets";
-import {
-  Button,
-  NameHeader,
-  ScreenWrapper,
-  Spacer,
-} from "@/components";
+import { Button, NameHeader, ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { strings } from "@/localization";
 import { navigate } from "@/navigation/NavigationRef";
@@ -72,7 +62,7 @@ export function TellAboutBusiness() {
   return (
     <ScreenWrapper>
       <NameHeader
-        back={backArrow}
+        back
         title={strings.searchingPreferance.personalizeBusiness}
       />
       <View style={styles.innerView}>
@@ -101,7 +91,7 @@ export function TellAboutBusiness() {
             textStyle={styles.textStyle}
           />
         </View>
-        <Spacer space={ SW(20)} />
+        <Spacer space={SW(20)} />
       </View>
     </ScreenWrapper>
   );

@@ -187,11 +187,8 @@ export function UserInformation() {
     dispatch(sendEmailOtp(user?.getUserProfile?.email))
       .then((res) => {
         setPayloadId(res?.payload?.id);
-        console.log("check id" + res?.payload?.id);
       })
-      .catch((error) => {
-        console.log("error====" + JSON.stringify(error));
-      });
+      .catch((error) => {});
   };
 
   const submitOtp = () => {

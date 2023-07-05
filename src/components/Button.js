@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: COLORS.activeTab,
     borderWidth: 0,
-    height: SH(45),
+    height: SH(50),
   },
 });
 
@@ -33,7 +33,7 @@ export function Button({ style, textStyle, title, onPress, pending, ...rest }) {
       onPress={onPress}
     >
       {pending ? (
-        <ActivityIndicator size="smalll" color={COLORS.white} />
+        <ActivityIndicator size="small" color={COLORS.white} />
       ) : (
         <Text style={[{ color: COLORS.white }, TextStyles.label, textStyle]}>
           {title}

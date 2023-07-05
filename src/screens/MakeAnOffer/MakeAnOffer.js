@@ -54,7 +54,7 @@ export function MakeAnOffer() {
 
   return (
     <ScreenWrapper>
-      <NameHeader title={strings.makeAnOffer.makeAnOffer} back={backArrow} />
+      <NameHeader title={strings.makeAnOffer.makeAnOffer} back />
 
       <Spacer space={SH(5)} />
       <ScrollView
@@ -82,9 +82,7 @@ export function MakeAnOffer() {
             )}
             data={countries}
             buttonStyle={styles.dropDownStyle}
-            onSelect={(selectedItem, index) => {
-              console.log(selectedItem, index);
-            }}
+            onSelect={(selectedItem, index) => {}}
             buttonTextAfterSelection={(selectedItem, index) => {
               return selectedItem;
             }}
@@ -113,9 +111,7 @@ export function MakeAnOffer() {
             )}
             data={countries}
             buttonStyle={styles.dropDownStyle}
-            onSelect={(selectedItem, index) => {
-              console.log(selectedItem, index);
-            }}
+            onSelect={(selectedItem, index) => {}}
             buttonTextAfterSelection={(selectedItem, index) => {
               return selectedItem;
             }}
@@ -144,9 +140,7 @@ export function MakeAnOffer() {
             )}
             data={countries}
             buttonStyle={styles.dropDownStyle}
-            onSelect={(selectedItem, index) => {
-              console.log(selectedItem, index);
-            }}
+            onSelect={(selectedItem, index) => {}}
             buttonTextAfterSelection={(selectedItem, index) => {
               return selectedItem;
             }}
@@ -175,9 +169,7 @@ export function MakeAnOffer() {
             )}
             data={countries}
             buttonStyle={styles.dropDownStyle}
-            onSelect={(selectedItem, index) => {
-              console.log(selectedItem, index);
-            }}
+            onSelect={(selectedItem, index) => {}}
             buttonTextAfterSelection={(selectedItem, index) => {
               return selectedItem;
             }}

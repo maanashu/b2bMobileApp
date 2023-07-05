@@ -73,6 +73,7 @@ import {
   NewProducts,
   NotificationSetting,
   NoWalletScreen,
+  OrderedBrands,
   OrderedStatus,
   Orders,
   PastCoupons,
@@ -499,8 +500,8 @@ export function AppBottom() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        component={Brands}
-        name={NAVIGATION.brands}
+        component={OrderedBrands}
+        name={NAVIGATION.orderedBrands}
         options={{ headerShown: false }}
       />
       <Stack.Screen

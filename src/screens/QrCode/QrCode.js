@@ -117,7 +117,7 @@ export function QrCode() {
   };
   return (
     <ScreenWrapper style={styles.container}>
-      <NameHeader title={strings.userInformation.back} back={backArrow} />
+      <NameHeader title={strings.userInformation.back} back />
       <Spacer space={SH(1)} />
 
       <ScrollView style={styles.mainContainer}>

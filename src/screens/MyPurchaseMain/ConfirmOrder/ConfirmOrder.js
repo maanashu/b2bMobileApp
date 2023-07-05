@@ -102,7 +102,7 @@ export function ConfirmOrder({ route }) {
 
   return (
     <ScreenWrapper>
-      <NameHeader title={strings.myPurchase.orderDetails} back={backArrow} />
+      <NameHeader title={strings.myPurchase.orderDetails} back />
 
       <ScrollView
         style={styles.mainContainer}

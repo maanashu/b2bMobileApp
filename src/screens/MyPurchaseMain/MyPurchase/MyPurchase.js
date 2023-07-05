@@ -5,16 +5,11 @@ import { Cancelled } from "../Cancelled/Cancelled";
 import { Refund } from "../Refund/Refund";
 import { Processing } from "../Processing/Processing";
 import { Pending } from "../Pending/Pending";
-import {
-  NameHeader,
-  NameHeaderCoins,
-  ScreenWrapper,
-  Spacer,
-} from "@/components";
+import { NameHeaderCoins, ScreenWrapper, Spacer } from "@/components";
 import { Search } from "@/components/Search";
-import { backArrow, Fonts } from "@/assets";
+import { Fonts } from "@/assets";
 import { strings } from "@/localization";
-import { COLORS, SF, SH, SW } from "@/theme";
+import { COLORS, SH, SW } from "@/theme";
 import { Completed } from "../Completed/Completed";
 import { goBack } from "@/navigation/NavigationRef";
 

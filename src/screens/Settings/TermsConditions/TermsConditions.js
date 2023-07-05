@@ -24,7 +24,7 @@ export function TermsConditions() {
   return (
     <ScreenWrapper>
       <View style={styles.container}>
-        <NameHeader title={strings.settings.terms} back={backArrow} />
+        <NameHeader title={strings.settings.terms} back />
 
         <ScrollView style={styles.mainView}>
           <Spacer space={SH(20)} />

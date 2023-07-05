@@ -101,7 +101,7 @@ export function EnterPin(params) {
         } else {
         }
       })
-      .catch((error) => console.log("eror:", error));
+      .catch((error) => {});
   };
 
   const createKeys = () =>

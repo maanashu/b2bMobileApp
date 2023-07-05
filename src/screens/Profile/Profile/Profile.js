@@ -165,7 +165,9 @@ export function Profile() {
     },
   ];
   const navigationHandler = (item) => {
-    navigate(item.navigation);
+    if (item?.navigation) {
+      navigate(item.navigation);
+    }
   };
 
   const ProfileData = ({ item, index }) => (

@@ -50,7 +50,7 @@ export { SendAnOffer } from "@/screens/SendAnOffer/SendAnOffer";
 export { FaceIdPin } from "@/screens/Settings/FaceIdPin/FaceIdPin";
 export { JbrWallet } from "@/screens/Profile/Wallet/JbrWallet/JbrWallet";
 export { TransactionHistory } from "@/screens/Profile/Wallet/TransactionHistory/TransactionHistory";
-export { Brands } from "@/screens/Profile/Wallet/Brands/Brands";
+export { OrderedBrands } from "@/screens/Profile/Wallet/OrderedBrands/OrderedBrands";
 export { BrandsProduct } from "@/screens/Profile/Wallet/BrandsProduct/BrandsProduct";
 export { Manufacturers } from "@/screens/Profile/Wallet/Manufacturers/Manufacturers";
 export { BusinessCards } from "@/screens/Profile/BusinessCards/BusinessCards";

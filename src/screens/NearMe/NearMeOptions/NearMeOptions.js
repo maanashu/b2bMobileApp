@@ -77,11 +77,7 @@ export function NearMeOptions(props) {
   };
   return (
     <ScreenWrapper>
-      <NameHeader
-        back={backArrow}
-        title={strings.home.nearMe}
-        backNavi={() => goBack()}
-      />
+      <NameHeader back title={strings.home.nearMe} backNavi={() => goBack()} />
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}

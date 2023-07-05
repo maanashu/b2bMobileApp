@@ -220,7 +220,7 @@ export function NeedMoreHelp(props) {
           setDoc(resp.data.payload.document);
         }
       })
-      .catch((error) => console.error("upload error", error));
+      .catch((error) => {});
   };
 
   return (
@@ -305,7 +305,6 @@ export function NeedMoreHelp(props) {
             backgroundColor: COLORS.placeHolder,
           }}
           onSelect={(selectedItem, index) => {
-            console.log(selectedItem, index);
           }}
           buttonTextAfterSelection={(selectedItem, index) => {
             return selectedItem;

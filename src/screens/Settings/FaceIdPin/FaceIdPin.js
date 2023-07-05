@@ -75,7 +75,7 @@ export function FaceIdPin() {
   return (
     <ScreenWrapper>
       <View style={styles.container}>
-        <NameHeader title={strings.settings.faceId} back={backArrow} />
+        <NameHeader title={strings.settings.faceId} back />
 
         <View style={styles.mainView}>
           <Spacer space={SH(60)} />

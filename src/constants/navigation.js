@@ -53,7 +53,7 @@ export const NAVIGATION = {
   FaceIdPin: "FaceIdPin",
   jbrWallet: "JbrWallet",
   transactionHistory: "TransactionHistory",
-  brands: "Brands",
+  orderedBrands: "OrderedBrands",
   brandsProduct: "BrandsProduct",
   manufacturers: "Manufacturers",
   businessCards: "BusinessCards",

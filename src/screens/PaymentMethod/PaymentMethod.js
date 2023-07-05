@@ -1,7 +1,13 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { styles } from "./PaymentMethod.styles.js";
-import { Button, ScreenWrapper, Spacer } from "@/components";
+import {
+  Button,
+  NameHeader,
+  NameHeaderCoins,
+  ScreenWrapper,
+  Spacer,
+} from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
 import { useState } from "react";
 import { goBack, navigate } from "@/navigation/NavigationRef";
@@ -23,23 +29,7 @@ export function PaymentMethod() {
 
   return (
     <ScreenWrapper style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.headerInnerView}>
-          <TouchableOpacity
-            style={{ flexDirection: "row", alignItems: "center" }}
-            onPress={() => goBack()}
-          >
-            <Image
-              resizeMode="contain"
-              source={backArrow}
-              style={{ height: 30, width: 30 }}
-            />
-            <Text style={styles.headerText}>
-              {strings.paymentMethod.paymentMethod}
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      <NameHeader title={"Payment Methods"} back />
 
       <Spacer space={SH(10)} />
 

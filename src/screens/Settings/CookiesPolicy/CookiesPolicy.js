@@ -22,7 +22,7 @@ export function CookiesPolicy() {
   return (
     <ScreenWrapper>
       <View style={styles.container}>
-        <NameHeader title={strings.settings.cookiePolicy} back={backArrow} />
+        <NameHeader title={strings.settings.cookiePolicy} back />
 
         <ScrollView style={styles.mainView}>
           <Spacer space={SH(20)} />

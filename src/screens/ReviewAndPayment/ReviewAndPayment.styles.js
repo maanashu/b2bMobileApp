@@ -255,6 +255,13 @@ export const styles = StyleSheet.create({
     color: COLORS.darkGrey,
     fontSize: SF(15),
   },
+  totalJobrCoinText: {
+    fontFamily: Fonts.SemiBold,
+    color: COLORS.darkGrey,
+    fontSize: SF(15),
+    alignSelf: "flex-end",
+    marginTop: SH(5),
+  },
   bottomButtonView: {
     flex: 1,
     justifyContent: "flex-end",

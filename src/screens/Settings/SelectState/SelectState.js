@@ -14,7 +14,7 @@ import { Search } from "@/components/Search";
 export function SelectState() {
   return (
     <View style={styles.container}>
-      <NameHeader title={strings.settings.state} back={backArrow} />
+      <NameHeader title={strings.settings.state} back />
       <Spacer space={SH(20)} />
 
       <Search />

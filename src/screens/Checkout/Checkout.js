@@ -37,6 +37,7 @@ import { TYPES } from "@/Types/Types";
 import { createCartAction } from "@/actions/OrderAction";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import { addCouponReset } from "@/actions/ProductActions";
+import { Loader } from "@/components/Loader";
 
 export function Checkout() {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ export function Checkout() {
   const [discountAmnt, setdiscountAmnt] = useState(0);
   const [taxAmount, setTaxAmount] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [isCartLoading, setisCartLoading] = useState(true);
   let arr = [cartList?.getCart];
   useEffect(() => {
     dispatch(getCart());
@@ -80,6 +82,9 @@ export function Checkout() {
     taxAmount,
     coupon?.addCoupons,
   ]);
+  useEffect(() => {
+    setisCartLoading(false);
+  }, []);
 
   const applyCouponHandler = () => {
     navigate(NAVIGATION.addCoupon, {
@@ -97,6 +102,9 @@ export function Checkout() {
     });
   };
   const isAddToCartLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.CREATE_CART], state)
+  );
+  const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_CART], state)
   );
   const updateQuantity = (cartId, productId, operation) => {
@@ -376,7 +384,7 @@ export function Checkout() {
 
         <Spacer space={SH(15)} />
       </View>
-      {/* {isLoading ? <Loader /> : null} */}
+      {isCartLoading ? <Loader message="Loading Cart..." /> : null}
     </ScreenWrapper>
   );
 }

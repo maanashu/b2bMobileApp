@@ -11,6 +11,7 @@ const INITIALSTATE = {
   getOneOrderDetail: {},
   subTotalAmount: {},
   changeOrderStatus: {},
+  getBrandsProductsShops: {},
 };
 
 export const orderReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -79,6 +80,11 @@ export const orderReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         changeOrderStatus: payload.changeOrderStatus,
+      };
+    case TYPES.BRANDS_PRODUCTS_SHOPS_SUCCESS:
+      return {
+        ...state,
+        getBrandsProductsShops: payload.getBrandsProductsShops,
       };
     default:
       return state;

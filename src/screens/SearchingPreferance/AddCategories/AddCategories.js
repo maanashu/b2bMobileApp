@@ -88,7 +88,7 @@ export function AddCategories() {
     <ScreenWrapper>
       <NameHeader
         title={strings.searchingPreferance.personalizeBusiness}
-        back={backArrow}
+        back
       />
 
       <Spacer space={SH(20)} />

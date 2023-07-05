@@ -104,7 +104,7 @@ export function SellersByProduct(props) {
   };
   return (
     <ScreenWrapper containerPropStyle={styles.container}>
-      <NameHeader back={backArrow} title={"Sellers"} />
+      <NameHeader back title={"Sellers"} />
       <ScrollView style={{ paddingHorizontal: SW(15) }}>
         <FlatList
           showsVerticalScrollIndicator={false}

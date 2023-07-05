@@ -179,7 +179,7 @@ export function SupportTicket() {
           setDoc(resp.data.payload.document);
         }
       })
-      .catch((error) => console.error("upload error", error));
+      .catch((error) => {});
   };
   return (
     <ScreenWrapper>

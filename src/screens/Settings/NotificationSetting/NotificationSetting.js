@@ -90,10 +90,7 @@ export function NotificationSetting() {
   return (
     <ScreenWrapper>
       <View style={styles.container}>
-        <NameHeader
-          title={strings.settings.notificationSetting}
-          back={backArrow}
-        />
+        <NameHeader title={strings.settings.notificationSetting} back />
 
         <View>
           <Spacer space={SH(30)} />

@@ -32,7 +32,6 @@ export function SelectAddress() {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_USER_LOCATION], state)
   );
-  console.log("saveddsaf", locations?.savedAddress);
   const navigationHandler = () => {
     // dispatch(saveUserAddress(selectedAddress));
     // goBack();

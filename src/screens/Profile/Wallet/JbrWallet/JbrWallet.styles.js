@@ -312,6 +312,8 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     justifyContent: "center",
     paddingVertical: SH(16),
+    marginTop: SH(80),
+    borderRadius: SW(5),
   },
   transferView: {
     flexDirection: "row",
@@ -480,5 +482,13 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     paddingBottom: SH(20),
+  },
+  menuIconView: {
+    // marginTop: SH(23),
+  },
+  menuIcon: {
+    height: SH(25),
+    width: SW(25),
+    padding: SH(5),
   },
 });

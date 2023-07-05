@@ -25,7 +25,7 @@ export function PrivacyPolicy() {
   return (
     <ScreenWrapper>
       <View style={styles.container}>
-        <NameHeader title={strings.settings.privacyPolicy} back={backArrow} />
+        <NameHeader title={strings.settings.privacyPolicy} back />
 
         <ScrollView style={styles.mainView}>
           <Spacer space={SH(20)} />

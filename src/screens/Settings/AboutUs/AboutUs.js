@@ -22,7 +22,7 @@ export function AboutUs() {
   return (
     <ScreenWrapper>
       <View style={styles.container}>
-        <NameHeader title={strings.settings.aboutUs} back={backArrow} />
+        <NameHeader title={strings.settings.aboutUs} back />
 
         <View style={styles.mainView}>
           <Spacer space={SH(30)} />

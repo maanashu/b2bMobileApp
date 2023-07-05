@@ -15,7 +15,7 @@ export function SelectCountry() {
   const [country, setCountry] = useState("USA");
   return (
     <View style={styles.container}>
-      <NameHeader title={strings.settings.country} back={backArrow} />
+      <NameHeader title={strings.settings.country} back />
 
       <View style={styles.mainView}>
         <Spacer space={SH(30)} />

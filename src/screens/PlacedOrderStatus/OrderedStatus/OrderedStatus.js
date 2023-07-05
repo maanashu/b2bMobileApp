@@ -88,7 +88,7 @@ export function OrderedStatus() {
     <ScreenWrapper>
       <NameHeader
         title={"Home"}
-        back={backArrow}
+        back
         backNavi={() =>
           navigation.reset({
             index: 0,

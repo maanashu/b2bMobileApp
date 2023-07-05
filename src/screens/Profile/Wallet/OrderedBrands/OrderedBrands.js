@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity, FlatList } from "react-native";
 import { ScreenWrapper } from "@/components";
-import { styles } from "./Brands.styles";
+import { styles } from "./OrderedBrands.styles";
 import { SH, SW } from "@/theme";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
@@ -54,7 +54,7 @@ const data = [
   },
 ];
 
-export function Brands() {
+export function OrderedBrands() {
   const renderItem = ({ item }) => (
     <TouchableOpacity
       onPress={() => navigate(NAVIGATION.brandsProduct, { data: item.name })}

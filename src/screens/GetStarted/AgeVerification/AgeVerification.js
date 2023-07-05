@@ -104,7 +104,7 @@ export function AgeVerification(props) {
           setKey("");
         }
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {});
   };
 
   const uploadBackDocument = async (image) => {
@@ -132,7 +132,7 @@ export function AgeVerification(props) {
           setKey("");
         }
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {});
   };
 
   const submit = async () => {
@@ -189,9 +189,7 @@ export function AgeVerification(props) {
               }
             });
           })
-          .catch((error) => {
-            console.log(error);
-          });
+          .catch((error) => {});
       }
     }
   };

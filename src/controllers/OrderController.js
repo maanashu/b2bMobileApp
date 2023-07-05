@@ -122,7 +122,6 @@ export class OrderController {
         })
         .catch((error) => {
           reject(error);
-          reject(error);
         });
     });
   }
@@ -153,19 +152,16 @@ export class OrderController {
             type: "success_toast",
             visibilityTime: 1500,
           });
-          console.log("check body", JSON.stringify(body));
           resolve(response);
         })
         .catch((error) => {
-          console.log("check body", JSON.stringify(body));
-
           Toast.show({
             text2: error.msg,
             position: "bottom",
             type: "error_toast",
             visibilityTime: 1500,
           });
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }
@@ -202,7 +198,7 @@ export class OrderController {
             visibilityTime: 1500,
           });
 
-          reject(new Error((strings.validation.error = error.msg)));
+          reject(error);
         });
     });
   }
@@ -217,6 +213,29 @@ export class OrderController {
           resolve(response);
         })
         .catch((error) => {
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
+
+          reject(error);
+        });
+    });
+  }
+
+  static async getBrandsProductsShops(data) {
+    return new Promise((resolve, reject) => {
+      const params = new URLSearchParams(data).toString();
+      const endpoint =
+        ORDER_URL + `${ApiOrderInventory.getBrandsProductsShops}${params}`;
+      HttpClient.get(endpoint)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
           Toast.show({
             text2: error.msg,
             position: "bottom",

@@ -14,7 +14,7 @@ import { Search } from "@/components/Search";
 export function SelectCity() {
   return (
     <View style={styles.container}>
-      <NameHeader title={strings.settings.city} back={backArrow} />
+      <NameHeader title={strings.settings.city} back />
       <Spacer space={SH(20)} />
 
       <Search />

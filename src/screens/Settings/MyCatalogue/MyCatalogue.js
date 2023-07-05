@@ -10,7 +10,7 @@ import { NameHeader } from "@/components";
 export function MyCatalogue() {
   return (
     <ScreenWrapper>
-      <NameHeader title={strings.profile.myCatalogs} back={backArrow} />
+      <NameHeader title={strings.profile.myCatalogs} back />
 
       <View style={styles.mainView}>
         <Spacer space={SH(30)} />

@@ -81,6 +81,7 @@ export class WalletController {
             type: "success_toast",
             visibilityTime: 2000,
           });
+
           resolve(response);
         })
         .catch((error) => {
@@ -90,7 +91,7 @@ export class WalletController {
             type: "error_toast",
             visibilityTime: 2000,
           });
-          reject(new Error(error.msg));
+          reject(error);
         });
     });
   }
@@ -218,7 +219,7 @@ export class WalletController {
           resolve(response);
         })
         .catch((error) => {
-          reject(new Error(error.msg));
+          reject(error);
         });
     });
   }

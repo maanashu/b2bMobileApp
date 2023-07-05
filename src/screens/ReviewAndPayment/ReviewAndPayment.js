@@ -103,7 +103,6 @@ export function ReviewAndPayment(props) {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.CREATE_ORDER], state)
   );
-  console.log("tokeeen", user?.user?.payload?.token);
   const coupon = useSelector(getProductSelector)?.addCoupons || null;
 
   const placeOrder = () => {
@@ -132,9 +131,7 @@ export function ReviewAndPayment(props) {
       .then((res) => {
         setOpenModal(true);
       })
-      .catch((error) => {
-        console.error("error", error);
-      });
+      .catch((error) => {});
   };
 
   const render = (item) => {
@@ -433,6 +430,9 @@ export function ReviewAndPayment(props) {
                 $ {getCartId?.subTotalAmount?.total_amount?.toFixed(2)}
               </Text>
             </View>
+            {/* <Text style={styles.totalJobrCoinText}>
+              JBR {Math.floor(getCartId?.subTotalAmount?.total_amount * 100)}
+            </Text> */}
           </ScrollView>
         </View>
         <Spacer space={SH(10)} />

@@ -55,6 +55,7 @@ export const ApiOrderInventory = {
   getOrderList: "orders",
   getOrderDetails: (id) => `orders/${id}`,
   changeStatus: (id) => `orders/status/${id}`,
+  getBrandsProductsShops: "orders/brand-product-shop-list?",
 };
 export const ApiSupportInventory = {
   subjectList: SUPPORT_URL + "subjects",

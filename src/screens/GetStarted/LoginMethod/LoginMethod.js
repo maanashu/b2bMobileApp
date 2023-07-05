@@ -62,7 +62,7 @@ export function LoginMethod(props) {
           //  verifySignatureWithServer(signature, payload);
         }
       })
-      .catch((error) => console.log("erorr-->>", error));
+      .catch((error) => {});
   };
 
   const createKeys = () => {
@@ -76,14 +76,6 @@ export function LoginMethod(props) {
   const deleteKeys = () => {
     rnBiometrics.deleteKeys().then((resultObject) => {
       const { keysDeleted } = resultObject;
-
-      if (keysDeleted) {
-        console.log("Successful deletion");
-      } else {
-        console.log(
-          "Unsuccessful deletion because there were no keys to delete"
-        );
-      }
     });
   };
   return (

@@ -146,6 +146,22 @@ const changeOrderStatusError = (error) => ({
   type: TYPES.CHANGE_ORDER_STATUS_ERROR,
   payload: { error },
 });
+
+const getBrandsProductsShopsRequest = () => ({
+  type: TYPES.BRANDS_PRODUCTS_SHOPS_REQUEST,
+  payload: null,
+});
+
+const getBrandsProductsShopsSuccess = (getBrandsProductsShops) => ({
+  type: TYPES.BRANDS_PRODUCTS_SHOPS_SUCCESS,
+  payload: { getBrandsProductsShops },
+});
+
+const getBrandsProductsShopsError = (error) => ({
+  type: TYPES.BRANDS_PRODUCTS_SHOPS_ERROR,
+  payload: { error },
+});
+
 const clearOrderStore = () => ({
   type: TYPES.CLEAR_ORDER_STORE,
   payload: null,
@@ -286,6 +302,19 @@ export const changeOrderStatus = (id) => async (dispatch) => {
     })
     .catch((error) => {
       dispatch(changeOrderStatusError(error.message));
+      throw error;
+    });
+};
+
+export const getBrandsProductsShops = (data) => async (dispatch) => {
+  dispatch(getBrandsProductsShopsRequest());
+  return OrderController.getBrandsProductsShops(data)
+    .then((res) => {
+      dispatch(getBrandsProductsShopsSuccess(res?.payload));
+      return res;
+    })
+    .catch((error) => {
+      dispatch(getBrandsProductsShopsError(error.message));
       throw error;
     });
 };

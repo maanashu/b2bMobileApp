@@ -142,7 +142,7 @@ export function ConnectBank(props) {
         <View>
           <PlaidLink
             tokenConfig={{ token: plaid }}
-            onExit={(exit) => console.log("exit====", exit)}
+            onExit={(exit) => {}}
             onSuccess={(success) => onPressHandler(success)}
           >
             <Text style={styles.addBankAccount}>{strings.bank.clickToAdd}</Text>

@@ -12,10 +12,7 @@ import { NameHeader } from "@/components";
 export function AddShippingLocation() {
   return (
     <View style={styles.container}>
-      <NameHeader
-        title={strings.settings.addShippingLocation}
-        back={backArrow}
-      />
+      <NameHeader title={strings.settings.addShippingLocation} back />
 
       <View style={styles.mainView}>
         <Spacer space={SH(30)} />

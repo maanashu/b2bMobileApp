@@ -12,7 +12,14 @@ import { styles } from "./JbrWallet.styles";
 import { Button, ScreenWrapper, Spacer, TextField } from "@/components";
 import { Header } from "../Components/NameHeader";
 import { COLORS, SH, SW } from "@/theme";
-import { jbrLogo, downleft, downright, uparrow, backArrow } from "@/assets";
+import {
+  jbrLogo,
+  downleft,
+  downright,
+  uparrow,
+  backArrow,
+  threeDots,
+} from "@/assets";
 import { strings } from "@/localization";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
@@ -34,22 +41,27 @@ import { TYPES } from "@/Types/Types";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { Loader } from "@/components/Loader";
 import moment from "moment";
+import { getBrandsProductsShops } from "@/actions/OrderAction";
+import { orderSelector } from "@/selectors/OrderSelector";
 
 export function JbrWallet() {
   const dispatch = useDispatch();
   const wallet = useSelector(getWallet);
   const user = useSelector(getUser);
   const accounts = useSelector(getKyc);
+  const order = useSelector(orderSelector);
 
   const [isAddBalanceModal, setIsAddBalanceModal] = useState(false);
   const [redeemBalanceModal, setRedeemBalanceModal] = useState(false);
   const [selectedAccount, setSelectedAccount] = useState("");
   const [amount, setamount] = useState("");
   const [refreshing, setRefreshing] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.ADD_BALANCE], state)
   );
+
   const walletLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_WALLET_BALANCE], state)
   );
@@ -63,6 +75,12 @@ export function JbrWallet() {
   useEffect(() => {
     dispatch(getWalletBalance());
     dispatch(getBankAccounts());
+    const brandsBody = {
+      userId: user?.user?.payload?.uuid,
+      flag: "all",
+      delivery_options: 4,
+    };
+    dispatch(getBrandsProductsShops(brandsBody));
   }, []);
 
   const body = {
@@ -248,6 +266,43 @@ export function JbrWallet() {
       setRedeemBalanceModal(false);
     }
   };
+  const showPopup = () => {
+    if (showModal) {
+      return (
+        <Modal
+          animationIn="zoomIn"
+          isVisible={showModal}
+          backdropOpacity={0}
+          style={styles.popupMainView}
+          onBackdropPress={() => setShowModal(false)}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              setShowModal(false);
+              setIsAddBalanceModal(true);
+              setSelectedAccount("");
+              setamount("");
+            }}
+            style={styles.transferView}
+          >
+            <Text style={styles.modalText}>{"Add balance"}</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              setShowModal(false);
+              setRedeemBalanceModal(true);
+              setSelectedAccount("");
+              setamount("");
+            }}
+            style={styles.transferView}
+          >
+            <Text style={styles.modalText}>{"Withdraw money"}</Text>
+          </TouchableOpacity>
+        </Modal>
+      );
+    }
+  };
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <>
@@ -284,6 +339,17 @@ export function JbrWallet() {
                   </Text>
                 </View>
               </View>
+              <TouchableOpacity
+                style={styles.menuIconView}
+                onPress={() => setShowModal(true)}
+              >
+                <Image
+                  source={threeDots}
+                  style={styles.menuIcon}
+                  resizeMode="contain"
+                />
+                {showPopup()}
+              </TouchableOpacity>
             </View>
             <Spacer space={SH(30)} />
             <View style={styles.earnView}>
@@ -324,32 +390,7 @@ export function JbrWallet() {
 
           <Spacer space={SH(15)} />
 
-          <View style={styles.rowView}>
-            <TouchableOpacity
-              style={styles.addBalanceView}
-              onPress={() => {
-                setIsAddBalanceModal(true);
-                setSelectedAccount("");
-                setamount("");
-              }}
-            >
-              <Text style={styles.addBalanceText}>{"Add Balance +"}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.addBalanceView}
-              onPress={() => {
-                setRedeemBalanceModal(true);
-                setSelectedAccount("");
-                setamount("");
-              }}
-            >
-              <Text style={styles.addBalanceText}>{"Redeem money"}</Text>
-            </TouchableOpacity>
-          </View>
-
-          <Spacer space={SH(5)} />
-
-          {/* ********DeliveryHistory start********** */}
+          {/* ********ordered History start********** */}
           <View style={{ paddingHorizontal: SW(20) }}>
             <Text style={styles.delHiStText}>
               {strings.jbrWallet.buyingCapacity}
@@ -359,7 +400,7 @@ export function JbrWallet() {
             <View style={styles.rowView}>
               <TouchableOpacity
                 style={[styles.medalCon, styles.bronze]}
-                onPress={() => navigate(NAVIGATION.brands)}
+                onPress={() => navigate(NAVIGATION.orderedBrands)}
               >
                 <Text style={[styles.returnCount]}>{"5"}</Text>
                 <Text style={styles.medalText}>{strings.jbrWallet.brands}</Text>
@@ -386,9 +427,9 @@ export function JbrWallet() {
           </View>
 
           <Spacer space={SH(30)} />
-          {/* ********DeliveryHistory end********** */}
+          {/* ********ordered History end********** */}
 
-          {/* ********TransactionHistory start********** */}
+          {/* ********Transaction History start********** */}
           <View style={{ flex: 1, paddingHorizontal: SW(20) }}>
             <Text style={styles.delHiStText}>
               {strings.jbrWallet.transactionHistory}
@@ -405,7 +446,7 @@ export function JbrWallet() {
           </View>
           <Spacer space={SH(30)} />
         </ScrollView>
-        {walletLoading ? <Loader message="Fetching balance..." /> : null}
+        {/* {walletLoading ? <Loader message="Fetching balance..." /> : null} */}
 
         <Modal
           isVisible={isAddBalanceModal}

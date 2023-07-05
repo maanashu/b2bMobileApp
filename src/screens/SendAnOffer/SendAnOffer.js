@@ -72,7 +72,7 @@ export function SendAnOffer() {
 
   return (
     <ScreenWrapper>
-      <NameHeader title={strings.makeAnOffer.makeAnOffer} back={backArrow} />
+      <NameHeader title={strings.makeAnOffer.makeAnOffer} back />
 
       <Spacer space={SH(5)} />
       <ScrollView
