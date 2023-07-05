@@ -94,7 +94,7 @@ export const styles = StyleSheet.create({
   mainHeadingText: {
     color: COLORS.darkGrey,
     fontFamily: Fonts.MaisonMonoBold,
-    fontSize: ms(18),
+    fontSize: SW(18),
   },
   personalInfoView: {
     paddingVertical: verticalScale(15),
@@ -126,8 +126,8 @@ export const styles = StyleSheet.create({
   titleText: {
     color: COLORS.darkGrey,
     fontFamily: Fonts.Regular,
-    fontSize: ms(16),
-    width: "80%",
+    fontSize: SW(14),
+    width: "85%",
   },
   imageBackground: {
     alignSelf: "center",

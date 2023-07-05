@@ -1,11 +1,11 @@
 import { FlatList, Image, ImageBackground, Text, View } from "react-native";
 import React from "react";
-import { circleStar, clockTiming, deliveryParcel } from "@/assets";
+import { Fonts, circleStar, clockTiming, deliveryParcel } from "@/assets";
 import { useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { styles } from "./FavouriteSellers.styles";
 import { ScreenWrapper, Spacer } from "@/components";
-import { SH } from "@/theme";
+import { COLORS, SF, SH, SW } from "@/theme";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/actions/UserActions";
 import { Loader } from "@/components/Loader";
@@ -73,6 +73,20 @@ export function FavouriteSellers() {
         renderItem={renderItem}
         removeClippedSubviews={true}
         keyExtractor={(item) => item.id}
+        ListEmptyComponent={() => (
+          <View>
+            <Text
+              style={{
+                color: COLORS.darkGrey,
+                fontFamily: Fonts.SemiBold,
+                marginHorizontal: SW(15),
+                fontSize: SF(18),
+              }}
+            >
+              No Favourite Sellers
+            </Text>
+          </View>
+        )}
       />
 
       {isLoading && <Loader message="Loading your Favourite Sellers ..." />}

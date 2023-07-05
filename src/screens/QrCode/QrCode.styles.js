@@ -1,5 +1,5 @@
 import { Fonts } from "@/assets";
-import { COLORS, SH, ShadowStyles, SW } from "@/theme";
+import { COLORS, SF, SH, ShadowStyles, SW } from "@/theme";
 import { StyleSheet } from "react-native";
 import { ms, s, verticalScale, vs } from "react-native-size-matters";
 
@@ -104,11 +104,12 @@ export const styles = StyleSheet.create({
     flex: 1,
     height: vs(45),
     justifyContent: "center",
+    paddingHorizontal: SW(5),
   },
   text: {
     color: COLORS.darkGrey,
     fontFamily: Fonts.Regular,
-    fontSize: ms(14),
+    fontSize: SF(13),
 
     textAlign: "center",
   },

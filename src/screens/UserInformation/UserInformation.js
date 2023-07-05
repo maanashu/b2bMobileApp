@@ -54,6 +54,7 @@ import {
   useClearByFocusCell,
 } from "react-native-confirmation-code-field";
 import { characterReg } from "@/Utils/validators";
+import { width } from "deprecated-react-native-prop-types/DeprecatedImagePropType";
 
 export function UserInformation() {
   const user = useSelector(getUser);
@@ -335,7 +336,7 @@ export function UserInformation() {
                 )} */}
               </View>
               <View style={styles.rowView}>
-                <View style={styles.mainRowView}>
+                <View style={{ ...styles.mainRowView, width: "90%" }}>
                   <Image
                     source={email}
                     style={styles.iconStyle}
@@ -348,9 +349,9 @@ export function UserInformation() {
                 {user?.getUserProfile?.user_profiles?.is_email_verified ===
                   true && (
                   <Image
-                    source={roundCheck}
+                    source={verifiedCheck}
                     resizeMode="contain"
-                    style={{ height: SH(20) }}
+                    style={{ height: SH(20), marginRight: SW(20) }}
                   />
                 )}
               </View>

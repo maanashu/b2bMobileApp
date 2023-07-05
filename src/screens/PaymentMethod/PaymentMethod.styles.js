@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
   },
   mainView: {
-    paddingHorizontal: ms(20),
+    paddingHorizontal: SW(20),
     flex: 1,
   },
   header: {
@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
   balanceText: {
     color: COLORS.black,
     fontFamily: Fonts.SemiBold,
-    fontSize: s(18),
+    fontSize: SF(18),
   },
 
   InnerbalanceView: {
@@ -52,15 +52,15 @@ export const styles = StyleSheet.create({
   coinView: {
     backgroundColor: COLORS.primary,
     height: vs(30),
-    width: ms(60),
     borderRadius: vs(30),
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: ms(10),
+    paddingHorizontal: SW(10),
     justifyContent: "space-between",
   },
   coinStackIcon: {
-    height: vs(20),
+    height: SH(20),
+    width: SW(20),
   },
   coinText: {
     color: COLORS.white,

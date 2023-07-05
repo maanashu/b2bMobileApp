@@ -616,6 +616,12 @@ export class UserController {
       HttpClient.post(endpoint, body)
         .then((response) => {
           resolve(response);
+          Toast.show({
+            text2: response?.msg,
+            position: "bottom",
+            type: "success_toast",
+            visibilityTime: 2000,
+          });
         })
         .catch((error) => {
           Toast.show({

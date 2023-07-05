@@ -204,7 +204,6 @@ export function Profile() {
       <Spacer space={SH(5)} />
     </View>
   );
-
   return (
     <ScreenWrapper style={styles.container}>
       <NameHeaderCoins title={"My Jobr"} searchRequired />

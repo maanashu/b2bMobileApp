@@ -8,7 +8,7 @@ import {
   ScreenWrapper,
   Spacer,
 } from "@/components";
-import { SH } from "@/theme/ScalerDimensions";
+import { SH, SW } from "@/theme/ScalerDimensions";
 import { useState } from "react";
 import { goBack, navigate } from "@/navigation/NavigationRef";
 import { vs } from "react-native-size-matters";
@@ -23,9 +23,11 @@ import {
 } from "@/assets";
 import { strings } from "@/localization";
 import { NAVIGATION } from "@/constants";
+import { kFormatter } from "@/Utils/GlobalMethods.js";
+import { getWallet } from "@/selectors/WalletSelector.js";
+import { useSelector } from "react-redux";
 export function PaymentMethod() {
-  const [flag, setFlag] = useState("US");
-  const [countryCode, setCountryCode] = useState("+1");
+  const wallet = useSelector(getWallet);
 
   return (
     <ScreenWrapper style={styles.container}>
@@ -40,7 +42,9 @@ export function PaymentMethod() {
           </Text>
 
           <View style={styles.coinView}>
-            <Text style={styles.coinText}>0</Text>
+            <Text style={styles.coinText}>
+              {kFormatter(wallet?.getWalletBalance?.sila_balance) || 0}
+            </Text>
             <Image
               resizeMode="contain"
               source={coinStack}
@@ -50,88 +54,10 @@ export function PaymentMethod() {
         </View>
 
         <Spacer space={SH(30)} />
-
-        <View style={styles.applePayView}>
-          <View style={{ flexDirection: "row" }}>
-            <View style={styles.appleIconView}>
-              <Image
-                resizeMode="contain"
-                source={applePay}
-                style={styles.appleSmallIcon}
-              />
-            </View>
-            <Text style={styles.paymentMethodText}>
-              {strings.paymentMethod.applePay}
-            </Text>
-          </View>
-          <TouchableOpacity>
-            <Image
-              resizeMode="contain"
-              source={forward}
-              style={styles.appleIcon}
-            />
-          </TouchableOpacity>
+        <View style={{ paddingHorizontal: SW(10) }}>
+          <Text></Text>
         </View>
-        <View style={styles.bottomLine}></View>
-
-        <Spacer space={SH(10)} />
-
-        <View style={styles.applePayView}>
-          <View style={{ flexDirection: "row" }}>
-            <Image source={creditCard} style={styles.icons} />
-            <Text style={styles.paymentMethodText}>
-              {strings.paymentMethod.addCreditCard}
-            </Text>
-          </View>
-          <TouchableOpacity onPress={() => navigate(NAVIGATION.addCreditCard)}>
-            <Image
-              resizeMode="contain"
-              source={forward}
-              style={styles.appleIcon}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.bottomLine}></View>
-
-        <Spacer space={SH(10)} />
-
-        <View style={styles.applePayView}>
-          <View style={{ flexDirection: "row" }}>
-            <Image source={debitCard} style={styles.icons} />
-            <Text style={styles.paymentMethodText}>
-              {strings.paymentMethod.addDebitCard}
-            </Text>
-          </View>
-          <TouchableOpacity>
-            <Image
-              resizeMode="contain"
-              source={forward}
-              style={styles.appleIcon}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.bottomLine}></View>
-
-        <Spacer space={SH(7)} />
-
-        <View style={styles.applePayView}>
-          <View style={{ flexDirection: "row" }}>
-            <Image resizeMode="contain" source={bank} style={styles.bankIcon} />
-            <Text style={styles.paymentMethodText}>
-              {strings.paymentMethod.connectBank}
-            </Text>
-          </View>
-          <TouchableOpacity>
-            <Image
-              resizeMode="contain"
-              source={forward}
-              style={styles.appleIcon}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.bottomLine}></View>
-
-        <Spacer space={SH(10)} />
+        <Spacer space={SH(30)} />
 
         <View
           style={{
