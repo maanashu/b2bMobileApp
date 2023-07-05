@@ -220,7 +220,7 @@ export function ProductInquiry(params) {
             dispatch(previousScreen(NAVIGATION.productInquiry));
             navigate(NAVIGATION.checkAndRequestKYC);
             break;
-          case 2:
+          case 1.1:
             dispatch(previousScreen(NAVIGATION.productInquiry));
             navigate(NAVIGATION.ageVerification);
             break;
