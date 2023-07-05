@@ -68,12 +68,9 @@ export function Chatting(props) {
         allowMultiSelection: true,
       });
 
-      console.log("doc picker resp", response);
       setFileResponse(response);
       setisBottomViewVisible(false);
-    } catch (err) {
-      console.warn(err);
-    }
+    } catch (err) {}
   }, []);
   const isLoadingMessages = useSelector((state) =>
     isLoadingSelector([TYPES.GET_MESSAGES], state)
@@ -123,9 +120,7 @@ export function Chatting(props) {
       .then((image) => {
         setUserImage(image.path);
       })
-      .catch((e) => {
-        console.log("Error: " + e);
-      });
+      .catch((e) => {});
   };
 
   const OpenGallery = () => {
@@ -137,9 +132,7 @@ export function Chatting(props) {
       .then((image) => {
         setUserImage(image.path);
       })
-      .catch((e) => {
-        console.log("Error: " + e);
-      });
+      .catch((e) => {});
   };
 
   const moreOptions = () => {
@@ -359,9 +352,7 @@ export function Chatting(props) {
           ) : index == 9 ? (
             <ShippingAddress onClosePress={closeSheet} />
           ) : index == 10 ? (
-            (console.log("check index: " + index),
-            setisBottomViewVisible(false),
-            navigate(NAVIGATION.makeAnOffer))
+            (setisBottomViewVisible(false), navigate(NAVIGATION.makeAnOffer))
           ) : null}
         </View>
       )}

@@ -52,7 +52,6 @@ export function AddressDetails(props) {
   const [latitude, setLatitude] = useState(
     props?.route?.params?.data?.latitude || 30.8685
   );
-  console.log("first latitude", latitude, "+", longitude);
 
   const [coordinate, setCoordinate] = useState(
     new AnimatedRegion({
@@ -240,7 +239,7 @@ export function AddressDetails(props) {
           }
         }
       })
-      .catch((err) => console.log("error getting address", err));
+      .catch((err) => {});
   };
 
   const autoZoomOnMarkers = () => {

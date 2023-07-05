@@ -79,10 +79,8 @@ export function BiometricsScreen({ navigation }) {
     rnBiometrics.biometricKeysExist().then((resultObject) => {
       const { keysExist } = resultObject;
       if (keysExist) {
-        console.log("Keys exist");
         promptBioMetricSignin();
       } else {
-        console.log("Keys do not exist or were deleted");
         createKeys();
       }
     });
@@ -93,14 +91,11 @@ export function BiometricsScreen({ navigation }) {
       .simplePrompt({
         promptMessage: "Please enter device PIN",
         fallbackOnPasscode: true,
-        onPartialSuccess: (enteredPin) => {
-          console.log("Entering PIN: ", enteredPin);
-        },
+        onPartialSuccess: (enteredPin) => {},
       })
       .then((resultObject) => {
         const { success, error, message } = resultObject;
         if (success) {
-          console.log("Device unlocked with PIN", success);
           setShowScreen(true);
           navigation.dispatch(
             CommonActions.reset({

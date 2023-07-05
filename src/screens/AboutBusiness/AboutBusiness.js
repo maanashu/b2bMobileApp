@@ -31,8 +31,6 @@ export function AboutBusiness(props) {
   const user = useSelector(getUser)?.getOneManufactureDetails;
   // const auth =useSelector(getUser);
 
-  // console.log("prop==s", user);
-
   const [index, setIndex] = React.useState(0);
 
   const [routes] = React.useState([

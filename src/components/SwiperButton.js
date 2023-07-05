@@ -30,8 +30,8 @@ export function SwiperButton(item) {
       <SwipeButton
         containerStyles={{ borderRadius: 60, borderWidth: 1 }}
         height={55}
-        onSwipeFail={() => (setTextUsd(true), console.log("Incomplete swipe!"))}
-        onSwipeStart={() => (setTextUsd(false), console.log("Swipe started!"))}
+        onSwipeFail={() => setTextUsd(true)}
+        onSwipeStart={() => setTextUsd(false)}
         onSwipeSuccess={() => swipeButtonEndFun()}
         thumbIconComponent={CheckoutButton}
         thumbIconStyles={{ borderRadius: 60, width: 300 }}

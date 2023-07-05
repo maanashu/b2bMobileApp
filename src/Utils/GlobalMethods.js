@@ -103,7 +103,6 @@ const requestPermissions = async () => {
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         getCurrentLocation();
       } else {
-        console.log("location permission denied");
       }
     } else {
       const auth = await Geolocation.requestAuthorization("whenInUse");
@@ -113,9 +112,7 @@ const requestPermissions = async () => {
       });
       getCurrentLocation();
     }
-  } catch (err) {
-    console.warn(err);
-  }
+  } catch (err) {}
 };
 const getCurrentLocation = () => {
   Geolocation.getCurrentPosition((loc) => {
