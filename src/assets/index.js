@@ -310,6 +310,7 @@ export { default as leftArrow } from "@/assets/icons/ic_forward/leftArrow.png";
 export { default as staticBackground } from "@/assets/icons/ic_verify/trendService.png";
 export { default as heartFilled } from "@/assets/icons/ic_more/heartFilled.png";
 export { default as heartBlank } from "@/assets/icons/ic_more/heartBlank.png";
+export { default as deleteIcon } from "@/assets/icons/ic_home/deleteIcon.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

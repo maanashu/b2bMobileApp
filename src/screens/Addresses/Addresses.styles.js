@@ -16,8 +16,6 @@ export const styles = StyleSheet.create({
   },
   bottomLine: {
     borderBottomWidth: 1,
-    marginTop: SH(15),
-    marginBottom: SH(15),
     borderColor: COLORS.light_border,
   },
   innerView: {
@@ -31,6 +29,8 @@ export const styles = StyleSheet.create({
   },
   container: {
     paddingHorizontal: SW(10),
+    backgroundColor: "white",
+    paddingVertical: SH(10),
   },
   placeText: {
     color: COLORS.text,
@@ -41,5 +41,21 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     paddingHorizontal: SW(20),
+  },
+  hiddenItem: {
+    height: SH(70),
+    justifyContent: "center",
+    paddingHorizontal: SW(10),
+    marginLeft: SW(50),
+    alignItems: "flex-end",
+  },
+  deleteButtonText: {
+    color: COLORS.white,
+    fontFamily: Fonts.Regular,
+    fontSize: SF(12),
+  },
+  deleteIcon: {
+    height: SH(60),
+    width: SH(60),
   },
 });

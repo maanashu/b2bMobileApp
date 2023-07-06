@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./Addresses.styles";
-import { home, pencil, work } from "@/assets";
+import { deleteIcon, home, pencil, work } from "@/assets";
 import { Button, NameHeaderCoins, ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { navigate } from "@/navigation/NavigationRef";
@@ -15,6 +15,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { Loader } from "@/components/Loader";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { SwipeListView } from "react-native-swipe-list-view";
 
 export function Addresses() {
   const dispatch = useDispatch();
@@ -80,8 +81,8 @@ export function Addresses() {
           />
         </TouchableOpacity>
       </View>
-
-      <View style={styles.bottomLine}></View>
+      <Spacer space={SH(10)} />
+      <View style={styles.bottomLine} />
     </View>
   );
 
@@ -90,12 +91,36 @@ export function Addresses() {
       <NameHeaderCoins title={strings.addresses.addresses} backRequired />
 
       <View style={{ paddingHorizontal: SW(10), paddingVertical: SH(10) }}>
-        <FlatList
+        <SwipeListView
+          data={locations?.getLocation}
+          renderItem={renderItem}
+          renderHiddenItem={({ item }) => (
+            <View style={[styles.hiddenItem, { right: 0 }]}>
+              <TouchableOpacity
+                onPress={() => {
+                  alert("delete address");
+                }}
+                style={{ justifyContent: "center" }}
+              >
+                <Image
+                  source={deleteIcon}
+                  style={styles.deleteIcon}
+                  resizeMode="contain"
+                />
+              </TouchableOpacity>
+            </View>
+          )}
+          rightOpenValue={-65} // Adjust this value based on your design
+          disableRightSwipe // Disable swiping to the right
+          keyExtractor={(item) => item.id.toString()} // Replace with your unique item identifier
+          stopRightSwipe={-65}
+        />
+        {/* <FlatList
           data={locations?.getLocation}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           extraData={locations?.getLocation}
-        />
+        /> */}
       </View>
       <View style={styles.buttonView}>
         <Button
@@ -114,7 +139,7 @@ export function Addresses() {
 
       <Spacer space={SH(20)} />
 
-      {isLoading ? <Loader message="Loading data ..." /> : null}
+      {/* {isLoading ? <Loader message="Loading data ..." /> : null} */}
     </ScreenWrapper>
   );
 }
