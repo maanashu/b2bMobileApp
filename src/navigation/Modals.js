@@ -133,7 +133,10 @@ export default function Modals({ children }) {
             <Spacer space={SH(60)} />
             <Text style={styles.title}>{"Setup Biometrics"}</Text>
             <Spacer space={SH(40)} />
-            <Image source={ Platform.OS === "ios" ?faceIdIcon:fingerprintLogin} style={styles.bioMetricImage} />
+            <Image
+              source={Platform.OS === "ios" ? faceIdIcon : fingerprintLogin}
+              style={styles.bioMetricImage}
+            />
 
             <Spacer space={SH(30)} />
 

@@ -15,6 +15,8 @@ import {
 } from "@/assets";
 import { HeaderSubName } from "../Components/HeaderSubName";
 import { strings } from "@/localization";
+import { orderSelector } from "@/selectors/OrderSelector";
+import { useSelector } from "react-redux";
 
 const data = [
   {
@@ -55,6 +57,9 @@ const data = [
 ];
 
 export function OrderedBrands() {
+  const order = useSelector(orderSelector);
+
+  // order?.getBrandsProductsShops?.brands?.data
   const renderItem = ({ item }) => (
     <TouchableOpacity
       onPress={() => navigate(NAVIGATION.brandsProduct, { data: item.name })}
@@ -63,15 +68,15 @@ export function OrderedBrands() {
       <View style={styles.mainRow}>
         <View style={styles.row}>
           <Image
-            source={item.image}
+            source={{ uri: item.image }}
             resizeMode="contain"
-            style={{ height: SH(40), width: SW(40) }}
+            style={{ height: SH(40), width: SH(40), borderRadius: SH(40) }}
           />
           <View
             style={item.id == 4 ? { paddingHorizontal: 20 } : styles.padding}
           >
             <Text style={styles.cardName}>{item.name}</Text>
-            <Text style={styles.subName}>{item.sub}</Text>
+            {/* <Text style={styles.subName}>{item.sub}</Text> */}
           </View>
         </View>
       </View>
@@ -88,11 +93,13 @@ export function OrderedBrands() {
     <ScreenWrapper>
       <HeaderSubName
         title={strings.jbrWallet.brands}
-        subTitle={strings.STATIC.jbrWallet.brands}
+        subTitle={
+          order?.getBrandsProductsShops?.brands?.data?.length + " Brands"
+        }
       />
 
       <FlatList
-        data={data}
+        data={order?.getBrandsProductsShops?.brands?.data ?? []}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}

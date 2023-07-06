@@ -67,50 +67,58 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.SemiBold,
     fontSize: vs(14),
   },
-  applePayView: {
+  backgroundView: {
+    backgroundColor: COLORS.white,
+    paddingHorizontal: SW(10),
+    paddingVertical: SH(15),
+    borderRadius: SW(5),
+    ...ShadowStyles.shadow5,
+    marginHorizontal: SW(1),
+    marginTop: SH(1),
+    height: SH(130),
+  },
+  smallDetailHeadings: {
+    color: COLORS.black,
+    fontFamily: Fonts.SemiBold,
+    fontSize: SF(13),
+  },
+  smallDetailText: {
+    color: COLORS.black,
+    fontFamily: Fonts.Regular,
+    fontSize: SF(12),
+  },
+  bankIcon: {
+    height: SH(25),
+    width: SH(25),
+    bottom: SH(2),
+  },
+  iconBackground: {
+    backgroundColor: COLORS.inputBorder,
+    height: SH(50),
+    width: SH(50),
+    borderRadius: SH(25),
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  bottomLine: {
+    borderBottomWidth: SH(0.5),
+    borderColor: COLORS.text,
+  },
+  rowJustifiedView: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
   },
-  appleIcon: {
-    height: vs(13),
-    width: ms(40),
+  bottomText: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.light_grey,
+    fontSize: SF(12),
   },
-  paymentMethodText: {
-    color: COLORS.darkGrey,
-    marginLeft: ms(10),
-    fontSize: ms(14),
-  },
-  bottomLine: {
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.termsBorder,
-    marginBottom: vs(10),
-    marginTop: vs(5),
-  },
-  icons: {
-    height: vs(18),
-    width: ms(25),
-    marginRight: ms(10),
-  },
-  bankIcon: {
-    height: vs(22),
-    width: ms(25),
-    marginRight: ms(10),
-  },
-  appleIconView: {
-    height: vs(18),
-    width: ms(25),
-
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  appleSmallIcon: {
-    height: vs(18),
-    width: ms(24),
-  },
-  headerText: {
-    fontFamily: Fonts.SemiBold,
-    color: COLORS.black,
-    fontSize: s(14),
+  loaderStyle: {
+    transform: [{ scale: 0.6 }],
+    position: "absolute",
+    right: 0,
+    top: 0,
+    bottom: 0,
   },
 });

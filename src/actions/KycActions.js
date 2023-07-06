@@ -210,6 +210,34 @@ const getBankAccountsSuccess = (accnt) => ({
   type: TYPES.GET_BANK_ACCOUNTS_SUCCESS,
   payload: { accnt },
 });
+const deleteBankAccountsRequest = () => ({
+  type: TYPES.DELETE_BANK_ACCOUNTS_REQUEST,
+  payload: null,
+});
+
+const deleteBankAccountsError = (error) => ({
+  type: TYPES.DELETE_BANK_ACCOUNTS_ERROR,
+  payload: { error },
+});
+
+const deleteBankAccountsSuccess = (deleteBankAccount) => ({
+  type: TYPES.DELETE_BANK_ACCOUNTS_SUCCESS,
+  payload: { deleteBankAccount },
+});
+const checkBankBalanceRequest = () => ({
+  type: TYPES.DELETE_BANK_ACCOUNTS_REQUEST,
+  payload: null,
+});
+
+const checkBankBalanceError = (error) => ({
+  type: TYPES.DELETE_BANK_ACCOUNTS_ERROR,
+  payload: { error },
+});
+
+const checkBankBalanceSuccess = (deleteBankAccount) => ({
+  type: TYPES.DELETE_BANK_ACCOUNTS_SUCCESS,
+  payload: { deleteBankAccount },
+});
 
 export const personalInformation = (data) => async (dispatch) => {
   dispatch(personalInformationRequest());
@@ -369,13 +397,32 @@ export const getBankAccounts = (key) => async (dispatch) => {
     dispatch(getBankAccountsError(error.message));
   }
 };
-
-export const getWalletUserProfile = (uuid) => async (dispatch) => {
-  dispatch(getWalletUserProfileRequest());
+export const deleteBankAccounts = (data) => async (dispatch) => {
+  dispatch(deleteBankAccountsRequest());
   try {
-    const res = await KycController.getWalletUserProfile(uuid);
-    return dispatch(getWalletUserProfileSuccess(res.payload));
+    const res = await KycController.deleteBankAccounts(data);
+    dispatch(deleteBankAccountsSuccess(res?.payload));
+    dispatch(getBankAccounts());
   } catch (error) {
-    dispatch(getWalletUserProfileError(error.message));
+    dispatch(deleteBankAccountsError(error.message));
   }
 };
+export const checkBankBalance = (data) => async (dispatch) => {
+  dispatch(checkBankBalanceRequest());
+  try {
+    const res = await KycController.checkBankBalance(data);
+    dispatch(checkBankBalanceSuccess(res?.payload));
+  } catch (error) {
+    dispatch(checkBankBalanceError(error.message));
+  }
+};
+
+// export const getWalletUserProfile = (uuid) => async (dispatch) => {
+//   dispatch(getWalletUserProfileRequest());
+//   try {
+//     const res = await KycController.getWalletUserProfile(uuid);
+//     return dispatch(getWalletUserProfileSuccess(res.payload));
+//   } catch (error) {
+//     dispatch(getWalletUserProfileError(error.message));
+//   }
+// };

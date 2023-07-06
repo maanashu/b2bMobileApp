@@ -18,6 +18,7 @@ export const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
   },
   mainRow: {
     flexDirection: "row",

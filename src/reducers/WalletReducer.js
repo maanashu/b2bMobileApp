@@ -10,6 +10,7 @@ const INITIALSTATE = {
   walletInfo: {},
   balance: {},
   redeem: {},
+  bankBalance: {},
 };
 
 export const walletReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -61,6 +62,11 @@ export const walletReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         redeem: payload.redeem,
+      };
+    case TYPES.CHECK_BALANCE_SUCCESS:
+      return {
+        ...state,
+        bankBalance: payload.bankBalance,
       };
 
     default:

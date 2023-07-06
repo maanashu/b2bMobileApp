@@ -71,7 +71,7 @@ export function FavouriteProducts() {
                 fontSize: SF(18),
               }}
             >
-              No Favourite Products
+              {"No Favourite Products"}
             </Text>
           </View>
         )}

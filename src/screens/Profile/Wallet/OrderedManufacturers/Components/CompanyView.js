@@ -2,11 +2,16 @@ import React from "react";
 import { Text, TouchableOpacity, FlatList, View } from "react-native";
 import { Spacer, CompanyDetailView } from "@/components";
 import { strings } from "@/localization";
-import { styles } from "../Manufacturers.styles.";
+import { styles } from "../OrderedManufacturers.styles";
 import { SH } from "@/theme";
 import { yewiLogo } from "@/assets";
 
-export function CompanyView({ about }) {
+export function CompanyView({
+  about,
+  organizationName,
+  profilePhoto,
+  userLocation,
+}) {
   const CompanyData = [
     {
       id: "1",
@@ -54,9 +59,9 @@ export function CompanyView({ about }) {
       <Spacer space={SH(10)} />
 
       <CompanyDetailView
-        title={"Yiwu Leqi E-Commerce Firm"}
-        profilePhoto={yewiLogo}
-        locationText={"Miami, USA"}
+        title={organizationName || "Yiwu Leqi E-Commerce Firm"}
+        profilePhoto={profilePhoto || yewiLogo}
+        locationText={userLocation || "Miami, USA"}
       />
 
       <Spacer space={SH(20)} />

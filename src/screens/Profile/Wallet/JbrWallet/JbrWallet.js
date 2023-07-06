@@ -399,26 +399,32 @@ export function JbrWallet() {
 
             <View style={styles.rowView}>
               <TouchableOpacity
-                style={[styles.medalCon, styles.bronze]}
+                style={[styles.medalCon]}
                 onPress={() => navigate(NAVIGATION.orderedBrands)}
               >
-                <Text style={[styles.returnCount]}>{"5"}</Text>
+                <Text style={[styles.returnCount]}>
+                  {order?.getBrandsProductsShops?.brands?.data?.length}
+                </Text>
                 <Text style={styles.medalText}>{strings.jbrWallet.brands}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.medalCon, styles.deliver]}
-                onPress={() => navigate(NAVIGATION.brandsProduct)}
+                onPress={() => navigate(NAVIGATION.orderedProducts)}
               >
-                <Text style={[styles.returnCount]}>{"19"}</Text>
+                <Text style={[styles.returnCount]}>
+                  {order?.getBrandsProductsShops?.products?.data?.length}
+                </Text>
                 <Text style={styles.medalText}>
                   {strings.jbrWallet.products}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.medalCon, styles.return]}
-                onPress={() => navigate(NAVIGATION.manufacturers)}
+                onPress={() => navigate(NAVIGATION.orderedManufacturers)}
               >
-                <Text style={styles.returnCount}>{"3"}</Text>
+                <Text style={styles.returnCount}>
+                  {order?.getBrandsProductsShops?.shops?.data?.length}
+                </Text>
                 <Text style={styles.medalText}>
                   {strings.jbrWallet.manfacturer}
                 </Text>
@@ -446,7 +452,7 @@ export function JbrWallet() {
           </View>
           <Spacer space={SH(30)} />
         </ScrollView>
-        {/* {walletLoading ? <Loader message="Fetching balance..." /> : null} */}
+        {walletLoading ? <Loader message="Fetching balance..." /> : null}
 
         <Modal
           isVisible={isAddBalanceModal}

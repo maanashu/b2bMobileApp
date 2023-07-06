@@ -17,12 +17,12 @@ export const styles = StyleSheet.create({
   },
   ShoesStyle: {
     width: 180,
-    ...ShadowStyles.shadow2,
+    ...ShadowStyles.shadow5,
     borderRadius: 5,
     backgroundColor: COLORS.white,
     margin: 2,
-    flex: 1,
-    paddingVertical: SH(5),
+    flex: 1 / 2,
+    paddingVertical: SH(10),
   },
   filerView: {
     paddingHorizontal: SW(5),
@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.SemiBold,
     fontSize: ms(12),
     color: COLORS.darkGrey,
-    paddingHorizontal: ms(5),
+    paddingHorizontal: SW(8),
   },
   titleRegularText: {
     fontFamily: Fonts.Regular,

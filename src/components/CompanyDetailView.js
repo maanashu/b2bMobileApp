@@ -38,7 +38,7 @@ export function CompanyDetailView({
               {locationText}
               <Text>{country}</Text>
             </Text>
-            {rating ? (
+            {rating && (
               <>
                 <Image
                   source={star}
@@ -47,15 +47,13 @@ export function CompanyDetailView({
                 />
                 <Text style={styles.yewiSmallText}> {rating}</Text>
               </>
-            ) : (
-              <></>
             )}
             <Image
               source={clock}
               resizeMode="contain"
               style={styles.yewiClock}
             />
-            <Text style={styles.yewiSmallText}> Since 2022</Text>
+            <Text style={styles.yewiSmallText}> Since 2023</Text>
           </View>
         </View>
       </View>

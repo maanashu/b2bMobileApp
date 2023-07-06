@@ -161,7 +161,7 @@ export class WalletController {
             type: "error_toast",
             visibilityTime: 2000,
           });
-          reject(new Error(error.msg));
+          reject(error);
         });
     });
   }

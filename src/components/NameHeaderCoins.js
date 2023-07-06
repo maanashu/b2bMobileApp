@@ -14,7 +14,6 @@ import { useSelector } from "react-redux";
 export function NameHeaderCoins({
   title,
   backRequired,
-  amount,
   onPress,
   searchRequired,
 }) {
@@ -25,7 +24,7 @@ export function NameHeaderCoins({
         {backRequired ? (
           <TouchableOpacity
             style={{ flexDirection: "row", alignItems: "center" }}
-            onPress={onPress}
+            onPress={() => onPress || goBack()}
           >
             <Image
               resizeMode="contain"

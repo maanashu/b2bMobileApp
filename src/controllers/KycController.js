@@ -5,6 +5,7 @@ import { strings } from "@/localization";
 import { HttpClient } from "./HttpClient";
 import { navigate } from "@/navigation/NavigationRef";
 import { ApiWalletInventory } from "@/Utils/APIinventory";
+import axios from "axios";
 
 export class KycController {
   static async personalInformation(data) {
@@ -291,7 +292,28 @@ export class KycController {
             type: "error_toast",
             visibilityTime: 1500,
           });
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
+        });
+    });
+  }
+
+  static async deleteBankAccounts(data) {
+    return new Promise((resolve, reject) => {
+      axios
+        .delete(ApiWalletInventory.removeBankAccount, {
+          headers: {
+            Authorization: data.token,
+            "app-name": "b2b",
+          },
+          data: {
+            account_name: data.account_name,
+          },
+        })
+        .then(function (response) {
+          resolve(response);
+        })
+        .catch(function (error) {
+          reject(error);
         });
     });
   }

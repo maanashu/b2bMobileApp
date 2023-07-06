@@ -23,7 +23,6 @@ import {
   HelpWithOrders,
   Inquiries,
   JbrWallet,
-  Manufacturers,
   MyCatalogue,
   MyOrders,
   MyPurchase,

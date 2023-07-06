@@ -41,9 +41,9 @@ const checkBankBalanceError = (error) => ({
   payload: { error },
 });
 
-const checkBankBalanceSuccess = (bal) => ({
+const checkBankBalanceSuccess = (bankBalance) => ({
   type: TYPES.CHECK_BALANCE_SUCCESS,
-  payload: { bal },
+  payload: { bankBalance },
 });
 
 const redeemMoneyRequest = () => ({

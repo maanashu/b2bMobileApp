@@ -14,6 +14,7 @@ const INITIALSTATE = {
   bankAccounts: [],
   business: {},
   doc: {},
+  deleteBankAccount: [],
 };
 
 export const kycReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -82,6 +83,11 @@ export const kycReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         doc: payload.doc,
+      };
+    case TYPES.DELETE_BANK_ACCOUNTS_SUCCESS:
+      return {
+        ...state,
+        deleteBankAccount: payload.deleteBankAccount,
       };
     default:
       return state;

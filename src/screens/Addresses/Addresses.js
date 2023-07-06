@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./Addresses.styles";
 import { home, pencil, work } from "@/assets";
-import { Button, ScreenWrapper, Spacer } from "@/components";
+import { Button, NameHeaderCoins, ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants/navigation";
@@ -87,7 +87,7 @@ export function Addresses() {
 
   return (
     <ScreenWrapper>
-      <HeaderCoin amount={"0"} title={strings.addresses.addresses} />
+      <NameHeaderCoins title={strings.addresses.addresses} backRequired />
 
       <View style={{ paddingHorizontal: SW(10), paddingVertical: SH(10) }}>
         <FlatList

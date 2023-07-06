@@ -58,7 +58,7 @@ export const en = {
     emptyEmployerNo: "Please enter Employer Identification Number",
     invalidBusinessWebsite: "Please enter a valid business website",
     invalidEmployerNo: "Please enter valid Employer Identification Number",
-    otpSent: "OTP Sent"
+    otpSent: "OTP Sent",
   },
   personalInformation: {
     email: "Enter you email address",
@@ -933,7 +933,7 @@ export const en = {
     jbrWallet: {
       brands: "5 brands",
       productPurchases: "7 Products Purchases",
-      manufacturers: "3 Manufacturers",
+      manufacturers: " Manufacturers",
     },
 
     supportDetails: {

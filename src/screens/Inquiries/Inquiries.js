@@ -14,7 +14,6 @@ import { COLORS, SH, SW } from "@/theme";
 import { transactionHistory } from "@/constants/flatlistData";
 import { HeaderCoin } from "../Profile/Wallet/Components/HeaderCoin";
 import { strings } from "@/localization";
-import { CompanyView } from "../Profile/Wallet/Manufacturers/Components/CompanyView";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { userPhoto } from "@/assets";

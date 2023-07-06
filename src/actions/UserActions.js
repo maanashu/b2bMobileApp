@@ -2,6 +2,7 @@ import { UserController } from "@/controllers";
 import { getWalletBalance } from "./WalletActions";
 import { storage } from "@/storage";
 import DeviceInfo from "react-native-device-info";
+import { getBankAccounts } from "./KycActions";
 // import { TYPES } from "@/Types/Types";
 
 export const TYPES = {
@@ -655,6 +656,7 @@ export const login =
       dispatch(getSettings());
       dispatch(getFavouriteSellers());
       dispatch(getFavouriteProducts());
+      dispatch(getBankAccounts());
     } catch (error) {
       dispatch(loginError(error.message));
     }
@@ -769,6 +771,7 @@ export const deviceLogin = (screenName) => async (dispatch) => {
     dispatch(getSettings());
     dispatch(getFavouriteSellers());
     dispatch(getFavouriteProducts());
+    dispatch(getBankAccounts());
   } catch (error) {
     dispatch(loginError(error.message));
   }

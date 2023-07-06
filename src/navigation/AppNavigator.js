@@ -28,8 +28,6 @@ import {
   AddShippingLocation,
   AgeVerification,
   BiometricsScreen,
-  Brands,
-  BrandsProduct,
   BrandsSellers,
   BusinessCards,
   BusinessHome,
@@ -54,7 +52,6 @@ import {
   FavouriteList,
   FavouriteProducts,
   FavouriteSellers,
-  FavouritesProduct,
   HelpCenter,
   HelpWithOrders,
   Home,
@@ -62,7 +59,6 @@ import {
   JbrWallet,
   LoginMethod,
   MakeAnOffer,
-  Manufacturers,
   Messages,
   MobileNumber,
   MyCatalogue,
@@ -74,6 +70,8 @@ import {
   NotificationSetting,
   NoWalletScreen,
   OrderedBrands,
+  OrderedManufacturers,
+  OrderedProducts,
   OrderedStatus,
   Orders,
   PastCoupons,
@@ -505,13 +503,13 @@ export function AppBottom() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        component={BrandsProduct}
-        name={NAVIGATION.brandsProduct}
+        component={OrderedProducts}
+        name={NAVIGATION.orderedProducts}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        component={Manufacturers}
-        name={NAVIGATION.manufacturers}
+        component={OrderedManufacturers}
+        name={NAVIGATION.orderedManufacturers}
         options={{ headerShown: false }}
       />
       <Stack.Screen
