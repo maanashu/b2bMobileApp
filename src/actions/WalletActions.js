@@ -90,7 +90,7 @@ const getTransactionsError = (error) => ({
   type: TYPES.GET_TRANSACTIONS_ERROR,
   payload: { error },
 });
-const getTransactionsReset = () => ({
+export const getTransactionsReset = () => ({
   type: TYPES.GET_TRANSACTIONS_RESET,
   payload: null,
 });

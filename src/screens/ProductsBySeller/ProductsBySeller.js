@@ -21,7 +21,11 @@ export function ProductsBySeller(params) {
 
   const productsData = useSelector(getProductSelector);
   const user = useSelector(getUser);
+  console.log("brand_id", brand_id);
+  console.log("category_id", category_id);
 
+  const brand_id = params?.route?.params?.brand_id;
+  const category_id = params?.route?.params?.category_id;
   useEffect(() => {
     const productObject = {
       page: 1,
@@ -30,6 +34,8 @@ export function ProductsBySeller(params) {
       app_name: "b2b",
       seller_id: params?.route?.params?.sellerId,
       service_type: "product",
+      brand_id: params?.route?.params?.brand_id,
+      sub_category_ids: params?.route?.params?.category_id,
     };
 
     dispatch(getProduct(productObject));

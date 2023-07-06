@@ -144,19 +144,13 @@ export function BrandsSellers(params) {
     return (
       <>
         <TouchableOpacity
-          style={{
-            backgroundColor: COLORS.white,
-            flex: 1,
-            paddingHorizontal: SW(15),
-            marginHorizontal: SW(20),
-            borderRadius: SW(10),
-            paddingVertical: SH(15),
-            ...ShadowStyles.shadow2,
-          }}
+          style={styles.sellerStyle}
           onPress={() =>
             navigate(NAVIGATION.productsBySeller, {
               sellerId: item?.unique_uuid,
               idSeller: item?.id,
+              category_id: params?.route?.params?.categoryId,
+              brand_id: selectedId,
             })
           }
         >

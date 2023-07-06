@@ -164,4 +164,13 @@ export const styles = StyleSheet.create({
     height: SH(20),
     width: SW(20),
   },
+  sellerStyle: {
+    backgroundColor: COLORS.white,
+    flex: 1,
+    paddingHorizontal: SW(15),
+    marginHorizontal: SW(20),
+    borderRadius: SW(10),
+    paddingVertical: SH(15),
+    ...ShadowStyles.shadow2,
+  },
 });

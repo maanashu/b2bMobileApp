@@ -30,13 +30,11 @@ export function SearchedSellers() {
       <>
         <TouchableOpacity
           style={styles.Item}
-          onPress={
-            () =>
-              navigate(NAVIGATION.productsBySeller, {
-                sellerId: item?.unique_uuid,
-                idSeller: item?.id,
-              })
-            // alert(item?.id)
+          onPress={() =>
+            navigate(NAVIGATION.productsBySeller, {
+              sellerId: item?.unique_uuid,
+              idSeller: item?.id,
+            })
           }
         >
           <FastImage
