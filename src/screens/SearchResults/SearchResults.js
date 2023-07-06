@@ -25,7 +25,7 @@ export function SearchResults(props) {
   useEffect(() => {
     const body = {
       page: 1,
-      limit: 10,
+      limit: 50,
       search: props?.route?.params?.keyword,
     };
     dispatch(searchProductsSellers(body));
@@ -35,7 +35,7 @@ export function SearchResults(props) {
     const searchBody = {
       app_name: "b2b",
       page: 1,
-      limit: 10,
+      limit: 50,
       search: searchKeyword,
     };
     dispatch(searchProductsSellers(searchBody));
