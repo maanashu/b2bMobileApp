@@ -58,7 +58,7 @@ export function TransactionsDetails(params) {
           <Spacer space={SH(10)} />
 
           <Text style={styles.transactionAmountText}>
-            JBR<Text> {"1594"}</Text>
+            JBR<Text> {item?.amount}</Text>
           </Text>
           <Spacer space={SH(10)} />
           <Text style={styles.transferTypeSmallText}>{paymentType()}</Text>

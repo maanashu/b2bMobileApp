@@ -84,8 +84,10 @@ export const addNewTicket = (data) => async (dispatch) => {
     const res = await SupportController.addNewTicket(data);
     dispatch(getAddNewTicketSuccess(res));
     dispatch(getSupportList());
+    return;
   } catch (error) {
     dispatch(getAddNewTicketError(error.message));
+    throw error;
   }
 };
 

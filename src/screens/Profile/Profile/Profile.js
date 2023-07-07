@@ -14,7 +14,7 @@ import { logout } from "@/actions/UserActions";
 import { Button, NameHeaderCoins, ScreenWrapper, Spacer } from "@/components";
 import { strings } from "@/localization";
 import { styles } from "./Profile.styles";
-import { SH } from "@/theme";
+import { SH, SW } from "@/theme";
 import { getUser } from "@/selectors/UserSelectors";
 import { useSelector } from "react-redux";
 
@@ -45,6 +45,7 @@ import { getCategorySelector } from "@/selectors/CategorySelectors";
 import { getCoupons } from "@/actions/ProductActions";
 import { Alert } from "react-native";
 import DeviceInfo from "react-native-device-info";
+import LinearGradient from "react-native-linear-gradient";
 
 export function Profile() {
   const dispatch = useDispatch();
@@ -228,17 +229,31 @@ export function Profile() {
               style={styles.userView}
             >
               {profile_photo ? (
-                <Image
-                  source={{ uri: profile_photo }}
-                  resizeMode="stretch"
-                  style={styles.profilePhotoStyle}
-                />
+                <LinearGradient
+                  colors={["#275AFF", "#1CD3FF"]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={styles.linearBorderStyle}
+                >
+                  <Image
+                    source={{ uri: profile_photo }}
+                    resizeMode="contain"
+                    style={styles.profilePhotoStyle}
+                  />
+                </LinearGradient>
               ) : (
-                <Image
-                  source={userIcon}
-                  resizeMode="contain"
-                  style={styles.userIconStyle}
-                />
+                <LinearGradient
+                  colors={["#275AFF", "#1CD3FF"]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={styles.linearBorderStyle}
+                >
+                  <Image
+                    source={userIcon}
+                    resizeMode="contain"
+                    style={styles.userIconStyle}
+                  />
+                </LinearGradient>
               )}
 
               <View style={styles.userInnerView}>

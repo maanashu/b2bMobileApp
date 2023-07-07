@@ -10,7 +10,7 @@ import {
 import { ScreenWrapper, Spacer } from "@/components";
 import { strings } from "@/localization";
 import { theme, SH, SW, COLORS, SF } from "@/theme";
-import { Fonts } from "@/assets";
+import { Fonts, userIcon } from "@/assets";
 import { userPhoto } from "@/assets";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import { NAVIGATION } from "@/constants";
@@ -20,10 +20,9 @@ import { SupportSelector } from "@/selectors/SupportSelectors";
 import { getSupportList } from "@/actions/SupportAction";
 export function MySupport() {
   const dispatch = useDispatch();
-
   const supportList = useSelector(SupportSelector);
   const array = supportList?.support;
-
+  console.log("yttfufuu");
   useEffect(() => {
     dispatch(getSupportList());
   }, []);
@@ -56,7 +55,7 @@ export function MySupport() {
     return (
       <View style={{ flexDirection: "row" }}>
         <Image
-          source={agentProfile ? { uri: agentProfile } : Images.userPic}
+          source={agentProfile ? { uri: agentProfile } : userIcon}
           style={styles.manLogo}
         />
         <View style={{ paddingHorizontal: 7 }}>

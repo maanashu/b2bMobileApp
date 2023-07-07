@@ -39,8 +39,14 @@ import ActionSheet from "react-native-actionsheet";
 import ImagePicker from "react-native-image-crop-picker";
 import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
+import { ActivityIndicator } from "react-native";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
 
-export function SupportTicket() {
+export function SupportTicket({ setIndex }) {
+  // const handleSwitchToFirstRoute = () => {
+  //   switchToFirstRoute();
+  // };
   const dispatch = useDispatch();
   const actionRef = useRef();
 
@@ -60,6 +66,10 @@ export function SupportTicket() {
     getUserData?.user?.payload?.token ?? getUserData?.registered?.token;
 
   const [subjectItems, setSubjectItems] = useState([]);
+
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.ADD_NEW_TICKET], state)
+  );
 
   const SubjectBody = {
     page: 1,
@@ -100,6 +110,13 @@ export function SupportTicket() {
         text2: strings.validation.token,
         visibilityTime: 1500,
       });
+    } else if (!doc) {
+      Toast.show({
+        position: "bottom",
+        type: "error_toast",
+        text2: "Please upload a image",
+        visibilityTime: 1500,
+      });
     } else {
       const data = {
         subject_id: subjectModalValue,
@@ -109,7 +126,15 @@ export function SupportTicket() {
         document_url: doc,
         type: "support",
       };
-      dispatch(addNewTicket(data));
+      dispatch(addNewTicket(data))
+        .then(() => {
+          setIndex(0);
+          setSupportImage("");
+          setNotes("");
+          setSubjectModalValue("");
+          setDoc("");
+        })
+        .catch(() => {});
     }
   };
 
@@ -327,6 +352,7 @@ export function SupportTicket() {
         destructiveButtonIndex={1}
         onPress={(index) => openPickerHandler(index)}
       />
+      {isLoading && <ActivityIndicator size="small" color={COLORS.primary} />}
     </ScreenWrapper>
   );
 }

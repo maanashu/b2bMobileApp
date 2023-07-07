@@ -1,32 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, useWindowDimensions } from "react-native";
 import { ScreenWrapper } from "@/components";
 import { styles } from "./SupportRequest.styles";
-import { COLORS, SF, SW } from "@/theme";
-import { TabView, SceneMap, TabBar } from "react-native-tab-view";
+import { COLORS, SW } from "@/theme";
+import { TabView, TabBar } from "react-native-tab-view";
 import { MySupport } from "./MySupport";
 import { SupportTicket } from "./SupportTicket";
 import { Fonts } from "@/assets";
 import { strings } from "@/localization";
 import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
+import { SupportSelector } from "@/selectors/SupportSelectors";
+import { useSelector } from "react-redux";
 
 export function SupportRequest() {
   const layout = useWindowDimensions();
+  const supportList = useSelector(SupportSelector);
+  const [index, setIndex] = useState(0);
 
-  const [index, setIndex] = React.useState(0);
-
-  const [routes] = React.useState([
-    { key: "first", title: "My support (1)" },
+  const [routes] = useState([
+    { key: "first", title: `My support (${supportList?.support?.length})` },
     { key: "second", title: "Support" },
   ]);
 
-  const FirstRoute = () => <MySupport />;
-  const SecondRoute = () => <SupportTicket />;
-
-  const renderScene = SceneMap({
-    first: FirstRoute,
-    second: SecondRoute,
-  });
+  const renderScene = ({ route }) => {
+    switch (route.key) {
+      case "first":
+        return <MySupport />;
+      case "second":
+        return <SupportTicket setIndex={setIndex} />;
+      default:
+        return null;
+    }
+  };
   const renderTabBar = (props) => {
     return (
       <TabBar
@@ -41,9 +46,9 @@ export function SupportRequest() {
             >
               <Text
                 style={{
-                  paddingHorizontal: focused ? SW(5) : SW(6.5),
+                  paddingHorizontal: focused ? SW(5) : SW(5),
                   color: focused ? COLORS.primary : COLORS.text,
-                  fontFamily: focused ? Fonts.SemiBold : Fonts.Regular,
+                  fontFamily: focused ? Fonts.Regular : Fonts.Regular,
                 }}
               >
                 {route.title}

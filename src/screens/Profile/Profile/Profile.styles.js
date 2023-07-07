@@ -162,13 +162,14 @@ export const styles = StyleSheet.create({
     left: SW(-2),
   },
   profilePhotoStyle: {
-    height: ms(50),
-    width: ms(50),
-    borderRadius: ms(25),
+    height: SW(40),
+    width: SW(40),
+    borderRadius: SW(40),
   },
   userIconStyle: {
-    height: ms(30),
-    width: ms(30),
+    height: SW(40),
+    width: SW(40),
+    borderRadius: SW(40),
     tintColor: COLORS.darkGrey,
   },
   subName: {
@@ -176,5 +177,13 @@ export const styles = StyleSheet.create({
     fontSize: SF(13),
     textAlign: "center",
     fontFamily: Fonts.Regular,
+  },
+
+  linearBorderStyle: {
+    borderRadius: SW(44),
+    height: SW(44),
+    width: SW(44),
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
