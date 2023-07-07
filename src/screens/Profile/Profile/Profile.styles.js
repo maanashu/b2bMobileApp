@@ -141,7 +141,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.termsBorder,
     backgroundColor: COLORS.white,
-    marginBottom: vs(15),
+    marginBottom: vs(5),
   },
   buttonText: {
     color: COLORS.darkGrey,
@@ -170,5 +170,11 @@ export const styles = StyleSheet.create({
     height: ms(30),
     width: ms(30),
     tintColor: COLORS.darkGrey,
+  },
+  subName: {
+    color: COLORS.darkGrey,
+    fontSize: SF(13),
+    textAlign: "center",
+    fontFamily: Fonts.Regular,
   },
 });

@@ -75,6 +75,10 @@ export function ProductInquiry(params) {
   const isLoadingDetails = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
   );
+  // console.log(
+  //   "ingredients",
+  //   JSON.stringify(ProductDetail?.productDetail?.product_detail?.ingredients)
+  // );
   const object = {
     service_type: "product",
   };
@@ -692,18 +696,21 @@ export function ProductInquiry(params) {
             <TouchableOpacity style={styles.viewAll}>
               <Text style={styles.viewAllText}>{"View all"}</Text>
             </TouchableOpacity>
-
+            {ProductDetail?.productDetail?.product_detail?.ingredients && (
+              <>
+                <Spacer space={SH(20)} />
+                <Text style={styles.semiBoldtext}>
+                  {strings.productInquiry.productDetails}
+                </Text>
+                <Spacer space={SH(5)} />
+                {/* <Text style={styles.detailText}>
+                  {ProductDetail?.productDetail?.product_detail?.ingredients}
+                </Text> */}
+              </>
+            )}
             <Spacer space={SH(20)} />
-            <Text style={styles.semiBoldtext}>
-              {strings.productInquiry.productDetails}
-            </Text>
-            <Spacer space={SH(5)} />
-            <Text style={styles.detailText}>
-              {ProductDetail?.productDetail?.product_detail?.description}
-            </Text>
-            <Spacer space={SH(20)} />
 
-            <FlatList
+            {/* <FlatList
               data={
                 ProductDetail?.productDetail?.product_detail?.product_attribute
               }
@@ -711,7 +718,7 @@ export function ProductInquiry(params) {
               renderItem={ProductDetails}
               keyExtractor={(item) => item.id}
             />
-            <Spacer space={SH(20)} />
+            <Spacer space={SH(20)} /> */}
             <Text style={styles.recommended}>
               {strings.productInquiry.recomended}
             </Text>

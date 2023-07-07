@@ -491,4 +491,54 @@ export const styles = StyleSheet.create({
     width: SW(25),
     padding: SH(5),
   },
+  checkMarkIcon: {
+    height: SH(120),
+    width: SW(120),
+    tintColor: COLORS.primary,
+  },
+  transactionDetailView: {
+    justifyContent: "flex-end",
+    paddingHorizontal: SW(20),
+    marginHorizontal: SW(15),
+    flex: 1,
+    paddingVertical: SH(20),
+    alignItems: "center",
+    backgroundColor: COLORS.input_bg,
+    borderRadius: SW(10),
+  },
+  transferTypeSmallText: {
+    color: COLORS.primary,
+    fontFamily: Fonts.Regular,
+    fontSize: SF(15),
+  },
+  orderPaymentDateText: {
+    fontFamily: Fonts.Regular,
+    fontSize: SF(12),
+    color: COLORS.darkGrey,
+  },
+  transactionIdHeadingText: {
+    fontFamily: Fonts.SemiBold,
+    fontSize: SF(12),
+    color: COLORS.black,
+  },
+  transactionIdText: {
+    fontFamily: Fonts.Regular,
+    fontSize: SF(12),
+    color: COLORS.black,
+  },
+  topViewDetail: {
+    flex: 1,
+    justifyContent: "flex-end",
+    paddingHorizontal: SW(20),
+  },
+  paymentTypeHeadingText: {
+    color: COLORS.primary,
+    fontFamily: Fonts.Bold,
+    fontSize: SF(28),
+  },
+  transactionAmountText: {
+    color: COLORS.darkGrey,
+    fontFamily: Fonts.MaisonMonoBold,
+    fontSize: SF(25),
+  },
 });

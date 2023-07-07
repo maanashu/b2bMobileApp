@@ -2,8 +2,8 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { styles } from "./PaymentMethod.styles.js";
 import { Button, NameHeader, ScreenWrapper, Spacer } from "@/components";
-import { SH, SW } from "@/theme/ScalerDimensions";
-import { bank, coinStack } from "@/assets";
+import { SF, SH, SW } from "@/theme/ScalerDimensions";
+import { Fonts, bank, coinStack } from "@/assets";
 import { strings } from "@/localization";
 import { kFormatter } from "@/Utils/GlobalMethods.js";
 import { getWallet } from "@/selectors/WalletSelector.js";
@@ -119,36 +119,36 @@ export function PaymentMethod() {
       <NameHeader title={"Your Bank Accounts"} back />
 
       <Spacer space={SH(10)} />
-
-      <View style={styles.mainView}>
-        <View style={styles.InnerbalanceView}>
-          <Text style={styles.balanceText}>
-            {strings.paymentMethod.availableBalance}
-          </Text>
-
-          <View style={styles.coinView}>
-            <Text style={styles.coinText}>
-              {kFormatter(wallet?.getWalletBalance?.sila_balance) || 0}
+      {user?.user?.payload?.token ? (
+        <View style={styles.mainView}>
+          <View style={styles.InnerbalanceView}>
+            <Text style={styles.balanceText}>
+              {strings.paymentMethod.availableBalance}
             </Text>
-            <Image
-              resizeMode="contain"
-              source={coinStack}
-              style={styles.coinStackIcon}
+
+            <View style={styles.coinView}>
+              <Text style={styles.coinText}>
+                {kFormatter(wallet?.getWalletBalance?.sila_balance) || 0}
+              </Text>
+              <Image
+                resizeMode="contain"
+                source={coinStack}
+                style={styles.coinStackIcon}
+              />
+            </View>
+          </View>
+
+          <Spacer space={SH(30)} />
+          <View style={{}}>
+            <FlatList
+              data={kyc?.bankAccounts}
+              extraData={kyc?.bankAccounts}
+              renderItem={renderBanks}
             />
           </View>
-        </View>
+          <Spacer space={SH(30)} />
 
-        <Spacer space={SH(30)} />
-        <View style={{}}>
-          <FlatList
-            data={kyc?.bankAccounts}
-            extraData={kyc?.bankAccounts}
-            renderItem={renderBanks}
-          />
-        </View>
-        <Spacer space={SH(30)} />
-
-        <View
+          {/* <View
           style={{
             flex: 1,
             justifyContent: "flex-end",
@@ -156,9 +156,22 @@ export function PaymentMethod() {
           }}
         >
           <Button title={strings.paymentMethod.paynow} />
+        </View> */}
+          <Spacer space={SH(15)} />
         </View>
-        <Spacer space={SH(15)} />
-      </View>
+      ) : (
+        <View style={{ padding: 20 }}>
+          <Text
+            style={{
+              color: COLORS.darkGrey,
+              fontFamily: Fonts.SemiBold,
+              fontSize: SF(20),
+            }}
+          >
+            Please login to see your bank accounts
+          </Text>
+        </View>
+      )}
     </ScreenWrapper>
   );
 }

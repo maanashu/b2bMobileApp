@@ -711,4 +711,30 @@ export class UserController {
         });
     });
   }
+
+  static async deleteAddress(id) {
+    return new Promise((resolve, reject) => {
+      const endpoint = `${USER_URL + ApiUserInventory.userAddress}${id}`;
+
+      HttpClient.delete(endpoint)
+        .then((response) => {
+          resolve(response);
+          Toast.show({
+            text2: "Address deleted",
+            position: "bottom",
+            type: "success_toast",
+            visibilityTime: 2000,
+          });
+        })
+        .catch((error) => {
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 2000,
+          });
+          reject(error);
+        });
+    });
+  }
 }

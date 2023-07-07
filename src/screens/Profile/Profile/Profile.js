@@ -1,5 +1,5 @@
 import { useTheme } from "@react-navigation/native";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   Text,
   View,
@@ -7,20 +7,20 @@ import {
   Image,
   FlatList,
   ScrollView,
+  Platform,
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { logout } from "@/actions/UserActions";
 import { Button, NameHeaderCoins, ScreenWrapper, Spacer } from "@/components";
 import { strings } from "@/localization";
 import { styles } from "./Profile.styles";
-import { COLORS, SH } from "@/theme";
+import { SH } from "@/theme";
 import { getUser } from "@/selectors/UserSelectors";
 import { useSelector } from "react-redux";
 
 import {
   businessCard,
   catalogue,
-  coinStack,
   discount,
   forward,
   heartIcon,
@@ -30,12 +30,10 @@ import {
   pinPoint,
   question,
   quote,
-  search,
   searchDoc,
   settings,
   shippingAddressIcon,
   userIcon,
-  userPhoto,
 } from "@/assets";
 import { ms } from "react-native-size-matters";
 import { navigate } from "@/navigation/NavigationRef";
@@ -43,24 +41,35 @@ import { NAVIGATION } from "@/constants";
 import { getWallet } from "@/selectors/WalletSelector";
 import { logoutOrder } from "@/actions/OrderAction";
 import { logoutWallet } from "@/actions/WalletActions";
-import { kFormatter } from "@/Utils/GlobalMethods";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
 import { getCoupons } from "@/actions/ProductActions";
+import { Alert } from "react-native";
+import DeviceInfo from "react-native-device-info";
 
 export function Profile() {
-  const { colors } = useTheme();
   const dispatch = useDispatch();
   const user = useSelector(getUser);
-  const wallet = useSelector(getWallet);
   const token = user?.user?.payload?.token;
-  const profile_photo = user?.getUserProfile?.user_profiles?.profile_photo;
-
   const categoryData = useSelector(getCategorySelector);
+  const profile_photo = user?.getUserProfile?.user_profiles?.profile_photo;
+  const ProdChecker = DeviceInfo.getBuildNumber();
+  const buildVersion = DeviceInfo.getVersion();
 
   const logoutUser = () => {
-    dispatch(logout());
-    dispatch(logoutOrder());
-    dispatch(logoutWallet());
+    Alert.alert("Confirmation", "Are you sure you want to logout?", [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "Yes",
+        onPress: () => {
+          dispatch(logout());
+          dispatch(logoutOrder());
+          dispatch(logoutWallet());
+        },
+      },
+    ]);
   };
   const body = {
     category_id: categoryData?.categoryList?.data?.[0]?.id,
@@ -286,16 +295,25 @@ export function Profile() {
           showsVerticalScrollIndicator={false}
         />
 
-        <Spacer space={SH(30)} />
-
         {token && (
-          <Button
-            title={strings.profile.logout}
-            onPress={logoutUser}
-            style={styles.buttonStyle}
-            textStyle={styles.buttonText}
-          />
+          <>
+            <Spacer space={SH(10)} />
+
+            <Button
+              title={strings.profile.logout}
+              onPress={logoutUser}
+              style={styles.buttonStyle}
+              textStyle={styles.buttonText}
+            />
+          </>
         )}
+
+        <Text style={styles.subName}>
+          {Platform.OS === "ios"
+            ? `V ${ProdChecker}(${buildVersion})`
+            : `V 1.0(1)`}
+        </Text>
+        <Spacer space={SH(20)} />
       </ScrollView>
     </ScreenWrapper>
   );

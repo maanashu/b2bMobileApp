@@ -113,6 +113,7 @@ import {
   TrackOrder,
   TrackPlacedOrder,
   TransactionHistory,
+  TransactionsDetails,
   UserInformation,
   Verify,
 } from "@/screens";
@@ -739,6 +740,11 @@ export function AppBottom() {
       <Stack.Screen
         component={SellersByProduct}
         name={NAVIGATION.sellersByProduct}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={TransactionsDetails}
+        name={NAVIGATION.transactionsDetails}
         options={{ headerShown: false }}
       />
       {/* Home navigator ends here */}

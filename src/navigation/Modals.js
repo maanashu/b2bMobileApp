@@ -3,10 +3,10 @@ import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
-import { ShadowStyles, SH, SW, TextStyles, COLORS } from "@/theme";
+import { ShadowStyles, SH, SW, TextStyles, COLORS, SF } from "@/theme";
 
 import { TYPES, deviceRegister } from "@/actions/UserActions";
-import { faceIdIcon, fingerprintLogin } from "@/assets";
+import { Fonts, faceIdIcon, fingerprintLogin } from "@/assets";
 import ReactNativeBiometrics, { BiometryTypes } from "react-native-biometrics";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 
@@ -19,6 +19,7 @@ import { NAVIGATION } from "@/constants";
 import { biometricsSet, previousScreen } from "@/actions/GlobalActions";
 import { storage } from "@/storage";
 import { Platform } from "react-native";
+import { ActivityIndicator } from "react-native";
 
 export const rnBiometrics = new ReactNativeBiometrics({
   allowDeviceCredentials: true,
@@ -102,7 +103,7 @@ export default function Modals({ children }) {
   };
 
   const isLoading = useSelector((state) =>
-    isLoadingSelector([TYPES.LOGIN], state)
+    isLoadingSelector([TYPES.DEVICE_REGISTER], state)
   );
 
   const createKeys = () =>
@@ -128,38 +129,55 @@ export default function Modals({ children }) {
         snapPoints={snapPoints}
         // stackBehavior="push"
       >
-        <>
-          <View style={styles.contentContainer}>
-            <Spacer space={SH(60)} />
-            <Text style={styles.title}>{"Setup Biometrics"}</Text>
-            <Spacer space={SH(40)} />
-            <Image
-              source={Platform.OS === "ios" ? faceIdIcon : fingerprintLogin}
-              style={styles.bioMetricImage}
-            />
-
-            <Spacer space={SH(30)} />
-
-            <Text style={styles.desc}>
-              {"You can also login to JOBR Wallet using biometric unlock."}
-            </Text>
-
-            <Spacer space={SH(32)} />
-            <Button
-              title={"Enable BioMetric Login"}
-              textStyle={{ color: COLORS.white }}
-              style={{
-                backgroundColor: COLORS.primary,
-              }}
-              onPress={bioMetricLogin}
-            />
-            <Spacer space={SH(20)} />
-            <TouchableOpacity onPress={closeBioMetricSetupModal}>
-              <Text style={styles.textLater}>{"Maybe later"}</Text>
-            </TouchableOpacity>
+        {isLoading ? (
+          <View style={{ marginTop: SH(150) }}>
+            <ActivityIndicator size="large" color={COLORS.primary} />
             <Spacer space={SH(50)} />
+            <Text
+              style={{
+                textAlign: "center",
+                fontFamily: Fonts.Bold,
+                color: COLORS.black,
+                fontSize: SF(20),
+              }}
+            >
+              Registering Device
+            </Text>
           </View>
-        </>
+        ) : (
+          <>
+            <View style={styles.contentContainer}>
+              <Spacer space={SH(60)} />
+              <Text style={styles.title}>{"Setup Biometrics"}</Text>
+              <Spacer space={SH(40)} />
+              <Image
+                source={Platform.OS === "ios" ? faceIdIcon : fingerprintLogin}
+                style={styles.bioMetricImage}
+              />
+
+              <Spacer space={SH(30)} />
+
+              <Text style={styles.desc}>
+                {"You can also login to JOBR Wallet using biometric unlock."}
+              </Text>
+
+              <Spacer space={SH(32)} />
+              <Button
+                title={"Enable BioMetric Login"}
+                textStyle={{ color: COLORS.white }}
+                style={{
+                  backgroundColor: COLORS.primary,
+                }}
+                onPress={bioMetricLogin}
+              />
+              <Spacer space={SH(20)} />
+              <TouchableOpacity onPress={closeBioMetricSetupModal}>
+                <Text style={styles.textLater}>{"Maybe later"}</Text>
+              </TouchableOpacity>
+              <Spacer space={SH(50)} />
+            </View>
+          </>
+        )}
       </BottomSheetModal>
       {/* </BottomSheetModalProvider> */}
     </>

@@ -1,17 +1,15 @@
 import React, { useEffect } from "react";
-import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./Addresses.styles";
 import { deleteIcon, home, pencil, work } from "@/assets";
 import { Button, NameHeaderCoins, ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants/navigation";
-import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
 import { strings } from "@/localization";
 import { useDispatch, useSelector } from "react-redux";
-import { TYPES, getUserLocations } from "@/actions/UserActions";
+import { TYPES, deleteAddress, getUserLocations } from "@/actions/UserActions";
 import { getUser } from "@/selectors/UserSelectors";
-import { useIsFocused } from "@react-navigation/native";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { Loader } from "@/components/Loader";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
@@ -19,7 +17,6 @@ import { SwipeListView } from "react-native-swipe-list-view";
 
 export function Addresses() {
   const dispatch = useDispatch();
-  const isFocused = useIsFocused();
   const locations = useSelector(getUser);
   const token = locations?.registered?.token ?? locations?.user?.payload?.token;
   useEffect(() => {
@@ -97,9 +94,7 @@ export function Addresses() {
           renderHiddenItem={({ item }) => (
             <View style={[styles.hiddenItem, { right: 0 }]}>
               <TouchableOpacity
-                onPress={() => {
-                  alert("delete address");
-                }}
+                onPress={() => dispatch(deleteAddress(item?.id))}
                 style={{ justifyContent: "center" }}
               >
                 <Image
@@ -139,7 +134,7 @@ export function Addresses() {
 
       <Spacer space={SH(20)} />
 
-      {/* {isLoading ? <Loader message="Loading data ..." /> : null} */}
+      {isLoading ? <Loader message="Loading addresses ..." /> : null}
     </ScreenWrapper>
   );
 }

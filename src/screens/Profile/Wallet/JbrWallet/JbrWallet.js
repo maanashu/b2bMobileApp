@@ -143,7 +143,10 @@ export function JbrWallet() {
   const renderItem = ({ item }) => {
     const date = moment(item.createdAt).format("DD MMM YYYY");
     return (
-      <View style={styles.tranHisCon}>
+      <TouchableOpacity
+        style={styles.tranHisCon}
+        onPress={() => navigate(NAVIGATION.transactionsDetails, { item: item })}
+      >
         <View style={{ display: "flex", flexDirection: "row" }}>
           {transactionImage(item)}
           <TouchableOpacity
@@ -166,7 +169,7 @@ export function JbrWallet() {
           {item?.payment_type === "transfer" ? "- " : "+ "}
           JBR {item.amount}
         </Text>
-      </View>
+      </TouchableOpacity>
     );
   };
   const renderBankAccounts = ({ item }) => {

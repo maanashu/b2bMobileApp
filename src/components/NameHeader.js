@@ -59,9 +59,10 @@ export const styles = StyleSheet.create({
     marginRight: SW(10),
     justifyContent: "flex-start",
   },
+
   headerText: {
     fontFamily: Fonts.SemiBold,
     color: COLORS.black,
-    fontSize: s(12),
+    fontSize: s(14),
   },
 });

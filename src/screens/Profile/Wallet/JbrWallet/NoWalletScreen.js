@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getWallet } from "@/selectors/WalletSelector";
 import { getUser } from "@/selectors/UserSelectors";
 import { getKyc } from "@/selectors/KycSelector";
+import { previousScreen } from "@/actions/GlobalActions";
 
 export function NoWalletScreen() {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ export function NoWalletScreen() {
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <>
-        <Header back={backArrow} title={strings.profile.jbrWallet}  />
+        <Header back={backArrow} title={strings.profile.jbrWallet} />
 
         {!user?.user?.payload?.token ? (
           <View
@@ -44,7 +45,9 @@ export function NoWalletScreen() {
             <Spacer space={SH(20)} />
             <Button
               title={"Login"}
-              onPress={() => navigate(NAVIGATION.splash)}
+              onPress={() => {
+                navigate(NAVIGATION.splash);
+              }}
             />
           </View>
         ) : (

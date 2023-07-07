@@ -106,4 +106,5 @@ export const NAVIGATION = {
   searchedProducts: "SearchedProducts",
   searchedSellers: "SearchedSellers",
   sellersByProduct: "SellersByProduct",
+  transactionsDetails: "TransactionsDetails",
 };

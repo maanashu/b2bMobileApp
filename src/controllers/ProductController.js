@@ -15,11 +15,7 @@ export class ProductController {
 
       HttpClient.get(endpoint)
         .then((response) => {
-          // if (response.length === 0) {
-          //   resolve([]);
-          // } else {
           resolve(response);
-          // }
         })
         .catch((error) => {
           reject(error);
@@ -41,7 +37,6 @@ export class ProductController {
         productId
       )}?${params}`;
       HttpClient.get(endpoint)
-
         .then((response) => {
           resolve(response);
         })

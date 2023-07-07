@@ -124,6 +124,11 @@ export const TYPES = {
   GET_USER_SETTINGS_SUCCESS: "GET_USER_SETTINGS_SUCCESS",
   GET_USER_SETTINGS_ERROR: "GET_USER_SETTINGS_ERROR",
 
+  DELETE_USER_ADDRESS: "DELETE_USER_ADDRESS",
+  DELETE_USER_ADDRESS_REQUEST: "DELETE_USER_ADDRESS_REQUEST",
+  DELETE_USER_ADDRESS_SUCCESS: "DELETE_USER_ADDRESS_SUCCESS",
+  DELETE_USER_ADDRESS_ERROR: "DELETE_USER_ADDRESS_ERROR",
+
   UPDATE_USER_SETTINGS: "UPDATE_USER_SETTINGS",
   UPDATE_USER_SETTINGS_REQUEST: "UPDATE_USER_SETTINGS_REQUEST",
   UPDATE_USER_SETTINGS_SUCCESS: "UPDATE_USER_SETTINGS_SUCCESS",
@@ -181,6 +186,11 @@ export const TYPES = {
   UPLOAD_PROFILE_IMAGE_REQUEST: "UPLOAD_PROFILE_IMAGE_REQUEST",
   UPLOAD_PROFILE_IMAGE_SUCCESS: "UPLOAD_PROFILE_IMAGE_SUCCESS",
   UPLOAD_PROFILE_IMAGE_ERROR: "UPLOAD_PROFILE_IMAGE_ERROR",
+
+  DEVICE_REGISTER: "DEVICE_REGISTER",
+  DEVICE_REGISTER_REQUEST: "DEVICE_REGISTER_REQUEST",
+  DEVICE_REGISTER_SUCCESS: "DEVICE_REGISTER_SUCCESS",
+  DEVICE_REGISTER_ERROR: "DEVICE_REGISTER_ERROR",
 };
 
 const loginRequest = () => ({
@@ -639,6 +649,36 @@ const editProfileError = (error) => ({
   payload: { error },
 });
 
+const deleteAddressRequest = () => ({
+  type: TYPES.DELETE_USER_ADDRESS_REQUEST,
+  payload: null,
+});
+
+const deleteAddressSuccess = (deleteAddress) => ({
+  type: TYPES.DELETE_USER_ADDRESS_SUCCESS,
+  payload: { deleteAddress },
+});
+
+const deleteAddressError = (error) => ({
+  type: TYPES.DELETE_USER_ADDRESS_ERROR,
+  payload: { error },
+});
+
+const deviceRegisterRequest = () => ({
+  type: TYPES.DEVICE_REGISTER_REQUEST,
+  payload: null,
+});
+
+const deviceRegisterSuccess = (deviceRegister) => ({
+  type: TYPES.DEVICE_REGISTER_SUCCESS,
+  payload: { deviceRegister },
+});
+
+const deviceRegisterError = (error) => ({
+  type: TYPES.DEVICE_REGISTER_ERROR,
+  payload: { error },
+});
+
 export const login =
   (value, countryCode, phoneNumber, screenName, token) => async (dispatch) => {
     dispatch(loginRequest());
@@ -742,7 +782,7 @@ export const register = (data, token) => async (dispatch) => {
 };
 
 export const deviceRegister = (user) => async (dispatch) => {
-  dispatch(loginRequest());
+  dispatch(deviceRegisterRequest());
   const uniqueId = await DeviceInfo.getUniqueId();
   return UserController.deviceRegister(uniqueId)
     .then(async (res) => {
@@ -754,10 +794,11 @@ export const deviceRegister = (user) => async (dispatch) => {
         is_biometric: res?.data?.payload,
       };
       await storage.setMapAsync("biometric-data", biometricData);
+      dispatch(deviceRegisterSuccess());
       return res;
     })
     .catch((error) => {
-      dispatch(loginError(error.message));
+      dispatch(deviceRegisterError(error.message));
       throw error;
     });
 };
@@ -1023,4 +1064,15 @@ export const editProfile = (id, data) => async (dispatch) => {
       dispatch(editProfileError(error.message));
       throw error;
     });
+};
+
+export const deleteAddress = (id) => async (dispatch) => {
+  dispatch(deleteAddressRequest());
+  try {
+    const res = await UserController.deleteAddress(id);
+    dispatch(deleteAddressSuccess());
+    dispatch(getUserLocations());
+  } catch (error) {
+    dispatch(deleteAddressError(error.message));
+  }
 };
