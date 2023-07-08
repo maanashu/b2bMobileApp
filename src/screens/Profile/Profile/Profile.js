@@ -46,6 +46,7 @@ import { getCoupons } from "@/actions/ProductActions";
 import { Alert } from "react-native";
 import DeviceInfo from "react-native-device-info";
 import LinearGradient from "react-native-linear-gradient";
+import { LoginCommonFunction } from "@/components/LoginCommonFunction";
 
 export function Profile() {
   const dispatch = useDispatch();
@@ -134,9 +135,7 @@ export function Profile() {
       icon: jobrWallet,
       title: strings.profile.jbrWallet,
       openIcon: forward,
-      navigation: !user?.user?.payload?.token
-        ? NAVIGATION.noWalletScreen
-        : NAVIGATION.jbrWallet,
+      navigation: NAVIGATION.jbrWallet,
     },
     {
       id: 9,
@@ -176,7 +175,25 @@ export function Profile() {
   ];
   const navigationHandler = (item) => {
     if (item?.navigation) {
-      navigate(item.navigation);
+      if (item.title == strings.profile.jbrWallet) {
+        LoginCommonFunction(
+          dispatch,
+          user,
+          user?.user?.payload?.token,
+          NAVIGATION.jbrWallet,
+          NAVIGATION.jbrWallet
+        );
+      } else if (item.title == strings.profile.paymentMethods) {
+        LoginCommonFunction(
+          dispatch,
+          user,
+          user?.user?.payload?.token,
+          NAVIGATION.paymentMethod,
+          NAVIGATION.paymentMethod
+        );
+      } else {
+        navigate(item.navigation);
+      }
     }
   };
 
