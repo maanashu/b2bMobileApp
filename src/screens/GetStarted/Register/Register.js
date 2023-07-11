@@ -418,7 +418,7 @@ export function Register() {
           </View>
         </View>
       </KeyboardAwareScrollView>
-      {isLoading ? <Loader message="Loading data ..." /> : null}
+      {isLoading ? <Loader message="Registering ..." /> : null}
     </ScreenWrapper>
   );
 }
