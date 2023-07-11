@@ -2,7 +2,7 @@ import { Fonts } from "@/assets";
 import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
 export const styles = StyleSheet.create({
@@ -430,10 +430,11 @@ export const styles = StyleSheet.create({
     paddingVertical: SH(15),
     marginTop: SH(100),
     marginBottom: SH(100),
-    // position: "absolute",
     // height: 500,
+    // position: "absolute",
     // width: "100%",
   },
+
   crossView: {
     alignSelf: "flex-end",
   },

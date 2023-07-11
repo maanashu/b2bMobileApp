@@ -1,5 +1,5 @@
-import { Image, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import { BackHandler, Image, Text, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useState } from "react";
 import { styles } from "./PaymentMethod.styles.js";
 import { Button, NameHeader, ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
@@ -17,7 +17,9 @@ import { TYPES } from "@/Types/Types.js";
 import { isLoadingSelector } from "@/selectors/StatusSelectors.js";
 import { ActivityIndicator } from "react-native";
 import { COLORS } from "@/theme/Colors.js";
-export function PaymentMethod() {
+import { NAVIGATION } from "@/constants/navigation.js";
+
+export function PaymentMethod(params) {
   const dispatch = useDispatch();
   const wallet = useSelector(getWallet);
   const kyc = useSelector(getKyc);
@@ -29,6 +31,20 @@ export function PaymentMethod() {
   const isCheckingBalance = useSelector((state) =>
     isLoadingSelector([TYPES.CHECK_BALANCE], state)
   );
+
+  const { navigation } = params;
+  useEffect(() => {
+    const handleBackButton = () => {
+      navigation.navigate(NAVIGATION.home);
+      return true;
+    };
+
+    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
+
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+    };
+  }, [navigation]);
 
   const handleRemoveBankAccount = (id) => {
     const body = {
@@ -116,7 +132,11 @@ export function PaymentMethod() {
 
   return (
     <ScreenWrapper style={styles.container}>
-      <NameHeader title={"Your Bank Accounts"} back />
+      <NameHeader
+        title={"Your Bank Accounts"}
+        back
+        backNavi={() => navigation.navigate(NAVIGATION.home)}
+      />
 
       <Spacer space={SH(10)} />
       {user?.user?.payload?.token ? (

@@ -7,6 +7,7 @@ import {
   FlatList,
   ScrollView,
   RefreshControl,
+  BackHandler,
 } from "react-native";
 import { styles } from "./JbrWallet.styles";
 import { Button, ScreenWrapper, Spacer, TextField } from "@/components";
@@ -44,7 +45,7 @@ import moment from "moment";
 import { getBrandsProductsShops } from "@/actions/OrderAction";
 import { orderSelector } from "@/selectors/OrderSelector";
 
-export function JbrWallet() {
+export function JbrWallet(params) {
   const dispatch = useDispatch();
   const wallet = useSelector(getWallet);
   const user = useSelector(getUser);
@@ -72,6 +73,20 @@ export function JbrWallet() {
       setRefreshing(false);
     }, 1500);
   };
+
+  const { navigation } = params;
+  useEffect(() => {
+    const handleBackButton = () => {
+      navigation.navigate(NAVIGATION.home);
+      return true;
+    };
+
+    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
+
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+    };
+  }, [navigation]);
   useEffect(() => {
     dispatch(getWalletBalance());
     dispatch(getBankAccounts());
@@ -458,6 +473,9 @@ export function JbrWallet() {
         {walletLoading ? <Loader message="Fetching balance..." /> : null}
 
         <Modal
+          propagateSwipe
+          transparent={true}
+          statusBarTranslucent
           isVisible={isAddBalanceModal}
           backdropOpacity={0.5}
           backdropColor="#D8D8D8"
@@ -505,6 +523,9 @@ export function JbrWallet() {
         </Modal>
 
         <Modal
+          propagateSwipe
+          transparent={true}
+          statusBarTranslucent
           isVisible={redeemBalanceModal}
           backdropOpacity={0.5}
           backdropColor="#D8D8D8"

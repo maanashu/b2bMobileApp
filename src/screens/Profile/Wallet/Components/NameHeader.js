@@ -4,10 +4,11 @@ import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
 import { s } from "react-native-size-matters";
-import { goBack } from "@/navigation/NavigationRef";
+import { goBack, navigate } from "@/navigation/NavigationRef";
 import { Fonts } from "@/assets";
 import { ShadowStyles } from "@/theme";
 import { style } from "deprecated-react-native-prop-types/DeprecatedViewPropTypes";
+import { NAVIGATION } from "@/constants";
 
 export function Header({ title, back, subTitle }) {
   return (
@@ -15,7 +16,7 @@ export function Header({ title, back, subTitle }) {
       <View style={styles.headerInnerView}>
         <TouchableOpacity
           style={{ flexDirection: "row", alignItems: "center" }}
-          onPress={() => goBack()}
+          onPress={() => navigate(NAVIGATION.home)}
         >
           <Image
             resizeMode="contain"
