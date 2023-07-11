@@ -173,7 +173,7 @@ export function EnterPin(params) {
       />
       <Spacer space={SH(30)} />
 
-      {isLoading ? <Loader message="Loging in ..." /> : null}
+      {isLoading ? <Loader message="Logging in ..." /> : null}
     </ScreenWrapper>
   );
 }

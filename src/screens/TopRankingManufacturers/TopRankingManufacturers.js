@@ -122,7 +122,6 @@ export function TopRankingManufacturers() {
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <Header
         title={strings.topRankingManufacturers.topManufacturers}
-        back={backArrow}
         enableBackButton
       />
       <ScrollView

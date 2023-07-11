@@ -291,8 +291,6 @@ export function Products({ navigation }) {
         <Spacer space={SH(10)} />
 
         <View style={{ paddingHorizontal: SW(16) }}>
-          <Spacer space={SH(18)} />
-
           {isLoading ? (
             <HomeCategorySkeleton />
           ) : (
@@ -308,7 +306,7 @@ export function Products({ navigation }) {
           )}
         </View>
 
-        <Spacer space={SH(20)} />
+        <Spacer space={SH(5)} />
 
         <View style={styles.swiperView}>
           <SwiperFlatList
@@ -322,7 +320,7 @@ export function Products({ navigation }) {
             paginationActiveColor={COLORS.black}
           />
         </View>
-        <Spacer space={SH(20)} />
+        <Spacer space={SH(10)} />
         <View>
           {isLoadingProducts ? (
             // <Loader message="Loading data ..." />
@@ -373,8 +371,6 @@ export function Products({ navigation }) {
             </TouchableOpacity>
           )}
         </View>
-
-        <Spacer space={SH(20)} />
 
         <Spacer space={SH(25)} />
 

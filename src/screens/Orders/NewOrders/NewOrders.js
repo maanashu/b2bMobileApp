@@ -63,7 +63,7 @@ export function NewOrders() {
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           ListEmptyComponent={(item) => (
-            <View>
+            <View style={{ flex: 1, marginTop: SH(250), alignItems: "center" }}>
               <Text style={{ fontFamily: Fonts.Bold, fontSize: SF(20) }}>
                 No New Order
               </Text>

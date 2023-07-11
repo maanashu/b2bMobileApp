@@ -11,7 +11,13 @@ import {
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { logout } from "@/actions/UserActions";
-import { Button, NameHeaderCoins, ScreenWrapper, Spacer } from "@/components";
+import {
+  Button,
+  LoginCommonKyc,
+  NameHeaderCoins,
+  ScreenWrapper,
+  Spacer,
+} from "@/components";
 import { strings } from "@/localization";
 import { styles } from "./Profile.styles";
 import { SH, SW } from "@/theme";
@@ -38,7 +44,6 @@ import {
 import { ms } from "react-native-size-matters";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
-import { getWallet } from "@/selectors/WalletSelector";
 import { logoutOrder } from "@/actions/OrderAction";
 import { logoutWallet } from "@/actions/WalletActions";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
@@ -46,7 +51,6 @@ import { getCoupons } from "@/actions/ProductActions";
 import { Alert } from "react-native";
 import DeviceInfo from "react-native-device-info";
 import LinearGradient from "react-native-linear-gradient";
-import { LoginCommonFunction } from "@/components/LoginCommonFunction";
 
 export function Profile() {
   const dispatch = useDispatch();
@@ -176,7 +180,7 @@ export function Profile() {
   const navigationHandler = (item) => {
     if (item?.navigation) {
       if (item.title == strings.profile.jbrWallet) {
-        LoginCommonFunction(
+        LoginCommonKyc(
           dispatch,
           user,
           user?.user?.payload?.token,
@@ -184,7 +188,7 @@ export function Profile() {
           NAVIGATION.jbrWallet
         );
       } else if (item.title == strings.profile.paymentMethods) {
-        LoginCommonFunction(
+        LoginCommonKyc(
           dispatch,
           user,
           user?.user?.payload?.token,
@@ -340,12 +344,14 @@ export function Profile() {
           </>
         )}
 
+        <Spacer space={SH(10)} />
+
         <Text style={styles.subName}>
           {Platform.OS === "ios"
             ? `V ${ProdChecker}(${buildVersion})`
-            : `V 1.0(1)`}
+            : `Version 1.0(1)`}
         </Text>
-        <Spacer space={SH(20)} />
+        <Spacer space={SH(30)} />
       </ScrollView>
     </ScreenWrapper>
   );

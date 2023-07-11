@@ -161,8 +161,8 @@ export const styles = StyleSheet.create({
     borderRadius: SW(10),
   },
   favIcon: {
-    height: SH(20),
-    width: SW(20),
+    height: SH(18),
+    width: SW(18),
   },
   sellerStyle: {
     backgroundColor: COLORS.white,
@@ -172,5 +172,22 @@ export const styles = StyleSheet.create({
     borderRadius: SW(10),
     paddingVertical: SH(15),
     ...ShadowStyles.shadow2,
+  },
+  organizationNameText: {
+    color: COLORS.darkGrey,
+    fontFamily: Fonts.Bold,
+    fontSize: SF(18),
+    left: SW(3),
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+  },
+  favView: {
+    right: 0,
+    position: "absolute",
+    paddingHorizontal: SW(10),
+    top: SH(55),
   },
 });

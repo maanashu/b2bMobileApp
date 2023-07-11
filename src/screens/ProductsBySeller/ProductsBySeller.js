@@ -1,4 +1,10 @@
-import { Text, View, FlatList, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+  BackHandler,
+} from "react-native";
 import React, { useEffect } from "react";
 import { styles } from "./ProductsBySeller.styles";
 import { Header, ScreenWrapper, Spacer } from "@/components";
@@ -26,6 +32,20 @@ export function ProductsBySeller(params) {
 
   const brand_id = params?.route?.params?.brand_id;
   const category_id = params?.route?.params?.category_id;
+
+  const { navigation } = params;
+  useEffect(() => {
+    const handleBackButton = () => {
+      navigation.navigate(NAVIGATION.brandsSellers);
+      return true;
+    };
+
+    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
+
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+    };
+  }, [navigation]);
   useEffect(() => {
     const productObject = {
       page: 1,
@@ -153,7 +173,12 @@ export function ProductsBySeller(params) {
 
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <Header title={"Products"} back={backArrow} enableBackButton />
+      <Header
+        title={"Products"}
+        back={backArrow}
+        enableBackButton
+        backNavi={() => navigate(NAVIGATION.brandsSellers)}
+      />
 
       <View style={{ paddingHorizontal: SW(20), flex: 1, marginTop: SH(20) }}>
         <FlatList

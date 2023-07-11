@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Image,
   ActivityIndicator,
+  BackHandler,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { styles } from "./BrandsSellers.styles";
@@ -72,6 +73,19 @@ export function BrandsSellers(params) {
 
     dispatch(getSellers(sellersObject));
   }, [brandsData]);
+  const { navigation } = params;
+  useEffect(() => {
+    const handleBackButton = () => {
+      navigation.navigate(NAVIGATION.subCategories);
+      return true;
+    };
+
+    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
+
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+    };
+  }, [navigation]);
 
   const sellersGet = (item) => {
     setSelectedId(item.id);
@@ -86,7 +100,7 @@ export function BrandsSellers(params) {
   const isLoadingBrands = useSelector((state) =>
     isLoadingSelector([TYPES.GET_BRANDS], state)
   );
-  const isLoadingProducts = useSelector((state) =>
+  const isLoadingSellers = useSelector((state) =>
     isLoadingSelector([TYPE.GET_SELLERS], state)
   );
 
@@ -154,20 +168,6 @@ export function BrandsSellers(params) {
             })
           }
         >
-          <View style={{ alignItems: "flex-end" }}>
-            <TouchableOpacity onPress={() => colorChange(item)}>
-              <Image
-                source={isMatched ? heartFilled : heartBlank}
-                style={[
-                  styles.favIcon,
-                  {
-                    tintColor: isMatched ? "#C70A0A" : "black",
-                  },
-                ]}
-                resizeMode="contain"
-              />
-            </TouchableOpacity>
-          </View>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <FastImage
               source={{ uri: item?.user_profiles?.profile_photo }}
@@ -176,14 +176,7 @@ export function BrandsSellers(params) {
             />
             <Spacer horizontal space={SW(15)} />
             <View>
-              <Text
-                style={{
-                  color: COLORS.darkGrey,
-                  fontFamily: Fonts.Bold,
-                  fontSize: SF(18),
-                  left: SW(3),
-                }}
-              >
+              <Text style={styles.organizationNameText}>
                 {item?.user_profiles?.organization_name}
               </Text>
               <View style={styles.rowAlign}>
@@ -220,6 +213,21 @@ export function BrandsSellers(params) {
               </View>
             </View>
           </View>
+          <TouchableOpacity
+            onPress={() => colorChange(item)}
+            style={styles.favView}
+          >
+            <Image
+              source={isMatched ? heartFilled : heartBlank}
+              style={[
+                styles.favIcon,
+                {
+                  tintColor: isMatched ? "#C70A0A" : "black",
+                },
+              ]}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
         </TouchableOpacity>
         <Spacer space={SH(15)} />
       </>
@@ -227,7 +235,12 @@ export function BrandsSellers(params) {
   };
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <Header title={"Sellers"} back={backArrow} enableBackButton />
+      <Header
+        title={"Sellers"}
+        back={backArrow}
+        enableBackButton
+        backNavi={() => navigate(NAVIGATION.subCategories)}
+      />
 
       <View style={styles.upperView}>
         <Spacer space={SH(10)} />
@@ -250,7 +263,7 @@ export function BrandsSellers(params) {
       <Spacer space={SH(10)} />
 
       <View style={{ flex: 1 }}>
-        {isLoadingProducts ? (
+        {isLoadingSellers ? (
           <Loader message="Loading Sellers ..." />
         ) : (
           <FlatList

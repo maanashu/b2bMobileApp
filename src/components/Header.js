@@ -25,13 +25,18 @@ export function Header({
   onFilterPress,
   isFilterIconRequired,
   enableBackButton,
+  backNavi,
   isSearcgIconRequired,
 }) {
   const navigation = useNavigation();
   const goBack = () => {
     if (enableBackButton) {
+      if (backNavi) {
+        backNavi();
+      } else {
+        navigation.goBack();
+      }
       // Handle back button functionality
-      navigation.goBack();
     }
   };
   return (

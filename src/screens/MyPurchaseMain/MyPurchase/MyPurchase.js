@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { ScrollView, View, Text } from "react-native";
+import { ScrollView, View, Text, BackHandler } from "react-native";
 import { Cancelled } from "../Cancelled/Cancelled";
 import { Refund } from "../Refund/Refund";
 import { Processing } from "../Processing/Processing";
@@ -12,18 +12,30 @@ import { strings } from "@/localization";
 import { COLORS, SH, SW } from "@/theme";
 import { Completed } from "../Completed/Completed";
 import { goBack } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
 
 const Tab = createMaterialTopTabNavigator();
 
 const ScrollableTabBar = (props) => {
   const { state, navigation } = props;
+  useEffect(() => {
+    const handleBackButton = () => {
+      navigation.navigate(NAVIGATION.home);
 
+      return true;
+    };
+
+    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
+
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+    };
+  }, [navigation]);
   return (
     <ScrollView
       horizontal={true}
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{}}
       style={{ flexGrow: 0.01 }}
     >
       <View
@@ -83,101 +95,16 @@ export function MyPurchase() {
   return (
     <>
       <ScreenWrapper>
-        <NameHeaderCoins
-          backRequired
-          title={strings.myPurchase.myPurchase}
-          onPress={() => goBack()}
-        />
-        <Spacer space={SH(20)} />
+        <NameHeaderCoins backRequired title={strings.myPurchase.myPurchase} />
+        <Spacer space={SH(5)} />
         <Search
           placeholder={strings.business.searchHere}
           styling={{ fontFamily: Fonts.Regular }}
         />
-        <Spacer space={SH(5)} />
 
-        <Tab.Navigator
-          // tabBarItemStyle={{ width: 100, backgroundColor: "red" }}
-          tabBar={(props) => <ScrollableTabBar {...props} />}
-
-          // screenOptions={{
-          //   tabBarScrollEnabled: true,
-          //   tabBarActiveTintColor: COLORS.primary,
-          //   tabBarInactiveTintColor: COLORS.darkGrey,
-
-          //   tabBarItemStyle: {
-          //     borderRadius: SW(20),
-          //     paddingVertical: SH(5),
-          //     marginBottom: SH(10),
-          //     backgroundColor: "red",
-          //     paddingHorizontal: 5,
-          //     marginHorizontal: 15,
-          //   },
-          //   tabBarLabelStyle: {
-          //     color: "green",
-
-          //   },
-          //   tabBarStyle: { paddingHorizontal: SW(10) },
-          //   tabBarIndicatorStyle: { height: 0 },
-          //   tabBarPressColor: "transparent",
-          //   swipeEnabled: false,
-
-          //   // tabBarStyle: {
-          //   //   width: 600,
-          //   //   backgroundColor: "red",
-          //   // },
-          // }}
-        >
-          <Tab.Screen
-            name="Pending"
-            component={Pending}
-            // options={{
-            //   headerShown: false,
-            //   tabBarLabel: ({ focused, color, size }) => (
-            //     // <View
-            //     //   style={{
-            //     //     backgroundColor: focused
-            //     //       ? COLORS.primary
-            //     //       : COLORS.placeHolder,
-            //     //     borderRadius: 20,
-            //     //     alignItems: "center",
-            //     //     justifyContent: "center",
-            //     //   }}
-            //     // >
-            //     <Text
-            //       style={{
-            //         color: focused ? COLORS.white : COLORS.darkGrey,
-            //         fontFamily: Fonts.Regular,
-            //         paddingHorizontal: SW(15),
-            //         paddingVertical: SH(7),
-            //       }}
-            //     >
-            //       {"Pending"}
-            //     </Text>
-            //     // </View>
-            //   ),
-            // }}
-          />
-          <Tab.Screen
-            name="Processing"
-            component={Processing}
-            // options={{
-            //   headerShown: false,
-            //   tabBarLabel: ({ focused, color, size }) => (
-            //     <Text
-            //       style={{
-            //         color: focused ? COLORS.white : COLORS.darkGrey,
-            //         fontFamily: Fonts.Regular,
-            //         width: SW(100),
-            //         paddingVertical: SH(7),
-            //         alignSelf: "center",
-            //         marginLeft: SW(20),
-            //       }}
-            //     >
-            //       {"Processing"}
-            //     </Text>
-            //   ),
-            // }}
-          />
+        <Tab.Navigator tabBar={(props) => <ScrollableTabBar {...props} />}>
+          <Tab.Screen name="Pending" component={Pending} />
+          <Tab.Screen name="Processing" component={Processing} />
           <Tab.Screen name="Completed" component={Completed} />
           <Tab.Screen name="Refund" component={Refund} />
           <Tab.Screen name="Cancelled" component={Cancelled} />

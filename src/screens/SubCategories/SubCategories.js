@@ -1,4 +1,11 @@
-import { Text, View, FlatList, TouchableOpacity, Image } from "react-native";
+import {
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+  Image,
+  BackHandler,
+} from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { styles } from "./SubCategories.styles";
 import { Header, ScreenWrapper, Spacer } from "@/components";
@@ -57,7 +64,19 @@ export function SubCategories(params) {
     dispatch(getBrands(1));
     onScrollToSelectItem(getIndex);
   }, []);
+  const { navigation } = params;
+  useEffect(() => {
+    const handleBackButton = () => {
+      navigation.navigate(NAVIGATION.home);
+      return true;
+    };
 
+    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
+
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+    };
+  }, [navigation]);
   useEffect(() => {
     dispatch(getSubCategory(subcategoryObject));
     setSelectedId(
@@ -186,7 +205,12 @@ export function SubCategories(params) {
 
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <Header title={"Categories"} back={backArrow} enableBackButton />
+      <Header
+        title={"Categories"}
+        back={backArrow}
+        enableBackButton
+        backNavi={() => navigate(NAVIGATION.home)}
+      />
       <View style={styles.upperView}>
         <Spacer space={SH(10)} />
 

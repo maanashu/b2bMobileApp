@@ -19,3 +19,5 @@ export { Header } from "@/components/Header";
 export { PurchaseView } from "@/components/PurchaseView";
 export { CustomPaginationWithoutText } from "@/components/CustomPaginationWithoutText";
 export { Biometrics } from "@/components/Biometrics";
+export { LoginCommonKyc } from "@/components/LoginCommonKyc";
+export { LoginCommon } from "@/components/LoginCommon";

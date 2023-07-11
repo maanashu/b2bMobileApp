@@ -10,9 +10,10 @@ import { ShadowStyles } from "@/theme";
 
 export function NameHeader({ title, back, backNavi }) {
   const handleBackPress = () => {
-    goBack();
     if (backNavi) {
       backNavi();
+    } else {
+      goBack();
     }
   };
   return (

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import {
+  BackHandler,
   Dimensions,
   FlatList,
   Image,
@@ -66,6 +67,8 @@ import {
 import { previousScreen } from "@/actions/GlobalActions";
 
 export function ProductInquiry(params) {
+  const { navigation } = params;
+
   const dispatch = useDispatch();
   const user = useSelector(getUser);
   const token = user?.user?.payload?.token;
@@ -79,6 +82,20 @@ export function ProductInquiry(params) {
   //   "ingredients",
   //   JSON.stringify(ProductDetail?.productDetail?.product_detail?.ingredients)
   // );
+  useEffect(() => {
+    const handleBackButton = () => {
+      navigation.navigate(NAVIGATION.productsBySeller);
+
+      return true;
+    };
+
+    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
+
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+    };
+  }, [navigation]);
+
   const object = {
     service_type: "product",
   };
@@ -99,22 +116,57 @@ export function ProductInquiry(params) {
   }, []);
 
   const handleChat = () => {
-    dispatch(
-      getMessages({
+    if (user?.user?.payload?.token) {
+      dispatch(
+        getMessages({
+          seller_id:
+            ProductDetail?.productDetail?.product_detail?.supplies?.[0]
+              ?.seller_id,
+        })
+      );
+      navigate(NAVIGATION.chatting, {
         seller_id:
           ProductDetail?.productDetail?.product_detail?.supplies?.[0]
             ?.seller_id,
-      })
-    );
-    navigate(NAVIGATION.chatting, {
-      seller_id:
-        ProductDetail?.productDetail?.product_detail?.supplies?.[0]?.seller_id,
-      screenName: "productInquiry",
-    });
+        screenName: "productInquiry",
+      });
+    } else {
+      dispatch(previousScreen(NAVIGATION.productInquiry));
+      navigate(NAVIGATION.splash);
+    }
   };
 
   const colorChange = () => {
-    dispatch(productFavourites(productData));
+    if (user?.user?.payload?.token) {
+      dispatch(productFavourites(productData));
+    } else {
+      dispatch(previousScreen(NAVIGATION.productInquiry));
+      navigate(NAVIGATION.splash);
+    }
+  };
+  const handleSendInquiry = () => {
+    if (user?.user?.payload?.token) {
+      navigate(NAVIGATION.sendInquiry);
+    } else {
+      dispatch(previousScreen(NAVIGATION.productInquiry));
+      navigate(NAVIGATION.splash);
+    }
+  };
+  const handleAddToBag = () => {
+    if (user?.user?.payload?.token) {
+      // navigate(NAVIGATION.sendInquiry);
+    } else {
+      dispatch(previousScreen(NAVIGATION.productInquiry));
+      navigate(NAVIGATION.splash);
+    }
+  };
+  const handleBuyNow = () => {
+    if (user?.user?.payload?.token) {
+      // navigate(NAVIGATION.sendInquiry);
+    } else {
+      dispatch(previousScreen(NAVIGATION.productInquiry));
+      navigate(NAVIGATION.splash);
+    }
   };
 
   useEffect(() => {
@@ -261,7 +313,7 @@ export function ProductInquiry(params) {
   );
   return (
     <ScreenWrapper>
-      <Header back={backArrow} bell={bellGrey} bag={bagGrey} />
+      <Header backRequired bell={bellGrey} bag={bagGrey} />
       <Spacer space={SH(10)} />
 
       <ScrollView showsVerticalScrollIndicator={false} style={{}}>
@@ -345,9 +397,7 @@ export function ProductInquiry(params) {
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => {
-                  navigate(NAVIGATION.sendInquiry);
-                }}
+                onPress={handleSendInquiry}
                 style={styles.buttons}
               >
                 <Image
@@ -396,7 +446,10 @@ export function ProductInquiry(params) {
             <Spacer space={SH(12)} />
 
             <View style={styles.midView}>
-              <TouchableOpacity style={styles.addToBagIcon}>
+              <TouchableOpacity
+                style={styles.addToBagIcon}
+                onPress={handleAddToBag}
+              >
                 <Image
                   resizeMode="contain"
                   source={bagWhite}
@@ -406,7 +459,10 @@ export function ProductInquiry(params) {
                   {strings.productInquiry.addToBag}
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.buyNowIcon}>
+              <TouchableOpacity
+                style={styles.buyNowIcon}
+                onPress={handleBuyNow}
+              >
                 <Image
                   resizeMode="contain"
                   source={bagWhite}
@@ -682,6 +738,7 @@ export function ProductInquiry(params) {
                   startingValue={
                     ProductDetail?.productDetail?.product_rating?.rating
                   }
+                  ratingBorderStyle="transparent"
                   // onFinishRating={(rating) => setOrderRating(rating)}
                 />
 

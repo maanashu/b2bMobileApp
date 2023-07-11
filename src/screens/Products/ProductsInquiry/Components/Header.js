@@ -4,22 +4,24 @@ import { styles } from "../ProductInquiry.styles";
 import { goBack } from "@/navigation/NavigationRef";
 import { backArrow, bellGrey, bagGrey } from "@/assets";
 
-export function Header({ back, bell, bag, onPress }) {
+export function Header({ backRequired, bell, bag, onPress }) {
   return (
     <View style={styles.header}>
       <View style={styles.headerInnerView}>
-        <TouchableOpacity
-          style={{ flexDirection: "row", alignItems: "center" }}
-          onPress={() => {
-            goBack();
-          }}
-        >
-          <Image
-            resizeMode="contain"
-            source={back}
-            style={{ height: 30, width: 30 }}
-          />
-        </TouchableOpacity>
+        {backRequired && (
+          <TouchableOpacity
+            style={{ flexDirection: "row", alignItems: "center" }}
+            onPress={() => {
+              goBack();
+            }}
+          >
+            <Image
+              resizeMode="contain"
+              source={backArrow}
+              style={{ height: 30, width: 30 }}
+            />
+          </TouchableOpacity>
+        )}
       </View>
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity>

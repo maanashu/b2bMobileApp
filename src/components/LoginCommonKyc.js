@@ -2,14 +2,14 @@ import { previousScreen } from "@/actions/GlobalActions";
 import { NAVIGATION } from "@/constants";
 import { navigate } from "@/navigation/NavigationRef";
 
-export const LoginCommonFunction = (
+export function LoginCommonKyc(
   dispatch,
   user,
   token,
   savedScreen,
   dynamicScreen,
   ProductDetail
-) => {
+) {
   switch (true) {
     case !!token:
       switch (user?.getUserProfile?.user_profiles?.wallet_steps) {
@@ -53,4 +53,4 @@ export const LoginCommonFunction = (
       navigate(NAVIGATION.splash);
       break;
   }
-};
+}
