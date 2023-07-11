@@ -40,14 +40,14 @@ export function Verify(params) {
       Toast.show({
         position: "bottom",
         type: "error_toast",
-        text2: "strings.validation.enterOtp",
+        text2: strings.validation.enterOtp,
       });
       return;
     } else if (value && value.length < 5) {
       Toast.show({
         position: "bottom",
         type: "error_toast",
-        text2: "strings.validation.invalidOtp",
+        text2: strings.validation.invalidOtp,
       });
     } else {
       dispatch(verifyOtp(id, value));

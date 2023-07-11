@@ -7,17 +7,17 @@ import {
   BackHandler,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Header,
-  NameHeader,
-  ScreenWrapper,
-  Spacer,
-} from "@/components";
+import { Button, NameHeader, ScreenWrapper, Spacer } from "@/components";
 import { styles } from "./Register.styles";
-import { backArrow, calendar } from "@/assets";
+import {
+  calendar,
+  email_chat,
+  lock_light,
+  phoneCall,
+  userIcon,
+} from "@/assets";
 import { strings } from "@/localization";
-import { COLORS, SH } from "@/theme";
+import { COLORS, SH, SW } from "@/theme";
 import moment from "moment";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -101,8 +101,8 @@ export function Register() {
     dob: dateformat,
     pin: pin,
     confirmPin: confirmPin,
-    code: countryCode,
-    phone: phoneNumber?.trim(),
+    code: user?.phone?.countryCode,
+    phone: user?.phone?.phoneNumber?.trim(),
   };
   const handleRegister = async () => {
     const token = await AsyncStorage.getItem("token");
@@ -199,60 +199,95 @@ export function Register() {
       <KeyboardAwareScrollView>
         <View style={styles.mainContainer}>
           <Text style={styles.headingBoldText}>{"Username"}</Text>
-          <TextInput
-            autoCapitalize="none"
-            returnKeyType="done"
-            onChangeText={setusername}
-            placeholder={strings.personalInformation.userName}
-            placeholderTextColor={COLORS.secondary}
-            style={styles.textFieldStyle}
-          />
+          <View style={styles.IconTextFieldStyleView}>
+            <Image
+              source={userIcon}
+              resizeMode="contain"
+              style={styles.textFieldIcon}
+            />
+            <TextInput
+              autoCapitalize="none"
+              returnKeyType="done"
+              onChangeText={setusername}
+              placeholder={strings.personalInformation.userName}
+              placeholderTextColor={COLORS.secondary}
+              style={styles.IconTextFieldStyle}
+            />
+          </View>
 
           <Spacer space={SH(15)} />
 
           <Text style={styles.headingBoldText}>{"First Name"}</Text>
 
-          <TextInput
-            autoCapitalize="none"
-            returnKeyType="done"
-            onChangeText={setfirstname}
-            placeholder={strings.personalInformation.firstName}
-            placeholderTextColor={COLORS.secondary}
-            style={styles.textFieldStyle}
-          />
+          <View style={styles.IconTextFieldStyleView}>
+            <Image
+              source={userIcon}
+              resizeMode="contain"
+              style={styles.textFieldIcon}
+            />
+            <TextInput
+              autoCapitalize="none"
+              returnKeyType="done"
+              onChangeText={setfirstname}
+              placeholder={strings.personalInformation.firstName}
+              placeholderTextColor={COLORS.secondary}
+              style={styles.IconTextFieldStyle}
+            />
+          </View>
 
           <Spacer space={SH(15)} />
 
           <Text style={styles.headingBoldText}>{"Last Name"}</Text>
 
-          <TextInput
-            autoCapitalize="none"
-            returnKeyType="done"
-            onChangeText={setlastname}
-            placeholder={strings.personalInformation.lastName}
-            placeholderTextColor={COLORS.secondary}
-            style={styles.textFieldStyle}
-          />
+          <View style={styles.IconTextFieldStyleView}>
+            <Image
+              source={userIcon}
+              resizeMode="contain"
+              style={styles.textFieldIcon}
+            />
+            <TextInput
+              autoCapitalize="none"
+              returnKeyType="done"
+              onChangeText={setlastname}
+              placeholder={strings.personalInformation.lastName}
+              placeholderTextColor={COLORS.secondary}
+              style={styles.IconTextFieldStyle}
+            />
+          </View>
 
           <Spacer space={SH(15)} />
 
           <Text style={styles.headingBoldText}>{"Email"}</Text>
 
-          <TextInput
-            autoCapitalize="none"
-            returnKeyType="done"
-            onChangeText={setEmail}
-            placeholder={strings.personalInformation.email}
-            placeholderTextColor={COLORS.secondary}
-            style={styles.textFieldStyle}
-            keyboardType="email-address"
-          />
+          <View style={styles.IconTextFieldStyleView}>
+            <Image
+              source={email_chat}
+              resizeMode="contain"
+              style={[
+                styles.textFieldIcon,
+                { height: SH(22), width: SW(22), marginLeft: SW(2.7) },
+              ]}
+            />
+            <TextInput
+              autoCapitalize="none"
+              returnKeyType="done"
+              onChangeText={setEmail}
+              placeholder={strings.personalInformation.email}
+              placeholderTextColor={COLORS.secondary}
+              style={styles.IconTextFieldStyle}
+              keyboardType="email"
+            />
+          </View>
 
           <Spacer space={SH(15)} />
           <Text style={styles.headingBoldText}>{"Date of Birth"}</Text>
 
           <TouchableOpacity style={styles.input} onPress={() => setShow(true)}>
-            <Image source={calendar} style={styles.calendarImage} />
+            <Image
+              source={calendar}
+              style={styles.calendarImage}
+              resizeMode="contain"
+            />
             <TextInput
               editable={false}
               autoCapitalize="none"
@@ -272,31 +307,51 @@ export function Register() {
 
           <Text style={styles.headingBoldText}>{"Security Pin"}</Text>
 
-          <TextInput
-            autoCapitalize="none"
-            returnKeyType="done"
-            placeholder={strings.personalInformation.enterPin}
-            placeholderTextColor={COLORS.secondary}
-            keyboardType="numeric"
-            onChangeText={setpin}
-            style={styles.textFieldStyle}
-            maxLength={4}
-          />
+          <View style={styles.IconTextFieldStyleView}>
+            <Image
+              source={lock_light}
+              resizeMode="contain"
+              style={[
+                styles.textFieldIcon,
+                { height: SH(22), width: SW(22), marginLeft: SW(2.7) },
+              ]}
+            />
+            <TextInput
+              autoCapitalize="none"
+              returnKeyType="done"
+              placeholder={strings.personalInformation.enterPin}
+              placeholderTextColor={COLORS.secondary}
+              keyboardType="numeric"
+              onChangeText={setpin}
+              style={styles.IconTextFieldStyle}
+              maxLength={4}
+            />
+          </View>
 
           <Spacer space={SH(15)} />
 
           <Text style={styles.headingBoldText}>{"Re-enter Security Pin"}</Text>
 
-          <TextInput
-            autoCapitalize="none"
-            returnKeyType="done"
-            placeholder={strings.personalInformation.reEnterPin}
-            placeholderTextColor={COLORS.secondary}
-            keyboardType="numeric"
-            onChangeText={setconfirmPin}
-            style={styles.textFieldStyle}
-            maxLength={4}
-          />
+          <View style={styles.IconTextFieldStyleView}>
+            <Image
+              source={lock_light}
+              resizeMode="contain"
+              style={[
+                styles.textFieldIcon,
+                { height: SH(22), width: SW(22), marginLeft: SW(2.7) },
+              ]}
+            />
+            <TextInput
+              autoCapitalize="none"
+              returnKeyType="done"
+              placeholder={strings.personalInformation.reEnterPin}
+              placeholderTextColor={COLORS.secondary}
+              keyboardType="numeric"
+              onChangeText={setconfirmPin}
+              style={styles.IconTextFieldStyle}
+              maxLength={4}
+            />
+          </View>
 
           <Spacer space={SH(15)} />
 
@@ -304,10 +359,17 @@ export function Register() {
 
           <View style={[styles.textFieldStyle, { justifyContent: "center" }]}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Image
+                source={phoneCall}
+                resizeMode="contain"
+                style={[
+                  styles.textFieldIcon,
+                  { height: SH(22), width: SW(22), marginLeft: SW(2.7) },
+                ]}
+              />
               <Text style={styles.inputText}>
                 {countryCode}
                 <Text>
-                  {" "}
                   {"  "}
                   {phoneNumber}
                 </Text>
@@ -355,8 +417,8 @@ export function Register() {
             />
           </View>
         </View>
-        {isLoading ? <Loader message="Loading data ..." /> : null}
       </KeyboardAwareScrollView>
+      {isLoading ? <Loader message="Loading data ..." /> : null}
     </ScreenWrapper>
   );
 }

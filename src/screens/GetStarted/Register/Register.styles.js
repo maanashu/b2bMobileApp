@@ -24,9 +24,10 @@ export const styles = StyleSheet.create({
   },
 
   inputText: {
-    fontSize: SF(13),
-    fontFamily: Fonts.Regular,
     color: COLORS.black,
+    marginLeft: SW(10),
+    fontSize: scale(12),
+    fontFamily: Fonts.Italic,
   },
 
   fieldsView: {
@@ -54,15 +55,14 @@ export const styles = StyleSheet.create({
     height: SH(48),
   },
   calendarImage: {
-    width: SW(20),
-    height: SW(20),
-    resizeMode: "contain",
+    width: SH(19),
+    height: SW(19),
   },
   textInputStyles: {
     width: SW(250),
     fontSize: scale(12),
     fontFamily: Fonts.Italic,
-    marginLeft: SW(15),
+    marginLeft: SW(8),
     borderColor: COLORS.placeholder,
     height: SH(48),
   },
@@ -77,6 +77,34 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.Italic,
     height: SH(48),
     color: COLORS.darkGrey,
+  },
+  IconTextFieldStyleView: {
+    borderColor: COLORS.transparent,
+    paddingHorizontal: moderateScale(10),
+    borderRadius: 5,
+    height: SH(48),
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: COLORS.placeholder,
+    marginTop: SH(5),
+  },
+  IconTextFieldStyle: {
+    borderColor: COLORS.transparent,
+    paddingVertical: verticalScale(10),
+    paddingHorizontal: moderateScale(10),
+    borderRadius: 5,
+    height: SH(45),
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: COLORS.placeholder,
+    flex: 1,
+    fontSize: scale(12),
+    fontFamily: Fonts.Italic,
+  },
+  textFieldIcon: {
+    height: SH(25),
+    width: SW(25),
+    tintColor: COLORS.primary,
   },
 
   modalView: {

@@ -4,7 +4,7 @@ export const en = {
     alert: "Alert",
     enterPhone: "Please enter phone number",
     enterCode: "Please enter phone code",
-    enterOtp: "Please enter otp",
+    enterOtp: "Please enter OTP",
     validPhone: "Please enter valid phone number",
     phoneLength: "Phone number must be at least 10 characters long",
     enterUserName: "Please enter username",

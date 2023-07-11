@@ -1,12 +1,7 @@
 import { Text, View, FlatList, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { styles } from "./NewProducts.style";
-import {
-  NameHeaderCoins,
-  ScreenWrapper,
-  Spacer,
-  SubHeader,
-} from "@/components";
+import { ScreenWrapper, Spacer, SubHeader } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import { backArrow, Fonts, image10 } from "@/assets";

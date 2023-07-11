@@ -150,6 +150,21 @@ export class UserController {
           resolve(response);
         })
         .catch((error) => {
+          if (error?.msg == "otp not matched") {
+            Toast.show({
+              text2: "Please enter valid OTP",
+              position: "bottom",
+              type: "error_toast",
+              visibilityTime: 1500,
+            });
+          } else {
+            Toast.show({
+              text2: error.msg,
+              position: "bottom",
+              type: "error_toast",
+              visibilityTime: 1500,
+            });
+          }
           reject(error);
         });
     });
