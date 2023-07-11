@@ -44,7 +44,8 @@ export function FavouriteProducts() {
         showsVerticalScrollIndicator={false}
         style={{ paddingHorizontal: SW(20) }}
       >
-        {Object.entries(favouriteProducts?.getFavouriteProducts)?.length > 0 ? (
+        {favouriteProducts?.getFavouriteProducts &&
+        Object.entries(favouriteProducts?.getFavouriteProducts)?.length > 0 ? (
           favouriteProducts?.getFavouriteProducts?.map((item, index) => (
             <View key={index}>
               <Text style={styles.sectionHeaderName}>{item?.sellerName} </Text>

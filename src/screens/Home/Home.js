@@ -98,7 +98,13 @@ export function Home() {
       }
     });
   };
-
+  const handleCoinPress = () => {
+    if (user?.user?.payload?.token) {
+      navigate(NAVIGATION.jbrWallet);
+    } else {
+      navigate(NAVIGATION.splash);
+    }
+  };
   return (
     <ScreenWrapper>
       <HomeHeader
@@ -109,6 +115,7 @@ export function Home() {
             : navigate(NAVIGATION.selectAddress)
         }
         fullAddress={user?.savedAddress?.custom_address}
+        onCoinPress={handleCoinPress}
       />
       <View style={{ flex: 1 }}>
         <Tab.Navigator

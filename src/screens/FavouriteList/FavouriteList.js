@@ -16,6 +16,8 @@ import { SceneMap, TabBar, TabView } from "react-native-tab-view";
 import { bottomProducts, shopLight } from "@/assets";
 import { FavouriteSellers } from "./FavouriteSellers/FavouriteSellers";
 import { FavouriteProducts } from "./FavouriteProducts/FavouriteProducts";
+import { navigate } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
 
 export function FavouriteList() {
   const dispatch = useDispatch();
@@ -114,7 +116,10 @@ export function FavouriteList() {
   };
   return (
     <ScreenWrapper containerPropStyle={{ backgroundColor: "#F9F9F9" }}>
-      <HeaderCoin amount={"0"} title={strings.profile.favouriteList} />
+      <HeaderCoin
+        title={strings.profile.favouriteList}
+        backNavi={() => navigate(NAVIGATION.home)}
+      />
       <View
         style={{ flex: 1, paddingVertical: SH(5), backgroundColor: "#F9F9F9" }}
       >

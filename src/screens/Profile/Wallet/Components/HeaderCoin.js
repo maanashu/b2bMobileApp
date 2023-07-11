@@ -11,14 +11,14 @@ import { useSelector } from "react-redux";
 import { getWallet } from "@/selectors/WalletSelector";
 import { kFormatter } from "@/Utils/GlobalMethods";
 
-export function HeaderCoin({ title, back, amount }) {
+export function HeaderCoin({ title, back, amount, backNavi }) {
   const wallet = useSelector(getWallet);
   return (
     <View style={styles.header}>
       <View style={styles.headerInnerView}>
         <TouchableOpacity
           style={{ flexDirection: "row", alignItems: "center" }}
-          onPress={() => goBack()}
+          onPress={() => backNavi || goBack()}
         >
           <Image
             resizeMode="contain"

@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "@/actions/UserActions";
 import {
   Button,
+  LoginCommon,
   LoginCommonKyc,
   NameHeaderCoins,
   ScreenWrapper,
@@ -194,6 +195,13 @@ export function Profile() {
           user?.user?.payload?.token,
           NAVIGATION.paymentMethod,
           NAVIGATION.paymentMethod
+        );
+      } else if (item.title == strings.profile.favouriteList) {
+        LoginCommon(
+          dispatch,
+          user?.user?.payload?.token,
+          NAVIGATION.favouriteList,
+          NAVIGATION.favouriteList
         );
       } else {
         navigate(item.navigation);

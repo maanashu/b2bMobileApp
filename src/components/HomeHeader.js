@@ -11,7 +11,12 @@ import { SF, SH, SW } from "@/theme";
 import { getWallet } from "@/selectors/WalletSelector";
 import { kFormatter } from "@/Utils/GlobalMethods";
 
-export function HomeHeader({ onPress, userLocation, fullAddress }) {
+export function HomeHeader({
+  onPress,
+  userLocation,
+  fullAddress,
+  onCoinPress,
+}) {
   const user = useSelector(getUser);
   const cart = useSelector(orderSelector)?.getCart;
   const wallet = useSelector(getWallet);
@@ -70,10 +75,7 @@ export function HomeHeader({ onPress, userLocation, fullAddress }) {
           </TouchableOpacity>
         )}
 
-        <TouchableOpacity
-          style={styles.coinView}
-          onPress={() => navigate(NAVIGATION.jbrWallet)}
-        >
+        <TouchableOpacity style={styles.coinView} onPress={onCoinPress}>
           <Text style={styles.balanceText}>
             {kFormatter(wallet?.getWalletBalance?.sila_balance) || 0}
           </Text>
