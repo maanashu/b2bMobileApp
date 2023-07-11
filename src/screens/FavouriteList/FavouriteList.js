@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, View, useWindowDimensions } from "react-native";
+import { BackHandler, Image, View, useWindowDimensions } from "react-native";
 import { ScreenWrapper } from "@/components";
 import { styles } from "./FavouriteList.styles";
 import { COLORS, SH, SW } from "@/theme";
@@ -19,7 +19,7 @@ import { FavouriteProducts } from "./FavouriteProducts/FavouriteProducts";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 
-export function FavouriteList() {
+export function FavouriteList(params) {
   const dispatch = useDispatch();
 
   const layout = useWindowDimensions();
@@ -70,6 +70,19 @@ export function FavouriteList() {
         break;
     }
   }, [index]);
+  const { navigation } = params;
+  useEffect(() => {
+    const handleBackButton = () => {
+      navigation.navigate(NAVIGATION.home);
+      return true;
+    };
+
+    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
+
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+    };
+  }, [navigation]);
   const renderTabBar = (props) => {
     return (
       <TabBar

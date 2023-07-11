@@ -3,7 +3,7 @@ import React from "react";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { StyleSheet } from "react-native";
-import { ms, vs } from "react-native-size-matters";
+import { ms, s, vs } from "react-native-size-matters";
 import { goBack } from "@/navigation/NavigationRef";
 import { backArrow, coinStack, Fonts } from "@/assets";
 import { ShadowStyles } from "@/theme";
@@ -13,12 +13,19 @@ import { kFormatter } from "@/Utils/GlobalMethods";
 
 export function HeaderCoin({ title, back, amount, backNavi }) {
   const wallet = useSelector(getWallet);
+  const handleBackNavi = () => {
+    if (backNavi) {
+      backNavi();
+    } else {
+      goBack();
+    }
+  };
   return (
     <View style={styles.header}>
       <View style={styles.headerInnerView}>
         <TouchableOpacity
           style={{ flexDirection: "row", alignItems: "center" }}
-          onPress={() => backNavi || goBack()}
+          onPress={handleBackNavi}
         >
           <Image
             resizeMode="contain"
@@ -72,7 +79,7 @@ export const styles = StyleSheet.create({
   headerText: {
     fontFamily: Fonts.SemiBold,
     color: COLORS.black,
-    fontSize: SF(13),
+    fontSize: s(14),
   },
   coinButton: {
     height: SH(29),
