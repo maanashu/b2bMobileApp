@@ -6,7 +6,7 @@ import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
 import { ShadowStyles, SH, SW, TextStyles, COLORS, SF } from "@/theme";
 
 import { TYPES, deviceRegister } from "@/actions/UserActions";
-import { Fonts, faceIdIcon, fingerprintLogin } from "@/assets";
+import { Fonts, faceIconRound, faceIdIcon, fingerprintLogin } from "@/assets";
 import ReactNativeBiometrics, { BiometryTypes } from "react-native-biometrics";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 
@@ -151,7 +151,9 @@ export default function Modals({ children }) {
               <Text style={styles.title}>{"Setup Biometrics"}</Text>
               <Spacer space={SH(40)} />
               <Image
-                source={Platform.OS === "ios" ? faceIdIcon : fingerprintLogin}
+                source={
+                  Platform.OS === "ios" ? faceIconRound : fingerprintLogin
+                }
                 style={styles.bioMetricImage}
               />
 

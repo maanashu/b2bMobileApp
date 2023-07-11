@@ -346,14 +346,7 @@ export function Products({ navigation }) {
                       </Text>
                     </TouchableOpacity>
 
-                    <Image
-                      source={forward}
-                      style={{
-                        height: SH(15),
-                        width: SW(15),
-                        marginTop: SH(3),
-                      }}
-                    />
+                    <Image source={forward} style={styles.forwarIconStyle} />
                   </View>
                 </View>
               </View>

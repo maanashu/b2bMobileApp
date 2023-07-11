@@ -37,7 +37,6 @@ export function NewProducts() {
 
   const ProductsData = useSelector(getProductSelector);
   const Products = ProductsData?.product;
-
   const newValue = {
     name: "All",
   };
@@ -167,9 +166,8 @@ export function NewProducts() {
           <Text style={styles.productSubTitle}> {item.description}</Text>
         </Text>
 
-        <Spacer space={SH(5)} />
         <View style={{ flex: 1, justifyContent: "flex-end" }}>
-          <Text style={styles.productsQuantity}>{`MOQ:10`}</Text>
+          {/* <Text style={styles.productsQuantity}>{`MOQ:10`}</Text> */}
 
           <Spacer space={SH(1)} />
           {user?.user?.payload?.token && (

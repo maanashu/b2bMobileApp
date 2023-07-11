@@ -231,6 +231,7 @@ export { default as toggleOff } from "@/assets/icons/ic_chat/toggleOff.png";
 export { default as toggleOn } from "@/assets/icons/ic_chat/toggleOn.png";
 export { default as marlboroPic } from "@/assets/images/marlboroPic.png";
 export { default as faceIdIcon } from "@/assets/icons/ic_auth/faceId.png";
+export { default as faceIconRound } from "@/assets/icons/ic_auth/faceIconRound.png";
 export { default as downright } from "@/assets/icons/ic_wallet/downright.png";
 export { default as uparrow } from "@/assets/icons/ic_wallet/uparrow.png";
 export { default as downleft } from "@/assets/icons/ic_wallet/downleft.png";

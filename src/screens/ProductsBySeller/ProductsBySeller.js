@@ -27,11 +27,6 @@ export function ProductsBySeller(params) {
 
   const productsData = useSelector(getProductSelector);
   const user = useSelector(getUser);
-  console.log("brand_id", brand_id);
-  console.log("category_id", category_id);
-
-  const brand_id = params?.route?.params?.brand_id;
-  const category_id = params?.route?.params?.category_id;
 
   const { navigation } = params;
   useEffect(() => {
@@ -140,7 +135,9 @@ export function ProductsBySeller(params) {
           <Text style={styles.productSubTitle}> {item.description}</Text>
         </Text>
         <Spacer space={SH(5)} />
-        <Text style={styles.productsQuantity}>{`MOQ:10`}</Text>
+        <Text style={styles.productsQuantity}>
+          {"MOQ: " + item?.supplies?.[0]?.supply_prices?.[0]?.min_qty}
+        </Text>
         <Spacer space={SH(1)} />
         {user?.user?.payload?.token && (
           <Text style={styles.priceText}>

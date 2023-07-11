@@ -209,4 +209,9 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.SemiBold,
     marginLeft: SW(6),
   },
+  forwardIconStyle: {
+    height: SH(15),
+    width: SW(15),
+    marginTop: SH(3),
+  },
 });
