@@ -73,7 +73,7 @@ export function FavouriteList(params) {
   const { navigation } = params;
   useEffect(() => {
     const handleBackButton = () => {
-      navigation.navigate(NAVIGATION.home);
+      navigation.navigate(NAVIGATION.home, { screen: NAVIGATION.profile });
       return true;
     };
 
@@ -131,7 +131,9 @@ export function FavouriteList(params) {
     <ScreenWrapper containerPropStyle={{ backgroundColor: "#F9F9F9" }}>
       <HeaderCoin
         title={strings.profile.favouriteList}
-        backNavi={() => navigate(NAVIGATION.home)}
+        backNavi={() =>
+          navigate(NAVIGATION.home, { screen: NAVIGATION.profile })
+        }
       />
       <View
         style={{ flex: 1, paddingVertical: SH(5), backgroundColor: "#F9F9F9" }}

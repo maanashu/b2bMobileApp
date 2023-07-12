@@ -21,12 +21,14 @@ import { Loader } from "@/components/Loader";
 import { storage } from "@/storage";
 import ReactNativeBiometrics, { BiometryTypes } from "react-native-biometrics";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 const CELL_COUNT = 4;
 
 export function EnterPin(params) {
   const route = params?.route?.params?.route;
   const user = useSelector(getUser);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const [value, setValue] = useState("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [prop, getCellOnLayoutHandler] = useClearByFocusCell({

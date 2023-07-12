@@ -680,7 +680,8 @@ const deviceRegisterError = (error) => ({
 });
 
 export const login =
-  (value, countryCode, phoneNumber, screenName, token) => async (dispatch) => {
+  (value, countryCode, phoneNumber, screenName, token, navigation, skip) =>
+  async (dispatch) => {
     dispatch(loginRequest());
     try {
       const user = await UserController.login(
@@ -688,7 +689,9 @@ export const login =
         countryCode,
         phoneNumber,
         screenName,
-        token
+        token,
+        navigation,
+        skip
       );
       dispatch(loginSuccess(user));
       dispatch(getUserProfile(user?.payload?.uuid));
@@ -735,11 +738,11 @@ export const sendOtp = (phoneNumber, countryCode, flag) => async (dispatch) => {
   }
 };
 
-export const verifyOtp = (id, value) => async (dispatch) => {
+export const verifyOtp = (id, value, navigation) => async (dispatch) => {
   dispatch(verifyOtpRequest());
   try {
     dispatch(saveOtp(value));
-    const res = await UserController.verifyOtp(id, value);
+    const res = await UserController.verifyOtp(id, value, navigation);
     dispatch(verifyOtpSuccess(res));
   } catch (error) {
     dispatch(verifyOtpError(error));
@@ -758,10 +761,10 @@ export const sendEmailOtp = (email) => async (dispatch) => {
     });
 };
 
-export const register = (data, token) => async (dispatch) => {
+export const register = (data, token, navigation) => async (dispatch) => {
   dispatch(registerRequest());
   try {
-    const res = await UserController.register(data, token);
+    const res = await UserController.register(data, token, navigation);
 
     dispatch(registerSuccess(res));
     dispatch(registrationData(data));

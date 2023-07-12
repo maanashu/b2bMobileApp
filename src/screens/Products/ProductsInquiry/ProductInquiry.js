@@ -65,6 +65,7 @@ import {
   productFavourites,
 } from "@/actions/UserActions";
 import { previousScreen } from "@/actions/GlobalActions";
+import moment from "moment";
 
 export function ProductInquiry(params) {
   const { navigation } = params;
@@ -182,7 +183,7 @@ export function ProductInquiry(params) {
       );
       setMatchedIds(idSet);
     }
-  }, [user?.getFavouriteProducts]);
+  }, [user?.getFavouriteProducts, user?.productFavourites]);
   const renderItem = ({ item }) => (
     <TouchableOpacity style={[styles.item, { marginTop: SH(30) }]}>
       <View style={styles.upperButtons}>
@@ -358,7 +359,7 @@ export function ProductInquiry(params) {
                 {ProductDetail?.productDetail?.product_rating?.rating}
               </Text>
               <Text style={[styles.productSubHeading, { color: "white" }]}>
-                {"(500+ ratings)"}
+                {`(${ProductDetail?.productDetail?.product_rating?.review_count} ratings)`}
               </Text>
             </View>
 
@@ -512,6 +513,17 @@ export function ProductInquiry(params) {
                   ", " +
                   ProductDetail?.productDetail?.product_detail?.supplies[0]
                     ?.seller_details?.user_locations[0]?.country
+                }
+                since={
+                  moment(
+                    ProductDetail?.productDetail?.product_detail?.supplies[0]
+                      ?.seller_details?.created_at,
+                    "YYYY"
+                  ).year() || ""
+                }
+                rating={
+                  ProductDetail?.productDetail?.product_detail?.supplies[0]
+                    ?.seller_details?.rating?.rating
                 }
               />
 

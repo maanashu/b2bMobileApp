@@ -30,9 +30,11 @@ import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
 import { emailReg } from "@/Utils/validators";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 
 export function Register() {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const user = useSelector(getUser);
 
   const Defmonth = new Date().getMonth() + 1;
@@ -106,7 +108,7 @@ export function Register() {
   };
   const handleRegister = async () => {
     const token = await AsyncStorage.getItem("token");
-    dispatch(register(data, token));
+    dispatch(register(data, token, navigation));
   };
 
   const submit = () => {
@@ -196,7 +198,7 @@ export function Register() {
   return (
     <ScreenWrapper>
       <NameHeader title={"Register"} />
-      <KeyboardAwareScrollView>
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.mainContainer}>
           <Text style={styles.headingBoldText}>{"Username"}</Text>
           <View style={styles.IconTextFieldStyleView}>
@@ -396,7 +398,7 @@ export function Register() {
             style={styles.textFieldStyle}
           /> */}
 
-          <Spacer space={SH(15)} />
+          <Spacer space={SH(5)} />
 
           <DateTimePickerModal
             isVisible={show}

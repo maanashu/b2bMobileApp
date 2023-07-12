@@ -131,7 +131,7 @@ export class UserController {
         });
     });
   }
-  static async verifyOtp(id, value, key) {
+  static async verifyOtp(id, value, navigation) {
     return new Promise((resolve, reject) => {
       const endpoint = USER_URL + ApiUserInventory.verifyPhone;
 
@@ -143,8 +143,10 @@ export class UserController {
         .then((response) => {
           if (response.status_code === 200) {
             resolve(response);
-
-            navigate(NAVIGATION.register);
+            navigation.reset({
+              index: 0,
+              routes: [{ name: NAVIGATION.register }],
+            });
           } else {
           }
           resolve(response);
@@ -170,7 +172,7 @@ export class UserController {
     });
   }
 
-  static async register(data, token) {
+  static async register(data, token, navigation) {
     return new Promise(async (resolve, reject) => {
       const endpoint = USER_URL + ApiUserInventory.userRegister;
       const body = {
@@ -191,7 +193,10 @@ export class UserController {
       })
         .then((response) => {
           if (response?.status_code === 201) {
-            navigate(NAVIGATION.personalInformation);
+            navigation.reset({
+              index: 0,
+              routes: [{ name: NAVIGATION.personalInformation }],
+            });
             resolve(response);
           } else {
             Toast.show({

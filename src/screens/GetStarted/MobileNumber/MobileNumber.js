@@ -129,7 +129,7 @@ export function MobileNumber(props) {
       </KeyboardAwareScrollView>
       <Spacer space={SH(30)} />
 
-      {isLoading ? <Loader message="Verifying Mobile No. ..." /> : null}
+      {isLoading ? <Loader message="Loading..." /> : null}
     </ScreenWrapper>
   );
 }

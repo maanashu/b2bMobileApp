@@ -77,7 +77,7 @@ export function JbrWallet(params) {
   const { navigation } = params;
   useEffect(() => {
     const handleBackButton = () => {
-      navigation.navigate(NAVIGATION.home);
+      navigation.navigate(NAVIGATION.home, { screen: NAVIGATION.profile });
       return true;
     };
 

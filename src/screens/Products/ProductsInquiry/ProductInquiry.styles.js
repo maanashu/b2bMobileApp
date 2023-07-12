@@ -175,6 +175,7 @@ export const styles = StyleSheet.create({
     fontSize: SF(10),
     fontFamily: Fonts.Regular,
     alignSelf: "flex-start",
+    top: SH(0.5),
   },
   yewistar: {
     height: SH(10),

@@ -290,7 +290,7 @@ export const getTransactions = (data) => async (dispatch) => {
     const res = await WalletController.getTransactions(data);
     dispatch(getTransactionsSuccess(res));
   } catch (error) {
-    if (error?.payload?.status_code === 404) {
+    if (error?.payload?.status_code === 404 || error?.statusCode === 204) {
       dispatch(getTransactionsReset());
     } else {
       dispatch(getTransactionsError(error.message));
@@ -377,10 +377,10 @@ export const rejectMoney = (data, status) => async (dispatch) => {
   }
 };
 
-export const createWallet = (data) => async (dispatch) => {
+export const createWallet = (data, navigation) => async (dispatch) => {
   dispatch(createWalletRequest());
   try {
-    const res = await WalletController.createWallet(data);
+    const res = await WalletController.createWallet(data, navigation);
     dispatch(createWalletSuccess(res));
   } catch (error) {
     dispatch(createWalletError(error.message));

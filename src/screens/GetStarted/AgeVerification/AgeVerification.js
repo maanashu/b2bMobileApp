@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import {
   View,
   Text,
@@ -19,6 +19,7 @@ import {
   documentsUpload,
   getDocumentTypes,
   businessDocumentUpload,
+  getPlaidToken,
 } from "@/actions/KycActions";
 import { backArrow, conIdentity, cornerBorder, dummyIdCard } from "@/assets";
 import { SH, COLORS } from "@/theme";
@@ -26,7 +27,13 @@ import { TYPES } from "@/Types/Types";
 import { strings } from "@/localization";
 import { getWalletUserProfile } from "@/actions/UserActions";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
-import { Spacer, ScreenWrapper, Header, Button } from "@/components";
+import {
+  Spacer,
+  ScreenWrapper,
+  Header,
+  Button,
+  NameHeader,
+} from "@/components";
 
 import { styles } from "@/screens/GetStarted/AgeVerification/AgeVerification.styles";
 import { getKyc } from "@/selectors/KycSelector";
@@ -39,6 +46,7 @@ import { Loader } from "@/components/Loader";
 import { getWallet } from "@/selectors/WalletSelector";
 
 export function AgeVerification(props) {
+  const { navigation } = props;
   const frontRef = useRef(null);
   const backRef = useRef(null);
   const focus = useIsFocused();
@@ -52,7 +60,6 @@ export function AgeVerification(props) {
   const [open, setOpen] = useState(false);
   const [cardImage, setCardImage] = useState("");
   const [conformCard, setConfromCard] = useState("");
-  const [identityData, setIdentityData] = useState([]);
   const [finalBackPhoto, setFinalBackPhoto] = useState("");
   const [filterDropDown, setFilterDropDown] = useState("");
   const [finalFrontPhoto, setFinalFrontPhoto] = useState("");
@@ -68,11 +75,27 @@ export function AgeVerification(props) {
         const arr = [];
         getKycData?.docType.map((item, index) => {
           arr.push({ key: index, label: item.label, value: item.name });
-          setIdentityData(arr);
+          // setIdentityData(arr);
         });
       }
     }
   }, [open]);
+  const documentNames = ["id_drivers_license", "id_passport", "doc_ssa"];
+
+  const filteredDocuments = getKycData?.docType.filter((document) =>
+    documentNames.includes(document.name)
+  );
+
+  const identityData = useMemo(
+    () =>
+      filteredDocuments?.map((item, index) => ({
+        key: index,
+        label: item?.label,
+        value: item?.name,
+      })),
+    [filteredDocuments]
+  );
+
   useEffect(() => {
     dispatch(getDocumentTypes());
   }, []);
@@ -183,9 +206,16 @@ export function AgeVerification(props) {
           .then((res) => {
             dispatch(getWalletUserProfile(uuid)).then((res) => {
               if (walletData?.walletData?.payload?.type === "business") {
-                navigate(NAVIGATION.businessRegistration);
+                navigation.reset({
+                  index: 0,
+                  routes: [{ name: NAVIGATION.businessRegistration }],
+                });
               } else {
-                navigate(NAVIGATION.connectBank);
+                dispatch(getPlaidToken());
+                navigation.reset({
+                  index: 0,
+                  routes: [{ name: NAVIGATION.connectBank }],
+                });
               }
             });
           })
@@ -197,8 +227,8 @@ export function AgeVerification(props) {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.DOCUMENTS_UPLOAD], state)
   );
-  const isLoadingWallet = useSelector((state) =>
-    isLoadingSelector([TYPES.GET_WALLET_USER], state)
+  const isLoadingDocTypes = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_DOCUMENT_TYPES], state)
   );
 
   const openPickerFrontHandler = (index) => {
@@ -265,10 +295,9 @@ export function AgeVerification(props) {
 
   return (
     <ScreenWrapper>
-      <Header title={strings.ageVerification.headerTitle} enableBackButton />
+      <NameHeader title={strings.ageVerification.headerTitle} />
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Spacer space={SH(20)} />
         <View style={styles.bodyContainer}>
           <TouchableOpacity>
             <Text style={styles.header}>
@@ -309,6 +338,12 @@ export function AgeVerification(props) {
               selectedItemLabelStyle={styles.selectedItemStyle}
               placeholder={strings.ageVerification.chooseIdentity}
               dropDownContainerStyle={styles.dropDownContainerStyle}
+              listMode={"SCROLLVIEW"}
+              scrollViewProps={{
+                nestedScrollEnabled: true,
+                scrollEnabled: true,
+                showsVerticalScrollIndicator: false,
+              }}
             />
           </View>
 
@@ -445,7 +480,8 @@ export function AgeVerification(props) {
           onPress={(index) => openPickerBackHandler(index)}
         />
       </ScrollView>
-      {isLoading && <Loader />}
+      {/* {isLoading && <Loader />} */}
+      {/* {isLoadingDocTypes && <Loader />} */}
     </ScreenWrapper>
   );
 }

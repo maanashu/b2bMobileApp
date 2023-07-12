@@ -23,7 +23,7 @@ import { backArrow, blueChecked } from "@/assets";
 import { COLORS, SH, SW } from "@/theme";
 import { NAVIGATION } from "@/constants";
 import { strings } from "@/localization";
-import { Button, Spacer } from "@/components";
+import { Button, NameHeader, Spacer } from "@/components";
 import { getUser } from "@/selectors/UserSelectors";
 import { navigate } from "@/navigation/NavigationRef";
 
@@ -50,6 +50,9 @@ export function ConnectBank(props) {
 
   const isLoginLoading = useSelector((state) =>
     isLoadingSelector([TYPE.LOGIN], state)
+  );
+  const isLoadingPlaidToken = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_PLAID_TOKEN], state)
   );
 
   const getPlaidTokenHandler = () => dispatch(getPlaidToken());
@@ -196,9 +199,10 @@ export function ConnectBank(props) {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
+      <NameHeader title={strings.bank.header} />
       {param === "bankList" ? (
         <View style={styles.innerContainer}>
-          {customHeader()}
+          {/* {customHeader()} */}
 
           <Spacer space={SH(20)} />
           {getKycData?.bankAccounts?.length > 0 ? (
@@ -228,53 +232,54 @@ export function ConnectBank(props) {
           ) : null}
         </View>
       ) : (
-        <View style={styles.innerContainer}>
-          {customHeader()}
-
-          {getKycData?.bankAccounts?.length > 0 ? (
-            <FlatList
-              data={getKycData?.bankAccounts}
-              renderItem={renderItem}
-              ListHeaderComponent={renderHeaderItem}
-              contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
-            />
-          ) : (
-            <View style={styles.uploadedView}>
-              <Image source={blueChecked} />
-              <Text style={styles.uploadedText}>{strings.bank.uploaded}</Text>
-            </View>
-          )}
-
-          {isLoading ? (
-            <View
-              style={[styles.loader, { backgroundColor: "rgba(0,0,0,0.5)" }]}
-            >
-              <ActivityIndicator
-                size={"large"}
-                animating={isLoading}
-                style={styles.loader}
-                color={COLORS.primary}
+        <>
+          <View style={styles.innerContainer}>
+            {getKycData?.bankAccounts?.length > 0 ? (
+              <FlatList
+                data={getKycData?.bankAccounts}
+                renderItem={renderItem}
+                ListHeaderComponent={renderHeaderItem}
+                contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
               />
-            </View>
-          ) : null}
+            ) : (
+              <View style={styles.uploadedView}>
+                <Image source={blueChecked} />
+                <Text style={styles.uploadedText}>{strings.bank.uploaded}</Text>
+              </View>
+            )}
 
-          <View style={{ flex: 1 }} />
+            {isLoading ? (
+              <View
+                style={[styles.loader, { backgroundColor: "rgba(0,0,0,0.5)" }]}
+              >
+                <ActivityIndicator
+                  size={"large"}
+                  animating={isLoading}
+                  style={styles.loader}
+                  color={COLORS.primary}
+                />
+              </View>
+            ) : null}
 
-          {ChangeButtonView()}
+            <View style={{ flex: 1 }} />
 
-          {getKycData?.bankAccounts?.length > 0 ? (
-            <View style={{ marginHorizontal: SW(10) }}>
-              <Button
-                pending={isLoading}
-                onPress={loginHandler}
-                title={strings.kyc.continue}
-                style={{ alignSelf: "center", height: SH(55) }}
-              />
-            </View>
-          ) : null}
-        </View>
+            {ChangeButtonView()}
+
+            {getKycData?.bankAccounts?.length > 0 ? (
+              <View style={{ marginHorizontal: SW(10) }}>
+                <Button
+                  pending={isLoading}
+                  onPress={loginHandler}
+                  title={strings.kyc.continue}
+                  style={{ alignSelf: "center", height: SH(55) }}
+                />
+              </View>
+            ) : null}
+          </View>
+        </>
       )}
       {isLoginLoading && <Loader message="Loging in..." />}
+      {isLoadingPlaidToken && <Loader message="Loading..." />}
     </SafeAreaView>
   );
 }

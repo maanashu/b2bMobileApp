@@ -75,6 +75,7 @@ export function Products({ navigation }) {
       need_trending: "true",
     };
     dispatch(getSellers(sellersObject));
+    getAllProducts();
   }, [isFocused]);
 
   useEffect(() => {
@@ -346,7 +347,7 @@ export function Products({ navigation }) {
                       </Text>
                     </TouchableOpacity>
 
-                    <Image source={forward} style={styles.forwarIconStyle} />
+                    <Image source={forward} style={styles.forwardIcon} />
                   </View>
                 </View>
               </View>

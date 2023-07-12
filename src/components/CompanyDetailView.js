@@ -10,6 +10,7 @@ export function CompanyDetailView({
   locationText,
   country,
   rating,
+  since,
 }) {
   return (
     <View style={styles.yewiInnerView}>
@@ -29,9 +30,10 @@ export function CompanyDetailView({
               style={styles.yewiIcons}
             />
             <Text
+              numberOfLines={1}
               style={[
                 styles.yewiSmallText,
-                { maxWidth: SW(90), maxHeight: SH(15) },
+                { maxWidth: SW(85), maxHeight: SH(15) },
               ]}
             >
               {" "}
@@ -53,7 +55,9 @@ export function CompanyDetailView({
               resizeMode="contain"
               style={styles.yewiClock}
             />
-            <Text style={styles.yewiSmallText}> Since 2023</Text>
+            <Text style={styles.yewiSmallText}>
+              {since ? ` Since ${since}` : "Since 2023"}
+            </Text>
           </View>
         </View>
       </View>

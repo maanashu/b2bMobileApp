@@ -35,7 +35,7 @@ export function PaymentMethod(params) {
   const { navigation } = params;
   useEffect(() => {
     const handleBackButton = () => {
-      navigation.navigate(NAVIGATION.home);
+      navigate(NAVIGATION.home, { screen: NAVIGATION.profile });
       return true;
     };
 
@@ -135,7 +135,9 @@ export function PaymentMethod(params) {
       <NameHeader
         title={"Your Bank Accounts"}
         back
-        backNavi={() => navigation.navigate(NAVIGATION.home)}
+        backNavi={() =>
+          navigation.navigate(NAVIGATION.home, { screen: NAVIGATION.profile })
+        }
       />
 
       <Spacer space={SH(10)} />

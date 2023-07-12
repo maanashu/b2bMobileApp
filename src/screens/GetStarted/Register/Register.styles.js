@@ -8,7 +8,8 @@ const windowWidth = Dimensions.get("window").width;
 export const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: COLORS.white,
-    padding: SW(20),
+    paddingHorizontal: SW(20),
+    paddingVertical: SW(10),
   },
   headingBoldText: {
     color: COLORS.darkGrey2,

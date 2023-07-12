@@ -313,9 +313,9 @@ export function AppBottom() {
   useEffect(() => {}, [isFocused]);
   return (
     <Stack.Navigator
-      initialRouteName={
-        user?.isStatus === true ? NAVIGATION.biometricsScreen : NAVIGATION.home
-      }
+    // initialRouteName={
+    //   user?.isStatus === true ? NAVIGATION.biometricsScreen : NAVIGATION.home
+    // }
     >
       <Stack.Screen
         name={NAVIGATION.home}

@@ -363,8 +363,6 @@ export function Business() {
         <Spacer space={SH(10)} />
         {categoryData?.serviceCategoryList?.data?.length > 0 ? (
           <View style={{ paddingHorizontal: SW(16) }}>
-            <Spacer space={SH(18)} />
-
             {/* Categories Below */}
 
             {isLoading ? (
@@ -393,7 +391,7 @@ export function Business() {
           </View>
         )}
 
-        <Spacer space={SH(20)} />
+        <Spacer space={SH(10)} />
 
         {/* Get samples below */}
 
@@ -425,7 +423,7 @@ export function Business() {
           </View>
         </View>
 
-        <Spacer space={SH(30)} />
+        <Spacer space={SH(10)} />
 
         {/* Top-ranking Manufacturers below */}
         <View style={styles.paddingView}>
@@ -463,7 +461,7 @@ export function Business() {
           </View>
         </View>
 
-        <Spacer space={SH(30)} />
+        <Spacer space={SH(10)} />
 
         {/* Recommended wholesalers below */}
 
@@ -495,7 +493,7 @@ export function Business() {
           </View>
         </ScrollView>
 
-        <Spacer space={SH(20)} />
+        <Spacer space={SH(10)} />
 
         {/* Top Category manufacturers below */}
 

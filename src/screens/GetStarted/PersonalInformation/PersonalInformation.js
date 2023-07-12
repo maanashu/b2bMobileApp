@@ -38,12 +38,13 @@ import { digits, emailReg } from "@/Utils/validators";
 import { createWallet } from "@/actions/WalletActions";
 import { Loader } from "@/components/Loader";
 import { navigate } from "@/navigation/NavigationRef";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import RBSheet from "react-native-raw-bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function PersonalInformation(params) {
   const isFocused = useIsFocused();
+  const navigation = useNavigation();
   const ref = useRef(null);
   const refRBSheet = useRef();
   const dispatch = useDispatch();
@@ -271,7 +272,7 @@ export function PersonalInformation(params) {
         latitude: latitude,
         longitude: longitude,
       };
-      dispatch(createWallet(data));
+      dispatch(createWallet(data, navigation));
       // refRBSheet.current.open();
     }
   };

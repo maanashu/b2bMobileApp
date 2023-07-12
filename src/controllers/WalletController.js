@@ -15,7 +15,7 @@ export class WalletController {
     });
   }
 
-  static async createWallet(data) {
+  static async createWallet(data, navigation) {
     return new Promise(async (resolve, reject) => {
       const endpoint = ApiWalletInventory.createUser;
       const body = {
@@ -40,10 +40,15 @@ export class WalletController {
         .then((response) => {
           resolve(response);
           if (response?.msg === "wallet created successfully") {
-            navigate(NAVIGATION.checkAndRequestKYC);
+            navigation.reset({
+              index: 0,
+              routes: [{ name: NAVIGATION.checkAndRequestKYC }],
+            });
           } else {
-            navigate(NAVIGATION.checkAndRequestKYC);
-
+            navigation.reset({
+              index: 0,
+              routes: [{ name: NAVIGATION.checkAndRequestKYC }],
+            });
             Toast.show({
               text2: response.msg,
               position: "bottom",

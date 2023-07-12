@@ -42,6 +42,7 @@ export const styles = StyleSheet.create({
     color: COLORS.light_grey,
     fontFamily: Fonts.Regular,
     paddingLeft: SW(2),
+    textAlign: "center",
   },
   yiwuPriceText: {
     fontSize: SF(14),
@@ -213,5 +214,9 @@ export const styles = StyleSheet.create({
     height: SH(15),
     width: SW(15),
     marginTop: SH(3),
+  },
+  forwarIconStyle: {
+    height: SH(15),
+    width: SH(15),
   },
 });

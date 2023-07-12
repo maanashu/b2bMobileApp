@@ -19,11 +19,13 @@ import { TYPES } from "@/Types/Types";
 import { sendOtp, verifyOtp } from "@/actions/UserActions";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { Loader } from "@/components/Loader";
+import { useNavigation } from "@react-navigation/native";
 
 const CELL_COUNT = 5;
 
 export function Verify(params) {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const user = useSelector(getUser);
 
   const id = params?.route?.params?.id;
@@ -50,7 +52,7 @@ export function Verify(params) {
         text2: strings.validation.invalidOtp,
       });
     } else {
-      dispatch(verifyOtp(id, value));
+      dispatch(verifyOtp(id, value, navigation));
     }
   };
 

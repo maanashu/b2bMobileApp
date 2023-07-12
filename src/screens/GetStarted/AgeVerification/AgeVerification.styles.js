@@ -26,7 +26,8 @@ export const styles = StyleSheet.create({
   },
   bodyContainer: {
     height: windowHeight * 0.92,
-    padding: SW(20),
+    paddingHorizontal: SW(20),
+    paddingVertical: SH(10),
   },
   smallDarkText: {
     fontSize: SF(14),
@@ -81,7 +82,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   containerStyle: {
-    height: SH(30),
+    height: SH(45),
     borderWidth: 1,
     borderRadius: 7,
     justifyContent: "center",
@@ -93,7 +94,7 @@ export const styles = StyleSheet.create({
     height: SW(12),
   },
   dropDownContainerStyle: {
-    top: 30,
+    top: SH(50),
     elevation: 2,
     borderWidth: 0,
     borderRadius: 7,
