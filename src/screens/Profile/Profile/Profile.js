@@ -146,7 +146,7 @@ export function Profile() {
     },
     {
       id: 9,
-      icon: bank,
+      icon: jobrWallet,
       title: strings.profile.paymentMethods,
       openIcon: forward,
       navigation: NAVIGATION.paymentMethod,
@@ -256,6 +256,7 @@ export function Profile() {
         {token && (
           <>
             <TouchableOpacity
+              activeOpacity={1}
               onPress={() => navigate(NAVIGATION.userInformation)}
               style={styles.userView}
             >
