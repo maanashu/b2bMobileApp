@@ -141,7 +141,7 @@ export const en = {
     searchingPreference: "Searching Preference",
     shippingAddress: "Shipping Address",
     jbrWallet: "JBR Wallet",
-    paymentMethods: "Payment Methods",
+    paymentMethods: "Your Bank Accounts",
     businessCard: "Business Cards",
     myCatalogs: "My Catalogs",
     helpCenter: "Help Center",

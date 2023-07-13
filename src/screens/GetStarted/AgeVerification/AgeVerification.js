@@ -50,6 +50,7 @@ export function AgeVerification(props) {
   const frontRef = useRef(null);
   const backRef = useRef(null);
   const focus = useIsFocused();
+  const walletData = useSelector(getWallet);
   const dispatch = useDispatch();
   const getUser = useSelector(getuser);
   const getKycData = useSelector(getKyc);
@@ -67,23 +68,31 @@ export function AgeVerification(props) {
   const [secondImageLoadStart, setSecondImageLoadStart] = useState(false);
 
   useEffect(() => {
+    dispatch(getDocumentTypes());
+  }, []);
+
+  useEffect(() => {
     if (focus) {
       dispatch(getWalletUserProfile(getUser?.userProfile?.unique_uuid));
       dispatch(getDocumentTypes());
 
-      if (getKycData?.docType?.length > 0) {
-        const arr = [];
-        getKycData?.docType.map((item, index) => {
-          arr.push({ key: index, label: item.label, value: item.name });
-          // setIdentityData(arr);
-        });
-      }
+      // if (getKycData?.docType?.length > 0) {
+      //   const arr = [];
+      //   getKycData?.docType.map((item, index) => {
+      //     arr.push({ key: index, label: item.label, value: item.name });
+      //     // setIdentityData(arr);
+      //   });
+      // }
     }
   }, [open]);
   const documentNames = ["id_drivers_license", "id_passport", "doc_ssa"];
 
-  const filteredDocuments = getKycData?.docType.filter((document) =>
-    documentNames.includes(document.name)
+  const filteredDocuments = useMemo(
+    () =>
+      getKycData?.docType?.filter((document) =>
+        documentNames?.includes(document?.name)
+      ),
+    [getKycData]
   );
 
   const identityData = useMemo(
@@ -95,12 +104,6 @@ export function AgeVerification(props) {
       })),
     [filteredDocuments]
   );
-
-  useEffect(() => {
-    dispatch(getDocumentTypes());
-  }, []);
-
-  const walletData = useSelector(getWallet);
 
   const uploadFrontDocument = async (image) => {
     const formData = new FormData();
@@ -321,30 +324,32 @@ export function AgeVerification(props) {
 
           <Spacer space={SH(15)} />
           <View style={styles.flexRowContainer}>
-            <DropDownPicker
-              open={open}
-              setOpen={setOpen}
-              items={identityData}
-              showTickIcon={false}
-              value={filterDropDown}
-              style={styles.dropdown}
-              setValue={setFilterDropDown}
-              labelStyle={styles.listItemStyle}
-              arrowIconStyle={styles.arrowIconStyle}
-              containerStyle={styles.containerStyle}
-              listItemLabelStyle={styles.listItemStyle}
-              placeholderStyle={styles.placeholderTextStyle}
-              keyExtractor={(item, index) => index.toString()}
-              selectedItemLabelStyle={styles.selectedItemStyle}
-              placeholder={strings.ageVerification.chooseIdentity}
-              dropDownContainerStyle={styles.dropDownContainerStyle}
-              listMode={"SCROLLVIEW"}
-              scrollViewProps={{
-                nestedScrollEnabled: true,
-                scrollEnabled: true,
-                showsVerticalScrollIndicator: false,
-              }}
-            />
+            {Array.isArray(identityData) && identityData?.length > 0 && (
+              <DropDownPicker
+                open={open}
+                setOpen={setOpen}
+                items={identityData}
+                showTickIcon={false}
+                value={filterDropDown}
+                style={styles.dropdown}
+                setValue={setFilterDropDown}
+                labelStyle={styles.listItemStyle}
+                arrowIconStyle={styles.arrowIconStyle}
+                containerStyle={styles.containerStyle}
+                listItemLabelStyle={styles.listItemStyle}
+                placeholderStyle={styles.placeholderTextStyle}
+                keyExtractor={(item, index) => index.toString()}
+                selectedItemLabelStyle={styles.selectedItemStyle}
+                placeholder={strings.ageVerification.chooseIdentity}
+                dropDownContainerStyle={styles.dropDownContainerStyle}
+                listMode={"SCROLLVIEW"}
+                scrollViewProps={{
+                  nestedScrollEnabled: true,
+                  scrollEnabled: true,
+                  showsVerticalScrollIndicator: false,
+                }}
+              />
+            )}
           </View>
 
           <Spacer space={SH(20)} backgroundColor={COLORS.transparent} />

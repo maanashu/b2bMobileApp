@@ -378,9 +378,11 @@ export const linkBankAccount = (token) => async (dispatch) => {
   dispatch(linkBankAccountRequest());
   try {
     const res = await KycController.linkBankAccount(token);
-    return dispatch(linkBankAccountSuccess(res));
+    dispatch(linkBankAccountSuccess(res));
+    return;
   } catch (error) {
     dispatch(linkBankAccountError(error.message));
+    throw error;
   }
 };
 

@@ -225,7 +225,7 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.Regular,
   },
   verifyCheck: {
-    height: SH(22),
-    width: SH(22),
+    height: SH(20),
+    width: SH(20),
   },
 });

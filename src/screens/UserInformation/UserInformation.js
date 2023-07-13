@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef } from "react";
+import React, { useRef } from "react";
 import {
   Text,
   View,
@@ -12,14 +12,13 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   TYPES,
   editProfile,
-  getUserProfile,
   sendEmailOtp,
   uploadProfileImage,
 } from "@/actions/UserActions";
 import { Button, ScreenWrapper, Spacer, TextField } from "@/components";
 import { strings } from "@/localization";
 import { styles } from "./UserInformation.styles";
-import { COLORS, SH, SW, ShadowStyles } from "@/theme";
+import { COLORS, SH, SW } from "@/theme";
 import {
   backArrow,
   camera,
@@ -33,7 +32,6 @@ import {
   pencil,
   rightArrowThin,
   crossBlack,
-  roundCheck,
   verifiedCheck,
 } from "@/assets";
 import { ms, vs } from "react-native-size-matters";
@@ -46,7 +44,6 @@ import { CompanyInfo } from "./Components.js/FlatlistData";
 import { getUser } from "@/selectors/UserSelectors";
 import { Loader } from "@/components/Loader";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
-import BottomSheet from "@gorhom/bottom-sheet";
 import RBSheet from "react-native-raw-bottom-sheet";
 import {
   CodeField,
@@ -54,7 +51,6 @@ import {
   useClearByFocusCell,
 } from "react-native-confirmation-code-field";
 import { characterReg } from "@/Utils/validators";
-import { width } from "deprecated-react-native-prop-types/DeprecatedImagePropType";
 
 export function UserInformation() {
   const user = useSelector(getUser);
@@ -233,6 +229,7 @@ export function UserInformation() {
             <Image
               source={{ uri: profile_photo }}
               style={styles.userImageStyle}
+              resizeMode="stretch"
             />
             <TouchableOpacity
               style={styles.editProfileView}
@@ -350,8 +347,12 @@ export function UserInformation() {
                   true && (
                   <Image
                     source={verifiedCheck}
+                    style={{
+                      height: SH(19),
+                      width: SH(19),
+                      marginRight: SW(-4),
+                    }}
                     resizeMode="contain"
-                    style={{ height: SH(20), marginRight: SW(20) }}
                   />
                 )}
               </View>

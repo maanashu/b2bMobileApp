@@ -21,11 +21,12 @@ import {
 } from "@/components";
 import { strings } from "@/localization";
 import { styles } from "./Profile.styles";
-import { SH, SW } from "@/theme";
+import { COLORS, SH, SW } from "@/theme";
 import { getUser } from "@/selectors/UserSelectors";
 import { useSelector } from "react-redux";
 
 import {
+  bank,
   businessCard,
   catalogue,
   discount,
@@ -52,6 +53,7 @@ import { getCoupons } from "@/actions/ProductActions";
 import { Alert } from "react-native";
 import DeviceInfo from "react-native-device-info";
 import LinearGradient from "react-native-linear-gradient";
+import FastImage from "react-native-fast-image";
 
 export function Profile() {
   const dispatch = useDispatch();
@@ -144,7 +146,7 @@ export function Profile() {
     },
     {
       id: 9,
-      icon: jobrWallet,
+      icon: bank,
       title: strings.profile.paymentMethods,
       openIcon: forward,
       navigation: NAVIGATION.paymentMethod,
@@ -264,11 +266,18 @@ export function Profile() {
                   end={{ x: 1, y: 1 }}
                   style={styles.linearBorderStyle}
                 >
-                  <Image
-                    source={{ uri: profile_photo }}
-                    resizeMode="contain"
-                    style={styles.profilePhotoStyle}
-                  />
+                  <View
+                    style={{
+                      backgroundColor: COLORS.white,
+                      borderRadius: SW(40),
+                    }}
+                  >
+                    <FastImage
+                      source={{ uri: profile_photo }}
+                      resizeMode="contain"
+                      style={styles.profilePhotoStyle}
+                    />
+                  </View>
                 </LinearGradient>
               ) : (
                 <LinearGradient
@@ -277,11 +286,18 @@ export function Profile() {
                   end={{ x: 1, y: 1 }}
                   style={styles.linearBorderStyle}
                 >
-                  <Image
-                    source={userIcon}
-                    resizeMode="contain"
-                    style={styles.userIconStyle}
-                  />
+                  <View
+                    style={{
+                      backgroundColor: COLORS.white,
+                      borderRadius: SW(40),
+                    }}
+                  >
+                    <Image
+                      source={userIcon}
+                      resizeMode="contain"
+                      style={styles.userIconStyle}
+                    />
+                  </View>
                 </LinearGradient>
               )}
 
