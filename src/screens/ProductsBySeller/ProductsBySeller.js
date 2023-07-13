@@ -47,10 +47,16 @@ export function ProductsBySeller(params) {
       limit: 20,
       delivery_options: 4,
       app_name: "b2b",
-      seller_id: params?.route?.params?.sellerId,
+      seller_id:
+        params?.route?.params?.sellerId ||
+        productsData?.savedProductParams?.sellerId,
       service_type: "product",
-      brand_id: params?.route?.params?.brand_id,
-      sub_category_ids: params?.route?.params?.category_id,
+      brand_id:
+        params?.route?.params?.brand_id ||
+        productsData?.savedProductParams?.brand_id,
+      sub_category_ids:
+        params?.route?.params?.category_id ||
+        productsData?.savedProductParams?.brand_id,
     };
 
     dispatch(getProduct(productObject));

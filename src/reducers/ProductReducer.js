@@ -10,6 +10,7 @@ const INITIALSTATE = {
   categoryWithProducts: [],
   savedManufacturerDetail: {},
   getProductsSellersList: {},
+  savedProductParams: {},
 };
 export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
   switch (type) {
@@ -94,6 +95,16 @@ export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         getProductsSellersList: {},
+      };
+    case TYPES.SAVED_PRODUCT_PARAMS_SUCCESS:
+      return {
+        ...state,
+        savedProductParams: payload?.savedProductParams,
+      };
+    case TYPES.SAVED_PRODUCT_PARAMS_RESET:
+      return {
+        ...state,
+        savedProductParams: {},
       };
 
     default:

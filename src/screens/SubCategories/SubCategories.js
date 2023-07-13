@@ -33,7 +33,7 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Loader } from "@/components/Loader";
-import { getProduct } from "@/actions/ProductActions";
+import { getProduct, saveParamsForProducts } from "@/actions/ProductActions";
 
 export function SubCategories(params) {
   const listRef = useRef();
@@ -147,11 +147,12 @@ export function SubCategories(params) {
   const renderSubcategoryItem = ({ item, index }) => (
     <TouchableOpacity
       style={styles.rowCard}
-      onPress={() =>
+      onPress={() => {
+        dispatch(saveParamsForProducts({ category_id: item?.id }));
         navigate(NAVIGATION.brandsSellers, {
           categoryId: item?.id,
-        })
-      }
+        });
+      }}
     >
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <View style={styles.row}>

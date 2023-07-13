@@ -36,6 +36,8 @@ import { getUser } from "@/selectors/UserSelectors";
 import { getSellers, sellerFavourites } from "@/actions/UserActions";
 import { ShadowStyles } from "@/theme";
 import { TYPES as TYPE } from "@/actions/UserActions";
+import { getProductSelector } from "@/selectors/ProductSelectors";
+import { saveParamsForProducts } from "@/actions/ProductActions";
 
 export function BrandsSellers(params) {
   const dispatch = useDispatch();
@@ -45,6 +47,8 @@ export function BrandsSellers(params) {
 
   const brandsData = useSelector(getCategorySelector);
   const user = useSelector(getUser);
+  const product = useSelector(getProductSelector);
+
   const brandBody = {
     page: 1,
     limit: 10,
@@ -159,14 +163,22 @@ export function BrandsSellers(params) {
       <>
         <TouchableOpacity
           style={styles.sellerStyle}
-          onPress={() =>
+          onPress={() => {
+            dispatch(
+              saveParamsForProducts({
+                ...product?.savedProductParams,
+                sellerId: item?.unique_uuid,
+                idSeller: item?.id,
+                brand_id: selectedId,
+              })
+            );
             navigate(NAVIGATION.productsBySeller, {
               sellerId: item?.unique_uuid,
               idSeller: item?.id,
               category_id: params?.route?.params?.categoryId,
               brand_id: selectedId,
-            })
-          }
+            });
+          }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <FastImage

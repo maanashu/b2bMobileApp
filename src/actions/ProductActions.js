@@ -166,6 +166,14 @@ export const saveManufacturerDetail = (savedManufacturerDetail) => ({
   type: TYPES.SAVED_MANUFACTURER_DETAIL_SUCCESS,
   payload: { savedManufacturerDetail },
 });
+export const saveParamsForProducts = (savedProductParams) => ({
+  type: TYPES.SAVED_PRODUCT_PARAMS_SUCCESS,
+  payload: { savedProductParams },
+});
+export const resetParamsForProducts = () => ({
+  type: TYPES.SAVED_PRODUCT_PARAMS_RESET,
+  payload: null,
+});
 
 export const getProduct = (data) => async (dispatch) => {
   dispatch(getProductRequest());

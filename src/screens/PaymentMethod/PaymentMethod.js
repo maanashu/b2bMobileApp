@@ -41,7 +41,6 @@ export function PaymentMethod(params) {
   const kyc = useSelector(getKyc);
   const user = useSelector(getUser);
   var plaid = kyc?.plaidToken ?? [];
-
   useEffect(() => {
     if (!kyc?.plaidToken) {
       dispatch(getPlaidToken());
@@ -53,7 +52,6 @@ export function PaymentMethod(params) {
   const [balance, setBalance] = useState();
   const [refreshing, setRefreshing] = useState(false);
 
-  const bankBalance = wallet?.bankBalance;
   const isCheckingBalance = useSelector((state) =>
     isLoadingSelector([TYPES.CHECK_BALANCE], state)
   );
@@ -224,39 +222,33 @@ export function PaymentMethod(params) {
       <Spacer space={SH(10)} />
 
       <View style={styles.mainView}>
-        <ScrollView
-          style={{ height: SH(100) }}
-          showsVerticalScrollIndicator={false}
+        <View style={styles.InnerbalanceView}>
+          <Text style={styles.balanceText}>
+            {strings.paymentMethod.availableBalance}
+          </Text>
+
+          <View style={styles.coinView}>
+            <Text style={styles.coinText}>
+              {kFormatter(wallet?.getWalletBalance?.sila_balance) || 0}
+            </Text>
+            <Image
+              resizeMode="contain"
+              source={coinStack}
+              style={styles.coinStackIcon}
+            />
+          </View>
+        </View>
+        <Spacer space={SH(20)} />
+
+        <FlatList
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
-        >
-          <View style={styles.InnerbalanceView}>
-            <Text style={styles.balanceText}>
-              {strings.paymentMethod.availableBalance}
-            </Text>
-
-            <View style={styles.coinView}>
-              <Text style={styles.coinText}>
-                {kFormatter(wallet?.getWalletBalance?.sila_balance) || 0}
-              </Text>
-              <Image
-                resizeMode="contain"
-                source={coinStack}
-                style={styles.coinStackIcon}
-              />
-            </View>
-          </View>
-        </ScrollView>
-
-        <Spacer space={SH(10)} />
-        <FlatList
           showsVerticalScrollIndicator={false}
           data={kyc?.bankAccounts}
           extraData={kyc?.bankAccounts}
           renderItem={renderBanks}
         />
-
         <View style={styles.buttonView}>{ChangeButtonView()}</View>
       </View>
     </ScreenWrapper>
