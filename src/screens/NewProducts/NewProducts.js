@@ -21,6 +21,7 @@ import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
 import { getUser } from "@/selectors/UserSelectors";
 import { getSellers } from "@/actions/UserActions";
+
 export function NewProducts() {
   const [selectedId, setSelectedId] = useState(0);
 
@@ -129,55 +130,71 @@ export function NewProducts() {
     </>
   );
 
-  const listDetail = ({ item, index }) => (
-    <>
-      <TouchableOpacity
-        onPress={() => handleNavigation(item?.id)}
-        style={[
-          styles.ShoesStyle,
-          {
-            paddingVertical: index % 2 === 0 ? SH(10) : SH(10),
-            marginTop: index === 1 ? SH(40) : index === 0 ? SH(0) : SH(10),
-            bottom: index % 2 === 0 ? SH(10) : SH(50),
-          },
-        ]}
-      >
-        <Spacer space={SH(10)} />
-        <View style={{ alignItems: "center" }}>
-          <FastImage
-            source={item.image == undefined ? image10 : { uri: item.image }}
-            resizeMode="cover"
-            style={{
-              width: SW(153),
-              height: index === 0 ? SH(180) : SH(150),
-              borderRadius: SW(5),
-            }}
-          />
-        </View>
-        <Spacer space={SH(5)} />
+  const listDetail = ({ item, index }) => {
+    const htmlText = item?.description;
+    const regex = /<p>(.*?)<\/p>/; // Regex pattern to match the content within <p> tags
 
-        <Text numberOfLines={2} style={styles.productsTitle}>
-          {item.name}
-          <Text style={styles.productSubTitle}> {item.description}</Text>
-        </Text>
+    const matches = htmlText?.match(regex); // Find matches using the regex pattern
 
-        <View style={{ flex: 1, justifyContent: "flex-end" }}>
-          {/* <Text style={styles.productsQuantity}>{`MOQ:10`}</Text> */}
+    let extractedText = "";
+    if (matches && matches.length > 1) {
+      extractedText = matches[1]; // Extracted text is stored in the second element of the matches array
+    }
 
-          <Spacer space={SH(1)} />
-          {user?.user?.payload?.token && (
-            <Text style={styles.priceText}>
-              {"$ " + item.price} /
-              <Text style={{ fontFamily: Fonts.Regular, fontSize: SF(14) }}>
-                {" Carton"}
+    return (
+      <>
+        <TouchableOpacity
+          onPress={() => handleNavigation(item?.id)}
+          style={[
+            styles.ShoesStyle,
+            {
+              paddingVertical: index % 2 === 0 ? SH(10) : SH(10),
+              marginTop: index === 1 ? SH(40) : index === 0 ? SH(0) : SH(10),
+              bottom: index % 2 === 0 ? SH(10) : SH(50),
+            },
+          ]}
+        >
+          <Spacer space={SH(10)} />
+          <View style={{ alignItems: "center" }}>
+            <FastImage
+              source={item.image == undefined ? image10 : { uri: item.image }}
+              resizeMode="cover"
+              style={{
+                width: SW(153),
+                height: index === 0 ? SH(180) : SH(150),
+                borderRadius: SW(5),
+              }}
+            />
+          </View>
+          <Spacer space={SH(5)} />
+
+          <Text numberOfLines={2} style={styles.productsTitle}>
+            {item.name}
+            {item.description?.match(regex) ? (
+              <Text>{" " + extractedText}</Text>
+            ) : (
+              <Text style={styles.productSubTitle}> {item.description}</Text>
+            )}
+          </Text>
+
+          <View style={{ flex: 1, justifyContent: "flex-end" }}>
+            {/* <Text style={styles.productsQuantity}>{`MOQ:10`}</Text> */}
+
+            <Spacer space={SH(1)} />
+            {user?.user?.payload?.token && (
+              <Text style={styles.priceText}>
+                {"$ " + item.price} /
+                <Text style={{ fontFamily: Fonts.Regular, fontSize: SF(14) }}>
+                  {" Carton"}
+                </Text>
+                {/* <Text style={styles.categoryText}> {item.product_type.name}</Text> */}
               </Text>
-              {/* <Text style={styles.categoryText}> {item.product_type.name}</Text> */}
-            </Text>
-          )}
-        </View>
-      </TouchableOpacity>
-    </>
-  );
+            )}
+          </View>
+        </TouchableOpacity>
+      </>
+    );
+  };
 
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
@@ -188,24 +205,10 @@ export function NewProducts() {
         isFilterIconRequired
         isSearcgIconRequired
       />
-
-      <View style={styles.upperView}>
-        <SubHeader
-          title={strings.newProducts.newProducts}
-          subTitle={strings.newProducts.subText}
-        />
-
-        <Spacer space={SH(10)} />
-        <View style={{ flexDirection: "row" }}>
-          <FlatList
-            showsHorizontalScrollIndicator={false}
-            horizontal
-            data={splicedArray}
-            renderItem={renderCategory}
-            keyExtractor={(item) => item.id}
-          />
-        </View>
-      </View>
+      <SubHeader
+        title={strings.newProducts.newProducts}
+        subTitle={strings.newProducts.subText}
+      />
 
       <View
         style={{ paddingHorizontal: SW(20), flex: 1, paddingVertical: SH(15) }}
@@ -220,6 +223,18 @@ export function NewProducts() {
           numColumns={2}
         />
         {isLoadingProducts ? <Loader message="Loading data ..." /> : null}
+      </View>
+      <View style={styles.upperView}>
+        <Spacer space={SH(10)} />
+        <View style={{ flexDirection: "row" }}>
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            data={splicedArray}
+            renderItem={renderCategory}
+            keyExtractor={(item) => item.id}
+          />
+        </View>
       </View>
     </ScreenWrapper>
   );

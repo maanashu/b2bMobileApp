@@ -1,27 +1,22 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { View, FlatList, Text } from "react-native";
-import { PurchaseView, ScreenWrapper, Spacer } from "@/components";
+import { PurchaseView, ScreenWrapper } from "@/components";
 import { SF, SH, SW } from "@/theme";
-import { Fonts, Shoes2, womenShoes, yewiLogo } from "@/assets";
+import { Fonts } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
-import {
-  getOrderDetails,
-  getOrderList,
-  getOrderListReset,
-} from "@/actions/OrderAction";
+import { getOrderDetails } from "@/actions/OrderAction";
 import { orderSelector } from "@/selectors/OrderSelector";
 import moment from "moment";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
-import { useIsFocused } from "@react-navigation/native";
+import { styles } from "@/components/NameHeader";
 
 export function NewOrders() {
   const dispatch = useDispatch();
-  const user = useSelector(getUser);
   const order = useSelector(orderSelector);
 
   const isLoading = useSelector((state) =>
@@ -50,13 +45,7 @@ export function NewOrders() {
 
   return (
     <ScreenWrapper>
-      <View
-        style={{
-          paddingHorizontal: SW(20),
-          width: "100%",
-          flex: 1,
-        }}
-      >
+      <View style={styles.mainContainer}>
         <FlatList
           data={order?.getAllOrdersList}
           extraData={order?.getAllOrdersList}

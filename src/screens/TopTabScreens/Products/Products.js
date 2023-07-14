@@ -51,13 +51,13 @@ export function Products({ navigation }) {
   const listRef = useRef();
   const dispatch = useDispatch();
   const user = useSelector(getUser);
+  const isFocused = useIsFocused();
   const categoryData = useSelector(getCategorySelector);
   const BannerData = useSelector(getBannerSelector);
   const ProductsData = useSelector(getProductSelector);
   const [selectedId, setSelectedId] = useState("");
   const [searchedKeyword, setSearchedKeyword] = useState("");
 
-  const isFocused = useIsFocused();
   const categoryObject = {
     page: 1,
     limit: 10,
@@ -177,7 +177,7 @@ export function Products({ navigation }) {
     );
   };
 
-  const secondItem = ({ item, onPress, index }) => (
+  const NewProducts = ({ item, onPress, index }) => (
     <>
       {index <= 2 && (
         <View style={styles.itemS}>
@@ -193,7 +193,7 @@ export function Products({ navigation }) {
     </>
   );
 
-  const thirdItem = ({ item, onPress }) => (
+  const SellerImages = ({ item, onPress }) => (
     <View style={styles.item}>
       <FastImage source={{ uri: item?.image }} style={styles.thirdView} />
 
@@ -203,7 +203,7 @@ export function Products({ navigation }) {
     </View>
   );
 
-  const listDetail = ({ item, index }) => (
+  const ListProducts = ({ item, index }) => (
     <>
       <TouchableOpacity
         onPress={() => handleNavigation(item?.id)}
@@ -252,14 +252,7 @@ export function Products({ navigation }) {
   );
 
   const renderRecentItem = ({ item, index }) => (
-    <TouchableOpacity
-      style={{
-        width: Dimensions.get("window").width,
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 15,
-      }}
-    >
+    <TouchableOpacity style={styles.recentProductsStyle}>
       <Image
         source={{ uri: item.path }}
         style={styles.storeImg}
@@ -356,7 +349,7 @@ export function Products({ navigation }) {
 
               <FlatList
                 data={ProductsData?.product?.data}
-                renderItem={secondItem}
+                renderItem={NewProducts}
                 keyExtractor={(item) => item?.id}
                 ListEmptyComponent={renderNoData}
                 extraData={ProductsData?.product?.data}
@@ -407,7 +400,7 @@ export function Products({ navigation }) {
 
             <FlatList
               data={user?.getSellersList?.[0]?.user_images}
-              renderItem={thirdItem}
+              renderItem={SellerImages}
               keyExtractor={(item) => item.id}
               ListEmptyComponent={renderNoData}
               numColumns={4}
@@ -420,7 +413,7 @@ export function Products({ navigation }) {
           <FlatList
             data={ProductsData?.trendingList ?? []}
             extraData={ProductsData?.trendingList ?? []}
-            renderItem={listDetail}
+            renderItem={ListProducts}
             keyExtractor={(item) => item.id}
             ListEmptyComponent={renderNoData}
             numColumns={2}

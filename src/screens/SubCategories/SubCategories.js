@@ -212,6 +212,21 @@ export function SubCategories(params) {
         enableBackButton
         backNavi={() => navigate(NAVIGATION.home)}
       />
+
+      <View style={{ paddingHorizontal: SW(5), flex: 1, marginTop: SH(10) }}>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={SUBCATEGORIES?.subCategoryList?.data}
+          renderItem={renderSubcategoryItem}
+          ListEmptyComponent={renderNoData}
+          keyExtractor={(item) => item.id}
+          extraData={SUBCATEGORIES?.subCategoryList?.data}
+          // renderScrollComponent={loadMoreFunction}
+          // onEndReached={loadMoreFunction}
+          // onEndReachedThreshold={0}
+        />
+        {isLoading ? <Loader message="Loading data..." /> : null}
+      </View>
       <View style={styles.upperView}>
         <Spacer space={SH(10)} />
 
@@ -234,22 +249,6 @@ export function SubCategories(params) {
           ref={listRef}
         />
       </View>
-
-      <View style={{ paddingHorizontal: SW(5), flex: 1, marginTop: SH(20) }}>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={SUBCATEGORIES?.subCategoryList?.data}
-          renderItem={renderSubcategoryItem}
-          ListEmptyComponent={renderNoData}
-          keyExtractor={(item) => item.id}
-          extraData={SUBCATEGORIES?.subCategoryList?.data}
-          // renderScrollComponent={loadMoreFunction}
-          // onEndReached={loadMoreFunction}
-          // onEndReachedThreshold={0}
-        />
-        {isLoading ? <Loader message="Loading data..." /> : null}
-      </View>
-
       <Modal
         isVisible={serviceModalisVisible}
         backdropColor="FFFFFF"

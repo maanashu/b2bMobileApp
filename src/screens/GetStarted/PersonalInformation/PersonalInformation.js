@@ -110,19 +110,23 @@ export function PersonalInformation(params) {
   }, []);
 
   const crossHandler = async () => {
-    // dispatch(logout());
-    const fcmtoken = await AsyncStorage.getItem("token");
+    if (getData?.user?.payload?.token) {
+      navigation.replace(getData.screenName);
+    } else {
+      const fcmtoken = await AsyncStorage.getItem("token");
 
-    dispatch(
-      login(
-        getData?.registerData?.pin ||
-          getData?.user?.payload?.user_profiles?.security_pin,
-        getData?.phone?.countryCode,
-        getData?.phone?.phoneNumber,
-        getData?.screenName,
-        fcmtoken
-      )
-    );
+      dispatch(
+        login(
+          getData?.registerData?.pin ||
+            getData?.user?.payload?.user_profiles?.security_pin,
+          getData?.phone?.countryCode,
+          getData?.phone?.phoneNumber,
+          getData?.screenName,
+          fcmtoken
+        )
+      );
+    }
+    // dispatch(logout());
   };
 
   // const onChangeDate = (selectedDate) => {

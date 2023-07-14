@@ -51,7 +51,9 @@ export function SearchedProducts() {
 
           <Spacer space={SW(5)} />
 
-          <Text style={styles.priceText}>{"$ " + item?.price}</Text>
+          <Text style={styles.priceText}>
+            {"$ " + item?.price + "/ Carton"}
+          </Text>
         </TouchableOpacity>
 
         <Spacer space={SW(10)} />

@@ -66,38 +66,6 @@ export function ProductsBySeller(params) {
     isLoadingSelector([TYPES.GET_PRODUCT], state)
   );
 
-  function dynamicHeight(_index) {
-    if (_index % 2 == 0) {
-      return SH(250);
-    } else if (_index % 2 !== 0) {
-      return SH(245);
-    } else {
-      return SH(230);
-    }
-  }
-  function dynamicImageHeight(_index) {
-    if (_index % 2 == 0) {
-      return SH(150);
-    } else if (_index % 2 !== 0) {
-      return SH(135);
-    } else {
-      return 100;
-    }
-  }
-  function dynamicMarginTop(_index) {
-    if (_index % 2 !== 0) {
-      return 0;
-    } else {
-      return SH(20);
-    }
-  }
-  function dynamicMarginBottom(_index) {
-    if (_index % 2 == 0) {
-      return SH(10);
-    } else {
-      return SH(10);
-    }
-  }
   const navigationHandler = (item) => {
     if (item === item) {
       navigate(NAVIGATION.productInquiry, {
@@ -108,56 +76,68 @@ export function ProductsBySeller(params) {
     }
   };
 
-  const listDetail = ({ item, index }) => (
-    <>
-      <TouchableOpacity
-        // onPress={() => navigate(NAVIGATION.productInquiry, { data: item })}
-        onPress={() => navigationHandler(item)}
-        style={[
-          styles.ShoesStyle,
-          {
-            paddingVertical: index % 2 === 0 ? SH(10) : SH(10),
-            marginTop: index === 1 ? SH(40) : index === 0 ? SH(0) : SH(10),
-            bottom: index % 2 === 0 ? SH(10) : SH(50),
-          },
-        ]}
-      >
-        <Spacer space={SH(10)} />
-        <View style={{ alignItems: "center" }}>
-          <FastImage
-            source={{ uri: item.image }}
-            resizeMode="cover"
-            style={{
-              width: SW(153),
-              height: index === 0 ? SH(180) : SH(150),
-              borderRadius: SW(10),
-            }}
-          />
-        </View>
-        <Spacer space={SH(5)} />
+  const listDetail = ({ item, index }) => {
+    const htmlText = item?.description;
+    const regex = /<p>(.*?)<\/p>/;
 
-        <Text numberOfLines={2} style={styles.productsTitle}>
-          {item.name}
-          <Text style={styles.productSubTitle}> {item.description}</Text>
-        </Text>
-        <Spacer space={SH(5)} />
-        <Text style={styles.productsQuantity}>
-          {"MOQ: " + item?.supplies?.[0]?.supply_prices?.[0]?.min_qty}
-        </Text>
-        <Spacer space={SH(1)} />
-        {user?.user?.payload?.token && (
-          <Text style={styles.priceText}>
-            {" "}
-            {"$" + item.price} /
-            <Text style={{ fontFamily: Fonts.Regular, fontSize: SF(14) }}>
-              {" Carton"}
-            </Text>
-            {/* <Text style={styles.categoryText}> {item.product_type.name}</Text> */}
+    const matches = htmlText?.match(regex);
+    let extractedText = "";
+    if (matches && matches.length > 1) {
+      extractedText = matches[1];
+    }
+
+    return (
+      <>
+        <TouchableOpacity
+          // onPress={() => navigate(NAVIGATION.productInquiry, { data: item })}
+          onPress={() => navigationHandler(item)}
+          style={[
+            styles.ShoesStyle,
+            {
+              paddingVertical: index % 2 === 0 ? SH(10) : SH(10),
+              marginTop: index === 1 ? SH(40) : index === 0 ? SH(0) : SH(10),
+              bottom: index % 2 === 0 ? SH(10) : SH(50),
+            },
+          ]}
+        >
+          <Spacer space={SH(10)} />
+          <View style={{ alignItems: "center" }}>
+            <FastImage
+              source={{ uri: item.image }}
+              resizeMode="cover"
+              style={{
+                width: SW(153),
+                height: index === 0 ? SH(180) : SH(150),
+                borderRadius: SW(10),
+              }}
+            />
+          </View>
+          <Spacer space={SH(5)} />
+
+          <Text numberOfLines={2} style={styles.productsTitle}>
+            {item.name}
+            {item.description?.match(regex) ? (
+              <Text>{" " + extractedText}</Text>
+            ) : (
+              <Text style={styles.productSubTitle}> {item?.description}</Text>
+            )}
           </Text>
-        )}
-      </TouchableOpacity>
-    </>
-  );
+          <Spacer space={SH(5)} />
+
+          {user?.user?.payload?.token && (
+            <Text style={styles.priceText}>
+              {" "}
+              {"$" + item.price} /
+              <Text style={{ fontFamily: Fonts.Regular, fontSize: SF(14) }}>
+                {" Carton"}
+              </Text>
+              {/* <Text style={styles.categoryText}> {item.product_type.name}</Text> */}
+            </Text>
+          )}
+        </TouchableOpacity>
+      </>
+    );
+  };
   const renderNoData = ({ item }) => (
     <>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>

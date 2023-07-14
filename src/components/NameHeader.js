@@ -39,6 +39,11 @@ export function NameHeader({ title, back, backNavi }) {
 }
 
 export const styles = StyleSheet.create({
+  mainContainer: {
+    paddingHorizontal: SW(20),
+    width: "100%",
+    flex: 1,
+  },
   container: {
     flex: 1,
     alignItems: "center",

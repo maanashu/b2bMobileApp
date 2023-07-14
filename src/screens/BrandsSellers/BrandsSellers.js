@@ -254,6 +254,21 @@ export function BrandsSellers(params) {
         backNavi={() => navigate(NAVIGATION.subCategories)}
       />
 
+      <Spacer space={SH(10)} />
+
+      <View style={{ flex: 1 }}>
+        {isLoadingSellers ? (
+          <Loader message="Loading Sellers ..." />
+        ) : (
+          <FlatList
+            data={user?.getSellersList ?? []}
+            extraData={user?.getSellersList}
+            renderItem={renderSellers}
+            keyExtractor={(item) => item.id}
+          />
+        )}
+      </View>
+
       <View style={styles.upperView}>
         <Spacer space={SH(10)} />
 
@@ -268,21 +283,6 @@ export function BrandsSellers(params) {
             ListEmptyComponent={renderNoData}
             keyExtractor={(item) => item.id}
             extraData={brandsData?.brandsList ?? []}
-          />
-        )}
-      </View>
-
-      <Spacer space={SH(10)} />
-
-      <View style={{ flex: 1 }}>
-        {isLoadingSellers ? (
-          <Loader message="Loading Sellers ..." />
-        ) : (
-          <FlatList
-            data={user?.getSellersList ?? []}
-            extraData={user?.getSellersList}
-            renderItem={renderSellers}
-            keyExtractor={(item) => item.id}
           />
         )}
       </View>

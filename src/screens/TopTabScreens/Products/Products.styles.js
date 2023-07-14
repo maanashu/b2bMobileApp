@@ -219,4 +219,10 @@ export const styles = StyleSheet.create({
     height: SH(15),
     width: SH(15),
   },
+  recentProductsStyle: {
+    width: Dimensions.get("window").width,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 15,
+  },
 });

@@ -83,15 +83,14 @@ export function ProductInquiry(params) {
   //   "ingredients",
   //   JSON.stringify(ProductDetail?.productDetail?.product_detail?.ingredients)
   // );
+  const description = ProductDetail?.productDetail?.product_detail?.description;
+  const regex = /<p>(.*?)<\/p>/;
   useEffect(() => {
     const handleBackButton = () => {
       navigation.navigate(NAVIGATION.productsBySeller);
-
       return true;
     };
-
     BackHandler.addEventListener("hardwareBackPress", handleBackButton);
-
     return () => {
       BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
     };
@@ -312,6 +311,18 @@ export function ProductInquiry(params) {
   const isMatched = matchedIds?.has(
     ProductDetail?.productDetail?.product_detail?.id
   );
+  const convertHtml = (item) => {
+    const htmlText = item;
+    const regex = /<p>(.*?)<\/p>/; // Regex pattern to match the content within <p> tags
+
+    const matches = htmlText?.match(regex); // Find matches using the regex pattern
+
+    let extractedText = "";
+    if (matches && matches.length > 1) {
+      extractedText = matches[1]; // Extracted text is stored in the second element of the matches array
+    }
+    return extractedText;
+  };
   return (
     <ScreenWrapper>
       <Header backRequired bell={bellGrey} bag={bagGrey} />
@@ -368,9 +379,15 @@ export function ProductInquiry(params) {
             <Text style={styles.productHeading}>
               {ProductDetail?.productDetail?.product_detail?.name}
             </Text>
-            <Text style={styles.productSubHeading}>
-              {ProductDetail?.productDetail?.product_detail?.description}
-            </Text>
+            {description?.match(regex) ? (
+              <Text style={styles.productSubHeading}>
+                {convertHtml(description)}
+              </Text>
+            ) : (
+              <Text style={styles.productSubHeading}>
+                {ProductDetail?.productDetail?.product_detail?.description}
+              </Text>
+            )}
 
             {ProductDetail?.productDetail?.product_detail?.supplies[0]
               ?.supply_prices?.length > 1 && (
