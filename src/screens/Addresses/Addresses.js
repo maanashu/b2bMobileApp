@@ -8,12 +8,13 @@ import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants/navigation";
 import { strings } from "@/localization";
 import { useDispatch, useSelector } from "react-redux";
-import { TYPES, deleteAddress, getUserLocations } from "@/actions/UserActions";
+import { deleteAddress, getUserLocations } from "@/actions/UserActions";
 import { getUser } from "@/selectors/UserSelectors";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { Loader } from "@/components/Loader";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { SwipeListView } from "react-native-swipe-list-view";
+import { TYPES } from "@/Types/Types";
 
 export function Addresses() {
   const dispatch = useDispatch();

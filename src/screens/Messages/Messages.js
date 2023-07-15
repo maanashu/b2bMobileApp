@@ -23,7 +23,6 @@ import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  TYPES,
   getMessageHeads,
   getMessages,
   getMessagesReset,
@@ -33,6 +32,7 @@ import moment from "moment";
 import { useIsFocused } from "@react-navigation/native";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { Loader } from "@/components/Loader";
+import { TYPES } from "@/Types/Types";
 
 export function Messages() {
   const dispatch = useDispatch();

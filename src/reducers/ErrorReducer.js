@@ -1,4 +1,4 @@
-import { TYPES } from '@/actions/GlobalActions';
+import { TYPES } from "@/Types/Types";
 
 export const errorReducer = (state = {}, { payload, type }) => {
   if (type === TYPES.GLOBAL_RESET) {
@@ -11,7 +11,7 @@ export const errorReducer = (state = {}, { payload, type }) => {
     const [, requestName, requestState] = matches;
     return {
       ...state,
-      [requestName]: requestState === 'ERROR' ? payload.error : null,
+      [requestName]: requestState === "ERROR" ? payload.error : null,
     };
   }
 

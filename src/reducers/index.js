@@ -9,7 +9,7 @@ import { supportReducer } from "@/reducers/SupportReducer";
 import { kycReducer } from "@/reducers/KycReducer";
 import { walletReducer } from "@/reducers/WalletReducer";
 import { orderReducer } from "@/reducers/OrderReducer";
-import { TYPES } from "@/actions/UserActions";
+import { TYPES } from "@/Types/Types";
 
 export const rootReducer = combineReducers({
   error: errorReducer,

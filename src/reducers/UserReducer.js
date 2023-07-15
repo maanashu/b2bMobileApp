@@ -1,4 +1,4 @@
-import { TYPES } from "@/actions/UserActions";
+import { TYPES } from "@/Types/Types";
 
 const INITIALSTATE = {
   registered: {},

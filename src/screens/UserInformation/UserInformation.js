@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  TYPES,
   editProfile,
   sendEmailOtp,
   uploadProfileImage,
@@ -51,6 +50,7 @@ import {
   useClearByFocusCell,
 } from "react-native-confirmation-code-field";
 import { characterReg } from "@/Utils/validators";
+import { TYPES } from "@/Types/Types";
 
 export function UserInformation() {
   const user = useSelector(getUser);

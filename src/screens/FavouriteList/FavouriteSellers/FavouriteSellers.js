@@ -7,8 +7,8 @@ import { styles } from "./FavouriteSellers.styles";
 import { ScreenWrapper, Spacer } from "@/components";
 import { COLORS, SF, SH, SW } from "@/theme";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
-import { TYPES } from "@/actions/UserActions";
 import { Loader } from "@/components/Loader";
+import { TYPES } from "@/Types/Types";
 
 export function FavouriteSellers() {
   const sellerList = useSelector(getUser)?.getFavouriteSellers;

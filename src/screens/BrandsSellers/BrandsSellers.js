@@ -35,7 +35,6 @@ import { Loader } from "@/components/Loader";
 import { getUser } from "@/selectors/UserSelectors";
 import { getSellers, sellerFavourites } from "@/actions/UserActions";
 import { ShadowStyles } from "@/theme";
-import { TYPES as TYPE } from "@/actions/UserActions";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import { saveParamsForProducts } from "@/actions/ProductActions";
 
@@ -105,7 +104,7 @@ export function BrandsSellers(params) {
     isLoadingSelector([TYPES.GET_BRANDS], state)
   );
   const isLoadingSellers = useSelector((state) =>
-    isLoadingSelector([TYPE.GET_SELLERS], state)
+    isLoadingSelector([TYPES.GET_SELLERS], state)
   );
 
   const colorChange = (item) => {

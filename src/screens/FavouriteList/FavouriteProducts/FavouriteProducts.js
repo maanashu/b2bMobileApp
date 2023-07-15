@@ -7,8 +7,8 @@ import { styles } from "./FavouriteProducts.styles";
 import { COLORS, SF, SH, SW } from "@/theme";
 import { Loader } from "@/components/Loader";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
-import { TYPES } from "@/actions/UserActions";
 import { Fonts } from "@/assets";
+import { TYPES } from "@/Types/Types";
 
 export function FavouriteProducts() {
   const favouriteProducts = useSelector(getUser);

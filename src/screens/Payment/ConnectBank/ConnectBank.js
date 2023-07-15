@@ -32,7 +32,6 @@ import { getKyc } from "@/selectors/KycSelector";
 import { store } from "@/store";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { TYPES } from "@/Types/Types";
-import { TYPES as TYPE } from "@/actions/UserActions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Loader } from "@/components/Loader";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
@@ -49,7 +48,7 @@ export function ConnectBank(props) {
   const [isLoading, setIsLoading] = useState(false);
 
   const isLoginLoading = useSelector((state) =>
-    isLoadingSelector([TYPE.LOGIN], state)
+    isLoadingSelector([TYPES.LOGIN], state)
   );
   const isLoadingPlaidToken = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PLAID_TOKEN], state)

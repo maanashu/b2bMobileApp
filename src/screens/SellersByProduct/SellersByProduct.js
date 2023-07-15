@@ -24,8 +24,8 @@ import {
 } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
-import { TYPES } from "@/actions/UserActions";
 import { getUser } from "@/selectors/UserSelectors";
+import { TYPES } from "@/Types/Types";
 
 export function SellersByProduct(props) {
   const sellers = useSelector(getUser);

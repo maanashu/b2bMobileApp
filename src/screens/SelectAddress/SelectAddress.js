@@ -9,17 +9,14 @@ import { NAVIGATION } from "@/constants/navigation";
 import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
 import { strings } from "@/localization";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  TYPES,
-  getUserLocations,
-  saveUserAddress,
-} from "@/actions/UserActions";
+import { getUserLocations, saveUserAddress } from "@/actions/UserActions";
 import { getUser } from "@/selectors/UserSelectors";
 import { useIsFocused } from "@react-navigation/native";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { Loader } from "@/components/Loader";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { COLORS } from "@/theme";
+import { TYPES } from "@/Types/Types";
 
 export function SelectAddress() {
   const dispatch = useDispatch();

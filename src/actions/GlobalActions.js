@@ -1,8 +1,4 @@
-export const TYPES = {
-  GLOBAL_RESET: "GLOBAL_RESET",
-};
-
-import { TYPES as TYPE } from "@/Types/Types";
+import { TYPES } from "@/Types/Types";
 
 export const globalReset = () => ({
   type: TYPES.GLOBAL_RESET,
@@ -10,11 +6,11 @@ export const globalReset = () => ({
 });
 
 export const biometricsSet = (status) => ({
-  type: TYPE.BIOMETRIC_SUCCESS,
+  type: TYPES.BIOMETRIC_SUCCESS,
   payload: { status },
 });
 
 export const previousScreen = (screenName) => ({
-  type: TYPE.PREVIOUS_SCREEN_SUCCESS,
+  type: TYPES.PREVIOUS_SCREEN_SUCCESS,
   payload: { screenName },
 });

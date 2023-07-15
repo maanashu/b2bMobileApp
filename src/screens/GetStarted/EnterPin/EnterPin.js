@@ -15,13 +15,14 @@ import { Button, Spacer, ScreenWrapper } from "@/components";
 import { styles } from "@/screens/GetStarted/EnterPin/EnterPin.styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
-import { deviceLogin, login, TYPES } from "@/actions/UserActions";
+import { deviceLogin, login } from "@/actions/UserActions";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { Loader } from "@/components/Loader";
 import { storage } from "@/storage";
 import ReactNativeBiometrics, { BiometryTypes } from "react-native-biometrics";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import { TYPES } from "@/Types/Types";
 const CELL_COUNT = 4;
 
 export function EnterPin(params) {

@@ -38,10 +38,11 @@ import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import DocumentPicker from "react-native-document-picker";
 import { useDispatch, useSelector } from "react-redux";
-import { TYPES, getMessages, sendChat } from "@/actions/UserActions";
+import { getMessages, sendChat } from "@/actions/UserActions";
 import { getUser } from "@/selectors/UserSelectors";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { Loader } from "@/components/Loader";
+import { TYPES } from "@/Types/Types";
 
 export function Chatting(props) {
   const user = useSelector(getUser);

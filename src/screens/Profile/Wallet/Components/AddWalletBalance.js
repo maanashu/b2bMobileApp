@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { FlatList } from 'react-native';
+import React, { useState } from "react";
+import { FlatList } from "react-native";
 import {
   View,
   Text,
@@ -8,22 +8,19 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
-} from 'react-native';
-import Modal from 'react-native-modal';
-import { scale } from 'react-native-size-matters';
-import { useDispatch, useSelector } from 'react-redux';
+} from "react-native";
+import Modal from "react-native-modal";
+import { scale } from "react-native-size-matters";
+import { useDispatch, useSelector } from "react-redux";
 
-import {
-  addWalletBalanceApi,
-  getWalletBalance,
-  TYPES,
-} from '@/actions/WalletActions';
-import { Fonts, tick } from '@/assets';
-import { strings } from '@/localization';
-import { digits } from '@/utils/validators';
-import { Button, Spacer } from '@/components';
-import { COLORS, SF, SH, ShadowStyles, SW } from '@/theme';
-import { isLoadingSelector } from '@/selectors/StatusSelectors';
+import { addWalletBalanceApi, getWalletBalance } from "@/actions/WalletActions";
+import { Fonts, tick } from "@/assets";
+import { strings } from "@/localization";
+import { digits } from "@/utils/validators";
+import { Button, Spacer } from "@/components";
+import { COLORS, SF, SH, ShadowStyles, SW } from "@/theme";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
 
 const AddWalletBalance = ({
   openModal,
@@ -32,17 +29,17 @@ const AddWalletBalance = ({
   setBalance,
 }) => {
   const dispatch = useDispatch();
-  const [name, setName] = useState('');
-  const [amount, setAmount] = useState('');
+  const [name, setName] = useState("");
+  const [amount, setAmount] = useState("");
 
-  const amountHander = text => {
+  const amountHander = (text) => {
     setAmount(text);
     if (bankAccount.length === 1) {
       selectBank(bankAccount[0].account_name);
     }
   };
 
-  const selectBank = name => setName(name);
+  const selectBank = (name) => setName(name);
 
   const renderItem = ({ item, index }) => (
     <TouchableOpacity
@@ -57,15 +54,15 @@ const AddWalletBalance = ({
       ]}
     >
       <View
-        style={[styles.accountItemView, { justifyContent: 'space-between' }]}
+        style={[styles.accountItemView, { justifyContent: "space-between" }]}
       >
-        <View style={{ flexDirection: 'column' }}>
-          <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: "column" }}>
+          <View style={{ flexDirection: "row" }}>
             <Text style={styles.labelStyle}>{strings.payment.accountNo}</Text>
             <Text style={styles.valueStyle}>{item.account_number}</Text>
           </View>
 
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: "row" }}>
             <Text style={styles.labelStyle}>
               {strings.payment.accountHolder}
             </Text>
@@ -84,7 +81,7 @@ const AddWalletBalance = ({
     </TouchableOpacity>
   );
 
-  const isWalletLoading = useSelector(state =>
+  const isWalletLoading = useSelector((state) =>
     isLoadingSelector([TYPES.ADD_BALANCE], state)
   );
 
@@ -98,15 +95,15 @@ const AddWalletBalance = ({
     } else {
       const finalAmount = amount * 100;
       dispatch(
-        addWalletBalanceApi(finalAmount, name, res => {
+        addWalletBalanceApi(finalAmount, name, (res) => {
           if (res) {
             dispatch(
-              getWalletBalance(res => {
+              getWalletBalance((res) => {
                 setBalance(res?.sila_balance);
               })
             );
-            setAmount('');
-            setName('');
+            setAmount("");
+            setName("");
             changeModalState(false);
           }
         })
@@ -132,12 +129,12 @@ const AddWalletBalance = ({
           <Spacer space={SH(20)} />
           <TextInput
             value={amount}
-            placeholder={'$0'}
-            returnKeyType={'done'}
-            keyboardType={'number-pad'}
+            placeholder={"$0"}
+            returnKeyType={"done"}
+            keyboardType={"number-pad"}
             style={styles.textInputStyle}
             placeholderTextColor={COLORS.secondary}
-            onChangeText={text => amountHander(text)}
+            onChangeText={(text) => amountHander(text)}
           />
 
           <Spacer space={SH(20)} />
@@ -173,26 +170,26 @@ export default AddWalletBalance;
 const styles = StyleSheet.create({
   modalStyle: {
     flex: 1,
-    height: Dimensions.get('window').height / 2,
+    height: Dimensions.get("window").height / 2,
   },
   modalMainView: {
     borderRadius: 8,
     backgroundColor: COLORS.white,
   },
   modalHeadingText: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: scale(14),
     color: COLORS.black,
-    alignItems: 'center',
+    alignItems: "center",
     fontFamily: Fonts.SemiBold,
   },
   textInputStyle: {
     width: SW(70),
     height: SH(40),
     borderRadius: 5,
-    alignSelf: 'center',
-    textAlign: 'center',
-    alignItems: 'center',
+    alignSelf: "center",
+    textAlign: "center",
+    alignItems: "center",
     color: COLORS.black,
     fontFamily: Fonts.MaisonRegular,
     backgroundColor: COLORS.inputBorder,
@@ -201,7 +198,7 @@ const styles = StyleSheet.create({
     left: 5,
     width: SH(20),
     height: SH(30),
-    resizeMode: 'contain',
+    resizeMode: "contain",
     tintColor: COLORS.text,
   },
   headerText: {
@@ -211,11 +208,11 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.SemiBold,
   },
   itemMainView: {
-    width: '94%',
+    width: "94%",
     borderWidth: 0,
     borderRadius: 8,
     marginTop: SH(10),
-    alignSelf: 'center',
+    alignSelf: "center",
     paddingVertical: SH(20),
     ...ShadowStyles.shadow,
     paddingHorizontal: SW(5),
@@ -223,20 +220,20 @@ const styles = StyleSheet.create({
     borderColor: COLORS.termsBorder,
   },
   accountItemView: {
-    alignItems: 'center',
-    flexDirection: 'row',
+    alignItems: "center",
+    flexDirection: "row",
     paddingHorizontal: 10,
   },
   labelStyle: {
     fontSize: SF(14),
     color: COLORS.black,
     fontFamily: Fonts.SemiBold,
-    textAlignVertical: 'center',
+    textAlignVertical: "center",
   },
   valueStyle: {
     fontSize: SF(12),
     color: COLORS.black,
     fontFamily: Fonts.Regular,
-    textAlignVertical: 'center',
+    textAlignVertical: "center",
   },
 });

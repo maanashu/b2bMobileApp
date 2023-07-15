@@ -4,7 +4,7 @@ import { blueLogo, faceIdIcon, fingerprintLogin } from "@/assets";
 import { COLORS, SH, SW } from "@/theme";
 import { Spacer, Button, ScreenWrapper } from "@/components";
 import { styles } from "./LoginMethod.styles";
-import { deviceLogin, TYPES } from "@/actions/UserActions";
+import { deviceLogin } from "@/actions/UserActions";
 import { useDispatch, useSelector } from "react-redux";
 import ReactNativeBiometrics, { BiometryTypes } from "react-native-biometrics";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
@@ -12,6 +12,7 @@ import { strings } from "@/localization";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { Loader } from "@/components/Loader";
+import { TYPES } from "@/Types/Types";
 
 export function LoginMethod(props) {
   const dispatch = useDispatch();

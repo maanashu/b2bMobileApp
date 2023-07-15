@@ -11,11 +11,12 @@ import { COLORS, SF, SH } from "@/theme";
 import { Spacer, Button, ScreenWrapper, Logo } from "@/components";
 import { styles } from "@/screens/GetStarted/MobileNumber/MobileNumber.styles";
 import { digits } from "@/Utils/validators";
-import { sendOtp, TYPES } from "@/actions/UserActions";
+import { sendOtp } from "@/actions/UserActions";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "@/components/Loader";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
+import { TYPES } from "@/Types/Types";
 
 export function MobileNumber(props) {
   const dispatch = useDispatch();

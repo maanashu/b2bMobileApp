@@ -5,8 +5,8 @@ import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
 import { ShadowStyles, SH, SW, TextStyles, COLORS, SF } from "@/theme";
 
-import { TYPES, deviceRegister } from "@/actions/UserActions";
-import { Fonts, faceIconRound, faceIdIcon, fingerprintLogin } from "@/assets";
+import { deviceRegister } from "@/actions/UserActions";
+import { Fonts, faceIconRound, fingerprintLogin } from "@/assets";
 import ReactNativeBiometrics, { BiometryTypes } from "react-native-biometrics";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 
@@ -16,10 +16,11 @@ import ModalsContext from "@/context/ModalsContext";
 import { Spacer, Button } from "@/components";
 import { navigate } from "./NavigationRef";
 import { NAVIGATION } from "@/constants";
-import { biometricsSet, previousScreen } from "@/actions/GlobalActions";
+import { previousScreen } from "@/actions/GlobalActions";
 import { storage } from "@/storage";
 import { Platform } from "react-native";
 import { ActivityIndicator } from "react-native";
+import { TYPES } from "@/Types/Types";
 
 export const rnBiometrics = new ReactNativeBiometrics({
   allowDeviceCredentials: true,
