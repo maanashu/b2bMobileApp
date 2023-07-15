@@ -12,11 +12,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/actions/UserActions";
 import { getUser } from "@/selectors/UserSelectors";
 
-export function Splash() {
+export function Splash({ handleScreenChange }) {
   const dispatch = useDispatch();
 
   const logoutUser = () => {
-    navigate(NAVIGATION.mobileNumber);
+    handleScreenChange(1);
   };
   const user = useSelector(getUser);
   return (

@@ -1,5 +1,5 @@
-import { useTheme } from "@react-navigation/native";
-import React, { useEffect } from "react";
+import { useNavigation, useTheme } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -15,6 +15,7 @@ import {
   Button,
   LoginCommon,
   LoginCommonKyc,
+  LoginModal,
   NameHeaderCoins,
   ScreenWrapper,
   Spacer,
@@ -54,8 +55,13 @@ import { Alert } from "react-native";
 import DeviceInfo from "react-native-device-info";
 import LinearGradient from "react-native-linear-gradient";
 import FastImage from "react-native-fast-image";
+import Modal from "react-native-modal";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
+import { Loader } from "@/components/Loader";
 
 export function Profile() {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const user = useSelector(getUser);
   const token = user?.user?.payload?.token;
@@ -63,6 +69,7 @@ export function Profile() {
   const profile_photo = user?.getUserProfile?.user_profiles?.profile_photo;
   const ProdChecker = DeviceInfo.getBuildNumber();
   const buildVersion = DeviceInfo.getVersion();
+  const [openModal, setOpenModal] = useState(false);
 
   const logoutUser = () => {
     Alert.alert("Confirmation", "Are you sure you want to logout?", [
@@ -87,6 +94,12 @@ export function Profile() {
   useEffect(() => {
     dispatch(getCoupons(body));
   }, []);
+  useEffect(() => {
+    setOpenModal(false);
+  }, [navigation]);
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.DEVICE_REGISTER], state)
+  );
 
   const Data = [
     {
@@ -205,6 +218,8 @@ export function Profile() {
           NAVIGATION.favouriteList,
           NAVIGATION.favouriteList
         );
+      } else if (item.title == strings.profile.myCatalogs) {
+        setOpenModal(true);
       } else {
         navigate(item.navigation);
       }
@@ -378,6 +393,9 @@ export function Profile() {
         </Text>
         <Spacer space={SH(30)} />
       </ScrollView>
+      <View>
+        <LoginModal isVisible={openModal} closeModal={setOpenModal} />
+      </View>
     </ScreenWrapper>
   );
 }

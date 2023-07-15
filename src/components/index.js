@@ -21,3 +21,4 @@ export { CustomPaginationWithoutText } from "@/components/CustomPaginationWithou
 export { Biometrics } from "@/components/Biometrics";
 export { LoginCommonKyc } from "@/components/LoginCommonKyc";
 export { LoginCommon } from "@/components/LoginCommon";
+export { LoginModal } from "@/components/LoginModal";

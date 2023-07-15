@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image, Text, TextInput } from "react-native";
+import { View, Image, Text, TextInput, BackHandler, Alert } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import CountryPicker from "react-native-country-picker-modal";
@@ -17,8 +17,9 @@ import { Loader } from "@/components/Loader";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { TYPES } from "@/Types/Types";
+import { NAVIGATION } from "@/constants";
 
-export function MobileNumber(props) {
+export function MobileNumber({ handleScreenChange, ...props }) {
   const dispatch = useDispatch();
   const { colors } = useTheme();
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -39,7 +40,12 @@ export function MobileNumber(props) {
 
   const submit = () => {
     if (phoneNumber && phoneNumber.length >= 10 && digits.test(phoneNumber)) {
-      dispatch(sendOtp(phoneNumber, countryCode, param, flag));
+      dispatch(sendOtp(phoneNumber, countryCode, param, flag)).then((res) => {
+        console.log("CLg", JSON.stringify(res));
+        if (res?.payload?.is_phone_exits) {
+          handleScreenChange(1);
+        }
+      });
     } else if (phoneNumber && phoneNumber.length < 10) {
       Toast.show({
         position: "bottom",

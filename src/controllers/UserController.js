@@ -68,7 +68,7 @@ export class UserController {
       HttpClient.post(endpoint, body)
         .then((response) => {
           if (response?.payload?.is_phone_exits) {
-            navigate(NAVIGATION.enterPin, { route: "registered" });
+            // navigate(NAVIGATION.enterPin, { route: "registered" });
           } else {
             Toast.show({
               position: "bottom",

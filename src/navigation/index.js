@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { BackHandler, useColorScheme } from "react-native";
 import { useSelector } from "react-redux";
 import { AppBottom } from "@/navigation/AppNavigator";
-import { AuthNavigator } from "@/navigation/AuthNavigator";
 import { getUser } from "@/selectors/UserSelectors";
 import { theme } from "@/theme";
 import { navigationRef } from "./NavigationRef";
@@ -98,8 +97,6 @@ export function RootNavigator() {
 
   return (
     <NavigationContainer ref={navigationRef} theme={theme[scheme]}>
-      {/* {!user ? <AppNavigator /> : <AuthNavigator />} */}
-      {/* <AuthNavigator /> */}
       <Modals>
         <AppBottom />
       </Modals>

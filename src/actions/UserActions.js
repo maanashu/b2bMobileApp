@@ -541,13 +541,13 @@ export const sendOtp = (phoneNumber, countryCode, flag) => async (dispatch) => {
 
   try {
     dispatch(savePhone({ phoneNumber, countryCode, flag }));
-
     const res = await UserController.sendOtp(phoneNumber, countryCode, flag);
     dispatch(sendOtpSuccess(res));
-
     dispatch(saveOtp(res.payload.otp));
+    return res;
   } catch (error) {
     dispatch(sendOtpError(error.message));
+    throw error;
   }
 };
 
