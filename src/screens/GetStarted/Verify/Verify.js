@@ -23,12 +23,12 @@ import { useNavigation } from "@react-navigation/native";
 
 const CELL_COUNT = 5;
 
-export function Verify(params) {
+export function Verify({ handleScreenChange, data, ...params }) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const user = useSelector(getUser);
 
-  const id = params?.route?.params?.id;
+  const id = params?.route?.params?.id || data?.id;
   const [value, setValue] = useState("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [prop, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -52,7 +52,9 @@ export function Verify(params) {
         text2: strings.validation.invalidOtp,
       });
     } else {
-      dispatch(verifyOtp(id, value, navigation));
+      dispatch(verifyOtp(id, value, navigation))
+        .then(() => handleScreenChange(8))
+        .catch((error) => {});
     }
   };
 

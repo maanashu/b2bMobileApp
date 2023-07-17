@@ -36,7 +36,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Loader } from "@/components/Loader";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 
-export function ConnectBank(props) {
+export function ConnectBank({ closeModal, ...props }) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const isFocused = useIsFocused();
@@ -166,17 +166,24 @@ export function ConnectBank(props) {
 
   const emptyComponent = () => <Text>{strings.bank.noBankAccount}</Text>;
   const loginHandler = async () => {
-    const fcmtoken = await AsyncStorage.getItem("token");
-    dispatch(
-      login(
-        getData?.registerData?.pin ||
-          getData?.user?.payload?.user_profiles?.security_pin,
-        getData?.phone?.countryCode,
-        getData?.phone?.phoneNumber,
-        getData?.screenName,
-        fcmtoken
+    if (getData?.user?.payload?.token) {
+      closeModal();
+      dispatch(getWalletUserProfile(getData?.registered?.uuid));
+    } else {
+      const fcmtoken = await AsyncStorage.getItem("token");
+      dispatch(
+        login(
+          getData?.registerData?.pin ||
+            getData?.user?.payload?.user_profiles?.security_pin,
+          getData?.phone?.countryCode,
+          getData?.phone?.phoneNumber,
+          getData?.screenName,
+          fcmtoken
+        )
       )
-    );
+        .then(() => closeModal())
+        .catch(() => {});
+    }
   };
 
   const customHeader = () => {

@@ -513,8 +513,10 @@ export const login =
       dispatch(getFavouriteSellers());
       dispatch(getFavouriteProducts());
       dispatch(getBankAccounts());
+      return;
     } catch (error) {
       dispatch(loginError(error.message));
+      throw error;
     }
   };
 
@@ -557,8 +559,10 @@ export const verifyOtp = (id, value, navigation) => async (dispatch) => {
     dispatch(saveOtp(value));
     const res = await UserController.verifyOtp(id, value, navigation);
     dispatch(verifyOtpSuccess(res));
+    return;
   } catch (error) {
     dispatch(verifyOtpError(error));
+    throw error;
   }
 };
 export const sendEmailOtp = (email) => async (dispatch) => {
@@ -592,8 +596,10 @@ export const register = (data, token, navigation) => async (dispatch) => {
         rqf_notification_status: true,
       })
     );
+    return;
   } catch (error) {
     dispatch(registerError(error.message));
+    throw error;
   }
 };
 
@@ -722,6 +728,7 @@ export const getUserProfile = (data) => async (dispatch) => {
   try {
     const res = await UserController.getUserProfile(data);
     dispatch(getUserProfileSucess(res));
+    console.log("yes success");
   } catch (error) {
     dispatch(getUserProfileError(error.message));
   }

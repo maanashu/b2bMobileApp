@@ -382,7 +382,9 @@ export const createWallet = (data, navigation) => async (dispatch) => {
   try {
     const res = await WalletController.createWallet(data, navigation);
     dispatch(createWalletSuccess(res));
+    return;
   } catch (error) {
     dispatch(createWalletError(error.message));
+    throw error;
   }
 };

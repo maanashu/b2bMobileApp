@@ -31,7 +31,7 @@ import { GOOGLE_MAP } from "@/constants/ApiKeys";
 import { getUser as userSelector } from "@/selectors/UserSelectors";
 import { ScreenWrapper, Spacer, Button } from "@/components";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
-import { getUser, login } from "@/actions/UserActions";
+import { getUser, getUserProfile, login } from "@/actions/UserActions";
 import { styles } from "@/screens/GetStarted/PersonalInformation/PersonalInformation.styles";
 import { getKyc } from "@/selectors/KycSelector";
 import { digits, emailReg } from "@/Utils/validators";
@@ -42,7 +42,11 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 import RBSheet from "react-native-raw-bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export function PersonalInformation(params) {
+export function PersonalInformation({
+  closeModal,
+  handleScreenChange,
+  ...params
+}) {
   const isFocused = useIsFocused();
   const navigation = useNavigation();
   const ref = useRef(null);
@@ -111,7 +115,8 @@ export function PersonalInformation(params) {
 
   const crossHandler = async () => {
     if (getData?.user?.payload?.token) {
-      navigation.replace(getData.screenName);
+      dispatch(getUserProfile(getData?.registered?.uuid));
+      closeModal();
     } else {
       const fcmtoken = await AsyncStorage.getItem("token");
 
@@ -124,11 +129,10 @@ export function PersonalInformation(params) {
           getData?.screenName,
           fcmtoken
         )
-      );
+      ).then(() => closeModal());
     }
     // dispatch(logout());
   };
-
   // const onChangeDate = (selectedDate) => {
   //   const currentDate = moment().format("MM-DD-YYYY");
   //   const selected = moment(selectedDate).format("MM/DD/YYYY");
@@ -276,7 +280,12 @@ export function PersonalInformation(params) {
         latitude: latitude,
         longitude: longitude,
       };
-      dispatch(createWallet(data, navigation));
+      dispatch(createWallet(data, navigation))
+        .then(() => {
+          dispatch(getUserProfile(getData?.registered?.uuid));
+          handleScreenChange(4);
+        })
+        .catch(() => {});
       // refRBSheet.current.open();
     }
   };

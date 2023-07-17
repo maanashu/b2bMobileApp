@@ -1,4 +1,4 @@
-import { useNavigation, useTheme } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import {
   Text,
@@ -27,7 +27,6 @@ import { getUser } from "@/selectors/UserSelectors";
 import { useSelector } from "react-redux";
 
 import {
-  bank,
   businessCard,
   catalogue,
   discount,
@@ -55,10 +54,8 @@ import { Alert } from "react-native";
 import DeviceInfo from "react-native-device-info";
 import LinearGradient from "react-native-linear-gradient";
 import FastImage from "react-native-fast-image";
-import Modal from "react-native-modal";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
-import { Loader } from "@/components/Loader";
 
 export function Profile() {
   const navigation = useNavigation();
@@ -70,7 +67,21 @@ export function Profile() {
   const ProdChecker = DeviceInfo.getBuildNumber();
   const buildVersion = DeviceInfo.getVersion();
   const [openModal, setOpenModal] = useState(false);
-
+  const getScreen = () => {
+    if (!user?.user?.payload?.token) {
+      return 0;
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps === 0) {
+      return 3;
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps === 1) {
+      return 4;
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps === 1.1) {
+      return 5;
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps === 4) {
+      return 6;
+    }
+  };
+  const screen = getScreen();
+  console.log("screen no." + screen);
   const logoutUser = () => {
     Alert.alert("Confirmation", "Are you sure you want to logout?", [
       {
@@ -196,21 +207,21 @@ export function Profile() {
   const navigationHandler = (item) => {
     if (item?.navigation) {
       if (item.title == strings.profile.jbrWallet) {
-        LoginCommonKyc(
-          dispatch,
-          user,
-          user?.user?.payload?.token,
-          NAVIGATION.jbrWallet,
-          NAVIGATION.jbrWallet
-        );
+        const shouldOpenModal =
+          !user?.user?.payload?.token || [3, 4, 5, 6].includes(screen);
+        if (shouldOpenModal) {
+          setOpenModal(true);
+        } else {
+          navigate(item?.navigation);
+        }
       } else if (item.title == strings.profile.paymentMethods) {
-        LoginCommonKyc(
-          dispatch,
-          user,
-          user?.user?.payload?.token,
-          NAVIGATION.paymentMethod,
-          NAVIGATION.paymentMethod
-        );
+        const shouldOpenModal =
+          !user?.user?.payload?.token || [3, 4, 5, 6].includes(screen);
+        if (shouldOpenModal) {
+          setOpenModal(true);
+        } else {
+          navigate(item?.navigation);
+        }
       } else if (item.title == strings.profile.favouriteList) {
         LoginCommon(
           dispatch,
@@ -218,8 +229,6 @@ export function Profile() {
           NAVIGATION.favouriteList,
           NAVIGATION.favouriteList
         );
-      } else if (item.title == strings.profile.myCatalogs) {
-        setOpenModal(true);
       } else {
         navigate(item.navigation);
       }
@@ -394,7 +403,11 @@ export function Profile() {
         <Spacer space={SH(30)} />
       </ScrollView>
       <View>
-        <LoginModal isVisible={openModal} closeModal={setOpenModal} />
+        <LoginModal
+          isVisible={openModal}
+          closeModal={setOpenModal}
+          setScreen={screen}
+        />
       </View>
     </ScreenWrapper>
   );

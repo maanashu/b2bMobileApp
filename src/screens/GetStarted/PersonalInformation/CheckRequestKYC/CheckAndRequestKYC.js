@@ -15,13 +15,14 @@ import { NAVIGATION } from "@/constants";
 import { checkKyc, requestKyc } from "@/actions/KycActions";
 import { getKyc } from "@/selectors/KycSelector";
 import { useNavigation } from "@react-navigation/native";
+import { getUserProfile } from "@/actions/UserActions";
 
-export function CheckAndRequestKYC(params) {
+export function CheckAndRequestKYC({ handleScreenChange, ...params }) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const screen = params?.route?.params?.screen;
 
-  const getUserData = useSelector(getUser);
+  const user = useSelector(getUser);
   const getKycData = useSelector(getKyc);
   const kycRequest = getKycData?.requestKyc?.payload;
   const kycStatus = getKycData?.checkKyc?.payload?.status;
@@ -44,12 +45,18 @@ export function CheckAndRequestKYC(params) {
 
   useEffect(() => {
     if (kycStatus === "passed") {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: NAVIGATION.ageVerification }],
-      });
+      handleScreenChange(5);
+      dispatch(
+        getUserProfile(user?.user?.payload?.uuid || user?.registered?.uuid)
+      );
+
+      // navigation.reset({
+      //   index: 0,
+      //   routes: [{ name: NAVIGATION.ageVerification }],
+      // });
     }
   }, [kycStatus]);
+
   // const name =
   //   getUserData?.user?.payload?.user_profiles?.firstname ??
   //   getUserData?.registerData?.firstname;

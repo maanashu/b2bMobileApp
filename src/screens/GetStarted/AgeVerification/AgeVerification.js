@@ -45,7 +45,7 @@ import { getUser as getuser } from "@/selectors/UserSelectors";
 import { Loader } from "@/components/Loader";
 import { getWallet } from "@/selectors/WalletSelector";
 
-export function AgeVerification(props) {
+export function AgeVerification({ handleScreenChange, ...props }) {
   const { navigation } = props;
   const frontRef = useRef(null);
   const backRef = useRef(null);
@@ -202,7 +202,8 @@ export function AgeVerification(props) {
         const res = await dispatch(businessDocumentUpload(data, uuid));
         if (res?.type === TYPES.BUSINESS_DOCUMENTS_UPLOAD_SUCCESS) {
           dispatch(getWalletUserProfile(uuid));
-          navigate(NAVIGATION.connectBank);
+          // navigate(NAVIGATION.connectBank);
+          handleScreenChange(6);
         }
       } else {
         dispatch(documentsUpload(data, uuid))
@@ -215,10 +216,12 @@ export function AgeVerification(props) {
                 });
               } else {
                 dispatch(getPlaidToken());
-                navigation.reset({
-                  index: 0,
-                  routes: [{ name: NAVIGATION.connectBank }],
-                });
+                handleScreenChange(6);
+                dispatch(getUserProfile(uuid?.registered?.uuid));
+                // navigation.reset({
+                //   index: 0,
+                //   routes: [{ name: NAVIGATION.connectBank }],
+                // });
               }
             });
           })

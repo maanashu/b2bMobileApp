@@ -24,7 +24,12 @@ import { useNavigation } from "@react-navigation/native";
 import { TYPES } from "@/Types/Types";
 const CELL_COUNT = 4;
 
-export function EnterPin({ goBackScreen, ...params }) {
+export function EnterPin({
+  goBackScreen,
+  handleScreenChange,
+  disableModal,
+  ...params
+}) {
   const route = params?.route?.params?.route;
   const user = useSelector(getUser);
   const dispatch = useDispatch();
@@ -123,13 +128,15 @@ export function EnterPin({ goBackScreen, ...params }) {
         user?.screenName,
         fcmtoken
       )
-    );
+    )
+      .then(() => disableModal())
+      .catch(() => {});
   };
   return (
     <ScreenWrapper>
       <View style={styles.headerContainer}>
         <View style={styles.displayFlex}>
-          <TouchableOpacity onPress={() => goBackScreen("1")}>
+          <TouchableOpacity onPress={() => goBackScreen(1)}>
             <Image source={backArrow} style={styles.backArrow} />
           </TouchableOpacity>
           <Text style={styles.setPin}>{strings.auth.enterPin}</Text>

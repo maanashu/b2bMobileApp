@@ -19,7 +19,7 @@ import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { TYPES } from "@/Types/Types";
 import { NAVIGATION } from "@/constants";
 
-export function MobileNumber({ handleScreenChange, ...props }) {
+export function MobileNumber({ handleScreenChange, data, ...props }) {
   const dispatch = useDispatch();
   const { colors } = useTheme();
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -41,9 +41,10 @@ export function MobileNumber({ handleScreenChange, ...props }) {
   const submit = () => {
     if (phoneNumber && phoneNumber.length >= 10 && digits.test(phoneNumber)) {
       dispatch(sendOtp(phoneNumber, countryCode, param, flag)).then((res) => {
-        console.log("CLg", JSON.stringify(res));
         if (res?.payload?.is_phone_exits) {
-          handleScreenChange(1);
+          handleScreenChange(2);
+        } else {
+          handleScreenChange(7, { id: res.payload.id });
         }
       });
     } else if (phoneNumber && phoneNumber.length < 10) {

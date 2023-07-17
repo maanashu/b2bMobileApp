@@ -26,11 +26,11 @@ export class UserController {
         headers: { "device-id": uniqueId, "fcm-token": token },
       })
         .then((response) => {
-          if (screenName) {
-            navigate(screenName);
-          } else {
-            navigate(NAVIGATION.home);
-          }
+          // if (screenName) {
+          //   navigate(screenName);
+          // } else {
+          //   navigate(NAVIGATION.home);
+          // }
           // navigate(NAVIGATION.home);
           // navigation.reset({
           //   index: 0,
@@ -77,7 +77,7 @@ export class UserController {
               visibilityTime: 2000,
             });
 
-            navigate(NAVIGATION.verify, { id: response.payload.id });
+            // navigate(NAVIGATION.verify, { id: response.payload.id });
           }
 
           resolve(response);
@@ -107,7 +107,6 @@ export class UserController {
               type: "error_toast",
               visibilityTime: 1500,
             });
-            alert("okokokok");
           } else {
             Toast.show({
               text2: "Otp sent successfully",
@@ -141,14 +140,14 @@ export class UserController {
       };
       HttpClient.post(endpoint, body)
         .then((response) => {
-          if (response.status_code === 200) {
-            resolve(response);
-            navigation.reset({
-              index: 0,
-              routes: [{ name: NAVIGATION.register }],
-            });
-          } else {
-          }
+          // if (response.status_code === 200) {
+          //   resolve(response);
+          //   navigation.reset({
+          //     index: 0,
+          //     routes: [{ name: NAVIGATION.register }],
+          //   });
+          // } else {
+          // }
           resolve(response);
         })
         .catch((error) => {
@@ -192,21 +191,21 @@ export class UserController {
         headers: { "device-id": uniqueId, "fcm-token": token },
       })
         .then((response) => {
-          if (response?.status_code === 201) {
-            navigation.reset({
-              index: 0,
-              routes: [{ name: NAVIGATION.personalInformation }],
-            });
-            resolve(response);
-          } else {
-            Toast.show({
-              text2: response.msg,
-              position: "bottom",
-              type: "error_toast",
-              visibilityTime: 1500,
-            });
-          }
-          return;
+          // if (response?.status_code === 201) {
+          //   navigation.reset({
+          //     index: 0,
+          //     routes: [{ name: NAVIGATION.personalInformation }],
+          //   });
+          //   resolve(response);
+          // } else {
+          //   Toast.show({
+          //     text2: response.msg,
+          //     position: "bottom",
+          //     type: "error_toast",
+          //     visibilityTime: 1500,
+          //   });
+          // }
+          resolve(response);
         })
         .catch((error) => {
           Toast.show({

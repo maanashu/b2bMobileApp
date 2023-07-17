@@ -23,7 +23,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
-import { register } from "@/actions/UserActions";
+import { getUserProfile, register } from "@/actions/UserActions";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
@@ -32,7 +32,7 @@ import { emailReg } from "@/Utils/validators";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 
-export function Register() {
+export function Register({ handleScreenChange }) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const user = useSelector(getUser);
@@ -108,7 +108,12 @@ export function Register() {
   };
   const handleRegister = async () => {
     const token = await AsyncStorage.getItem("token");
-    dispatch(register(data, token, navigation));
+    dispatch(register(data, token, navigation))
+      .then((res) => {
+        dispatch(getUserProfile(res?.payload?.uuid));
+        handleScreenChange(3);
+      })
+      .catch(() => {});
   };
 
   const submit = () => {

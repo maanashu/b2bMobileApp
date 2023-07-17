@@ -1,29 +1,79 @@
 import React, { useEffect, useRef, useState } from "react";
-import { BackHandler, View } from "react-native";
-import { Button, ScreenWrapper } from "@/components";
+import { View } from "react-native";
+import { ScreenWrapper } from "@/components";
 import Modal from "react-native-modal";
-import { EnterPin, MobileNumber, Splash } from "@/screens";
-import { NAVIGATION } from "@/constants";
+import {
+  AgeVerification,
+  CheckAndRequestKYC,
+  ConnectBank,
+  EnterPin,
+  MobileNumber,
+  PersonalInformation,
+  Register,
+  Splash,
+  Verify,
+} from "@/screens";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+import { getUser } from "@/selectors/UserSelectors";
 
-export function LoginModal({ isVisible, closeModal }) {
+export function LoginModal({ isVisible, closeModal, setScreen }) {
   const navigation = useNavigation();
-  const [activeScreen, setActiveScreen] = useState(0);
+  const user = useSelector(getUser);
+
+  useEffect(() => {
+    if (!user?.user?.payload?.token) {
+      return setActiveScreen(0);
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps == 0) {
+      return setActiveScreen(3);
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps == 1) {
+      return setActiveScreen(4);
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps == 1.1) {
+      return setActiveScreen(5);
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps == 4) {
+      return setActiveScreen(6);
+    }
+  }, [isVisible]);
+
+  const getScreen = () => {
+    if (!user?.user?.payload?.token) {
+      return 0;
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps == 0) {
+      return 3;
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps == 1) {
+      return 4;
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps == 1.1) {
+      return 5;
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps == 4) {
+      return 6;
+    }
+  };
+  const screen = getScreen();
+
+  const [activeScreen, setActiveScreen] = useState(null);
+  const [data, setData] = useState("");
   const ref = useRef();
 
-  const handleScreenChange = (screen) => {
+  const handleScreenChange = (screen, data) => {
     setActiveScreen(screen);
+    setData(data);
   };
   const goBackScreen = (screen) => {
     setActiveScreen(screen);
   };
   const closeModalBackPress = () => {
-    if (activeScreen == 0) {
+    const shouldCloseModal = [0, 3, 4, 5, 6, 8].includes(activeScreen);
+
+    if (shouldCloseModal) {
       ref.current.close();
       closeModal(false);
     } else {
-      setActiveScreen(activeScreen - 1);
+      setActiveScreen(activeScreen === 7 ? 1 : activeScreen - 1);
     }
+  };
+  const disableModal = () => {
+    ref.current.close();
+    closeModal(false);
   };
 
   let content;
@@ -41,17 +91,74 @@ export function LoginModal({ isVisible, closeModal }) {
         <MobileNumber
           handleScreenChange={handleScreenChange}
           goBackScreen={goBackScreen}
+          data={data}
         />
       );
       break;
     case 2:
       content = (
-        <EnterPin closeModal={closeModal} goBackScreen={goBackScreen} />
+        <EnterPin
+          handleScreenChange={handleScreenChange}
+          disableModal={disableModal}
+          goBackScreen={goBackScreen}
+        />
       );
       break;
-    // case "screen3":
-    //   content = <Screen3 closeModal={closeModal} />;
-    //   break;
+    case 3:
+      content = (
+        <PersonalInformation
+          handleScreenChange={handleScreenChange}
+          closeModal={closeModalBackPress}
+          goBackScreen={goBackScreen}
+        />
+      );
+      break;
+    case 4:
+      content = (
+        <CheckAndRequestKYC
+          handleScreenChange={handleScreenChange}
+          closeModal={closeModalBackPress}
+          goBackScreen={goBackScreen}
+        />
+      );
+      break;
+    case 5:
+      content = (
+        <AgeVerification
+          handleScreenChange={handleScreenChange}
+          closeModal={closeModalBackPress}
+          goBackScreen={goBackScreen}
+        />
+      );
+      break;
+    case 6:
+      content = (
+        <ConnectBank
+          handleScreenChange={handleScreenChange}
+          closeModal={closeModalBackPress}
+          goBackScreen={goBackScreen}
+        />
+      );
+      break;
+    case 7:
+      content = (
+        <Verify
+          handleScreenChange={handleScreenChange}
+          closeModal={closeModalBackPress}
+          goBackScreen={goBackScreen}
+          data={data}
+        />
+      );
+      break;
+    case 8:
+      content = (
+        <Register
+          handleScreenChange={handleScreenChange}
+          closeModal={closeModalBackPress}
+          goBackScreen={goBackScreen}
+        />
+      );
+      break;
     default:
       content = null;
   }
