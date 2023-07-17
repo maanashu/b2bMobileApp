@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Text, View, useWindowDimensions, BackHandler } from "react-native";
-import { ScreenWrapper } from "@/components";
+import { LoginModal, ScreenWrapper } from "@/components";
 import { COLORS } from "@/theme/Colors";
 import { SF, SW } from "@/theme/ScalerDimensions";
 import { TabBar } from "react-native-tab-view";
@@ -23,6 +23,7 @@ export function Home() {
   const user = useSelector(getUser);
   const dispatch = useDispatch();
   const { openBioMetricSetupModal } = useContext(ModalsContext).biometric;
+  const [openModal, setOpenModal] = useState(false);
   const phoneNum = user?.phone?.phoneNumber;
   const renderTabBar = (props) => {
     return (
@@ -74,9 +75,17 @@ export function Home() {
     ? `${user?.savedAddress?.state}, ${user?.savedAddress?.country}`
     : "Add Address";
   const loginFunction = () => {
-    dispatch(previousScreen(NAVIGATION.home));
-    navigate(NAVIGATION.splash);
+    // dispatch(previousScreen(NAVIGATION.home));
+    // navigate(NAVIGATION.splash);
+    setOpenModal(true);
   };
+
+  const getScreen = () => {
+    if (!user?.user?.payload?.token) {
+      return 0;
+    }
+  };
+  const screen = getScreen();
   // useEffect(() => {
   //   dispatch(getWalletBalance());
   //   if (user?.user?.payload?.token) {
@@ -128,6 +137,13 @@ export function Home() {
             <Tab.Screen name={NAVIGATION.nearMe} component={NearMe} />
           )}
         </Tab.Navigator>
+      </View>
+      <View>
+        <LoginModal
+          isVisible={openModal}
+          closeModal={setOpenModal}
+          setScreen={screen}
+        />
       </View>
     </ScreenWrapper>
   );

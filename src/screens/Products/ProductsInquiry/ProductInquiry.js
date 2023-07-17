@@ -17,6 +17,7 @@ import { useState } from "react";
 import {
   CompanyDetailView,
   CustomPaginationWithoutText,
+  LoginModal,
   ScreenWrapper,
   Spacer,
 } from "@/components";
@@ -74,11 +75,26 @@ export function ProductInquiry(params) {
   const user = useSelector(getUser);
   const token = user?.user?.payload?.token;
   const [matchedIds, setMatchedIds] = useState(new Set());
+  const [openModal, setOpenModal] = useState(false);
 
   const ProductDetail = useSelector(getProductSelector);
   const isLoadingDetails = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
   );
+  const getScreen = () => {
+    if (!user?.user?.payload?.token) {
+      return 0;
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps === 0) {
+      return 3;
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps === 1) {
+      return 4;
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps === 1.1) {
+      return 5;
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps === 4) {
+      return 6;
+    }
+  };
+  const screen = getScreen();
   // console.log(
   //   "ingredients",
   //   JSON.stringify(ProductDetail?.productDetail?.product_detail?.ingredients)
@@ -261,44 +277,55 @@ export function ProductInquiry(params) {
     );
   };
   const handleSubmit = () => {
-    switch (true) {
-      case !!token:
-        switch (user?.getUserProfile?.user_profiles?.wallet_steps) {
-          case 0:
-          case undefined:
-          case null:
-            dispatch(previousScreen(NAVIGATION.productInquiry));
-            navigate(NAVIGATION.personalInformation, {
-              route: "kyc",
-            });
-            break;
-          case 1:
-            dispatch(previousScreen(NAVIGATION.productInquiry));
-            navigate(NAVIGATION.checkAndRequestKYC);
-            break;
-          case 1.1:
-            dispatch(previousScreen(NAVIGATION.productInquiry));
-            navigate(NAVIGATION.ageVerification);
-            break;
-          case 4:
-            dispatch(previousScreen(NAVIGATION.productInquiry));
-            navigate(NAVIGATION.connectBank);
-            break;
-          case 5:
-            navigate(NAVIGATION.startOrder, {
-              attributes:
-                ProductDetail?.productDetail?.product_detail?.supplies,
-              product_id: ProductDetail?.productDetail?.product_detail?.id,
-              service_id:
-                ProductDetail?.productDetail?.product_detail?.service_id,
-            });
-            break;
-        }
-        break;
-      default:
-        dispatch(previousScreen(NAVIGATION.productInquiry));
-        navigate(NAVIGATION.splash);
-        break;
+    // switch (true) {
+    //   case !!token:
+    //     switch (user?.getUserProfile?.user_profiles?.wallet_steps) {
+    //       case 0:
+    //       case undefined:
+    //       case null:
+    //         dispatch(previousScreen(NAVIGATION.productInquiry));
+    //         navigate(NAVIGATION.personalInformation, {
+    //           route: "kyc",
+    //         });
+    //         break;
+    //       case 1:
+    //         dispatch(previousScreen(NAVIGATION.productInquiry));
+    //         navigate(NAVIGATION.checkAndRequestKYC);
+    //         break;
+    //       case 1.1:
+    //         dispatch(previousScreen(NAVIGATION.productInquiry));
+    //         navigate(NAVIGATION.ageVerification);
+    //         break;
+    //       case 4:
+    //         dispatch(previousScreen(NAVIGATION.productInquiry));
+    //         navigate(NAVIGATION.connectBank);
+    //         break;
+    //       case 5:
+    //         navigate(NAVIGATION.startOrder, {
+    //           attributes:
+    //             ProductDetail?.productDetail?.product_detail?.supplies,
+    //           product_id: ProductDetail?.productDetail?.product_detail?.id,
+    //           service_id:
+    //             ProductDetail?.productDetail?.product_detail?.service_id,
+    //         });
+    //         break;
+    //     }
+    //     break;
+    //   default:
+    //     dispatch(previousScreen(NAVIGATION.productInquiry));
+    //     navigate(NAVIGATION.splash);
+    //     break;
+    // }
+    const shouldOpenModal =
+      !user?.user?.payload?.token || [3, 4, 5, 6].includes(screen);
+    if (shouldOpenModal) {
+      setOpenModal(true);
+    } else {
+      navigate(NAVIGATION.startOrder, {
+        attributes: ProductDetail?.productDetail?.product_detail?.supplies,
+        product_id: ProductDetail?.productDetail?.product_detail?.id,
+        service_id: ProductDetail?.productDetail?.product_detail?.service_id,
+      });
     }
   };
   const SwiperPaginationHandler = () => {
@@ -824,6 +851,13 @@ export function ProductInquiry(params) {
       {isLoadingDetails ? (
         <Loader message="Loading product details..." />
       ) : null}
+      <View>
+        <LoginModal
+          isVisible={openModal}
+          closeModal={setOpenModal}
+          setScreen={screen}
+        />
+      </View>
     </ScreenWrapper>
   );
 }
