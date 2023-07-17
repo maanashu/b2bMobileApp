@@ -81,7 +81,6 @@ export function Profile() {
     }
   };
   const screen = getScreen();
-  console.log("screen no." + screen);
   const logoutUser = () => {
     Alert.alert("Confirmation", "Are you sure you want to logout?", [
       {
@@ -223,12 +222,13 @@ export function Profile() {
           navigate(item?.navigation);
         }
       } else if (item.title == strings.profile.favouriteList) {
-        LoginCommon(
-          dispatch,
-          user?.user?.payload?.token,
-          NAVIGATION.favouriteList,
-          NAVIGATION.favouriteList
-        );
+        const shouldOpenModal =
+          !user?.user?.payload?.token || [3, 4, 5, 6].includes(screen);
+        if (shouldOpenModal) {
+          setOpenModal(true);
+        } else {
+          navigate(item?.navigation);
+        }
       } else {
         navigate(item.navigation);
       }

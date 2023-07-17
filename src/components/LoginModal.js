@@ -34,7 +34,7 @@ export function LoginModal({ isVisible, closeModal, setScreen }) {
       return setActiveScreen(6);
     }
   }, [isVisible]);
-
+  const [activeScreen, setActiveScreen] = useState(null);
   const getScreen = () => {
     if (!user?.user?.payload?.token) {
       return 0;
@@ -50,7 +50,6 @@ export function LoginModal({ isVisible, closeModal, setScreen }) {
   };
   const screen = getScreen();
 
-  const [activeScreen, setActiveScreen] = useState(null);
   const [data, setData] = useState("");
   const ref = useRef();
 
