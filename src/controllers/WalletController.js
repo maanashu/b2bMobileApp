@@ -39,24 +39,24 @@ export class WalletController {
       HttpClient.post(endpoint, body)
         .then((response) => {
           resolve(response);
-          if (response?.msg === "wallet created successfully") {
-            navigation.reset({
-              index: 0,
-              routes: [{ name: NAVIGATION.checkAndRequestKYC }],
-            });
-          } else {
-            navigation.reset({
-              index: 0,
-              routes: [{ name: NAVIGATION.checkAndRequestKYC }],
-            });
-            Toast.show({
-              text2: response.msg,
-              position: "bottom",
-              type: "error_toast",
-              visibilityTime: 1500,
-            });
-          }
-          return;
+          // if (response?.msg === "wallet created successfully") {
+          //   navigation.reset({
+          //     index: 0,
+          //     routes: [{ name: NAVIGATION.checkAndRequestKYC }],
+          //   });
+          // } else {
+          //   navigation.reset({
+          //     index: 0,
+          //     routes: [{ name: NAVIGATION.checkAndRequestKYC }],
+          //   });
+          //   Toast.show({
+          //     text2: response.msg,
+          //     position: "bottom",
+          //     type: "error_toast",
+          //     visibilityTime: 1500,
+          //   });
+          // }
+          // return;
         })
         .catch((error) => {
           reject(error);

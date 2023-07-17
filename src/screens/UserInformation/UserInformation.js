@@ -80,7 +80,8 @@ export function UserInformation() {
   const ssn =
     user?.getUser?.payload?.user_profiles?.ssn_number ||
     user?.user?.payload?.user_profiles?.ssn_number;
-  const maskedSSN = ssn.substring(0, 5).replace(/./g, "_ ") + ssn.substring(5);
+  const maskedSSN =
+    ssn?.substring(0, 5)?.replace(/./g, "_ ") + ssn?.substring(5);
   const changeName = () => {
     if (!newFirstName) {
       alert(strings.validation.firstName);
