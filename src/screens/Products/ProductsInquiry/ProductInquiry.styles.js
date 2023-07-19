@@ -517,7 +517,7 @@ export const styles = StyleSheet.create({
     marginTop: SH(15),
   },
   storeImg: {
-    height: SH(430),
+    height: moderateScale(380),
     width: Dimensions.get("window").width * 0.9,
     borderRadius: 10,
     alignSelf: "center",
