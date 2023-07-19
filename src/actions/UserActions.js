@@ -509,6 +509,20 @@ const getCatalogReset = (error) => ({
   type: TYPES.GET_CATALOG_RESET,
   payload: { error },
 });
+const createCatalogRequest = () => ({
+  type: TYPES.CREATE_CATALOG_REQUEST,
+  payload: null,
+});
+
+const createCatalogSuccess = (crateCatalog) => ({
+  type: TYPES.CREATE_CATALOG_SUCCESS,
+  payload: { crateCatalog },
+});
+
+const createCatalogError = (error) => ({
+  type: TYPES.CREATE_CATALOG_ERROR,
+  payload: { error },
+});
 
 export const login =
   (value, countryCode, phoneNumber, screenName, token, navigation, skip) =>
@@ -922,7 +936,8 @@ export const getCatalogs = (data) => async (dispatch) => {
   dispatch(getCatalogRequest());
   try {
     const res = await UserController.getCatalogs(data);
-    dispatch(getCatalogSuccess());
+
+    dispatch(getCatalogSuccess(res));
     return;
   } catch (error) {
     if (error?.statusCode === 204) {
@@ -930,6 +945,19 @@ export const getCatalogs = (data) => async (dispatch) => {
     } else {
       dispatch(getCatalogError(error.message));
     }
+    throw error;
+  }
+};
+export const createCatalog = (data) => async (dispatch) => {
+  dispatch(createCatalogRequest());
+  try {
+    const res = await UserController.createCatalog(data);
+
+    dispatch(createCatalogSuccess(res));
+
+    return;
+  } catch (error) {
+    dispatch(createCatalogError(error.message));
     throw error;
   }
 };

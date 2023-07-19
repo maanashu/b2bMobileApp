@@ -39,6 +39,7 @@ export const ApiUserInventory = {
   uploadProfileImage: "user_profiles/profile",
   editProfile: "user_profiles",
   catalog: "catalog",
+  uploadCatalog: USER_URL + "messages/UploadImages",
 };
 
 export const SupportInventory = {

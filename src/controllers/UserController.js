@@ -688,12 +688,40 @@ export class UserController {
       const params = new URLSearchParams(data).toString();
       const endpoint = `${USER_URL + ApiUserInventory.catalog}?${params}`;
 
-      HttpClient.get(endpoint, data)
+      HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
-          console.log("suceess", response);
         })
         .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+
+  static async createCatalog(data) {
+    return new Promise((resolve, reject) => {
+      const endpoint = USER_URL + ApiUserInventory.catalog;
+      const body = {
+        ...data,
+      };
+      HttpClient.post(endpoint, body)
+        .then((response) => {
+          console.log("successsss" + response);
+          resolve(response);
+          Toast.show({
+            text2: response?.msg,
+            position: "bottom",
+            type: "success_toast",
+            visibilityTime: 2000,
+          });
+        })
+        .catch((error) => {
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 2000,
+          });
           reject(error);
         });
     });

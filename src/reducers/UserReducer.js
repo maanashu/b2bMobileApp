@@ -265,7 +265,7 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
     case TYPES.GET_CATALOG_SUCCESS:
       return {
         ...state,
-        getCatalogs: payload.getCatalogs,
+        getCatalogs: payload.getCatalogs?.payload?.data,
       };
     case TYPES.GET_CATALOG_RESET:
       return {
