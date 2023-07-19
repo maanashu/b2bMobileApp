@@ -683,6 +683,21 @@ export class UserController {
         });
     });
   }
+  static async getCatalogs(data) {
+    return new Promise((resolve, reject) => {
+      const params = new URLSearchParams(data).toString();
+      const endpoint = `${USER_URL + ApiUserInventory.catalog}?${params}`;
+
+      HttpClient.get(endpoint, data)
+        .then((response) => {
+          resolve(response);
+          console.log("suceess", response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
 
   static async uploadProfileImage(image) {
     return new Promise(async (resolve, reject) => {

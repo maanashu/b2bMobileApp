@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Text, View, useWindowDimensions, BackHandler } from "react-native";
+import { Text, View } from "react-native";
 import { LoginModal, ScreenWrapper } from "@/components";
 import { COLORS } from "@/theme/Colors";
 import { SF, SW } from "@/theme/ScalerDimensions";
@@ -14,8 +14,6 @@ import { NAVIGATION } from "@/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { navigate } from "@/navigation/NavigationRef";
-import { previousScreen } from "@/actions/GlobalActions";
-import { getWalletBalance } from "@/actions/WalletActions";
 import ModalsContext from "@/context/ModalsContext";
 import { storage } from "@/storage";
 

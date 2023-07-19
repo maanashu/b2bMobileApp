@@ -18,9 +18,8 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
   },
   mainView: {
-    paddingHorizontal: ms(20),
+    paddingHorizontal: SW(20),
     flex: 1,
-    alignItems: "center",
   },
   logoView: {
     alignItems: "center",
@@ -40,5 +39,26 @@ export const styles = StyleSheet.create({
     color: COLORS.darkGrey,
     textAlign: "justify",
     lineHeight: ms(17),
+  },
+  tabButtonView: {
+    borderRadius: 20,
+    height: SH(30),
+    // width: SW(95),
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    paddingHorizontal: SW(10),
+    flex: 1,
+    margin: 4,
+  },
+
+  topTabContainer: {
+    flex: 1,
+    paddingVertical: SH(5),
+  },
+  noCatalogText: {
+    fontFamily: Fonts.SemiBold,
+    fontSize: SF(18),
+    color: COLORS.darkGrey,
   },
 });

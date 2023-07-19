@@ -184,7 +184,7 @@ export function Profile() {
       icon: catalogue,
       title: strings.profile.myCatalogs,
       openIcon: forward,
-      navigation: NAVIGATION.myCatalogue,
+      navigation: NAVIGATION.catalogues,
     },
     {
       id: 12,

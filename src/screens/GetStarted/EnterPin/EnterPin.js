@@ -104,11 +104,12 @@ export function EnterPin({
       .then((resultObject) => {
         const { success } = resultObject;
         if (success) {
-          dispatch(deviceLogin(user?.screenName));
-        } else {
+          dispatch(deviceLogin(user?.screenName))
+            .then(() => disableModal())
+            .catch(() => {});
         }
       })
-      .catch((error) => {});
+      .catch(() => {});
   };
 
   const createKeys = () =>

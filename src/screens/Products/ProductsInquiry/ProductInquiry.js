@@ -566,13 +566,11 @@ export function ProductInquiry(params) {
                   ProductDetail?.productDetail?.product_detail?.supplies[0]
                     ?.seller_details?.user_locations[0]?.country
                 }
-                since={
-                  moment(
-                    ProductDetail?.productDetail?.product_detail?.supplies[0]
-                      ?.seller_details?.created_at,
-                    "YYYY"
-                  ).year() || ""
-                }
+                since={moment(
+                  ProductDetail?.productDetail?.product_detail?.supplies[0]
+                    ?.seller_details?.created_at,
+                  "YYYY"
+                ).year()}
                 rating={
                   ProductDetail?.productDetail?.product_detail?.supplies[0]
                     ?.seller_details?.rating?.rating
@@ -856,9 +854,9 @@ export function ProductInquiry(params) {
           </View>
         </View>
       </ScrollView>
-      {/* {isLoadingDetails ? (
+      {isLoadingDetails ? (
         <Loader message="Loading product details..." />
-      ) : null} */}
+      ) : null}
       <View>
         <LoginModal
           isVisible={openModal}

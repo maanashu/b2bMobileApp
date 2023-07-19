@@ -42,7 +42,7 @@ export const NAVIGATION = {
   cookiesPolicy: "CookiesPolicy",
   termsConditions: "TermsConditions",
   chatting: "Chatting",
-  myCatalogue: "MyCatalogue",
+  catalogues: "Catalogues",
   addCoupon: "AddCoupon",
   currentCoupons: "CurrentCoupons",
   pastCoupons: "PastCoupons",

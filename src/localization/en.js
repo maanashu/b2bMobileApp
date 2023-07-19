@@ -143,7 +143,7 @@ export const en = {
     jbrWallet: "JBR Wallet",
     paymentMethods: "Payment Methods",
     businessCard: "Business Cards",
-    myCatalogs: "My Catalogs",
+    myCatalogs: "Catelog",
     helpCenter: "Help Center",
     settings: "Settings",
     howCanWeHelp: "How can we help you?",
@@ -218,6 +218,9 @@ export const en = {
     follow: "Follow",
     visitStore: "Visit Store",
     addHere: "Add you files here",
+    addImage: "Please add image of product",
+    notes: "Please add notes",
+    quantity: "Please add quantity",
   },
   startOrder: {
     checkout: "Checkout",
@@ -842,6 +845,7 @@ export const en = {
     ticketSuccess: "Ticket created successfully",
     emptyList: "No record found",
     updateProfile: "Profile update succesfully",
+    inquirySent: "Inquiry sent successfully",
   },
   payment: {
     header: "Payment methods",

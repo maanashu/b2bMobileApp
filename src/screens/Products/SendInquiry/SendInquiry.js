@@ -13,22 +13,37 @@ import Modal from "react-native-modal";
 import { goBack } from "@/navigation/NavigationRef";
 import { Button } from "@/components";
 import {
-  productss,
   import_picture,
   gallery_image,
   close,
   checkBox,
   selectedCheckBox,
   backArrow,
-  yewiLogo,
 } from "@/assets";
 import { ShadowStyles } from "@/theme";
+import { getProductSelector } from "@/selectors/ProductSelectors";
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
+import { ApiSupportInventory } from "@/Utils/APIinventory";
+import axios from "axios";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
+import { getUser } from "@/selectors/UserSelectors";
+import Icon from "react-native-vector-icons/FontAwesome5";
+import { scale } from "react-native-size-matters";
+import { sendInquiry } from "@/actions/SupportAction";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
+import { Loader } from "@/components/Loader";
 
 export function SendInquiry() {
-  let pictures = [];
-
+  const dispatch = useDispatch();
+  const ProductDetail = useSelector(getProductSelector);
+  const user = useSelector(getUser);
   const [isModalVisible, setModalVisible] = useState(false);
   const [productImage, setProductImage] = useState();
+  const [quantity, setQuantity] = useState("");
+  const [notes, setNotes] = useState("");
+  const [doc, setDoc] = useState("");
   const [agree, setagree] = useState(false);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -41,6 +56,7 @@ export function SendInquiry() {
   const checkLimit = (limit) => {
     var Value = limit?.length.toString();
     setTextLength(Value);
+    setNotes(limit);
   };
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -49,6 +65,9 @@ export function SendInquiry() {
   const closeModal = () => {
     setModalVisible(!isModalVisible);
   };
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.ADD_NEW_TICKET], state)
+  );
 
   const OpenGallery = () => {
     ImageCropPicker.openPicker({
@@ -56,6 +75,7 @@ export function SendInquiry() {
       height: 400,
       cropping: true,
     }).then((image) => {
+      uploadImage(image);
       setProductImage(image.path);
       setModalVisible(!isModalVisible);
     });
@@ -67,19 +87,80 @@ export function SendInquiry() {
       height: 400,
       cropping: true,
     }).then((image) => {
+      uploadImage(image);
       setProductImage(image.path);
       setModalVisible(!isModalVisible);
     });
+  };
+  const uploadImage = async (image) => {
+    const formData = new FormData();
+    formData.append("document", {
+      uri: image.path,
+      type: image.mime,
+      name: image.path,
+    });
+    const endpoint = ApiSupportInventory.uploadSupportDoc;
+    await axios({
+      url: endpoint,
+      method: "POST",
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Accept: "application/json",
+        "app-name": "b2b",
+      },
+    })
+      .then((resp) => {
+        if (resp?.status === 200) {
+          setDoc(resp.data.payload.document);
+          console.log("uploaded");
+        }
+      })
+      .catch((error) => {});
   };
 
   const CheckBox = () => {
     setagree(!agree);
   };
+  console.log("agree", agree);
+  const inquiryBody = {
+    subject_id: "5",
+    email: user?.user?.payload?.email,
+    name: user?.user?.payload?.user_profiles?.firstname,
+    notes: notes,
+    type: "support",
+    product_id: ProductDetail?.productDetail?.product_detail?.id.toString(),
+    seller_id:
+      ProductDetail?.productDetail?.product_detail?.supplies?.[0]?.seller_id,
+    document_url: doc,
+  };
 
-  // useEffect(() => {
-  //   savePicture();
-  // }, [productImage]);
-
+  const submitInquiry = () => {
+    if (!doc) {
+      Toast.show({
+        position: "bottom",
+        type: "error_toast",
+        text2: strings.sendInquiry.addImage,
+        visibilityTime: 2000,
+      });
+    } else if (!notes) {
+      Toast.show({
+        position: "bottom",
+        type: "error_toast",
+        text2: strings.sendInquiry.notes,
+        visibilityTime: 2000,
+      });
+    } else if (!quantity) {
+      Toast.show({
+        position: "bottom",
+        type: "error_toast",
+        text2: strings.sendInquiry.quantity,
+        visibilityTime: 2000,
+      });
+    } else {
+      dispatch(sendInquiry(inquiryBody));
+    }
+  };
   return (
     <ScreenWrapper>
       <View
@@ -133,16 +214,46 @@ export function SendInquiry() {
 
           <Spacer space={SH(10)} />
           <CompanyDetailView
-            title={"Yiwu Leqi E-Commerce Firm"}
-            profilePhoto={yewiLogo}
-            locationText={"Miami, USA"}
+            title={
+              ProductDetail?.productDetail?.product_detail?.supplies[0]
+                ?.seller_details?.user_profiles?.organization_name
+            }
+            profilePhoto={{
+              uri: ProductDetail?.productDetail?.product_detail?.supplies[0]
+                ?.seller_details?.user_profiles?.profile_photo,
+            }}
+            locationText={
+              ProductDetail?.productDetail?.product_detail?.supplies[0]
+                ?.seller_details?.user_locations[0]?.city +
+              ", " +
+              ProductDetail?.productDetail?.product_detail?.supplies[0]
+                ?.seller_details?.user_locations[0]?.country
+            }
+            since={moment(
+              ProductDetail?.productDetail?.product_detail?.supplies[0]
+                ?.seller_details?.created_at,
+              "YYYY"
+            ).year()}
+            rating={
+              ProductDetail?.productDetail?.product_detail?.supplies[0]
+                ?.seller_details?.rating?.rating
+            }
           />
           <Spacer space={SH(10)} />
-          <Image
-            resizeMode="stretch"
-            source={productss}
-            style={styles.productImage}
-          />
+          <View style={styles.productImage}>
+            <Image
+              resizeMode="contain"
+              source={{
+                uri: ProductDetail?.productDetail?.product_detail?.image,
+              }}
+              style={styles.productImageStyle}
+            />
+            <Spacer horizontal space={SH(10)} />
+
+            <Text style={styles.productName}>
+              {ProductDetail?.productDetail?.product_detail?.name}
+            </Text>
+          </View>
         </View>
 
         {/* second view */}
@@ -155,7 +266,11 @@ export function SendInquiry() {
               <Text style={styles.productQuantityText}>
                 {strings.sendInquiry.quantity}
               </Text>
-              <TextField keyboardType="numeric" style={styles.quantityInput} />
+              <TextField
+                keyboardType="numeric"
+                style={styles.quantityInput}
+                onChangeText={setQuantity}
+              />
             </View>
 
             <View>
@@ -187,7 +302,7 @@ export function SendInquiry() {
               height: SH(310),
               backgroundColor: COLORS.placeholder,
               flex: 1,
-              borderRadius:SW(5),
+              borderRadius: SW(5),
             }}
           >
             <TextField
@@ -205,10 +320,11 @@ export function SendInquiry() {
           </View>
           <Spacer space={SH(5)} />
 
-          {productImage ? (
-            <Image source={{ uri: productImage }} style={styles.storedPic} />
-          ) : (
-            <View></View>
+          {productImage && (
+            <>
+              <Spacer space={SH(10)} />
+              <Image source={{ uri: productImage }} style={styles.storedPic} />
+            </>
           )}
 
           <TouchableOpacity onPress={toggleModal} style={styles.dashedView}>
@@ -243,36 +359,39 @@ export function SendInquiry() {
 
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <TouchableOpacity onPress={CheckBox}>
-              <Image
-                source={agree ? selectedCheckBox : checkBox}
-                style={{ height: SH(22), width: SW(20) }}
+              <Icon
+                name={agree ? "check-square" : "square"}
+                color="black"
+                size={scale(15)}
               />
             </TouchableOpacity>
             <View style={{ flex: 1, marginLeft: SW(5) }}>
               <Text style={styles.agreeText}>
                 {" "}
-                Also send inquiries to: all 13 certified Suppliers of PUMA Men's
-                Tazon 6 Wide Sneaker.
+                Also send inquiries to: all certified Suppliers of{" "}
+                {ProductDetail?.productDetail?.product_detail?.name}.
               </Text>
             </View>
           </View>
           <Spacer space={SH(5)} />
           <View style={{ paddingLeft: SW(27) }}>
             <Text style={styles.lastText}>
-              You are inquiring to all 13 verified suppliers in the PUMA Men's
-              Tazon 6 Wide Sneaker. Make sure your messages applies to all
-              suppliers in this category, not an individual supplier.
+              You are inquiring to all verified suppliers in the{" "}
+              {ProductDetail?.productDetail?.product_detail?.name}. Make sure
+              your messages applies to all suppliers in this category, not an
+              individual supplier.
             </Text>
           </View>
           <Spacer space={SH(25)} />
           <Button
             title={"Send"}
-            disabled={productImage == undefined ? true : false}
             style={styles.buttonStyle}
+            onPress={submitInquiry}
           />
           <Spacer space={SH(25)} />
         </View>
       </ScrollView>
+      {isLoading && <Loader />}
     </ScreenWrapper>
   );
 }

@@ -491,6 +491,24 @@ const deviceRegisterError = (error) => ({
   type: TYPES.DEVICE_REGISTER_ERROR,
   payload: { error },
 });
+const getCatalogRequest = () => ({
+  type: TYPES.GET_CATALOG_REQUEST,
+  payload: null,
+});
+
+const getCatalogSuccess = (getCatalogs) => ({
+  type: TYPES.GET_CATALOG_SUCCESS,
+  payload: { getCatalogs },
+});
+
+const getCatalogError = (error) => ({
+  type: TYPES.GET_CATALOG_ERROR,
+  payload: { error },
+});
+const getCatalogReset = (error) => ({
+  type: TYPES.GET_CATALOG_RESET,
+  payload: { error },
+});
 
 export const login =
   (value, countryCode, phoneNumber, screenName, token, navigation, skip) =>
@@ -635,8 +653,10 @@ export const deviceLogin = (screenName) => async (dispatch) => {
     dispatch(getFavouriteSellers());
     dispatch(getFavouriteProducts());
     dispatch(getBankAccounts());
+    return;
   } catch (error) {
     dispatch(loginError(error.message));
+    throw error;
   }
 };
 
@@ -896,5 +916,20 @@ export const deleteAddress = (id) => async (dispatch) => {
     dispatch(getUserLocations());
   } catch (error) {
     dispatch(deleteAddressError(error.message));
+  }
+};
+export const getCatalogs = (data) => async (dispatch) => {
+  dispatch(getCatalogRequest());
+  try {
+    const res = await UserController.getCatalogs(data);
+    dispatch(getCatalogSuccess());
+    return;
+  } catch (error) {
+    if (error?.statusCode === 204) {
+      dispatch(getCatalogReset());
+    } else {
+      dispatch(getCatalogError(error.message));
+    }
+    throw error;
   }
 };

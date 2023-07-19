@@ -191,10 +191,13 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   productImage: {
-    height: 80,
-    width: "100%",
-    alignSelf: "center",
     borderRadius: 5,
+    paddingHorizontal: SW(10),
+    backgroundColor: COLORS.white,
+    flex: 1,
+    flexDirection: "row",
+    paddingVertical: SH(10),
+    alignItems: "center",
   },
   QuantityView: {
     flexDirection: "row",
@@ -245,6 +248,7 @@ export const styles = StyleSheet.create({
     width: SW(80),
     marginHorizontal: SW(5),
     marginBottom: SH(15),
+    borderRadius: SW(3),
   },
   modalBackground: {
     padding: SW(30),
@@ -301,5 +305,15 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.Regular,
     color: COLORS.darkGrey,
     alignSelf: "flex-end",
+  },
+  productImageStyle: {
+    height: SH(70),
+    width: SH(70),
+  },
+  productName: {
+    flex: 1,
+    fontFamily: Fonts.SemiBold,
+    fontSize: SF(12),
+    color: COLORS.darkGrey,
   },
 });

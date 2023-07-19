@@ -11,9 +11,7 @@ export function Header({ backRequired, bell, bag, onPress }) {
         {backRequired && (
           <TouchableOpacity
             style={{ flexDirection: "row", alignItems: "center" }}
-            onPress={() => {
-              goBack();
-            }}
+            onPress={() => goBack()}
           >
             <Image
               resizeMode="contain"

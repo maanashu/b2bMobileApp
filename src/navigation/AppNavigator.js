@@ -35,6 +35,7 @@ import {
   BusinessProducts,
   BusinessProfile,
   BusinessRegistration,
+  Catalogues,
   Chatting,
   CheckAndRequestKYC,
   Checkout,
@@ -464,8 +465,8 @@ export function AppBottom() {
         options={{ headerLargeTitle: false, headerShown: false }}
       />
       <Stack.Screen
-        component={MyCatalogue}
-        name={NAVIGATION.myCatalogue}
+        component={Catalogues}
+        name={NAVIGATION.catalogues}
         options={{ headerShown: false }}
       />
       <Stack.Screen

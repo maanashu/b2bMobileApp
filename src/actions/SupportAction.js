@@ -90,6 +90,18 @@ export const addNewTicket = (data) => async (dispatch) => {
     throw error;
   }
 };
+export const sendInquiry = (data) => async (dispatch) => {
+  dispatch(addNewTicketRequest());
+  try {
+    const res = await SupportController.sendInquiry(data);
+    dispatch(getAddNewTicketSuccess(res));
+    dispatch(getSupportList());
+    return;
+  } catch (error) {
+    dispatch(getAddNewTicketError(error.message));
+    throw error;
+  }
+};
 
 export const getSupportList = () => async (dispatch) => {
   dispatch(getSupportListRequest());

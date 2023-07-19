@@ -38,6 +38,7 @@ export const ApiUserInventory = {
   productFavourites: "product_favourites",
   uploadProfileImage: "user_profiles/profile",
   editProfile: "user_profiles",
+  catalog: "catalog",
 };
 
 export const SupportInventory = {

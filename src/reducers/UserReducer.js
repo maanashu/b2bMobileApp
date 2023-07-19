@@ -48,6 +48,7 @@ const INITIALSTATE = {
   getFavouriteSellers: [],
   uploadProfileImage: {},
   editProfile: {},
+  getCatalogs: [],
 };
 
 export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -260,6 +261,16 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         uploadProfileImage: payload.uploadProfileImage,
+      };
+    case TYPES.GET_CATALOG_SUCCESS:
+      return {
+        ...state,
+        getCatalogs: payload.getCatalogs,
+      };
+    case TYPES.GET_CATALOG_RESET:
+      return {
+        ...state,
+        getCatalogs: [],
       };
   }
 };

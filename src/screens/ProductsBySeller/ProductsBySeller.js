@@ -21,9 +21,11 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { getUser } from "@/selectors/UserSelectors";
 import { Loader } from "@/components/Loader";
+import { useIsFocused } from "@react-navigation/native";
 
 export function ProductsBySeller(params) {
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
 
   const productsData = useSelector(getProductSelector);
   const user = useSelector(getUser);
@@ -47,7 +49,7 @@ export function ProductsBySeller(params) {
 
   useEffect(() => {
     dispatch(getProduct(productObject));
-  }, []);
+  }, [isFocused]);
 
   const isLoadingProducts = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT], state)
