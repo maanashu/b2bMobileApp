@@ -1,5 +1,5 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
@@ -13,7 +13,7 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { getUser } from "@/selectors/UserSelectors";
 
 import ModalsContext from "@/context/ModalsContext";
-import { Spacer, Button } from "@/components";
+import { Spacer, Button, LoginModal } from "@/components";
 import { navigate } from "./NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { previousScreen } from "@/actions/GlobalActions";
@@ -30,6 +30,7 @@ export default function Modals({ children }) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const user = useSelector(getUser);
+  const [openModal, setOpenModal] = useState(false);
 
   const bioMetricModalRef = useRef(null);
   const openBioMetricSetupModal = useCallback(() => {
@@ -56,8 +57,8 @@ export default function Modals({ children }) {
         }
       });
     } else {
-      navigate(NAVIGATION.splash);
-      dispatch(previousScreen(NAVIGATION.home));
+      setOpenModal(true);
+
       closeBioMetricSetupModal();
     }
   };
@@ -181,6 +182,10 @@ export default function Modals({ children }) {
             </View>
           </>
         )}
+         <LoginModal
+          isVisible={openModal}
+          closeModal={setOpenModal}
+        />
       </BottomSheetModal>
       {/* </BottomSheetModalProvider> */}
     </>

@@ -153,7 +153,6 @@ export function Settings() {
       <NameHeaderCoins
         title={strings.profile.settings}
         backRequired
-        onPress={() => goBack()}
       />
 
       <View style={styles.mainView}>
