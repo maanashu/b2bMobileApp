@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { styles } from "./BrandsSellers.styles";
-import { Header, ScreenWrapper, Spacer } from "@/components";
+import { Header, LoginModal, ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import {
@@ -43,6 +43,7 @@ export function BrandsSellers(params) {
   const routeId = params?.route?.params?.categoryId;
   const [selectedId, setSelectedId] = useState([0]);
   const [favourite, setFavourite] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const brandsData = useSelector(getCategorySelector);
   const user = useSelector(getUser);
@@ -97,8 +98,14 @@ export function BrandsSellers(params) {
   );
 
   const colorChange = (item) => {
-    setFavourite(!favourite);
-    dispatch(sellerFavourites({ seller_id: item.id }));
+    if (user?.user?.payload
+      ?.token) {
+        setFavourite(!favourite);
+        dispatch(sellerFavourites({ seller_id: item.id }));
+    } else {
+      setOpenModal(true)
+    }
+    
   };
 
   const renderBrands = ({ item, index }) => (
@@ -269,6 +276,13 @@ export function BrandsSellers(params) {
           />
         )}
       </View>
+      <View>
+        <LoginModal
+          isVisible={openModal}
+          closeModal={setOpenModal}
+        />
+      </View>
+
     </ScreenWrapper>
   );
 }

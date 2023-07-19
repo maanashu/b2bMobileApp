@@ -259,7 +259,7 @@ export class UserController {
       HttpClient.post(endpoint, body)
         .then((response) => {
           resolve(response);
-          navigate(screenName || NAVIGATION.home);
+          // navigate(screenName || NAVIGATION.home);
         })
         .catch((error) => {
           Toast.show({

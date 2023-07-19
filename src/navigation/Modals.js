@@ -182,10 +182,12 @@ export default function Modals({ children }) {
             </View>
           </>
         )}
-         <LoginModal
+         <View>
+        <LoginModal
           isVisible={openModal}
           closeModal={setOpenModal}
         />
+      </View>
       </BottomSheetModal>
       {/* </BottomSheetModalProvider> */}
     </>

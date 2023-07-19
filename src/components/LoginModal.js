@@ -13,12 +13,10 @@ import {
   Splash,
   Verify,
 } from "@/screens";
-import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 
 export function LoginModal({ isVisible, closeModal, setScreen }) {
-  const navigation = useNavigation();
   const user = useSelector(getUser);
 
   useEffect(() => {
