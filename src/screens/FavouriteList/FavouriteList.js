@@ -70,19 +70,7 @@ export function FavouriteList(params) {
         break;
     }
   }, [index]);
-  const { navigation } = params;
-  useEffect(() => {
-    const handleBackButton = () => {
-      navigation.navigate(NAVIGATION.home, { screen: NAVIGATION.profile });
-      return true;
-    };
 
-    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
-
-    return () => {
-      BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
-    };
-  }, [navigation]);
   const renderTabBar = (props) => {
     return (
       <TabBar
@@ -129,12 +117,7 @@ export function FavouriteList(params) {
   };
   return (
     <ScreenWrapper containerPropStyle={{ backgroundColor: "#F9F9F9" }}>
-      <HeaderCoin
-        title={strings.profile.favouriteList}
-        backNavi={() =>
-          navigate(NAVIGATION.home, { screen: NAVIGATION.profile })
-        }
-      />
+      <HeaderCoin title={strings.profile.favouriteList} />
       <View
         style={{ flex: 1, paddingVertical: SH(5), backgroundColor: "#F9F9F9" }}
       >

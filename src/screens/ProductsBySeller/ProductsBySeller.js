@@ -28,37 +28,24 @@ export function ProductsBySeller(params) {
   const productsData = useSelector(getProductSelector);
   const user = useSelector(getUser);
 
-  const { navigation } = params;
+  const productObject = {
+    page: 1,
+    limit: 20,
+    delivery_options: 4,
+    app_name: "b2b",
+    seller_id:
+      params?.route?.params?.sellerId ||
+      productsData?.savedProductParams?.sellerId,
+    service_type: "product",
+    brand_id:
+      params?.route?.params?.brand_id ||
+      productsData?.savedProductParams?.brand_id,
+    sub_category_ids:
+      params?.route?.params?.category_id ||
+      productsData?.savedProductParams?.category_id,
+  };
+
   useEffect(() => {
-    const handleBackButton = () => {
-      navigation.navigate(NAVIGATION.brandsSellers);
-      return true;
-    };
-
-    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
-
-    return () => {
-      BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
-    };
-  }, [navigation]);
-  useEffect(() => {
-    const productObject = {
-      page: 1,
-      limit: 20,
-      delivery_options: 4,
-      app_name: "b2b",
-      seller_id:
-        params?.route?.params?.sellerId ||
-        productsData?.savedProductParams?.sellerId,
-      service_type: "product",
-      brand_id:
-        params?.route?.params?.brand_id ||
-        productsData?.savedProductParams?.brand_id,
-      sub_category_ids:
-        params?.route?.params?.category_id ||
-        productsData?.savedProductParams?.brand_id,
-    };
-
     dispatch(getProduct(productObject));
   }, []);
 
@@ -156,12 +143,7 @@ export function ProductsBySeller(params) {
 
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <Header
-        title={"Products"}
-        back={backArrow}
-        enableBackButton
-        backNavi={() => navigate(NAVIGATION.brandsSellers)}
-      />
+      <Header title={"Products"} back={backArrow} enableBackButton />
 
       <View style={{ paddingHorizontal: SW(20), flex: 1, marginTop: SH(20) }}>
         <FlatList

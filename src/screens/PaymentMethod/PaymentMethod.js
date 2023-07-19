@@ -59,20 +59,6 @@ export function PaymentMethod(params) {
     isLoadingSelector([TYPES.DELETE_BANK_ACCOUNTS], state)
   );
 
-  const { navigation } = params;
-  useEffect(() => {
-    const handleBackButton = () => {
-      navigate(NAVIGATION.home, { screen: NAVIGATION.profile });
-      return true;
-    };
-
-    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
-
-    return () => {
-      BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
-    };
-  }, [navigation]);
-
   const handleRemoveBankAccount = (id, index) => {
     const body = {
       token: user?.user?.payload?.token,
@@ -211,13 +197,7 @@ export function PaymentMethod(params) {
 
   return (
     <ScreenWrapper style={styles.container}>
-      <NameHeader
-        title={"Your Bank Accounts"}
-        back
-        backNavi={() =>
-          navigation.navigate(NAVIGATION.home, { screen: NAVIGATION.profile })
-        }
-      />
+      <NameHeader title={"Your Bank Accounts"} back />
 
       <Spacer space={SH(10)} />
 

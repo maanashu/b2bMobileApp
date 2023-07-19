@@ -74,19 +74,6 @@ export function JbrWallet(params) {
     }, 1500);
   };
 
-  const { navigation } = params;
-  useEffect(() => {
-    const handleBackButton = () => {
-      navigation.navigate(NAVIGATION.home, { screen: NAVIGATION.profile });
-      return true;
-    };
-
-    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
-
-    return () => {
-      BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
-    };
-  }, [navigation]);
   useEffect(() => {
     dispatch(getWalletBalance());
     dispatch(getBankAccounts());

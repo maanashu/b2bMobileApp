@@ -2,7 +2,7 @@ import { Fonts } from "@/assets";
 import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions, Platform, StyleSheet } from "react-native";
 import { moderateScale, ms, s, vs } from "react-native-size-matters";
 
 export const styles = StyleSheet.create({
@@ -517,7 +517,7 @@ export const styles = StyleSheet.create({
     marginTop: SH(15),
   },
   storeImg: {
-    height: moderateScale(380),
+    height: Platform.OS == "ios" ? moderateScale(380) : moderateScale(400),
     width: Dimensions.get("window").width * 0.9,
     borderRadius: 10,
     alignSelf: "center",

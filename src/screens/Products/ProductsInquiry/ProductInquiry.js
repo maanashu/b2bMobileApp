@@ -147,8 +147,11 @@ export function ProductInquiry(params) {
         screenName: "productInquiry",
       });
     } else {
-      dispatch(previousScreen(NAVIGATION.productInquiry));
-      navigate(NAVIGATION.splash);
+      const shouldOpenModal =
+        !user?.user?.payload?.token || [3, 4, 5, 6].includes(screen);
+      if (shouldOpenModal) {
+        setOpenModal(true);
+      }
     }
   };
 
@@ -156,24 +159,33 @@ export function ProductInquiry(params) {
     if (user?.user?.payload?.token) {
       dispatch(productFavourites(productData));
     } else {
-      dispatch(previousScreen(NAVIGATION.productInquiry));
-      navigate(NAVIGATION.splash);
+      const shouldOpenModal =
+        !user?.user?.payload?.token || [3, 4, 5, 6].includes(screen);
+      if (shouldOpenModal) {
+        setOpenModal(true);
+      }
     }
   };
   const handleSendInquiry = () => {
     if (user?.user?.payload?.token) {
       navigate(NAVIGATION.sendInquiry);
     } else {
-      dispatch(previousScreen(NAVIGATION.productInquiry));
-      navigate(NAVIGATION.splash);
+      const shouldOpenModal =
+        !user?.user?.payload?.token || [3, 4, 5, 6].includes(screen);
+      if (shouldOpenModal) {
+        setOpenModal(true);
+      }
     }
   };
   const handleAddToBag = () => {
     if (user?.user?.payload?.token) {
       // navigate(NAVIGATION.sendInquiry);
     } else {
-      dispatch(previousScreen(NAVIGATION.productInquiry));
-      navigate(NAVIGATION.splash);
+      const shouldOpenModal =
+        !user?.user?.payload?.token || [3, 4, 5, 6].includes(screen);
+      if (shouldOpenModal) {
+        setOpenModal(true);
+      }
     }
   };
   const handleBuyNow = () => {

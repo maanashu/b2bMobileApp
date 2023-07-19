@@ -16,9 +16,7 @@ export function Header({ title, back, subTitle }) {
       <View style={styles.headerInnerView}>
         <TouchableOpacity
           style={{ flexDirection: "row", alignItems: "center" }}
-          onPress={() =>
-            navigate(NAVIGATION.home, { screen: NAVIGATION.profile })
-          }
+          onPress={() => goBack()}
         >
           <Image
             resizeMode="contain"

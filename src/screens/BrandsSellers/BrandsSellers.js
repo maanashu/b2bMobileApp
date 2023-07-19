@@ -51,9 +51,10 @@ export function BrandsSellers(params) {
   const brandBody = {
     page: 1,
     limit: 10,
-    category_id: params?.route?.params?.categoryId,
+    category_id:
+      params?.route?.params?.categoryId ||
+      product?.savedProductParams?.category_id,
   };
-
   const getFavouriteSeller = useSelector(getUser)?.getFavouriteSellers;
   const [matchedIds, setMatchedIds] = useState(new Set());
 
@@ -77,18 +78,6 @@ export function BrandsSellers(params) {
     dispatch(getSellers(sellersObject));
   }, [brandsData]);
   const { navigation } = params;
-  useEffect(() => {
-    const handleBackButton = () => {
-      navigation.navigate(NAVIGATION.subCategories);
-      return true;
-    };
-
-    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
-
-    return () => {
-      BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
-    };
-  }, [navigation]);
 
   const sellersGet = (item) => {
     setSelectedId(item.id);
@@ -246,12 +235,7 @@ export function BrandsSellers(params) {
   };
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <Header
-        title={"Sellers"}
-        back={backArrow}
-        enableBackButton
-        backNavi={() => navigate(NAVIGATION.subCategories)}
-      />
+      <Header title={"Sellers"} back={backArrow} enableBackButton />
 
       <Spacer space={SH(10)} />
 

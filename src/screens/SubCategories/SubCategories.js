@@ -65,18 +65,7 @@ export function SubCategories(params) {
     onScrollToSelectItem(getIndex);
   }, []);
   const { navigation } = params;
-  useEffect(() => {
-    const handleBackButton = () => {
-      navigation.navigate(NAVIGATION.home);
-      return true;
-    };
 
-    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
-
-    return () => {
-      BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
-    };
-  }, [navigation]);
   useEffect(() => {
     dispatch(getSubCategory(subcategoryObject));
     setSelectedId(
@@ -206,12 +195,7 @@ export function SubCategories(params) {
 
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <Header
-        title={"Categories"}
-        back={backArrow}
-        enableBackButton
-        backNavi={() => navigate(NAVIGATION.home)}
-      />
+      <Header title={"Categories"} back={backArrow} enableBackButton />
 
       <View style={{ paddingHorizontal: SW(5), flex: 1, marginTop: SH(10) }}>
         <FlatList
