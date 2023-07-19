@@ -227,6 +227,13 @@ export function Profile() {
         } else {
           navigate(item?.navigation);
         }
+      } else if (item.title == strings.profile.myCatalogs) {
+        const shouldOpenModal = !user?.user?.payload?.token;
+        if (shouldOpenModal) {
+          setOpenModal(true);
+        } else {
+          navigate(item?.navigation);
+        }
       } else {
         navigate(item.navigation);
       }

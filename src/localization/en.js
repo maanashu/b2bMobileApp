@@ -99,6 +99,7 @@ export const en = {
     skip: "Skip",
     submit: "Submit",
     selectAddress: "Select Address",
+    uploadCatalog: "Upload Catalog",
   },
 
   verify: {

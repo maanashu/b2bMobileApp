@@ -19,7 +19,7 @@ export function ReceivedCatalogues() {
         {user?.getCatalogs?.length == 0 ? (
           <Text style={styles.noCatalogText}>No Catalogs found</Text>
         ) : (
-          <Text>My Catalogs</Text>
+          <Text>Received Catalogs</Text>
         )}
       </View>
       {isLoading && <Loader message="Loading received catalogs" />}

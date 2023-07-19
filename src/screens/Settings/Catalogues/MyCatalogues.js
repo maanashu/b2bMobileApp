@@ -1,13 +1,13 @@
 import { Text, View } from "react-native";
 import React from "react";
 import { styles } from "./MyCatalogue.styles";
-import { ScreenWrapper, Spacer } from "@/components";
-import { SH } from "@/theme/ScalerDimensions";
+import { Button, ScreenWrapper } from "@/components";
 import { useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
+import { strings } from "@/localization";
 
 export function MyCatalogue() {
   const user = useSelector(getUser);
@@ -24,6 +24,9 @@ export function MyCatalogue() {
         )}
       </View>
       {isLoading && <Loader message="Loading my catalogs" />}
+      <View style={styles.buttonView}>
+        <Button title={strings.buttonText.uploadCatalog} />
+      </View>
     </ScreenWrapper>
   );
 }

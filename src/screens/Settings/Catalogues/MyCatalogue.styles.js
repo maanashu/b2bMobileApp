@@ -61,4 +61,8 @@ export const styles = StyleSheet.create({
     fontSize: SF(18),
     color: COLORS.darkGrey,
   },
+  buttonView: {
+    justifyContent: "flex-end",
+    paddingHorizontal: SW(20),
+  },
 });
