@@ -355,6 +355,90 @@ export function ProductInquiry(params) {
       <Header backRequired bell={bellGrey} bag={bagGrey} />
       <Spacer space={SH(10)} />
 
+      <View style={styles.absoluteButtonsView}>
+        <View style={styles.queryIcons}>
+          <TouchableOpacity style={styles.chatbutton} onPress={handleChat}>
+            <Image source={chatNow} style={styles.buttonIcon} />
+
+            <Text style={styles.chatText}>
+              {" "}
+              {strings.productInquiry.chatNow}
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={handleSendInquiry} style={styles.buttons}>
+            <Image
+              source={sendInquiry}
+              resizeMode="stretch"
+              style={styles.buttonIcon}
+            />
+
+            <Text style={styles.orderText}>
+              {" "}
+              {strings.productInquiry.sendInquiry}
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              handleSubmit();
+            }}
+            style={styles.buttons}
+          >
+            <Image
+              source={plusIcon}
+              resizeMode="stretch"
+              style={styles.plusButtonIcon}
+            />
+
+            <Text style={styles.orderText}>
+              {" "}
+              {strings.productInquiry.startOrder}
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <Spacer space={SH(14)} />
+        {/* 
+            <Text
+              style={{
+                fontFamily: Fonts.SemiBold,
+                marginLeft: ms(5),
+                fontSize: SF(10),
+                color: "black",
+              }}
+            >
+              {strings.productInquiry.estimated}
+            </Text>
+            <Spacer space={SH(12)} /> */}
+
+        <View style={styles.midView}>
+          <TouchableOpacity
+            style={styles.addToBagIcon}
+            onPress={handleAddToBag}
+          >
+            <Image
+              resizeMode="contain"
+              source={bagWhite}
+              style={styles.bigIcon}
+            />
+            <Text style={styles.smallIcons}>
+              {strings.productInquiry.addToBag}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buyNowIcon} onPress={handleBuyNow}>
+            <Image
+              resizeMode="contain"
+              source={bagWhite}
+              style={styles.bigIcon}
+            />
+            <Text style={styles.smallIcons}>
+              {strings.productInquiry.buyNow}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
       <ScrollView showsVerticalScrollIndicator={false} style={{}}>
         <View>
           <View style={{ alignItems: "flex-end" }}>
@@ -431,94 +515,6 @@ export function ProductInquiry(params) {
           </View>
 
           <View style={styles.mainView}>
-            <View style={styles.queryIcons}>
-              <TouchableOpacity style={styles.chatbutton} onPress={handleChat}>
-                <Image source={chatNow} style={styles.buttonIcon} />
-
-                <Text style={styles.chatText}>
-                  {" "}
-                  {strings.productInquiry.chatNow}
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={handleSendInquiry}
-                style={styles.buttons}
-              >
-                <Image
-                  source={sendInquiry}
-                  resizeMode="stretch"
-                  style={styles.buttonIcon}
-                />
-
-                <Text style={styles.orderText}>
-                  {" "}
-                  {strings.productInquiry.sendInquiry}
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={() => {
-                  handleSubmit();
-                }}
-                style={styles.buttons}
-              >
-                <Image
-                  source={plusIcon}
-                  resizeMode="stretch"
-                  style={styles.plusButtonIcon}
-                />
-
-                <Text style={styles.orderText}>
-                  {" "}
-                  {strings.productInquiry.startOrder}
-                </Text>
-              </TouchableOpacity>
-            </View>
-
-            <Spacer space={SH(10)} />
-
-            <Text
-              style={{
-                fontFamily: Fonts.SemiBold,
-                marginLeft: ms(5),
-                fontSize: SF(10),
-                color: "black",
-              }}
-            >
-              {strings.productInquiry.estimated}
-            </Text>
-            <Spacer space={SH(12)} />
-
-            <View style={styles.midView}>
-              <TouchableOpacity
-                style={styles.addToBagIcon}
-                onPress={handleAddToBag}
-              >
-                <Image
-                  resizeMode="contain"
-                  source={bagWhite}
-                  style={styles.bigIcon}
-                />
-                <Text style={styles.smallIcons}>
-                  {strings.productInquiry.addToBag}
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.buyNowIcon}
-                onPress={handleBuyNow}
-              >
-                <Image
-                  resizeMode="contain"
-                  source={bagWhite}
-                  style={styles.bigIcon}
-                />
-                <Text style={styles.smallIcons}>
-                  {strings.productInquiry.buyNow}
-                </Text>
-              </TouchableOpacity>
-            </View>
-
             <Spacer space={SH(20)} />
 
             <View style={styles.yewiView}>
@@ -848,9 +844,9 @@ export function ProductInquiry(params) {
           </View>
         </View>
       </ScrollView>
-      {isLoadingDetails ? (
+      {/* {isLoadingDetails ? (
         <Loader message="Loading product details..." />
-      ) : null}
+      ) : null} */}
       <View>
         <LoginModal
           isVisible={openModal}

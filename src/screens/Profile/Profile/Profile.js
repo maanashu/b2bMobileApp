@@ -13,8 +13,6 @@ import { useDispatch } from "react-redux";
 import { logout } from "@/actions/UserActions";
 import {
   Button,
-  LoginCommon,
-  LoginCommonKyc,
   LoginModal,
   NameHeaderCoins,
   ScreenWrapper,

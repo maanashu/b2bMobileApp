@@ -517,9 +517,19 @@ export const styles = StyleSheet.create({
     marginTop: SH(15),
   },
   storeImg: {
-    height: SH(185),
+    height: SH(430),
     width: Dimensions.get("window").width * 0.9,
     borderRadius: 10,
     alignSelf: "center",
+  },
+  absoluteButtonsView: {
+    backgroundColor: COLORS.white,
+    position: "absolute",
+    zIndex: 9999,
+    right: 0,
+    left: 0,
+    paddingHorizontal: SW(20),
+    bottom: 0,
+    paddingBottom: SW(10),
   },
 });

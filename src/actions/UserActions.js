@@ -728,7 +728,6 @@ export const getUserProfile = (data) => async (dispatch) => {
   try {
     const res = await UserController.getUserProfile(data);
     dispatch(getUserProfileSucess(res));
-    console.log("yes success");
   } catch (error) {
     dispatch(getUserProfileError(error.message));
   }
