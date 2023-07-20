@@ -10,6 +10,8 @@ import { TYPES } from "@/Types/Types";
 import { ViewEyeIcon, pdfFileIcon, shareIcon } from "@/assets";
 import { SH, SW } from "@/theme";
 import Share from "react-native-share";
+import { navigate } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
 
 export function ReceivedCatalogues() {
   const user = useSelector(getUser);
@@ -41,7 +43,11 @@ export function ReceivedCatalogues() {
             <Text style={styles.pdfNameText}>{item?.caption + ".pdf"}</Text>
           </View>
           <View style={styles.rowView}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigate(NAVIGATION.pdfViewer, { pdfUrl: item?.link })
+              }
+            >
               <Image
                 source={ViewEyeIcon}
                 resizeMode="contain"

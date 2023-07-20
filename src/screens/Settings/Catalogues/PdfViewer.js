@@ -1,3 +1,4 @@
+import { NameHeader, ScreenWrapper } from "@/components";
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import Pdf from "react-native-pdf";
@@ -5,25 +6,28 @@ import Pdf from "react-native-pdf";
 export function PdfViewer(props) {
   console.log("url-->" + props?.route?.params?.pdfUrl);
   return (
-    <View style={styles.container}>
-      <Pdf
-        trustAllCerts={false}
-        source={{ uri: props?.route?.params?.pdfUrl }}
-        style={styles.pdf}
-        onLoadComplete={(numberOfPages, filePath) => {
-          console.log(`Number of pages: ${numberOfPages}`);
-        }}
-        onPageChanged={(page, numberOfPages) => {
-          console.log(`Current page: ${page}`);
-        }}
-        onError={(error) => {
-          console.log(error);
-        }}
-        onPressLink={(uri) => {
-          console.log(`Link pressed: ${uri}`);
-        }}
-      />
-    </View>
+    <ScreenWrapper>
+      <NameHeader back />
+      <View style={styles.container}>
+        <Pdf
+          trustAllCerts={false}
+          source={{ uri: props?.route?.params?.pdfUrl }}
+          style={styles.pdf}
+          onLoadComplete={(numberOfPages, filePath) => {
+            console.log(`Number of pages: ${numberOfPages}`);
+          }}
+          onPageChanged={(page, numberOfPages) => {
+            console.log(`Current page: ${page}`);
+          }}
+          onError={(error) => {
+            console.log(error);
+          }}
+          onPressLink={(uri) => {
+            console.log(`Link pressed: ${uri}`);
+          }}
+        />
+      </View>
+    </ScreenWrapper>
   );
 }
 
