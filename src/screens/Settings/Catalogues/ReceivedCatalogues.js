@@ -9,12 +9,24 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { ViewEyeIcon, pdfFileIcon, shareIcon } from "@/assets";
 import { SH, SW } from "@/theme";
+import Share from "react-native-share";
 
 export function ReceivedCatalogues() {
   const user = useSelector(getUser);
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_CATALOG], state)
   );
+  const handleShare = async (uri) => {
+    try {
+      const shareOptions = {
+        title: "Share PDF Link",
+        message: "Check out this catalogue pdf link!",
+        url: uri, // Use "file://" prefix for local file paths
+        type: "application/pdf", // Specify the MIME type of the file
+      };
+      await Share.open(shareOptions);
+    } catch (error) {}
+  };
   const renderFiles = ({ item }) => {
     return (
       <>
@@ -37,7 +49,7 @@ export function ReceivedCatalogues() {
               />
             </TouchableOpacity>
             <Spacer space={SW(7)} horizontal />
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => handleShare(item?.link)}>
               <Image
                 source={shareIcon}
                 resizeMode="contain"
