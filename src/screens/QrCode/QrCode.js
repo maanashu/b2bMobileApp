@@ -29,7 +29,6 @@ export function QrCode() {
   const downloadUrl = qr?.walletProfile?.qr_code;
   const downloadDest = `${RNFS.DownloadDirectoryPath}/B2B_${timestamp}.jpg`;
   const [inProgress, setInProgress] = useState(false);
-
   useEffect(() => {
     dispatch(getWalletUserProfile(uuid));
   }, []);

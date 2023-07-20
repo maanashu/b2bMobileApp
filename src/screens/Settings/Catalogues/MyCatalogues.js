@@ -16,11 +16,14 @@ import { SH, SW } from "@/theme";
 import { ViewEyeIcon, downloadIcon, pdfFileIcon } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
+import RNFS from "react-native-fs";
+import notifee from "@notifee/react-native";
 
 export function MyCatalogue() {
   const user = useSelector(getUser);
 
   const dispatch = useDispatch();
+  const timestamp = Date.now();
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_CATALOG], state)
@@ -35,6 +38,40 @@ export function MyCatalogue() {
       });
       uploadImage(res?.[0]);
     } catch (err) {}
+  };
+  const showNotification = async () => {
+    try {
+      const channelId = await notifee.createChannel({
+        id: "download_channel",
+        name: "Download Channel",
+      });
+
+      await notifee.displayNotification({
+        title: "Pdf file Downloaded",
+        body: "File is downloaded",
+        ios: {
+          sound: "default",
+        },
+        android: {
+          channelId: channelId,
+          // color: "#FF0000",
+          vibrationPattern: [300, 500],
+        },
+      });
+    } catch (error) {}
+  };
+
+  const handlePdfDownload = async (link) => {
+    try {
+      const downloadDest = `${RNFS.DownloadDirectoryPath}/B2B_${timestamp}.pdf`;
+      const options = {
+        fromUrl: link,
+        toFile: downloadDest,
+      };
+
+      const res = await RNFS.downloadFile(options).promise;
+      showNotification();
+    } catch (error) {}
   };
 
   const uploadImage = async (image, uri) => {
@@ -57,7 +94,6 @@ export function MyCatalogue() {
         },
       });
 
-      console.log("Upload success:", response.data?.payload?.[0]?.filePath);
       dispatch(
         createCatalog({
           link: response.data?.payload?.[0]?.filePath,
@@ -93,7 +129,10 @@ export function MyCatalogue() {
               />
             </TouchableOpacity>
             <Spacer space={SW(7)} horizontal />
-            <TouchableOpacity>
+            <TouchableOpacity
+              handlePdfDownload
+              onPress={() => handlePdfDownload(item?.link)}
+            >
               <Image
                 source={downloadIcon}
                 resizeMode="contain"
