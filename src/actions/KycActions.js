@@ -274,8 +274,10 @@ export const businessRegistration = (data) => async (dispatch) => {
   try {
     const res = await KycController.businessRegistration(data);
     dispatch(businessRegistrationSuccess(res));
+    return;
   } catch (error) {
     dispatch(businessRegistrationError(error.message));
+    throw error;
   }
 };
 
@@ -350,17 +352,11 @@ export const businessDocumentUpload = (data, uuid) => async (dispatch) => {
   dispatch(businessDocumentUploadRequest());
   try {
     const res = await KycController.businessDocumentUpload(data, uuid);
-    return dispatch(businessDocumentUploadSuccess(res));
-    // if (res) {
-    //   const walletres = await dispatch(getWalletUserProfile(uuid));
-    //   if (walletres?.type === 'GET_WALLET_USER_SUCCESS') {
-    //     if (walletres?.payload?.getwalletuser?.type === 'business') {
-    //       navigate(NAVIGATION.connectBank);
-    //     }
-    //   }
-    // }
+    dispatch(businessDocumentUploadSuccess(res));
+    return res;
   } catch (error) {
     dispatch(businessDocumentUploadError(error.message));
+    throw error;
   }
 };
 

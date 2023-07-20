@@ -377,10 +377,10 @@ export const rejectMoney = (data, status) => async (dispatch) => {
   }
 };
 
-export const createWallet = (data, navigation) => async (dispatch) => {
+export const createWallet = (data) => async (dispatch) => {
   dispatch(createWalletRequest());
   try {
-    const res = await WalletController.createWallet(data, navigation);
+    const res = await WalletController.createWallet(data);
     dispatch(createWalletSuccess(res));
     return;
   } catch (error) {

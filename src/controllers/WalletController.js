@@ -15,7 +15,7 @@ export class WalletController {
     });
   }
 
-  static async createWallet(data, navigation) {
+  static async createWallet(data) {
     return new Promise(async (resolve, reject) => {
       const endpoint = ApiWalletInventory.createUser;
       const body = {

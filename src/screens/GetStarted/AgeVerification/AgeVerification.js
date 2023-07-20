@@ -21,28 +21,19 @@ import {
   businessDocumentUpload,
   getPlaidToken,
 } from "@/actions/KycActions";
-import { backArrow, conIdentity, cornerBorder, dummyIdCard } from "@/assets";
+import { conIdentity, cornerBorder, dummyIdCard } from "@/assets";
 import { SH, COLORS } from "@/theme";
 import { TYPES } from "@/Types/Types";
 import { strings } from "@/localization";
 import { getWalletUserProfile } from "@/actions/UserActions";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
-import {
-  Spacer,
-  ScreenWrapper,
-  Header,
-  Button,
-  NameHeader,
-} from "@/components";
+import { Spacer, ScreenWrapper, Button, NameHeader } from "@/components";
 
 import { styles } from "@/screens/GetStarted/AgeVerification/AgeVerification.styles";
 import { getKyc } from "@/selectors/KycSelector";
-import { navigate } from "@/navigation/NavigationRef";
-import { NAVIGATION } from "@/constants";
 import ActionSheet from "react-native-actionsheet";
 import { ApiUserInventory } from "@/Utils/APIinventory";
 import { getUser as getuser } from "@/selectors/UserSelectors";
-import { Loader } from "@/components/Loader";
 import { getWallet } from "@/selectors/WalletSelector";
 
 export function AgeVerification({ handleScreenChange, ...props }) {
@@ -70,19 +61,11 @@ export function AgeVerification({ handleScreenChange, ...props }) {
   useEffect(() => {
     dispatch(getDocumentTypes());
   }, []);
-
+  // console.log("wallet profile", JSON.stringify(getUser?.walletProfile));
   useEffect(() => {
     if (focus) {
       dispatch(getWalletUserProfile(getUser?.userProfile?.unique_uuid));
       dispatch(getDocumentTypes());
-
-      // if (getKycData?.docType?.length > 0) {
-      //   const arr = [];
-      //   getKycData?.docType.map((item, index) => {
-      //     arr.push({ key: index, label: item.label, value: item.name });
-      //     // setIdentityData(arr);
-      //   });
-      // }
     }
   }, [open]);
   const documentNames = ["id_drivers_license", "id_passport", "doc_ssa"];
@@ -189,39 +172,25 @@ export function AgeVerification({ handleScreenChange, ...props }) {
         document_1: finalFrontPhoto,
         document_2: finalBackPhoto,
       };
-      // if (screen === "business") {
-      //   const res = await dispatch(businessDocumentUpload(data, uuid));
-      //   if (res?.type === "BUSINESS_DOCUMENTS_UPLOAD_SUCCESS") {
-      //     dispatch(getWalletUserProfile(uuid));
-      //     // navigate(NAVIGATION.connectBank);
-      //     alert("connect bank");
-      //   }
-      // } else {
-
-      if (screen === "business") {
-        const res = await dispatch(businessDocumentUpload(data, uuid));
-        if (res?.type === TYPES.BUSINESS_DOCUMENTS_UPLOAD_SUCCESS) {
-          dispatch(getWalletUserProfile(uuid));
-          // navigate(NAVIGATION.connectBank);
-          handleScreenChange(6);
-        }
+      if (getUser?.walletProfile.step > 4) {
+        dispatch(businessDocumentUpload(data, uuid))
+          .then((res) => {
+            dispatch(getWalletUserProfile(uuid));
+            handleScreenChange(6);
+            dispatch(getUserProfile(uuid?.registered?.uuid));
+          })
+          .catch((error) => console.log("business error: " + error));
       } else {
         dispatch(documentsUpload(data, uuid))
           .then((res) => {
             dispatch(getWalletUserProfile(uuid)).then((res) => {
-              if (walletData?.walletData?.payload?.type === "business") {
-                navigation.reset({
-                  index: 0,
-                  routes: [{ name: NAVIGATION.businessRegistration }],
-                });
+              if (res?.payload?.type === "business") {
+                handleScreenChange(9);
+                dispatch(getUserProfile(uuid));
               } else {
                 dispatch(getPlaidToken());
                 handleScreenChange(6);
-                dispatch(getUserProfile(uuid?.registered?.uuid));
-                // navigation.reset({
-                //   index: 0,
-                //   routes: [{ name: NAVIGATION.connectBank }],
-                // });
+                dispatch(getUserProfile(uuid));
               }
             });
           })

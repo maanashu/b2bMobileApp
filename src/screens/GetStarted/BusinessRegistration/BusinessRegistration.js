@@ -42,7 +42,7 @@ import { styles } from "@/screens/GetStarted/BusinessRegistration/BusinessRegist
 import { characterReg, digits, emailReg, websiteUrl } from "@/Utils/validators";
 import { Loader } from "@/components/Loader";
 
-export function BusinessRegistration() {
+export function BusinessRegistration({ handleScreenChange }) {
   const ref = useRef(null);
   const dispatch = useDispatch();
   const getKycData = useSelector(getKyc);
@@ -293,8 +293,9 @@ export function BusinessRegistration() {
         doing_business_as: doingBusinessAs,
         employer_identification_number: empId,
       };
-      // const stringifieddata = JSON.stringify(data);
-      dispatch(businessRegistration(data));
+      dispatch(businessRegistration(data))
+        .then(() => handleScreenChange(10))
+        .catch((error) => console.log("b reg", error));
     }
   };
 
@@ -326,10 +327,7 @@ export function BusinessRegistration() {
                 {strings.personalInformation.labelDob}
               </Text>
 
-              <TouchableOpacity
-                style={styles.input}
-                onPress={() => setShow(!show)}
-              >
+              <View style={styles.input}>
                 <Image source={calendar} style={styles.calendarImage} />
 
                 <TextInput
@@ -345,7 +343,7 @@ export function BusinessRegistration() {
                     { color: date ? COLORS.black : COLORS.secondary },
                   ]}
                 />
-              </TouchableOpacity>
+              </View>
 
               <DateTimePickerModal
                 mode={"date"}
@@ -377,6 +375,7 @@ export function BusinessRegistration() {
                 keyboardType={"email-address"}
                 placeholderTextColor={COLORS.secondary}
                 placeholder={strings.personalInformation.email}
+                editable={false}
               />
 
               <TextInput
@@ -571,7 +570,7 @@ export function BusinessRegistration() {
                 />
               </View>
 
-              <Spacer space={SH(60)} />
+              <Spacer space={SH(20)} />
               <Button
                 onPress={submit}
                 pending={isLoading}
@@ -581,7 +580,7 @@ export function BusinessRegistration() {
             </View>
             {isLoading ? <Loader message="Loading data ..." /> : null}
 
-            <Spacer space={SH(50)} />
+            <Spacer space={SH(20)} />
           </View>
         </KeyboardAwareScrollView>
       </View>

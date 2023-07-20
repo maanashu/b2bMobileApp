@@ -105,20 +105,9 @@ export class KycController {
       const finalData = { ...data, naics_code: "722" };
       HttpClient.post(endpoint, finalData)
         .then((response) => {
-          // alert(JSON.stringify(response));
           resolve(response);
-          if (response?.msg === "business registered successfully") {
-            navigate(NAVIGATION.checkAndRequestKYC, { screen: "business" });
-          }
         })
-        .catch((error) => {
-          // Toast.show({
-          //   text2: error.payload,
-          //   position: "bottom",
-          //   type: "error_toast",
-          //   visibilityTime: 2000,
-          // });
-        });
+        .catch((error) => {});
     });
   }
 
@@ -175,7 +164,7 @@ export class KycController {
           resolve(response);
         })
         .catch((error) => {
-          reject(new Error((strings.verify.error = error.msg)));
+          reject(error);
         });
     });
   }

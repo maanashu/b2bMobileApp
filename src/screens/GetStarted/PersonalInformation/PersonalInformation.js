@@ -7,11 +7,8 @@ import {
   TextInput,
   BackHandler,
 } from "react-native";
-
-import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
@@ -31,7 +28,12 @@ import { GOOGLE_MAP } from "@/constants/ApiKeys";
 import { getUser as userSelector } from "@/selectors/UserSelectors";
 import { ScreenWrapper, Spacer, Button } from "@/components";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
-import { getUser, getUserProfile, login } from "@/actions/UserActions";
+import {
+  getUser,
+  getUserProfile,
+  getWalletUserProfile,
+  login,
+} from "@/actions/UserActions";
 import { styles } from "@/screens/GetStarted/PersonalInformation/PersonalInformation.styles";
 import { getKyc } from "@/selectors/KycSelector";
 import { digits, emailReg } from "@/Utils/validators";
@@ -41,6 +43,7 @@ import { navigate } from "@/navigation/NavigationRef";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import RBSheet from "react-native-raw-bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { requestKyc } from "@/actions/KycActions";
 
 export function PersonalInformation({
   closeModal,
@@ -90,6 +93,10 @@ export function PersonalInformation({
   const [business, setBusiness] = useState(false);
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
+  // console.log(
+  //   "uuid",
+  //   getData?.registered?.uuid || getData?.user?.payload?.uuid
+  // );
 
   // useEffect(() => {
   //   setEmail(getData?.registerData?.email);
@@ -280,26 +287,19 @@ export function PersonalInformation({
         latitude: latitude,
         longitude: longitude,
       };
-      dispatch(createWallet(data, navigation))
+      dispatch(createWallet(data))
         .then(() => {
           dispatch(getUserProfile(getData?.registered?.uuid));
+          dispatch(
+            getWalletUserProfile(
+              getData?.registered?.uuid || getData?.user?.payload?.uuid
+            )
+          );
           handleScreenChange(4);
+          dispatch(requestKyc());
         })
         .catch(() => {});
-      // refRBSheet.current.open();
     }
-  };
-
-  const clearInput = () => {
-    setSsn("");
-    setDate("");
-    setCity("");
-    setState("");
-    setStreet("");
-    setCountry("");
-    setZipCode("");
-    setAppartment("");
-    // setEmail("");
   };
 
   const isLoading = useSelector((state) =>
@@ -373,20 +373,6 @@ export function PersonalInformation({
               <View style={styles.input} onPress={() => setShow(!show)}>
                 <Image source={calendar} style={styles.calendarImage} />
 
-                {/* <TextInput
-                  value={dateformat}
-                  returnKeyType={"done"}
-                  pointerEvents={"none"}
-                  autoCapitalize={"none"}
-                  placeholderTextColor={COLORS.secondary}
-                  placeholder={strings.personalInformation.placeholder}
-                  style={[
-                    styles.textInputStyles,
-                    { color: date ? COLORS.black : COLORS.secondary },
-                  ]}
-                  onChange={(text) => onChangeDate(text)}
-                  editable={false}
-                /> */}
                 <Spacer space={SH(5)} horizontal />
 
                 <Text
@@ -395,14 +381,6 @@ export function PersonalInformation({
                   {dateformat}
                 </Text>
               </View>
-
-              {/* <DateTimePickerModal
-                mode={"date"}
-                isVisible={show}
-                onConfirm={onChangeDate}
-                onCancel={() => setShow(false)}
-                maximumDate={new Date(moment().subtract(21, "years"))}
-              /> */}
 
               <TextInput
                 maxLength={9}
@@ -417,16 +395,6 @@ export function PersonalInformation({
                 placeholder={strings.personalInformation.ssn}
               />
 
-              {/* <TextInput
-                value={email}
-                returnKeyType={"done"}
-                onChangeText={setEmail}
-                autoCapitalize={"none"}
-                style={styles.textFieldStyle}
-                keyboardType={"email-address"}
-                placeholderTextColor={COLORS.darkGrey}
-                placeholder={strings.personalInformation.email}
-              /> */}
               <Spacer space={SH(12)} />
 
               <View

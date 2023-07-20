@@ -4,6 +4,8 @@ import { ScreenWrapper } from "@/components";
 import Modal from "react-native-modal";
 import {
   AgeVerification,
+  BusinessKyc,
+  BusinessRegistration,
   CheckAndRequestKYC,
   ConnectBank,
   EnterPin,
@@ -59,7 +61,7 @@ export function LoginModal({ isVisible, closeModal, setScreen }) {
     setActiveScreen(screen);
   };
   const closeModalBackPress = () => {
-    const shouldCloseModal = [0, 3, 4, 5, 6, 8].includes(activeScreen);
+    const shouldCloseModal = [0, 3, 4, 5, 6, 8, 9, 10].includes(activeScreen);
 
     if (shouldCloseModal) {
       ref.current.close();
@@ -150,6 +152,24 @@ export function LoginModal({ isVisible, closeModal, setScreen }) {
     case 8:
       content = (
         <Register
+          handleScreenChange={handleScreenChange}
+          closeModal={closeModalBackPress}
+          goBackScreen={goBackScreen}
+        />
+      );
+      break;
+    case 9:
+      content = (
+        <BusinessRegistration
+          handleScreenChange={handleScreenChange}
+          closeModal={closeModalBackPress}
+          goBackScreen={goBackScreen}
+        />
+      );
+      break;
+    case 10:
+      content = (
+        <BusinessKyc
           handleScreenChange={handleScreenChange}
           closeModal={closeModalBackPress}
           goBackScreen={goBackScreen}
