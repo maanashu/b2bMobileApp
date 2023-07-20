@@ -12,6 +12,7 @@ import { TYPES } from "@/Types/Types";
 import moment from "moment";
 import { getOrderDetails } from "@/actions/OrderAction";
 import { Loader } from "@/components/Loader";
+import { useFocusEffect } from "@react-navigation/native";
 
 export function Pending() {
   const dispatch = useDispatch();
@@ -20,6 +21,10 @@ export function Pending() {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_ORDER_LIST], state)
   );
+
+  useFocusEffect(() => {
+    console.log("Pending screen is focused!");
+  });
 
   const renderItem = ({ item, index }) => (
     <>

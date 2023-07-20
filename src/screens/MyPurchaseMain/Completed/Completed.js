@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { orderSelector } from "@/selectors/OrderSelector";
 import { Loader } from "@/components/Loader";
 import moment from "moment";
+import { useFocusEffect } from "@react-navigation/native";
 
 export function Completed() {
   const dispatch = useDispatch();
@@ -20,7 +21,9 @@ export function Completed() {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_ORDER_LIST], state)
   );
-
+  useFocusEffect(() => {
+    console.log("Completed screen is focused!");
+  });
   const renderItem = ({ item, index }) => (
     <>
       <PurchaseView

@@ -27,8 +27,12 @@ import {
   shopLight,
   wareHouseLogo,
 } from "@/assets";
+import { useFocusEffect } from "@react-navigation/native";
 
 export function Refund() {
+  useFocusEffect(() => {
+    console.log("Refund screen is focused!");
+  });
   return (
     <ScreenWrapper>
       <Spacer space={SH(20)} />

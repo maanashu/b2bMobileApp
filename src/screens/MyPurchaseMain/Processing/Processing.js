@@ -14,7 +14,7 @@ import {
   getOrderListReset,
 } from "@/actions/OrderAction";
 import moment from "moment";
-import { useIsFocused } from "@react-navigation/native";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
@@ -26,7 +26,9 @@ export function Processing() {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_ORDER_LIST], state)
   );
-
+  useFocusEffect(() => {
+    console.log("Processing screen is focused!");
+  });
   const renderItem = ({ item, index }) => (
     <>
       <PurchaseView

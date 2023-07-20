@@ -28,7 +28,11 @@ import {
   shopLight,
   wareHouseLogo,
 } from "@/assets";
+import { useFocusEffect } from "@react-navigation/native";
 export function Cancelled() {
+  useFocusEffect(() => {
+    console.log("Cancelled screen is focused!");
+  });
   return (
     <ScreenWrapper>
       <Spacer space={SH(20)} />
