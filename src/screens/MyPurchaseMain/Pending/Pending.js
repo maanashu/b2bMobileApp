@@ -1,68 +1,69 @@
 import React from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, Text } from "react-native";
 import { PurchaseView, ScreenWrapper, Spacer } from "@/components";
-import { SH, SW } from "@/theme";
-import { Shoes2, womenShoes, yewiLogo } from "@/assets";
+import { SF, SH, SW } from "@/theme";
+import { Fonts, Shoes2, womenShoes, yewiLogo } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { orderSelector } from "@/selectors/OrderSelector";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
+import moment from "moment";
+import { getOrderDetails } from "@/actions/OrderAction";
+import { Loader } from "@/components/Loader";
 
 export function Pending() {
-  const data = [
-    {
-      id: 1,
-      productImage: womenShoes,
-      companyLogo: yewiLogo,
-      companyName: "Yiwu Leqi E-Commerce Firm",
-      productName: "PUMA Men's Tazon 6 Wide Sneaker",
-      quantity: "5000 Pairs",
-      price: "US$ 1.4",
-      orderedAmount: "USD $7056.00",
-      date: "14 Jun, 21:33",
-    },
-    {
-      id: 2,
-      productImage: Shoes2,
-      companyLogo: yewiLogo,
-      companyName: "Yiwu Leqi E-Commerce Firm",
-      productName: "Men Sneakers Men Shoes Lightweight Running Shoes",
-      quantity: "5000 Pairs",
-      price: "US$ 1.4",
-      orderedAmount: "USD $7056.00",
-      date: "14 Jun, 21:33",
-    },
-  ];
+  const dispatch = useDispatch();
+  const order = useSelector(orderSelector);
 
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_ORDER_LIST], state)
+  );
   const renderItem = ({ item, index }) => (
     <>
       <PurchaseView
-        // onPress={() => navigate(NAVIGATION.confirmOrder, { item: "pending" })}
-        companyLogo={item.companyLogo}
-        companyName={item.companyName}
-        price={item.price}
-        quantity={item.quantity}
-        orderedAmount={item.orderedAmount}
-        productImage={item.productImage}
-        productName={item.productName}
-        date={item.date}
+        onPress={() => {
+          navigate(NAVIGATION.confirmOrder);
+          dispatch(getOrderDetails(item?.id));
+        }}
+        companyLogo={item?.seller_details?.profile_photo}
+        companyName={item?.seller_details?.username}
+        price={item?.order_details?.[0]?.price}
+        quantity={item?.order_details?.[0]?.qty}
+        orderedAmount={item?.order_details?.[0]?.price}
+        productImage={{ uri: item?.order_details?.[0]?.product_image }}
+        productName={item?.order_details?.[0]?.product_name}
+        date={moment(item?.order_details?.created_at)
+          .utc()
+          .format("DD MMM, HH:mm ")}
       />
     </>
   );
-
   return (
     <ScreenWrapper>
-      <Spacer space={SH(10)} />
       <View
         style={{
           paddingHorizontal: SW(20),
           width: "100%",
+          marginBottom: SH(10),
         }}
       >
         <FlatList
-          data={data}
+          showsVerticalScrollIndicator={false}
+          data={order?.getAllOrdersList}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
+          ListEmptyComponent={(item) => (
+            <View style={{ flex: 1, marginTop: SH(250), alignItems: "center" }}>
+              <Text style={{ fontFamily: Fonts.Bold, fontSize: SF(20) }}>
+                No Pending Order
+              </Text>
+            </View>
+          )}
         />
       </View>
+      {isLoading && <Loader message="Loading your orders ..." />}
     </ScreenWrapper>
   );
 }
