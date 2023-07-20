@@ -107,4 +107,5 @@ export const NAVIGATION = {
   searchedSellers: "SearchedSellers",
   sellersByProduct: "SellersByProduct",
   transactionsDetails: "TransactionsDetails",
+  pdfViewer: "PdfViewer",
 };

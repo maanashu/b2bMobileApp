@@ -15,7 +15,6 @@ const windowWidth = Dimensions.get("window").width;
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.white,
   },
   mainView: {
     paddingHorizontal: SW(20),
@@ -64,5 +63,36 @@ export const styles = StyleSheet.create({
   buttonView: {
     justifyContent: "flex-end",
     paddingHorizontal: SW(20),
+  },
+  rowView: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  myCatalogBackground: {
+    backgroundColor: COLORS.inputBorder,
+    borderRadius: 5,
+    paddingHorizontal: SW(10),
+    paddingVertical: SH(15),
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  pdfIconStyle: {
+    height: SH(25),
+    width: SW(25),
+  },
+  downloadIconStyle: {
+    height: SH(22),
+    width: SW(22),
+  },
+  pdfNameText: {
+    color: COLORS.darkGrey2,
+    fontFamily: Fonts.Regular,
+    fontSize: SF(14),
+  },
+  pdf: {
+    flex: 1,
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
   },
 });

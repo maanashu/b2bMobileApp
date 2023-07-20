@@ -157,6 +157,10 @@ export { default as fiveStarReview } from "@/assets/icons/ic_business/5starRevie
 export { default as purchasedItemPic } from "@/assets/icons/ic_business/purchasedItemPic.png";
 export { default as sliderBag } from "@/assets/icons/ic_business/sliderBag.png";
 export { default as profileLogo } from "@/assets/icons/ic_profile/profileLogo.png";
+export { default as downloadIcon } from "@/assets/icons/ic_profile/downloadIcon.png";
+export { default as pdfFileIcon } from "@/assets/icons/ic_profile/pdfFileIcon.png";
+export { default as shareIcon } from "@/assets/icons/ic_profile/shareIcon.png";
+export { default as ViewEyeIcon } from "@/assets/icons/ic_profile/ViewEyeIcon.png";
 export { default as pinPoint } from "@/assets/icons/ic_profile/pinPoint.png";
 export { default as businessCard } from "@/assets/icons/ic_profile/businessCard.png";
 export { default as question } from "@/assets/icons/ic_profile/question.png";

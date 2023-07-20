@@ -706,7 +706,6 @@ export class UserController {
       };
       HttpClient.post(endpoint, body)
         .then((response) => {
-          console.log("successsss" + response);
           resolve(response);
           Toast.show({
             text2: response?.msg,

@@ -954,7 +954,6 @@ export const createCatalog = (data) => async (dispatch) => {
     const res = await UserController.createCatalog(data);
 
     dispatch(createCatalogSuccess(res));
-
     return;
   } catch (error) {
     dispatch(createCatalogError(error.message));

@@ -78,6 +78,7 @@ import {
   PastCoupons,
   PastOrders,
   PaymentMethod,
+  PdfViewer,
   PersonalInformation,
   PrivacyPolicy,
   ProductInquiry,
@@ -746,6 +747,11 @@ export function AppBottom() {
       <Stack.Screen
         component={TransactionsDetails}
         name={NAVIGATION.transactionsDetails}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={PdfViewer}
+        name={NAVIGATION.pdfViewer}
         options={{ headerShown: false }}
       />
       {/* Home navigator ends here */}
