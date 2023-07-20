@@ -24,10 +24,10 @@ export function Completed() {
   const renderItem = ({ item, index }) => (
     <>
       <PurchaseView
-        onPress={() => {
-          navigate(NAVIGATION.confirmOrder);
-          dispatch(getOrderDetails(item?.id));
-        }}
+        // onPress={() => {
+        //   navigate(NAVIGATION.confirmOrder);
+        //   dispatch(getOrderDetails(item?.id));
+        // }}
         companyLogo={item?.seller_details?.profile_photo}
         companyName={item?.seller_details?.username}
         price={item?.order_details?.[0]?.price}
