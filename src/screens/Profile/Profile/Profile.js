@@ -398,7 +398,7 @@ export function Profile() {
           </>
         )}
 
-        <Spacer space={SH(10)} />
+        <Spacer space={SH(5)} />
 
         <Text style={styles.subName}>
           {Platform.OS === "ios"
