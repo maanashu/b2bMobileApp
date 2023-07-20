@@ -5,13 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { strings } from "@/localization";
 import { getUser } from "@/selectors/UserSelectors";
-import { Button, ScreenWrapper, Spacer } from "@/components";
+import { ScreenWrapper, Spacer } from "@/components";
 
 import { styles } from "@/screens/GetStarted/PersonalInformation/CheckRequestKYC/styles";
 import { SH, SW } from "@/theme";
 import { alarmClock } from "@/assets";
-import { navigate } from "@/navigation/NavigationRef";
-import { NAVIGATION } from "@/constants";
 import { checkBusinessKyc, requestBusinessKyc } from "@/actions/KycActions";
 import { getKyc } from "@/selectors/KycSelector";
 

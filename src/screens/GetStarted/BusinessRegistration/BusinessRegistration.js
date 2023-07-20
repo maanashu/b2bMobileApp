@@ -23,23 +23,17 @@ import {
 } from "@/actions/KycActions";
 import { COLORS, SH } from "@/theme";
 import { TYPES } from "@/Types/Types";
-import {
-  Fonts,
-  backArrow,
-  calendar,
-  dropdownIcon,
-  rightArrowThin,
-} from "@/assets";
+import { Fonts, backArrow, calendar, dropdownIcon } from "@/assets";
 import { strings } from "@/localization";
 import { getKyc } from "@/selectors/KycSelector";
 import { GOOGLE_MAP } from "@/constants/ApiKeys";
 import { goBack } from "@/navigation/NavigationRef";
-import { getUser, getuser } from "@/selectors/UserSelectors";
+import { getUser } from "@/selectors/UserSelectors";
 import { getWalletUserProfile } from "@/actions/UserActions";
 import { ScreenWrapper, Spacer, Button } from "@/components";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { styles } from "@/screens/GetStarted/BusinessRegistration/BusinessRegistration.styles";
-import { characterReg, digits, emailReg, websiteUrl } from "@/Utils/validators";
+import { digits, emailReg } from "@/Utils/validators";
 import { Loader } from "@/components/Loader";
 
 export function BusinessRegistration({ handleScreenChange }) {
