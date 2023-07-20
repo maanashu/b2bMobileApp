@@ -18,13 +18,21 @@ export function NameHeaderCoins({
   searchRequired,
 }) {
   const wallet = useSelector(getWallet);
+
+  const naviHandler = () => {
+    if (onPress) {
+      onPress();
+    } else {
+      goBack();
+    }
+  };
   return (
     <View style={styles.header}>
       <View style={styles.headerInnerView}>
         {backRequired ? (
           <TouchableOpacity
             style={{ flexDirection: "row", alignItems: "center" }}
-            onPress={() => onPress || goBack()}
+            onPress={onPress ? () => onPress() : () => goBack()}
           >
             <Image
               resizeMode="contain"

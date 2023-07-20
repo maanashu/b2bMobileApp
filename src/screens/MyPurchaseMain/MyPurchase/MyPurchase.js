@@ -11,7 +11,7 @@ import { Fonts } from "@/assets";
 import { strings } from "@/localization";
 import { COLORS, SH, SW } from "@/theme";
 import { Completed } from "../Completed/Completed";
-import { goBack } from "@/navigation/NavigationRef";
+import { goBack, navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 
 const Tab = createMaterialTopTabNavigator();
@@ -95,7 +95,11 @@ export function MyPurchase() {
   return (
     <>
       <ScreenWrapper>
-        <NameHeaderCoins backRequired title={strings.myPurchase.myPurchase} />
+        <NameHeaderCoins
+          backRequired
+          title={strings.myPurchase.myPurchase}
+          onPress={() => navigate(NAVIGATION.home)}
+        />
         <Spacer space={SH(5)} />
         <Search
           placeholder={strings.business.searchHere}
