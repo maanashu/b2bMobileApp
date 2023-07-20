@@ -7,6 +7,7 @@ export function PdfViewer(props) {
   return (
     <View style={styles.container}>
       <Pdf
+        trustAllCerts={false}
         source={{ uri: props?.route?.params?.pdfUrl }}
         style={styles.pdf}
         onLoadComplete={(numberOfPages, filePath) => {
