@@ -94,6 +94,7 @@ export function ProductInquiry(params) {
       return 6;
     }
   };
+
   const screen = getScreen();
   // console.log(
   //   "ingredients",
@@ -101,16 +102,6 @@ export function ProductInquiry(params) {
   // );
   const description = ProductDetail?.productDetail?.product_detail?.description;
   const regex = /<p>(.*?)<\/p>/;
-  useEffect(() => {
-    const handleBackButton = () => {
-      navigation.navigate(NAVIGATION.productsBySeller);
-      return true;
-    };
-    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
-    return () => {
-      BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
-    };
-  }, [navigation]);
 
   const object = {
     service_type: "product",
@@ -571,10 +562,7 @@ export function ProductInquiry(params) {
                     ?.seller_details?.created_at,
                   "YYYY"
                 ).year()}
-                rating={
-                  ProductDetail?.productDetail?.product_detail?.supplies[0]
-                    ?.seller_details?.rating?.rating
-                }
+                rating={ProductDetail?.productDetail?.product_detail?.supplies[0]?.seller_details?.rating?.rating?.toString()}
               />
 
               <Spacer space={SH(20)} />
@@ -853,6 +841,7 @@ export function ProductInquiry(params) {
             />
           </View>
         </View>
+        <Spacer space={SH(120)} />
       </ScrollView>
       {isLoadingDetails ? (
         <Loader message="Loading product details..." />

@@ -46,7 +46,9 @@ export function NewProducts() {
       product_id: item,
     };
     dispatch(getSellers(body));
-    navigate(NAVIGATION.sellersByProduct, { itemId: item });
+    navigate(NAVIGATION.sellersByProduct, {
+      itemId: item,
+    });
   };
 
   const getAllProducts = () => {
@@ -65,6 +67,8 @@ export function NewProducts() {
     const Object = {
       page: 1,
       limit: 20,
+      service_type: "product",
+      main_category: true,
     };
     dispatch(getCategory(Object));
     getAllProducts();
