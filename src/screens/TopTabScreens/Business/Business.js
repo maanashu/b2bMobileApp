@@ -174,13 +174,22 @@ export function Business() {
             <FastImage
               source={{ uri: item?.image }}
               style={styles.roundIcons}
+              resizeMode="contain"
             />
           )}
           {!item?.image && item.name !== "All" && (
-            <FastImage source={Tobacco} style={styles.roundIcons} />
+            <FastImage
+              source={Tobacco}
+              style={styles.roundIcons}
+              resizeMode="contain"
+            />
           )}
           {!item?.image && item.name === "All" && (
-            <FastImage source={threeDots} style={styles.roundIcons} />
+            <FastImage
+              source={threeDots}
+              style={styles.roundIcons}
+              resizeMode="contain"
+            />
           )}
 
           <Text numberOfLines={1} style={styles.title}>
@@ -369,7 +378,7 @@ export function Business() {
               <HomeCategorySkeleton />
             ) : (
               <FlatList
-                columnWrapperStyle={{ justifyContent: "space-between" }}
+                columnWrapperStyle={{ justifyContent: "flex-start" }}
                 data={updatedData ?? []}
                 renderItem={renderCategoryItem}
                 keyExtractor={(item) => item.id}
