@@ -401,8 +401,10 @@ export const deleteBankAccounts = (data) => async (dispatch) => {
     const res = await KycController.deleteBankAccounts(data);
     dispatch(deleteBankAccountsSuccess(res?.payload));
     dispatch(getBankAccounts());
+    return;
   } catch (error) {
     dispatch(deleteBankAccountsError(error.message));
+    throw error;
   }
 };
 export const checkBankBalance = (data) => async (dispatch) => {

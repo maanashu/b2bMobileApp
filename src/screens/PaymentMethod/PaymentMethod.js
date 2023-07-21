@@ -1,15 +1,16 @@
 import {
   Image,
+  Keyboard,
   RefreshControl,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { styles } from "./PaymentMethod.styles.js";
-import { NameHeader, ScreenWrapper, Spacer } from "@/components";
-import { SH, SW } from "@/theme/ScalerDimensions";
-import { bank, coinStack } from "@/assets";
+import { Button, NameHeader, ScreenWrapper, Spacer } from "@/components";
+import { SF, SH, SW } from "@/theme/ScalerDimensions";
+import { Fonts, bank, coinStack } from "@/assets";
 import { strings } from "@/localization";
 import { kFormatter } from "@/Utils/GlobalMethods.js";
 import { getWallet } from "@/selectors/WalletSelector.js";
@@ -30,21 +31,42 @@ import { ActivityIndicator } from "react-native";
 import { COLORS } from "@/theme/Colors.js";
 import PlaidLink from "react-native-plaid-link-sdk";
 import { Toast } from "react-native-toast-message/lib/src/Toast.js";
+import RBSheet from "react-native-raw-bottom-sheet";
+import {
+  CodeField,
+  Cursor,
+  useBlurOnFulfill,
+  useClearByFocusCell,
+} from "react-native-confirmation-code-field";
 
 export function PaymentMethod() {
+  const CELL_COUNT = 4;
   const dispatch = useDispatch();
   const wallet = useSelector(getWallet);
   const kyc = useSelector(getKyc);
   const user = useSelector(getUser);
   var plaid = kyc?.plaidToken ?? [];
+  const ref = useRef();
+  const codeRef = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
+  const [value, setValue] = useState("");
+  const [removeBankIndex, setRemoveBankIndex] = useState("");
+  const [removeBankId, setRemoveBankId] = useState("");
+
+  const [prop, getCellOnLayoutHandler] = useClearByFocusCell({
+    value,
+    setValue,
+  });
   useEffect(() => {
     if (!kyc?.plaidToken) {
       dispatch(getPlaidToken());
     }
   }, []);
-
+  const body = {
+    token: user?.user?.payload?.token,
+    account_name: removeBankId,
+  };
+  const securityPin = user?.user?.payload?.user_profiles?.security_pin;
   const [showBalance, setShowBalance] = useState("");
-  const [removeBankIndex, setRemoveBankIndex] = useState("");
   const [balance, setBalance] = useState();
   const [refreshing, setRefreshing] = useState(false);
 
@@ -61,7 +83,9 @@ export function PaymentMethod() {
       account_name: id,
     };
     setRemoveBankIndex(index);
-    dispatch(deleteBankAccounts(body));
+    setRemoveBankId(id);
+    ref.current.open();
+    // dispatch(deleteBankAccounts(body));
   };
   const handleCheckBalance = (id, index) => {
     setShowBalance(index);
@@ -105,6 +129,29 @@ export function PaymentMethod() {
         .catch((error) => {});
     }
   };
+  const confirmRemove = async (success) => {
+    if (value?.length === 4) {
+      if (value === securityPin) {
+        ref.current.close();
+        dispatch(deleteBankAccounts(body))
+          .then(() => {
+            setRemoveBankIndex("");
+            setRemoveBankId("");
+            setValue("");
+          })
+          .catch(() => {
+            setRemoveBankIndex("");
+            setRemoveBankId("");
+            setValue("");
+          });
+      } else {
+        alert("Security pin did not match");
+      }
+    } else {
+      alert("Please Enter correct security pin");
+    }
+  };
+
   const renderBanks = ({ item, index }) => {
     return (
       <>
@@ -223,6 +270,61 @@ export function PaymentMethod() {
         />
         <View style={styles.buttonView}>{ChangeButtonView()}</View>
       </View>
+      <RBSheet
+        ref={ref}
+        closeOnDragDown={false}
+        animationType={"slide"}
+        closeOnPressMask={true}
+        customStyles={{
+          wrapper: styles.wrapperStyle,
+          container: styles.containerStyle,
+          draggableIcon: styles.draggableIconStyle,
+        }}
+      >
+        <View style={{ paddingHorizontal: SW(20), paddingVertical: SH(30) }}>
+          <Text
+            style={{
+              fontFamily: Fonts.SemiBold,
+              fontSize: SF(16),
+              color: COLORS.darkGrey,
+            }}
+          >
+            Confirm pin to remove account
+          </Text>
+          <Spacer space={SH(30)} />
+          <CodeField
+            ref={codeRef}
+            {...prop}
+            value={value}
+            autoFocus={true}
+            returnKeyType={"done"}
+            cellCount={CELL_COUNT}
+            onChangeText={setValue}
+            keyboardType={"number-pad"}
+            textContentType={"oneTimeCode"}
+            onSubmitEditing={Keyboard.dismiss}
+            rootStyle={styles.alignSelfCenter}
+            renderCell={({ index, symbol, isFocused }) => (
+              <View
+                key={index}
+                style={styles.cellRoot}
+                onLayout={getCellOnLayoutHandler(index)}
+              >
+                <Text style={styles.cellText}>
+                  {symbol || (isFocused ? <Cursor /> : null)}
+                </Text>
+              </View>
+            )}
+          />
+          <Spacer space={SH(50)} />
+
+          <Button
+            title={"Remove Account"}
+            style={{ alignSelf: "flex-end" }}
+            onPress={confirmRemove}
+          />
+        </View>
+      </RBSheet>
     </ScreenWrapper>
   );
 }

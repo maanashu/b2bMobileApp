@@ -146,4 +146,38 @@ export const styles = StyleSheet.create({
     justifyContent: "flex-end",
     paddingVertical: SH(10),
   },
+
+  wrapperStyle: {
+    backgroundColor: "rgba(0,0,0,0.6)",
+    width: "100%",
+    alignSelf: "center",
+  },
+  containerStyle: {
+    ...ShadowStyles.shadow,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    height: Dimensions.get("window").height / 3.2,
+  },
+  draggableIconStyle: {
+    backgroundColor: COLORS.light_border,
+  },
+  alignSelfCenter: {
+    alignSelf: "center",
+  },
+  cellRoot: {
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    width: SW(50),
+    height: SW(50),
+    borderRadius: SW(50),
+    borderColor: COLORS.light_border,
+    backgroundColor: COLORS.lightgray,
+    marginHorizontal: SW(5),
+  },
+  cellText: {
+    fontSize: SF(20),
+    color: COLORS.black,
+    fontFamily: Fonts.Medium,
+  },
 });
