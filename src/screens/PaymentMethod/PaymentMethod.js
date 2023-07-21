@@ -2,7 +2,6 @@ import {
   Image,
   Keyboard,
   RefreshControl,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
