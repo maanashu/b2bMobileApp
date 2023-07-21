@@ -5,25 +5,27 @@ import { ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { strings } from "@/localization";
 import { NameHeader } from "@/components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { COLORS } from "@/theme";
 import { useWindowDimensions } from "react-native";
 import { MyCatalogue } from "./MyCatalogues";
 import { ReceivedCatalogues } from "./ReceivedCatalogues";
 import { SceneMap, TabView } from "react-native-tab-view";
 import { getCatalogs } from "@/actions/UserActions";
+import { getUser } from "@/selectors/UserSelectors";
 
 export function Catalogues() {
   const dispatch = useDispatch();
+  const user = useSelector(getUser);
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
-
+  console.log("tokein", user?.user?.payload?.token);
   const firstScreenFunction = useCallback(() => {
-    dispatch(getCatalogs({ searchType: "my" }));
+    dispatch(getCatalogs({ filter_by: "my" }));
   }, []);
 
   const secondScreenFunction = useCallback(() => {
-    dispatch(getCatalogs({ searchType: "received" }));
+    dispatch(getCatalogs({ filter_by: "received" }));
   }, []);
 
   const [routes] = React.useState([

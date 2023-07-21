@@ -160,13 +160,14 @@ export function MyCatalogue() {
           </View>
         )}
       </View>
-      {isLoading && <Loader message="Loading my catalogs" />}
+
       <View style={styles.buttonView}>
         <Button
           title={strings.buttonText.uploadCatalog}
           onPress={handleDocumentSelection}
         />
       </View>
+      {isLoading && <Loader message="Loading my catalogs" />}
     </ScreenWrapper>
   );
 }

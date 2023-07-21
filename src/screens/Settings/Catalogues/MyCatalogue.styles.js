@@ -69,9 +69,10 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   myCatalogBackground: {
+    flex: 1,
     backgroundColor: COLORS.inputBorder,
     borderRadius: 5,
-    paddingHorizontal: SW(10),
+    paddingHorizontal: SW(8),
     paddingVertical: SH(15),
     flexDirection: "row",
     alignItems: "center",
@@ -89,6 +90,7 @@ export const styles = StyleSheet.create({
     color: COLORS.darkGrey2,
     fontFamily: Fonts.Regular,
     fontSize: SF(14),
+    width: "73%",
   },
   pdf: {
     flex: 1,
