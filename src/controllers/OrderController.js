@@ -127,6 +127,7 @@ export class OrderController {
   }
 
   static async createOrderController(data) {
+    console.log("orderData", JSON.stringify(data));
     return new Promise(async (resolve, reject) => {
       const endpoint = ORDER_URL + ApiOrderInventory.createOrder;
       const body = {
@@ -155,6 +156,9 @@ export class OrderController {
           resolve(response);
         })
         .catch((error) => {
+          console.log("error in create order", JSON.stringify(error));
+          console.log("endpoint", endpoint);
+          console.log("body", JSON.stringify(body));
           Toast.show({
             text2: error.msg,
             position: "bottom",

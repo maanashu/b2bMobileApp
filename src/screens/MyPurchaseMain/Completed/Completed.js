@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { View, FlatList, Text } from "react-native";
 import { PurchaseView, ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme";
 import { Fonts, womenShoes, yewiLogo } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
-import { getOrderDetails } from "@/actions/OrderAction";
+import { getOrderDetails, getOrderList } from "@/actions/OrderAction";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,17 +13,31 @@ import { orderSelector } from "@/selectors/OrderSelector";
 import { Loader } from "@/components/Loader";
 import moment from "moment";
 import { useFocusEffect } from "@react-navigation/native";
+import { getUser } from "@/selectors/UserSelectors";
 
 export function Completed() {
   const dispatch = useDispatch();
+  const user = useSelector(getUser);
   const order = useSelector(orderSelector);
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_ORDER_LIST], state)
   );
-  useFocusEffect(() => {
-    console.log("Completed screen is focused!");
-  });
+  const getOrder = () => {
+    const body = {
+      page: 1,
+      limit: 10,
+      status: "5,6",
+      user_uid: user?.user?.payload?.uuid,
+    };
+    dispatch(getOrderList(body));
+  };
+  useFocusEffect(
+    useCallback(() => {
+      getOrder();
+      console.log("Completed screen");
+    }, [])
+  );
   const renderItem = ({ item, index }) => (
     <>
       <PurchaseView

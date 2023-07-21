@@ -251,7 +251,7 @@ export const emptyCart = () => async (dispatch) => {
 //     dispatch(createOrderError(error.message));
 //   }
 // };
-export const createOrder = (data) => (dispatch) => {
+export const createOrder = (data) => async (dispatch) => {
   dispatch(createOrderRequest());
   return OrderController.createOrderController(data)
     .then((res) => {
@@ -270,6 +270,7 @@ export const createOrder = (data) => (dispatch) => {
 };
 
 export const getOrderList = (data) => async (dispatch) => {
+  console.log("knfd", JSON.stringify(data));
   dispatch(getOrderListRequest());
   try {
     const res = await OrderController.getOrderList(data);

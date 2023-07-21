@@ -202,40 +202,25 @@ export function Profile() {
     },
   ];
   const navigationHandler = (item) => {
+    const titlesToCheckModal = [
+      strings.profile.jbrWallet,
+      strings.profile.paymentMethods,
+      strings.profile.favouriteList,
+      strings.profile.myPurchase,
+      strings.profile.shippingAddress,
+      strings.profile.myCatalogs,
+    ];
     if (item?.navigation) {
-      if (item.title == strings.profile.jbrWallet) {
+      if (titlesToCheckModal.includes(item.title)) {
         const shouldOpenModal =
           !user?.user?.payload?.token || [3, 4, 5, 6].includes(screen);
-        if (shouldOpenModal) {
-          setOpenModal(true);
-        } else {
-          navigate(item?.navigation);
-        }
-      } else if (item.title == strings.profile.paymentMethods) {
-        const shouldOpenModal =
-          !user?.user?.payload?.token || [3, 4, 5, 6].includes(screen);
-        if (shouldOpenModal) {
-          setOpenModal(true);
-        } else {
-          navigate(item?.navigation);
-        }
-      } else if (item.title == strings.profile.favouriteList) {
-        const shouldOpenModal =
-          !user?.user?.payload?.token || [3, 4, 5, 6].includes(screen);
-        if (shouldOpenModal) {
-          setOpenModal(true);
-        } else {
-          navigate(item?.navigation);
-        }
-      } else if (item.title == strings.profile.myCatalogs) {
-        const shouldOpenModal = !user?.user?.payload?.token;
         if (shouldOpenModal) {
           setOpenModal(true);
         } else {
           navigate(item?.navigation);
         }
       } else {
-        navigate(item.navigation);
+        navigate(item?.navigation);
       }
     }
   };

@@ -1,30 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useCallback } from "react";
 import { View, FlatList, Text } from "react-native";
-import { PurchaseView, ScreenWrapper, Spacer } from "@/components";
+import { PurchaseView, ScreenWrapper } from "@/components";
 import { SF, SH, SW } from "@/theme";
-import { Fonts, Shoes2, womenShoes, yewiLogo } from "@/assets";
-import { navigate } from "@/navigation/NavigationRef";
-import { NAVIGATION } from "@/constants";
+import { Fonts } from "@/assets";
 import { useDispatch, useSelector } from "react-redux";
 import { orderSelector } from "@/selectors/OrderSelector";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import moment from "moment";
-import { getOrderDetails } from "@/actions/OrderAction";
+import { getOrderList } from "@/actions/OrderAction";
 import { Loader } from "@/components/Loader";
 import { useFocusEffect } from "@react-navigation/native";
+import { getUser } from "@/selectors/UserSelectors";
 
 export function Pending() {
   const dispatch = useDispatch();
+  const user = useSelector(getUser);
   const order = useSelector(orderSelector);
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_ORDER_LIST], state)
   );
-
-  useFocusEffect(() => {
-    console.log("Pending screen is focused!");
-  });
+  const getOrder = () => {
+    const body = {
+      page: 1,
+      limit: 10,
+      status: 0,
+      user_uid: user?.user?.payload?.uuid,
+    };
+    dispatch(getOrderList(body));
+  };
+  useFocusEffect(
+    useCallback(() => {
+      getOrder();
+      console.log("pending");
+    }, [])
+  );
 
   const renderItem = ({ item, index }) => (
     <>

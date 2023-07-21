@@ -1,17 +1,15 @@
 import {
-  BackHandler,
   Image,
   RefreshControl,
-  ScrollView,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { styles } from "./PaymentMethod.styles.js";
-import { Button, NameHeader, ScreenWrapper, Spacer } from "@/components";
-import { SF, SH, SW } from "@/theme/ScalerDimensions";
-import { Fonts, bank, coinStack } from "@/assets";
+import { NameHeader, ScreenWrapper, Spacer } from "@/components";
+import { SH, SW } from "@/theme/ScalerDimensions";
+import { bank, coinStack } from "@/assets";
 import { strings } from "@/localization";
 import { kFormatter } from "@/Utils/GlobalMethods.js";
 import { getWallet } from "@/selectors/WalletSelector.js";
@@ -30,12 +28,10 @@ import { TYPES } from "@/Types/Types.js";
 import { isLoadingSelector } from "@/selectors/StatusSelectors.js";
 import { ActivityIndicator } from "react-native";
 import { COLORS } from "@/theme/Colors.js";
-import { NAVIGATION } from "@/constants/navigation.js";
-import { navigate } from "@/navigation/NavigationRef.js";
 import PlaidLink from "react-native-plaid-link-sdk";
 import { Toast } from "react-native-toast-message/lib/src/Toast.js";
 
-export function PaymentMethod(params) {
+export function PaymentMethod() {
   const dispatch = useDispatch();
   const wallet = useSelector(getWallet);
   const kyc = useSelector(getKyc);
@@ -99,10 +95,6 @@ export function PaymentMethod(params) {
         >
           <Text style={styles.addBankButton}>{strings.card.addBank}</Text>
         </PlaidLink>
-      );
-    } else {
-      return (
-        <Button title={strings.kyc.continue} style={{ alignSelf: "center" }} />
       );
     }
   };
