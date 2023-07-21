@@ -78,14 +78,9 @@ export function PaymentMethod() {
   );
 
   const handleRemoveBankAccount = (id, index) => {
-    const body = {
-      token: user?.user?.payload?.token,
-      account_name: id,
-    };
     setRemoveBankIndex(index);
     setRemoveBankId(id);
     ref.current.open();
-    // dispatch(deleteBankAccounts(body));
   };
   const handleCheckBalance = (id, index) => {
     setShowBalance(index);
