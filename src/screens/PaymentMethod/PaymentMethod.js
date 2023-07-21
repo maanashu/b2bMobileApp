@@ -2,6 +2,7 @@ import {
   Image,
   Keyboard,
   RefreshControl,
+  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -75,6 +76,9 @@ export function PaymentMethod() {
   );
   const isRemovingBank = useSelector((state) =>
     isLoadingSelector([TYPES.DELETE_BANK_ACCOUNTS], state)
+  );
+  const isLinkingNewBank = useSelector((state) =>
+    isLoadingSelector([TYPES.LINK_BANK_ACCOUNT], state)
   );
 
   const handleRemoveBankAccount = (id, index) => {
@@ -265,6 +269,11 @@ export function PaymentMethod() {
         />
         <View style={styles.buttonView}>{ChangeButtonView()}</View>
       </View>
+      {isLinkingNewBank && (
+        <View style={styles.loaderViewStyle}>
+          <ActivityIndicator size="large" color={COLORS.primary} />
+        </View>
+      )}
       <RBSheet
         ref={ref}
         closeOnDragDown={false}

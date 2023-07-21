@@ -180,4 +180,10 @@ export const styles = StyleSheet.create({
     color: COLORS.black,
     fontFamily: Fonts.Medium,
   },
+  loaderViewStyle: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.4)", // Optional overlay background color
+  },
 });
