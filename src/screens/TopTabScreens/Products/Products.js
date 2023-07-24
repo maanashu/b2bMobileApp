@@ -39,6 +39,7 @@ import { getProduct, getTrendingProducts } from "@/actions/ProductActions";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import { Loader } from "@/components/Loader";
 import HomeCategorySkeleton, {
+  HomeBannerSkeleton,
   HomeNewProductsSkeleton,
   RecomendedWholeSalersSkeleton,
 } from "@/components/SkeletonContent";
@@ -108,6 +109,9 @@ export function Products({ navigation }) {
   );
   const isLoadingSellers = useSelector((state) =>
     isLoadingSelector([TYPES.GET_PRODUCT], state)
+  );
+  const isLoadingBanners = useSelector((state) =>
+    isLoadingSelector([TYPES.GET_BANNER], state)
   );
   const LoadingData = () => {
     <>{isLoading ? <Loader message="Loading data ..." /> : null}</>;
@@ -303,16 +307,20 @@ export function Products({ navigation }) {
         <Spacer space={SH(5)} />
 
         <View style={styles.swiperView}>
-          <SwiperFlatList
-            autoplay
-            autoplayDelay={3}
-            autoplayLoop={true}
-            showPagination
-            data={BannerData?.banners ?? []}
-            renderItem={renderRecentItem}
-            PaginationComponent={CustomPagination}
-            paginationActiveColor={COLORS.black}
-          />
+          {isLoadingBanners ? (
+            <HomeBannerSkeleton />
+          ) : (
+            <SwiperFlatList
+              autoplay
+              autoplayDelay={3}
+              autoplayLoop={true}
+              showPagination
+              data={BannerData?.banners ?? []}
+              renderItem={renderRecentItem}
+              PaginationComponent={CustomPagination}
+              paginationActiveColor={COLORS.black}
+            />
+          )}
         </View>
         <Spacer space={SH(10)} />
         <View>
