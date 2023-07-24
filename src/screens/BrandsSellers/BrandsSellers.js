@@ -73,6 +73,9 @@ export function BrandsSellers(params) {
       page: 1,
       limit: 10,
       brand_id: brandsData?.brandsList?.[0]?.id,
+      service_id:
+        params?.route?.params?.service_id ||
+        product?.savedProductParams?.service_id,
     };
 
     dispatch(getSellers(sellersObject));

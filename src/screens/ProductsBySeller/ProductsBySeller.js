@@ -33,18 +33,22 @@ export function ProductsBySeller(params) {
   const productObject = {
     page: 1,
     limit: 20,
-    delivery_options: 4,
     app_name: "b2b",
     seller_id:
       params?.route?.params?.sellerId ||
       productsData?.savedProductParams?.sellerId,
-    service_type: "product",
-    brand_id:
-      params?.route?.params?.brand_id ||
-      productsData?.savedProductParams?.brand_id,
+    service_type: productsData?.savedProductParams?.service_type,
     sub_category_ids:
       params?.route?.params?.category_id ||
       productsData?.savedProductParams?.category_id,
+    ...(productsData?.savedProductParams?.service_type == "product" && {
+      delivery_options: 4,
+    }),
+    ...(productsData?.savedProductParams?.service_type == "product" && {
+      brand_id:
+        params?.route?.params?.brand_id ||
+        productsData?.savedProductParams?.brand_id,
+    }),
   };
 
   useEffect(() => {

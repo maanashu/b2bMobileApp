@@ -1,11 +1,4 @@
-import {
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-  Image,
-  BackHandler,
-} from "react-native";
+import { Text, View, FlatList, TouchableOpacity, Image } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { styles } from "./SubCategories.styles";
 import { Header, ScreenWrapper, Spacer } from "@/components";
@@ -33,11 +26,10 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Loader } from "@/components/Loader";
-import { getProduct, saveParamsForProducts } from "@/actions/ProductActions";
+import { saveParamsForProducts } from "@/actions/ProductActions";
 
 export function SubCategories(params) {
   const listRef = useRef();
-  const modalRef = useRef();
   const dispatch = useDispatch();
 
   const routeId = params?.route?.params?.idItem;
@@ -64,7 +56,6 @@ export function SubCategories(params) {
     dispatch(getBrands(1));
     onScrollToSelectItem(getIndex);
   }, []);
-  const { navigation } = params;
 
   useEffect(() => {
     dispatch(getSubCategory(subcategoryObject));
@@ -137,9 +128,16 @@ export function SubCategories(params) {
     <TouchableOpacity
       style={styles.rowCard}
       onPress={() => {
-        dispatch(saveParamsForProducts({ category_id: item?.id }));
+        dispatch(
+          saveParamsForProducts({
+            category_id: item?.id,
+            service_id: item?.service_id,
+            service_type: params?.route?.params?.serviceType,
+          })
+        );
         navigate(NAVIGATION.brandsSellers, {
           categoryId: item?.id,
+          service_id: item?.service_id,
         });
       }}
     >
@@ -205,9 +203,6 @@ export function SubCategories(params) {
           ListEmptyComponent={renderNoData}
           keyExtractor={(item) => item.id}
           extraData={SUBCATEGORIES?.subCategoryList?.data}
-          // renderScrollComponent={loadMoreFunction}
-          // onEndReached={loadMoreFunction}
-          // onEndReachedThreshold={0}
         />
         {isLoading ? <Loader message="Loading data..." /> : null}
       </View>
