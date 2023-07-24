@@ -123,6 +123,7 @@ export function TopRankingManufacturers() {
       <Header
         title={strings.topRankingManufacturers.topManufacturers}
         enableBackButton
+        back={backArrow}
       />
       <ScrollView
         showsVerticalScrollIndicator={false}
