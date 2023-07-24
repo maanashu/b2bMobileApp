@@ -40,7 +40,6 @@ import { saveParamsForProducts } from "@/actions/ProductActions";
 
 export function BrandsSellers(params) {
   const dispatch = useDispatch();
-  const routeId = params?.route?.params?.categoryId;
   const [selectedId, setSelectedId] = useState([0]);
   const [favourite, setFavourite] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -98,14 +97,12 @@ export function BrandsSellers(params) {
   );
 
   const colorChange = (item) => {
-    if (user?.user?.payload
-      ?.token) {
-        setFavourite(!favourite);
-        dispatch(sellerFavourites({ seller_id: item.id }));
+    if (user?.user?.payload?.token) {
+      setFavourite(!favourite);
+      dispatch(sellerFavourites({ seller_id: item.id }));
     } else {
-      setOpenModal(true)
+      setOpenModal(true);
     }
-    
   };
 
   const renderBrands = ({ item, index }) => (
@@ -170,7 +167,9 @@ export function BrandsSellers(params) {
             navigate(NAVIGATION.productsBySeller, {
               sellerId: item?.unique_uuid,
               idSeller: item?.id,
-              category_id: params?.route?.params?.categoryId,
+              category_id:
+                params?.route?.params?.categoryId ||
+                product?.savedProductParams?.category_id,
               brand_id: selectedId,
             });
           }}
@@ -277,12 +276,8 @@ export function BrandsSellers(params) {
         )}
       </View>
       <View>
-        <LoginModal
-          isVisible={openModal}
-          closeModal={setOpenModal}
-        />
+        <LoginModal isVisible={openModal} closeModal={setOpenModal} />
       </View>
-
     </ScreenWrapper>
   );
 }
