@@ -17,9 +17,72 @@ import {
 } from "@/screens";
 import { useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
+import { BaseToast } from "react-native-toast-message";
+import { COLORS, SF, SH, SW } from "@/theme";
+import { Fonts, error, success } from "@/assets";
 
 export function LoginModal({ isVisible, closeModal, setScreen }) {
   const user = useSelector(getUser);
+  const toastPosition = { top: 50 };
+  const toastConfig = {
+    success_toast: ({ text1, text2, ...rest }) => (
+      <BaseToast
+        {...rest}
+        style={{
+          borderLeftColor: "green",
+          zIndex: 999,
+          borderLeftColor: "green",
+        }}
+        contentContainerstyle={{ paddingHorizontal: SW(15) }}
+        leadingIcon={success}
+        text2Style={{
+          fontSize: SF(14),
+          color: "green",
+          fontFamily: Fonts.SemiBold,
+        }}
+        text1={text1}
+        text2={text2}
+        trailingIconStyle={{
+          height: SH(15),
+          aspectRatio: 1,
+          marginRight: SW(16),
+        }}
+        leadingIconStyle={{ height: SH(26), aspectRatio: 1 }}
+        onTrailingIconpress={() => Toast.hide()}
+        text2NumberOfLines={2}
+      />
+    ),
+    error_toast: ({ text1, text2, ...rest }) => (
+      <BaseToast
+        {...rest}
+        style={{
+          borderLeftColor: COLORS.pinklight,
+          zIndex: 999,
+          borderLeftColor: "red",
+        }}
+        contentContainerstyle={{
+          paddingHorizontal: SW(15),
+        }}
+        leadingIcon={error}
+        text2Style={{
+          fontSize: SF(14),
+          color: "red",
+          fontFamily: Fonts.SemiBold,
+        }}
+        text1={text1}
+        text2={text2}
+        trailingIconStyle={{
+          height: SH(15),
+          aspectRatio: 1,
+          marginRight: SW(16),
+        }}
+        leadingIconStyle={{ height: SH(26), aspectRatio: 1 }}
+        onTrailingIconpress={() => Toast.hide()}
+        text2NumberOfLines={2}
+      />
+    ),
+  };
 
   useEffect(() => {
     if (!user?.user?.payload?.token) {
@@ -186,6 +249,12 @@ export function LoginModal({ isVisible, closeModal, setScreen }) {
 
   return (
     <ScreenWrapper>
+      <Toast
+        config={toastConfig}
+        ref={(ref) => Toast.setRef(ref)}
+        position={toastPosition}
+      />
+
       <Modal
         ref={ref}
         onBackButtonPress={closeModalBackPress}
