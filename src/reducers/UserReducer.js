@@ -174,6 +174,11 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         getSellersList: payload.getSellersList.payload.sellers.data,
       };
+    case TYPES.GET_SELLERS_RESET:
+      return {
+        ...state,
+        getSellersList: [],
+      };
     case TYPES.GET_MANUFACTURERS_SUCCESS:
       return {
         ...state,

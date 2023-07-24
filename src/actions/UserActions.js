@@ -223,6 +223,10 @@ const getSellersError = (error) => ({
   type: TYPES.GET_SELLERS_ERROR,
   payload: { error },
 });
+const getSellersReset = () => ({
+  type: TYPES.GET_SELLERS_RESET,
+  payload: null,
+});
 
 const getManufacturersRequest = () => ({
   type: TYPES.GET_MANUFACTURERS_REQUEST,
@@ -746,7 +750,11 @@ export const getSellers = (data) => async (dispatch) => {
     const res = await UserController.getSellers(data);
     dispatch(getSellersSucess(res));
   } catch (error) {
-    dispatch(getSellersError(error.message));
+    if (error?.statusCode === 204) {
+      dispatch(getSellersReset());
+    } else {
+      dispatch(getSellersError(error.message));
+    }
   }
 };
 
