@@ -1,10 +1,4 @@
-import {
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-  BackHandler,
-} from "react-native";
+import { Text, View, FlatList, TouchableOpacity } from "react-native";
 import React, { useEffect } from "react";
 import { styles } from "./ProductsBySeller.styles";
 import { Header, ScreenWrapper, Spacer } from "@/components";
@@ -75,7 +69,7 @@ export function ProductsBySeller(params) {
 
     const matches = htmlText?.match(regex);
     let extractedText = "";
-    if (matches && matches.length > 1) {
+    if (matches && matches?.length > 1) {
       extractedText = matches[1];
     }
 

@@ -1,7 +1,7 @@
 import { Image, Text, View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { styles } from "./FaceIdPin.styles";
-import { ScreenWrapper, Spacer, Switch } from "@/components";
+import { LoginModal, ScreenWrapper, Spacer, Switch } from "@/components";
 import { SH } from "@/theme/ScalerDimensions";
 import { backArrow, faceIdIcon, toggleOff, toggleOn } from "@/assets";
 import { strings } from "@/localization";
@@ -20,6 +20,7 @@ export function FaceIdPin() {
   const dispatch = useDispatch();
   const [pin, setPin] = useState(false);
   const [status, setStatus] = useState("");
+  const [openModal, setOpenModal] = useState(false);
 
   const user = useSelector(getUser);
   const { openBioMetricSetupModal } = useContext(ModalsContext).biometric;
@@ -44,7 +45,11 @@ export function FaceIdPin() {
       getStorageData();
     } else {
       // dispatch(biometricsSet(true));
-      bioMetricLogin();
+      if (user?.user?.payload?.token) {
+        bioMetricLogin();
+      } else {
+        setOpenModal(true);
+      }
     }
   };
 
@@ -139,6 +144,9 @@ export function FaceIdPin() {
 
           <Spacer space={SH(15)} />
         </View>
+      </View>
+      <View>
+        <LoginModal isVisible={openModal} closeModal={setOpenModal} />
       </View>
     </ScreenWrapper>
   );
