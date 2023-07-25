@@ -432,7 +432,7 @@ export function Business() {
           </View>
         </View>
 
-        <Spacer space={SH(10)} />
+        <Spacer space={SH(15)} />
 
         {/* Top-ranking Manufacturers below */}
         <View style={styles.paddingView}>
@@ -470,13 +470,16 @@ export function Business() {
           </View>
         </View>
 
-        <Spacer space={SH(10)} />
+        <Spacer space={SH(15)} />
 
         {/* Recommended wholesalers below */}
 
         <View style={styles.rowViewJustify}>
           <Text style={styles.boldText}>{"Recommended Manufacturers"}</Text>
-          <TouchableOpacity style={styles.rowView}>
+          <TouchableOpacity
+            style={styles.rowView}
+            onPress={() => navigate(NAVIGATION.topRankingManufacturers)}
+          >
             <Text style={styles.regularText}>{"See all"}</Text>
             <Image
               source={forward}
@@ -485,7 +488,7 @@ export function Business() {
             />
           </TouchableOpacity>
         </View>
-        <Spacer space={SH(20)} />
+        <Spacer space={SH(5)} />
         <ScrollView
           horizontal
           style={styles.recommendedScrollView}
@@ -502,7 +505,7 @@ export function Business() {
           </View>
         </ScrollView>
 
-        <Spacer space={SH(10)} />
+        <Spacer space={SH(15)} />
 
         {/* Top Category manufacturers below */}
 
