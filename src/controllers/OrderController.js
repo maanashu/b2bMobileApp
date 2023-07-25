@@ -54,10 +54,45 @@ export class OrderController {
         });
     });
   }
+  static async createServiceCartController(data) {
+    return new Promise(async (resolve, reject) => {
+      const endpoint = ORDER_URL + ApiOrderInventory.createServiceCart;
+      const body = {
+        ...data,
+        app_name: "b2b",
+      };
+
+      HttpClient.post(endpoint, body)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
+          reject(error);
+        });
+    });
+  }
 
   static async getCart() {
     return new Promise((resolve, reject) => {
       const endpoint = ORDER_URL + ApiOrderInventory.getCart;
+      HttpClient.get(endpoint)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+  static async getServiceCartController() {
+    return new Promise((resolve, reject) => {
+      const endpoint = ORDER_URL + ApiOrderInventory.getServiceCart;
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);

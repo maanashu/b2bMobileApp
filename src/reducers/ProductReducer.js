@@ -1,6 +1,7 @@
 import { TYPES } from "@/Types/Types";
 const INITIALSTATE = {
   product: [],
+  servicesList: [],
   productDetail: [],
   trendingSellers: [],
   trendingList: [],
@@ -16,11 +17,18 @@ export const productReducer = (state = { INITIALSTATE }, { payload, type }) => {
   switch (type) {
     case TYPES.GET_PRODUCT_SUCCESS:
       return { ...state, product: payload.productList };
+    case TYPES.GET_SERVICES_SUCCESS:
+      return { ...state, servicesList: payload.servicesList };
 
     case TYPES.GET_PRODUCT_RESET:
       return {
         ...state,
         product: [],
+      };
+    case TYPES.GET_SERVICES_RESET:
+      return {
+        ...state,
+        servicesList: [],
       };
     case TYPES.GET_PRODUCT_DETAIL_SUCCESS:
       return { ...state, productDetail: payload.productDetail.payload };

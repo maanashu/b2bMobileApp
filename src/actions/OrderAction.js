@@ -161,6 +161,38 @@ const getBrandsProductsShopsError = (error) => ({
   type: TYPES.BRANDS_PRODUCTS_SHOPS_ERROR,
   payload: { error },
 });
+const createServiceCartRequest = () => ({
+  type: TYPES.CREATE_SERVICE_CART_REQUEST,
+  payload: null,
+});
+
+const createServiceCartSuccess = (createServiceCart) => ({
+  type: TYPES.CREATE_SERVICE_CART_SUCCESS,
+  payload: { createServiceCart },
+});
+
+const createServiceCartError = (error) => ({
+  type: TYPES.CREATE_SERVICE_CART_ERROR,
+  payload: { error },
+});
+const getServiceCartRequest = () => ({
+  type: TYPES.GET_SERVICE_CART_REQUEST,
+  payload: null,
+});
+
+const getServiceCartSuccess = (getServiceCart) => ({
+  type: TYPES.GET_SERVICE_CART_SUCCESS,
+  payload: { getServiceCart },
+});
+
+const getServiceCartError = (error) => ({
+  type: TYPES.GET_SERVICE_CART_ERROR,
+  payload: { error },
+});
+const getServiceCartReset = () => ({
+  type: TYPES.GET_SERVICE_CART_RESET,
+  payload: null,
+});
 
 const clearOrderStore = () => ({
   type: TYPES.CLEAR_ORDER_STORE,
@@ -318,4 +350,31 @@ export const getBrandsProductsShops = (data) => async (dispatch) => {
       dispatch(getBrandsProductsShopsError(error.message));
       throw error;
     });
+};
+export const createServiceCart = (data) => async (dispatch) => {
+  dispatch(createServiceCartRequest());
+  try {
+    const res = await OrderController.createServiceCartController(data);
+    dispatch(createServiceCartSuccess(res));
+    dispatch(getServiceCart());
+    return;
+  } catch (error) {
+    dispatch(createServiceCartError(error.message));
+    throw error;
+  }
+};
+export const getServiceCart = (data) => async (dispatch) => {
+  dispatch(getServiceCartRequest());
+  try {
+    const res = await OrderController.getServiceCartController(data);
+    dispatch(getServiceCartSuccess(res));
+    return;
+  } catch (error) {
+    if (error?.statusCode === 204) {
+      dispatch(getServiceCartReset());
+    } else {
+      dispatch(getServiceCartError(error.message));
+    }
+    throw error;
+  }
 };

@@ -18,6 +18,23 @@ const getProductReset = () => ({
   payload: null,
 });
 
+const getServicesRequest = () => ({
+  type: TYPES.GET_SERVICES_REQUEST,
+  payload: null,
+});
+const getServicesSuccess = (servicesList) => ({
+  type: TYPES.GET_SERVICES_SUCCESS,
+  payload: { servicesList },
+});
+const getServicesError = (error) => ({
+  type: TYPES.GET_SERVICES_ERROR,
+  payload: { error },
+});
+const getServicesReset = () => ({
+  type: TYPES.GET_SERVICES_RESET,
+  payload: null,
+});
+
 const getProductDetailRequest = () => ({
   type: TYPES.GET_PRODUCT_DETAIL_REQUEST,
   payload: null,
@@ -185,6 +202,19 @@ export const getProduct = (data) => async (dispatch) => {
       dispatch(getProductReset());
     } else {
       dispatch(getProductError(error.message));
+    }
+  }
+};
+export const getServices = (data) => async (dispatch) => {
+  dispatch(getServicesRequest());
+  try {
+    const res = await ProductController.getProduct(data);
+    dispatch(getServicesSuccess(res.payload));
+  } catch (error) {
+    if (error.statusCode === 204) {
+      dispatch(getServicesReset());
+    } else {
+      dispatch(getServicesError(error.message));
     }
   }
 };

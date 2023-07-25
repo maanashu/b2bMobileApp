@@ -5,23 +5,20 @@ import { COLORS } from "@/theme/Colors";
 import { useDispatch, useSelector } from "react-redux";
 import { styles } from "./SelectServices.styles";
 import { SH, SW } from "@/theme";
-import { Shoes2, checkBox } from "@/assets";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { scale } from "react-native-size-matters";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import { getUser } from "@/selectors/UserSelectors";
-import { getProduct } from "@/actions/ProductActions";
+import { getProduct, getServices } from "@/actions/ProductActions";
 import { useIsFocused } from "@react-navigation/native";
+import { createServiceCart } from "@/actions/OrderAction";
 
 export function SelectServices(params) {
   const dispatch = useDispatch();
-  const isFocused = useIsFocused();
   const productsData = useSelector(getProductSelector);
   const user = useSelector(getUser);
   const [selectedService, setSelectedService] = useState("");
-  const selectServices = () => {
-    setSelectedService(!selectedService);
-  };
+
   const serviceObject = {
     page: 1,
     limit: 20,
@@ -35,22 +32,30 @@ export function SelectServices(params) {
       productsData?.savedProductParams?.category_id,
   };
   useEffect(() => {
-    dispatch(getProduct(serviceObject));
-  }, [isFocused]);
+    dispatch(getServices(serviceObject));
+  }, []);
 
-  const Data = [
-    { id: 1, price: "5.50", title: "Service Here", image: Shoes2 },
-    { id: 2, price: "5.50", title: "Service There", image: Shoes2 },
-    { id: 3, price: "10.50", title: "Service Here", image: Shoes2 },
-  ];
+  const addService = (item) => {
+    const object = {
+      seller_id:
+        params?.route?.params?.sellerId ||
+        productsData?.savedProductParams?.sellerId,
+      supply_id: item.supplies?.[0]?.id,
+      supply_price_id: item?.supplies?.[0]?.supply_prices?.[0]?.id,
+      product_id: item?.id,
+    };
+
+    dispatch(createServiceCart(object));
+  };
   const renderServices = ({ item, index }) => {
     return (
       <>
         <View style={styles.rowJustifiedView}>
           <View style={styles.rowView}>
-            <TouchableOpacity onPress={selectServices}>
+            <TouchableOpacity onPress={() => addService(item)}>
               <Icon
-                name={selectedService ? "check-square" : "square"}
+                name={"square"}
+                // name={selectedService ? "check-square" : "square"}
                 color={COLORS.primary}
                 size={scale(15)}
                 style={styles.checkBoxStyle}
@@ -81,9 +86,9 @@ export function SelectServices(params) {
       <NameHeader title={"Services"} back />
       <View style={styles.container}>
         <View style={styles.rowAlignView}>
-          <Text style={styles.selectServiceText}>Select Service</Text>
+          <Text style={styles.selectServiceText}>{"Select Service"}</Text>
           <Spacer horizontal space={SW(5)} />
-          <Text style={styles.requiredText}>Required</Text>
+          <Text style={styles.requiredText}>{"Required"}</Text>
         </View>
 
         <Spacer space={SH(15)} />
@@ -93,8 +98,8 @@ export function SelectServices(params) {
         <Spacer space={SH(15)} />
 
         <FlatList
-          data={productsData?.product?.data}
-          extraData={productsData?.product?.data}
+          data={productsData?.servicesList?.data}
+          extraData={productsData?.servicesList?.data}
           renderItem={renderServices}
         />
       </View>
