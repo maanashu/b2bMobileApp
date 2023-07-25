@@ -37,6 +37,7 @@ export const styles = StyleSheet.create({
     fontSize: SF(14),
     color: COLORS.darkGrey,
     fontFamily: Fonts.Bold,
+    width: "80%",
   },
   secondFlatlist: {
     flex: 1,
@@ -190,5 +191,6 @@ export const styles = StyleSheet.create({
     fontSize: SF(12),
     color: COLORS.light_grey,
     fontFamily: Fonts.Regular,
+    width: "80%",
   },
 });

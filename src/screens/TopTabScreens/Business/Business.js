@@ -53,15 +53,15 @@ import { getUser } from "@/selectors/UserSelectors";
 export function Business() {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
+  const user = useSelector(getUser);
 
   const [manufacturersCategoryId, setmanufacturersCategoryId] = useState(1);
 
-  const user = useSelector(getUser);
   const categoryData = useSelector(getCategorySelector);
   const ProductsData = useSelector(getProductSelector);
 
   const [searchedKeyword, setSearchedKeyword] = useState("");
-
+  console.log("duta", user?.getManufacturersList?.slice(0, 3));
   const categoryObject = {
     page: 1,
     limit: 10,
@@ -210,17 +210,41 @@ export function Business() {
       <Text style={styles.commonFlatlistText}>{item.subtitle}</Text>
     </View>
   );
-  const thirdItem = ({ item, onPress }) => (
-    <View style={styles.secondFlatlist}>
-      <Spacer space={SH(10)} />
-      <Image source={item.image} style={styles.secondView} />
+  const thirdItem = ({ item, onPress }) => {
+    const htmlText = item?.products?.[0]?.description;
+    const regex = /<p>(.*?)<\/p>/; // Regex pattern to match the content within <p> tags
 
-      <Spacer space={SH(10)} />
+    const matches = htmlText?.match(regex); // Find matches using the regex pattern
 
-      <Text style={styles.commonFlatlistTextBold}>{item.title}</Text>
-      <Text style={styles.commonFlatlistText}>{item.subtitle}</Text>
-    </View>
-  );
+    let extractedText = "";
+    if (matches && matches?.length > 1) {
+      extractedText = matches[1]; // Extracted text is stored in the second element of the matches array
+    }
+    return (
+      <View style={styles.secondFlatlist}>
+        <Spacer space={SH(10)} />
+        <FastImage
+          source={{ uri: item?.products?.[0]?.image }}
+          style={styles.secondView}
+        />
+
+        <Spacer space={SH(10)} />
+
+        <Text numberOfLines={1} style={styles.commonFlatlistTextBold}>
+          {item.user_profiles?.username}
+        </Text>
+        {item?.products?.[0]?.description?.match(regex) ? (
+          <Text numberOfLines={1} style={styles?.commonFlatlistText}>
+            {" " + extractedText}
+          </Text>
+        ) : (
+          <Text numberOfLines={1} style={styles.commonFlatlistText}>
+            {item?.products?.[0]?.description}
+          </Text>
+        )}
+      </View>
+    );
+  };
   const renderHorizontalData = ({ item, index }) => (
     <>
       <TouchableOpacity
@@ -400,9 +424,8 @@ export function Business() {
           </View>
         )}
 
-        <Spacer space={SH(10)} />
+        {/* <Spacer space={SH(10)} />
 
-        {/* Get samples below */}
 
         <View style={styles.paddingView}>
           <View style={styles.horizontalView}>
@@ -430,7 +453,7 @@ export function Business() {
               numColumns={3}
             />
           </View>
-        </View>
+        </View> */}
 
         <Spacer space={SH(15)} />
 
@@ -462,7 +485,7 @@ export function Business() {
             </View>
 
             <FlatList
-              data={thirdData}
+              data={user?.getManufacturersList?.slice(0, 3)}
               renderItem={thirdItem}
               keyExtractor={(item) => item.id}
               extraData={thirdData}
