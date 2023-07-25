@@ -119,7 +119,7 @@ export function MyCatalogue() {
           <View style={styles.rowView}>
             <TouchableOpacity
               onPress={() =>
-                navigate(NAVIGATION.pdfViewer, { pdfUrl: item?.link })
+                navigate(NAVIGATION.pdfViewer, { pdfUrl: item?.url })
               }
             >
               <Image
@@ -131,7 +131,7 @@ export function MyCatalogue() {
             <Spacer space={SW(7)} horizontal />
             <TouchableOpacity
               handlePdfDownload
-              onPress={() => handlePdfDownload(item?.link)}
+              onPress={() => handlePdfDownload(item?.url)}
             >
               <Image
                 source={downloadIcon}

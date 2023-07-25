@@ -15,6 +15,7 @@ import { NAVIGATION } from "@/constants";
 
 export function ReceivedCatalogues() {
   const user = useSelector(getUser);
+
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.GET_CATALOG], state)
   );
@@ -45,7 +46,7 @@ export function ReceivedCatalogues() {
           <View style={styles.rowView}>
             <TouchableOpacity
               onPress={() =>
-                navigate(NAVIGATION.pdfViewer, { pdfUrl: item?.link })
+                navigate(NAVIGATION.pdfViewer, { pdfUrl: item?.url })
               }
             >
               <Image
@@ -55,7 +56,7 @@ export function ReceivedCatalogues() {
               />
             </TouchableOpacity>
             <Spacer space={SW(7)} horizontal />
-            <TouchableOpacity onPress={() => handleShare(item?.link)}>
+            <TouchableOpacity onPress={() => handleShare(item?.url)}>
               <Image
                 source={shareIcon}
                 resizeMode="contain"
@@ -76,6 +77,7 @@ export function ReceivedCatalogues() {
         ) : (
           <View>
             <FlatList
+              showsVerticalScrollIndicator={false}
               data={user?.getCatalogs}
               extraData={user?.getCatalogs}
               renderItem={renderFiles}
