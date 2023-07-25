@@ -93,13 +93,13 @@ export function MyCatalogue() {
           "app-name": "b2b",
         },
       });
-
+      console.log("respomse", JSON.stringify(response));
       dispatch(
         createCatalog({
-          link: response.data?.payload?.[0]?.filePath,
+          files: response.data?.payload,
           caption: "test",
         })
-      ).then(() => dispatch(getCatalogs({ searchType: "my" })));
+      ).then(() => dispatch(getCatalogs({ filter_by: "my" })));
     } catch (error) {}
   };
 
