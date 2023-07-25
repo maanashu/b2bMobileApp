@@ -149,7 +149,7 @@ export function MyCatalogue() {
     <ScreenWrapper>
       <View style={styles.mainView}>
         {user?.getCatalogs?.length == 0 ? (
-          <Text style={styles.noCatalogText}>No Catalogs found</Text>
+          <Text style={styles.noCatalogText}>{"No Catalogs found"}</Text>
         ) : (
           <View>
             <FlatList
