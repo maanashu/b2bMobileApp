@@ -11,7 +11,7 @@ import {
   View,
 } from "react-native";
 import { COLORS, SF, SH, ShadowStyles, SW, TextStyles } from "@/theme";
-import { styles } from "@/screens/TopTabScreens/Business/Business.style";
+import { styles } from "@/screens/TopTabScreens/Services/Business.style";
 import { CompanyDetailView } from "./CompanyDetailView";
 import { Spacer } from "./Spacer";
 import FastImage from "react-native-fast-image";

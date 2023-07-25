@@ -4,7 +4,7 @@ import { LoginModal, ScreenWrapper } from "@/components";
 import { COLORS } from "@/theme/Colors";
 import { SF, SW } from "@/theme/ScalerDimensions";
 import { TabBar } from "react-native-tab-view";
-import { Business, NearMe, Products } from "@/screens";
+import { Business, NearMe, Products, Services } from "@/screens";
 import { styles } from "./Home.styles";
 import { Fonts } from "@/assets";
 const Tab = createMaterialTopTabNavigator();
@@ -130,7 +130,7 @@ export function Home() {
           swipeEnabled={false}
         >
           <Tab.Screen name={NAVIGATION.products} component={Products} />
-          <Tab.Screen name={"Services"} component={Business} />
+          <Tab.Screen name={"Services"} component={Services} />
           {user?.user?.payload?.token && (
             <Tab.Screen name={NAVIGATION.nearMe} component={NearMe} />
           )}

@@ -17,7 +17,7 @@ export { AddShippingAddress } from "@/screens/AddShippingAddress/AddShippingAddr
 export { PaymentMethod } from "@/screens/PaymentMethod/PaymentMethod";
 export { AddCreditCard } from "@/screens/AddCreditCard/AddCreditCard";
 export { Products } from "@/screens/TopTabScreens/Products/Products";
-export { Business } from "@/screens/TopTabScreens/Business/Business";
+export { Services } from "@/screens/TopTabScreens/Services/Services";
 export { NewProducts } from "@/screens/NewProducts/NewProducts";
 export { Apparel } from "@/screens/TopTabScreens/Apparel/Apparel";
 export { TopRankingManufacturers } from "@/screens/TopRankingManufacturers/TopRankingManufacturers";

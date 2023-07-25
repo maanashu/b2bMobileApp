@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { styles } from "./Business.style";
+import { styles } from "./Services.style";
 import { useState } from "react";
 import { ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
@@ -50,7 +50,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { getManufacturers } from "@/actions/UserActions";
 import { getUser } from "@/selectors/UserSelectors";
 
-export function Business() {
+export function Services() {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
   const user = useSelector(getUser);
