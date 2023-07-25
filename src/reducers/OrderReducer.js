@@ -12,6 +12,7 @@ const INITIALSTATE = {
   subTotalAmount: {},
   changeOrderStatus: {},
   getBrandsProductsShops: {},
+  getServiceCart: {},
 };
 
 export const orderReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -34,6 +35,11 @@ export const orderReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         getCart: payload.getCart.payload,
       };
+    case TYPES.GET_SERVICE_CART_SUCCESS:
+      return {
+        ...state,
+        getServiceCart: payload.getServiceCart.payload,
+      };
     case TYPES.GET_SHIPPING_SERVICES_SUCCESS:
       return {
         ...state,
@@ -48,6 +54,11 @@ export const orderReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         getCart: {},
+      };
+    case TYPES.GET_SERVICE_CART_RESET:
+      return {
+        ...state,
+        getServiceCart: {},
       };
 
     case TYPES.CREATE_ORDER_SUCCESS:

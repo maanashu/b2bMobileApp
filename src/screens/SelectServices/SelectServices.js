@@ -11,11 +11,13 @@ import { getProductSelector } from "@/selectors/ProductSelectors";
 import { getUser } from "@/selectors/UserSelectors";
 import { getProduct, getServices } from "@/actions/ProductActions";
 import { useIsFocused } from "@react-navigation/native";
-import { createServiceCart } from "@/actions/OrderAction";
+import { createServiceCart, getServiceCart } from "@/actions/OrderAction";
+import { orderSelector } from "@/selectors/OrderSelector";
 
 export function SelectServices(params) {
   const dispatch = useDispatch();
   const productsData = useSelector(getProductSelector);
+  const order = useSelector(orderSelector);
   const user = useSelector(getUser);
   const [selectedService, setSelectedService] = useState("");
 
@@ -33,7 +35,9 @@ export function SelectServices(params) {
   };
   useEffect(() => {
     dispatch(getServices(serviceObject));
+    dispatch(getServiceCart());
   }, []);
+  // console.log("serviceCart", order?.getServiceCart);
 
   const addService = (item) => {
     const object = {
@@ -47,6 +51,7 @@ export function SelectServices(params) {
 
     dispatch(createServiceCart(object));
   };
+
   const renderServices = ({ item, index }) => {
     return (
       <>

@@ -363,10 +363,10 @@ export const createServiceCart = (data) => async (dispatch) => {
     throw error;
   }
 };
-export const getServiceCart = (data) => async (dispatch) => {
+export const getServiceCart = () => async (dispatch) => {
   dispatch(getServiceCartRequest());
   try {
-    const res = await OrderController.getServiceCartController(data);
+    const res = await OrderController.getServiceCartController();
     dispatch(getServiceCartSuccess(res));
     return;
   } catch (error) {
