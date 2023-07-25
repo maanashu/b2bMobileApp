@@ -435,6 +435,7 @@ export function Business() {
         <Spacer space={SH(15)} />
 
         {/* Top-ranking Manufacturers below */}
+
         <View style={styles.paddingView}>
           <View style={styles.horizontalView}>
             <View style={styles.innerViewHorizontal}>

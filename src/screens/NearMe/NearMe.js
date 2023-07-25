@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Image,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
+import { View, Image, Text, TouchableOpacity } from "react-native";
 import { ScreenWrapper } from "@/components";
 import { styles } from "./NearMe.styles";
 import {
@@ -39,15 +32,25 @@ export function NearMe() {
 
   const store = sellers?.nearMeSellers;
 
-  const Longitude = -122.4324;
-  const Latitude = 37.78825;
+  // console.log(
+  //   "loc",
+  //   sellers?.user?.payload?.user_profiles?.current_address?.latitude
+  // );
+
+  const Longitude =
+    sellers?.user?.payload?.user_profiles?.current_address?.longitude;
+  const Latitude =
+    sellers?.user?.payload?.user_profiles?.current_address?.latitude;
+  // const Longitude = -122.4324;
+  // const Latitude = 37.78825;
 
   const [initialLongitude, setinitialLongitude] = useState(Longitude);
   const [intialLatitude, setintialLatitude] = useState(Latitude);
 
   const newLocation = {
-    latitude: 30.7333,
-    longitude: 76.7794,
+    latitude: sellers?.user?.payload?.user_profiles?.current_address?.latitude,
+    longitude:
+      sellers?.user?.payload?.user_profiles?.current_address?.longitude,
     latitudeDelta: 0.0922 / 1,
     longitudeDelta: 0.0521 / 1,
   };
@@ -224,21 +227,21 @@ export function NearMe() {
             style={{ color: COLORS.primary }}
             title={"Manufacturers"}
             count={sellerTypeCounts.manufacturer}
-            onPress={() => navigate(NAVIGATION.nearMeOptions,{id: 0})}
+            onPress={() => navigate(NAVIGATION.nearMeOptions, { id: 0 })}
           />
           <Component
             source={wareHouseLogo}
             style={{ color: COLORS.persian_green }}
             title={"Wholesalers"}
             count={sellerTypeCounts.whole_seller}
-            onPress={() => navigate(NAVIGATION.nearMeOptions,{id: 1})}
+            onPress={() => navigate(NAVIGATION.nearMeOptions, { id: 1 })}
           />
           <Component
             source={shopLight}
             style={{ color: COLORS.bright_blue }}
             title={"Retailers"}
             count={sellerTypeCounts.retailer + sellerTypeCounts.null}
-            onPress={() => navigate(NAVIGATION.nearMeOptions,{id : 2})}
+            onPress={() => navigate(NAVIGATION.nearMeOptions, { id: 2 })}
           />
         </View>
       </View>
