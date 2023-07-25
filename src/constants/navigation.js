@@ -108,4 +108,6 @@ export const NAVIGATION = {
   sellersByProduct: "SellersByProduct",
   transactionsDetails: "TransactionsDetails",
   pdfViewer: "PdfViewer",
+  serviceCheckout: "ServiceCheckout",
+  selectServices: "SelectServices",
 };

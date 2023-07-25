@@ -61,7 +61,6 @@ export function Services() {
   const ProductsData = useSelector(getProductSelector);
 
   const [searchedKeyword, setSearchedKeyword] = useState("");
-  console.log("duta", user?.getManufacturersList?.slice(0, 3));
   const categoryObject = {
     page: 1,
     limit: 10,

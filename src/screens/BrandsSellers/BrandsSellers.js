@@ -167,14 +167,21 @@ export function BrandsSellers(params) {
                 brand_id: selectedId,
               })
             );
-            navigate(NAVIGATION.productsBySeller, {
-              sellerId: item?.unique_uuid,
-              idSeller: item?.id,
-              category_id:
-                params?.route?.params?.categoryId ||
-                product?.savedProductParams?.category_id,
-              brand_id: selectedId,
-            });
+            {
+              product?.savedProductParams?.service_type == "product"
+                ? navigate(NAVIGATION.productsBySeller, {
+                    sellerId: item?.unique_uuid,
+                    idSeller: item?.id,
+                    category_id:
+                      params?.route?.params?.categoryId ||
+                      product?.savedProductParams?.category_id,
+                    brand_id: selectedId,
+                  })
+                : navigate(NAVIGATION.selectServices, {
+                    sellerId: item?.unique_uuid,
+                    idSeller: item?.id,
+                  });
+            }
           }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>

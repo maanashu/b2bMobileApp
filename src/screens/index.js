@@ -109,3 +109,5 @@ export { SearchedProducts } from "@/screens/SearchedProducts/SearchedProducts";
 export { SearchedSellers } from "@/screens/SearchedSellers/SearchedSellers";
 export { SellersByProduct } from "@/screens/SellersByProduct/SellersByProduct";
 export { PdfViewer } from "@/screens/Settings/Catalogues/PdfViewer";
+export { ServiceCheckout } from "@/screens/ServiceCheckout/ServiceCheckout";
+export { SelectServices } from "@/screens/SelectServices/SelectServices";

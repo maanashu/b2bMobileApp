@@ -98,10 +98,12 @@ import {
   SelectCity,
   SelectCountry,
   SelectedPreferance,
+  SelectServices,
   SelectState,
   SellersByProduct,
   SendAnOffer,
   SendInquiry,
+  ServiceCheckout,
   Settings,
   ShipTo,
   Splash,
@@ -752,6 +754,16 @@ export function AppBottom() {
       <Stack.Screen
         component={PdfViewer}
         name={NAVIGATION.pdfViewer}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={ServiceCheckout}
+        name={NAVIGATION.serviceCheckout}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={SelectServices}
+        name={NAVIGATION.selectServices}
         options={{ headerShown: false }}
       />
       {/* Home navigator ends here */}
