@@ -29,11 +29,13 @@ export const styles = StyleSheet.create({
   rowView: {
     flexDirection: "row",
     alignItems: "flex-start",
+    flex: 1,
   },
   rowJustifiedView: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "space-between",
+    flex: 1,
   },
   requiredText: {
     color: COLORS.primary,
@@ -52,12 +54,13 @@ export const styles = StyleSheet.create({
     // height: SH(15),
     // width: SW(15),
     // tintColor: COLORS.primary,
-    top: SH(2),
+    // top: SH(2),
   },
   serviceNameText: {
     color: COLORS.darkGrey,
     fontFamily: Fonts.SemiBold,
     fontSize: SF(16),
+    width: "85%",
   },
   servicePriceText: {
     color: COLORS.darkGrey2,

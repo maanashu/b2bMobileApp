@@ -180,6 +180,9 @@ export function BrandsSellers(params) {
                 : navigate(NAVIGATION.selectServices, {
                     sellerId: item?.unique_uuid,
                     idSeller: item?.id,
+                    category_id:
+                      params?.route?.params?.categoryId ||
+                      product?.savedProductParams?.category_id,
                   });
             }
           }}
