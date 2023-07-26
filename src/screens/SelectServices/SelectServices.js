@@ -6,14 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { styles } from "./SelectServices.styles";
 import { SH, SW } from "@/theme";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { moderateScale, scale } from "react-native-size-matters";
+import { scale } from "react-native-size-matters";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import { getUser } from "@/selectors/UserSelectors";
-import { getProduct, getServices } from "@/actions/ProductActions";
-import { useIsFocused } from "@react-navigation/native";
+import { getServices } from "@/actions/ProductActions";
 import { createServiceCart, getServiceCart } from "@/actions/OrderAction";
 import { orderSelector } from "@/selectors/OrderSelector";
-import { forwardArrowWhite, rightArrowBlue } from "@/assets";
+import { forwardArrowWhite } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 

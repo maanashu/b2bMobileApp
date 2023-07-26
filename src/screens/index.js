@@ -111,3 +111,4 @@ export { SellersByProduct } from "@/screens/SellersByProduct/SellersByProduct";
 export { PdfViewer } from "@/screens/Settings/Catalogues/PdfViewer";
 export { ServiceCheckout } from "@/screens/ServiceCheckout/ServiceCheckout";
 export { SelectServices } from "@/screens/SelectServices/SelectServices";
+export { ConfirmAppointment } from "@/screens/ConfirmAppointment/ConfirmAppointment";

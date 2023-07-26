@@ -1,5 +1,4 @@
 import {
-  ActivityIndicator,
   FlatList,
   Image,
   ScrollView,
@@ -7,10 +6,10 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { styles } from "./ServiceCheckout.styles";
-import { Button, NameHeader, ScreenWrapper, Spacer } from "@/components";
-import { SF, SH, SW } from "@/theme/ScalerDimensions";
+import { Button, ScreenWrapper, Spacer } from "@/components";
+import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import {
   cross,
@@ -20,7 +19,6 @@ import {
   crossBlack,
   pencil,
   calenderClock,
-  backArrow,
 } from "@/assets";
 import { strings } from "@/localization";
 import { HeaderCoin } from "../Profile/Wallet/Components/HeaderCoin";
@@ -28,27 +26,15 @@ import { goBack, navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getCart,
-  removeOneProductfromCart,
-  removeOneServiceCart,
-  saveSubTotalAmount,
-} from "@/actions/OrderAction";
+import { getCart, removeOneServiceCart } from "@/actions/OrderAction";
 import { orderSelector } from "@/selectors/OrderSelector";
-import { isLoadingSelector } from "@/selectors/StatusSelectors";
-import { TYPES } from "@/Types/Types";
-import { createCartAction } from "@/actions/OrderAction";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import { addCouponReset } from "@/actions/ProductActions";
-import { Loader } from "@/components/Loader";
 import { Calendar } from "react-native-calendars";
 import moment from "moment";
 import { ms } from "react-native-size-matters";
 import Modal from "react-native-modal";
-import {
-  ServiceBookingTimings,
-  VideoCallTimings,
-} from "../Chatting/BottomSheet";
+import { ServiceBookingTimings } from "../Chatting/BottomSheet";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 export function ServiceCheckout() {
@@ -68,7 +54,42 @@ export function ServiceCheckout() {
   const currentDate = moment().format("YYYY-MM-DD");
   const tomorrowDate = moment().add(1, "day").format("YYYY-MM-DD");
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    dispatch(getCart());
+    if (coupon?.addCoupons && Object.entries(coupon?.addCoupons).length != 0) {
+      setdiscountAmnt(
+        (coupon?.addCoupons?.discount_percentage / 100) *
+          order?.getServiceCart?.amout?.total_amount
+      );
+    } else {
+      setdiscountAmnt(0);
+    }
+    if (coupon?.addCoupons && Object.entries(coupon?.addCoupons).length != 0) {
+      setTaxAmount(
+        ((order?.getServiceCart?.amout?.total_amount -
+          (coupon?.addCoupons?.discount_percentage / 100) *
+            order?.getServiceCart?.amout?.total_amount) *
+          order?.getServiceCart?.amout?.tax) /
+          100
+      );
+    } else {
+      setTaxAmount(
+        (order?.getServiceCart?.amout?.total_amount *
+          order?.getServiceCart.amout?.tax) /
+          100
+      );
+    }
+    setTotalAmount(
+      order?.getServiceCart?.amout?.total_amount -
+        (discountAmnt || 0) +
+        taxAmount
+    );
+  }, [
+    discountAmnt,
+    order?.getServiceCart?.amout?.total_amount,
+    taxAmount,
+    coupon?.addCoupons,
+  ]);
   const applyCouponHandler = () => {
     navigate(NAVIGATION.addCoupon, {
       params: "checkout",
@@ -96,8 +117,10 @@ export function ServiceCheckout() {
         visibilityTime: 2000,
       });
     } else {
+      navigate(NAVIGATION.confirmAppointment);
     }
   };
+
   const removeService = (cartId, serviceId) => {
     dispatch(removeOneServiceCart(cartId, serviceId)).then((res) => {
       if (res?.payload == 0) {
@@ -105,6 +128,7 @@ export function ServiceCheckout() {
       }
     });
   };
+
   const renderItem = ({ item, index }) => {
     return (
       <>
@@ -148,6 +172,7 @@ export function ServiceCheckout() {
       </>
     );
   };
+
   const renderTimings = ({ item, index }) => (
     <TouchableOpacity
       style={[
@@ -194,8 +219,9 @@ export function ServiceCheckout() {
   const handleSelect = () => {
     if (!selectedTiming) {
       alert("Please select timing");
+    } else {
+      setCalenderModalRef(false);
     }
-    setCalenderModalRef(false);
   };
 
   return (
@@ -346,9 +372,9 @@ export function ServiceCheckout() {
             <View style={styles.subtotalView}>
               <Text style={styles.feeText}>{"Coupon"}</Text>
               <Text style={styles.feeText}>
-                {/* {discountAmnt > 0 ? "- " : ""}
+                {discountAmnt > 0 ? "- " : ""}
                 {"$ "}
-                {discountAmnt.toFixed(2)} */}
+                {discountAmnt.toFixed(2)}
               </Text>
             </View>
 
@@ -360,10 +386,10 @@ export function ServiceCheckout() {
 
             <View style={styles.subtotalView}>
               <Text style={styles.feeText}>{"Taxes & Other fees "}</Text>
-              {/* <Text style={styles.feeText}>
+              <Text style={styles.feeText}>
                 {"+ $ "}
                 {taxAmount.toFixed(2)}
-              </Text> */}
+              </Text>
             </View>
 
             <Spacer space={SH(10)} />
@@ -374,10 +400,10 @@ export function ServiceCheckout() {
 
             <View style={styles.subtotalView}>
               <Text style={styles.totalText}>{"Total"}</Text>
-              {/* <Text style={styles.totalText}>
+              <Text style={styles.totalText}>
                 {"$ "}
                 {totalAmount.toFixed(2)}
-              </Text> */}
+              </Text>
             </View>
           </View>
 

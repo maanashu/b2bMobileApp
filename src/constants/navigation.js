@@ -110,4 +110,5 @@ export const NAVIGATION = {
   pdfViewer: "PdfViewer",
   serviceCheckout: "ServiceCheckout",
   selectServices: "SelectServices",
+  confirmAppointment: "ConfirmAppointment",
 };

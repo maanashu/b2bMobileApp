@@ -40,6 +40,7 @@ import {
   CheckAndRequestKYC,
   Checkout,
   CompanyInfo,
+  ConfirmAppointment,
   ConfirmOrder,
   ConnectBank,
   ContactUs,
@@ -764,6 +765,11 @@ export function AppBottom() {
       <Stack.Screen
         component={SelectServices}
         name={NAVIGATION.selectServices}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={ConfirmAppointment}
+        name={NAVIGATION.confirmAppointment}
         options={{ headerShown: false }}
       />
       {/* Home navigator ends here */}
