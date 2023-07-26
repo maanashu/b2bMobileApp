@@ -27,10 +27,13 @@ export function ConfirmAppointment(params) {
   const currentDate = moment().format("YYYY-MM-DD");
   const tomorrowDate = moment().add(1, "day").format("YYYY-MM-DD");
 
+  const body = params.route?.params;
+  console.log("data=>", JSON.stringify(body));
+
   const day = () => {
-    if (date === currentDate) {
+    if (body?.date === currentDate) {
       return "Today, ";
-    } else if (date === tomorrowDate) {
+    } else if (body?.date === tomorrowDate) {
       return "Tomorrow, ";
     } else {
       return null;
@@ -38,15 +41,7 @@ export function ConfirmAppointment(params) {
   };
 
   const bookAppointment = () => {
-    if (!selectedTiming) {
-      Toast.show({
-        text2: "Please select time",
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 2000,
-      });
-    } else {
-    }
+    console.log("reserve");
   };
 
   return (
@@ -73,7 +68,10 @@ export function ConfirmAppointment(params) {
             <Spacer horizontal space={SW(5)} />
             <Text style={styles.infoText}>Appointment</Text>
           </View>
-          <Text style={styles.dateText}>Today, Jul 26, 2023</Text>
+          <Text style={styles.dateText}>
+            {day()}
+            {moment(body?.date, "YYYY-MM-DD").format("MMM DD, YYYY")}
+          </Text>
         </View>
 
         <View style={styles.bottomLine} />
@@ -90,13 +88,13 @@ export function ConfirmAppointment(params) {
             <Spacer horizontal space={SW(5)} />
             <Text style={styles.infoText}>Time</Text>
           </View>
-          <Text style={styles.dateText}>7:00 PM</Text>
+          <Text style={styles.dateText}>{body?.start_time}</Text>
         </View>
 
         <View style={styles.bottomLine} />
 
         <View style={styles.buttonView}>
-          <Button title={"Reserve"} />
+          <Button title={"Reserve"} onPress={bookAppointment} />
         </View>
       </View>
     </ScreenWrapper>

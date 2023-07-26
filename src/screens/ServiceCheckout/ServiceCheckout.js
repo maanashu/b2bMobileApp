@@ -117,7 +117,16 @@ export function ServiceCheckout() {
         visibilityTime: 2000,
       });
     } else {
-      navigate(NAVIGATION.confirmAppointment);
+      // navigate(NAVIGATION.confirmAppointment);
+      const body = {
+        cart_id: order?.getServiceCart?.id,
+        start_time: startTime,
+        end_time: endTime,
+        date: date,
+        mode_of_payment: "jbr",
+      };
+      console.log("date", JSON.stringify(body));
+      navigate(NAVIGATION.confirmAppointment, body);
     }
   };
 
