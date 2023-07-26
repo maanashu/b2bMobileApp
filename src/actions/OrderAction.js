@@ -97,6 +97,18 @@ const emptyCartError = (error) => ({
   type: TYPES.EMPTY_CART_ERROR,
   payload: { error },
 });
+const emptyServiceCartRequest = () => ({
+  type: TYPES.EMPTY_SERVICE_CART_REQUEST,
+  payload: null,
+});
+const emptyServiceCartSuccess = (emptyServiceCart) => ({
+  type: TYPES.EMPTY_SERVICE_CART_SUCCESS,
+  payload: { emptyServiceCart },
+});
+const emptyServiceCartError = (error) => ({
+  type: TYPES.EMPTY_SERVICE_CART_ERROR,
+  payload: { error },
+});
 
 const getOrderListRequest = () => ({
   type: TYPES.GET_ORDER_LIST_REQUEST,
@@ -297,6 +309,15 @@ export const emptyCart = () => async (dispatch) => {
     dispatch(emptyCartSuccess(res));
   } catch (error) {
     dispatch(emptyCartError(error.message));
+  }
+};
+export const emptyServiceCart = () => async (dispatch) => {
+  dispatch(emptyServiceCartRequest());
+  try {
+    const res = await OrderController.emptyCart();
+    dispatch(emptyServiceCartSuccess(res));
+  } catch (error) {
+    dispatch(emptyServiceCartError(error.message));
   }
 };
 

@@ -234,7 +234,7 @@ export class OrderController {
   static async createAppointment(data) {
     console.log("orderData", JSON.stringify(data));
     return new Promise(async (resolve, reject) => {
-      const endpoint = ORDER_URL + ApiOrderInventory.createServiceCart;
+      const endpoint = ORDER_URL + ApiOrderInventory.createAppointment;
       const body = {
         ...data,
       };
