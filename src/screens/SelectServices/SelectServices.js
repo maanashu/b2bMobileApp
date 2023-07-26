@@ -1,18 +1,21 @@
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { NameHeader, ScreenWrapper, Spacer } from "@/components";
+import { NameHeader, ScreenWrapper, Spacer, Visibility } from "@/components";
 import { COLORS } from "@/theme/Colors";
 import { useDispatch, useSelector } from "react-redux";
 import { styles } from "./SelectServices.styles";
 import { SH, SW } from "@/theme";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { scale } from "react-native-size-matters";
+import { moderateScale, scale } from "react-native-size-matters";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import { getUser } from "@/selectors/UserSelectors";
 import { getProduct, getServices } from "@/actions/ProductActions";
 import { useIsFocused } from "@react-navigation/native";
 import { createServiceCart, getServiceCart } from "@/actions/OrderAction";
 import { orderSelector } from "@/selectors/OrderSelector";
+import { forwardArrowWhite, rightArrowBlue } from "@/assets";
+import { navigate } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
 
 export function SelectServices(params) {
   const dispatch = useDispatch();
@@ -37,7 +40,6 @@ export function SelectServices(params) {
     dispatch(getServices(serviceObject));
     dispatch(getServiceCart());
   }, []);
-  // console.log("serviceCart", order?.getServiceCart);
 
   const addService = (item) => {
     const object = {
@@ -108,6 +110,41 @@ export function SelectServices(params) {
           renderItem={renderServices}
         />
       </View>
+      <Visibility
+        visible={
+          order?.getServiceCart && Object.keys(order?.getServiceCart).length > 0
+        }
+      >
+        <View style={styles.visibilityViewStyle}>
+          <View>
+            <Text style={styles.visibilityServiceText}>
+              Services:
+              <Text style={styles.boldText}>
+                {" "}
+                {order?.getServiceCart?.appointment_cart_products?.length}
+              </Text>
+            </Text>
+            <Text style={styles.visibilityServiceText}>
+              ${" "}
+              <Text style={styles.boldText}>
+                {order?.getServiceCart?.amout?.total_amount}
+              </Text>
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            style={styles.VisibiltyButton}
+            onPress={() => navigate(NAVIGATION.serviceCheckout)}
+          >
+            <Image
+              source={forwardArrowWhite}
+              style={styles.arrowIcon}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+        </View>
+        <Spacer space={SH(25)} />
+      </Visibility>
     </ScreenWrapper>
   );
 }

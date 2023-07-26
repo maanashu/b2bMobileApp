@@ -7,9 +7,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { styles } from "./ServiceCheckout.styles";
-import { ScreenWrapper, Spacer } from "@/components";
+import { Button, NameHeader, ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import {
@@ -19,6 +19,8 @@ import {
   Fonts,
   crossBlack,
   pencil,
+  calenderClock,
+  backArrow,
 } from "@/assets";
 import { strings } from "@/localization";
 import { HeaderCoin } from "../Profile/Wallet/Components/HeaderCoin";
@@ -29,6 +31,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getCart,
   removeOneProductfromCart,
+  removeOneServiceCart,
   saveSubTotalAmount,
 } from "@/actions/OrderAction";
 import { orderSelector } from "@/selectors/OrderSelector";
@@ -38,170 +41,163 @@ import { createCartAction } from "@/actions/OrderAction";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import { addCouponReset } from "@/actions/ProductActions";
 import { Loader } from "@/components/Loader";
+import { Calendar } from "react-native-calendars";
+import moment from "moment";
+import { ms } from "react-native-size-matters";
+import Modal from "react-native-modal";
+import {
+  ServiceBookingTimings,
+  VideoCallTimings,
+} from "../Chatting/BottomSheet";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 export function ServiceCheckout() {
   const dispatch = useDispatch();
-  const cartList = useSelector(orderSelector);
+  const [calenderModalRef, setCalenderModalRef] = useState(false);
+  const order = useSelector(orderSelector);
   const coupon = useSelector(getProductSelector);
   const [discountAmnt, setdiscountAmnt] = useState(0);
   const [taxAmount, setTaxAmount] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
   const [isCartLoading, setisCartLoading] = useState(true);
-  let arr = [cartList?.getCart];
-  // useEffect(() => {
-  //   dispatch(getCart());
-  //   if (coupon?.addCoupons && Object.entries(coupon?.addCoupons).length != 0) {
-  //     setdiscountAmnt(
-  //       (coupon?.addCoupons?.discount_percentage / 100) *
-  //         cartList?.getCart?.amout?.total_amount
-  //     );
-  //   } else {
-  //     setdiscountAmnt(0);
-  //   }
-  //   if (coupon?.addCoupons && Object.entries(coupon?.addCoupons).length != 0) {
-  //     setTaxAmount(
-  //       ((cartList?.getCart?.amout?.total_amount -
-  //         (coupon?.addCoupons?.discount_percentage / 100) *
-  //           cartList?.getCart?.amout?.total_amount) *
-  //         cartList?.getCart?.amout?.tax_percentage) /
-  //         100
-  //     );
-  //   } else {
-  //     setTaxAmount(
-  //       (cartList?.getCart?.amout?.total_amount *
-  //         cartList?.getCart?.amout?.tax_percentage) /
-  //         100
-  //     );
-  //   }
-  //   setTotalAmount(
-  //     cartList?.getCart?.amout?.total_amount - (discountAmnt || 0) + taxAmount
-  //   );
-  // }, [
-  //   discountAmnt,
-  //   cartList?.getCart?.amout?.total_amount,
-  //   taxAmount,
-  //   coupon?.addCoupons,
-  // ]);
-  useEffect(() => {
-    setisCartLoading(false);
-  }, []);
+  const [selectedTiming, setselectedTiming] = useState("");
+  const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
+  const [startTime, setStartTime] = useState(moment().format("YYYY-MM-DD"));
+  const [endTime, setEndTime] = useState(moment().format("YYYY-MM-DD"));
+  const [time, setTime] = useState("");
+  const currentDate = moment().format("YYYY-MM-DD");
+  const tomorrowDate = moment().add(1, "day").format("YYYY-MM-DD");
 
+  useEffect(() => {}, []);
   const applyCouponHandler = () => {
     navigate(NAVIGATION.addCoupon, {
       params: "checkout",
-      seller_id: cartList?.getCart?.seller_id,
-      order_amount: cartList?.getCart?.amout?.total_amount,
-      service_id: cartList?.getCart?.service_id,
+      seller_id: order?.getServiceCart?.seller_id,
+      order_amount: order?.getServiceCart?.amout?.total_amount,
+      // service_id: order?.getCart?.service_id,
     });
   };
-  const removeProduct = (cartId, cartProductId) => {
-    dispatch(removeOneProductfromCart(cartId, cartProductId)).then((res) => {
+  const day = () => {
+    if (date === currentDate) {
+      return "Today, ";
+    } else if (date === tomorrowDate) {
+      return "Tomorrow, ";
+    } else {
+      return null;
+    }
+  };
+
+  const bookAppointment = () => {
+    if (!selectedTiming) {
+      Toast.show({
+        text2: "Please select time",
+        position: "bottom",
+        type: "error_toast",
+        visibilityTime: 2000,
+      });
+    } else {
+    }
+  };
+  const removeService = (cartId, serviceId) => {
+    dispatch(removeOneServiceCart(cartId, serviceId)).then((res) => {
       if (res?.payload == 0) {
         goBack();
       }
     });
   };
-  const isAddToCartLoading = useSelector((state) =>
-    isLoadingSelector([TYPES.CREATE_CART], state)
-  );
-  const isLoading = useSelector((state) =>
-    isLoadingSelector([TYPES.GET_CART], state)
-  );
-  const updateQuantity = (cartId, productId, operation) => {
-    const updatedArr = [...arr];
-
-    const cartItem = updatedArr
-      .find((item) => item.id === cartId)
-      ?.cart_products.find((product) => product.id === productId);
-
-    if (cartItem) {
-      if (operation === "+") {
-        cartItem.qty += 1;
-      } else if (operation === "-") {
-        if (cartItem.qty > 1) {
-          cartItem.qty -= 1;
-        }
-      }
-      const withoutVariantObject = {
-        seller_id: cartItem?.product_details?.supply?.seller_id,
-        supply_id: cartItem?.supply_id,
-        supply_price_id: cartItem?.supply_price_id,
-        product_id: cartItem?.product_id,
-        service_id: cartItem?.service_id,
-        qty: cartItem?.qty,
-      };
-      dispatch(createCartAction(withoutVariantObject));
-    }
-  };
-  const renderItem = ({ item, index }) => (
-    <>
-      {item?.cart_products?.map((data, ind) => {
-        return (
-          <>
-            <View style={styles.productView}>
-              <View>
-                <Image
-                  source={{ uri: data?.product_details?.image }}
-                  style={styles.productImageStyle}
-                />
-              </View>
-
-              <Spacer horizontal space={SH(8)} />
-
-              <View style={{ flex: 1 }}>
-                <View style={styles.rowView}>
-                  <View style={{ width: "80%" }}>
-                    <Text style={styles.productNameText}>
-                      {data.product_details?.name}
-                    </Text>
-                  </View>
-
-                  <TouchableOpacity
-                    onPress={() => removeProduct(item?.id, data?.id)}
-                  >
-                    <Image source={cross} style={styles.crossIcon} />
-                  </TouchableOpacity>
-                </View>
-                <Spacer space={SH(5)} />
-
-                <View style={styles.boxStyling}>
-                  <TouchableOpacity style={{ justifyContent: "center" }}>
-                    <Text
-                      style={{ fontFamily: Fonts.Bold, fontSize: SF(20) }}
-                      onPress={() => updateQuantity(item?.id, data?.id, "-")}
-                    >
-                      -
-                    </Text>
-                  </TouchableOpacity>
-                  {isAddToCartLoading ? (
-                    <ActivityIndicator size="small" color={COLORS.primary} />
-                  ) : (
-                    <Text style={{ fontFamily: Fonts.Bold, fontSize: SF(15) }}>
-                      {data?.qty}
-                    </Text>
-                  )}
-
-                  {/* <Text style={{ fontFamily: Fonts.Bold, fontSize: SF(15) }}>
-                    {data?.qty}
-                  </Text> */}
-                  <TouchableOpacity>
-                    <Text
-                      style={{ fontFamily: Fonts.Bold, fontSize: SF(20) }}
-                      onPress={() => updateQuantity(item?.id, data?.id, "+")}
-                    >
-                      +
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
+  const renderItem = ({ item, index }) => {
+    return (
+      <>
+        <View style={styles.productView}>
+          <View style={{ flexDirection: "row", alignItems: "flex-start" }}>
+            <Image
+              source={{ uri: item?.product_details?.image }}
+              style={styles.productImageStyle}
+              resizeMode="contain"
+            />
+            <Spacer horizontal space={SW(10)} />
+            <View style={{ width: "65%" }}>
+              <Text style={styles.productNameText}>
+                {item.product_details?.name}
+              </Text>
+              {/* <Text style={styles.productNameText}>
+                {item.product_details?.name}
+              </Text> */}
             </View>
+          </View>
 
-            <Spacer space={SH(10)} />
-          </>
-        );
-      })}
-    </>
+          <View style={{ flex: 1, alignItems: "flex-end" }}>
+            <TouchableOpacity
+              onPress={() => removeService(order?.getServiceCart?.id, item?.id)}
+            >
+              <Image
+                source={cross}
+                style={styles.crossIcon}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+            <Spacer space={SH(15)} />
+
+            <Text numberOfLines={1} style={styles.productPriceText}>
+              $ {item?.product_details?.supply?.supply_prices?.selling_price}
+            </Text>
+          </View>
+        </View>
+
+        <Spacer space={SH(10)} />
+      </>
+    );
+  };
+  const renderTimings = ({ item, index }) => (
+    <TouchableOpacity
+      style={[
+        styles.timingsView,
+        {
+          borderColor:
+            item.title === selectedTiming ? COLORS.primary : COLORS.placeHolder,
+        },
+      ]}
+      onPress={() => {
+        setselectedTiming(item.title);
+        setStartTime(item?.start_time);
+        setEndTime(item?.end_time);
+      }}
+    >
+      <Text
+        style={[
+          styles.timingText,
+          {
+            color:
+              item.title === selectedTiming ? COLORS.primary : COLORS.darkGrey,
+          },
+        ]}
+      >
+        {item.title}
+      </Text>
+    </TouchableOpacity>
   );
+
+  const marked = useMemo(() => {
+    return {
+      [setDate]: {
+        dotColor: "red",
+        marked: true,
+      },
+      [date]: {
+        selected: true,
+        disableTouchEvent: true,
+        selectedColor: COLORS.primary,
+        selectedTextColor: COLORS.white,
+      },
+    };
+  }, [date]);
+  const handleSelect = () => {
+    if (!selectedTiming) {
+      alert("Please select timing");
+    }
+    setCalenderModalRef(false);
+  };
+
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <HeaderCoin title={strings.checkout.checkout} />
@@ -212,15 +208,51 @@ export function ServiceCheckout() {
         <ScrollView showsVerticalScrollIndicator={false}>
           {/* ////////////////////// */}
 
+          <View style={styles.bookingView}>
+            <Image
+              source={calenderClock}
+              resizeMode="contain"
+              style={styles.calenderIconStyle}
+            />
+            <Spacer horizontal space={SH(10)} />
+            <View>
+              <Text style={styles.appointmentTimeHeading}>
+                {"Appointment time"}
+              </Text>
+              <Text style={styles.dateText}>
+                {day()}
+                {moment(date, "YYYY-MM-DD").format("MMM DD, YYYY")}
+              </Text>
+              <View style={styles.rowAlign}>
+                {selectedTiming ? (
+                  <>
+                    <Text style={styles.timeText}>{selectedTiming}</Text>
+
+                    <Spacer horizontal space={SW(10)} />
+
+                    <TouchableOpacity onPress={() => setCalenderModalRef(true)}>
+                      <Text style={styles.selectText}>{"change"}</Text>
+                    </TouchableOpacity>
+                  </>
+                ) : (
+                  <TouchableOpacity onPress={() => setCalenderModalRef(true)}>
+                    <Text style={styles.selectText}>{"Select time"}</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+            </View>
+          </View>
+          <Spacer space={SH(20)} />
+
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={arr}
+            data={order?.getServiceCart?.appointment_cart_products ?? []}
             renderItem={renderItem}
             keyExtractor={(item) => item?.id}
-            extraData={arr}
+            extraData={order?.getServiceCart?.appointment_cart_products ?? []}
           />
 
-          <Spacer space={SH(25)} />
+          <Spacer space={SH(10)} />
           <>
             {coupon?.addCoupons &&
             Object.entries(coupon?.addCoupons).length != 0 ? (
@@ -267,7 +299,7 @@ export function ServiceCheckout() {
                     </Text>
                   </View>
                 </View>
-                <Spacer space={SH(25)} />
+                <Spacer space={SH(20)} />
               </>
             ) : (
               <>
@@ -292,7 +324,7 @@ export function ServiceCheckout() {
                     {"Add your coupon here"}
                   </Text>
                 </TouchableOpacity>
-                <Spacer space={SH(25)} />
+                <Spacer space={SH(20)} />
               </>
             )}
           </>
@@ -302,7 +334,7 @@ export function ServiceCheckout() {
               <Text style={styles.feeText}>{"Subtotal"}</Text>
               <Text style={styles.feeText}>
                 {"$ "}
-                {cartList?.getCart?.amout?.total_amount?.toFixed(2)}
+                {order?.getServiceCart?.amout?.total_amount?.toFixed(2)}
               </Text>
             </View>
             <Spacer space={SH(10)} />
@@ -314,9 +346,9 @@ export function ServiceCheckout() {
             <View style={styles.subtotalView}>
               <Text style={styles.feeText}>{"Coupon"}</Text>
               <Text style={styles.feeText}>
-                {discountAmnt > 0 ? "- " : ""}
+                {/* {discountAmnt > 0 ? "- " : ""}
                 {"$ "}
-                {discountAmnt.toFixed(2)}
+                {discountAmnt.toFixed(2)} */}
               </Text>
             </View>
 
@@ -328,10 +360,10 @@ export function ServiceCheckout() {
 
             <View style={styles.subtotalView}>
               <Text style={styles.feeText}>{"Taxes & Other fees "}</Text>
-              <Text style={styles.feeText}>
+              {/* <Text style={styles.feeText}>
                 {"+ $ "}
                 {taxAmount.toFixed(2)}
-              </Text>
+              </Text> */}
             </View>
 
             <Spacer space={SH(10)} />
@@ -342,10 +374,10 @@ export function ServiceCheckout() {
 
             <View style={styles.subtotalView}>
               <Text style={styles.totalText}>{"Total"}</Text>
-              <Text style={styles.totalText}>
+              {/* <Text style={styles.totalText}>
                 {"$ "}
                 {totalAmount.toFixed(2)}
-              </Text>
+              </Text> */}
             </View>
           </View>
 
@@ -355,27 +387,21 @@ export function ServiceCheckout() {
         <View style={styles.bottomButtonView}>
           <TouchableOpacity
             style={styles.missingAddressButton}
-            onPress={() => {
-              dispatch(
-                saveSubTotalAmount({
-                  subTotalAmount: cartList?.getCart?.amout?.total_amount,
-                  discount_amount: discountAmnt,
-                  tax_amount: taxAmount,
-                  total_amount: totalAmount,
-                })
-              );
-              navigate(NAVIGATION.delivery);
-            }}
+            onPress={bookAppointment}
           >
             <View style={styles.missingAddressButtonView}>
               <Text style={styles.placeOrderText}>
-                {strings.checkout.continueCheckout}
+                {strings.checkout.bookAppointment}
               </Text>
               <View style={styles.box}>
                 <Image
-                  resizeMode="stretch"
+                  resizeMode="contain"
                   source={forwardArrowWhite}
-                  style={{ height: 15, width: SW(25), tintColor: COLORS.green }}
+                  style={{
+                    tintColor: COLORS.green,
+                    height: SH(15),
+                    width: SW(25),
+                  }}
                 />
               </View>
             </View>
@@ -384,7 +410,56 @@ export function ServiceCheckout() {
 
         <Spacer space={SH(15)} />
       </View>
-      {isCartLoading ? <Loader message="Loading Cart..." /> : null}
+      <Modal
+        isVisible={calenderModalRef}
+        backdropColor="FFFFFF"
+        backdropOpacity={0}
+        onBackdropPress={() => setCalenderModalRef(false)}
+        onBackButtonPress={() => setCalenderModalRef(false)}
+        transparent={true}
+        style={{
+          backgroundColor: COLORS.white,
+          flex: 1,
+          position: "absolute",
+          left: 0,
+          right: 0,
+          top: -20,
+          bottom: 0,
+          marginHorizontal: SW(-8),
+        }}
+      >
+        <View style={{ paddingHorizontal: SW(20) }}>
+          <Calendar
+            style={{}}
+            theme={{
+              textMonthFontSize: ms(13),
+              textMonthFontWeight: "bold",
+              arrowColor: COLORS.darkGrey,
+              textDayStyle: styles.dayText,
+              textDayFontSize: ms(13),
+              selectedDayTextColor: COLORS.white,
+              selectedDayBackgroundColor: "red",
+              arrowStyle: "arrow",
+              todayTextColor: COLORS.black,
+            }}
+            onDayPress={(day) => {
+              setDate(day.dateString);
+            }}
+            markedDates={marked}
+          />
+          <Spacer space={SH(30)} />
+
+          <FlatList
+            columnWrapperStyle={{ justifyContent: "flex-start" }}
+            data={ServiceBookingTimings}
+            keyExtractor={(item) => item.id}
+            renderItem={renderTimings}
+            numColumns={3}
+          />
+          <Spacer space={SH(50)} />
+          <Button title={"Select"} onPress={handleSelect} />
+        </View>
+      </Modal>
     </ScreenWrapper>
   );
 }

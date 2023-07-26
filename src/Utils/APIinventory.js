@@ -60,6 +60,8 @@ export const ApiOrderInventory = {
   getBrandsProductsShops: "orders/brand-product-shop-list?",
   createServiceCart: "appointment_carts",
   getServiceCart: "appointment_carts/user",
+  removeOneService: (cartId, cartProductId) =>
+    `appointment_carts/${cartId}/${cartProductId}`,
 };
 export const ApiSupportInventory = {
   subjectList: SUPPORT_URL + "subjects",

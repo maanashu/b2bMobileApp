@@ -762,6 +762,7 @@ export const en = {
   checkout: {
     checkout: "Checkout",
     continueCheckout: "Continue to checkout",
+    bookAppointment: "Book an appointment",
   },
 
   kyc: {

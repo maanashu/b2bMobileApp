@@ -73,4 +73,38 @@ export const styles = StyleSheet.create({
     width: SW(50),
     borderRadius: SW(5),
   },
+  visibilityViewStyle: {
+    backgroundColor: COLORS.primary,
+    marginHorizontal: SW(15),
+    borderRadius: moderateScale(5),
+    height: SH(81),
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: SW(15),
+  },
+  visibilityServiceText: {
+    color: COLORS.green,
+    fontSize: SF(18),
+    fontFamily: Fonts.Regular,
+  },
+  boldText: {
+    color: COLORS.green,
+    fontSize: SF(18),
+    fontFamily: Fonts.SemiBold,
+  },
+  VisibiltyButton: {
+    borderWidth: 1,
+    borderRadius: moderateScale(14),
+    borderColor: COLORS.green,
+    height: SH(46),
+    width: SW(65),
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  arrowIcon: {
+    tintColor: COLORS.green,
+    height: SH(15),
+    width: SW(25),
+  },
 });

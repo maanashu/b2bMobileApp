@@ -193,6 +193,20 @@ const getServiceCartReset = () => ({
   type: TYPES.GET_SERVICE_CART_RESET,
   payload: null,
 });
+const removeOneServiceCartRequest = () => ({
+  type: TYPES.REMOVE_ONE_SERVICE_CART_REQUEST,
+  payload: null,
+});
+
+const removeOneServiceCartSuccess = (removeOneService) => ({
+  type: TYPES.REMOVE_ONE_SERVICE_CART_SUCCESS,
+  payload: { removeOneService },
+});
+
+const removeOneServiceCartError = (error) => ({
+  type: TYPES.REMOVE_ONE_SERVICE_CART_ERROR,
+  payload: { error },
+});
 
 const clearOrderStore = () => ({
   type: TYPES.CLEAR_ORDER_STORE,
@@ -378,3 +392,22 @@ export const getServiceCart = () => async (dispatch) => {
     throw error;
   }
 };
+export const removeOneServiceCart =
+  (cartId, cartProductId) => async (dispatch) => {
+    dispatch(removeOneServiceCartRequest());
+    try {
+      const res = await OrderController.removeOneServiceCart(
+        cartId,
+        cartProductId
+      );
+      dispatch(removeOneServiceCartSuccess(res));
+      dispatch(getServiceCart());
+      console.log("sucess", JSON.stringify(res));
+      return res;
+    } catch (error) {
+      console.log("error", JSON.stringify(error));
+
+      dispatch(removeOneServiceCartError(error.message));
+      throw error;
+    }
+  };

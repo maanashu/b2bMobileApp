@@ -22,3 +22,4 @@ export { Biometrics } from "@/components/Biometrics";
 export { LoginCommonKyc } from "@/components/LoginCommonKyc";
 export { LoginCommon } from "@/components/LoginCommon";
 export { LoginModal } from "@/components/LoginModal";
+export { Visibility } from "@/components/Visibility";

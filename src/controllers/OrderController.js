@@ -147,6 +147,33 @@ export class OrderController {
         });
     });
   }
+  static async removeOneServiceCart(cartId, cartProductId) {
+    return new Promise((resolve, reject) => {
+      const endpoint =
+        ORDER_URL + ApiOrderInventory.removeOneService(cartId, cartProductId);
+      HttpClient.delete(endpoint)
+        .then((response) => {
+          resolve(response);
+          Toast.show({
+            text2: response.msg,
+            position: "bottom",
+            type: "success_toast",
+            visibilityTime: 1500,
+          });
+        })
+        .catch((error) => {
+          reject(error);
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
+
+          reject(error);
+        });
+    });
+  }
 
   static async emptyCart() {
     return new Promise((resolve, reject) => {

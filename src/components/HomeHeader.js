@@ -18,8 +18,16 @@ export function HomeHeader({
   onCoinPress,
 }) {
   const user = useSelector(getUser);
-  const cart = useSelector(orderSelector)?.getCart;
+  const cart = useSelector(orderSelector);
   const wallet = useSelector(getWallet);
+
+  const checkoutHandler = () => {
+    if (cart?.getCart?.cart_products?.length > 0) {
+      navigate(NAVIGATION.checkout);
+    } else if (cart?.getServiceCart?.appointment_cart_products?.length > 0) {
+      navigate(NAVIGATION.serviceCheckout);
+    }
+  };
   return (
     <View style={styles.headerStyle}>
       <View style={styles.locationView}>
@@ -60,20 +68,22 @@ export function HomeHeader({
         </TouchableOpacity>
       </View>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
-        {cart?.cart_products?.length > 0 && (
-          <TouchableOpacity onPress={() => navigate(NAVIGATION.checkout)}>
-            <Image
-              source={bagGrey}
-              style={styles.bagIcon}
-              resizeMode="contain"
-            />
-            <View style={styles.cartCountView}>
-              <Text style={{ color: "white", fontSize: SF(10) }}>
-                {cart?.cart_products?.length}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        )}
+        {cart?.getCart?.cart_products?.length > 0 ||
+          (cart?.getServiceCart?.appointment_cart_products?.length > 0 && (
+            <TouchableOpacity onPress={checkoutHandler}>
+              <Image
+                source={bagGrey}
+                style={styles.bagIcon}
+                resizeMode="contain"
+              />
+              <View style={styles.cartCountView}>
+                <Text style={{ color: "white", fontSize: SF(10) }}>
+                  {cart?.getCart?.cart_products?.length ||
+                    cart?.getServiceCart?.appointment_cart_products?.length}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          ))}
 
         <TouchableOpacity style={styles.coinView} onPress={onCoinPress}>
           <Text style={styles.balanceText}>

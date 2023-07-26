@@ -88,6 +88,9 @@ export function BrandsSellers(params) {
       page: 1,
       limit: 10,
       brand_id: item.id,
+      service_id:
+        params?.route?.params?.service_id ||
+        product?.savedProductParams?.service_id,
     };
     dispatch(getSellers(sellersObject));
   };

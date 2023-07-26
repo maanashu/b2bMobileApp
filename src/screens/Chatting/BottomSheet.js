@@ -644,3 +644,48 @@ export const VideoCallTimings = [
   { id: 14, title: "10:00p-11:00p" },
   { id: 15, title: "11:00p-12:00a" },
 ];
+
+export const ServiceBookingTimings = [
+  {
+    id: 1,
+    title: "10:00 AM-12:00 PM",
+    start_time: "10:00 AM",
+    end_time: "12:00 PM",
+  },
+  {
+    id: 2,
+    title: "12:00 PM-02:00 PM",
+    start_time: "12:00 AM",
+    end_time: "02:00 PM",
+  },
+  {
+    id: 3,
+    title: "02:00 AM-04:00 PM",
+    start_time: "02:00 AM",
+    end_time: "04:00 PM",
+  },
+  {
+    id: 4,
+    title: "04:00 PM-06:00 PM",
+    start_time: "04:00 AM",
+    end_time: "06:00 PM",
+  },
+  {
+    id: 5,
+    title: "06:00 PM-08:00 PM",
+    start_time: "06:00 AM",
+    end_time: "08:00 PM",
+  },
+  {
+    id: 6,
+    title: "08:00 PM-10:00 PM",
+    start_time: "08:00 AM",
+    end_time: "10:00 PM",
+  },
+  {
+    id: 7,
+    title: "10:00 PM-12:00 AM",
+    start_time: "10:00 AM",
+    end_time: "12:00 AM",
+  },
+];

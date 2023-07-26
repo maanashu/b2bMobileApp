@@ -4,7 +4,7 @@ import { storage } from "@/storage";
 import DeviceInfo from "react-native-device-info";
 import { getBankAccounts } from "./KycActions";
 import { TYPES } from "@/Types/Types";
-import { getCart } from "./OrderAction";
+import { getCart, getServiceCart } from "./OrderAction";
 // import { TYPES } from "@/Types/Types";
 
 const loginRequest = () => ({
@@ -551,6 +551,7 @@ export const login =
       dispatch(getFavouriteProducts());
       dispatch(getBankAccounts());
       dispatch(getCart());
+      dispatch(getServiceCart());
       return;
     } catch (error) {
       dispatch(loginError(error.message));
@@ -674,6 +675,8 @@ export const deviceLogin = (screenName) => async (dispatch) => {
     dispatch(getFavouriteProducts());
     dispatch(getBankAccounts());
     dispatch(getCart());
+    dispatch(getServiceCart());
+
     return;
   } catch (error) {
     dispatch(loginError(error.message));
