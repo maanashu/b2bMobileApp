@@ -231,6 +231,38 @@ export class OrderController {
         });
     });
   }
+  static async createAppointment(data) {
+    console.log("orderData", JSON.stringify(data));
+    return new Promise(async (resolve, reject) => {
+      const endpoint = ORDER_URL + ApiOrderInventory.createServiceCart;
+      const body = {
+        ...data,
+      };
+
+      HttpClient.post(endpoint, body)
+        .then((response) => {
+          Toast.show({
+            text2: response.msg,
+            position: "bottom",
+            type: "success_toast",
+            visibilityTime: 1500,
+          });
+          resolve(response);
+        })
+        .catch((error) => {
+          console.log("error in create appointment", JSON.stringify(error));
+          console.log("endpoint", endpoint);
+          console.log("body", JSON.stringify(body));
+          Toast.show({
+            text2: error.msg,
+            position: "bottom",
+            type: "error_toast",
+            visibilityTime: 1500,
+          });
+          reject(error);
+        });
+    });
+  }
 
   static async getOrderList(data) {
     return new Promise((resolve, reject) => {

@@ -207,6 +207,20 @@ const removeOneServiceCartError = (error) => ({
   type: TYPES.REMOVE_ONE_SERVICE_CART_ERROR,
   payload: { error },
 });
+const createAppointmentRequest = () => ({
+  type: TYPES.CREATE_APPOINTMENT_REQUEST,
+  payload: null,
+});
+
+const createAppointmentSuccess = (createAppointment) => ({
+  type: TYPES.CREATE_APPOINTMENT_SUCCESS,
+  payload: { createAppointment },
+});
+
+const createAppointmentError = (error) => ({
+  type: TYPES.CREATE_APPOINTMENT_ERROR,
+  payload: { error },
+});
 
 const clearOrderStore = () => ({
   type: TYPES.CLEAR_ORDER_STORE,
@@ -311,6 +325,23 @@ export const createOrder = (data) => async (dispatch) => {
     })
     .catch((error) => {
       dispatch(createOrderError(error.message));
+      throw error;
+    });
+};
+export const createAppointment = (data) => async (dispatch) => {
+  dispatch(createAppointmentRequest());
+  return OrderController.createAppointment(data)
+    .then((res) => {
+      dispatch(createAppointmentSuccess(res));
+      // dispatch(emptyCart());
+      // dispatch(getCart());
+      // dispatch(addCouponReset());
+      // dispatch(getWalletBalance());
+      // dispatch(addCouponSuccess({}));
+      return res;
+    })
+    .catch((error) => {
+      dispatch(createAppointmentError(error.message));
       throw error;
     });
 };

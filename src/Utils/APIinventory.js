@@ -62,6 +62,7 @@ export const ApiOrderInventory = {
   getServiceCart: "appointment_carts/user",
   removeOneService: (cartId, cartProductId) =>
     `appointment_carts/${cartId}/${cartProductId}`,
+  createAppointment: "appointments",
 };
 export const ApiSupportInventory = {
   subjectList: SUPPORT_URL + "subjects",
