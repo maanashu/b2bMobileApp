@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
     // height: SH(15),
     // width: SW(15),
     // tintColor: COLORS.primary,
-    // top: SH(2),
+    top: SH(2),
   },
   serviceNameText: {
     color: COLORS.darkGrey,

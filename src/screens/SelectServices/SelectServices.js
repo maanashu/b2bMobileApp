@@ -17,17 +17,14 @@ import { scale } from "react-native-size-matters";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import { getUser } from "@/selectors/UserSelectors";
 import { getServices } from "@/actions/ProductActions";
-import {
-  createServiceCart,
-  emptyServiceCart,
-  getServiceCart,
-} from "@/actions/OrderAction";
+import { createServiceCart, getServiceCart } from "@/actions/OrderAction";
 import { orderSelector } from "@/selectors/OrderSelector";
 import { forwardArrowWhite } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
+import { Loader } from "@/components/Loader";
 
 export function SelectServices(params) {
   const dispatch = useDispatch();
@@ -51,10 +48,20 @@ export function SelectServices(params) {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.CREATE_SERVICE_CART], state)
   );
+  const isLoadingServices = useSelector((state) =>
+    isLoadingSelector([TYPES.CREATE_SERVICE_CART], state)
+  );
   useEffect(() => {
     dispatch(getServices(serviceObject));
     dispatch(getServiceCart());
   }, []);
+  // console.log(
+  //   "check service cart=>",
+  //   order?.getServiceCart?.appointment_cart_products
+  // );
+  const servicesCartIds = order?.getServiceCart?.appointment_cart_products?.map(
+    (obj) => obj?.product_id
+  );
 
   const addService = (item) => {
     const object = {
@@ -70,14 +77,14 @@ export function SelectServices(params) {
   };
 
   const renderServices = ({ item, index }) => {
+    const isProductInArray = servicesCartIds?.includes(item?.id);
     return (
       <>
         <View style={styles.rowJustifiedView}>
           <View style={styles.rowView}>
             <TouchableOpacity onPress={() => addService(item)}>
               <Icon
-                name={"square"}
-                // name={selectedService ? "check-square" : "square"}
+                name={isProductInArray ? "check-square" : "square"}
                 color={COLORS.primary}
                 size={scale(15)}
                 style={styles.checkBoxStyle}
@@ -167,6 +174,7 @@ export function SelectServices(params) {
           style={styles.loaderStyle}
         />
       )}
+      {isLoadingServices && <Loader />}
     </ScreenWrapper>
   );
 }
