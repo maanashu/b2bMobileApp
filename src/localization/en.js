@@ -657,6 +657,20 @@ export const en = {
       "This order will autometically be cancled if the manufactured does not provide a shipping cost",
     trackOrder: "Track your order",
   },
+  myServices: {
+    myServices: "My Services",
+    orderDetails: "Order Details",
+    pending: "Pending",
+    processing: "Processing",
+    confirmed: "Confirmed",
+    shipped: "Shipped",
+    paid: "Paid",
+    delivered: "Delivered",
+    pendingQuote: "Pending Quote",
+    quote:
+      "This order will autometically be cancled if the manufactured does not provide a shipping cost",
+    trackOrder: "Track your order",
+  },
   trackOrder: {
     pickedByCsutomer: "Picked up by Customer",
     trackYourOrder: "Track your order",

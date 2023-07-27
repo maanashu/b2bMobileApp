@@ -122,6 +122,7 @@ export function Profile() {
       icon: ordersIcon,
       title: strings.profile.myServices,
       openIcon: forward,
+      navigation: NAVIGATION.myServices,
     },
     {
       id: 3,

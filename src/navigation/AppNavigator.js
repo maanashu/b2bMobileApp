@@ -65,6 +65,7 @@ import {
   MobileNumber,
   MyCatalogue,
   MyPurchase,
+  MyServices,
   NearMe,
   NearMeOptions,
   NeedMoreHelp,
@@ -770,6 +771,11 @@ export function AppBottom() {
       <Stack.Screen
         component={ConfirmAppointment}
         name={NAVIGATION.confirmAppointment}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={MyServices}
+        name={NAVIGATION.myServices}
         options={{ headerShown: false }}
       />
       {/* Home navigator ends here */}

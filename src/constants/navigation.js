@@ -111,4 +111,5 @@ export const NAVIGATION = {
   serviceCheckout: "ServiceCheckout",
   selectServices: "SelectServices",
   confirmAppointment: "ConfirmAppointment",
+  myServices: "MyServices",
 };
