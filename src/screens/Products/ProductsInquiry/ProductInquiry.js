@@ -76,11 +76,10 @@ export function ProductInquiry(params) {
   const token = user?.user?.payload?.token;
   const [matchedIds, setMatchedIds] = useState(new Set());
   const [openModal, setOpenModal] = useState(false);
+  const [isLoadingDetails, setisLoadingDetails] = useState(false);
 
   const ProductDetail = useSelector(getProductSelector);
-  const isLoadingDetails = useSelector((state) =>
-    isLoadingSelector([TYPES.GET_PRODUCT_DETAIL], state)
-  );
+
   const getScreen = () => {
     if (!user?.user?.payload?.token) {
       return 0;
@@ -94,6 +93,7 @@ export function ProductInquiry(params) {
       return 6;
     }
   };
+  console.log("da==>>", ProductDetail?.productDetail);
 
   const screen = getScreen();
   // console.log(
@@ -117,8 +117,13 @@ export function ProductInquiry(params) {
     product_id: ProductDetail?.productDetail?.product_detail?.id,
   };
   useEffect(() => {
+    setisLoadingDetails(true);
+    dispatch(getProductDetail(params?.route?.params?.itemId, data))
+      .then(() => setisLoadingDetails(false))
+      .catch(() => setisLoadingDetails(false));
+  }, []);
+  useEffect(() => {
     dispatch(getUserProfile(user?.user?.payload?.uuid));
-    dispatch(getProductDetail(params?.route?.params?.itemId, data));
     dispatch(getTrendingProducts(object));
   }, []);
 
@@ -148,7 +153,9 @@ export function ProductInquiry(params) {
 
   const colorChange = () => {
     if (user?.user?.payload?.token) {
-      dispatch(productFavourites(productData));
+      dispatch(productFavourites(productData)).then(() =>
+        dispatch(getProductDetail(params?.route?.params?.itemId, data))
+      );
     } else {
       const shouldOpenModal =
         !user?.user?.payload?.token || [3, 4, 5, 6].includes(screen);

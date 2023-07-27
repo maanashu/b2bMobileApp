@@ -876,8 +876,10 @@ export const productFavourites = (data) => async (dispatch) => {
     const res = await UserController.productFavourites(data);
     dispatch(productFavouritesSuccess(res?.payload));
     dispatch(getFavouriteProducts());
+    return;
   } catch (error) {
     dispatch(productFavouritesError(error.message));
+    throw error;
   }
 };
 

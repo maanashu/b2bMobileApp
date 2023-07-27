@@ -224,8 +224,10 @@ export const getProductDetail = (productId, seller_id) => async (dispatch) => {
   try {
     const res = await ProductController.getProductDetail(productId, seller_id);
     dispatch(getProductDetailSuccess(res));
+    return res;
   } catch (error) {
     dispatch(getProductDetailError(error.message));
+    throw error;
   }
 };
 
