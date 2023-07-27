@@ -16,12 +16,10 @@ import {
   Spacer,
 } from "@/components";
 import { styles } from "./ConfirmOrder.styles";
-import { COLORS, SF, SH, SW } from "@/theme";
+import { COLORS, SH, SW } from "@/theme";
 import { strings } from "@/localization";
 import {
-  backArrow,
   chatNow,
-  deliveryMap,
   deliveryTruck,
   forward,
   location,
