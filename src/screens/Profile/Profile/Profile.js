@@ -119,82 +119,88 @@ export function Profile() {
     },
     {
       id: 2,
+      icon: ordersIcon,
+      title: strings.profile.myServices,
+      openIcon: forward,
+    },
+    {
+      id: 3,
       icon: quote,
       title: strings.profile.requestQuotation,
       openIcon: forward,
     },
     {
-      id: 3,
+      id: 4,
       icon: question,
       title: strings.profile.inquiries,
       openIcon: forward,
       navigation: NAVIGATION.inquiries,
     },
     {
-      id: 4,
+      id: 5,
       icon: discount,
       title: strings.profile.myCoupons,
       openIcon: forward,
       navigation: NAVIGATION.addCoupon,
     },
     {
-      id: 5,
+      id: 6,
       icon: heartIcon,
       title: strings.profile.favouriteList,
       openIcon: forward,
       navigation: NAVIGATION.favouriteList,
     },
     {
-      id: 6,
+      id: 7,
       icon: searchDoc,
       title: strings.profile.searchingPreference,
       openIcon: forward,
       navigation: NAVIGATION.selectedPreferance,
     },
     {
-      id: 7,
+      id: 8,
       icon: shippingAddressIcon,
       title: strings.profile.shippingAddress,
       openIcon: forward,
       navigation: NAVIGATION.addresses,
     },
     {
-      id: 8,
+      id: 9,
       icon: jobrWallet,
       title: strings.profile.jbrWallet,
       openIcon: forward,
       navigation: NAVIGATION.jbrWallet,
     },
     {
-      id: 9,
+      id: 10,
       icon: jobrWallet,
       title: strings.profile.paymentMethods,
       openIcon: forward,
       navigation: NAVIGATION.paymentMethod,
     },
     {
-      id: 10,
+      id: 11,
       icon: businessCard,
       title: strings.profile.businessCard,
       openIcon: forward,
       navigation: NAVIGATION.businessCards,
     },
     {
-      id: 11,
+      id: 12,
       icon: catalogue,
       title: strings.profile.myCatalogs,
       openIcon: forward,
       navigation: NAVIGATION.catalogues,
     },
     {
-      id: 12,
+      id: 13,
       icon: helpCenter,
       title: strings.profile.helpCenter,
       openIcon: forward,
       navigation: NAVIGATION.helpCenter,
     },
     {
-      id: 13,
+      id: 14,
       icon: settings,
       title: strings.profile.settings,
       openIcon: forward,
@@ -241,7 +247,7 @@ export function Profile() {
           ) : (
             <Image
               source={item.icon}
-              style={styles.iconStyle}
+              style={styles.iconStyle(index)}
               resizeMode="stretch"
             />
           )}

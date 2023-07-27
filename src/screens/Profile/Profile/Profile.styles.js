@@ -128,10 +128,11 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  iconStyle: {
-    height: ms(20),
-    width: ms(20),
-  },
+  iconStyle: (idx) => ({
+    height: idx === 0 || idx === 1 ? ms(18) : ms(20),
+    width: idx === 0 || idx === 1 ? ms(16) : ms(20),
+    marginRight: idx === 0 || idx === 1 ? ms(2) : 0,
+  }),
   forwardIcon: {
     height: ms(17),
     width: ms(17),

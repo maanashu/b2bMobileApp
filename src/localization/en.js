@@ -135,6 +135,7 @@ export const en = {
     address: "4554 Adamsville Road, Mission, TX 78572",
     manufacturer: "Manufacturer",
     myPurchase: "My Purchase",
+    myServices: "My Services",
     requestQuotation: "Request for Quotation",
     inquiries: "Inquiries",
     myCoupons: "My Coupons",
