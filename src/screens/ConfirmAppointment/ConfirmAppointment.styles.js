@@ -2,6 +2,7 @@ import { Fonts } from "@/assets";
 import { ShadowStyles } from "@/theme";
 import { COLORS } from "@/theme/Colors";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
+import { tintColor } from "deprecated-react-native-prop-types/DeprecatedImagePropType";
 import { StyleSheet } from "react-native";
 import {
   moderateScale,
@@ -72,5 +73,29 @@ export const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  rightArrowStyle: {
+    height: SH(13),
+    width: SW(13),
+    tintColor: COLORS.btnText,
+  },
+  dayText: {
+    color: COLORS.black,
+  },
+  timingsView: {
+    backgroundColor: COLORS.placeHolder,
+    alignItems: "center",
+    flex: 1 / 3,
+    borderWidth: 1,
+    marginBottom: SH(7),
+    marginHorizontal: SW(2),
+    borderRadius: 3,
+    width: SW(55),
+    height: SH(25),
+    justifyContent: "center",
+  },
+  timingText: {
+    fontFamily: Fonts.Regular,
+    fontSize: SF(10),
   },
 });

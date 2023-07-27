@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Button, NameHeader, ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
@@ -9,40 +9,74 @@ import { orderSelector } from "@/selectors/OrderSelector";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import moment from "moment";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
-import { ActivityIndicator, Image, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { styles } from "./ConfirmAppointment.styles";
-import { calendar, clock } from "@/assets";
+import { calendar, clock, rightArrowThin } from "@/assets";
 import { createAppointment } from "@/actions/OrderAction";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
+import Modal from "react-native-modal";
+import { Calendar } from "react-native-calendars";
+import { ms } from "react-native-size-matters";
+import { ServiceBookingTimings } from "../Chatting/BottomSheet";
 
 export function ConfirmAppointment(params) {
   const dispatch = useDispatch();
   const order = useSelector(orderSelector);
   const coupon = useSelector(getProductSelector);
 
+  const [isVisible, setisVisible] = useState(false);
+  const [isTimeVisible, setisTimeVisible] = useState(false);
+  const [isCalendarVisible, setisCalendarVisible] = useState(false);
   const [isCartLoading, setisCartLoading] = useState(true);
   const [selectedTiming, setselectedTiming] = useState("");
-  const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
-  const [startTime, setStartTime] = useState(moment().format("YYYY-MM-DD"));
+  const [date, setDate] = useState(params.route?.params?.date);
+  const [startTime, setStartTime] = useState(params.route?.params?.start_time);
   const [endTime, setEndTime] = useState(moment().format("YYYY-MM-DD"));
   const [time, setTime] = useState("");
   const currentDate = moment().format("YYYY-MM-DD");
   const tomorrowDate = moment().add(1, "day").format("YYYY-MM-DD");
 
-  const body = params.route?.params;
-  // console.log("data=>", JSON.stringify(body));
+  console.log("data=>", date);
 
   const day = () => {
-    if (body?.date === currentDate) {
+    if (date === currentDate) {
       return "Today, ";
-    } else if (body?.date === tomorrowDate) {
+    } else if (date === tomorrowDate) {
       return "Tomorrow, ";
     } else {
       return null;
     }
+  };
+  const marked = useMemo(() => {
+    return {
+      [setDate]: {
+        dotColor: "red",
+        marked: true,
+      },
+      [date]: {
+        selected: true,
+        disableTouchEvent: true,
+        selectedColor: COLORS.primary,
+        selectedTextColor: COLORS.white,
+      },
+    };
+  }, [date]);
+  const body = {
+    cart_id: params.route?.params?.cart_id,
+    start_time: startTime,
+    end_time: endTime,
+    date: date,
+    mode_of_payment: "jbr",
   };
 
   const bookAppointment = () => {
@@ -54,6 +88,35 @@ export function ConfirmAppointment(params) {
   };
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.CREATE_APPOINTMENT], state)
+  );
+  const renderTimings = ({ item, index }) => (
+    <TouchableOpacity
+      style={[
+        styles.timingsView,
+        {
+          borderColor:
+            item.title === selectedTiming ? COLORS.primary : COLORS.placeHolder,
+        },
+      ]}
+      onPress={() => {
+        setselectedTiming(item.title);
+        setStartTime(item?.start_time);
+        setEndTime(item?.end_time);
+        setisVisible(false);
+      }}
+    >
+      <Text
+        style={[
+          styles.timingText,
+          {
+            color:
+              item.title === selectedTiming ? COLORS.primary : COLORS.darkGrey,
+          },
+        ]}
+      >
+        {item.title}
+      </Text>
+    </TouchableOpacity>
   );
 
   return (
@@ -81,10 +144,25 @@ export function ConfirmAppointment(params) {
             <Spacer horizontal space={SW(5)} />
             <Text style={styles.infoText}>Appointment</Text>
           </View>
-          <Text style={styles.dateText}>
-            {day()}
-            {moment(body?.date, "YYYY-MM-DD").format("MMM DD, YYYY")}
-          </Text>
+          <TouchableOpacity
+            style={styles.rowAlign}
+            onPress={() => {
+              setisCalendarVisible(true);
+              setisVisible(true);
+            }}
+          >
+            <Text style={styles.dateText}>
+              {day()}
+              {moment(date, "YYYY-MM-DD").format("MMM DD, YYYY")}
+            </Text>
+            <Spacer horizontal space={SW(5)} />
+
+            <Image
+              source={rightArrowThin}
+              resizeMode="contain"
+              style={styles.rightArrowStyle}
+            />
+          </TouchableOpacity>
         </View>
 
         <View style={styles.bottomLine} />
@@ -99,9 +177,26 @@ export function ConfirmAppointment(params) {
               style={styles.clockIcon}
             />
             <Spacer horizontal space={SW(5)} />
+
             <Text style={styles.infoText}>Time</Text>
           </View>
-          <Text style={styles.dateText}>{body?.start_time}</Text>
+          <TouchableOpacity
+            style={styles.rowAlign}
+            onPress={() => {
+              setisTimeVisible(true);
+              setisVisible(true);
+            }}
+          >
+            <Text style={styles.dateText}>{startTime}</Text>
+
+            <Spacer horizontal space={SW(5)} />
+
+            <Image
+              source={rightArrowThin}
+              resizeMode="contain"
+              style={styles.rightArrowStyle}
+            />
+          </TouchableOpacity>
         </View>
 
         <View style={styles.bottomLine} />
@@ -110,6 +205,61 @@ export function ConfirmAppointment(params) {
           <Button title={"Reserve"} onPress={bookAppointment} />
         </View>
       </View>
+
+      <Modal
+        // ref={ref}
+        onBackdropPress={() => setisVisible(false)}
+        onBackButtonPress={() => setisVisible(false)}
+        isVisible={isVisible}
+        backdropColor="FFFFFF"
+        style={{
+          margin: 0,
+          backgroundColor: "white",
+          marginHorizontal: SW(20),
+        }}
+        animationInTiming={1}
+        animationOutTiming={1}
+      >
+        {isCalendarVisible && (
+          <>
+            <View>
+              <Calendar
+                style={{}}
+                theme={{
+                  textMonthFontSize: ms(13),
+                  textMonthFontWeight: "bold",
+                  arrowColor: COLORS.darkGrey,
+                  textDayStyle: styles.dayText,
+                  textDayFontSize: ms(13),
+                  selectedDayTextColor: COLORS.white,
+                  selectedDayBackgroundColor: "red",
+                  arrowStyle: "arrow",
+                  todayTextColor: COLORS.black,
+                }}
+                onDayPress={(day) => {
+                  setDate(day.dateString);
+                  setisVisible(false);
+                }}
+                markedDates={marked}
+              />
+            </View>
+          </>
+        )}
+        {isTimeVisible && (
+          <>
+            <View>
+              <FlatList
+                columnWrapperStyle={{ justifyContent: "flex-start" }}
+                data={ServiceBookingTimings}
+                keyExtractor={(item) => item.id}
+                renderItem={renderTimings}
+                numColumns={3}
+              />
+            </View>
+          </>
+        )}
+      </Modal>
+
       {isLoading && (
         <ActivityIndicator
           size="large"
