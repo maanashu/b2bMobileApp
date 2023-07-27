@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import {
   Dimensions,
   FlatList,
@@ -45,7 +45,7 @@ import HomeCategorySkeleton, {
 } from "@/components/SkeletonContent";
 import { getUser } from "@/selectors/UserSelectors";
 import { getSellers } from "@/actions/UserActions";
-import { useIsFocused } from "@react-navigation/native";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import { getCart } from "@/actions/OrderAction";
 
 export function Products({ navigation }) {
@@ -91,6 +91,16 @@ export function Products({ navigation }) {
     dispatch(getSellers(sellersObject));
     dispatch(getTrendingProducts({ app_name: "b2b", limit: 4, page: 1 }));
   }, [user?.user]);
+  useFocusEffect(
+    useCallback(() => {
+      const sellersObject = {
+        page: 1,
+        limit: 10,
+        need_trending: "true",
+      };
+      dispatch(getSellers(sellersObject));
+    }, [])
+  );
   const getAllProducts = () => {
     const probject = {
       page: 1,
@@ -207,53 +217,69 @@ export function Products({ navigation }) {
     </View>
   );
 
-  const ListProducts = ({ item, index }) => (
-    <>
-      <TouchableOpacity
-        onPress={() => handleNavigation(item?.id)}
-        style={[
-          styles.ShoesStyle,
-          {
-            paddingVertical: index % 2 === 0 ? SH(10) : SH(10),
-            marginTop: index === 1 ? SH(40) : index === 0 ? SH(0) : SH(10),
-            bottom: index % 2 === 0 ? SH(10) : SH(50),
-          },
-        ]}
-      >
-        <Spacer space={SH(10)} />
-        <View style={{ alignItems: "center", flex: 1 }}>
-          <Image
-            source={{ uri: item?.image }}
-            // resizeMode="contain"
-            style={{
-              width: ms(140),
-              height: index === 0 ? SH(180) : SH(150),
-              borderRadius: SW(5),
-            }}
-          />
-        </View>
-        <View style={{ flexDirection: "row" }}></View>
-        <Text style={styles.productsTitle} numberOfLines={2}>
-          {item?.name}
-          <Text style={styles.productSubTitle}> {item?.description}</Text>
-        </Text>
-        <Spacer space={SH(2)} />
-        {/* <Text style={styles.productsQuantity}>{item?.pieces}</Text> */}
-        <Spacer space={SH(5)} />
+  const ListProducts = ({ item, index }) => {
+    const htmlText = item?.description;
+    const regex = /<p>(.*?)<\/p>/; // Regex pattern to match the content within <p> tags
 
-        {user?.user?.payload?.token && (
-          <>
-            <Text style={styles.priceText}>
-              {" "}
-              {"$ "}
-              {item?.price} /{strings?.business?.carton}
-            </Text>
-          </>
-        )}
-      </TouchableOpacity>
-      <Spacer space={index % 2 == 0 ? SH(10) : SH(20)} />
-    </>
-  );
+    const matches = htmlText?.match(regex); // Find matches using the regex pattern
+
+    let extractedText = "";
+    if (matches && matches?.length > 1) {
+      extractedText = matches[1]; // Extracted text is stored in the second element of the matches array
+    }
+
+    return (
+      <>
+        <TouchableOpacity
+          onPress={() => handleNavigation(item?.id)}
+          style={[
+            styles.ShoesStyle,
+            {
+              paddingVertical: index % 2 === 0 ? SH(10) : SH(10),
+              marginTop: index === 1 ? SH(40) : index === 0 ? SH(0) : SH(10),
+              bottom: index % 2 === 0 ? SH(10) : SH(50),
+            },
+          ]}
+        >
+          <Spacer space={SH(10)} />
+          <View style={{ alignItems: "center", flex: 1 }}>
+            <Image
+              source={{ uri: item?.image }}
+              // resizeMode="contain"
+              style={{
+                width: ms(140),
+                height: index === 0 ? SH(180) : SH(150),
+                borderRadius: SW(5),
+              }}
+            />
+          </View>
+          <View style={{ flexDirection: "row" }}></View>
+          <Text style={styles.productsTitle} numberOfLines={2}>
+            {item?.name}
+            {item.description?.match(regex) ? (
+              <Text style={styles.productSubTitle}>{" " + extractedText}</Text>
+            ) : (
+              <Text style={styles.productSubTitle}> {item.description}</Text>
+            )}
+          </Text>
+          <Spacer space={SH(2)} />
+          {/* <Text style={styles.productsQuantity}>{item?.pieces}</Text> */}
+          <Spacer space={SH(5)} />
+
+          {user?.user?.payload?.token && (
+            <>
+              <Text style={styles.priceText}>
+                {" "}
+                {"$ "}
+                {item?.price} /{strings?.business?.carton}
+              </Text>
+            </>
+          )}
+        </TouchableOpacity>
+        <Spacer space={index % 2 == 0 ? SH(10) : SH(20)} />
+      </>
+    );
+  };
 
   const renderRecentItem = ({ item, index }) => (
     <TouchableOpacity style={styles.recentProductsStyle}>

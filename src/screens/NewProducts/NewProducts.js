@@ -141,7 +141,7 @@ export function NewProducts() {
     const matches = htmlText?.match(regex); // Find matches using the regex pattern
 
     let extractedText = "";
-    if (matches && matches.length > 1) {
+    if (matches && matches?.length > 1) {
       extractedText = matches[1]; // Extracted text is stored in the second element of the matches array
     }
 

@@ -132,7 +132,6 @@ export function ServiceCheckout() {
         date: date,
         mode_of_payment: "jbr",
       };
-      console.log("date", JSON.stringify(body));
       navigate(NAVIGATION.confirmAppointment, body);
     }
   };
