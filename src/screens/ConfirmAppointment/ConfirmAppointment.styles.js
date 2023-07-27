@@ -65,4 +65,12 @@ export const styles = StyleSheet.create({
     flex: 1,
     marginBottom: SH(20),
   },
+  loaderStyle: {
+    position: "absolute",
+    right: 0,
+    top: 0,
+    bottom: 0,
+    left: 0,
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
 });

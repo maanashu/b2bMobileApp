@@ -1,5 +1,11 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, Image, View, TouchableOpacity } from "react-native";
@@ -182,12 +188,9 @@ export default function Modals({ children }) {
             </View>
           </>
         )}
-         <View>
-        <LoginModal
-          isVisible={openModal}
-          closeModal={setOpenModal}
-        />
-      </View>
+        <View>
+          <LoginModal isVisible={openModal} closeModal={setOpenModal} />
+        </View>
       </BottomSheetModal>
       {/* </BottomSheetModalProvider> */}
     </>

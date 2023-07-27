@@ -1,4 +1,11 @@
-import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { NameHeader, ScreenWrapper, Spacer, Visibility } from "@/components";
 import { COLORS } from "@/theme/Colors";
@@ -10,11 +17,17 @@ import { scale } from "react-native-size-matters";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import { getUser } from "@/selectors/UserSelectors";
 import { getServices } from "@/actions/ProductActions";
-import { createServiceCart, getServiceCart } from "@/actions/OrderAction";
+import {
+  createServiceCart,
+  emptyServiceCart,
+  getServiceCart,
+} from "@/actions/OrderAction";
 import { orderSelector } from "@/selectors/OrderSelector";
 import { forwardArrowWhite } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
 
 export function SelectServices(params) {
   const dispatch = useDispatch();
@@ -35,6 +48,9 @@ export function SelectServices(params) {
       params?.route?.params?.category_id ||
       productsData?.savedProductParams?.category_id,
   };
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.CREATE_SERVICE_CART], state)
+  );
   useEffect(() => {
     dispatch(getServices(serviceObject));
     dispatch(getServiceCart());
@@ -144,6 +160,13 @@ export function SelectServices(params) {
         </View>
         <Spacer space={SH(25)} />
       </Visibility>
+      {isLoading && (
+        <ActivityIndicator
+          size="large"
+          color="#0000ff"
+          style={styles.loaderStyle}
+        />
+      )}
     </ScreenWrapper>
   );
 }

@@ -354,11 +354,11 @@ export const createAppointment = (data) => async (dispatch) => {
   return OrderController.createAppointment(data)
     .then((res) => {
       dispatch(createAppointmentSuccess(res));
-      // dispatch(emptyCart());
-      // dispatch(getCart());
-      // dispatch(addCouponReset());
-      // dispatch(getWalletBalance());
-      // dispatch(addCouponSuccess({}));
+      dispatch(emptyServiceCart());
+      dispatch(getServiceCart());
+      dispatch(addCouponReset());
+      dispatch(getWalletBalance());
+      dispatch(addCouponSuccess({}));
       return res;
     })
     .catch((error) => {
@@ -454,11 +454,8 @@ export const removeOneServiceCart =
       );
       dispatch(removeOneServiceCartSuccess(res));
       dispatch(getServiceCart());
-      console.log("sucess", JSON.stringify(res));
       return res;
     } catch (error) {
-      console.log("error", JSON.stringify(error));
-
       dispatch(removeOneServiceCartError(error.message));
       throw error;
     }

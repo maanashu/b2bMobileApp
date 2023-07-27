@@ -9,9 +9,14 @@ import { orderSelector } from "@/selectors/OrderSelector";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import moment from "moment";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
-import { Image, Text, View } from "react-native";
+import { ActivityIndicator, Image, Text, View } from "react-native";
 import { styles } from "./ConfirmAppointment.styles";
 import { calendar, clock } from "@/assets";
+import { createAppointment } from "@/actions/OrderAction";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
+import { navigate } from "@/navigation/NavigationRef";
+import { NAVIGATION } from "@/constants";
 
 export function ConfirmAppointment(params) {
   const dispatch = useDispatch();
@@ -28,7 +33,7 @@ export function ConfirmAppointment(params) {
   const tomorrowDate = moment().add(1, "day").format("YYYY-MM-DD");
 
   const body = params.route?.params;
-  console.log("data=>", JSON.stringify(body));
+  // console.log("data=>", JSON.stringify(body));
 
   const day = () => {
     if (body?.date === currentDate) {
@@ -41,14 +46,22 @@ export function ConfirmAppointment(params) {
   };
 
   const bookAppointment = () => {
-    console.log("reserve");
+    dispatch(createAppointment(body)).then(() =>
+      setTimeout(() => {
+        navigate(NAVIGATION.home);
+      }, 1000)
+    );
   };
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.CREATE_APPOINTMENT], state)
+  );
 
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <NameHeader title={"Confirm Appointment"} back />
 
       <Spacer space={SH(100)} />
+
       <View style={styles.container}>
         <Text style={styles.appointmentHeading}>{"Appointment time"}</Text>
 
@@ -97,6 +110,13 @@ export function ConfirmAppointment(params) {
           <Button title={"Reserve"} onPress={bookAppointment} />
         </View>
       </View>
+      {isLoading && (
+        <ActivityIndicator
+          size="large"
+          color="#0000ff"
+          style={styles.loaderStyle}
+        />
+      )}
     </ScreenWrapper>
   );
 }
