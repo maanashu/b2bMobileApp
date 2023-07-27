@@ -49,7 +49,7 @@ export function ConfirmAppointment(params) {
     dispatch(createAppointment(body)).then(() =>
       setTimeout(() => {
         navigate(NAVIGATION.home);
-      }, 1000)
+      }, 1500)
     );
   };
   const isLoading = useSelector((state) =>
