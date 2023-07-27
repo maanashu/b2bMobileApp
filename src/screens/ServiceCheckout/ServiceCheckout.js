@@ -36,6 +36,9 @@ import { ms } from "react-native-size-matters";
 import Modal from "react-native-modal";
 import { ServiceBookingTimings } from "../Chatting/BottomSheet";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
+import { ActivityIndicator } from "react-native";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
 
 export function ServiceCheckout() {
   const dispatch = useDispatch();
@@ -53,6 +56,10 @@ export function ServiceCheckout() {
   const [time, setTime] = useState("");
   const currentDate = moment().format("YYYY-MM-DD");
   const tomorrowDate = moment().add(1, "day").format("YYYY-MM-DD");
+
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.REMOVE_ONE_SERVICE_CART], state)
+  );
 
   useEffect(() => {
     dispatch(getCart());
@@ -495,6 +502,14 @@ export function ServiceCheckout() {
           <Button title={"Select"} onPress={handleSelect} />
         </View>
       </Modal>
+
+      {isLoading && (
+        <ActivityIndicator
+          size="large"
+          color="#0000ff"
+          style={styles.loaderStyle}
+        />
+      )}
     </ScreenWrapper>
   );
 }

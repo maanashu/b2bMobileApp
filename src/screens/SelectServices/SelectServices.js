@@ -110,23 +110,31 @@ export function SelectServices(params) {
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
       <NameHeader title={"Services"} back />
       <View style={styles.container}>
-        <View style={styles.rowAlignView}>
-          <Text style={styles.selectServiceText}>{"Select Service"}</Text>
-          <Spacer horizontal space={SW(5)} />
-          <Text style={styles.requiredText}>{"Required"}</Text>
-        </View>
+        {!productsData?.servicesList?.data ? (
+          <View style={styles.noDataView}>
+            <Text style={styles.noDataText}>{"No services found"}</Text>
+          </View>
+        ) : (
+          <>
+            <View style={styles.rowAlignView}>
+              <Text style={styles.selectServiceText}>{"Select Service"}</Text>
+              <Spacer horizontal space={SW(5)} />
+              <Text style={styles.requiredText}>{"Required"}</Text>
+            </View>
 
-        <Spacer space={SH(15)} />
+            <Spacer space={SH(15)} />
 
-        <View style={styles.bottomLine} />
+            <View style={styles.bottomLine} />
 
-        <Spacer space={SH(15)} />
+            <Spacer space={SH(15)} />
 
-        <FlatList
-          data={productsData?.servicesList?.data}
-          extraData={productsData?.servicesList?.data}
-          renderItem={renderServices}
-        />
+            <FlatList
+              data={productsData?.servicesList?.data}
+              extraData={productsData?.servicesList?.data}
+              renderItem={renderServices}
+            />
+          </>
+        )}
       </View>
       <Visibility
         visible={

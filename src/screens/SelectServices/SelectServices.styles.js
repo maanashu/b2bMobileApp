@@ -115,4 +115,14 @@ export const styles = StyleSheet.create({
     left: 0,
     backgroundColor: "rgba(0,0,0,0.5)",
   },
+  noDataText: {
+    color: COLORS.darkGrey,
+    fontFamily: Fonts.SemiBold,
+    fontSize: SF(25),
+  },
+  noDataView: {
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+  },
 });
