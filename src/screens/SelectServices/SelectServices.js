@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { NameHeader, ScreenWrapper, Spacer, Visibility } from "@/components";
 import { COLORS } from "@/theme/Colors";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,7 +31,6 @@ export function SelectServices(params) {
   const productsData = useSelector(getProductSelector);
   const order = useSelector(orderSelector);
   const user = useSelector(getUser);
-  const [selectedService, setSelectedService] = useState("");
 
   const serviceObject = {
     page: 1,
@@ -49,16 +48,13 @@ export function SelectServices(params) {
     isLoadingSelector([TYPES.CREATE_SERVICE_CART], state)
   );
   const isLoadingServices = useSelector((state) =>
-    isLoadingSelector([TYPES.CREATE_SERVICE_CART], state)
+    isLoadingSelector([TYPES.GET_SERVICES], state)
   );
   useEffect(() => {
     dispatch(getServices(serviceObject));
     dispatch(getServiceCart());
   }, []);
-  // console.log(
-  //   "check service cart=>",
-  //   order?.getServiceCart?.appointment_cart_products
-  // );
+
   const servicesCartIds = order?.getServiceCart?.appointment_cart_products?.map(
     (obj) => obj?.product_id
   );
