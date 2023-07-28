@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image, Text, TextInput, BackHandler, Alert } from "react-native";
+import { View, Image, Text, TextInput } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import CountryPicker from "react-native-country-picker-modal";
@@ -7,17 +7,16 @@ import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { blueLogo, authImage } from "@/assets";
 import { strings } from "@/localization";
-import { COLORS, SF, SH } from "@/theme";
-import { Spacer, Button, ScreenWrapper, Logo } from "@/components";
+import { SH } from "@/theme";
+import { Spacer, Button, ScreenWrapper } from "@/components";
 import { styles } from "@/screens/GetStarted/MobileNumber/MobileNumber.styles";
 import { digits } from "@/Utils/validators";
 import { sendOtp } from "@/actions/UserActions";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "@/components/Loader";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
-import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { TYPES } from "@/Types/Types";
-import { NAVIGATION } from "@/constants";
+import CustomToast from "@/components/CustomToast";
 
 export function MobileNumber({ handleScreenChange, data, ...props }) {
   const dispatch = useDispatch();
@@ -27,11 +26,27 @@ export function MobileNumber({ handleScreenChange, data, ...props }) {
   const [countryCode, setCountryCode] = useState("+1");
   const param = props?.route?.params?.data;
 
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("");
+
   const onChangePhoneNumber = (phone) => setPhoneNumber(phone);
 
   const clearInputs = () => {
     alert("call");
     setPhoneNumber("");
+  };
+  const showToast = (message, type, autoHideDuration) => {
+    setToastVisible(true);
+    setToastMessage(message);
+    setToastType(type);
+
+    setTimeout(() => {
+      setToastVisible(false);
+    }, autoHideDuration);
+  };
+  const hideToast = () => {
+    setToastVisible(false);
   };
 
   const isLoading = useSelector((state) =>
@@ -48,26 +63,11 @@ export function MobileNumber({ handleScreenChange, data, ...props }) {
         }
       });
     } else if (phoneNumber && phoneNumber.length < 10) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        text2: strings.validation.phoneLength,
-        visibilityTime: 2000,
-      });
+      showToast(strings.validation.phoneLength, "error", 2000);
     } else if (phoneNumber && digits.test(phoneNumber) === false) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        text2: strings.validation.validPhone,
-        visibilityTime: 2000,
-      });
+      showToast(strings.validation.validPhone, "error", 2000);
     } else {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        text2: strings.validation.enterPhone,
-        visibilityTime: 2000,
-      });
+      showToast(strings.validation.enterPhone, "error", 2000);
     }
   };
   return (
@@ -138,6 +138,13 @@ export function MobileNumber({ handleScreenChange, data, ...props }) {
       <Spacer space={SH(30)} />
 
       {isLoading ? <Loader message="Loading..." /> : null}
+      <CustomToast
+        visible={toastVisible}
+        message={toastMessage}
+        type={toastType}
+        autoHideDuration={2000}
+        onHide={hideToast}
+      />
     </ScreenWrapper>
   );
 }

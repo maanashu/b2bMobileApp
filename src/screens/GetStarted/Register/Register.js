@@ -31,6 +31,7 @@ import { Loader } from "@/components/Loader";
 import { emailReg } from "@/Utils/validators";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import CustomToast from "@/components/CustomToast";
 
 export function Register({ handleScreenChange }) {
   const dispatch = useDispatch();
@@ -58,6 +59,9 @@ export function Register({ handleScreenChange }) {
   const [confirmPin, setconfirmPin] = useState("");
   const [countryCode, setcountryCode] = useState(user?.phone?.countryCode);
   const [phoneNumber, setphoneNumber] = useState(user?.phone?.phoneNumber);
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("");
 
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.REGISTER], state)
@@ -94,7 +98,18 @@ export function Register({ handleScreenChange }) {
     );
     return () => backHandler.remove();
   }, []);
+  const showToast = (message, type, autoHideDuration) => {
+    setToastVisible(true);
+    setToastMessage(message);
+    setToastType(type);
 
+    setTimeout(() => {
+      setToastVisible(false);
+    }, autoHideDuration);
+  };
+  const hideToast = () => {
+    setToastVisible(false);
+  };
   const data = {
     username: username,
     firstname: firstname?.trim(),
@@ -118,47 +133,17 @@ export function Register({ handleScreenChange }) {
 
   const submit = () => {
     if (!username) {
-      Toast.show({
-        text2: strings.validation.enterUserName,
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-      });
-      return;
+      showToast(strings.validation.enterUserName, "error", 2000);
     }
     if (!firstname) {
-      Toast.show({
-        text2: strings.validation.firstName,
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-      });
-      return;
+      showToast(strings.validation.firstName, "error", 2000);
     }
     if (!lastname) {
-      Toast.show({
-        text2: strings.validation.lastNameerror,
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-      });
-      return;
+      showToast(strings.validation.lastNameerror, "error", 2000);
     } else if (!email) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.emptyEmail,
-      });
-      return;
+      showToast(strings.validation.emptyEmail, "error", 2000);
     } else if (email && emailReg.test(email) === false) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.invalidEmail,
-      });
-      return;
+      showToast(strings.validation.invalidEmail, "error", 2000);
     }
     // if (!ValidateUserName(username)) return;
     // if (!ValidateName(firstname)) return;
@@ -167,34 +152,13 @@ export function Register({ handleScreenChange }) {
     if (!new Date()) {
     }
     if (!pin) {
-      Toast.show({
-        text2: strings.validation.enter4digit,
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-      });
-
-      return;
+      showToast(strings.validation.enter4digit, "error", 2000);
     }
     if (!confirmPin) {
-      Toast.show({
-        text2: strings.validation.conformPin,
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-      });
-
-      return;
+      showToast(strings.validation.conformPin, "error", 2000);
     }
     if (pin != confirmPin) {
-      Toast.show({
-        text2: strings.validation.pinNotMatch,
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-      });
-
-      return;
+      showToast(strings.validation.pinNotMatch, "error", 2000);
     } else {
       handleRegister();
     }
@@ -426,6 +390,13 @@ export function Register({ handleScreenChange }) {
         </View>
       </KeyboardAwareScrollView>
       {isLoading ? <Loader message="Registering ..." /> : null}
+      <CustomToast
+        visible={toastVisible}
+        message={toastMessage}
+        type={toastType}
+        autoHideDuration={2000}
+        onHide={hideToast}
+      />
     </ScreenWrapper>
   );
 }

@@ -20,6 +20,7 @@ import { sendOtp, verifyOtp } from "@/actions/UserActions";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { Loader } from "@/components/Loader";
 import { useNavigation } from "@react-navigation/native";
+import CustomToast from "@/components/CustomToast";
 
 const CELL_COUNT = 5;
 
@@ -28,6 +29,9 @@ export function Verify({ handleScreenChange, data, ...params }) {
   const navigation = useNavigation();
   const user = useSelector(getUser);
 
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("");
   const id = params?.route?.params?.id || data?.id;
   const [value, setValue] = useState("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
@@ -39,23 +43,26 @@ export function Verify({ handleScreenChange, data, ...params }) {
   const [countryCode, setcountryCode] = useState(user?.phone?.countryCode);
   const submit = () => {
     if (!value) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        text2: strings.validation.enterOtp,
-      });
-      return;
+      showToast(strings.validation.enterOtp, "error", 2000);
     } else if (value && value.length < 5) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        text2: strings.validation.invalidOtp,
-      });
+      showToast(strings.validation.invalidOtp, "error", 2000);
     } else {
       dispatch(verifyOtp(id, value, navigation))
         .then(() => handleScreenChange(8))
         .catch((error) => {});
     }
+  };
+  const showToast = (message, type, autoHideDuration) => {
+    setToastVisible(true);
+    setToastMessage(message);
+    setToastType(type);
+
+    setTimeout(() => {
+      setToastVisible(false);
+    }, autoHideDuration);
+  };
+  const hideToast = () => {
+    setToastVisible(false);
   };
 
   const isLoading = useSelector((state) =>
@@ -131,6 +138,13 @@ export function Verify({ handleScreenChange, data, ...params }) {
       </KeyboardAwareScrollView>
       <Spacer space={SH(30)} />
       {isLoading ? <Loader message="Loading data ..." /> : null}
+      <CustomToast
+        visible={toastVisible}
+        message={toastMessage}
+        type={toastType}
+        autoHideDuration={2000}
+        onHide={hideToast}
+      />
     </ScreenWrapper>
   );
 }
