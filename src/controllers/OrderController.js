@@ -189,7 +189,6 @@ export class OrderController {
   }
 
   static async createOrderController(data) {
-    console.log("orderData", JSON.stringify(data));
     return new Promise(async (resolve, reject) => {
       const endpoint = ORDER_URL + ApiOrderInventory.createOrder;
       const body = {
@@ -218,9 +217,6 @@ export class OrderController {
           resolve(response);
         })
         .catch((error) => {
-          console.log("error in create order", JSON.stringify(error));
-          console.log("endpoint", endpoint);
-          console.log("body", JSON.stringify(body));
           Toast.show({
             text2: error.msg,
             position: "bottom",
@@ -232,7 +228,6 @@ export class OrderController {
     });
   }
   static async createAppointment(data) {
-    console.log("orderData", JSON.stringify(data));
     return new Promise(async (resolve, reject) => {
       const endpoint = ORDER_URL + ApiOrderInventory.createAppointment;
       const body = {
@@ -250,9 +245,6 @@ export class OrderController {
           resolve(response);
         })
         .catch((error) => {
-          console.log("error in create appointment", JSON.stringify(error));
-          console.log("endpoint", endpoint);
-          console.log("body", JSON.stringify(body));
           Toast.show({
             text2: error.msg,
             position: "bottom",
@@ -269,6 +261,21 @@ export class OrderController {
       const params = new URLSearchParams(data).toString();
       const endpoint = `${
         ORDER_URL + ApiOrderInventory.getOrderList
+      }?${params}`;
+      HttpClient.get(endpoint)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+  static async getMyServicesList(data) {
+    return new Promise((resolve, reject) => {
+      const params = new URLSearchParams(data).toString();
+      const endpoint = `${
+        ORDER_URL + ApiOrderInventory.createAppointment
       }?${params}`;
       HttpClient.get(endpoint)
         .then((response) => {

@@ -13,6 +13,7 @@ const INITIALSTATE = {
   changeOrderStatus: {},
   getBrandsProductsShops: {},
   getServiceCart: {},
+  myServicesList: [],
 };
 
 export const orderReducer = (state = { INITIALSTATE }, { payload, type }) => {
@@ -96,6 +97,16 @@ export const orderReducer = (state = { INITIALSTATE }, { payload, type }) => {
       return {
         ...state,
         getBrandsProductsShops: payload.getBrandsProductsShops,
+      };
+    case TYPES.GET_MY_SERVICES_LIST_SUCCESS:
+      return {
+        ...state,
+        myServicesList: payload.myServicesList,
+      };
+    case TYPES.GET_MY_SERVICES_LIST_RESET:
+      return {
+        ...state,
+        myServicesList: [],
       };
     default:
       return state;

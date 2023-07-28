@@ -129,6 +129,25 @@ export const getOrderListReset = () => ({
   payload: null,
 });
 
+const getMyServiceListRequest = () => ({
+  type: TYPES.GET_MY_SERVICES_LIST_REQUEST,
+  payload: null,
+});
+
+const getMyServiceListSuccess = (myServicesList) => ({
+  type: TYPES.GET_MY_SERVICES_LIST_SUCCESS,
+  payload: { myServicesList },
+});
+
+const getMyServiceListError = (error) => ({
+  type: TYPES.GET_MY_SERVICES_LIST_ERROR,
+  payload: { error },
+});
+export const getMyServiceListReset = () => ({
+  type: TYPES.GET_MY_SERVICES_LIST_RESET,
+  payload: null,
+});
+
 const getOrderDetailsRequest = () => ({
   type: TYPES.GET_ORDER_DETAILS_REQUEST,
   payload: null,
@@ -368,7 +387,6 @@ export const createAppointment = (data) => async (dispatch) => {
 };
 
 export const getOrderList = (data) => async (dispatch) => {
-  console.log("knfd", JSON.stringify(data));
   dispatch(getOrderListRequest());
   try {
     const res = await OrderController.getOrderList(data);
@@ -378,6 +396,19 @@ export const getOrderList = (data) => async (dispatch) => {
       dispatch(getOrderListReset());
     } else {
       dispatch(getOrderListError(error.message));
+    }
+  }
+};
+export const getMyServicesList = (data) => async (dispatch) => {
+  dispatch(getMyServiceListRequest());
+  try {
+    const res = await OrderController.getMyServicesList(data);
+    dispatch(getMyServiceListSuccess(res?.payload?.data));
+  } catch (error) {
+    if (error?.statusCode === 204) {
+      dispatch(getMyServiceListReset());
+    } else {
+      dispatch(getMyServiceListError(error.message));
     }
   }
 };

@@ -37,18 +37,21 @@ client.interceptors.response.use(
     if (error.response) {
       if (error.response.data.msg === "invalid_token") {
         // Show an alert in React Native
-        Alert.alert("Invalid Token", "Please login again.", [
-          {
-            text: "Ok",
-            onPress: () => {
-              navigate(NAVIGATION.home);
-              store.dispatch(logout());
-              store.dispatch(logoutOrder());
-              store.dispatch(logoutWallet());
+        Alert.alert(
+          "Session activated from another device, please login again to continue",
+          [
+            {
+              text: "Ok",
+              onPress: () => {
+                navigate(NAVIGATION.home);
+                store.dispatch(logout());
+                store.dispatch(logoutOrder());
+                store.dispatch(logoutWallet());
+              },
+              style: "Ok",
             },
-            style: "Ok",
-          },
-        ]);
+          ]
+        );
       }
       return Promise.reject(error.response.data);
     } else if (error.request) {

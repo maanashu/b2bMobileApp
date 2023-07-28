@@ -6,7 +6,7 @@ import { Fonts } from "@/assets";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { orderSelector } from "@/selectors/OrderSelector";
-import { getOrderList } from "@/actions/OrderAction";
+import { getMyServicesList } from "@/actions/OrderAction";
 import moment from "moment";
 import { useFocusEffect } from "@react-navigation/native";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
@@ -19,21 +19,17 @@ export function Processing() {
   const order = useSelector(orderSelector);
 
   const isLoading = useSelector((state) =>
-    isLoadingSelector([TYPES.GET_ORDER_LIST], state)
+    isLoadingSelector([TYPES.GET_MY_SERVICES_LIST], state)
   );
   const getOrder = () => {
     const body = {
-      page: 1,
-      limit: 10,
-      status: "0,1,2",
-      user_uid: user?.user?.payload?.uuid,
+      status: 1,
     };
-    dispatch(getOrderList(body));
+    dispatch(getMyServicesList(body));
   };
   useFocusEffect(
     useCallback(() => {
       getOrder();
-      console.log("Processing screen");
     }, [])
   );
   const renderItem = ({ item, index }) => (
@@ -43,16 +39,21 @@ export function Processing() {
         //   navigate(NAVIGATION.confirmOrder);
         //   dispatch(getOrderDetails(item?.id));
         // }}
-        companyLogo={item?.seller_details?.profile_photo}
-        companyName={item?.seller_details?.username}
+        companyLogo={{
+          uri:
+            item?.seller_details?.profile_photo ||
+            item?.seller_details?.banner_image,
+        }}
+        companyName={
+          item?.seller_details?.username ||
+          item?.seller_details?.firstname + " " + item?.seller_details?.lastname
+        }
         price={item?.order_details?.[0]?.price}
         quantity={item?.order_details?.[0]?.qty}
-        orderedAmount={item?.order_details?.[0]?.price}
-        productImage={{ uri: item?.order_details?.[0]?.product_image }}
-        productName={item?.order_details?.[0]?.product_name}
-        date={moment(item?.order_details?.created_at)
-          .utc()
-          .format("DD MMM, HH:mm ")}
+        orderedAmount={item?.payable_amount}
+        productImage={{ uri: item?.appointment_details?.[0]?.product_image }}
+        productName={item?.appointment_details?.[0]?.product_name}
+        date={moment(item?.created_at).utc().format("DD MMM, HH:mm ")}
       />
     </>
   );
@@ -68,13 +69,13 @@ export function Processing() {
       >
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={order?.getAllOrdersList}
+          data={order?.myServicesList}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
           ListEmptyComponent={(item) => (
             <View style={{ flex: 1, marginTop: SH(250), alignItems: "center" }}>
               <Text style={{ fontFamily: Fonts.Bold, fontSize: SF(20) }}>
-                No Processing Order
+                No Processing Service
               </Text>
             </View>
           )}

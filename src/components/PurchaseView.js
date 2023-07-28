@@ -68,20 +68,21 @@ export function PurchaseView({
             </Text>
 
             <Spacer space={SH(6)} />
-
-            <Text
-              style={{
-                fontFamily: Fonts.SemiBold,
-                fontSize: SF(12),
-                color: COLORS.darkGrey,
-              }}
-            >
-              {"US$ "} {price} x{" "}
-              <Text>
-                {quantity}
-                {" Pieces"}
+            {quantity && (
+              <Text
+                style={{
+                  fontFamily: Fonts.SemiBold,
+                  fontSize: SF(12),
+                  color: COLORS.darkGrey,
+                }}
+              >
+                {"US$ "} {price} x{" "}
+                <Text>
+                  {quantity}
+                  {" Pieces"}
+                </Text>
               </Text>
-            </Text>
+            )}
           </View>
         </View>
 

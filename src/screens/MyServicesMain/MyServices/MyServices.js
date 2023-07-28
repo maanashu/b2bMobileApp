@@ -13,6 +13,8 @@ import { Processing } from "@/screens/MyServicesMain/Processing/Processing";
 import { Completed } from "@/screens/MyServicesMain/Completed/Completed";
 import { Refund } from "@/screens/MyServicesMain//Refund/Refund";
 import { Cancelled } from "@/screens/MyServicesMain//Cancelled/Cancelled";
+import { useSelector } from "react-redux";
+import { getUser } from "@/selectors/UserSelectors";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -21,7 +23,6 @@ const ScrollableTabBar = (props) => {
   useEffect(() => {
     const handleBackButton = () => {
       navigation.navigate(NAVIGATION.home);
-
       return true;
     };
 
@@ -31,6 +32,7 @@ const ScrollableTabBar = (props) => {
       BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
     };
   }, [navigation]);
+  // console.log(user?.user?.payload?.token);
   return (
     <ScrollView
       horizontal={true}
@@ -110,7 +112,7 @@ export function MyServices() {
           <Tab.Screen name="Pending" component={Pending} />
           <Tab.Screen name="Processing" component={Processing} />
           <Tab.Screen name="Completed" component={Completed} />
-          <Tab.Screen name="Refund" component={Refund} />
+          {/* <Tab.Screen name="Refund" component={Refund} /> */}
           <Tab.Screen name="Cancelled" component={Cancelled} />
         </Tab.Navigator>
       </ScreenWrapper>
