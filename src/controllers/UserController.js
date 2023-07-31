@@ -78,6 +78,21 @@ export class UserController {
         });
     });
   }
+  static async setPin(data) {
+    return new Promise(async (resolve, reject) => {
+      const endpoint = ApiUserInventory.setPin;
+      const body = {
+        ...data,
+      };
+      await HttpClient.post(endpoint, body)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
 
   static async sendEmailOtp(email) {
     return new Promise((resolve, reject) => {

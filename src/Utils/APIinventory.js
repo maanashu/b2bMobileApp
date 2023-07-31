@@ -16,6 +16,7 @@ export const ApiUserInventory = {
   verifyPhone: "user_phones/verify-phone",
   userRegister: "users",
   login: "users/login/",
+  setPin: USER_URL + "users/change-pin",
   nearMeSellers: "users/sellers/b2b",
   deviceRegister: USER_URL + "users/device/register",
   deviceLogin: "users/device/login",

@@ -81,6 +81,21 @@ const emailOtpSuccess = (verifyEmail) => ({
   payload: { verifyEmail },
 });
 
+const setPinRequest = () => ({
+  type: TYPES.SET_PIN_REQUEST,
+  payload: null,
+});
+
+const setPinSuccess = (pin) => ({
+  type: TYPES.SET_PIN_SUCCESS,
+  payload: { pin },
+});
+
+const setPinError = (error) => ({
+  type: TYPES.SET_PIN_ERROR,
+  payload: { error },
+});
+
 const registerRequest = () => ({
   type: TYPES.REGISTER_REQUEST,
   payload: null,
@@ -590,6 +605,7 @@ export const sendOtp =
         key
       );
       dispatch(sendOtpSuccess(res));
+      console.log("send otp", JSON.stringify(res));
       dispatch(saveOtp(res.payload.otp));
       return res;
     } catch (error) {
@@ -607,6 +623,18 @@ export const verifyOtp = (id, value, navigation) => async (dispatch) => {
     return;
   } catch (error) {
     dispatch(verifyOtpError(error));
+    throw error;
+  }
+};
+
+export const setPin = (data) => async (dispatch) => {
+  dispatch(setPinRequest());
+  try {
+    const res = await UserController.setPin(data);
+    dispatch(setPinSuccess(res));
+    return res;
+  } catch (error) {
+    dispatch(setPinError(error.message));
     throw error;
   }
 };

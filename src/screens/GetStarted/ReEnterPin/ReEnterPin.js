@@ -15,6 +15,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { useNavigation } from "@react-navigation/native";
 import CustomToast from "@/components/CustomToast";
+import { setPin } from "@/actions/UserActions";
+import { isLoadingSelector } from "@/selectors/StatusSelectors";
+import { TYPES } from "@/Types/Types";
+import { Loader } from "@/components/Loader";
 const CELL_COUNT = 4;
 
 export function ReEnterPin({
@@ -35,7 +39,9 @@ export function ReEnterPin({
   const [toastVisible, setToastVisible] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState("");
-
+  const isLoading = useSelector((state) =>
+    isLoadingSelector([TYPES.SET_PIN], state)
+  );
   const showToast = (message, type, autoHideDuration) => {
     setToastVisible(true);
     setToastMessage(message);
@@ -48,16 +54,27 @@ export function ReEnterPin({
   const hideToast = () => {
     setToastVisible(false);
   };
-
+  const object = {
+    phone_code: user?.phone?.countryCode,
+    phone_number: user?.phone?.phoneNumber,
+    pin: value,
+    otp: user?.sendOtp?.payload?.otp?.toString(),
+  };
   const navigationHandler = async () => {
     if (value.length < 4) {
       showToast("Enter valid pin", "error", 1500);
     } else if (value != data?.value) {
       showToast("Pin does not match", "error", 1500);
     } else {
-      alert("set pin");
+      dispatch(setPin(object)).then(() => {
+        showToast("Pin successfully changed", "success", 1500);
+        setTimeout(() => {
+          handleScreenChange(2);
+        }, 1500);
+      });
     }
   };
+
   return (
     <ScreenWrapper>
       <View style={styles.headerContainer}>
@@ -115,6 +132,7 @@ export function ReEnterPin({
         autoHideDuration={2000}
         onHide={hideToast}
       />
+      {isLoading ? <Loader message="Changing pin ..." /> : null}
     </ScreenWrapper>
   );
 }
