@@ -81,7 +81,7 @@ export function Processing() {
           )}
         />
       </View>
-      {isLoading ? <Loader message="Loading your orders ..." /> : null}
+      {isLoading ? <Loader message="Loading your services ..." /> : null}
     </ScreenWrapper>
   );
 }

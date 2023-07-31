@@ -81,7 +81,7 @@ export function Pending() {
           )}
         />
       </View>
-      {isLoading && <Loader message="Loading your orders ..." />}
+      {isLoading && <Loader message="Loading your services ..." />}
     </ScreenWrapper>
   );
 }

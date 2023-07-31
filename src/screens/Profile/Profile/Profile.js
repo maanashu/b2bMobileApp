@@ -216,6 +216,7 @@ export function Profile() {
       strings.profile.myPurchase,
       strings.profile.shippingAddress,
       strings.profile.myCatalogs,
+      strings.profile.myServices,
     ];
     if (item?.navigation) {
       if (titlesToCheckModal.includes(item.title)) {

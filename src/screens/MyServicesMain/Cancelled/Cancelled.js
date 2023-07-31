@@ -80,7 +80,7 @@ export function Cancelled() {
           )}
         />
       </View>
-      {isLoading && <Loader message="Loading your orders ..." />}
+      {isLoading && <Loader message="Loading your services ..." />}
     </ScreenWrapper>
   );
 }
