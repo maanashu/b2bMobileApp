@@ -71,7 +71,9 @@ export function LoginModal({ isVisible, closeModal, setScreen }) {
       ref.current.close();
       closeModal(false);
     } else {
-      setActiveScreen(activeScreen === 7 ? 1 : activeScreen - 1);
+      setActiveScreen(
+        activeScreen === 7 || activeScreen === 11 ? 1 : activeScreen - 1
+      );
     }
   };
   const disableModal = () => {
