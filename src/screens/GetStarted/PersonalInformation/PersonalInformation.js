@@ -44,6 +44,7 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 import RBSheet from "react-native-raw-bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { requestKyc } from "@/actions/KycActions";
+import CustomToast from "@/components/CustomToast";
 
 export function PersonalInformation({
   closeModal,
@@ -93,16 +94,22 @@ export function PersonalInformation({
   const [business, setBusiness] = useState(false);
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
-  // console.log(
-  //   "uuid",
-  //   getData?.registered?.uuid || getData?.user?.payload?.uuid
-  // );
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("");
 
-  // useEffect(() => {
-  //   setEmail(getData?.registerData?.email);
-  //   setDateformat(getData?.registerData?.dob);
-  // }, [getData?.registerData]);
+  const showToast = (message, type, autoHideDuration) => {
+    setToastVisible(true);
+    setToastMessage(message);
+    setToastType(type);
 
+    setTimeout(() => {
+      setToastVisible(false);
+    }, autoHideDuration);
+  };
+  const hideToast = () => {
+    setToastVisible(false);
+  };
   useEffect(() => {
     dispatch(getUser);
   }, [isFocused]);
@@ -138,131 +145,36 @@ export function PersonalInformation({
         )
       ).then(() => closeModal());
     }
-    // dispatch(logout());
   };
-  // const onChangeDate = (selectedDate) => {
-  //   const currentDate = moment().format("MM-DD-YYYY");
-  //   const selected = moment(selectedDate).format("MM/DD/YYYY");
-  //   if (currentDate === selected) {
-  //     setShow(false);
-  //     const fullDate = new Date(moment(selectedDate).subtract(21, "years"));
-  //     const changedDate = moment(fullDate).format("MM / DD / YYYY");
-  //     const newDateFormat = moment(fullDate).format("YYYY-MM-DD");
-  //     setDateformat(newDateFormat);
-  //     setDate(changedDate);
-  //   } else {
-  //     setShow(false);
-  //     const month = selectedDate?.getMonth() + 1;
-  //     const selectedMonth = month < 10 ? "0" + month : month;
-  //     const day = selectedDate?.getDate();
-  //     const selectedDay = day < 10 ? "0" + day : day;
-  //     const year = selectedDate?.getFullYear();
-  //     const fullDate = selectedMonth + " - " + selectedDay + " - " + year;
-  //     const newDateFormat = year + "-" + selectedMonth + "-" + selectedDay;
-  //     setDateformat(newDateFormat);
-  //     setDate(fullDate);
-  //   }
-  // };
 
   const submit = async () => {
     if (!dateformat) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.enterDate,
-      });
+      showToast(strings.validation.enterDate, "error", 2000);
     } else if (!ssn) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.enterSsn,
-      });
+      showToast(strings.validation.enterSsn, "error", 2000);
     } else if (ssn && digits.test(ssn) === false) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.invalidSSN,
-      });
+      showToast(strings.validation.invalidSSN, "error", 2000);
     } else if (ssn && ssn.length < 9) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: "Please enter valid SSN Number",
-      });
+      showToast("Please enter valid SSN Number", "error", 2000);
     } else if (!email) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.emptyEmail,
-      });
+      showToast(strings.validation.emptyEmail, "error", 2000);
     } else if (email && emailReg.test(email) === false) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.invalidEmail,
-      });
     } else if (individual === false && business === false) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.selectType,
-      });
+      showToast(strings.validation.selectType, "error", 2000);
     } else if (male === false && female === false) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.selectGender,
-      });
+      showToast(strings.validation.selectGender, "error", 2000);
     } else if (!street) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.enterStret,
-      });
+      showToast(strings.validation.enterStret, "error", 2000);
     } else if (!city) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.selectCity,
-      });
+      showToast(strings.validation.selectCity, "error", 2000);
     } else if (!state) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.selectState,
-      });
+      showToast(strings.validation.selectState, "error", 2000);
     } else if (!zipCode) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.enterZip,
-      });
+      showToast(strings.validation.enterZip, "error", 2000);
     } else if (!country) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.country,
-      });
+      showToast(strings.validation.country, "error", 2000);
     } else if (!phone) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: "Phone code required",
-      });
+      showToast("Phone code required", "error", 2000);
     } else {
       const data = {
         first_name: firstname.trim(),
@@ -778,6 +690,13 @@ export function PersonalInformation({
           </>
         </RBSheet>
       </View>
+      <CustomToast
+        visible={toastVisible}
+        message={toastMessage}
+        type={toastType}
+        autoHideDuration={2000}
+        onHide={hideToast}
+      />
     </ScreenWrapper>
   );
 }

@@ -13,7 +13,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useIsFocused } from "@react-navigation/native";
 import ImagePicker from "react-native-image-crop-picker";
 import DropDownPicker from "react-native-dropdown-picker";
-import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 import {
   documentsUpload,
@@ -35,6 +34,7 @@ import ActionSheet from "react-native-actionsheet";
 import { ApiUserInventory } from "@/Utils/APIinventory";
 import { getUser as getuser } from "@/selectors/UserSelectors";
 import { getWallet } from "@/selectors/WalletSelector";
+import CustomToast from "@/components/CustomToast";
 
 export function AgeVerification({ handleScreenChange, ...props }) {
   const { navigation } = props;
@@ -57,7 +57,22 @@ export function AgeVerification({ handleScreenChange, ...props }) {
   const [finalFrontPhoto, setFinalFrontPhoto] = useState("");
   const [firstImageLoadStart, setFirstImageLoadStart] = useState(false);
   const [secondImageLoadStart, setSecondImageLoadStart] = useState(false);
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("");
 
+  const showToast = (message, type, autoHideDuration) => {
+    setToastVisible(true);
+    setToastMessage(message);
+    setToastType(type);
+
+    setTimeout(() => {
+      setToastVisible(false);
+    }, autoHideDuration);
+  };
+  const hideToast = () => {
+    setToastVisible(false);
+  };
   useEffect(() => {
     dispatch(getDocumentTypes());
   }, []);
@@ -146,26 +161,11 @@ export function AgeVerification({ handleScreenChange, ...props }) {
 
   const submit = async () => {
     if (!filterDropDown) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.ageVerification.chooseType,
-      });
+      showToast(strings.validation.chooseType, "error", 2000);
     } else if (!finalFrontPhoto) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.ageVerification.frontPhoto,
-      });
+      showToast(strings.validation.frontPhoto, "error", 2000);
     } else if (!finalBackPhoto) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.ageVerification.backPhoto,
-      });
+      showToast(strings.validation.backPhoto, "error", 2000);
     } else {
       const data = {
         document_type: filterDropDown,
@@ -459,6 +459,13 @@ export function AgeVerification({ handleScreenChange, ...props }) {
       </ScrollView>
       {/* {isLoading && <Loader />} */}
       {/* {isLoadingDocTypes && <Loader />} */}
+      <CustomToast
+        visible={toastVisible}
+        message={toastMessage}
+        type={toastType}
+        autoHideDuration={2000}
+        onHide={hideToast}
+      />
     </ScreenWrapper>
   );
 }

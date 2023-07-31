@@ -29,8 +29,6 @@ import { navigate } from "@/navigation/NavigationRef";
 
 import { styles } from "./ConnectBank.styles";
 import { getKyc } from "@/selectors/KycSelector";
-import { store } from "@/store";
-import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { TYPES } from "@/Types/Types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Loader } from "@/components/Loader";
@@ -95,14 +93,7 @@ export function ConnectBank({ closeModal, ...props }) {
       return (
         <PlaidLink
           tokenConfig={{ token: plaid }}
-          onExit={(exit) =>
-            Toast.show({
-              text2: "Adding bank Cancelled",
-              position: "bottom",
-              type: "error_toast",
-              visibilityTime: 2000,
-            })
-          }
+          onExit={(exit) => alert("Adding bank cancelled")}
           onSuccess={(success) => onPressHandler(success)}
         >
           <Text style={styles.submit}>{strings.card.addBank}</Text>

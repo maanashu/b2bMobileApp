@@ -35,6 +35,7 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { styles } from "@/screens/GetStarted/BusinessRegistration/BusinessRegistration.styles";
 import { digits, emailReg } from "@/Utils/validators";
 import { Loader } from "@/components/Loader";
+import CustomToast from "@/components/CustomToast";
 
 export function BusinessRegistration({ handleScreenChange }) {
   const ref = useRef(null);
@@ -72,7 +73,22 @@ export function BusinessRegistration({ handleScreenChange }) {
   const [naicsCodeTypeValue, setNaicsCodeTypeValue] = useState("");
   const [businessOpenModal, setBusinessOpenModal] = useState(false);
   const [naicsCodeOpenModal, setNaicsCodeOpenModal] = useState(false);
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("");
 
+  const showToast = (message, type, autoHideDuration) => {
+    setToastVisible(true);
+    setToastMessage(message);
+    setToastType(type);
+
+    setTimeout(() => {
+      setToastVisible(false);
+    }, autoHideDuration);
+  };
+  const hideToast = () => {
+    setToastVisible(false);
+  };
   useEffect(() => {
     dispatch(getWalletUserProfile(uuid));
     dispatch(getBusinessType());
@@ -168,105 +184,29 @@ export function BusinessRegistration({ handleScreenChange }) {
 
   const submit = () => {
     if (!dateformat || dateformat === new Date() || date === new Date()) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.enterDate,
-      });
+      showToast(strings.validation.enterDate, "error", 2000);
     } else if (!empId) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.emptyEmployerNo,
-      });
+      showToast(strings.validation.emptyEmployerNo, "error", 2000);
     } else if (empId && digits.test(empId) === false) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.invalidEmployerNo,
-      });
+      showToast(strings.validation.invalidEmployerNo, "error", 2000);
     } else if (empId && empId.length < 9) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.invalidEmployerNo,
-      });
+      showToast(strings.validation.invalidEmployerNo, "error", 2000);
     } else if (!email) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.emptyEmail,
-      });
+      showToast(strings.validation.emptyEmail, "error", 2000);
     } else if (email && emailReg.test(email) === false) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.invalidEmail,
-      });
+      showToast(strings.validation.invalidEmail, "error", 2000);
     } else if (!businessName) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.emptyBusinessName,
-      });
-    }
-    // else if (businessName && characterReg.test(businessName) === false) {
-    //   Toast.show({
-    //     position: "bottom",
-    //     type: "error_toast",
-    //     visibilityTime: 1500,
-    //     text2: strings.validation.invalidBusinessName,
-    //   });
-    // } else if (businessWebsite && websiteUrl.test(businessWebsite) === false) {
-    //   Toast.show({
-    //     position: "bottom",
-    //     type: "error_toast",
-    //     visibilityTime: 1500,
-    //     text2: strings.validation.invalidBusinessWebsite,
-    //   });
-    // }
-    else if (!street) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.enterStret,
-      });
+      showToast(strings.validation.emptyBusinessName, "error", 2000);
+    } else if (!street) {
+      showToast(strings.validation.enterStret, "error", 2000);
     } else if (!city) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.selectCity,
-      });
+      showToast(strings.validation.selectCity, "error", 2000);
     } else if (!state) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.selectState,
-      });
+      showToast(strings.validation.selectState, "error", 2000);
     } else if (!zipCode) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.enterZip,
-      });
+      showToast(strings.validation.enterZip, "error", 2000);
     } else if (!country) {
-      Toast.show({
-        position: "bottom",
-        type: "error_toast",
-        visibilityTime: 1500,
-        text2: strings.validation.country,
-      });
+      showToast(strings.validation.country, "error", 2000);
     } else {
       const data = {
         address_type: "home",
@@ -578,6 +518,13 @@ export function BusinessRegistration({ handleScreenChange }) {
           </View>
         </KeyboardAwareScrollView>
       </View>
+      <CustomToast
+        visible={toastVisible}
+        message={toastMessage}
+        type={toastType}
+        autoHideDuration={2000}
+        onHide={hideToast}
+      />
     </ScreenWrapper>
   );
 }
