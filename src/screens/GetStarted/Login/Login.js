@@ -29,6 +29,7 @@ export function Login({
   goBackScreen,
   handleScreenChange,
   disableModal,
+  routeData,
   ...params
 }) {
   const route = params?.route?.params?.route;
@@ -154,64 +155,6 @@ export function Login({
     }
   };
   return (
-    // <ScreenWrapper>
-    //   <View style={styles.headerContainer}>
-    //     <View style={styles.displayFlex}>
-    //       <TouchableOpacity onPress={() => goBackScreen(1)}>
-    //         <Image source={backArrow} style={styles.backArrow} />
-    //       </TouchableOpacity>
-    //       <Text style={styles.setPin}>{strings.auth.enterPin}</Text>
-    //     </View>
-    //   </View>
-
-    //   <Spacer space={SH(54)} />
-
-    //   <View style={styles.formContainer}>
-    //     <Text style={styles.enterYourPin}>{strings.auth.enterYourPin}</Text>
-    //     <Spacer space={SH(20)} />
-
-    //     <CodeField
-    //       ref={ref}
-    //       {...prop}
-    //       value={value}
-    //       onChangeText={setValue}
-    //       cellCount={CELL_COUNT}
-    //       rootStyle={styles.containerOtp}
-    //       keyboardType="number-pad"
-    //       textContentType="oneTimeCode"
-    //       renderCell={({ index, symbol, isFocused }) => (
-    //         <View
-    //           onLayout={getCellOnLayoutHandler(index)}
-    //           key={index}
-    //           style={styles.cellRoot}
-    //         >
-    //           <Text style={styles.cellText}>
-    //             {symbol || (isFocused ? <Cursor /> : null)}
-    //           </Text>
-    //         </View>
-    //       )}
-    //     />
-    //   </View>
-    //   <View style={{ flex: 1 }} />
-
-    //   <Spacer space={SH(20)} />
-    //   <Button
-    //     onPress={navigationHandler}
-    //     title={strings.auth.continue}
-    //     textStyle={styles.text}
-    //     style={styles.loginButton}
-    //   />
-    //   <Spacer space={SH(30)} />
-
-    //   {isLoading ? <Loader message="Logging in ..." /> : null}
-    //   <CustomToast
-    //     visible={toastVisible}
-    //     message={toastMessage}
-    //     type={toastType}
-    //     autoHideDuration={2000}
-    //     onHide={hideToast}
-    //   />
-    // </ScreenWrapper>
     <ScreenWrapper>
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => handleScreenChange(1)}>
@@ -253,7 +196,9 @@ export function Login({
         />
       </View>
       <View style={{ flex: 1 }} />
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => handleScreenChange(1, { key: "forgot" })}
+      >
         <Text
           style={[
             TextStyles.subtext,

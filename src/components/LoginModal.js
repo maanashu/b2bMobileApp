@@ -8,9 +8,11 @@ import {
   BusinessRegistration,
   CheckAndRequestKYC,
   ConnectBank,
+  EnterPin,
   Login,
   MobileNumber,
   PersonalInformation,
+  ReEnterPin,
   Register,
   Splash,
   Verify,
@@ -173,6 +175,25 @@ export function LoginModal({ isVisible, closeModal, setScreen }) {
           handleScreenChange={handleScreenChange}
           closeModal={closeModalBackPress}
           goBackScreen={goBackScreen}
+        />
+      );
+      break;
+    case 11:
+      content = (
+        <EnterPin
+          handleScreenChange={handleScreenChange}
+          closeModal={closeModalBackPress}
+          goBackScreen={goBackScreen}
+        />
+      );
+      break;
+    case 12:
+      content = (
+        <ReEnterPin
+          handleScreenChange={handleScreenChange}
+          closeModal={closeModalBackPress}
+          goBackScreen={goBackScreen}
+          data={data}
         />
       );
       break;

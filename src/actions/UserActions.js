@@ -577,20 +577,26 @@ export const getUser = (data) => async (dispatch) => {
   }
 };
 
-export const sendOtp = (phoneNumber, countryCode, flag) => async (dispatch) => {
-  dispatch(sendOtpRequest());
+export const sendOtp =
+  (phoneNumber, countryCode, flag, key) => async (dispatch) => {
+    dispatch(sendOtpRequest());
 
-  try {
-    dispatch(savePhone({ phoneNumber, countryCode, flag }));
-    const res = await UserController.sendOtp(phoneNumber, countryCode, flag);
-    dispatch(sendOtpSuccess(res));
-    dispatch(saveOtp(res.payload.otp));
-    return res;
-  } catch (error) {
-    dispatch(sendOtpError(error.message));
-    throw error;
-  }
-};
+    try {
+      dispatch(savePhone({ phoneNumber, countryCode, flag }));
+      const res = await UserController.sendOtp(
+        phoneNumber,
+        countryCode,
+        flag,
+        key
+      );
+      dispatch(sendOtpSuccess(res));
+      dispatch(saveOtp(res.payload.otp));
+      return res;
+    } catch (error) {
+      dispatch(sendOtpError(error.message));
+      throw error;
+    }
+  };
 
 export const verifyOtp = (id, value, navigation) => async (dispatch) => {
   dispatch(verifyOtpRequest());

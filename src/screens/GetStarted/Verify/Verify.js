@@ -28,7 +28,6 @@ export function Verify({ handleScreenChange, data, ...params }) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const user = useSelector(getUser);
-
   const [toastVisible, setToastVisible] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState("");

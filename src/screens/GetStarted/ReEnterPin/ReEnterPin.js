@@ -6,58 +6,73 @@ import {
   useClearByFocusCell,
   Cursor,
 } from "react-native-confirmation-code-field";
-import { backArrow, Verified } from "@/assets";
+import { backArrow } from "@/assets";
 import { strings } from "@/localization";
 import { SH } from "@/theme";
-import Modal from "react-native-modal";
-import { goBack, navigate } from "@/navigation/NavigationRef";
 import { Button, Spacer, ScreenWrapper } from "@/components";
-import { styles } from "@/screens/GetStarted/ReEnterPin/ReEnterPin.styles";
+import { styles } from "@/screens/GetStarted/EnterPin/EnterPin.styles";
+import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { logout } from "@/actions/UserActions";
-import { NAVIGATION } from "@/constants";
+import { useNavigation } from "@react-navigation/native";
+import CustomToast from "@/components/CustomToast";
 const CELL_COUNT = 4;
 
-export function ReEnterPin({ navigation }) {
+export function ReEnterPin({
+  goBackScreen,
+  handleScreenChange,
+  disableModal,
+  data,
+}) {
+  const user = useSelector(getUser);
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
   const [value, setValue] = useState("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [prop, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   });
-  const [loginModal, setLoginModal] = useState(false);
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("");
 
-  const dispatch = useDispatch();
-  const user = useSelector(getUser);
+  const showToast = (message, type, autoHideDuration) => {
+    setToastVisible(true);
+    setToastMessage(message);
+    setToastType(type);
 
-  const logoutUser = () => {
-    dispatch(logout());
+    setTimeout(() => {
+      setToastVisible(false);
+    }, autoHideDuration);
   };
-  const handleSubmit = () => {
-    // const dummyUserName = "Dummy";
-    // const dummyUserPassword = "Dummy";
-    // dispatch(login(dummyUserName, dummyUserPassword));
-    navigate(NAVIGATION.startOrder);
+  const hideToast = () => {
+    setToastVisible(false);
   };
 
+  const navigationHandler = async () => {
+    if (value.length < 4) {
+      showToast("Enter valid pin", "error", 1500);
+    } else if (value != data?.value) {
+      showToast("Pin does not match", "error", 1500);
+    } else {
+      alert("set pin");
+    }
+  };
   return (
     <ScreenWrapper>
       <View style={styles.headerContainer}>
         <View style={styles.displayFlex}>
-          <TouchableOpacity onPress={() => goBack()}>
+          <TouchableOpacity onPress={() => goBackScreen(1)}>
             <Image source={backArrow} style={styles.backArrow} />
           </TouchableOpacity>
-          <Text style={styles.setPin}>{strings.auth.setPin}</Text>
+          <Text style={styles.setPin}>{strings.auth.reEnterPin}</Text>
         </View>
-        <Text style={styles.cancel}>{strings.auth.cancel}</Text>
       </View>
 
       <Spacer space={SH(54)} />
 
       <View style={styles.formContainer}>
-        <Text style={styles.enterYourPin}>{strings.auth.reEnterPin}</Text>
+        <Text style={styles.enterYourPin}>{strings.auth.enterYourPin}</Text>
         <Spacer space={SH(20)} />
 
         <CodeField
@@ -86,41 +101,20 @@ export function ReEnterPin({ navigation }) {
 
       <Spacer space={SH(20)} />
       <Button
-        onPress={() => setLoginModal(true)}
+        onPress={navigationHandler}
         title={strings.auth.continue}
         textStyle={styles.text}
         style={styles.loginButton}
       />
       <Spacer space={SH(30)} />
 
-      <Modal backdropOpacity={1} backdropColor="#D8D8D8" isVisible={loginModal}>
-        <View style={styles.modalView}>
-          <Spacer space={SH(30)} />
-          <Text style={styles.done}>{strings.auth.done}</Text>
-          <Spacer space={SH(12)} />
-          <Image source={Verified} style={styles.Verified} />
-          <Spacer space={SH(12)} />
-          <Text style={styles.youVerified}>{strings.auth.youVerified}</Text>
-          <Spacer space={SH(12)} />
-          <Text style={styles.newPinSet}>{strings.auth.newPinSet}</Text>
-          <View style={{ flex: 1 }} />
-          <Button
-            title={strings.auth.logIn}
-            textStyle={styles.loginText}
-            style={styles.logIn}
-            // onPress={() => navigate(NAVIGATION.productInquiry)}
-            onPress={() => {
-              setLoginModal(false);
-              // logoutUser();
-              handleSubmit();
-              // navigation.reset({
-              //   index: 0,
-              //   routes: [{ name: NAVIGATION.productInquiry }],
-              // });
-            }}
-          />
-        </View>
-      </Modal>
+      <CustomToast
+        visible={toastVisible}
+        message={toastMessage}
+        type={toastType}
+        autoHideDuration={2000}
+        onHide={hideToast}
+      />
     </ScreenWrapper>
   );
 }

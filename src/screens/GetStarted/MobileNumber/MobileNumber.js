@@ -17,11 +17,15 @@ import { Loader } from "@/components/Loader";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import CustomToast from "@/components/CustomToast";
+import { getUser } from "@/selectors/UserSelectors";
 
 export function MobileNumber({ handleScreenChange, data, ...props }) {
   const dispatch = useDispatch();
+  const user = useSelector(getUser);
   const { colors } = useTheme();
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState(
+    user?.phone?.phoneNumber || ""
+  );
   const [flag, setFlag] = useState("US");
   const [countryCode, setCountryCode] = useState("+1");
   const param = props?.route?.params?.data;
@@ -29,8 +33,8 @@ export function MobileNumber({ handleScreenChange, data, ...props }) {
   const [toastVisible, setToastVisible] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState("");
-
   const onChangePhoneNumber = (phone) => setPhoneNumber(phone);
+  console.log("phone", user?.phone?.phoneNumber);
 
   const clearInputs = () => {
     alert("call");
@@ -55,13 +59,19 @@ export function MobileNumber({ handleScreenChange, data, ...props }) {
 
   const submit = () => {
     if (phoneNumber && phoneNumber.length >= 10 && digits.test(phoneNumber)) {
-      dispatch(sendOtp(phoneNumber, countryCode, param, flag)).then((res) => {
-        if (res?.payload?.is_phone_exits) {
-          handleScreenChange(2);
-        } else {
-          handleScreenChange(7, { id: res.payload.id });
+      dispatch(sendOtp(phoneNumber, countryCode, param, flag, data?.key)).then(
+        (res) => {
+          if (data?.key == "forgot") {
+            handleScreenChange(11);
+          } else {
+            if (res?.payload?.is_phone_exits) {
+              handleScreenChange(2);
+            } else {
+              handleScreenChange(7, { id: res.payload.id, key: data?.key });
+            }
+          }
         }
-      });
+      );
     } else if (phoneNumber && phoneNumber.length < 10) {
       showToast(strings.validation.phoneLength, "error", 2000);
     } else if (phoneNumber && digits.test(phoneNumber) === false) {

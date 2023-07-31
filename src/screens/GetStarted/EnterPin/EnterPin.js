@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import {
   CodeField,
@@ -13,14 +13,7 @@ import { Button, Spacer, ScreenWrapper } from "@/components";
 import { styles } from "@/screens/GetStarted/EnterPin/EnterPin.styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
-import { deviceLogin, login } from "@/actions/UserActions";
-import { isLoadingSelector } from "@/selectors/StatusSelectors";
-import { Loader } from "@/components/Loader";
-import { storage } from "@/storage";
-import ReactNativeBiometrics, { BiometryTypes } from "react-native-biometrics";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import { TYPES } from "@/Types/Types";
 import CustomToast from "@/components/CustomToast";
 const CELL_COUNT = 4;
 
@@ -30,7 +23,6 @@ export function EnterPin({
   disableModal,
   ...params
 }) {
-  const route = params?.route?.params?.route;
   const user = useSelector(getUser);
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -56,100 +48,12 @@ export function EnterPin({
   const hideToast = () => {
     setToastVisible(false);
   };
-  const phoneNum = user?.phone?.phoneNumber;
-
-  const rnBiometrics = new ReactNativeBiometrics({
-    allowDeviceCredentials: true,
-  });
-  useEffect(() => {
-    getStorageData();
-  }, []);
-
-  const getStorageData = () => {
-    storage.getMapAsync("biometric-data").then((res) => {
-      if (res?.phoneNum === phoneNum) {
-        storage.getMapAsync("Biometric-status").then((res) => {
-          if (res?.isStatus == true) {
-            bioMetricLogin();
-          }
-        });
-
-        // if (isBiometricEnabled || bioMetricsAvailable) {
-        // alert("ok");
-        // }
-      }
-    });
-  };
-
-  const bioMetricLogin = () => {
-    rnBiometrics.isSensorAvailable().then((resultObject) => {
-      const { available, biometryType } = resultObject;
-      if (available && biometryType === BiometryTypes.TouchID) {
-        checkBioMetricKeyExists();
-      } else if (available && biometryType === BiometryTypes.FaceID) {
-        checkBioMetricKeyExists();
-      } else if (available && biometryType === BiometryTypes.Biometrics) {
-        checkBioMetricKeyExists();
-      } else {
-        // alert('Biometrics not supported');
-        setBioMetricsAvailable(false);
-      }
-    });
-  };
-
-  const checkBioMetricKeyExists = () => {
-    rnBiometrics.biometricKeysExist().then((resultObject) => {
-      const { keysExist } = resultObject;
-      if (keysExist) {
-        promptBioMetricSignin();
-      } else {
-        createKeys();
-      }
-    });
-  };
-
-  const promptBioMetricSignin = () => {
-    let epochTimeSeconds = Math.round(new Date().getTime() / 1000).toString();
-    let payload = epochTimeSeconds + "some message";
-    rnBiometrics
-      .createSignature({
-        promptMessage: "Sign in",
-        payload: payload,
-      })
-      .then((resultObject) => {
-        const { success } = resultObject;
-        if (success) {
-          dispatch(deviceLogin(user?.screenName))
-            .then(() => disableModal())
-            .catch(() => {});
-        }
-      })
-      .catch(() => {});
-  };
-
-  const createKeys = () =>
-    rnBiometrics.createKeys().then(() => promptBioMetricSignin());
-
-  const isLoading = useSelector((state) =>
-    isLoadingSelector([TYPES.LOGIN], state)
-  );
 
   const navigationHandler = async () => {
-    if (value?.length == 4) {
-      const fcmtoken = await AsyncStorage.getItem("token");
-      dispatch(
-        login(
-          value,
-          user?.phone?.countryCode,
-          user?.phone?.phoneNumber,
-          user?.screenName,
-          fcmtoken
-        )
-      )
-        .then(() => disableModal())
-        .catch((error) => showToast(error?.msg, "error", 2000));
+    if (value?.length === 4) {
+      handleScreenChange(12, { value: value });
     } else {
-      showToast("Enter valid pin", "error", 2000);
+      showToast("Enter valid pin", "error", 1500);
     }
   };
   return (
@@ -159,7 +63,7 @@ export function EnterPin({
           <TouchableOpacity onPress={() => goBackScreen(1)}>
             <Image source={backArrow} style={styles.backArrow} />
           </TouchableOpacity>
-          <Text style={styles.setPin}>{strings.auth.enterPin}</Text>
+          <Text style={styles.setPin}>{strings.auth.enterNewPin}</Text>
         </View>
       </View>
 
@@ -202,7 +106,6 @@ export function EnterPin({
       />
       <Spacer space={SH(30)} />
 
-      {isLoading ? <Loader message="Logging in ..." /> : null}
       <CustomToast
         visible={toastVisible}
         message={toastMessage}

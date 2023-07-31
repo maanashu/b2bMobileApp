@@ -56,30 +56,21 @@ export class UserController {
     });
   }
 
-  static async sendOtp(phoneNumber, countryCode, flag) {
+  static async sendOtp(phoneNumber, countryCode, flag, key) {
     return new Promise((resolve, reject) => {
       const endpoint = USER_URL + ApiUserInventory.sendOtp;
-
-      const body = {
-        phone_code: countryCode,
-        phone_no: phoneNumber,
-      };
+      const body =
+        key == "forgot"
+          ? {
+              phone_code: countryCode,
+              phone_no: phoneNumber,
+              isAlreadyCheck: true,
+            }
+          : { phone_code: countryCode, phone_no: phoneNumber };
 
       HttpClient.post(endpoint, body)
         .then((response) => {
-          if (response?.payload?.is_phone_exits) {
-            // navigate(NAVIGATION.enterPin, { route: "registered" });
-          } else {
-            Toast.show({
-              position: "bottom",
-              type: "success_toast",
-              text2: strings.validation.otpSent,
-              visibilityTime: 2000,
-            });
-
-            // navigate(NAVIGATION.verify, { id: response.payload.id });
-          }
-
+          console.log("check response: " + JSON.stringify(response));
           resolve(response);
         })
         .catch((error) => {

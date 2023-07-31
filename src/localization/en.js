@@ -160,6 +160,7 @@ export const en = {
     whichOne: "Which of the following best describes your business?",
     next: "Next",
     enterPin: "Enter your PIN for login",
+    enterNewPin: "Enter new PIN",
     forgotPin: "Forgot PIN?",
     enterMobile: "Continue with your phone number",
     pleaseEnterMobile: "Please enter your number to phone number",
