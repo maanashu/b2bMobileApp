@@ -6,10 +6,10 @@ import {
   useClearByFocusCell,
   Cursor,
 } from "react-native-confirmation-code-field";
-import { backArrow } from "@/assets";
+import { backArrow, blueLogo } from "@/assets";
 import { strings } from "@/localization";
-import { SH } from "@/theme";
-import { Button, Spacer, ScreenWrapper } from "@/components";
+import { COLORS, SH, ShadowStyles, TextStyles } from "@/theme";
+import { Button, Spacer, ScreenWrapper, TextField } from "@/components";
 import { styles } from "./Login.styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
@@ -22,6 +22,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { TYPES } from "@/Types/Types";
 import CustomToast from "@/components/CustomToast";
+import { goBack } from "@/navigation/NavigationRef";
 const CELL_COUNT = 4;
 
 export function Login({
@@ -153,20 +154,80 @@ export function Login({
     }
   };
   return (
+    // <ScreenWrapper>
+    //   <View style={styles.headerContainer}>
+    //     <View style={styles.displayFlex}>
+    //       <TouchableOpacity onPress={() => goBackScreen(1)}>
+    //         <Image source={backArrow} style={styles.backArrow} />
+    //       </TouchableOpacity>
+    //       <Text style={styles.setPin}>{strings.auth.enterPin}</Text>
+    //     </View>
+    //   </View>
+
+    //   <Spacer space={SH(54)} />
+
+    //   <View style={styles.formContainer}>
+    //     <Text style={styles.enterYourPin}>{strings.auth.enterYourPin}</Text>
+    //     <Spacer space={SH(20)} />
+
+    //     <CodeField
+    //       ref={ref}
+    //       {...prop}
+    //       value={value}
+    //       onChangeText={setValue}
+    //       cellCount={CELL_COUNT}
+    //       rootStyle={styles.containerOtp}
+    //       keyboardType="number-pad"
+    //       textContentType="oneTimeCode"
+    //       renderCell={({ index, symbol, isFocused }) => (
+    //         <View
+    //           onLayout={getCellOnLayoutHandler(index)}
+    //           key={index}
+    //           style={styles.cellRoot}
+    //         >
+    //           <Text style={styles.cellText}>
+    //             {symbol || (isFocused ? <Cursor /> : null)}
+    //           </Text>
+    //         </View>
+    //       )}
+    //     />
+    //   </View>
+    //   <View style={{ flex: 1 }} />
+
+    //   <Spacer space={SH(20)} />
+    //   <Button
+    //     onPress={navigationHandler}
+    //     title={strings.auth.continue}
+    //     textStyle={styles.text}
+    //     style={styles.loginButton}
+    //   />
+    //   <Spacer space={SH(30)} />
+
+    //   {isLoading ? <Loader message="Logging in ..." /> : null}
+    //   <CustomToast
+    //     visible={toastVisible}
+    //     message={toastMessage}
+    //     type={toastType}
+    //     autoHideDuration={2000}
+    //     onHide={hideToast}
+    //   />
+    // </ScreenWrapper>
     <ScreenWrapper>
       <View style={styles.headerContainer}>
-        <View style={styles.displayFlex}>
-          <TouchableOpacity onPress={() => goBackScreen(1)}>
-            <Image source={backArrow} style={styles.backArrow} />
-          </TouchableOpacity>
-          <Text style={styles.setPin}>{strings.auth.enterPin}</Text>
-        </View>
+        <TouchableOpacity onPress={() => handleScreenChange(1)}>
+          <Image source={backArrow} style={styles.backArrow} />
+        </TouchableOpacity>
       </View>
 
       <Spacer space={SH(54)} />
+      <Image
+        source={blueLogo}
+        style={[styles.alignCenter, styles.logo]}
+        resizeMode="contain"
+      />
 
       <View style={styles.formContainer}>
-        <Text style={styles.enterYourPin}>{strings.auth.enterYourPin}</Text>
+        <Text style={[TextStyles.enterPin]}>{strings.auth.enterPin}</Text>
         <Spacer space={SH(20)} />
 
         <CodeField
@@ -192,17 +253,25 @@ export function Login({
         />
       </View>
       <View style={{ flex: 1 }} />
-
+      <TouchableOpacity>
+        <Text
+          style={[
+            TextStyles.subtext,
+            styles.alignCenter,
+            { color: COLORS.text },
+          ]}
+        >
+          {strings.auth.forgotPin}
+        </Text>
+      </TouchableOpacity>
       <Spacer space={SH(20)} />
       <Button
         onPress={navigationHandler}
-        title={strings.auth.continue}
+        title={strings.login.button}
         textStyle={styles.text}
         style={styles.loginButton}
       />
       <Spacer space={SH(30)} />
-
-      {isLoading ? <Loader message="Logging in ..." /> : null}
       <CustomToast
         visible={toastVisible}
         message={toastMessage}
@@ -210,6 +279,7 @@ export function Login({
         autoHideDuration={2000}
         onHide={hideToast}
       />
+      {isLoading ? <Loader message="Logging in ..." /> : null}
     </ScreenWrapper>
   );
 }
