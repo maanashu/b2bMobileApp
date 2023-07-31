@@ -8,7 +8,7 @@ import {
   BusinessRegistration,
   CheckAndRequestKYC,
   ConnectBank,
-  EnterPin,
+  Login,
   MobileNumber,
   PersonalInformation,
   Register,
@@ -96,7 +96,7 @@ export function LoginModal({ isVisible, closeModal, setScreen }) {
       break;
     case 2:
       content = (
-        <EnterPin
+        <Login
           handleScreenChange={handleScreenChange}
           disableModal={disableModal}
           goBackScreen={goBackScreen}

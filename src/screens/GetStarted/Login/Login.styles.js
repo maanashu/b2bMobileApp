@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { SH, SW, SF, COLORS } from "@/theme";
+import { SH, SW, SF, COLORS, ShadowStyles } from "@/theme";
 import { Fonts } from "@/assets";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 const windowWidth = Dimensions.get("window").width;
@@ -14,14 +14,15 @@ export const styles = StyleSheet.create({
   alignCenter: {
     alignSelf: "center",
   },
+
   logo: {
     height: SH(104),
     width: SW(278),
   },
   cellRoot: {
     backgroundColor: COLORS.placeHolder,
-    width: SW(48),
-    height: SW(48),
+    height: moderateScale(50),
+    width: moderateScale(50),
     // height: moderateScale(50),
     // width: moderateScale(50),
     borderRadius: moderateScale(50),
@@ -45,19 +46,46 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     borderColor: "transparent",
     height: SH(54),
-    width:windowWidth * 0.92,
-    alignSelf:'center'
+    width: windowWidth * 0.92,
+    alignSelf: "center",
   },
   text: {
     color: COLORS.white,
   },
   headerContainer: {
     height: SH(54),
-    justifyContent: "center",
+    ...ShadowStyles.shadow,
+    backgroundColor: COLORS.white,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: moderateScale(10),
+    // borderWidth: 1,
+    width: windowWidth,
+    alignSelf: "center",
   },
   backArrow: {
-    widtrh: SW(20),
+    width: SW(20),
     height: SH(20),
     resizeMode: "contain",
+  },
+  displayFlex: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  setPin: {
+    fontFamily: Fonts.SemiBold,
+    color: COLORS.darkGrey,
+    fontSize: SF(16),
+  },
+  cancel: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.primary,
+    fontSize: SF(12),
+  },
+  enterYourPin: {
+    fontFamily: Fonts.Regular,
+    color: COLORS.grey,
+    fontSize: SF(16),
   },
 });

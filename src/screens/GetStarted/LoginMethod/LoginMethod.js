@@ -108,7 +108,7 @@ export function LoginMethod(props) {
         <Button
           title={strings.login.pinbutton}
           textStyle={{ color: COLORS.black }}
-          onPress={() => navigate(NAVIGATION.enterPin)}
+          onPress={() => navigate(NAVIGATION.login)}
           style={{ backgroundColor: COLORS.inputBorder }}
         />
       </View>
