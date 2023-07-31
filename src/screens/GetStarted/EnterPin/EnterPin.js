@@ -6,10 +6,9 @@ import {
   useClearByFocusCell,
   Cursor,
 } from "react-native-confirmation-code-field";
-import { jobrSplash, blueLogo, backArrow } from "@/assets";
+import { backArrow } from "@/assets";
 import { strings } from "@/localization";
-import { NAVIGATION } from "@/constants";
-import { SH, TextStyles, COLORS } from "@/theme";
+import { SH } from "@/theme";
 import { Button, Spacer, ScreenWrapper } from "@/components";
 import { styles } from "@/screens/GetStarted/EnterPin/EnterPin.styles";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,6 +21,7 @@ import ReactNativeBiometrics, { BiometryTypes } from "react-native-biometrics";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { TYPES } from "@/Types/Types";
+import CustomToast from "@/components/CustomToast";
 const CELL_COUNT = 4;
 
 export function EnterPin({
@@ -40,7 +40,22 @@ export function EnterPin({
     value,
     setValue,
   });
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("");
 
+  const showToast = (message, type, autoHideDuration) => {
+    setToastVisible(true);
+    setToastMessage(message);
+    setToastType(type);
+
+    setTimeout(() => {
+      setToastVisible(false);
+    }, autoHideDuration);
+  };
+  const hideToast = () => {
+    setToastVisible(false);
+  };
   const phoneNum = user?.phone?.phoneNumber;
 
   const rnBiometrics = new ReactNativeBiometrics({
@@ -120,18 +135,22 @@ export function EnterPin({
   );
 
   const navigationHandler = async () => {
-    const fcmtoken = await AsyncStorage.getItem("token");
-    dispatch(
-      login(
-        value,
-        user?.phone?.countryCode,
-        user?.phone?.phoneNumber,
-        user?.screenName,
-        fcmtoken
+    if (value?.length == 4) {
+      const fcmtoken = await AsyncStorage.getItem("token");
+      dispatch(
+        login(
+          value,
+          user?.phone?.countryCode,
+          user?.phone?.phoneNumber,
+          user?.screenName,
+          fcmtoken
+        )
       )
-    )
-      .then(() => disableModal())
-      .catch(() => {});
+        .then(() => disableModal())
+        .catch((error) => showToast(error?.msg, "error", 2000));
+    } else {
+      showToast("Enter valid pin", "error", 2000);
+    }
   };
   return (
     <ScreenWrapper>
@@ -184,6 +203,13 @@ export function EnterPin({
       <Spacer space={SH(30)} />
 
       {isLoading ? <Loader message="Logging in ..." /> : null}
+      <CustomToast
+        visible={toastVisible}
+        message={toastMessage}
+        type={toastType}
+        autoHideDuration={2000}
+        onHide={hideToast}
+      />
     </ScreenWrapper>
   );
 }

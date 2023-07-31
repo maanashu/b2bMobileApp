@@ -20,6 +20,7 @@ import { sendOtp, verifyOtp } from "@/actions/UserActions";
 import { Loader } from "@/components/Loader";
 import { useNavigation } from "@react-navigation/native";
 import CustomToast from "@/components/CustomToast";
+import { ActivityIndicator } from "react-native";
 
 const CELL_COUNT = 5;
 
@@ -67,8 +68,13 @@ export function Verify({ handleScreenChange, data, ...params }) {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.VERIFY_OTP], state)
   );
+  const isResendOtp = useSelector((state) =>
+    isLoadingSelector([TYPES.SEND_OTP], state)
+  );
   const resendOtp = () => {
-    dispatch(sendOtp(mobileNumber, countryCode));
+    dispatch(sendOtp(mobileNumber, countryCode)).then(() => {
+      showToast(strings.validation.otpSent, "success", 1500);
+    });
   };
 
   return (
@@ -137,6 +143,13 @@ export function Verify({ handleScreenChange, data, ...params }) {
       </KeyboardAwareScrollView>
       <Spacer space={SH(30)} />
       {isLoading ? <Loader message="Loading data ..." /> : null}
+      {isResendOtp && (
+        <ActivityIndicator
+          size="large"
+          color="#0000ff"
+          style={styles.loaderStyle}
+        />
+      )}
       <CustomToast
         visible={toastVisible}
         message={toastMessage}
