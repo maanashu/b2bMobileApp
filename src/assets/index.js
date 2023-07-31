@@ -318,6 +318,8 @@ export { default as staticBackground } from "@/assets/icons/ic_verify/trendServi
 export { default as heartFilled } from "@/assets/icons/ic_more/heartFilled.png";
 export { default as heartBlank } from "@/assets/icons/ic_more/heartBlank.png";
 export { default as deleteIcon } from "@/assets/icons/ic_home/deleteIcon.png";
+export { default as greenCheck } from "@/assets/icons/ic_verification/simpleCheck.png";
+export { default as simpleClose } from "@/assets/icons/ic_verification/simpleClose.png";
 
 export const Fonts = {
   Bold: "Montserrat-Bold",

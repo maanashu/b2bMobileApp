@@ -1,6 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import { View, Text, Modal, StyleSheet, Animated, Image } from "react-native";
-import { Fonts, error, success } from "@/assets"; // Replace with the path to your Fonts
+import {
+  Fonts,
+  error,
+  greenCheck,
+  simpleCheck,
+  simpleClose,
+  success,
+} from "@/assets"; // Replace with the path to your Fonts
 import { COLORS, SF, SH, SW, ShadowStyles } from "@/theme"; // Replace with the path to your theme
 import Icon from "react-native-vector-icons/FontAwesome"; // Replace with your preferred icon library
 
@@ -80,15 +87,21 @@ const CustomToast = ({
               </Text>
             </View>
             {type === "success" ? (
-              <Image
-                source={success} // Replace with the path to your success image
-                style={styles.successIcon}
-              />
+              <View style={styles.successIconView}>
+                <Image
+                  source={greenCheck} // Replace with the path to your success image
+                  style={styles.successIcon}
+                  resizeMode="contain"
+                />
+              </View>
             ) : (
-              <Image
-                source={error} // Replace with the path to your error image
-                style={styles.errorIcon}
-              />
+              <View style={styles.errorIconView}>
+                <Image
+                  source={simpleClose} // Replace with the path to your error image
+                  style={styles.errorIcon}
+                  resizeMode="contain"
+                />
+              </View>
             )}
           </View>
         </Animated.View>
@@ -119,10 +132,30 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.SemiBold,
   },
   successIcon: {
-    tintColor: "green",
+    tintColor: COLORS.white,
+    height: SH(20),
+    width: SH(20),
   },
   errorIcon: {
-    tintColor: "#F44336",
+    tintColor: COLORS.white,
+    height: SH(20),
+    width: SH(20),
+  },
+  errorIconView: {
+    backgroundColor: "#F44336",
+    height: SH(22),
+    width: SH(22),
+    borderRadius: SH(11),
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  successIconView: {
+    backgroundColor: "green",
+    height: SH(22),
+    width: SH(22),
+    borderRadius: SH(11),
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
