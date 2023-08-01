@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { View, Image, Text, FlatList, TouchableOpacity } from "react-native";
-import { Button, ScreenWrapper, Spacer } from "@/components";
+import { Button, NameHeaderCoins, ScreenWrapper, Spacer } from "@/components";
 import { styles } from "./TrackPlacedOrder.styles";
 import { COLORS, SH, SW } from "@/theme";
 import { strings } from "@/localization";
@@ -12,7 +12,6 @@ import {
   roundCheck,
   trackingMap,
 } from "@/assets";
-import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
 import { useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { getWallet } from "@/selectors/WalletSelector";
@@ -131,8 +130,7 @@ export function TrackPlacedOrder({ route }) {
   const polylineCoordinates = [sourceCoordinate, destinationCoordinate];
   return (
     <ScreenWrapper>
-      <HeaderCoin title={strings.trackOrder.trackYourOrder} amount={"0"} />
-
+      <NameHeaderCoins backRequired title={strings.trackOrder.trackYourOrder} />
       <View style={styles.mainContainer}>
         <View>
           {/* <Image

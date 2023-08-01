@@ -1,11 +1,9 @@
 import React from "react";
 import { View, Text, ScrollView, useWindowDimensions } from "react-native";
-import { Spacer, ScreenWrapper, Button } from "@/components";
+import { Spacer, ScreenWrapper, Button, NameHeaderCoins } from "@/components";
 import { styles } from "./Faq.styles";
 import { COLORS, SH, SW } from "@/theme";
 
-import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
-import { backArrow } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import WebView from "react-native-webview";
@@ -16,7 +14,7 @@ export function FaqVerified(props) {
   const RouteData = props?.route?.params?.data;
   return (
     <ScreenWrapper>
-      <HeaderCoin title={RouteData?.question} back={backArrow} amount={0} />
+      <NameHeaderCoins title={RouteData?.question} backRequired />
       <View style={{ flex: 1 }}>
         <ScrollView
           style={{ paddingHorizontal: SW(20), flex: 1 }}

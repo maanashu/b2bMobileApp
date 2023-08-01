@@ -7,25 +7,19 @@ import {
   useWindowDimensions,
   TouchableOpacity,
 } from "react-native";
-import { ScreenWrapper, Spacer, Header } from "@/components";
+import { ScreenWrapper, Spacer, NameHeaderCoins } from "@/components";
 import { styles } from "./BusinessCards.styles";
 import { COLORS, SH, SW } from "@/theme";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import {
-  backArrow,
-  building,
   businessCardUser,
   companyBuildings,
-  email,
   email_chat,
   filter,
   location,
   phoneCall,
 } from "@/assets";
 import { strings } from "@/localization";
-import { ms, vs } from "react-native-size-matters";
-import { style } from "deprecated-react-native-prop-types/DeprecatedViewPropTypes";
-import { HeaderCoin } from "../Wallet/Components/HeaderCoin";
 
 const Cards = [
   {
@@ -186,7 +180,7 @@ export function BusinessCards() {
   return (
     <ScreenWrapper>
       <>
-        <HeaderCoin title={strings.profile.businessCard} amount={"0"} />
+        <NameHeaderCoins title={strings.profile.businessCard} backRequired />
       </>
       <Spacer space={SH(15)} />
 

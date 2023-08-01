@@ -2,13 +2,10 @@ import React, { useMemo, useState } from "react";
 import { Button, NameHeader, ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { strings } from "@/localization";
-import { HeaderCoin } from "../Profile/Wallet/Components/HeaderCoin";
 import { useDispatch, useSelector } from "react-redux";
 import { orderSelector } from "@/selectors/OrderSelector";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import moment from "moment";
-import { Toast } from "react-native-toast-message/lib/src/Toast";
 import {
   ActivityIndicator,
   FlatList,

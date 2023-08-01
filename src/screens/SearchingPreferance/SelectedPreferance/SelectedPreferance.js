@@ -9,13 +9,12 @@ import {
   Sports,
   Tobacco,
 } from "@/assets";
-import { Button, ScreenWrapper, Spacer } from "@/components";
+import { Button, NameHeaderCoins, ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants/navigation";
 import { Search } from "@/components/Search";
 import { COLORS } from "@/theme";
-import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
 import { strings } from "@/localization";
 export function SelectedPreferance() {
   const [selectedId, setSelectedId] = useState(null);
@@ -56,7 +55,10 @@ export function SelectedPreferance() {
 
   return (
     <ScreenWrapper style={styles.mainContainer}>
-      <HeaderCoin amount={"0"} title={strings.profile.searchingPreference} />
+      <NameHeaderCoins
+        title={strings.profile.searchingPreference}
+        backRequired
+      />
 
       <View style={styles.container}>
         <Text style={styles.businessText}>

@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { View, Text, Image, TouchableOpacity, FlatList } from "react-native";
-import { Spacer, ScreenWrapper } from "@/components";
+import { Spacer, ScreenWrapper, NameHeaderCoins } from "@/components";
 import { styles } from "./Faq.styles";
 import { SH } from "@/theme";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
-import { forward, backArrow } from "@/assets";
-import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
+import { forward } from "@/assets";
 import { useDispatch, useSelector } from "react-redux";
 import { faq } from "@/actions/SupportAction";
 import { SupportSelector } from "@/selectors/SupportSelectors";
@@ -49,8 +48,7 @@ export function Faq(props) {
 
   return (
     <ScreenWrapper>
-      <HeaderCoin title={props.route.params.data} back={backArrow} amount={0} />
-
+      <NameHeaderCoins title={props?.route?.params?.data} />
       <View style={styles.bodyContainer}>
         <Spacer space={SH(10)} />
         <FlatList

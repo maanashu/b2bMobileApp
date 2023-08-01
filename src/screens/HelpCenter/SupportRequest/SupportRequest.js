@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, useWindowDimensions } from "react-native";
-import { ScreenWrapper } from "@/components";
+import { NameHeaderCoins, ScreenWrapper } from "@/components";
 import { styles } from "./SupportRequest.styles";
 import { COLORS, SW } from "@/theme";
 import { TabView, TabBar } from "react-native-tab-view";
@@ -8,7 +8,6 @@ import { MySupport } from "./MySupport";
 import { SupportTicket } from "./SupportTicket";
 import { Fonts } from "@/assets";
 import { strings } from "@/localization";
-import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
 import { SupportSelector } from "@/selectors/SupportSelectors";
 import { useSelector } from "react-redux";
 
@@ -68,7 +67,10 @@ export function SupportRequest() {
   };
   return (
     <ScreenWrapper>
-      <HeaderCoin title={strings.helpCenter.mySupportRequest} />
+      <NameHeaderCoins
+        backRequired
+        title={strings.helpCenter.mySupportRequest}
+      />
       <View style={{ flex: 1, paddingHorizontal: SW(15) }}>
         <TabView
           navigationState={{ index, routes }}

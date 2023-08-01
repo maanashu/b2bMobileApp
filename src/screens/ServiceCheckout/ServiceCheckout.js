@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useMemo, useState } from "react";
 import { styles } from "./ServiceCheckout.styles";
-import { Button, ScreenWrapper, Spacer } from "@/components";
+import { Button, NameHeaderCoins, ScreenWrapper, Spacer } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import {
@@ -21,7 +21,6 @@ import {
   calenderClock,
 } from "@/assets";
 import { strings } from "@/localization";
-import { HeaderCoin } from "../Profile/Wallet/Components/HeaderCoin";
 import { goBack, navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { useEffect } from "react";
@@ -241,7 +240,7 @@ export function ServiceCheckout() {
 
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <HeaderCoin title={strings.checkout.checkout} />
+      <NameHeaderCoins title={strings.checkout.checkout} backRequired />
 
       <Spacer space={SH(10)} />
 

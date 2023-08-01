@@ -8,7 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { Spacer, ScreenWrapper, TextField, Button } from "@/components";
+import { Spacer, ScreenWrapper, Button } from "@/components";
 import { strings } from "@/localization";
 import { SH, SW, COLORS, SF } from "@/theme";
 import {
@@ -26,8 +26,6 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 import DropDownPicker from "react-native-dropdown-picker";
-import { navigate } from "@/navigation/NavigationRef";
-import { NAVIGATION } from "@/constants";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewTicket, getSubjects } from "@/actions/SupportAction";
@@ -37,7 +35,6 @@ import axios from "axios";
 import { ApiSupportInventory } from "@/Utils/APIinventory";
 import ActionSheet from "react-native-actionsheet";
 import ImagePicker from "react-native-image-crop-picker";
-import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { ActivityIndicator } from "react-native";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";

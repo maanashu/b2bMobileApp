@@ -24,7 +24,6 @@ import { NAVIGATION } from "@/constants";
 import { renderNoData } from "@/components/FlatlistStyling";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import { Loader } from "@/components/Loader";
 import { saveParamsForProducts } from "@/actions/ProductActions";
 
@@ -37,12 +36,14 @@ export function SubCategories(params) {
 
   const [selectedId, setSelectedId] = useState(params?.route?.params?.idItem);
   const [serviceModalisVisible, setserviceModalisVisible] = useState(false);
+  const [page, setPage] = useState(1);
+  const limit = 10;
 
   const categoryData = useSelector(getCategorySelector);
   const SUBCATEGORIES = useSelector(getCategorySelector);
   const subcategoryObject = {
-    page: 1,
-    limit: 10,
+    page: page,
+    limit: limit,
     category_id: routeId,
     service_type:
       params?.route?.params?.serviceType == "product" ? "product" : "service",
@@ -81,6 +82,7 @@ export function SubCategories(params) {
       listRef.current.scrollToIndex({ animated: true, index: index || 0 });
     }
   };
+  const loadMoreSubCategories = () => {};
 
   const renderCategory = ({ item, index }) => (
     <>
@@ -203,6 +205,7 @@ export function SubCategories(params) {
           ListEmptyComponent={renderNoData}
           keyExtractor={(item) => item.id}
           extraData={SUBCATEGORIES?.subCategoryList?.data}
+          onEndReached={loadMoreSubCategories}
         />
         {isLoading ? <Loader message="Loading data..." /> : null}
       </View>

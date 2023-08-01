@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   View,
   Image,
   Text,
   FlatList,
-  useWindowDimensions,
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { ScreenWrapper, Spacer } from "@/components";
+import { NameHeaderCoins, ScreenWrapper, Spacer } from "@/components";
 import { styles } from "./Inquiries.styles";
-import { COLORS, SH, SW } from "@/theme";
-import { transactionHistory } from "@/constants/flatlistData";
-import { HeaderCoin } from "../Profile/Wallet/Components/HeaderCoin";
+import { SH, SW } from "@/theme";
 import { strings } from "@/localization";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
@@ -113,8 +110,7 @@ export function Inquiries() {
 
   return (
     <ScreenWrapper>
-      <HeaderCoin amount={"0"} title={strings.profile.inquiries} />
-
+      <NameHeaderCoins title={strings.profile.inquiries} backRequired />
       <Spacer space={SH(15)} />
 
       <ScrollView

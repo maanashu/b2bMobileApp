@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
-  Image,
   Text,
   FlatList,
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { Button, ScreenWrapper, Spacer, TextField } from "@/components";
+import {
+  Button,
+  NameHeaderCoins,
+  ScreenWrapper,
+  Spacer,
+  TextField,
+} from "@/components";
 import { styles } from "./RateExperience.styles";
-import { COLORS, SF, SH, SW } from "@/theme";
+import { COLORS, SH, SW } from "@/theme";
 import { strings } from "@/localization";
-import { dashedLineUp, roundBlank, roundCheck } from "@/assets";
-import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
 import { Rating } from "react-native-ratings";
 
 export function RateExperience({ route }) {
@@ -91,8 +94,7 @@ export function RateExperience({ route }) {
 
   return (
     <ScreenWrapper>
-      <HeaderCoin title={strings.trackOrder.trackYourOrder} amount={"0"} />
-
+      <NameHeaderCoins backRequired title={strings.trackOrder.trackYourOrder} />
       <ScrollView style={styles.mainContainer}>
         <Spacer space={SH(25)} />
 

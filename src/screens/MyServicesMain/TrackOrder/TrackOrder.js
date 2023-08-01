@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
-import { ScreenWrapper, Spacer } from "@/components";
+import { NameHeaderCoins, ScreenWrapper, Spacer } from "@/components";
 import { styles } from "./TrackOrder.styles";
 import { COLORS, SH, SW } from "@/theme";
 import { strings } from "@/localization";
@@ -19,7 +19,6 @@ import {
   roundCheck,
   trackingMap,
 } from "@/assets";
-import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
 import { orderSelector } from "@/selectors/OrderSelector";
 import { useDispatch, useSelector } from "react-redux";
 import { Components } from "./Components";
@@ -61,8 +60,7 @@ export function TrackOrder({ route }) {
   };
   return (
     <ScreenWrapper>
-      <HeaderCoin title={strings.trackOrder.trackYourOrder} amount={"0"} />
-
+      <NameHeaderCoins title={strings.trackOrder.trackYourOrder} backRequired />
       <View style={styles.mainContainer}>
         <MapView
           ref={mapRef}

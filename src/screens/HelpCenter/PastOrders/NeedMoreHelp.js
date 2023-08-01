@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   View,
   Image,
@@ -8,7 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { Spacer, ScreenWrapper, Button } from "@/components";
+import { Spacer, ScreenWrapper, Button, NameHeaderCoins } from "@/components";
 import { strings } from "@/localization";
 import { SH, SW, COLORS, SF } from "@/theme";
 import {
@@ -24,12 +24,8 @@ import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
-import DocumentPicker from "react-native-document-picker";
 
-import { navigate } from "@/navigation/NavigationRef";
-import { NAVIGATION } from "@/constants";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
@@ -225,7 +221,7 @@ export function NeedMoreHelp(props) {
 
   return (
     <ScreenWrapper>
-      <HeaderCoin title={headingName} amount={0} />
+      <NameHeaderCoins title={headingName} backRequired />
       <KeyboardAwareScrollView
         showsVerticalScrollIndicator={false}
         style={styles.mainContainer}

@@ -1,30 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  View,
-  Image,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
-import { ScreenWrapper, Spacer } from "@/components";
+import { View, Image, Text, TouchableOpacity, Dimensions } from "react-native";
+import { NameHeaderCoins, ScreenWrapper, Spacer } from "@/components";
 import { styles } from "./TrackOrder.styles";
 import { COLORS, SH, SW } from "@/theme";
 import { strings } from "@/localization";
-import {
-  dashedLineUp,
-  mapViewLogo,
-  ordersIcon,
-  roundBlank,
-  roundCheck,
-  trackingMap,
-} from "@/assets";
-import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
+import { mapViewLogo, ordersIcon, roundBlank, roundCheck } from "@/assets";
 import { orderSelector } from "@/selectors/OrderSelector";
 import { useDispatch, useSelector } from "react-redux";
 import { Components } from "./Components";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import MapViewDirections from "react-native-maps-directions";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
 export function TrackOrder({ route }) {
   const { width, height } = Dimensions.get("window");
@@ -61,8 +45,7 @@ export function TrackOrder({ route }) {
   };
   return (
     <ScreenWrapper>
-      <HeaderCoin title={strings.trackOrder.trackYourOrder} amount={"0"} />
-
+      <NameHeaderCoins title={strings.trackOrder.trackYourOrder} backRequired />
       <View style={styles.mainContainer}>
         <MapView
           ref={mapRef}

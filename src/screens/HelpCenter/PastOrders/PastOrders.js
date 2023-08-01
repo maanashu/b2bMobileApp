@@ -1,17 +1,11 @@
-import React, {  } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
-import { Spacer, ScreenWrapper } from "@/components";
+import React from "react";
+import { View, Text, TouchableOpacity, FlatList } from "react-native";
+import { Spacer, ScreenWrapper, NameHeaderCoins } from "@/components";
 import { styles } from "./PastOrders.styles";
 import { SH, COLORS, SF } from "@/theme";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
-import { backArrow, Fonts } from "@/assets";
-import { HeaderCoin } from "@/screens/Profile/Wallet/Components/HeaderCoin";
+import { Fonts } from "@/assets";
 
 const retailData = [
   {
@@ -76,8 +70,7 @@ export function PastOrders() {
 
   return (
     <ScreenWrapper>
-      <HeaderCoin back={backArrow} title="Get help with my orders" amount={0} />
-
+      <NameHeaderCoins title="Get help with my orders" backRequired />
       <View style={styles.bodyContainer}>
         <Spacer space={SH(10)} />
         <FlatList

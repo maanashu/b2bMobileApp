@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { styles } from "./Checkout.styles";
-import { ScreenWrapper, Spacer } from "@/components";
+import { NameHeaderCoins, ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import {
@@ -21,7 +21,6 @@ import {
   pencil,
 } from "@/assets";
 import { strings } from "@/localization";
-import { HeaderCoin } from "../Profile/Wallet/Components/HeaderCoin";
 import { goBack, navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { useEffect } from "react";
@@ -46,10 +45,13 @@ export function Checkout() {
   const [discountAmnt, setdiscountAmnt] = useState(0);
   const [taxAmount, setTaxAmount] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
-  const [isCartLoading, setisCartLoading] = useState(true);
+  const [isCartLoading, setisCartLoading] = useState(false);
   let arr = [cartList?.getCart];
   useEffect(() => {
-    dispatch(getCart());
+    setisCartLoading(true);
+    dispatch(getCart())
+      .then(() => setisCartLoading(false))
+      .catch(() => setisCartLoading(false));
     if (coupon?.addCoupons && Object.entries(coupon?.addCoupons).length != 0) {
       setdiscountAmnt(
         (coupon?.addCoupons?.discount_percentage / 100) *
@@ -82,9 +84,7 @@ export function Checkout() {
     taxAmount,
     coupon?.addCoupons,
   ]);
-  useEffect(() => {
-    setisCartLoading(false);
-  }, []);
+  useEffect(() => {}, []);
 
   const applyCouponHandler = () => {
     navigate(NAVIGATION.addCoupon, {
@@ -130,7 +130,9 @@ export function Checkout() {
         service_id: cartItem?.service_id,
         qty: cartItem?.qty,
       };
-      dispatch(createCartAction(withoutVariantObject));
+      dispatch(createCartAction(withoutVariantObject))
+        .then(() => getCart())
+        .catch(() => getCart());
     }
   };
   const renderItem = ({ item, index }) => (
@@ -204,8 +206,7 @@ export function Checkout() {
   );
   return (
     <ScreenWrapper style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <HeaderCoin title={strings.checkout.checkout} />
-
+      <NameHeaderCoins backRequired title={strings.checkout.checkout} />
       <Spacer space={SH(10)} />
 
       <View style={styles.mainContainer} showsVerticalScrollIndicator={false}>

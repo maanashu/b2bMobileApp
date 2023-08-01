@@ -1,23 +1,8 @@
 import React from "react";
-import {
-  FlatList,
-  Image,
-  ScrollView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import {
-  Button,
-  NameHeader,
-  ScreenWrapper,
-  Spacer,
-  TextField,
-} from "@/components";
+import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import { NameHeaderCoins, ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import {
-  backArrow,
   bag,
   Fonts,
   forward,
@@ -26,9 +11,7 @@ import {
   menuDots,
   ProfileUser,
 } from "@/assets";
-import { styles } from "./HelpCenter.styles";
 import { strings } from "@/localization";
-import { HeaderCoin } from "../Profile/Wallet/Components/HeaderCoin";
 import { COLORS } from "@/theme";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
@@ -158,11 +141,7 @@ export function HelpCenter() {
 
   return (
     <ScreenWrapper>
-      <HeaderCoin
-        back={backArrow}
-        title={strings.profile.howCanWeHelp}
-        amount={"0"}
-      />
+      <NameHeaderCoins backRequired title={strings.profile.howCanWeHelp} />
 
       <View
         showsVerticalScrollIndicator={false}

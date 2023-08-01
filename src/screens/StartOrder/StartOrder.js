@@ -377,10 +377,10 @@ export function StartOrder(params) {
             style={styles.checkoutButton}
             textStyle={styles.checkoutButtonText}
             onPress={() => Checkout()}
+            pending={isLoading}
           />
         </View>
       </View>
-      {isLoading && <Loader />}
     </ScreenWrapper>
   );
 }

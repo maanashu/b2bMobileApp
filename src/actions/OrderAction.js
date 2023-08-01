@@ -276,12 +276,14 @@ export const getCart = () => async (dispatch) => {
   try {
     const res = await OrderController.getCart();
     dispatch(getCartSuccess(res));
+    return;
   } catch (error) {
     if (error?.statusCode === 204) {
       dispatch(getCartReset());
     } else {
       dispatch(getCartError(error.message));
     }
+    throw error;
   }
 };
 export const createCartAction = (data, ArrayToRoute) => async (dispatch) => {
@@ -289,9 +291,10 @@ export const createCartAction = (data, ArrayToRoute) => async (dispatch) => {
   try {
     const res = await OrderController.createCartController(data, ArrayToRoute);
     dispatch(createCartSuccess(res));
-    dispatch(getCart());
+    return;
   } catch (error) {
     dispatch(createCartError(error.message));
+    throw error;
   }
 };
 export const getShippingServices = () => async (dispatch) => {

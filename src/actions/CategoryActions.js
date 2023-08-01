@@ -86,12 +86,14 @@ export const getSubCategory = (data) => async (dispatch) => {
   try {
     const res = await CategoryController.getCategory(data);
     dispatch(getSubCategorySuccess(res.payload));
+    return;
   } catch (error) {
     if (error?.statusCode === 204) {
       dispatch(getSubCategoryReset());
     } else {
       dispatch(getSubCategoryError(error.message));
     }
+    throw error;
   }
 };
 

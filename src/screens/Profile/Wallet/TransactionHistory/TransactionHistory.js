@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { View, Image, Text, FlatList, useWindowDimensions } from "react-native";
-import { ScreenWrapper, Spacer } from "@/components";
+import { NameHeaderCoins, ScreenWrapper, Spacer } from "@/components";
 import { styles } from "./TransactionHistory.styles";
 import { COLORS, SF, SH, SW } from "@/theme";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
-import { HeaderCoin } from "../Components/HeaderCoin";
 import { strings } from "@/localization";
 import { getWallet } from "@/selectors/WalletSelector";
 import { getUser } from "@/selectors/UserSelectors";
@@ -187,7 +186,10 @@ export function TransactionHistory(props) {
 
   return (
     <ScreenWrapper>
-      <HeaderCoin amount={"0"} title={strings.jbrWallet.transactionHistory} />
+      <NameHeaderCoins
+        backRequired
+        title={strings.jbrWallet.transactionHistory}
+      />
 
       <Spacer space={SH(15)} />
       <TabView
