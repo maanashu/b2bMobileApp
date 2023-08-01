@@ -149,7 +149,7 @@ export function Checkout() {
               <Spacer horizontal space={SH(8)} />
 
               <View style={{ flex: 1 }}>
-                <View style={styles.rowView}>
+                <View style={styles.rowViewStart}>
                   <View style={{ width: "80%" }}>
                     <Text style={styles.productNameText}>
                       {data.product_details?.name}
@@ -159,39 +159,46 @@ export function Checkout() {
                   <TouchableOpacity
                     onPress={() => removeProduct(item?.id, data?.id)}
                   >
-                    <Image source={cross} style={styles.crossIcon} />
+                    <Image
+                      source={cross}
+                      style={styles.crossIcon}
+                      resizeMode="contain"
+                    />
                   </TouchableOpacity>
                 </View>
                 <Spacer space={SH(5)} />
+                <View style={styles.rowView}>
+                  <View style={styles.boxStyling}>
+                    <TouchableOpacity style={{ justifyContent: "center" }}>
+                      <Text
+                        style={{ fontFamily: Fonts.Bold, fontSize: SF(20) }}
+                        onPress={() => updateQuantity(item?.id, data?.id, "-")}
+                      >
+                        -
+                      </Text>
+                    </TouchableOpacity>
+                    {isAddToCartLoading ? (
+                      <ActivityIndicator size="small" color={COLORS.primary} />
+                    ) : (
+                      <Text
+                        style={{ fontFamily: Fonts.Bold, fontSize: SF(15) }}
+                      >
+                        {data?.qty}
+                      </Text>
+                    )}
 
-                <View style={styles.boxStyling}>
-                  <TouchableOpacity style={{ justifyContent: "center" }}>
-                    <Text
-                      style={{ fontFamily: Fonts.Bold, fontSize: SF(20) }}
-                      onPress={() => updateQuantity(item?.id, data?.id, "-")}
-                    >
-                      -
-                    </Text>
-                  </TouchableOpacity>
-                  {isAddToCartLoading ? (
-                    <ActivityIndicator size="small" color={COLORS.primary} />
-                  ) : (
-                    <Text style={{ fontFamily: Fonts.Bold, fontSize: SF(15) }}>
-                      {data?.qty}
-                    </Text>
-                  )}
-
-                  {/* <Text style={{ fontFamily: Fonts.Bold, fontSize: SF(15) }}>
-                    {data?.qty}
-                  </Text> */}
-                  <TouchableOpacity>
-                    <Text
-                      style={{ fontFamily: Fonts.Bold, fontSize: SF(20) }}
-                      onPress={() => updateQuantity(item?.id, data?.id, "+")}
-                    >
-                      +
-                    </Text>
-                  </TouchableOpacity>
+                    <TouchableOpacity>
+                      <Text
+                        style={{ fontFamily: Fonts.Bold, fontSize: SF(20) }}
+                        onPress={() => updateQuantity(item?.id, data?.id, "+")}
+                      >
+                        +
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                  <Text style={styles.productPriceText}>
+                    $ {data?.product_details?.price}
+                  </Text>
                 </View>
               </View>
             </View>

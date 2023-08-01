@@ -17,6 +17,7 @@ import { Spacer } from "./Spacer";
 import FastImage from "react-native-fast-image";
 import { Fonts, headphones, yewiLogo } from "@/assets";
 import { strings } from "@/localization";
+import { ms } from "react-native-size-matters";
 
 const width = Dimensions.get("window").width * 0.8;
 const widthImage = Dimensions.get("window").width * 0.75;
@@ -49,6 +50,14 @@ const renderImages = ({ item }) => (
     <View
       style={{
         alignItems: "center",
+        backgroundColor: COLORS.white,
+        width: ms(82),
+        borderRadius: ms(5),
+        ...ShadowStyles.shadow5,
+        marginBottom: ms(5),
+        marginHorizontal: ms(1),
+        paddingHorizontal: ms(6),
+        paddingVertical: ms(5),
       }}
     >
       <Image
@@ -56,7 +65,7 @@ const renderImages = ({ item }) => (
         resizeMode="cover"
         style={{
           height: SW(64),
-          width: SW(64),
+          width: "100%",
           marginHorizontal: 2,
         }}
       />
@@ -65,6 +74,7 @@ const renderImages = ({ item }) => (
           fontSize: SF(10),
           color: COLORS.light_grey,
           fontFamily: Fonts.Regular,
+          marginTop: ms(5),
         }}
       >
         {"MOQ 10"}
@@ -86,7 +96,7 @@ export const renderCompanies = ({ item }) => {
               ...ShadowStyles.shadow2,
               paddingVertical: SH(8),
               paddingHorizontal: SW(10),
-              borderRadius: 8,
+              borderRadius: ms(5),
               marginBottom: SH(1),
               marginRight: SW(1),
             }}
@@ -96,7 +106,7 @@ export const renderCompanies = ({ item }) => {
               profilePhoto={item?.user_profiles?.banner_image}
               locationText={item?.user_profiles?.overview?.[0]?.country}
             />
-            <View style={{ alignItems: "flex-start", marginTop: SH(5) }}>
+            <View style={{ alignItems: "flex-start", marginTop: SH(15) }}>
               <FlatList
                 data={item?.user_profiles?.manufacturer_images}
                 renderItem={renderImages}

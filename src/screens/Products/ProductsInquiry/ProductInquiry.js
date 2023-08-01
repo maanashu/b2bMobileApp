@@ -311,7 +311,12 @@ export function ProductInquiry(params) {
   };
   return (
     <ScreenWrapper>
-      <Header backRequired bell={bellGrey} bag={bagGrey} />
+      <Header
+        backRequired
+        bell={bellGrey}
+        bag={bagGrey}
+        title={"Product Details"}
+      />
       <Spacer space={SH(10)} />
 
       <View style={styles.absoluteButtonsView}>

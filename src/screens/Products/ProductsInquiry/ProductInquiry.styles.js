@@ -151,8 +151,8 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
   },
   logoYewi: {
-    height: SW(36),
-    width: SW(36),
+    height: ms(36),
+    width: ms(36),
     borderRadius: SW(18),
     marginLeft: SW(10),
   },

@@ -33,7 +33,8 @@ export const styles = StyleSheet.create({
     paddingHorizontal: ms(10),
   },
   upperRowView: {
-    paddingVertical: SH(10),
+    paddingTop: SH(5),
+    paddingBottom: SH(50),
     paddingHorizontal: ms(10),
     flexDirection: "row",
     alignItems: "center",

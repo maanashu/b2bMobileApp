@@ -35,8 +35,9 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   crossIcon: {
-    height: SH(20),
-    width: SW(20),
+    height: ms(16),
+    width: ms(16),
+    tintColor: COLORS.black,
   },
   mainContainer: {
     backgroundColor: COLORS.white,
@@ -242,6 +243,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: 1,
     borderColor: COLORS.input_bg,
     flex: 1,
+    alignItems: "flex-start",
   },
   secondaryText: {
     fontFamily: Fonts.Regular,
@@ -349,6 +351,12 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
+  rowViewStart: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+  },
   boxStyling: {
     borderWidth: 1,
     height: SH(30),
@@ -367,5 +375,10 @@ export const styles = StyleSheet.create({
     height: SH(20),
     width: SW(20),
     marginTop: SH(10),
+  },
+  productPriceText: {
+    color: COLORS.darkGrey,
+    fontFamily: Fonts.Regular,
+    fontSize: ms(16),
   },
 });

@@ -1,10 +1,12 @@
 import React from "react";
-import { Image, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "../ProductInquiry.styles";
 import { goBack } from "@/navigation/NavigationRef";
-import { backArrow, bellGrey, bagGrey } from "@/assets";
+import { backArrow, bellGrey, bagGrey, Fonts } from "@/assets";
+import { s } from "react-native-size-matters";
+import { COLORS } from "@/theme";
 
-export function Header({ backRequired, bell, bag, onPress }) {
+export function Header({ backRequired, title, bell, bag, onPress }) {
   return (
     <View style={styles.header}>
       <View style={styles.headerInnerView}>
@@ -18,6 +20,16 @@ export function Header({ backRequired, bell, bag, onPress }) {
               source={backArrow}
               style={{ height: 30, width: 30 }}
             />
+            <Text
+              style={{
+                fontSize: s(14),
+                fontFamily: Fonts.SemiBold,
+                color: COLORS.darkGrey,
+                width: "70%",
+              }}
+            >
+              {title}
+            </Text>
           </TouchableOpacity>
         )}
       </View>

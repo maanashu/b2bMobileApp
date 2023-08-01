@@ -70,6 +70,7 @@ export const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: COLORS.inputBorder,
     paddingHorizontal: ms(10),
+    position: "relative",
   },
   upperRowView: {
     paddingVertical: SH(10),
@@ -160,8 +161,8 @@ export const styles = StyleSheet.create({
   sendInquiryButton: {
     flex: 1,
     backgroundColor: COLORS.sky,
-    height: vs(34),
-    width: ms(110),
+    height: vs(36),
+    width: ms(121),
     borderRadius: ms(3),
     marginLeft: SW(15),
     flexDirection: "row",
@@ -172,11 +173,11 @@ export const styles = StyleSheet.create({
   sendInquiryText: {
     fontFamily: Fonts.SemiBold,
     color: COLORS.white,
-    fontSize: ms(10),
+    fontSize: ms(12),
   },
   sendInquiryIcon: {
-    height: vs(16),
-    width: ms(19),
+    height: ms(15),
+    width: ms(15),
   },
   upperHalfView: {
     flex: 1,
@@ -187,5 +188,12 @@ export const styles = StyleSheet.create({
     color: COLORS.light_grey,
     fontSize: SF(12),
     textAlign: "justify",
+  },
+  manufacturesBackground: {
+    paddingVertical: SH(15),
+    borderRadius: ms(5),
+    ...ShadowStyles.shadow4,
+    backgroundColor: COLORS.white,
+    marginHorizontal: ms(5),
   },
 });

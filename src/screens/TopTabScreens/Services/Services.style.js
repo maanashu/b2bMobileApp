@@ -43,12 +43,15 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: SH(2),
+    paddingHorizontal: SH(8),
+    backgroundColor: COLORS.white,
+    margin: ms(4),
+    borderRadius: ms(5),
   },
   secondView: {
     height: SH(85),
-    width: SW(100),
-    borderRadius: 5,
+    borderRadius: ms(5),
+    width: "100%",
   },
   horizontalView: {
     paddingVertical: SH(10),

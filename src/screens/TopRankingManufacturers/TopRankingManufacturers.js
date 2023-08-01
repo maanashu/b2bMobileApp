@@ -21,11 +21,11 @@ import { strings } from "@/localization";
 import { Header } from "@/components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
-import { ShadowStyles } from "@/theme";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
 import { getProduct } from "@/actions/ProductActions";
 import { getOneManufactureDetails } from "@/actions/UserActions";
+import { ms } from "react-native-size-matters";
 
 export function TopRankingManufacturers() {
   const user = useSelector(getUser);
@@ -42,15 +42,10 @@ export function TopRankingManufacturers() {
     };
     dispatch(getProduct(data));
   };
-
   const renderManufacturers = ({ item }) => (
     <>
       <TouchableOpacity
-        style={{
-          paddingVertical: SH(15),
-          borderRadius: SW(10),
-          ...ShadowStyles.shadow2,
-        }}
+        style={styles.manufacturesBackground}
         onPress={() => {
           navigate(NAVIGATION.aboutBusiness, {
             sellerDetails: item,
@@ -112,7 +107,7 @@ export function TopRankingManufacturers() {
         source={{ uri: item }}
         style={{
           height: SH(65),
-          borderRadius: SW(10),
+          borderRadius: ms(5),
         }}
         resizeMode="cover"
       />
@@ -129,22 +124,28 @@ export function TopRankingManufacturers() {
         showsVerticalScrollIndicator={false}
         style={styles.mainContainer}
       >
-        <View style={styles.upperView}>
-          <SubHeader
-            title={strings.topRankingManufacturers.topManufacturers}
-            subTitle={strings.topRankingManufacturers.subText}
-          />
+        <View>
+          <View style={styles.upperView}>
+            <SubHeader
+              title={strings.topRankingManufacturers.topManufacturers}
+              subTitle={strings.topRankingManufacturers.subText}
+            />
+          </View>
+          <View
+            style={{
+              paddingHorizontal: ms(15),
+              top: ms(-30),
+            }}
+          >
+            <FlatList
+              data={user?.getManufacturersList ?? []}
+              extraData={user?.getManufacturersList ?? []}
+              renderItem={renderManufacturers}
+            />
+          </View>
         </View>
 
         <Spacer space={SH(20)} />
-
-        <View style={{ paddingHorizontal: SW(20) }}>
-          <FlatList
-            data={user?.getManufacturersList ?? []}
-            extraData={user?.getManufacturersList ?? []}
-            renderItem={renderManufacturers}
-          />
-        </View>
       </ScrollView>
 
       <Spacer space={SH(10)} />

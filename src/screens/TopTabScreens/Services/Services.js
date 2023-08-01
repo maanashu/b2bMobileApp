@@ -33,11 +33,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCategorySelector } from "@/selectors/CategorySelectors";
 import { getServiceCategory } from "@/actions/CategoryActions";
 import FastImage from "react-native-fast-image";
-import {
-  CategoryManufacturers,
-  CategoryManufacturersProducts,
-  companies,
-} from "@/constants/flatlistData";
 import { renderCompanies, renderNoData } from "@/components/FlatlistStyling";
 import { COLORS } from "@/theme";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
@@ -80,6 +75,8 @@ export function Services() {
   const updatedData = [...(cats || [])];
   updatedData.splice(insertIndex, 0, allButton);
 
+  console.log("topsellers", user?.getManufacturersList?.slice(0, 3));
+
   useEffect(() => {
     dispatch(getServiceCategory(categoryObject));
     setmanufacturersCategoryId(
@@ -107,26 +104,6 @@ export function Services() {
     isLoadingSelector([TYPES.GET_SUB_CATEGORY], state)
   );
 
-  const secondData = [
-    {
-      id: "1",
-      title: strings.business.trending,
-      subtitle: strings.business.electronics,
-      image: headphones,
-    },
-    {
-      id: "2",
-      title: strings.business.trending,
-      subtitle: strings.business.tobacco,
-      image: lighter,
-    },
-    {
-      id: "3",
-      title: strings.business.trending,
-      subtitle: strings.business.apparel,
-      image: jacket,
-    },
-  ];
   const thirdData = [
     {
       id: "1",
@@ -340,7 +317,7 @@ export function Services() {
   };
   const renderMAnufacturersProducts = ({ item, index }) => (
     <>
-      <View style={{ flex: 1, alignItems: "flex-start" }}>
+      <View style={{ flex: 1 / 3, alignItems: "flex-start" }}>
         <View style={styles.backgroundViewImage}>
           <Image
             source={{ uri: item?.image }}
@@ -482,6 +459,7 @@ export function Services() {
                 />
               </TouchableOpacity>
             </View>
+            <Spacer space={SH(15)} />
 
             <FlatList
               data={user?.getManufacturersList?.slice(0, 3)}
