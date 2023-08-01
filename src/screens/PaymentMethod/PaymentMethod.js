@@ -69,15 +69,13 @@ export function PaymentMethod() {
   const [showBalance, setShowBalance] = useState("");
   const [balance, setBalance] = useState();
   const [refreshing, setRefreshing] = useState(false);
+  const [isLinkingNewBank, setisLinkingNewBank] = useState();
 
   const isCheckingBalance = useSelector((state) =>
     isLoadingSelector([TYPES.CHECK_BALANCE], state)
   );
   const isRemovingBank = useSelector((state) =>
     isLoadingSelector([TYPES.DELETE_BANK_ACCOUNTS], state)
-  );
-  const isLinkingNewBank = useSelector((state) =>
-    isLoadingSelector([TYPES.LINK_BANK_ACCOUNT], state)
   );
 
   const handleRemoveBankAccount = (id, index) => {
@@ -121,10 +119,14 @@ export function PaymentMethod() {
     }
   };
   const onPressHandler = async (success) => {
+    setisLinkingNewBank(true);
     if (success) {
       dispatch(linkBankAccount(success.publicToken))
-        .then((res) => dispatch(getBankAccounts()))
-        .catch((error) => {});
+        .then(() => {
+          setisLinkingNewBank(false);
+          dispatch(getBankAccounts());
+        })
+        .catch(() => setisLinkingNewBank(false));
     }
   };
   const confirmRemove = async (success) => {
