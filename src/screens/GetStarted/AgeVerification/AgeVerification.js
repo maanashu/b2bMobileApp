@@ -76,7 +76,6 @@ export function AgeVerification({ handleScreenChange, ...props }) {
   useEffect(() => {
     dispatch(getDocumentTypes());
   }, []);
-  // console.log("wallet profile", JSON.stringify(getUser?.walletProfile));
   useEffect(() => {
     if (focus) {
       dispatch(getWalletUserProfile(getUser?.userProfile?.unique_uuid));

@@ -4,7 +4,6 @@ import { View, StyleSheet } from "react-native";
 import Pdf from "react-native-pdf";
 
 export function PdfViewer(props) {
-  console.log("url-->" + props?.route?.params?.pdfUrl);
   return (
     <ScreenWrapper>
       <NameHeader back />

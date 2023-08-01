@@ -33,7 +33,6 @@ export function Processing() {
   useFocusEffect(
     useCallback(() => {
       getOrder();
-      console.log("Processing screen");
     }, [])
   );
   const renderItem = ({ item, index }) => (

@@ -32,7 +32,6 @@ const ScrollableTabBar = (props) => {
       BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
     };
   }, [navigation]);
-  // console.log(user?.user?.payload?.token);
   return (
     <ScrollView
       horizontal={true}

@@ -92,11 +92,17 @@ export function BusinessHome() {
   );
   const secondItem = ({ item }) => (
     <TouchableOpacity style={styles.item}>
-      <Image source={{ uri: item.image }} style={styles.secondView} />
+      <Image
+        source={{ uri: item.image }}
+        style={styles.secondView}
+        resizeMode="contain"
+      />
 
-      <Spacer space={SH(10)} />
+      <Spacer space={SH(5)} />
 
-      <Text style={styles.commonFlatlistText}>{item.name}</Text>
+      <Text numberOfLines={1} style={styles.commonFlatlistText}>
+        {item.name}
+      </Text>
     </TouchableOpacity>
   );
 
@@ -124,23 +130,16 @@ export function BusinessHome() {
         {user ? (
           <View style={styles.ProductView}>
             <View style={styles.innerView}>
-              <Text
-                style={{
-                  color: COLORS.black,
-                  fontSize: SF(16),
-                  fontFamily: Fonts.SemiBold,
-                }}
-              >
-                New Products
-              </Text>
+              <Text style={styles.viewHeadingText}>New Products</Text>
               <TouchableOpacity
                 onPress={() => navigate(NAVIGATION.businessProducts)}
               >
                 <View style={{ flexDirection: "row" }}>
                   <Text style={styles.smallText}>See all </Text>
                   <Image
+                    resizeMode="contain"
                     source={forward}
-                    style={{ height: SH(10), width: SW(6), marginTop: SH(5) }}
+                    style={{ height: SH(15), width: SW(15), marginTop: SH(3) }}
                   />
                 </View>
               </TouchableOpacity>
@@ -149,7 +148,7 @@ export function BusinessHome() {
             <Spacer space={SH(20)} />
 
             <FlatList
-              data={user}
+              data={user?.slice(0, 3)}
               renderItem={secondItem}
               keyExtractor={(item) => item.id}
               // extraData={product}
@@ -158,17 +157,7 @@ export function BusinessHome() {
             />
           </View>
         ) : (
-          <Text
-            style={{
-              color: COLORS.black,
-              fontSize: SF(18),
-              fontFamily: Fonts.SemiBold,
-              justifyContent: "center",
-              alignSelf: "center",
-            }}
-          >
-            {"No Product Found"}
-          </Text>
+          <Text style={styles.noDataText}>{"No Product Found"}</Text>
         )}
 
         <Spacer space={SH(20)} />

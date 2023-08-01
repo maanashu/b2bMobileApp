@@ -33,7 +33,6 @@ export function Pending() {
   useFocusEffect(
     useCallback(() => {
       getOrder();
-      console.log("pending");
     }, [])
   );
 

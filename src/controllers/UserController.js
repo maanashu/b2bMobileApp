@@ -70,7 +70,6 @@ export class UserController {
 
       HttpClient.post(endpoint, body)
         .then((response) => {
-          console.log("check response: " + JSON.stringify(response));
           resolve(response);
         })
         .catch((error) => {
@@ -286,15 +285,14 @@ export class UserController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
+          console.log("api success", response);
+          console.log("api body", endpoint);
         })
         .catch((error) => {
+          console.log("api error", error);
+          console.log("api body", endpoint);
           reject(error);
-          // Toast.show({
-          //   text2: error.msg,
-          //   position: "bottom",
-          //   type: "error_toast",
-          //   visibilityTime: 1500,
-          // });
+
           // reject(new Error((strings.validation.error = error.msg)));
         });
     });

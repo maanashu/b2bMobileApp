@@ -63,7 +63,6 @@ export function Refund() {
   useFocusEffect(
     useCallback(() => {
       // getOrder();
-      console.log("Refund screen");
     }, [])
   );
   const renderItem = ({ item, index }) => (

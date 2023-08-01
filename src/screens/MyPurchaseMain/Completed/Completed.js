@@ -35,7 +35,6 @@ export function Completed() {
   useFocusEffect(
     useCallback(() => {
       getOrder();
-      console.log("Completed screen");
     }, [])
   );
   const renderItem = ({ item, index }) => (

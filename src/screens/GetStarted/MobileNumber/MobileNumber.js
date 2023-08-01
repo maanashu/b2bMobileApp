@@ -34,7 +34,6 @@ export function MobileNumber({ handleScreenChange, data, ...props }) {
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState("");
   const onChangePhoneNumber = (phone) => setPhoneNumber(phone);
-  console.log("phone", user?.phone?.phoneNumber);
 
   const clearInputs = () => {
     alert("call");

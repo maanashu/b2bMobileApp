@@ -139,6 +139,10 @@ const nearMeSellersError = (error) => ({
   type: TYPES.NEAR_ME_SELLERS_ERROR,
   payload: { error },
 });
+const nearMeSellersReset = (eror) => ({
+  type: TYPES.NEAR_ME_SELLERS_RESET,
+  payload: null,
+});
 
 const nearMeSellersSuccess = (nearMeSellers) => ({
   type: TYPES.NEAR_ME_SELLERS_SUCCESS,
@@ -605,7 +609,6 @@ export const sendOtp =
         key
       );
       dispatch(sendOtpSuccess(res));
-      console.log("send otp", JSON.stringify(res));
       dispatch(saveOtp(res.payload.otp));
       return res;
     } catch (error) {
@@ -724,7 +727,11 @@ export const NearMeSellers = (data) => async (dispatch) => {
     const res = await UserController.getNearSellers(data);
     dispatch(nearMeSellersSuccess(res));
   } catch (error) {
-    dispatch(nearMeSellersError(error.message));
+    if (error?.statusCode === 204) {
+      dispatch(nearMeSellersReset());
+    } else {
+      dispatch(nearMeSellersError(error.message));
+    }
   }
 };
 

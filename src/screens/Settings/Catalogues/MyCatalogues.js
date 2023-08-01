@@ -93,7 +93,6 @@ export function MyCatalogue() {
           "app-name": "b2b",
         },
       });
-      console.log("respomse", JSON.stringify(response));
       dispatch(
         createCatalog({
           files: response.data?.payload,

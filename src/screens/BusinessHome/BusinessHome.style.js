@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
   },
   secondView: {
     height: SH(85),
-    width: SW(95),
+    width: "100%",
     borderRadius: 5,
   },
   forwardIcon: {
@@ -53,10 +53,15 @@ export const styles = StyleSheet.create({
     marginTop: SH(5),
   },
   item: {
-    flex: 1,
+    flex: 1 / 3,
     justifyContent: "center",
     alignItems: "center",
     padding: SH(2),
+    backgroundColor: COLORS.white,
+    marginHorizontal: ms(4),
+    paddingHorizontal: ms(6),
+    paddingVertical: ms(6),
+    borderRadius: ms(5),
   },
   title: {
     fontSize: SF(12),
@@ -93,5 +98,24 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 15,
     marginRight: 10,
+  },
+  commonFlatlistText: {
+    fontFamily: Fonts.Regular,
+    fontSize: ms(12),
+    paddingHorizontal: ms(2),
+    marginLeft: ms(5),
+    color: COLORS.darkGrey,
+  },
+  noDataText: {
+    color: COLORS.black,
+    fontSize: SF(18),
+    fontFamily: Fonts.SemiBold,
+    justifyContent: "center",
+    alignSelf: "center",
+  },
+  viewHeadingText: {
+    color: COLORS.black,
+    fontSize: SF(16),
+    fontFamily: Fonts.SemiBold,
   },
 });

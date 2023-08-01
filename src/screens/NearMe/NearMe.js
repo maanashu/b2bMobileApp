@@ -32,11 +32,6 @@ export function NearMe() {
 
   const store = sellers?.nearMeSellers;
 
-  // console.log(
-  //   "loc",
-  //   sellers?.user?.payload?.user_profiles?.current_address?.latitude
-  // );
-
   const Longitude =
     sellers?.user?.payload?.user_profiles?.current_address?.longitude;
   const Latitude =
@@ -66,8 +61,6 @@ export function NearMe() {
     dispatch(NearMeSellers(nearMeObject));
   }, [intialLatitude, initialLongitude]);
 
-  const userProfiles = sellers?.nearMeSellers;
-
   const sellerTypeCounts = {
     retailer: 0,
     manufacturer: 0,
@@ -75,7 +68,7 @@ export function NearMe() {
     whole_seller: 0,
   };
 
-  userProfiles?.forEach((profile) => {
+  store?.forEach((profile) => {
     const { seller_type } = profile.user_profiles;
     sellerTypeCounts[seller_type] += 1;
   });

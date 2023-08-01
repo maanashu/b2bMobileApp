@@ -20,8 +20,6 @@ export function Catalogues() {
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
 
-  // console.log("tokein", user?.user?.payload?.token);
-
   const firstScreenFunction = useCallback(() => {
     dispatch(getCatalogs({ filter_by: "my" }));
   }, []);

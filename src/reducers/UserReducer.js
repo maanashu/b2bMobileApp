@@ -126,6 +126,11 @@ export const userReducer = (state = { INITIALSTATE }, { payload, type }) => {
         ...state,
         nearMeSellers: payload?.nearMeSellers?.payload?.sellers?.data,
       };
+    case TYPES.NEAR_ME_SELLERS_RESET:
+      return {
+        ...state,
+        nearMeSellers: [],
+      };
 
     case TYPES.SETTINGS_SUCCESS:
       return {

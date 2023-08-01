@@ -63,7 +63,6 @@ export function Cancelled() {
   useFocusEffect(
     useCallback(() => {
       getOrder();
-      console.log("Processing screen");
     }, [])
   );
   const renderItem = ({ item, index }) => (

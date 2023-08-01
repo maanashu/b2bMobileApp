@@ -75,8 +75,6 @@ export function Services() {
   const updatedData = [...(cats || [])];
   updatedData.splice(insertIndex, 0, allButton);
 
-  console.log("topsellers", user?.getManufacturersList?.slice(0, 3));
-
   useEffect(() => {
     dispatch(getServiceCategory(categoryObject));
     setmanufacturersCategoryId(

@@ -22,7 +22,6 @@ export function MySupport() {
   const dispatch = useDispatch();
   const supportList = useSelector(SupportSelector);
   const array = supportList?.support;
-  console.log("yttfufuu");
   useEffect(() => {
     dispatch(getSupportList());
   }, []);

@@ -43,8 +43,6 @@ export function ConfirmAppointment(params) {
   const currentDate = moment().format("YYYY-MM-DD");
   const tomorrowDate = moment().add(1, "day").format("YYYY-MM-DD");
 
-  console.log("data=>", date);
-
   const day = () => {
     if (date === currentDate) {
       return "Today, ";
