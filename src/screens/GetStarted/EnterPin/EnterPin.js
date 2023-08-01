@@ -21,6 +21,7 @@ export function EnterPin({
   goBackScreen,
   handleScreenChange,
   disableModal,
+  data,
   ...params
 }) {
   const user = useSelector(getUser);
@@ -51,7 +52,7 @@ export function EnterPin({
 
   const navigationHandler = async () => {
     if (value?.length === 4) {
-      handleScreenChange(12, { value: value });
+      handleScreenChange(12, { value: value, otp: data?.otp });
     } else {
       showToast("Enter valid pin", "error", 1500);
     }

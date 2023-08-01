@@ -58,8 +58,9 @@ export function ReEnterPin({
     phone_code: user?.phone?.countryCode,
     phone_number: user?.phone?.phoneNumber,
     pin: value,
-    otp: user?.sendOtp?.payload?.otp?.toString(),
+    otp: data?.otp?.toString(),
   };
+  console.log("body: " + JSON.stringify(user?.VerifyOTP));
   const navigationHandler = async () => {
     if (value.length < 4) {
       showToast("Enter valid pin", "error", 1500);

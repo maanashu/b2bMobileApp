@@ -602,12 +602,7 @@ export const sendOtp =
 
     try {
       dispatch(savePhone({ phoneNumber, countryCode, flag }));
-      const res = await UserController.sendOtp(
-        phoneNumber,
-        countryCode,
-        flag,
-        key
-      );
+      const res = await UserController.sendOtp(phoneNumber, countryCode, key);
       dispatch(sendOtpSuccess(res));
       dispatch(saveOtp(res.payload.otp));
       return res;
@@ -617,11 +612,11 @@ export const sendOtp =
     }
   };
 
-export const verifyOtp = (id, value, navigation) => async (dispatch) => {
+export const verifyOtp = (id, value, key) => async (dispatch) => {
   dispatch(verifyOtpRequest());
   try {
     dispatch(saveOtp(value));
-    const res = await UserController.verifyOtp(id, value, navigation);
+    const res = await UserController.verifyOtp(id, value, key);
     dispatch(verifyOtpSuccess(res));
     return;
   } catch (error) {

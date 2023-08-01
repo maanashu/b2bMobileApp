@@ -56,7 +56,7 @@ export class UserController {
     });
   }
 
-  static async sendOtp(phoneNumber, countryCode, flag, key) {
+  static async sendOtp(phoneNumber, countryCode, key) {
     return new Promise((resolve, reject) => {
       const endpoint = USER_URL + ApiUserInventory.sendOtp;
       const body =
@@ -135,24 +135,22 @@ export class UserController {
         });
     });
   }
-  static async verifyOtp(id, value, navigation) {
+  static async verifyOtp(id, value, key) {
     return new Promise((resolve, reject) => {
       const endpoint = USER_URL + ApiUserInventory.verifyPhone;
 
-      const body = {
-        id: id,
-        otp: value,
-      };
+      const body = key
+        ? {
+            id: id,
+            otp: value,
+            isAlreadyCheck: true,
+          }
+        : {
+            id: id,
+            otp: value,
+          };
       HttpClient.post(endpoint, body)
         .then((response) => {
-          // if (response.status_code === 200) {
-          //   resolve(response);
-          //   navigation.reset({
-          //     index: 0,
-          //     routes: [{ name: NAVIGATION.register }],
-          //   });
-          // } else {
-          // }
           resolve(response);
         })
         .catch((error) => {
@@ -285,12 +283,8 @@ export class UserController {
       HttpClient.get(endpoint)
         .then((response) => {
           resolve(response);
-          console.log("api success", response);
-          console.log("api body", endpoint);
         })
         .catch((error) => {
-          console.log("api error", error);
-          console.log("api body", endpoint);
           reject(error);
 
           // reject(new Error((strings.validation.error = error.msg)));

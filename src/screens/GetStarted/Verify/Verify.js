@@ -18,7 +18,6 @@ import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { sendOtp, verifyOtp } from "@/actions/UserActions";
 import { Loader } from "@/components/Loader";
-import { useNavigation } from "@react-navigation/native";
 import CustomToast from "@/components/CustomToast";
 import { ActivityIndicator } from "react-native";
 
@@ -26,7 +25,6 @@ const CELL_COUNT = 5;
 
 export function Verify({ handleScreenChange, data, ...params }) {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
   const user = useSelector(getUser);
   const [toastVisible, setToastVisible] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -41,14 +39,26 @@ export function Verify({ handleScreenChange, data, ...params }) {
   const [mobileNumber, setmobileNumber] = useState(user?.phone?.phoneNumber);
   const [countryCode, setcountryCode] = useState(user?.phone?.countryCode);
   const submit = () => {
-    if (!value) {
-      showToast(strings.validation.enterOtp, "error", 2000);
-    } else if (value && value.length < 5) {
-      showToast(strings.validation.invalidOtp, "error", 2000);
+    if (data?.key === "forgot") {
+      if (!value) {
+        showToast(strings.validation.enterOtp, "error", 2000);
+      } else if (value && value.length < 5) {
+        showToast(strings.validation.invalidOtp, "error", 2000);
+      } else {
+        dispatch(verifyOtp(id, value, "forgot"))
+          .then(() => handleScreenChange(11, { otp: value }))
+          .catch((error) => {});
+      }
     } else {
-      dispatch(verifyOtp(id, value, navigation))
-        .then(() => handleScreenChange(8))
-        .catch((error) => {});
+      if (!value) {
+        showToast(strings.validation.enterOtp, "error", 2000);
+      } else if (value && value.length < 5) {
+        showToast(strings.validation.invalidOtp, "error", 2000);
+      } else {
+        dispatch(verifyOtp(id, value))
+          .then(() => handleScreenChange(8))
+          .catch((error) => {});
+      }
     }
   };
   const showToast = (message, type, autoHideDuration) => {

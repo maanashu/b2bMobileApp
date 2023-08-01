@@ -24,7 +24,7 @@ export function MobileNumber({ handleScreenChange, data, ...props }) {
   const user = useSelector(getUser);
   const { colors } = useTheme();
   const [phoneNumber, setPhoneNumber] = useState(
-    user?.phone?.phoneNumber || ""
+    data?.key == "forgot" ? user?.phone?.phoneNumber : ""
   );
   const [flag, setFlag] = useState("US");
   const [countryCode, setCountryCode] = useState("+1");
@@ -58,10 +58,11 @@ export function MobileNumber({ handleScreenChange, data, ...props }) {
 
   const submit = () => {
     if (phoneNumber && phoneNumber.length >= 10 && digits.test(phoneNumber)) {
-      dispatch(sendOtp(phoneNumber, countryCode, param, flag, data?.key)).then(
+      dispatch(sendOtp(phoneNumber, countryCode, flag, data?.key)).then(
         (res) => {
           if (data?.key == "forgot") {
-            handleScreenChange(11);
+            console.log("check res", JSON.stringify(res));
+            handleScreenChange(7, { id: res.payload.id, key: data?.key });
           } else {
             if (res?.payload?.is_phone_exits) {
               handleScreenChange(2);

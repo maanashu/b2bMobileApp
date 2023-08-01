@@ -186,6 +186,7 @@ export function LoginModal({ isVisible, closeModal, setScreen }) {
           handleScreenChange={handleScreenChange}
           closeModal={closeModalBackPress}
           goBackScreen={goBackScreen}
+          data={data}
         />
       );
       break;
