@@ -161,7 +161,7 @@ export const styles = StyleSheet.create({
   sendInquiryButton: {
     flex: 1,
     backgroundColor: COLORS.sky,
-    height: vs(36),
+    height: ms(36),
     width: ms(121),
     borderRadius: ms(3),
     marginLeft: SW(15),

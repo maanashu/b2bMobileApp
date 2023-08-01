@@ -16,7 +16,13 @@ import {
 } from "@/components";
 import { SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { ProfileUser, backArrow, sendInquiry, yewiLogo } from "@/assets";
+import {
+  ProfileUser,
+  backArrow,
+  sendInquiry,
+  staticBackground,
+  yewiLogo,
+} from "@/assets";
 import { strings } from "@/localization";
 import { Header } from "@/components/Header";
 import { useDispatch, useSelector } from "react-redux";
@@ -58,7 +64,7 @@ export function TopRankingManufacturers() {
           profilePhoto={
             item.user_profiles?.profile_photo
               ? { uri: item.user_profiles?.profile_photo }
-              : ProfileUser
+              : staticBackground
           }
           title={
             item?.user_profiles?.organization_name
