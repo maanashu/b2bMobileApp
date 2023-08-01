@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import {
-  BackHandler,
   Dimensions,
   FlatList,
   Image,
@@ -21,9 +20,8 @@ import {
   ScreenWrapper,
   Spacer,
 } from "@/components";
-import { SF, SH, SW } from "@/theme/ScalerDimensions";
+import { SH, SW } from "@/theme/ScalerDimensions";
 import {
-  fav,
   starBadge,
   ratingStar,
   chatNow,
@@ -35,14 +33,12 @@ import {
   plusIcon,
   Fonts,
   bagWhite,
-  backArrow,
   bellGrey,
   bagGrey,
   image10,
   heartFilled,
   heartBlank,
 } from "@/assets";
-import { ms } from "react-native-size-matters";
 import { CompanyData, ShoesData } from "./FlatlistData";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
@@ -53,8 +49,6 @@ import {
   getProductDetail,
   getTrendingProducts,
 } from "@/actions/ProductActions";
-import { isLoadingSelector } from "@/selectors/StatusSelectors";
-import { TYPES } from "@/Types/Types";
 import SwiperFlatList from "react-native-swiper-flatlist";
 import { COLORS } from "@/theme";
 import FastImage from "react-native-fast-image";
@@ -69,8 +63,6 @@ import { previousScreen } from "@/actions/GlobalActions";
 import moment from "moment";
 
 export function ProductInquiry(params) {
-  const { navigation } = params;
-
   const dispatch = useDispatch();
   const user = useSelector(getUser);
   const token = user?.user?.payload?.token;
@@ -93,19 +85,16 @@ export function ProductInquiry(params) {
       return 6;
     }
   };
-  console.log("da==>>", ProductDetail?.productDetail);
 
   const screen = getScreen();
-  // console.log(
-  //   "ingredients",
-  //   JSON.stringify(ProductDetail?.productDetail?.product_detail?.ingredients)
-  // );
+
   const description = ProductDetail?.productDetail?.product_detail?.description;
   const regex = /<p>(.*?)<\/p>/;
 
   const object = {
     service_type: "product",
   };
+
   const data = {
     app_name: "b2b",
     delivery_options: "4",
@@ -164,6 +153,7 @@ export function ProductInquiry(params) {
       }
     }
   };
+
   const handleSendInquiry = () => {
     if (user?.user?.payload?.token) {
       navigate(NAVIGATION.sendInquiry);
@@ -177,7 +167,6 @@ export function ProductInquiry(params) {
   };
   const handleAddToBag = () => {
     if (user?.user?.payload?.token) {
-      // navigate(NAVIGATION.sendInquiry);
     } else {
       const shouldOpenModal =
         !user?.user?.payload?.token || [3, 4, 5, 6].includes(screen);
@@ -188,7 +177,6 @@ export function ProductInquiry(params) {
   };
   const handleBuyNow = () => {
     if (user?.user?.payload?.token) {
-      // navigate(NAVIGATION.sendInquiry);
     } else {
       dispatch(previousScreen(NAVIGATION.productInquiry));
       navigate(NAVIGATION.splash);
@@ -287,45 +275,6 @@ export function ProductInquiry(params) {
     );
   };
   const handleSubmit = () => {
-    // switch (true) {
-    //   case !!token:
-    //     switch (user?.getUserProfile?.user_profiles?.wallet_steps) {
-    //       case 0:
-    //       case undefined:
-    //       case null:
-    //         dispatch(previousScreen(NAVIGATION.productInquiry));
-    //         navigate(NAVIGATION.personalInformation, {
-    //           route: "kyc",
-    //         });
-    //         break;
-    //       case 1:
-    //         dispatch(previousScreen(NAVIGATION.productInquiry));
-    //         navigate(NAVIGATION.checkAndRequestKYC);
-    //         break;
-    //       case 1.1:
-    //         dispatch(previousScreen(NAVIGATION.productInquiry));
-    //         navigate(NAVIGATION.ageVerification);
-    //         break;
-    //       case 4:
-    //         dispatch(previousScreen(NAVIGATION.productInquiry));
-    //         navigate(NAVIGATION.connectBank);
-    //         break;
-    //       case 5:
-    //         navigate(NAVIGATION.startOrder, {
-    //           attributes:
-    //             ProductDetail?.productDetail?.product_detail?.supplies,
-    //           product_id: ProductDetail?.productDetail?.product_detail?.id,
-    //           service_id:
-    //             ProductDetail?.productDetail?.product_detail?.service_id,
-    //         });
-    //         break;
-    //     }
-    //     break;
-    //   default:
-    //     dispatch(previousScreen(NAVIGATION.productInquiry));
-    //     navigate(NAVIGATION.splash);
-    //     break;
-    // }
     const shouldOpenModal =
       !user?.user?.payload?.token || [3, 4, 5, 6].includes(screen);
     if (shouldOpenModal) {

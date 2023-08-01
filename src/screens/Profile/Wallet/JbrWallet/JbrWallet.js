@@ -7,7 +7,6 @@ import {
   FlatList,
   ScrollView,
   RefreshControl,
-  BackHandler,
 } from "react-native";
 import { styles } from "./JbrWallet.styles";
 import { Button, ScreenWrapper, Spacer, TextField } from "@/components";

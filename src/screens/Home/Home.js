@@ -81,6 +81,14 @@ export function Home() {
   const getScreen = () => {
     if (!user?.user?.payload?.token) {
       return 0;
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps === 0) {
+      return 3;
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps === 1) {
+      return 4;
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps === 1.1) {
+      return 5;
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps === 4) {
+      return 6;
     }
   };
   const screen = getScreen();
@@ -106,10 +114,12 @@ export function Home() {
     });
   };
   const handleCoinPress = () => {
-    if (user?.user?.payload?.token) {
-      navigate(NAVIGATION.jbrWallet);
+    const shouldOpenModal =
+      !user?.user?.payload?.token || [3, 4, 5, 6].includes(screen);
+    if (shouldOpenModal) {
+      setOpenModal(true);
     } else {
-      navigate(NAVIGATION.splash);
+      navigate(NAVIGATION.jbrWallet);
     }
   };
   return (

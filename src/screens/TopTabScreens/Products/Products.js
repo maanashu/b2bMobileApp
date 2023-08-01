@@ -197,7 +197,7 @@ export function Products({ navigation }) {
         <View style={styles.itemS}>
           <Image source={{ uri: item?.image }} style={styles.secondView} />
 
-          <Spacer space={SH(10)} />
+          <Spacer space={SH(6)} />
 
           <Text numberOfLines={1} style={styles.commonFlatlistText}>
             {item?.name}
@@ -379,7 +379,7 @@ export function Products({ navigation }) {
                 </View>
               </View>
 
-              <Spacer space={SH(20)} />
+              <Spacer space={SH(10)} />
 
               <FlatList
                 data={ProductsData?.product?.data}

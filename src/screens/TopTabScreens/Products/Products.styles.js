@@ -25,11 +25,13 @@ export const styles = StyleSheet.create({
     flex: 1 / 4,
   },
   itemS: {
-    padding: SH(2),
-    marginBottom: SH(10),
+    padding: ms(8),
+    marginBottom: SH(5),
     marginBottom: 4,
-    margin: SH(8),
+    margin: SH(6),
     flex: 1 / 3,
+    backgroundColor: COLORS.white,
+    borderRadius: ms(5),
   },
   title: {
     fontSize: SF(12),
@@ -68,8 +70,8 @@ export const styles = StyleSheet.create({
     marginHorizontal: SW(5),
   },
   secondView: {
-    height: SH(75),
-    width: SW(100),
+    height: SH(65),
+    // width: SW(100),
     borderRadius: 5,
   },
   forwardIcon: {

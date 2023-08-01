@@ -104,9 +104,7 @@ export function Checkout() {
   const isAddToCartLoading = useSelector((state) =>
     isLoadingSelector([TYPES.CREATE_CART], state)
   );
-  const isLoading = useSelector((state) =>
-    isLoadingSelector([TYPES.GET_CART], state)
-  );
+
   const updateQuantity = (cartId, productId, operation) => {
     const updatedArr = [...arr];
 
@@ -330,7 +328,7 @@ export function Checkout() {
             <View style={styles.subtotalView}>
               <Text style={styles.feeText}>{"Taxes & Other fees "}</Text>
               <Text style={styles.feeText}>
-                {"+ $ "}
+                {"$ "}
                 {taxAmount.toFixed(2)}
               </Text>
             </View>

@@ -48,7 +48,7 @@ export function Faq(props) {
 
   return (
     <ScreenWrapper>
-      <NameHeaderCoins title={props?.route?.params?.data} />
+      <NameHeaderCoins title={props?.route?.params?.data} backRequired />
       <View style={styles.bodyContainer}>
         <Spacer space={SH(10)} />
         <FlatList

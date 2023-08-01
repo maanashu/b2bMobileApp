@@ -125,6 +125,7 @@ export const en = {
     invalidCredentials: "Invalid Username/Password",
     scanbutton: "Login with biometrics",
     pinbutton: "Login with pin",
+    enterPin: "Enter your pin",
   },
   profile: {
     header: "Profile",

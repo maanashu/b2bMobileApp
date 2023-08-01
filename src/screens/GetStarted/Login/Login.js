@@ -9,7 +9,13 @@ import {
 import { backArrow, blueLogo } from "@/assets";
 import { strings } from "@/localization";
 import { COLORS, SH, ShadowStyles, TextStyles } from "@/theme";
-import { Button, Spacer, ScreenWrapper, TextField } from "@/components";
+import {
+  Button,
+  Spacer,
+  ScreenWrapper,
+  TextField,
+  NameHeader,
+} from "@/components";
 import { styles } from "./Login.styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
@@ -156,11 +162,11 @@ export function Login({
   };
   return (
     <ScreenWrapper>
-      <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={() => handleScreenChange(1)}>
-          <Image source={backArrow} style={styles.backArrow} />
-        </TouchableOpacity>
-      </View>
+      <NameHeader
+        back
+        backNavi={() => handleScreenChange(1)}
+        title={strings?.login?.enterPin}
+      />
 
       <Spacer space={SH(54)} />
       <Image

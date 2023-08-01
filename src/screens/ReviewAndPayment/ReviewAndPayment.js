@@ -411,7 +411,7 @@ export function ReviewAndPayment(props) {
             <View style={styles.pricesView}>
               <Text style={styles.pricesText}>Taxes & Other fees</Text>
               <Text style={styles.pricesText}>
-                + $ {getCartId?.subTotalAmount?.tax_amount.toFixed(2)}
+                $ {getCartId?.subTotalAmount?.tax_amount.toFixed(2)}
               </Text>
             </View>
 
