@@ -50,8 +50,8 @@ export function ServiceCheckout() {
   const [isCartLoading, setisCartLoading] = useState(true);
   const [selectedTiming, setselectedTiming] = useState("");
   const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
-  const [startTime, setStartTime] = useState(moment().format("YYYY-MM-DD"));
-  const [endTime, setEndTime] = useState(moment().format("YYYY-MM-DD"));
+  const [startTime, setStartTime] = useState();
+  const [endTime, setEndTime] = useState();
   const [time, setTime] = useState("");
   const currentDate = moment().format("YYYY-MM-DD");
   const tomorrowDate = moment().add(1, "day").format("YYYY-MM-DD");
@@ -59,7 +59,7 @@ export function ServiceCheckout() {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.REMOVE_ONE_SERVICE_CART], state)
   );
-
+  console.log("start", startTime);
   useEffect(() => {
     dispatch(getCart());
     if (coupon?.addCoupons && Object.entries(coupon?.addCoupons).length != 0) {

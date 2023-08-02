@@ -54,7 +54,7 @@ export function SendInquiry() {
   const [textLength, setTextLength] = useState();
 
   const checkLimit = (limit) => {
-    var Value = limit?.length.toString();
+    var Value = limit?.length?.toString();
     setTextLength(Value);
     setNotes(limit);
   };

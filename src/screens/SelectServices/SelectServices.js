@@ -6,8 +6,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect } from "react";
-import { NameHeader, ScreenWrapper, Spacer, Visibility } from "@/components";
+import React, { useEffect, useState } from "react";
+import {
+  LoginModal,
+  NameHeader,
+  ScreenWrapper,
+  Spacer,
+  Visibility,
+} from "@/components";
 import { COLORS } from "@/theme/Colors";
 import { useDispatch, useSelector } from "react-redux";
 import { styles } from "./SelectServices.styles";
@@ -31,7 +37,21 @@ export function SelectServices(params) {
   const productsData = useSelector(getProductSelector);
   const order = useSelector(orderSelector);
   const user = useSelector(getUser);
-
+  const [openModal, setOpenModal] = useState(false);
+  const getScreen = () => {
+    if (!user?.user?.payload?.token) {
+      return 0;
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps === 0) {
+      return 3;
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps === 1) {
+      return 4;
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps === 1.1) {
+      return 5;
+    } else if (user?.getUserProfile?.user_profiles?.wallet_steps === 4) {
+      return 6;
+    }
+  };
+  const screen = getScreen();
   const serviceObject = {
     page: 1,
     limit: 20,
@@ -68,8 +88,13 @@ export function SelectServices(params) {
       supply_price_id: item?.supplies?.[0]?.supply_prices?.[0]?.id,
       product_id: item?.id,
     };
-
-    dispatch(createServiceCart(object));
+    const shouldOpenModal =
+      !user?.user?.payload?.token || [3, 4, 5, 6].includes(screen);
+    if (shouldOpenModal) {
+      setOpenModal(true);
+    } else {
+      dispatch(createServiceCart(object));
+    }
   };
 
   const renderServices = ({ item, index }) => {
@@ -179,6 +204,13 @@ export function SelectServices(params) {
         />
       )}
       {isLoadingServices && <Loader />}
+      <View>
+        <LoginModal
+          isVisible={openModal}
+          closeModal={setOpenModal}
+          setScreen={screen}
+        />
+      </View>
     </ScreenWrapper>
   );
 }

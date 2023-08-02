@@ -12,19 +12,10 @@ import { ScreenWrapper, Spacer } from "@/components";
 import { SF, SH, SW } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
 import RBSheet from "react-native-raw-bottom-sheet";
-import {
-  Data,
-  Inspection,
-  Rating,
-  Bags,
-  ProductDetails,
-  ProductionEquipment,
-  ReviewDetail,
-} from "./Components/FlatlistData";
+import { Rating, ReviewDetail } from "./Components/FlatlistData";
 import {
   Fonts,
   forward,
-  videoPic,
   shareBlack,
   crossBlack,
   yewiCertified,
@@ -40,11 +31,14 @@ import { useSelector } from "react-redux";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import moment from "moment";
 import { getUser } from "@/selectors/UserSelectors";
+import VideoPlayer from "@/components/VideoPlayer";
+import Video from "react-native-video";
 
 export function BusinessProfile() {
   const ReviewSheet = useRef();
   const refRBSheet = useRef();
   const user = useSelector(getUser);
+  const videoRef = useRef();
   const manufacturerImages =
     user?.getOneManufactureDetails?.user_profiles?.manufacturer_images;
   const product = useSelector(getProductSelector)?.product?.data;
@@ -54,6 +48,10 @@ export function BusinessProfile() {
     user?.getOneManufactureDetails?.user_profiles?.business_inspection_report;
   const overView = user?.getOneManufactureDetails?.user_profiles?.overview;
 
+  // console.log(
+  //   "details",
+  //   user?.getOneManufactureDetails?.user_profiles?.videos?.[0]
+  // );
   const renderItem = ({ item }) => (
     <View style={styles.rowMainCard}>
       <Image
@@ -239,7 +237,18 @@ export function BusinessProfile() {
         <View style={styles.videoView}>
           <Spacer space={SH(20)} />
 
-          <Image source={videoPic} style={styles.videoStyle} />
+          {/* <Image source={videoPic} style={styles.videoStyle} /> */}
+          <VideoPlayer
+            uri={user?.getOneManufactureDetails?.user_profiles?.videos?.[0]}
+          />
+          {/* <Video
+            source={{
+              uri: user?.getOneManufactureDetails?.user_profiles?.videos?.[0],
+            }}
+            style={{ width: 300, height: 200 }}
+            controls={true}
+            paused={false}
+          /> */}
         </View>
 
         <Spacer space={SH(20)} />
@@ -316,7 +325,10 @@ export function BusinessProfile() {
           <View style={styles.allVideosView}>
             <Text style={styles.allVideosText}>
               {strings.businessProfile.allvideos}
-              <Text> (19)</Text>
+              <Text>
+                {" "}
+                {`(${user?.getOneManufactureDetails?.user_profiles?.videos?.length})`}
+              </Text>
             </Text>
 
             <TouchableOpacity>
@@ -340,18 +352,7 @@ export function BusinessProfile() {
               numColumns={2}
             />
           ) : (
-            <Text
-              style={{
-                color: COLORS.black,
-                fontSize: SF(18),
-                fontFamily: Fonts.SemiBold,
-                justifyContent: "center",
-                alignSelf: "center",
-                marginTop: SH(20),
-              }}
-            >
-              {"No Video Found"}
-            </Text>
+            <Text style={styles.noDataText}>{"No Products Found"}</Text>
           )}
         </View>
 

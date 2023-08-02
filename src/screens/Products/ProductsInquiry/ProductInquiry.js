@@ -118,19 +118,19 @@ export function ProductInquiry(params) {
 
   const handleChat = () => {
     if (user?.user?.payload?.token) {
-      dispatch(
-        getMessages({
-          seller_id:
-            ProductDetail?.productDetail?.product_detail?.supplies?.[0]
-              ?.seller_id,
-        })
-      );
-      navigate(NAVIGATION.chatting, {
-        seller_id:
-          ProductDetail?.productDetail?.product_detail?.supplies?.[0]
-            ?.seller_id,
-        screenName: "productInquiry",
-      });
+      // dispatch(
+      //   getMessages({
+      //     seller_id:
+      //       ProductDetail?.productDetail?.product_detail?.supplies?.[0]
+      //         ?.seller_id,
+      //   })
+      // );
+      // navigate(NAVIGATION.chatting, {
+      //   seller_id:
+      //     ProductDetail?.productDetail?.product_detail?.supplies?.[0]
+      //       ?.seller_id,
+      //   screenName: "productInquiry",
+      // });
     } else {
       const shouldOpenModal =
         !user?.user?.payload?.token || [3, 4, 5, 6].includes(screen);

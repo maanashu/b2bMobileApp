@@ -396,4 +396,19 @@ export const styles = StyleSheet.create({
     color: COLORS.dark_gray,
     paddingVertical: vs(10),
   },
+  noDataText: {
+    color: COLORS.black,
+    fontSize: SF(18),
+    fontFamily: Fonts.SemiBold,
+    justifyContent: "center",
+    alignSelf: "center",
+    marginTop: SH(20),
+  },
+  backgroundVideo: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
 });

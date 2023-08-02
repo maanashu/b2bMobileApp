@@ -372,6 +372,7 @@ export const createOrder = (data) => async (dispatch) => {
     });
 };
 export const createAppointment = (data) => async (dispatch) => {
+  console.log("checl bofy", JSON.stringify(data));
   dispatch(createAppointmentRequest());
   return OrderController.createAppointment(data)
     .then((res) => {

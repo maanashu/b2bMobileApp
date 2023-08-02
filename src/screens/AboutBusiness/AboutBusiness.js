@@ -5,7 +5,7 @@ import {
   useWindowDimensions,
   FlatList,
 } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import { styles } from "./AboutBusiness.style";
 import {
   CompanyDetailView,
@@ -15,15 +15,12 @@ import {
 } from "@/components";
 import { SF, SH } from "@/theme/ScalerDimensions";
 import { COLORS } from "@/theme/Colors";
-import { Fonts, yewiLogo, backArrow, ProfileUser } from "@/assets";
+import { Fonts, backArrow, ProfileUser } from "@/assets";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { BusinessHome, BusinessProducts, BusinessProfile } from "@/screens";
 import { moderateScale, ms } from "react-native-size-matters";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getOneManufactureDetails } from "@/actions/UserActions";
 import { getUser } from "@/selectors/UserSelectors";
-import { getProductSelector } from "@/selectors/ProductSelectors";
 
 export function AboutBusiness(props) {
   const layout = useWindowDimensions();
