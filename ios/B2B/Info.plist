@@ -42,7 +42,11 @@
 	<key>NSFaceIDUsageDescription</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>JOBR app need to get user locations for address</string>
+	<string>JOBR B2B access location to get user locationa and nearby sellers</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>JOBR B2B access location to get user locationa and nearby sellers</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>JOBR B2B access location to get user locationa and nearby sellers</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>NSPhotoLibraryUsageDescription</key>
