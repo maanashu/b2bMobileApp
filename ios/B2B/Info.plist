@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>56</string>
+	<string>57</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -41,11 +41,11 @@
 	<string>Camera</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>$(PRODUCT_NAME)</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>JOBR B2B access location to get user locationa and nearby sellers</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>JOBR B2B access location to get user locationa and nearby sellers</string>
 	<key>NSLocationAlwaysUsageDescription</key>
+	<string>JOBR B2B access location to get user locationa and nearby sellers</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>JOBR B2B access location to get user locationa and nearby sellers</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>$(PRODUCT_NAME)</string>
