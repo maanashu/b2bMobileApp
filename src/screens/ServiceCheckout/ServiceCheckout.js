@@ -401,7 +401,7 @@ export function ServiceCheckout() {
             <View style={styles.subtotalView}>
               <Text style={styles.feeText}>{"Taxes & Other fees "}</Text>
               <Text style={styles.feeText}>
-                {"+ $ "}
+                {"$ "}
                 {taxAmount.toFixed(2)}
               </Text>
             </View>
