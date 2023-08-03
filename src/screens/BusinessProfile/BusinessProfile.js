@@ -239,7 +239,7 @@ export function BusinessProfile() {
 
           {/* <Image source={videoPic} style={styles.videoStyle} /> */}
           <VideoPlayer
-            uri={user?.getOneManufactureDetails?.user_profiles?.videos?.[0]}
+          // uri={user?.getOneManufactureDetails?.user_profiles?.videos?.[0]}
           />
           {/* <Video
             source={{

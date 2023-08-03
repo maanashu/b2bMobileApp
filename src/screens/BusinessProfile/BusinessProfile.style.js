@@ -160,9 +160,9 @@ export const styles = StyleSheet.create({
     paddingTop: verticalScale(1),
   },
   videoView: {
-    width: "100%",
-    flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: ms(20),
+    alignItems: "center",
+    height: ms(230),
   },
   businessDetailView: {
     flexDirection: "row",
