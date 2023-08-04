@@ -571,6 +571,8 @@ export const login =
       dispatch(getBankAccounts());
       dispatch(getCart());
       dispatch(getServiceCart());
+      dispatch(getUserLocations());
+
       return;
     } catch (error) {
       dispatch(loginError(error.message));
