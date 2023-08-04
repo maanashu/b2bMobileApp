@@ -58,7 +58,7 @@ export function HomeHeader({
               resizeMode="contain"
             />
           </View>
-          {user?.savedAddress && (
+          {user?.user?.payload?.token && (
             <View style={styles.fullAddressView}>
               <Text numberOfLines={1} style={styles.fullAddressText}>
                 {fullAddress}

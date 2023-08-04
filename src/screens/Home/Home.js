@@ -23,6 +23,8 @@ export function Home() {
   const { openBioMetricSetupModal } = useContext(ModalsContext).biometric;
   const [openModal, setOpenModal] = useState(false);
   const phoneNum = user?.phone?.phoneNumber;
+
+  const currentLocation = user?.user?.payload?.user_profiles?.current_address;
   const renderTabBar = (props) => {
     return (
       <TabBar
@@ -69,9 +71,30 @@ export function Home() {
       />
     );
   };
-  const userLocation = user?.savedAddress
-    ? `${user?.savedAddress?.state}, ${user?.savedAddress?.country}`
-    : "Add Address";
+
+  const userLocation = () => {
+    if (user?.user?.payload?.token) {
+      if (user?.savedAddress) {
+        return `${user?.savedAddress?.state}, ${user?.savedAddress?.country}`;
+      } else {
+        return `${user?.user?.payload?.user_profiles?.current_address?.state}, ${user?.user?.payload?.user_profiles?.current_address?.country}`;
+      }
+    } else {
+      return "Add Address";
+    }
+  };
+
+  const fl = () => {
+    if (user?.user?.payload?.token) {
+      if (user?.savedAddress) {
+        return user?.savedAddress?.custom_address;
+      } else {
+        return `${currentLocation?.street_address}, ${currentLocation?.city}, ${currentLocation?.state} ${currentLocation?.zipcode}`;
+      }
+    } else {
+      return " ";
+    }
+  };
   const loginFunction = () => {
     // dispatch(previousScreen(NAVIGATION.home));
     // navigate(NAVIGATION.splash);
@@ -125,13 +148,13 @@ export function Home() {
   return (
     <ScreenWrapper>
       <HomeHeader
-        userLocation={userLocation}
+        userLocation={userLocation()}
         onPress={() =>
           !user?.user?.payload?.token
             ? loginFunction()
             : navigate(NAVIGATION.selectAddress)
         }
-        fullAddress={user?.savedAddress?.custom_address}
+        fullAddress={fl()}
         onCoinPress={handleCoinPress}
       />
       <View style={{ flex: 1 }}>
