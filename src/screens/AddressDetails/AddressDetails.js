@@ -39,10 +39,12 @@ import { Loader } from "@/components/Loader";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { useIsFocused } from "@react-navigation/native";
+import { getUser } from "@/selectors/UserSelectors";
 
 const { width, height } = Dimensions.get("window");
 export function AddressDetails(props) {
   const mapRef = useRef();
+  const user = useSelector(getUser);
 
   const dispatch = useDispatch();
   const [longitude, setLongitude] = useState(
