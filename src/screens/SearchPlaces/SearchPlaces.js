@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { View, Text, Image, TouchableOpacity, FlatList } from "react-native";
-import { Spacer, ScreenWrapper, Header } from "@/components";
+import { Spacer, ScreenWrapper, Header, NameHeader } from "@/components";
 import { styles } from "@/screens/SearchPlaces/SearchPlaces.styles";
 import { COLORS, SH, ShadowStyles, SW } from "@/theme";
 import { navigate } from "@/navigation/NavigationRef";
@@ -15,7 +15,7 @@ export function SearchPlaces(props) {
   const googlePlacesRef = useRef();
   return (
     <ScreenWrapper>
-      <Header title={"Delivery Location"} rightIconRequired enableBackButton />
+      <NameHeader title={"Delivery Location"} back />
       <Spacer space={SH(20)} />
       <View style={{ paddingHorizontal: SW(20) }}>
         <GooglePlacesAutocomplete

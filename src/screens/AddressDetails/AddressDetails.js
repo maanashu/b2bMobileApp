@@ -38,27 +38,34 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { Loader } from "@/components/Loader";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { getUser } from "@/selectors/UserSelectors";
 
 const { width, height } = Dimensions.get("window");
 export function AddressDetails(props) {
+  const navigation = useNavigation();
   const mapRef = useRef();
   const user = useSelector(getUser);
 
   const dispatch = useDispatch();
   const [longitude, setLongitude] = useState(
-    props?.route?.params?.data?.longitude || 76.5875
+    props?.route?.params?.data?.longitude ||
+      user?.user?.payload?.user_profiles?.current_address?.longitude
   );
 
   const [latitude, setLatitude] = useState(
-    props?.route?.params?.data?.latitude || 30.8685
+    props?.route?.params?.data?.latitude ||
+      user?.user?.payload?.user_profiles?.current_address?.latitude
   );
 
   const [coordinate, setCoordinate] = useState(
     new AnimatedRegion({
-      latitude: props?.route?.params?.data?.latitude || 30.8685,
-      longitude: props?.route?.params?.data?.longitude || 76.5875,
+      latitude:
+        props?.route?.params?.data?.latitude ||
+        user?.user?.payload?.user_profiles?.current_address?.latitude,
+      longitude:
+        props?.route?.params?.data?.longitude ||
+        user?.user?.payload?.user_profiles?.current_address?.longitude,
       latitudeDelta: LATITUDE_DELTA,
       longitudeDelta: LONGITUDE_DELTA,
     })
@@ -95,40 +102,40 @@ export function AddressDetails(props) {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.USER_LOCATION], state)
   );
-  useEffect(() => {
-    // refRBSheet.current.open();
-    setTimeout(() => {
-      autoZoomOnMarkers();
-    }, 1000);
+  // useEffect(() => {
+  //   // refRBSheet.current.open();
+  //   setTimeout(() => {
+  //     autoZoomOnMarkers();
+  //   }, 1000);
 
-    Geolocation.getCurrentPosition((info) => {
-      setLongitude(info.coords.longitude);
-      setLatitude(info.coords.latitude);
+  //   Geolocation.getCurrentPosition((info) => {
+  //     setLongitude(info.coords.longitude);
+  //     setLatitude(info.coords.latitude);
 
-      const newCoordinate = {
-        latitude: info.coords.latitude,
-        longitude: info.coords.longitude,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA,
-      };
+  //     const newCoordinate = {
+  //       latitude: info.coords.latitude,
+  //       longitude: info.coords.longitude,
+  //       latitudeDelta: LATITUDE_DELTA,
+  //       longitudeDelta: LONGITUDE_DELTA,
+  //     };
 
-      if (Platform.OS === "android") {
-        if (locationMarkerRef.current) {
-          locationMarkerRef.current.animateMarkerToCoordinate(
-            newCoordinate,
-            1500
-          );
-        }
-      } else {
-        coordinate.timing(newCoordinate).start();
-      }
+  //     if (Platform.OS === "android") {
+  //       if (locationMarkerRef.current) {
+  //         locationMarkerRef.current.animateMarkerToCoordinate(
+  //           newCoordinate,
+  //           1500
+  //         );
+  //       }
+  //     } else {
+  //       coordinate.timing(newCoordinate).start();
+  //     }
 
-      getAddress(
-        props?.route?.params?.data?.latitude || info.coords.latitude,
-        props?.route?.params?.data?.longitude || info.coords.longitude
-      );
-    });
-  }, []);
+  //     getAddress(
+  //       props?.route?.params?.data?.latitude || info.coords.latitude,
+  //       props?.route?.params?.data?.longitude || info.coords.longitude
+  //     );
+  //   });
+  // }, []);
 
   useMemo(() => {
     setTimeout(() => {
@@ -189,22 +196,63 @@ export function AddressDetails(props) {
       }
       setCountry(props?.route?.params?.data?.country);
       setCity(props?.route?.params?.data?.city);
+    } else {
+      getAddress(
+        user?.user?.payload?.user_profiles?.current_address?.latitude,
+        user?.user?.payload?.user_profiles?.current_address?.longitude
+      );
     }
   }, [
+    // navigation,
     props.route.params?.deliveryLocation || props.route.params?.data,
-    isFocused,
+    // isFocused,
   ]);
   // useEffect(() => {
   //   setTimeout(() => {
   //   }, 3000);
   // }, []);
-
+  console.log("dis==>", district);
   const getAddress = (latitude, longitude) => {
     getAddressFromCoordinates(latitude, longitude)
       .then((data) => {
         setPlaceId(data.place_id);
         setFormattedAddress(data?.formatted_address);
         if (props.route.params?.deliveryLocation) {
+          for (var i = 0; i < data.address_components?.length; i++) {
+            if (data.address_components[i].types[0] == "locality") {
+              setCity(data?.address_components?.[i]?.long_name);
+              setDistrict(data?.address_components?.[i]?.long_name);
+            }
+
+            if (data.address_components[i].types[0] == "country") {
+              setCountry(data?.address_components?.[i]?.long_name);
+            }
+
+            if (
+              data.address_components[i].types[0] ==
+              "administrative_area_level_1"
+            ) {
+              setState(data?.address_components?.[i]?.short_name);
+            }
+
+            if (data.address_components[i].types[0] == "postal_code") {
+              setZipCode(data?.address_components?.[i]?.long_name);
+            }
+            if (
+              data.address_components[i].types[1] == "sublocality" &&
+              data.address_components[i].types[2] === "sublocality_level_3"
+            ) {
+              setAdd1(data?.address_components?.[i]?.long_name);
+            }
+
+            if (
+              data.address_components[i].types[1] == "sublocality" &&
+              data.address_components[i].types[2] === "sublocality_level_1"
+            ) {
+              setAdd2(data?.address_components?.[i]?.long_name);
+            }
+          }
+        } else {
           for (var i = 0; i < data.address_components?.length; i++) {
             if (data.address_components[i].types[0] == "locality") {
               setCity(data?.address_components?.[i]?.long_name);

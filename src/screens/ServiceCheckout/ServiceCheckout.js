@@ -59,7 +59,6 @@ export function ServiceCheckout() {
   const isLoading = useSelector((state) =>
     isLoadingSelector([TYPES.REMOVE_ONE_SERVICE_CART], state)
   );
-  console.log("start", startTime);
   useEffect(() => {
     dispatch(getCart());
     if (coupon?.addCoupons && Object.entries(coupon?.addCoupons).length != 0) {
