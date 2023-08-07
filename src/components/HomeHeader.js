@@ -93,7 +93,7 @@ export function HomeHeader({
             <DropDownPicker
               open={open}
               value={value}
-              items={dropdownItems}
+              items={dropdownItems || []}
               setOpen={handleOpen}
               setValue={setValue}
               // setItems={setItems}
