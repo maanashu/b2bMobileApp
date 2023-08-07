@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { Text, TouchableOpacity, View, Image } from "react-native";
 import { styles } from "@/screens/Home/Home.styles";
 import { bagGrey, coinStack, dropdownIcon, location } from "@/assets";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "@/selectors/UserSelectors";
 import { navigate } from "@/navigation/NavigationRef";
 import { NAVIGATION } from "@/constants";
@@ -10,6 +10,11 @@ import { orderSelector } from "@/selectors/OrderSelector";
 import { SF, SH, SW } from "@/theme";
 import { getWallet } from "@/selectors/WalletSelector";
 import { kFormatter } from "@/Utils/GlobalMethods";
+import DropDownPicker from "react-native-dropdown-picker";
+import { ms } from "react-native-size-matters";
+import { Spacer } from "./Spacer";
+import { saveUserAddress } from "@/actions/UserActions";
+import { LoginModal } from "./LoginModal";
 
 export function HomeHeader({
   onPress,
@@ -20,6 +25,16 @@ export function HomeHeader({
   const user = useSelector(getUser);
   const cart = useSelector(orderSelector);
   const wallet = useSelector(getWallet);
+  const addressList = user?.getLocation;
+  const dispatch = useDispatch();
+  // console.log("add list", addressList);
+  const [openModal, setOpenModal] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    { label: "English", value: "English" },
+    { label: "Spanish", value: "Spanish" },
+  ]);
 
   const checkoutHandler = () => {
     if (cart?.getCart?.cart_products?.length > 0) {
@@ -28,16 +43,41 @@ export function HomeHeader({
       navigate(NAVIGATION.serviceCheckout);
     }
   };
+  // const dropdownItems = user?.getLocation?.map((item) => ({
+  //   label: `${item?.city}, ${item?.state}, ${item?.country}`,
+  //   value: item,
+  // }));
+  const dropdownItems = useMemo(() => {
+    return addressList?.map((item) => ({
+      label: `${item.city}, ${item.state}, ${item.country}`,
+      value: item,
+    }));
+  }, [addressList]);
+  const handleDropdownChange = (itemValue, itemIndex) => {
+    setValue(itemValue);
+    dispatch(saveUserAddress(itemValue));
+  };
+  const loginFunction = () => {
+    setOpenModal(true);
+  };
+  const handleOpen = () => {
+    if (user?.user?.payload?.token) {
+      setOpen(!open);
+    } else {
+      loginFunction();
+    }
+  };
   return (
-    <View style={styles.headerStyle}>
-      <View style={styles.locationView}>
-        <Image
-          source={location}
-          style={styles.locationIcon}
-          resizeMode="contain"
-        />
-        {/* <TouchableOpacity style={styles.rowView} onPress={onPress}>
-          <View>
+    <>
+      <View style={styles.headerStyle}>
+        <View style={styles.locationView}>
+          <Image
+            source={location}
+            style={styles.locationIcon}
+            resizeMode="contain"
+          />
+          {/* <TouchableOpacity style={styles.rowView} onPress={onPress}>
+             <View>
             <Text style={styles.locationText}>{userLocation}</Text>
             <Text numberOfLines={1} style={styles.fullAddressText}>
               {fullAddress}
@@ -47,55 +87,78 @@ export function HomeHeader({
             source={dropdownIcon}
             style={styles.downIcon}
             resizeMode="contain"
-          />
-        </TouchableOpacity> */}
-        <TouchableOpacity onPress={onPress}>
-          <View style={styles.rowView}>
-            <Text style={styles.locationText}>{userLocation}</Text>
-            <Image
+          /> 
+          </TouchableOpacity> */}
+          <View>
+            <DropDownPicker
+              open={open}
+              value={value}
+              items={dropdownItems}
+              setOpen={handleOpen}
+              setValue={setValue}
+              // setItems={setItems}
+              placeholder={userLocation}
+              style={styles.dropDownStyle}
+              containerStyle={styles.dropDownContainerStyle}
+              dropDownContainerStyle={styles.dropDownContainerStyles}
+              placeholderStyle={styles.locationText}
+              arrowIconStyle={{ height: ms(15), width: ms(15) }}
+              onChangeValue={handleDropdownChange}
+            />
+            {/* <Text style={styles.locationText}>{userLocation}</Text> */}
+            {/* <Image
               source={dropdownIcon}
               style={styles.downIcon}
               resizeMode="contain"
-            />
-          </View>
-          {user?.user?.payload?.token && (
-            <View style={styles.fullAddressView}>
-              <Text numberOfLines={1} style={styles.fullAddressText}>
-                {fullAddress}
-              </Text>
-            </View>
-          )}
-        </TouchableOpacity>
-      </View>
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        {cart?.getCart?.cart_products?.length > 0 ||
-          (cart?.getServiceCart?.appointment_cart_products?.length > 0 && (
-            <TouchableOpacity onPress={checkoutHandler}>
-              <Image
-                source={bagGrey}
-                style={styles.bagIcon}
-                resizeMode="contain"
-              />
-              <View style={styles.cartCountView}>
-                <Text style={{ color: "white", fontSize: SF(10) }}>
-                  {cart?.getCart?.cart_products?.length ||
-                    cart?.getServiceCart?.appointment_cart_products?.length}
+            /> */}
+            {user?.user?.payload?.token && !open ? (
+              <View style={styles.fullAddressView}>
+                <Text numberOfLines={1} style={styles.fullAddressText}>
+                  {fullAddress}
                 </Text>
               </View>
-            </TouchableOpacity>
-          ))}
+            ) : (
+              <View style={styles.fullAddressView}>
+                <Text numberOfLines={1} style={styles.fullAddressText}>
+                  {""}
+                </Text>
+              </View>
+            )}
+          </View>
+        </View>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          {cart?.getCart?.cart_products?.length > 0 ||
+            (cart?.getServiceCart?.appointment_cart_products?.length > 0 && (
+              <TouchableOpacity onPress={checkoutHandler}>
+                <Image
+                  source={bagGrey}
+                  style={styles.bagIcon}
+                  resizeMode="contain"
+                />
+                <View style={styles.cartCountView}>
+                  <Text style={{ color: "white", fontSize: SF(10) }}>
+                    {cart?.getCart?.cart_products?.length ||
+                      cart?.getServiceCart?.appointment_cart_products?.length}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            ))}
 
-        <TouchableOpacity style={styles.coinView} onPress={onCoinPress}>
-          <Text style={styles.balanceText}>
-            {kFormatter(wallet?.getWalletBalance?.sila_balance) || 0}
-          </Text>
-          <Image
-            source={coinStack}
-            style={styles.coinIcon}
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.coinView} onPress={onCoinPress}>
+            <Text style={styles.balanceText}>
+              {kFormatter(wallet?.getWalletBalance?.sila_balance) || 0}
+            </Text>
+            <Image
+              source={coinStack}
+              style={styles.coinIcon}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+      <View>
+        <LoginModal isVisible={openModal} closeModal={setOpenModal} />
+      </View>
+    </>
   );
 }

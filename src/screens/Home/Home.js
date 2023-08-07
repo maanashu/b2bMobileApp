@@ -149,11 +149,11 @@ export function Home() {
     <ScreenWrapper>
       <HomeHeader
         userLocation={userLocation()}
-        onPress={() =>
-          !user?.user?.payload?.token
-            ? loginFunction()
-            : navigate(NAVIGATION.selectAddress)
-        }
+        // onPress={() =>
+        //   !user?.user?.payload?.token
+        //     ? loginFunction()
+        //     : navigate(NAVIGATION.selectAddress)
+        // }
         fullAddress={fl()}
         onCoinPress={handleCoinPress}
       />

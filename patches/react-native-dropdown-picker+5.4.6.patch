@@ -1,0 +1,26 @@
+diff --git a/node_modules/react-native-dropdown-picker/src/themes/dark/index.js b/node_modules/react-native-dropdown-picker/src/themes/dark/index.js
+index 1d778d9..c73d1bb 100644
+--- a/node_modules/react-native-dropdown-picker/src/themes/dark/index.js
++++ b/node_modules/react-native-dropdown-picker/src/themes/dark/index.js
+@@ -20,7 +20,7 @@ export default StyleSheet.create({
+         alignItems: 'center',
+         justifyContent: 'space-between',
+         width: '100%',
+-        minHeight: 50,
++        height: 50,
+         borderRadius: 8,
+         borderWidth: 1,
+         borderColor: Colors.BLACK,
+diff --git a/node_modules/react-native-dropdown-picker/src/themes/light/index.js b/node_modules/react-native-dropdown-picker/src/themes/light/index.js
+index ba38795..1415107 100644
+--- a/node_modules/react-native-dropdown-picker/src/themes/light/index.js
++++ b/node_modules/react-native-dropdown-picker/src/themes/light/index.js
+@@ -20,7 +20,7 @@ export default StyleSheet.create({
+         alignItems: 'center',
+         justifyContent: 'space-between',
+         width: '100%',
+-        minHeight: 50,
++        height: 50,
+         borderRadius: 8,
+         borderWidth: 1,
+         borderColor: Colors.BLACK,

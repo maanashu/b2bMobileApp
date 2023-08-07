@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
   },
   locationView: {
     flexDirection: "row",
-    alignItems: "flex-start",
+    alignItems: "center",
   },
   locationText: {
     color: COLORS.black,
@@ -38,6 +38,7 @@ export const styles = StyleSheet.create({
   },
   fullAddressView: {
     width: SW(150),
+    top: ms(5),
   },
   fullAddressText: {
     color: COLORS.black,
@@ -96,5 +97,28 @@ export const styles = StyleSheet.create({
     left: SW(14),
     alignItems: "center",
     justifyContent: "center",
+  },
+  dropDownContainerStyles: {
+    zIndex: 999,
+    borderWidth: 0,
+    backgroundColor: COLORS.white,
+    top: ms(30),
+    borderTopEndRadius: 10,
+    borderTopStartRadius: 10,
+    width: ms(300),
+    left: ms(-10),
+    alignSelf: "center",
+  },
+  dropDownStyle: {
+    borderWidth: 0,
+    width: SW(120),
+    height: ms(25),
+    right: ms(2),
+    paddingLeft: 2,
+  },
+  dropDownContainerStyle: {
+    zIndex: 100,
+    borderWidth: 0,
+    top: ms(7),
   },
 });
