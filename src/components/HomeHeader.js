@@ -32,8 +32,7 @@ export function HomeHeader({
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
-    { label: "English", value: "English" },
-    { label: "Spanish", value: "Spanish" },
+    { label: "Add Address", value: "English" },
   ]);
 
   const checkoutHandler = () => {
@@ -93,7 +92,7 @@ export function HomeHeader({
             <DropDownPicker
               open={open}
               value={value}
-              items={dropdownItems || []}
+              items={dropdownItems || items}
               setOpen={handleOpen}
               setValue={setValue}
               // setItems={setItems}

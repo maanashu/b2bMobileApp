@@ -25,6 +25,7 @@ export const styles = StyleSheet.create({
     fontSize: SF(16),
     fontFamily: Fonts.Italic,
     width: SW(200),
+    flex:1
   },
   textInputView: {
     paddingHorizontal: SW(12),

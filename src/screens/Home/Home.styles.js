@@ -111,7 +111,7 @@ export const styles = StyleSheet.create({
   },
   dropDownStyle: {
     borderWidth: 0,
-    width: SW(120),
+    width: SW(125),
     height: ms(25),
     right: ms(2),
     paddingLeft: 2,
