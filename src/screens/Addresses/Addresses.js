@@ -88,7 +88,9 @@ export function Addresses() {
     <ScreenWrapper>
       <NameHeaderCoins title={strings.addresses.addresses} backRequired />
 
-      <View style={{ paddingHorizontal: SW(10), paddingVertical: SH(10) }}>
+      <View
+        style={{ paddingHorizontal: SW(10), paddingVertical: SH(10), flex: 1 }}
+      >
         <SwipeListView
           data={locations?.getLocation}
           renderItem={renderItem}

@@ -23,7 +23,11 @@ import { scale } from "react-native-size-matters";
 import { getProductSelector } from "@/selectors/ProductSelectors";
 import { getUser } from "@/selectors/UserSelectors";
 import { getServices } from "@/actions/ProductActions";
-import { createServiceCart, getServiceCart } from "@/actions/OrderAction";
+import {
+  createServiceCart,
+  getServiceCart,
+  removeOneServiceCart,
+} from "@/actions/OrderAction";
 import { orderSelector } from "@/selectors/OrderSelector";
 import { forwardArrowWhite } from "@/assets";
 import { navigate } from "@/navigation/NavigationRef";
@@ -31,6 +35,7 @@ import { NAVIGATION } from "@/constants";
 import { isLoadingSelector } from "@/selectors/StatusSelectors";
 import { TYPES } from "@/Types/Types";
 import { Loader } from "@/components/Loader";
+import moment from "moment";
 
 export function SelectServices(params) {
   const dispatch = useDispatch();
@@ -38,6 +43,10 @@ export function SelectServices(params) {
   const order = useSelector(orderSelector);
   const user = useSelector(getUser);
   const [openModal, setOpenModal] = useState(false);
+  const currentTime = moment();
+  const start_time = moment().format("hh:mm A");
+  const end_time = moment(currentTime).add(2, "hours").format("hh:mm A");
+  console.log("time", end_time);
   const getScreen = () => {
     if (!user?.user?.payload?.token) {
       return 0;
@@ -87,6 +96,9 @@ export function SelectServices(params) {
       supply_id: item.supplies?.[0]?.id,
       supply_price_id: item?.supplies?.[0]?.supply_prices?.[0]?.id,
       product_id: item?.id,
+      date: moment().format("YYYY-MM-DD"),
+      start_time: start_time,
+      end_time: end_time,
     };
     const shouldOpenModal =
       !user?.user?.payload?.token || [3, 4, 5, 6].includes(screen);
@@ -95,6 +107,9 @@ export function SelectServices(params) {
     } else {
       dispatch(createServiceCart(object));
     }
+  };
+  const removeService = (cartId, productId) => {
+    dispatch(removeOneServiceCart(cartId, productId));
   };
 
   const renderServices = ({ item, index }) => {
@@ -178,7 +193,7 @@ export function SelectServices(params) {
             <Text style={styles.visibilityServiceText}>
               ${" "}
               <Text style={styles.boldText}>
-                {order?.getServiceCart?.amout?.total_amount}
+                {order?.getServiceCart?.amount?.total_amount}
               </Text>
             </Text>
           </View>

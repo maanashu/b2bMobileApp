@@ -64,34 +64,34 @@ export function ServiceCheckout() {
     if (coupon?.addCoupons && Object.entries(coupon?.addCoupons).length != 0) {
       setdiscountAmnt(
         (coupon?.addCoupons?.discount_percentage / 100) *
-          order?.getServiceCart?.amout?.total_amount
+          order?.getServiceCart?.amount?.total_amount
       );
     } else {
       setdiscountAmnt(0);
     }
     if (coupon?.addCoupons && Object.entries(coupon?.addCoupons).length != 0) {
       setTaxAmount(
-        ((order?.getServiceCart?.amout?.total_amount -
+        ((order?.getServiceCart?.amount?.total_amount -
           (coupon?.addCoupons?.discount_percentage / 100) *
-            order?.getServiceCart?.amout?.total_amount) *
-          order?.getServiceCart?.amout?.tax) /
+            order?.getServiceCart?.amount?.total_amount) *
+          order?.getServiceCart?.amount?.tax) /
           100
       );
     } else {
       setTaxAmount(
-        (order?.getServiceCart?.amout?.total_amount *
-          order?.getServiceCart.amout?.tax) /
+        (order?.getServiceCart?.amount?.total_amount *
+          order?.getServiceCart.amount?.tax) /
           100
       );
     }
     setTotalAmount(
-      order?.getServiceCart?.amout?.total_amount -
+      order?.getServiceCart?.amount?.total_amount -
         (discountAmnt || 0) +
         taxAmount
     );
   }, [
     discountAmnt,
-    order?.getServiceCart?.amout?.total_amount,
+    order?.getServiceCart?.amount?.total_amount,
     taxAmount,
     coupon?.addCoupons,
   ]);
@@ -99,7 +99,7 @@ export function ServiceCheckout() {
     navigate(NAVIGATION.addCoupon, {
       params: "checkout",
       seller_id: order?.getServiceCart?.seller_id,
-      order_amount: order?.getServiceCart?.amout?.total_amount,
+      order_amount: order?.getServiceCart?.amount?.total_amount,
       // service_id: order?.getCart?.service_id,
     });
   };
@@ -373,7 +373,7 @@ export function ServiceCheckout() {
               <Text style={styles.feeText}>{"Subtotal"}</Text>
               <Text style={styles.feeText}>
                 {"$ "}
-                {order?.getServiceCart?.amout?.total_amount?.toFixed(2)}
+                {order?.getServiceCart?.amount?.total_amount?.toFixed(2)}
               </Text>
             </View>
             <Spacer space={SH(10)} />
