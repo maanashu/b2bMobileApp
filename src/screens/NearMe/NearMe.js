@@ -91,8 +91,8 @@ export function NearMe() {
           return (
             <Marker
               coordinate={{
-                latitude: val?.user_locations[0]?.latitude,
-                longitude: val?.user_locations[0]?.longitude,
+                latitude: val?.user_locations?.[0]?.latitude||0.00,
+                longitude: val?.user_locations?.[0]?.longitude||0.00,
               }}
               pinColor={"red"} // any color
               title={val?.user_profiles?.username}
